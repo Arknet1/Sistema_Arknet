@@ -1,5 +1,5 @@
 export const precosProdutos: Record<string, number> = {
-  "Apple iPhone 16 Pro": 350000,
+  "Apple iPhone 16 Pro": 950000,
   "IMPRESSORA HP (DESKJET)": 68000,
   "TP-LINK 300mbps wirellss N router": 24910,
   "Monitores wintech 27": 123500,
