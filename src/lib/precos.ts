@@ -30,7 +30,6 @@ export const precosProdutos: Record<string, number> = {
 "Router Wi-Fi TP-Link 300 Mbps com 2 Antenas, 1 Porta WAN e 4 Portas LAN": 24910,
 "Mini Teclado Controlo de Acesso TV": 13000,
 
-  "IMPRESSORA HP (DESKJET)": 68000,
   "Impressora HP laserjet MFp color M3303FDw 25/25 PP": 475000,
   "Proposta de aluguer de impressora": 790000,
 
