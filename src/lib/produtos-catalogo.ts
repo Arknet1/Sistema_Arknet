@@ -183,14 +183,6 @@ export const produtosCatalogo: ProdutoDestaqueDef[] = [
     image: abracadeirasnylon,
   },
   {
-    id: 'smartphoneandroid',
-    name: 'Auricular sem fio Redmi',
-    description:
-      'Auriculares Bluetooth Redmi com excelente qualidade de som e autonomia.',
-    category: 'Áudio',
-    image: smartphoneandroid,
-  },
-  {
     id: 'impressorahp',
     name: 'IMPRESSORA HP (DESKJET)',
     description:
