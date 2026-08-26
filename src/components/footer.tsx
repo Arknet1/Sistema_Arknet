@@ -1,9 +1,9 @@
 "use client"
 
-import { FormEvent } from "react"
+import { FormEvent, useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Mail, MapPin, Phone, Send } from "lucide-react"
+import { Mail, MapPin, Phone, Send, CheckCircle2, Lock } from "lucide-react"
 import {
   FaLinkedin,
   FaFacebook,
@@ -16,7 +16,8 @@ import {
 import Image from "next/image"
 import { motion } from "framer-motion"
 import icon from "@/assets/icon18.png"
-import { mockContactInfo, mockSocialProfiles, mockServices } from "@/lib/mock-data"
+import { mockServices } from "@/lib/mock-data"
+import { dataStore, CompanySettings } from "@/lib/data-store"
 
 const colHidden = { opacity: 0, y: 32 }
 const colShow = { opacity: 1, y: 0 }
@@ -33,21 +34,42 @@ const socialIconMap: Record<string, React.ElementType> = {
 
 export default function Footer() {
   const pathname = usePathname()
-  const phones = mockContactInfo?.phones ?? []
-  const emails = mockContactInfo?.emails ?? []
-  const address = [mockContactInfo?.address, mockContactInfo?.city]
-    .filter(Boolean)
-    .join(", ")
+  const [settings, setSettings] = useState<CompanySettings>(dataStore.getSettings())
+  const [newsletterEmail, setNewsletterEmail] = useState("")
+  const [newsletterMsg, setNewsletterMsg] = useState<{ type: "success" | "error"; text: string } | null>(null)
+  const [isSubscribing, setIsSubscribing] = useState(false)
+
+  useEffect(() => {
+    const update = () => setSettings(dataStore.getSettings())
+    const unsub = dataStore.subscribe(update)
+    return () => unsub()
+  }, [])
+
+  const phones = settings.phones?.length ? settings.phones : ["+244 935 208 449"]
+  const emails = settings.emails?.length ? settings.emails : ["info@arknet.co.ao", "negocios@arknet.co.ao"]
+  const address = [settings.address, settings.city].filter(Boolean).join(", ") || "Luanda, Angola"
 
   const resolveHref = (href: string) => {
-    if (!href.startsWith('#')) {
+    if (!href.startsWith("#")) {
       return href
     }
-    return pathname === '/' ? href : `/${href}`
+    return pathname === "/" ? href : `/${href}`
   }
 
   const handleNewsletter = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!newsletterEmail.trim()) return
+
+    setIsSubscribing(true)
+    const res = dataStore.addSubscriber(newsletterEmail.trim())
+    setIsSubscribing(false)
+
+    if (res.success) {
+      setNewsletterMsg({ type: "success", text: res.message })
+      setNewsletterEmail("")
+    } else {
+      setNewsletterMsg({ type: "error", text: res.message })
+    }
   }
 
   return (
@@ -73,20 +95,45 @@ export default function Footer() {
             </p>
           </div>
 
-          <form className="flex gap-2 w-full sm:w-auto" onSubmit={handleNewsletter}>
-            <input
-              type="email"
-              placeholder="O seu email"
-              className="flex-1 sm:w-72 bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-primary transition"
-            />
-            <button
-              type="submit"
-              className="bg-secondary px-5 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition flex items-center gap-2 shrink-0"
-            >
-              <Send className="h-4 w-4" />
-              Subscrever
-            </button>
-          </form>
+          <div className="w-full sm:w-auto">
+            {newsletterMsg ? (
+              <div
+                className={`p-3 text-xs font-semibold rounded flex items-center gap-2 ${
+                  newsletterMsg.type === "success"
+                    ? "bg-emerald-950/80 text-emerald-300 border border-emerald-800"
+                    : "bg-rose-950/80 text-rose-300 border border-rose-800"
+                }`}
+              >
+                {newsletterMsg.type === "success" && <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />}
+                <span>{newsletterMsg.text}</span>
+                <button
+                  onClick={() => setNewsletterMsg(null)}
+                  className="ml-2 text-white/60 hover:text-white text-xs underline"
+                >
+                  Ok
+                </button>
+              </div>
+            ) : (
+              <form className="flex gap-2 w-full sm:w-auto" onSubmit={handleNewsletter}>
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="O seu email"
+                  className="flex-1 sm:w-72 bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-primary transition"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubscribing}
+                  className="bg-secondary px-5 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition flex items-center gap-2 shrink-0 disabled:opacity-50"
+                >
+                  <Send className="h-4 w-4" />
+                  Subscrever
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
 
@@ -100,7 +147,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0, ease: "easeOut" }}
           >
-            <Link href="#top" className="inline-flex items-center">
+            <Link href="/" className="inline-flex items-center">
               <Image
                 src={icon}
                 alt="ARKNET Logo"
@@ -115,35 +162,44 @@ export default function Footer() {
             </p>
 
             {/* Socials */}
-            {mockSocialProfiles.length > 0 && (
-              <div className="mt-8 flex gap-3">
-                {mockSocialProfiles.map((profile, i) => {
-                  const Icon =
-                    socialIconMap[profile.platform.toLowerCase()] || FaLinkedin
-
-                  return (
-                    <motion.a
-                      key={profile.id}
-                      href={profile.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      whileHover={{ y: -3, scale: 1.15 }}
-                      whileTap={{ scale: 0.9 }}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + i * 0.08, duration: 0.3 }}
-                      viewport={{ once: true }}
-                      className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-500 hover:text-white transition"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </motion.a>
-                  )
-                })}
-              </div>
-            )}
+            <div className="mt-8 flex gap-3">
+              {settings.socialLinks?.linkedin && (
+                <a
+                  href={settings.socialLinks.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  title="LinkedIn"
+                >
+                  <FaLinkedin className="h-4 w-4" />
+                </a>
+              )}
+              {settings.socialLinks?.facebook && (
+                <a
+                  href={settings.socialLinks.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  title="Facebook"
+                >
+                  <FaFacebook className="h-4 w-4" />
+                </a>
+              )}
+              {settings.socialLinks?.instagram && (
+                <a
+                  href={settings.socialLinks.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  title="Instagram"
+                >
+                  <FaInstagram className="h-4 w-4" />
+                </a>
+              )}
+            </div>
           </motion.div>
 
-          {/* Column 2: Navigation */}
+          {/* Column 2: Navigation Links */}
           <motion.div
             initial={colHidden}
             whileInView={colShow}
@@ -151,33 +207,40 @@ export default function Footer() {
             transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
           >
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Navegação
+              Empresa
             </span>
 
-            <ul className="mt-6 space-y-4 text-sm">
-              {[
-                { href: "/", label: "Início" },
-                { href: "#sobre", label: "Empresa" },
-                { href: "#servicos", label: "Serviços" },
-                { href: "#porque-nos-escolher", label: "Por que escolher" },
-                { href: "/loja", label: "Loja" },
-                { href: "/academia", label: "Academia" },
-                { href: "/eventos", label: "Eventos" },
-                { href: "/carreiras", label: "Carreiras" },
-                { href: "#contacto", label: "Contacto" },
-              ].map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={resolveHref(item.href)}
-                    className="hover:text-white transition flex items-center gap-2 group"
-                  >
-                    <span className="text-primary group-hover:translate-x-1 transition-transform inline-block">
-                      ›
-                    </span>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="mt-6 space-y-3.5 text-sm">
+              <li>
+                <Link href={resolveHref("#sobre")} className="hover:text-white transition">
+                  Sobre Nós
+                </Link>
+              </li>
+              <li>
+                <Link href="/loja" className="hover:text-white transition">
+                  Loja Online
+                </Link>
+              </li>
+              <li>
+                <Link href="/academia" className="hover:text-white transition">
+                  Academia & Cursos
+                </Link>
+              </li>
+              <li>
+                <Link href="/eventos" className="hover:text-white transition">
+                  Eventos
+                </Link>
+              </li>
+              <li>
+                <Link href="/carreiras" className="hover:text-white transition">
+                  Carreiras & Vagas
+                </Link>
+              </li>
+              <li>
+                <Link href={resolveHref("#contacto")} className="hover:text-white transition">
+                  Solicitar Cotação
+                </Link>
+              </li>
             </ul>
           </motion.div>
 
@@ -192,8 +255,8 @@ export default function Footer() {
               Serviços
             </span>
 
-            <ul className="mt-6 space-y-4 text-sm">
-              {mockServices.slice(0, 6).map((service) => (
+            <ul className="mt-6 space-y-3.5 text-sm">
+              {mockServices.slice(0, 5).map((service) => (
                 <li key={service.id}>
                   <Link
                     href={resolveHref("#servicos")}
@@ -254,16 +317,16 @@ export default function Footer() {
               </li>
 
               {/* WhatsApp Channel */}
-              {mockContactInfo?.whatsappChannel && (
+              {settings.whatsappChannelUrl && (
                 <li className="flex items-center gap-4">
                   <FaWhatsapp className="h-4 w-4 text-green-500 shrink-0" />
                   <a
-                    href={mockContactInfo.whatsappChannel.url}
+                    href={settings.whatsappChannelUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-green-400 transition"
                   >
-                    {mockContactInfo.whatsappChannel.title}
+                    Canal ARKNET Oficial no WhatsApp
                   </a>
                 </li>
               )}
@@ -272,19 +335,17 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Copyright */}
+      {/* Copyright & Admin Link */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-600">
             © {new Date().getFullYear()} ARKNET — Todos os direitos reservados.
           </p>
 
-          <div className="flex gap-6 text-xs text-slate-600">
-            <Link href="#" className="hover:text-slate-400 transition">
-              Política de Privacidade
-            </Link>
-            <Link href="#" className="hover:text-slate-400 transition">
-              Termos de Serviço
+          <div className="flex items-center gap-6 text-xs text-slate-600">
+            <Link href="/admin/login" className="hover:text-primary transition flex items-center gap-1.5 font-semibold">
+              <Lock className="h-3 w-3" />
+              Painel de Gestão (Admin)
             </Link>
           </div>
         </div>

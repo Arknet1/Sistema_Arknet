@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { CheckCircle2, Clock3, Headset, Mail, PhoneCall } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
-import { mockServices, mockContactInfo } from "@/lib/mock-data"
+import { mockServices } from "@/lib/mock-data"
+import { dataStore } from "@/lib/data-store"
 
 type QuoteRequestFormState = {
   name: string
@@ -26,12 +27,20 @@ export default function QuoteRequest() {
   const [mailtoLink, setMailtoLink] = useState("")
   const redirectTriggered = useRef(false)
 
+  const [settings, setSettings] = useState(dataStore.getSettings())
+
+  useEffect(() => {
+    const update = () => setSettings(dataStore.getSettings())
+    const unsub = dataStore.subscribe(update)
+    return () => unsub()
+  }, [])
+
   const serviceOptions = useMemo(() => mockServices.map((item) => item.name), [])
 
-  const primaryPhone = mockContactInfo.phones?.[0] ?? ""
-  const secondaryPhone = mockContactInfo.phones?.[1] ?? ""
-  const primaryEmail = mockContactInfo.emails?.[0] ?? ""
-  const quoteEmail = "info@arknet.co.ao";
+  const primaryPhone = settings.phones?.[0] || "+244 935 208 449"
+  const secondaryPhone = settings.phones?.[1] || ""
+  const primaryEmail = settings.emails?.[0] || "info@arknet.co.ao"
+  const quoteEmail = primaryEmail
 
   const buildQuoteMailto = (data: QuoteRequestFormState) => {
     const subject = `Pedido de Cotação: ${data.service} — ${data.name}`
@@ -55,20 +64,20 @@ export default function QuoteRequest() {
     return `mailto:${quoteEmail}?${params.toString()}`
   }
 
-  const openEmailApp = (link: string) => {
-    window.location.assign(link)
-  }
-
-  useEffect(() => {
-    if (!submitted || !mailtoLink || redirectTriggered.current) return
-
-    redirectTriggered.current = true
-    const timer = window.setTimeout(() => openEmailApp(mailtoLink), 600)
-    return () => window.clearTimeout(timer)
-  }, [submitted, mailtoLink])
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    // 1. Gravar instantaneamente no DataStore para aparecer em /admin/leads
+    dataStore.addLead({
+      name: formState.name.trim(),
+      email: formState.email.trim(),
+      phone: formState.phone.trim(),
+      service: formState.service,
+      message: formState.message.trim(),
+      source: "Website - Formulário de Cotação",
+    })
+
+    // 2. Preparar link mailto
     const link = buildQuoteMailto(formState)
     setMailtoLink(link)
     setSubmitted(true)
@@ -192,16 +201,15 @@ export default function QuoteRequest() {
                 </div>
 
                 <h3 className="text-2xl font-extrabold text-slate-900 mb-3">
-                  Pedido concluído!
+                  Pedido Recebido com Sucesso!
                 </h3>
 
                 <p className="text-slate-600 max-w-md mb-2 leading-relaxed">
-                  O seu pedido foi preparado com sucesso. Estamos a abrir a sua app de email para
-                  enviar a mensagem à ARKNET.
+                  O seu pedido de serviço foi registado no sistema ARKNET. A nossa equipa comercial entrará em contacto com a proposta detalhada.
                 </p>
 
                 <p className="text-sm text-slate-500 mb-8">
-                  Confirme o envio no Gmail, Outlook ou na app de email do seu dispositivo.
+                  Caso pretenda enviar uma cópia adicional por email, clique no botão abaixo.
                 </p>
 
                 <a
@@ -235,7 +243,7 @@ export default function QuoteRequest() {
               >
                 <div>
                   <label htmlFor="nome" className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">
-                    Nome
+                    Nome / Empresa *
                   </label>
                   <input
                     id="nome"
@@ -244,13 +252,13 @@ export default function QuoteRequest() {
                     onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))}
                     required
                     className={inputClass}
-                    placeholder="O seu nome"
+                    placeholder="O seu nome ou empresa"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">
-                    Email
+                    Email *
                   </label>
                   <input
                     id="email"
@@ -270,11 +278,12 @@ export default function QuoteRequest() {
               >
                 <div>
                   <label htmlFor="telefone" className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">
-                    Telefone
+                    Telefone *
                   </label>
                   <input
                     id="telefone"
                     type="tel"
+                    required
                     value={formState.phone}
                     onChange={(e) => setFormState((prev) => ({ ...prev, phone: e.target.value }))}
                     className={inputClass}
@@ -284,7 +293,7 @@ export default function QuoteRequest() {
 
                 <div>
                   <label htmlFor="servico" className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">
-                    Serviço pretendido
+                    Serviço pretendido *
                   </label>
                   <select
                     id="servico"
@@ -305,7 +314,7 @@ export default function QuoteRequest() {
                 variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
               >
                 <label htmlFor="mensagem" className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">
-                  Mensagem
+                  Mensagem / Especificações do Pedido *
                 </label>
                 <textarea
                   id="mensagem"
@@ -314,7 +323,7 @@ export default function QuoteRequest() {
                   onChange={(e) => setFormState((prev) => ({ ...prev, message: e.target.value }))}
                   required
                   className={`${inputClass} resize-none`}
-                  placeholder="Descreva o que precisa..."
+                  placeholder="Descreva a sua necessidade técnica ou projeto..."
                 />
               </motion.div>
 
@@ -329,11 +338,11 @@ export default function QuoteRequest() {
                   whileTap={{ scale: 0.97 }}
                   className="w-full bg-secondary py-4 text-sm font-bold text-white tracking-wide hover:bg-secondary/90 transition disabled:opacity-50 uppercase shadow-lg shadow-secondary/20"
                 >
-                  Enviar Pedido
+                  Enviar Pedido de Cotação
                 </motion.button>
 
                 <p className="text-center text-xs text-slate-500">
-                  Resposta em até 24h ·{" "}
+                  Resposta em até 24h úteis ·{" "}
                   <a
                     href={`mailto:${quoteEmail}`}
                     className="text-primary hover:underline"

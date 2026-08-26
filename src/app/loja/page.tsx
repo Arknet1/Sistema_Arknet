@@ -1,12 +1,16 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench, ArrowRight, SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets, Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes } from "lucide-react"
+import {
+  Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench, ArrowRight,
+  SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets,
+  Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes
+} from "lucide-react"
 import Link from "next/link"
 import ProductCard from "@/components/product-card"
-import { mockProducts, mockCategories } from "@/lib/mock-data"
-import jmatosIcon from "@/assets/jmatos.png"
+import { dataStore, StoreProduct, ProductCategory } from "@/lib/data-store"
+import jmatosIcon from "@/assets/icon18.png"
 
 const iconMap: Record<string, React.ElementType> = {
   Globe, Wifi, Cloud, Cpu, MessageSquare, Shield, Wrench,
@@ -15,12 +19,35 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 export default function LojaPage() {
+  const [products, setProducts] = useState<StoreProduct[]>([])
+  const [categories, setCategories] = useState<ProductCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('relevance')
 
-  const filteredProducts = mockProducts.filter(p => {
-    const matchesCategory = selectedCategory === 'Todos' || p.category === selectedCategory
+  useEffect(() => {
+    const sync = () => {
+      const db = dataStore.getSnapshot()
+      setProducts([...db.products])
+      setCategories([...db.categories].sort((a, b) => a.order - b.order))
+    }
+    sync()
+    const unsub = dataStore.subscribe(sync)
+    return () => unsub()
+  }, [])
+
+  // Filtrar categorias que têm hideWhenEmpty === true e 0 produtos
+  const visibleCategories = categories.filter((c) => {
+    if (c.name === 'Todos') return true
+    if (c.hideWhenEmpty) {
+      const count = products.filter((p) => p.category.toLowerCase() === c.name.toLowerCase()).length
+      return count > 0
+    }
+    return true
+  })
+
+  const filteredProducts = products.filter(p => {
+    const matchesCategory = selectedCategory === 'Todos' || p.category.toLowerCase() === selectedCategory.toLowerCase()
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.description.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch
@@ -40,8 +67,8 @@ export default function LojaPage() {
     return 0
   })
 
-  const featuredProducts = mockProducts.filter(p => p.inStock).slice(0, 4)
-  const showFeatured = selectedCategory === 'Todos' && !searchTerm
+  const featuredProducts = products.filter(p => p.featured || p.inStock).slice(0, 4)
+  const showFeatured = selectedCategory === 'Todos' && !searchTerm && featuredProducts.length > 0
 
   return (
     <main className="min-h-screen bg-background pt-20">
@@ -52,18 +79,18 @@ export default function LojaPage() {
           <div>
             <p className="text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">— Loja Online</p>
             <div className="flex items-center gap-4 mb-2">
-              <Image src={jmatosIcon} alt="JMatos" width={120} height={120} className="object-contain" />
+              <Image src={jmatosIcon} alt="ARKNET" width={120} height={120} className="h-10 w-auto object-contain" />
             </div>
             <p className="mt-3 text-slate-400 text-sm max-w-md leading-relaxed">
-              Produtos e serviços JMatos — tecnologia, segurança e equipamentos para o seu negócio.
+              Equipamentos e soluções tecnológicas ARKNET — telecomunicações, redes, segurança e conectividade para a sua empresa.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 shrink-0">
             <Link
               href="/#contacto"
-              className="inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 transition"
+              className="inline-flex items-center gap-2 bg-secondary px-6 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition shadow-sm"
             >
-              Pedir Cotação
+              Pedir Cotação de Equipamentos
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -71,26 +98,30 @@ export default function LojaPage() {
       </div>
 
       {/* Category tabs */}
-      <div className="bg-white border-b border-slate-200 sticky top-20 z-30">
+      <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {mockCategories.map((cat) => {
+            {visibleCategories.map((cat) => {
               const Icon = iconMap[cat.icon] || Globe
-              const isActive = selectedCategory === cat.name
+              const isActive = selectedCategory.toLowerCase() === cat.name.toLowerCase()
+              const count = cat.name === 'Todos'
+                ? products.length
+                : products.filter(p => p.category.toLowerCase() === cat.name.toLowerCase()).length
+
               return (
                 <button
-                  key={cat.name}
+                  key={cat.id || cat.name}
                   onClick={() => setSelectedCategory(cat.name)}
                   className={`flex items-center gap-2 px-4 py-3.5 text-sm font-medium whitespace-nowrap transition-all border-b-2 ${
                     isActive
-                      ? 'border-primary text-primary'
+                      ? 'border-primary text-primary font-bold'
                       : 'border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   {cat.name}
                   <span className={`text-xs font-bold tabular-nums ${isActive ? 'text-primary' : 'text-slate-400'}`}>
-                    {cat.name === 'Todos' ? mockProducts.length : mockProducts.filter(p => p.category === cat.name).length}
+                    {count}
                   </span>
                 </button>
               )
@@ -102,20 +133,20 @@ export default function LojaPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
 
         {/* Search bar */}
-        <div className="mb-8 flex items-stretch bg-white border border-slate-200">
+        <div className="mb-8 flex items-stretch bg-white border border-slate-200 shadow-xs">
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="h-12 px-4 bg-slate-50 border-r border-slate-200 text-sm outline-none text-slate-700 min-w-[150px] hidden sm:block"
           >
             <option value="Todos">Todas Categorias</option>
-            {mockCategories.slice(1).map(cat => (
-              <option key={cat.name} value={cat.name}>{cat.name}</option>
+            {visibleCategories.filter(c => c.name !== 'Todos').map(cat => (
+              <option key={cat.id || cat.name} value={cat.name}>{cat.name}</option>
             ))}
           </select>
           <input
             type="text"
-            placeholder="Buscar produtos..."
+            placeholder="Buscar produtos por nome ou características..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="flex-1 h-12 px-5 outline-none text-sm text-slate-900 placeholder:text-slate-400"
@@ -137,7 +168,7 @@ export default function LojaPage() {
           </div>
         </div>
 
-        {/* Featured */}
+        {/* Featured Products */}
         {showFeatured && (
           <div className="mb-12">
             <div className="flex items-center justify-between mb-5">
@@ -146,7 +177,7 @@ export default function LojaPage() {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {featuredProducts.map(p => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={p as any} />
               ))}
             </div>
             <div className="mt-6 border-t border-slate-100" />
@@ -155,29 +186,33 @@ export default function LojaPage() {
 
         <div className="flex gap-8">
           {/* Sidebar */}
-          <aside className="w-56 shrink-0 hidden md:block">
+          <aside className="w-60 shrink-0 hidden md:block">
             <div className="bg-white border border-slate-200 sticky top-36">
               <div className="px-4 py-3 border-b border-slate-100">
                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Categorias</p>
               </div>
-              <ul>
-                {mockCategories.map((cat) => {
+              <ul className="max-h-[60vh] overflow-y-auto">
+                {visibleCategories.map((cat) => {
                   const Icon = iconMap[cat.icon] || Globe
-                  const isActive = selectedCategory === cat.name
+                  const isActive = selectedCategory.toLowerCase() === cat.name.toLowerCase()
+                  const count = cat.name === 'Todos'
+                    ? products.length
+                    : products.filter(p => p.category.toLowerCase() === cat.name.toLowerCase()).length
+
                   return (
-                    <li key={cat.name}>
+                    <li key={cat.id || cat.name}>
                       <button
                         onClick={() => setSelectedCategory(cat.name)}
-                        className={`w-full text-left px-4 py-2.5 flex items-center gap-2.5 text-sm transition ${
+                        className={`w-full text-left px-4 py-2.5 flex items-center gap-2.5 text-xs transition ${
                           isActive
-                            ? 'bg-primary/5 text-primary font-semibold'
+                            ? 'bg-primary/10 text-primary font-bold'
                             : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                         }`}
                       >
                         <Icon className="h-3.5 w-3.5 shrink-0" />
-                        <span className="flex-1">{cat.name}</span>
-                        <span className="text-xs tabular-nums text-slate-400">
-                          {cat.name === 'Todos' ? mockProducts.length : mockProducts.filter(p => p.category === cat.name).length}
+                        <span className="flex-1 truncate">{cat.name}</span>
+                        <span className="text-[11px] tabular-nums text-slate-400">
+                          {count}
                         </span>
                       </button>
                     </li>
@@ -187,7 +222,7 @@ export default function LojaPage() {
 
               <div className="p-4 border-t border-slate-100">
                 <p className="text-xs text-slate-500 leading-relaxed mb-3">
-                  Precisa de uma solução à medida?
+                  Precisa de uma cotação à medida?
                 </p>
                 <Link
                   href="/#contacto"
@@ -229,17 +264,17 @@ export default function LojaPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {sortedProducts.map(p => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={p as any} />
               ))}
             </div>
 
             {sortedProducts.length === 0 && (
-              <div className="py-20 text-center">
+              <div className="py-20 text-center bg-white border border-slate-200">
                 <p className="text-slate-900 font-semibold text-lg">Nenhum produto encontrado.</p>
                 <p className="text-slate-500 text-sm mt-2">Tente outros termos ou escolha outra categoria.</p>
                 <button
                   onClick={() => { setSearchTerm(''); setSelectedCategory('Todos') }}
-                  className="mt-6 bg-slate-900 text-white px-6 py-2.5 text-sm font-medium hover:bg-primary transition"
+                  className="mt-6 bg-primary text-white px-6 py-2.5 text-sm font-medium hover:bg-primary/90 transition shadow-sm"
                 >
                   Limpar filtros
                 </button>

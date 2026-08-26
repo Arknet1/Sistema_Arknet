@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ShoppingCart, Trash2, Check, Phone } from "lucide-react"
 import { useCart } from "@/lib/cart"
-import { mockProducts } from "@/lib/mock-data"
+import { dataStore, StoreProduct } from "@/lib/data-store"
 import { formatProdutoPrice } from "@/lib/format-produto-price"
 
 const monthlyCategories = ['Internet', 'Hosting', 'Cloud', 'Comunicações']
@@ -14,8 +14,18 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   const router = useRouter()
   const { items, addItem, removeItem } = useCart()
   const [isAdding, setIsAdding] = useState(false)
+  const [product, setProduct] = useState<StoreProduct | undefined>(undefined)
 
-  const product = mockProducts.find(p => p.id === id)
+  useEffect(() => {
+    const sync = () => {
+      const p = dataStore.getProductById(id)
+      setProduct(p)
+    }
+    sync()
+    const unsub = dataStore.subscribe(sync)
+    return () => unsub()
+  }, [id])
+
   const isInCart = product ? items.some(item => item.product.id === product.id) : false
   const isMonthly = product ? monthlyCategories.includes(product.category) && product.price != null : false
 
@@ -23,7 +33,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
     if (!product || isAdding) return
     setIsAdding(true)
     await new Promise(resolve => setTimeout(resolve, 300))
-    addItem(product)
+    addItem(product as any)
     setIsAdding(false)
     router.push('/loja/carrinho')
   }
@@ -33,7 +43,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
       <main className="min-h-screen pt-32 pb-20 bg-background">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-slate-500 text-lg">Produto não encontrado.</p>
-          <Link href="/loja" className="mt-6 inline-flex items-center gap-2 text-sm text-primary hover:underline">
+          <Link href="/loja" className="mt-6 inline-flex items-center gap-2 text-sm text-primary hover:underline font-bold">
             <ArrowLeft className="h-4 w-4" />
             Voltar para a Loja
           </Link>
@@ -60,10 +70,11 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
           {/* Image */}
           <div className="bg-white border border-slate-200 overflow-hidden">
             {product.image ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-[420px] object-cover"
+                className="w-full h-[420px] object-contain p-4 bg-white"
               />
             ) : (
               <div className="w-full h-[420px] flex items-center justify-center bg-slate-50">
@@ -83,7 +94,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
             </h1>
 
             <div className="mt-5 flex items-baseline gap-2">
-              <span className="text-4xl font-black text-slate-900">
+              <span className="text-4xl font-black text-slate-900 font-mono">
                 {formatProdutoPrice(product.price)}
               </span>
               {isMonthly && (
@@ -95,55 +106,56 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               {product.inStock !== false ? (
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700 bg-green-50 px-2.5 py-1">
                   <Check className="h-3 w-3" />
-                  Disponível
+                  Disponível em Stock
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1">
-                  Esgotado
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-700 bg-rose-50 px-2.5 py-1">
+                  Indisponível / Esgotado
                 </span>
+              )}
+              {product.sku && (
+                <span className="text-xs text-slate-400 font-mono">Ref: {product.sku}</span>
               )}
             </div>
 
-            <p className="mt-6 text-slate-600 leading-relaxed text-base">
+            <p className="mt-6 text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">
               {product.description}
             </p>
 
-            <div className="mt-8 space-y-3">
-              {isInCart ? (
-                <button
-                  onClick={() => removeItem(product.id)}
-                  className="w-full inline-flex items-center justify-center gap-2 border border-red-200 text-red-600 px-8 py-4 text-sm font-semibold hover:bg-red-50 transition"
-                >
-                  <Trash2 className="h-4 w-4" />
-                  Remover do Carrinho
-                </button>
-              ) : (
+            {/* Actions */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              {product.price != null && product.inStock !== false && (
                 <button
                   onClick={handleAddToCart}
-                  disabled={product.inStock === false || isAdding}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-secondary px-8 py-4 text-sm font-semibold text-white hover:bg-secondary/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isAdding}
+                  className="flex-1 bg-secondary text-white py-4 px-6 font-bold text-sm hover:bg-secondary/90 transition flex items-center justify-center gap-2 uppercase tracking-wide shadow-lg shadow-secondary/20 disabled:opacity-50"
                 >
-                  {isAdding ? (
-                    <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <ShoppingCart className="h-5 w-5" />
-                  )}
-                  {product.inStock === false ? 'Esgotado' : isAdding ? 'A adicionar...' : 'Adicionar ao Carrinho'}
+                  <ShoppingCart className="h-4 w-4" />
+                  {isAdding ? 'A adicionar...' : isInCart ? 'Ver no Carrinho' : 'Adicionar ao Carrinho'}
                 </button>
               )}
 
               <Link
                 href="/#contacto"
-                className="w-full inline-flex items-center justify-center gap-2 border border-slate-200 bg-white px-8 py-4 text-sm font-semibold text-slate-700 hover:border-primary hover:text-primary transition"
+                className="flex-1 border-2 border-slate-900 text-slate-900 py-4 px-6 font-bold text-sm hover:bg-slate-900 hover:text-white transition flex items-center justify-center gap-2 uppercase tracking-wide text-center"
               >
                 <Phone className="h-4 w-4" />
-                Pedir Cotação Personalizada
+                Pedir Cotação
               </Link>
             </div>
 
-            <p className="mt-5 text-xs text-slate-400 text-center">
-              Resposta em menos de 24 horas · Suporte técnico incluído
-            </p>
+            {isInCart && (
+              <div className="mt-4 flex items-center justify-between text-xs text-slate-500 bg-slate-50 p-3 border border-slate-200">
+                <span className="text-green-700 font-medium">✓ Este produto está no seu carrinho</span>
+                <button
+                  onClick={() => removeItem(product.id)}
+                  className="text-red-500 hover:underline flex items-center gap-1"
+                >
+                  <Trash2 className="h-3 w-3" />
+                  Remover
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   ],
 };
 
+import { CustomerAuthProvider } from "@/lib/customer-auth-context";
+import { AuthProvider } from "@/lib/auth-context";
+
 export default function RootLayout({
   children,
 }: {
@@ -32,8 +35,12 @@ export default function RootLayout({
   return (
     <html lang="pt" className={cn("h-full antialiased", inter.variable)}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <CustomerAuthProvider>
+            <Navbar />
+            {children}
+          </CustomerAuthProvider>
+        </AuthProvider>
       </body>
     </html>
   );

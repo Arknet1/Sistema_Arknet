@@ -71,3 +71,13 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Ocultar botão/indicador flutuante do Next.js (ícone N) */
+nextjs-portal,
+#nextjs-dev-tools,
+[data-nextjs-toast],
+[data-nextjs-dev-tools],
+[data-nextjs-dialog-overlay],
+div[data-nextjs-router] {
+  display: none !important;
+}
