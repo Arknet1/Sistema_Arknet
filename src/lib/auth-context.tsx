@@ -29,27 +29,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Carregar sessão existente
-    try {
-      const stored = localStorage.getItem(AUTH_STORAGE_KEY)
-      if (stored) {
-        const parsed = JSON.parse(stored) as AdminUser
-        // Validar se o utilizador ainda existe na base de dados
-        const currentUsers = dataStore.getUsers()
-        const existing = currentUsers.find((u) => u.id === parsed.id && u.status === 'active')
-        if (existing) {
-          setUser(existing)
-        } else if (parsed.email === 'admin@arknet.co.ao') {
-          setUser(currentUsers[0] || parsed)
+    const loadSession = () => {
+      try {
+        const stored = localStorage.getItem(AUTH_STORAGE_KEY)
+        if (stored) {
+          const parsed = JSON.parse(stored) as AdminUser
+          // Validar se o utilizador ainda existe na base de dados
+          const currentUsers = dataStore.getUsers()
+          const existing = currentUsers.find((u) => u.id === parsed.id && u.status === 'active')
+          if (existing) {
+            setUser(existing)
+          } else if (parsed.email === 'admin@arknet.co.ao') {
+            setUser(currentUsers[0] || parsed)
+          } else {
+            localStorage.removeItem(AUTH_STORAGE_KEY)
+            setUser(null)
+          }
         } else {
-          localStorage.removeItem(AUTH_STORAGE_KEY)
           setUser(null)
         }
+      } catch (e) {
+        console.error('Error loading admin session', e)
+        setUser(null)
+      } finally {
+        setIsLoading(false)
       }
-    } catch (e) {
-      console.error('Error loading admin session', e)
-    } finally {
-      setIsLoading(false)
     }
+
+    loadSession()
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === AUTH_STORAGE_KEY) {
+        loadSession()
+      }
+    }
+
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
   }, [])
 
   const login = async (email: string, password?: string): Promise<{ success: boolean; message: string }> => {
@@ -103,9 +119,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const logout = () => {
-    localStorage.removeItem(AUTH_STORAGE_KEY)
+    try {
+      localStorage.removeItem(AUTH_STORAGE_KEY)
+      sessionStorage.removeItem(AUTH_STORAGE_KEY)
+    } catch (e) {
+      console.error('Error clearing admin session', e)
+    }
     setUser(null)
-    router.push('/admin/login')
+    router.push('/login')
   }
 
   const recoverPassword = async (email: string): Promise<{ success: boolean; message: string }> => {

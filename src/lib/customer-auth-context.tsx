@@ -77,24 +77,44 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
 
   // Carregar sessão existente
   useEffect(() => {
-    try {
-      const savedSession = localStorage.getItem(CUSTOMER_SESSION_KEY)
-      if (savedSession) {
-        const parsed = JSON.parse(savedSession)
-        if (parsed?.id) {
-          const fresh = dataStore.getCustomerById(parsed.id)
-          if (fresh && fresh.status !== 'inactive') {
-            setCustomer(fresh)
+    const loadSession = () => {
+      try {
+        const savedSession = localStorage.getItem(CUSTOMER_SESSION_KEY) || sessionStorage.getItem(CUSTOMER_SESSION_KEY)
+        if (savedSession) {
+          const parsed = JSON.parse(savedSession)
+          if (parsed?.id) {
+            const fresh = dataStore.getCustomerById(parsed.id)
+            if (fresh && fresh.status !== 'inactive') {
+              setCustomer(fresh)
+            } else {
+              localStorage.removeItem(CUSTOMER_SESSION_KEY)
+              sessionStorage.removeItem(CUSTOMER_SESSION_KEY)
+              setCustomer(null)
+            }
           } else {
-            localStorage.removeItem(CUSTOMER_SESSION_KEY)
+            setCustomer(null)
           }
+        } else {
+          setCustomer(null)
         }
+      } catch (e) {
+        console.error('Error loading customer session', e)
+        setCustomer(null)
+      } finally {
+        setIsLoading(false)
       }
-    } catch (e) {
-      console.error('Error loading customer session', e)
-    } finally {
-      setIsLoading(false)
     }
+
+    loadSession()
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === CUSTOMER_SESSION_KEY) {
+        loadSession()
+      }
+    }
+
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
   }, [])
 
   // Timer para desbloqueio após tentativas falhadas
@@ -258,9 +278,13 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   }, [])
 
   const logout = useCallback(() => {
+    try {
+      localStorage.removeItem(CUSTOMER_SESSION_KEY)
+      sessionStorage.removeItem(CUSTOMER_SESSION_KEY)
+    } catch (e) {
+      console.error('Error clearing customer session', e)
+    }
     setCustomer(null)
-    localStorage.removeItem(CUSTOMER_SESSION_KEY)
-    sessionStorage.removeItem(CUSTOMER_SESSION_KEY)
   }, [])
 
   const quickLogin = useCallback(

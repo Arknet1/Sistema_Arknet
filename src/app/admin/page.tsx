@@ -7,10 +7,10 @@ import {
   Inbox,
   ShoppingCart,
   Mail,
-  GraduationCap,
   Calendar,
-  Briefcase,
-  UserCheck,
+  MessageSquareQuote,
+  Handshake,
+  Tags,
   TrendingUp,
   ArrowRight,
   PlusCircle,
@@ -42,10 +42,10 @@ export default function AdminOverviewPage() {
   const totalLeads = db.leads.length
   const newLeads = db.leads.filter((l) => l.status === 'novo').length
   const totalSubscribers = db.subscribers.filter((s) => s.status === 'active').length
-  const openJobs = db.jobs.filter((j) => j.status === 'aberta').length
-  const totalApplications = db.applications.length
   const upcomingEvents = db.events.filter((e) => e.status === 'agendado').length
-  const activeCourses = db.courses.filter((c) => c.status === 'active').length
+  const totalPartners = db.partners.length
+  const totalTestimonials = db.testimonials.length
+  const totalCategories = db.categories.length
 
   // Histórico simplificado dos últimos 6 meses para o gráfico
   const monthlyData = [
@@ -146,16 +146,6 @@ export default function AdminOverviewPage() {
       {/* Secondary Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white border border-slate-200 p-4 sm:p-6 shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
-            <GraduationCap className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-xl font-extrabold text-slate-900">{activeCourses}</p>
-            <p className="text-xs text-slate-500 font-medium">Cursos Ativos</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
           <div className="p-3 bg-blue-50 text-primary rounded-lg shrink-0">
             <Calendar className="h-5 w-5" />
           </div>
@@ -166,22 +156,32 @@ export default function AdminOverviewPage() {
         </div>
 
         <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
-          <div className="p-3 bg-indigo-50 text-indigo-600 rounded-lg shrink-0">
-            <Briefcase className="h-5 w-5" />
+          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+            <MessageSquareQuote className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xl font-extrabold text-slate-900">{openJobs}</p>
-            <p className="text-xs text-slate-500 font-medium">Vagas Abertas</p>
+            <p className="text-xl font-extrabold text-slate-900">{totalTestimonials}</p>
+            <p className="text-xs text-slate-500 font-medium">Testemunhos</p>
           </div>
         </div>
 
         <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
-          <div className="p-3 bg-rose-50 text-secondary rounded-lg shrink-0">
-            <UserCheck className="h-5 w-5" />
+          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-lg shrink-0">
+            <Handshake className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xl font-extrabold text-slate-900">{totalApplications}</p>
-            <p className="text-xs text-slate-500 font-medium">Candidaturas</p>
+            <p className="text-xl font-extrabold text-slate-900">{totalPartners}</p>
+            <p className="text-xs text-slate-500 font-medium">Parceiros & Marcas</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
+          <div className="p-3 bg-purple-50 text-purple-600 rounded-lg shrink-0">
+            <Tags className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-xl font-extrabold text-slate-900">{totalCategories}</p>
+            <p className="text-xs text-slate-500 font-medium">Categorias Loja</p>
           </div>
         </div>
       </div>

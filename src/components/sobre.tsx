@@ -4,7 +4,8 @@ import { motion } from "framer-motion"
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
 import Image from "next/image"
-import { CheckCircle, Clock, ShieldCheck, TrendingUp } from "lucide-react"
+import Link from "next/link"
+import { ArrowRight, CheckCircle, Clock, ShieldCheck, TrendingUp } from "lucide-react"
 import about from "@/assets/office.jpeg"
 import { mockAboutUs } from "@/lib/mock-data"
 import { CountUp } from "@/components/count-up"
@@ -112,6 +113,20 @@ export default function Sobre() {
                   <span className="text-sm font-semibold text-slate-700">{item.text}</span>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* CTA para página da Empresa */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
+              className="mt-10"
+            >
+              <Link
+                href="/empresa"
+                className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition"
+              >
+                Conhecer a ARKNET
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </motion.div>
           </motion.div>
         </div>

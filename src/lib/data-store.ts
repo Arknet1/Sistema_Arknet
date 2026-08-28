@@ -63,11 +63,17 @@ export interface StoreOrder {
   customerName: string
   customerEmail: string
   customerPhone: string
+  customerCompany?: string
+  customerNif?: string
+  customerCity?: string
   customerAddress?: string
+  deliveryMethod?: string
+  paymentMethod?: string
   items: StoreOrderItem[]
   total: number | null
   status: OrderStatus
   notes?: string
+  confirmedAt?: string
   createdAt: string
   updatedAt: string
 }
@@ -635,11 +641,28 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = mockTestimonials.map((t, i) => (
   updatedAt: t.updatedAt,
 }))
 
+const PARTNER_CATEGORIES: Record<string, string> = {
+  'AnyConnect': 'Tecnologia & Redes',
+  'Tecnimed': 'Saúde & Equipamento Hospitalar',
+  'Igreja Universal': 'Institucional & Mídia',
+  'Macon': 'Transportes & Logística',
+  'Tribunal Supremo': 'Governo & Justiça',
+  'Mota-Engil': 'Construção & Engenharia',
+  'Record TV Africa': 'Comunicação & Mídia',
+  'ANPG': 'Petróleo, Gás & Energia',
+  'Huambo Expresso': 'Transportes & Logística',
+  'Vernon': 'Consultoria & Gestão',
+  'Neptec': 'Soluções Tecnológicas',
+  'Comando MGA': 'Defesa & Segurança',
+  'Power House': 'Energia & Infraestruturas',
+  'A Mundial Seguros': 'Banca & Seguros',
+}
+
 const DEFAULT_PARTNERS: PartnerItem[] = mockPartners.map((p, i) => ({
   id: p.id,
   name: p.name,
   logo: p.logo,
-  category: i % 2 === 0 ? 'Telecomunicações' : 'Hardware & Cloud',
+  category: PARTNER_CATEGORIES[p.name] || 'Parceiro Estratégico',
   website: 'https://arknet.co.ao',
   order: i + 1,
   active: true,
@@ -785,7 +808,11 @@ class DataStoreManager {
         jobs: parsed.jobs?.length ? parsed.jobs : INITIAL_DB.jobs,
         applications: parsed.applications || INITIAL_DB.applications,
         testimonials: parsed.testimonials?.length ? parsed.testimonials : INITIAL_DB.testimonials,
-        partners: parsed.partners?.length ? parsed.partners : INITIAL_DB.partners,
+        partners:
+          parsed.partners?.length &&
+          !parsed.partners.some((p: any) => p.logo?.includes('picsum.photos') || p.name === 'Angola Telecom' || p.name === 'Unitel Empresas')
+            ? parsed.partners
+            : INITIAL_DB.partners,
         settings: parsed.settings || INITIAL_DB.settings,
         activities: parsed.activities || INITIAL_DB.activities,
       }
@@ -1011,6 +1038,7 @@ class DataStoreManager {
             ...o,
             status,
             notes: notes !== undefined ? notes : o.notes,
+            confirmedAt: status === 'fechado' ? (o.confirmedAt || new Date().toISOString()) : o.confirmedAt,
             updatedAt: new Date().toISOString(),
           }
           return updatedItem

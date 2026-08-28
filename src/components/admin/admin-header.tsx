@@ -92,21 +92,6 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
           })
         })
 
-      // Candidaturas recentes
-      db.applications
-        .filter((a) => a.status === 'recebida')
-        .slice(0, 2)
-        .forEach((a) => {
-          list.push({
-            id: a.id,
-            title: `Candidatura: ${a.candidateName}`,
-            description: a.jobTitle,
-            time: new Date(a.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            link: '/admin/candidaturas',
-            type: 'application',
-          })
-        })
-
       setRecentNotifications(list)
       setUnreadCount(list.length)
     }
@@ -130,14 +115,8 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
         return 'Pedidos de Serviço / Leads'
       case '/admin/newsletter':
         return 'Subscritores da Newsletter'
-      case '/admin/academia':
-        return 'Academia & Formações'
       case '/admin/eventos':
         return 'Eventos & Workshops'
-      case '/admin/carreiras':
-        return 'Vagas de Emprego'
-      case '/admin/candidaturas':
-        return 'Candidaturas Recebidas'
       case '/admin/testemunhos':
         return 'Testemunhos de Clientes'
       case '/admin/parceiros':

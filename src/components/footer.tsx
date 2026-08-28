@@ -212,7 +212,7 @@ export default function Footer() {
 
             <ul className="mt-6 space-y-3.5 text-sm">
               <li>
-                <Link href={resolveHref("#sobre")} className="hover:text-white transition">
+                <Link href="/empresa" className="hover:text-white transition">
                   Sobre Nós
                 </Link>
               </li>
@@ -222,18 +222,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/academia" className="hover:text-white transition">
-                  Academia & Cursos
-                </Link>
-              </li>
-              <li>
                 <Link href="/eventos" className="hover:text-white transition">
                   Eventos
-                </Link>
-              </li>
-              <li>
-                <Link href="/carreiras" className="hover:text-white transition">
-                  Carreiras & Vagas
                 </Link>
               </li>
               <li>
@@ -259,7 +249,7 @@ export default function Footer() {
               {mockServices.slice(0, 5).map((service) => (
                 <li key={service.id}>
                   <Link
-                    href={resolveHref("#servicos")}
+                    href={`/servicos/${service.slug}`}
                     className="hover:text-white transition flex items-center gap-2 group"
                   >
                     <span className="text-primary group-hover:translate-x-1 transition-transform inline-block">

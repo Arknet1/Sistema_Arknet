@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import {
   User,
+  UserCheck,
   Lock,
   ArrowRight,
   Eye,
@@ -320,6 +321,59 @@ function UnifiedLoginForm() {
 
         {/* Form Container */}
         <div className="p-8">
+          {/* Active Session Alert */}
+          {customer ? (
+            <div className="mb-6 p-4 bg-primary/5 border border-primary/20 text-slate-800 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <p className="font-bold text-slate-900 flex items-center gap-1.5">
+                  <UserCheck className="h-4 w-4 text-primary" />
+                  Sessão ativa como {customer.name}
+                </p>
+                <p className="text-slate-500 font-mono text-[11px] mt-0.5">{customer.email}</p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href="/cliente/perfil"
+                  className="px-3 py-1.5 bg-primary text-white font-bold text-[11px] uppercase rounded hover:bg-primary/90 transition"
+                >
+                  Meu Perfil
+                </Link>
+                <button
+                  type="button"
+                  onClick={customerLogout}
+                  className="px-3 py-1.5 bg-rose-50 border border-rose-200 text-rose-600 font-bold text-[11px] uppercase rounded hover:bg-rose-100 transition"
+                >
+                  Terminar Sessão
+                </button>
+              </div>
+            </div>
+          ) : adminUser ? (
+            <div className="mb-6 p-4 bg-slate-900 border border-slate-700 text-white text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <p className="font-bold text-white flex items-center gap-1.5">
+                  <ShieldCheck className="h-4 w-4 text-primary" />
+                  Sessão ativa como {adminUser.name}
+                </p>
+                <p className="text-slate-400 font-mono text-[11px] mt-0.5">{adminUser.email}</p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href="/admin"
+                  className="px-3 py-1.5 bg-primary text-white font-bold text-[11px] uppercase rounded hover:bg-primary/90 transition"
+                >
+                  Painel Admin
+                </Link>
+                <button
+                  type="button"
+                  onClick={adminLogout}
+                  className="px-3 py-1.5 bg-rose-950/50 border border-rose-800 text-rose-300 font-bold text-[11px] uppercase rounded hover:bg-rose-900 transition"
+                >
+                  Terminar Sessão
+                </button>
+              </div>
+            </div>
+          ) : null}
+
           {/* Status Feedback */}
           {errorMessage && (
             <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold rounded flex items-center gap-3">

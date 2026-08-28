@@ -18,17 +18,17 @@ export function AdminLayoutWrapper({ children, requireAdmin = false }: AdminLayo
   const pathname = usePathname()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
-  const isLoginPage = pathname === '/admin/login'
+  const isLoginPage = pathname === '/admin/login' || pathname === '/login'
 
   useEffect(() => {
     if (!isLoading) {
       if (!isAuthenticated && !isLoginPage) {
-        router.push('/admin/login')
-      } else if (isAuthenticated && isLoginPage) {
+        router.push('/login')
+      } else if (isAuthenticated && pathname === '/admin/login') {
         router.push('/admin')
       }
     }
-  }, [isAuthenticated, isLoading, isLoginPage, router])
+  }, [isAuthenticated, isLoading, isLoginPage, pathname, router])
 
   if (isLoginPage) {
     return <>{children}</>
@@ -51,7 +51,19 @@ export function AdminLayoutWrapper({ children, requireAdmin = false }: AdminLayo
   }
 
   if (!isAuthenticated) {
-    return null
+    return (
+      <div className="min-h-screen bg-[#080e1e] flex flex-col items-center justify-center text-white">
+        <div className="flex flex-col items-center gap-4">
+          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 shadow-2xl flex items-center justify-center">
+            <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
+          </div>
+          <div className="text-center">
+            <h3 className="font-extrabold text-lg tracking-tight">Sessão Terminada</h3>
+            <p className="text-xs text-slate-400 mt-1">A redirecionar para a autenticação...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (requireAdmin && !isAdmin) {

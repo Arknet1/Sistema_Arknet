@@ -15,6 +15,9 @@ import {
   X,
   Trash2,
   DollarSign,
+  MessageCircle,
+  ShieldCheck,
+  Check,
 } from 'lucide-react'
 import { dataStore, StoreOrder, OrderStatus } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
@@ -67,11 +70,15 @@ export default function AdminPedidosPage() {
   }
 
   const handleUpdateStatus = (orderId: string, newStatus: OrderStatus) => {
-    dataStore.updateOrderStatus(orderId, newStatus, internalNotes)
+    const updated = dataStore.updateOrderStatus(orderId, newStatus, internalNotes)
     if (selectedOrder && selectedOrder.id === orderId) {
-      setSelectedOrder((prev) => (prev ? { ...prev, status: newStatus } : null))
+      setSelectedOrder(updated)
     }
-    success(`Estado do pedido #${orderId} alterado para "${newStatus.replace('_', ' ')}".`)
+    if (newStatus === 'fechado') {
+      success(`Pedido #${orderId} Aprovado com Sucesso! A fatura oficial foi emitida e liberada para o cliente.`)
+    } else {
+      success(`Estado do pedido #${orderId} alterado para "${newStatus.replace('_', ' ')}".`)
+    }
   }
 
   const handleSaveNotes = () => {
@@ -127,20 +134,23 @@ export default function AdminPedidosPage() {
     switch (status) {
       case 'novo':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-rose-100 text-secondary rounded-full">
+          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 text-amber-700" />
             Novo Pedido
           </span>
         )
       case 'em_contacto':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-amber-100 text-amber-800 rounded-full">
-            Em Contacto
+          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <MessageCircle className="h-3 w-3 text-blue-700" />
+            Em Validação WhatsApp
           </span>
         )
       case 'fechado':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-emerald-100 text-emerald-800 rounded-full">
-            Fechado / Concluído
+          <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full inline-flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-emerald-700" />
+            Aprovado / Fatura Emitida
           </span>
         )
       case 'cancelado':
@@ -159,10 +169,10 @@ export default function AdminPedidosPage() {
         <div>
           <div className="flex items-center gap-2">
             <ShoppingCart className="h-6 w-6 text-primary" />
-            <h1 className="text-2xl font-extrabold text-slate-900">Pedidos & Cotações da Loja</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900">Pedidos & Faturação da Loja</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Histórico e tratamento de encomendas e pedidos de cotação finalizados pelos clientes no checkout (`/loja/checkout`).
+            Valide comprovativos de pagamento via WhatsApp e aprove encomendas para liberar a emissão oficial de faturas aos clientes.
           </p>
         </div>
 
@@ -193,8 +203,8 @@ export default function AdminPedidosPage() {
           >
             <option value="all">Todos os Estados ({orders.length})</option>
             <option value="novo">Novos ({orders.filter((o) => o.status === 'novo').length})</option>
-            <option value="em_contacto">Em Contacto ({orders.filter((o) => o.status === 'em_contacto').length})</option>
-            <option value="fechado">Fechados ({orders.filter((o) => o.status === 'fechado').length})</option>
+            <option value="em_contacto">Em Validação WhatsApp ({orders.filter((o) => o.status === 'em_contacto').length})</option>
+            <option value="fechado">Aprovados / Fatura Liberada ({orders.filter((o) => o.status === 'fechado').length})</option>
             <option value="cancelado">Cancelados ({orders.filter((o) => o.status === 'cancelado').length})</option>
           </select>
         </div>
@@ -253,6 +263,18 @@ export default function AdminPedidosPage() {
 
                     <td className="py-3.5 px-6 text-right">
                       <div className="flex items-center justify-end gap-2">
+                        {(order.status === 'novo' || order.status === 'em_contacto') && (
+                          <button
+                            type="button"
+                            onClick={() => handleUpdateStatus(order.id, 'fechado')}
+                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] uppercase tracking-wider rounded transition flex items-center gap-1 shadow-xs"
+                            title="Aprovar pagamento e liberar fatura oficial para o cliente"
+                          >
+                            <Check className="h-3.5 w-3.5" />
+                            <span>Aprovar Pedido</span>
+                          </button>
+                        )}
+
                         <button
                           type="button"
                           onClick={() => handleOpenDetail(order)}
@@ -267,7 +289,7 @@ export default function AdminPedidosPage() {
                             setDeletingId(order.id)
                             setIsDeleteModalOpen(true)
                           }}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition"
+                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition rounded"
                           title="Eliminar pedido"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -294,7 +316,7 @@ export default function AdminPedidosPage() {
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
               <div>
-                <span className="text-xs font-mono font-bold text-primary">Detalhes do Pedido</span>
+                <span className="text-xs font-mono font-bold text-primary">Gestão de Pedido & Fatura</span>
                 <h3 className="text-lg font-extrabold text-slate-900">{selectedOrder.orderNumber}</h3>
               </div>
               <button
@@ -308,11 +330,54 @@ export default function AdminPedidosPage() {
 
             {/* Modal Body */}
             <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
+              
+              {/* Status Banner */}
+              {selectedOrder.status === 'fechado' ? (
+                <div className="p-3.5 bg-emerald-50 border border-emerald-300 rounded flex items-center gap-3 text-emerald-950 font-medium">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
+                  <div>
+                    <p className="font-bold text-emerald-900">Pedido Aprovado & Fatura Emitida</p>
+                    <p className="text-[11px] text-emerald-700">
+                      O cliente já tem acesso à fatura oficial para impressão e descarregamento no seu Perfil de Cliente.
+                    </p>
+                  </div>
+                </div>
+              ) : selectedOrder.status === 'cancelado' ? (
+                <div className="p-3.5 bg-slate-100 border border-slate-300 rounded text-slate-700">
+                  <p className="font-bold">Pedido Cancelado</p>
+                </div>
+              ) : (
+                <div className="p-3.5 bg-amber-50 border border-amber-300 rounded flex items-center justify-between gap-3 text-amber-950 font-medium">
+                  <div className="flex items-center gap-2.5">
+                    <Clock className="h-5 w-5 text-amber-600 shrink-0" />
+                    <div>
+                      <p className="font-bold text-amber-900">Aguardando Validação de Pagamento</p>
+                      <p className="text-[11px] text-amber-800">
+                        Confira o comprovativo de pagamento no WhatsApp e clique em "Aprovar & Emitir Fatura".
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedOrder.id, 'fechado')}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[11px] uppercase tracking-wider rounded transition shrink-0 shadow-xs"
+                  >
+                    Aprovar Pedido
+                  </button>
+                </div>
+              )}
+
               {/* Customer Info Card */}
               <div className="p-4 bg-slate-50 border border-slate-200 grid sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Cliente</p>
                   <p className="font-bold text-slate-900 text-sm">{selectedOrder.customerName}</p>
+                  {selectedOrder.customerCompany && (
+                    <p className="text-slate-600 text-[11px]">Empresa: {selectedOrder.customerCompany}</p>
+                  )}
+                  {selectedOrder.customerNif && (
+                    <p className="text-slate-600 text-[11px] font-mono">NIF: {selectedOrder.customerNif}</p>
+                  )}
                   <div className="flex items-center gap-2 mt-2 text-slate-600">
                     <Mail className="h-3.5 w-3.5 text-slate-400" />
                     <a href={`mailto:${selectedOrder.customerEmail}`} className="hover:underline text-primary">
@@ -327,19 +392,43 @@ export default function AdminPedidosPage() {
                       </a>
                     </div>
                   )}
+
+                  {/* WhatsApp Direct Chat */}
+                  {selectedOrder.customerPhone && (
+                    <div className="mt-3">
+                      <a
+                        href={`https://wa.me/${selectedOrder.customerPhone.replace(/\D/g, '')}?text=Ol%C3%A1%20${encodeURIComponent(selectedOrder.customerName)},%20contacto-o%20da%20ARKNET%20a%20prop%C3%B3sito%20do%20seu%20pedido%20${selectedOrder.orderNumber}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] uppercase tracking-wider rounded transition"
+                      >
+                        <MessageCircle className="h-3.5 w-3.5" />
+                        <span>Conversar no WhatsApp</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-                    Endereço / Local de Entrega
+                    Endereço & Pagamento
                   </p>
                   <div className="flex items-start gap-2 text-slate-700 mt-1">
                     <MapPin className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
                     <span>{selectedOrder.customerAddress || 'Não especificado (A combinar)'}</span>
                   </div>
-                  <div className="mt-3 text-[11px] text-slate-400">
+                  <div className="mt-2 text-slate-700">
+                    <span className="font-bold">Método:</span>{' '}
+                    <span className="uppercase font-mono">{selectedOrder.paymentMethod || 'Transferência'}</span>
+                  </div>
+                  <div className="mt-2 text-[11px] text-slate-400">
                     Submetido em: {new Date(selectedOrder.createdAt).toLocaleString('pt-PT')}
                   </div>
+                  {selectedOrder.confirmedAt && (
+                    <div className="mt-1 text-[11px] text-emerald-700 font-semibold">
+                      Aprovado em: {new Date(selectedOrder.confirmedAt).toLocaleString('pt-PT')}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -349,20 +438,53 @@ export default function AdminPedidosPage() {
                   Alterar Estado do Pedido
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  {(['novo', 'em_contacto', 'fechado', 'cancelado'] as OrderStatus[]).map((st) => (
-                    <button
-                      key={st}
-                      type="button"
-                      onClick={() => handleUpdateStatus(selectedOrder.id, st)}
-                      className={`py-2 px-3 text-xs font-bold uppercase rounded border transition ${
-                        selectedOrder.status === st
-                          ? 'bg-primary text-white border-primary shadow-sm'
-                          : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      {st.replace('_', ' ')}
-                    </button>
-                  ))}
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedOrder.id, 'novo')}
+                    className={`py-2 px-3 text-xs font-bold uppercase rounded border transition ${
+                      selectedOrder.status === 'novo'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-sm'
+                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    Novo
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedOrder.id, 'em_contacto')}
+                    className={`py-2 px-3 text-xs font-bold uppercase rounded border transition ${
+                      selectedOrder.status === 'em_contacto'
+                        ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    Em Validação
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedOrder.id, 'fechado')}
+                    className={`py-2 px-3 text-xs font-bold uppercase rounded border transition ${
+                      selectedOrder.status === 'fechado'
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                        : 'bg-emerald-50 border-emerald-300 text-emerald-800 hover:bg-emerald-100 font-black'
+                    }`}
+                  >
+                    ✓ Aprovar & Emitir
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedOrder.id, 'cancelado')}
+                    className={`py-2 px-3 text-xs font-bold uppercase rounded border transition ${
+                      selectedOrder.status === 'cancelado'
+                        ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
+                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    Cancelar
+                  </button>
                 </div>
               </div>
 
@@ -404,14 +526,14 @@ export default function AdminPedidosPage() {
                   rows={3}
                   value={internalNotes}
                   onChange={(e) => setInternalNotes(e.target.value)}
-                  placeholder="Ex: Contactado cliente por telefone; aguarda comprovativo de transferência bancária..."
+                  placeholder="Ex: Contactado cliente por WhatsApp; comprovativo de transferência BAI conferido com sucesso..."
                   className="w-full p-3 border border-slate-300 focus:border-primary focus:outline-none"
                 />
                 <div className="flex justify-end mt-2">
                   <button
                     type="button"
                     onClick={handleSaveNotes}
-                    className="px-4 py-2 bg-slate-900 text-white font-bold text-xs uppercase hover:bg-primary transition"
+                    className="px-4 py-2 bg-slate-900 text-white font-bold text-xs uppercase hover:bg-primary transition rounded"
                   >
                     Guardar Notas
                   </button>

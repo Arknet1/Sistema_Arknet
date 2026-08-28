@@ -11,10 +11,7 @@ import {
   ShoppingCart,
   Inbox,
   Mail,
-  GraduationCap,
   Calendar,
-  Briefcase,
-  UserCheck,
   MessageSquareQuote,
   Handshake,
   Settings,
@@ -55,7 +52,6 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
 
   const [unreadLeads, setUnreadLeads] = useState(0)
   const [newOrders, setNewOrders] = useState(0)
-  const [newApplications, setNewApplications] = useState(0)
   const [activeProductsCount, setActiveProductsCount] = useState(0)
 
   useEffect(() => {
@@ -63,7 +59,6 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       const db = dataStore.getSnapshot()
       setUnreadLeads(db.leads.filter((l) => l.status === 'novo').length)
       setNewOrders(db.orders.filter((o) => o.status === 'novo').length)
-      setNewApplications(db.applications.filter((a) => a.status === 'recebida').length)
       setActiveProductsCount(db.products.length)
     }
 
@@ -133,26 +128,9 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       title: 'Conteúdos Dinâmicos',
       items: [
         {
-          label: 'Academia (Cursos)',
-          href: '/admin/academia',
-          icon: GraduationCap,
-        },
-        {
           label: 'Eventos & Workshops',
           href: '/admin/eventos',
           icon: Calendar,
-        },
-        {
-          label: 'Vagas de Emprego',
-          href: '/admin/carreiras',
-          icon: Briefcase,
-        },
-        {
-          label: 'Candidaturas',
-          href: '/admin/candidaturas',
-          icon: UserCheck,
-          badge: newApplications > 0 ? `${newApplications}` : undefined,
-          badgeColor: 'bg-primary text-white',
         },
         {
           label: 'Testemunhos',

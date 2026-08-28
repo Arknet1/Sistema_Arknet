@@ -28,7 +28,14 @@ import {
   Smartphone,
   Shield,
   Lock,
+  Printer,
+  MessageCircle,
+  X,
+  Receipt,
+  CreditCard,
+  ArrowRight,
 } from 'lucide-react'
+import arknetLogo from '@/assets/icon18.png'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 import { dataStore, StoreOrder, ServiceLead } from '@/lib/data-store'
 import { formatProdutoPrice, formatLinhaPreco } from '@/lib/format-produto-price'
@@ -46,6 +53,7 @@ export default function ClientePerfilPage() {
   } = useCustomerAuth()
 
   const [activeTab, setActiveTab] = useState<'perfil' | 'pedidos' | 'servicos' | 'seguranca'>('perfil')
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   // Edit Profile Form State
   const [formData, setFormData] = useState({
@@ -71,6 +79,8 @@ export default function ClientePerfilPage() {
   const [leads, setLeads] = useState<ServiceLead[]>([])
 
   useEffect(() => {
+    if (isLoggingOut) return
+
     if (!isLoading && !customer) {
       router.push('/login')
       return
@@ -98,7 +108,19 @@ export default function ClientePerfilPage() {
       const unsub = dataStore.subscribe(syncData)
       return () => unsub()
     }
-  }, [customer, isLoading, router])
+  }, [customer, isLoading, isLoggingOut, router])
+
+  if (isLoggingOut) {
+    return (
+      <main className="min-h-screen pt-32 pb-20 bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-rose-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-sm font-bold text-slate-800">A terminar sessão...</p>
+          <p className="text-xs text-slate-500 mt-1">A redirecionar com segurança...</p>
+        </div>
+      </main>
+    )
+  }
 
   if (isLoading || !customer) {
     return (
@@ -162,9 +184,15 @@ export default function ClientePerfilPage() {
   }
 
   const handleLogout = () => {
+    setIsLoggingOut(true)
     logout()
-    router.push('/')
+    setTimeout(() => {
+      router.push('/')
+    }, 150)
   }
+
+  // Invoice Modal State
+  const [viewInvoiceOrder, setViewInvoiceOrder] = useState<StoreOrder | null>(null)
 
   // Password strength helper
   const getPasswordStrength = (pwd: string) => {
@@ -180,17 +208,38 @@ export default function ClientePerfilPage() {
 
   // Estatísticas
   const totalSpent = orders.reduce((acc, order) => (order.total ? acc + order.total : acc), 0)
+  const approvedOrdersCount = orders.filter((o) => o.status === 'fechado').length
+  const pendingOrdersCount = orders.filter((o) => o.status === 'novo' || o.status === 'em_contacto').length
 
   const getOrderStatusBadge = (status: StoreOrder['status']) => {
     switch (status) {
       case 'novo':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-50 text-primary rounded-full">Novo Pedido</span>
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 text-amber-700" />
+            Aguardando Confirmação Admin
+          </span>
+        )
       case 'em_contacto':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-amber-100 text-amber-800 rounded-full">Em Processamento</span>
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <MessageCircle className="h-3 w-3 text-blue-700" />
+            Em Validação WhatsApp
+          </span>
+        )
       case 'fechado':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 rounded-full">Concluído / Entregue</span>
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full inline-flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-emerald-700" />
+            Aprovado / Fatura Emitida
+          </span>
+        )
       case 'cancelado':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-slate-100 text-slate-600 rounded-full">Cancelado</span>
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-slate-100 text-slate-600 rounded-full">
+            Cancelado
+          </span>
+        )
     }
   }
 
@@ -298,6 +347,38 @@ export default function ClientePerfilPage() {
             <p className="text-[11px] text-slate-500 mt-1 font-mono">Sessão segura ativa</p>
           </div>
         </div>
+
+        {/* Notificação de Encomendas Aprovadas / Novidades */}
+        {approvedOrdersCount > 0 && (
+          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100/70 border-2 border-emerald-500/50 text-emerald-950 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-200/90 px-2 py-0.5 rounded">
+                    Notificação de Faturação
+                  </span>
+                </div>
+                <p className="font-black text-slate-900 text-sm mt-1">
+                  🎉 Tem {approvedOrdersCount} {approvedOrdersCount === 1 ? 'encomenda aprovada' : 'encomendas aprovadas'} pelo Administrador!
+                </p>
+                <p className="text-slate-600 text-xs mt-0.5">
+                  A sua fatura oficial com carimbo fiscal já foi emitida e está pronta para visualização, descarregamento e impressão.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setActiveTab('pedidos')}
+              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded transition shrink-0 shadow-sm flex items-center justify-center gap-1.5"
+            >
+              <FileText className="h-4 w-4" />
+              <span>Ver Minhas Faturas</span>
+            </button>
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="bg-white border border-slate-200 mb-6 shadow-xs flex border-b-0 overflow-x-auto">
@@ -494,17 +575,32 @@ export default function ClientePerfilPage() {
         {/* TAB 2: Orders */}
         {activeTab === 'pedidos' && (
           <div className="bg-white border border-slate-200 shadow-xs overflow-hidden">
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="text-base font-extrabold text-slate-900">Histórico de Pedidos na Loja</h3>
-                <p className="text-xs text-slate-500 mt-0.5">Todas as compras realizadas com este endereço de email.</p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Acompanhe a validação de pagamentos via WhatsApp e aceda às faturas oficiais emitidas.
+                </p>
               </div>
               <Link
                 href="/loja"
-                className="px-4 py-2 bg-secondary text-white text-xs font-bold uppercase hover:bg-secondary/90 transition"
+                className="px-4 py-2 bg-secondary text-white text-xs font-bold uppercase hover:bg-secondary/90 transition text-center"
               >
                 Fazer Novo Pedido
               </Link>
+            </div>
+
+            {/* Aviso Informativo sobre o fluxo WhatsApp & Fatura */}
+            <div className="bg-slate-50 border-b border-slate-200 p-4 text-xs text-slate-600 flex items-start gap-3">
+              <MessageCircle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-slate-800">
+                  Como funciona o pagamento e a faturação na ARKNET:
+                </p>
+                <p className="mt-0.5 text-slate-500 text-[11px] leading-relaxed">
+                  1. O pagamento é finalizado no WhatsApp com envio do comprovativo. • 2. O administrador valida e aprova a compra no sistema. • 3. A fatura oficial e recibo fiscal são desbloqueados automaticamente para download e impressão abaixo.
+                </p>
+              </div>
             </div>
 
             {orders.length === 0 ? (
@@ -521,42 +617,88 @@ export default function ClientePerfilPage() {
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
-                {orders.map((order) => (
-                  <div key={order.id} className="p-6 hover:bg-slate-50 transition">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                      <div>
-                        <span className="font-mono text-xs font-bold text-primary mr-3">
-                          #{order.orderNumber}
-                        </span>
-                        <span className="text-xs text-slate-400">
-                          {new Date(order.createdAt).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
-                        </span>
-                      </div>
-                      <div>{getOrderStatusBadge(order.status)}</div>
-                    </div>
+                {orders.map((order) => {
+                  const formattedTotal = order.total ? formatProdutoPrice(order.total) : 'Sob Consulta'
+                  const whatsappText = `Ol%C3%A1%20ARKNET!%20Gostaria%20de%20saber%20o%20estado%20do%20meu%20pedido%20*${order.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*.`
 
-                    {/* Items */}
-                    <div className="space-y-2 mb-4 bg-slate-50 p-4 border border-slate-100">
-                      {order.items.map((item, idx) => (
-                        <div key={idx} className="flex justify-between items-center text-xs">
-                          <span className="font-bold text-slate-800">
-                            {item.productName} <span className="text-primary font-mono font-normal">x{item.quantity}</span>
-                          </span>
-                          <span className="font-mono font-semibold text-slate-700">
-                            {formatLinhaPreco(item.price, item.quantity)}
-                          </span>
+                  return (
+                    <div key={order.id} className="p-6 hover:bg-slate-50/70 transition">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-sm font-black text-slate-900">
+                              #{order.orderNumber}
+                            </span>
+                            <span className="text-xs text-slate-400">
+                              • {new Date(order.createdAt).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
+                            </span>
+                          </div>
                         </div>
-                      ))}
-                    </div>
+                        <div>{getOrderStatusBadge(order.status)}</div>
+                      </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-                      <span className="text-slate-500">Valor Total do Pedido:</span>
-                      <span className="font-mono font-black text-sm text-slate-900">
-                        {order.total ? formatProdutoPrice(order.total) : 'Sob Consulta'}
-                      </span>
+                      {/* Items */}
+                      <div className="space-y-2 mb-4 bg-slate-50 p-4 border border-slate-100">
+                        {order.items.map((item, idx) => (
+                          <div key={idx} className="flex justify-between items-center text-xs">
+                            <span className="font-bold text-slate-800">
+                              {item.productName} <span className="text-primary font-mono font-normal">x{item.quantity}</span>
+                            </span>
+                            <span className="font-mono font-semibold text-slate-700">
+                              {formatLinhaPreco(item.price, item.quantity)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Summary & Actions Bar */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-slate-100">
+                        <div className="text-xs">
+                          <span className="text-slate-500">Valor Total:</span>{' '}
+                          <span className="font-mono font-black text-sm text-slate-900">
+                            {formattedTotal}
+                          </span>
+                          {order.paymentMethod && (
+                            <span className="text-[11px] text-slate-400 block mt-0.5">
+                              Método: <strong className="text-slate-700 uppercase">{order.paymentMethod}</strong>
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2">
+                          {order.status === 'fechado' ? (
+                            <button
+                              type="button"
+                              onClick={() => setViewInvoiceOrder(order)}
+                              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                            >
+                              <FileText className="h-4 w-4 text-emerald-400" />
+                              <span>Visualizar / Imprimir Fatura Oficial</span>
+                            </button>
+                          ) : order.status === 'cancelado' ? (
+                            <span className="text-xs text-slate-400 italic">Pedido Cancelado</span>
+                          ) : (
+                            <>
+                              <a
+                                href={`https://wa.me/244935208449?text=${whatsappText}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                              >
+                                <MessageCircle className="h-4 w-4" />
+                                <span>Falar no WhatsApp</span>
+                              </a>
+                              <span className="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded flex items-center gap-1 font-medium">
+                                <Lock className="h-3 w-3 text-amber-600" />
+                                Fatura disponível após aprovação do admin
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )}
           </div>
@@ -766,6 +908,207 @@ export default function ClientePerfilPage() {
                     )}
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL DE FATURA OFICIAL (DOCUMENTO FISCAL) */}
+        {viewInvoiceOrder && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white">
+            <div className="relative w-full max-w-4xl bg-white border border-slate-200 shadow-2xl overflow-hidden my-8 print:my-0 print:border-none print:shadow-none">
+              
+              {/* Modal Top Bar (Hidden on print) */}
+              <div className="p-4 bg-slate-900 text-white flex items-center justify-between print:hidden">
+                <div className="flex items-center gap-2">
+                  <Receipt className="h-5 w-5 text-emerald-400" />
+                  <span className="font-bold text-xs uppercase tracking-wider">
+                    Fatura Oficial ARKNET — #{viewInvoiceOrder.orderNumber}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center gap-1.5 transition"
+                  >
+                    <Printer className="h-4 w-4" />
+                    <span>Imprimir / PDF</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewInvoiceOrder(null)}
+                    className="p-2 text-slate-400 hover:text-white rounded transition"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Printable Invoice Container */}
+              <div className="p-8 sm:p-12 text-slate-800 text-xs">
+                
+                {/* Header Documento Fiscal */}
+                <div className="flex flex-col sm:flex-row justify-between items-start border-b-2 border-slate-900 pb-6 gap-6">
+                  <div>
+                    <Image
+                      src={arknetLogo}
+                      alt="ARKNET"
+                      width={180}
+                      height={60}
+                      className="h-12 w-auto object-contain mb-3"
+                    />
+                    <p className="text-xs font-black uppercase text-slate-900">
+                      ARKNET — Soluções Tecnológicas & Telecomunicações Lda.
+                    </p>
+                    <p className="text-slate-500">NIF: 5412398760 • Kilamba, Luanda - Angola</p>
+                    <p className="text-slate-500">Email: comercial@arknet.co.ao • Tel: +244 935 208 449</p>
+                  </div>
+
+                  <div className="sm:text-right bg-slate-50 p-4 border border-slate-200 rounded sm:min-w-[260px]">
+                    <div className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded mb-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" />
+                      <span>Fatura Aprovada & Emitida</span>
+                    </div>
+                    <h2 className="text-xl font-black text-slate-900 font-mono">
+                      {viewInvoiceOrder.orderNumber}
+                    </h2>
+                    <p className="text-slate-500 mt-1">
+                      Data de Emissão: {new Date(viewInvoiceOrder.confirmedAt || viewInvoiceOrder.createdAt).toLocaleDateString('pt-AO', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <p className="text-slate-700 font-semibold mt-0.5">
+                      Estado: <span className="text-emerald-700 uppercase font-bold">Liquidado / Aprovado</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Selo / Carimbo de Aprovação do Administrador */}
+                <div className="my-6 p-4 bg-emerald-50/70 border-2 border-dashed border-emerald-400 rounded flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black">
+                      ✓
+                    </div>
+                    <div>
+                      <p className="font-black text-emerald-950 uppercase text-[11px] tracking-wider">
+                        Documento Validado & Autorizado pelo Administrador
+                      </p>
+                      <p className="text-[11px] text-emerald-800">
+                        Pagamento conferido com sucesso. Equipamentos prontos para levantamento / entrega.
+                      </p>
+                    </div>
+                  </div>
+                  <span className="font-mono text-[11px] font-bold text-emerald-900 bg-white px-3 py-1 border border-emerald-200 rounded">
+                    AUTORIZAÇÃO: {viewInvoiceOrder.orderNumber}-AUTH
+                  </span>
+                </div>
+
+                {/* Dados do Cliente & Entrega */}
+                <div className="grid sm:grid-cols-2 gap-6 my-6 p-5 bg-slate-50 border border-slate-200">
+                  <div>
+                    <h3 className="font-black text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
+                      Dados de Faturação (Cliente):
+                    </h3>
+                    <p className="font-bold text-slate-900 text-sm">{viewInvoiceOrder.customerName}</p>
+                    {viewInvoiceOrder.customerCompany && (
+                      <p className="text-slate-700">Empresa: <strong>{viewInvoiceOrder.customerCompany}</strong></p>
+                    )}
+                    {viewInvoiceOrder.customerNif && (
+                      <p className="text-slate-700">NIF: <strong className="font-mono">{viewInvoiceOrder.customerNif}</strong></p>
+                    )}
+                    <p className="text-slate-600">Email: {viewInvoiceOrder.customerEmail}</p>
+                    <p className="text-slate-600">Telefone: {viewInvoiceOrder.customerPhone}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-black text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
+                      Local de Entrega & Pagamento:
+                    </h3>
+                    <p className="text-slate-800 font-semibold">{viewInvoiceOrder.customerAddress || 'A combinar com o cliente'}</p>
+                    <p className="text-slate-600">{viewInvoiceOrder.customerCity || 'Luanda'}, Angola</p>
+                    <p className="text-slate-700 mt-2">
+                      Método de Pagamento:{' '}
+                      <strong className="text-slate-900 uppercase">
+                        {viewInvoiceOrder.paymentMethod || 'Transferência Bancária / MCX'}
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Tabela de Itens */}
+                <div className="my-6 overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="border-b-2 border-slate-900 bg-slate-100 text-slate-800 uppercase tracking-wider font-bold">
+                        <th className="py-3 px-3">Item / Equipamento</th>
+                        <th className="py-3 px-3 text-center">Qtd</th>
+                        <th className="py-3 px-3 text-right">Preço Unitário</th>
+                        <th className="py-3 px-3 text-right">Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {viewInvoiceOrder.items.map((item, idx) => (
+                        <tr key={idx}>
+                          <td className="py-3 px-3">
+                            <p className="font-bold text-slate-900">{item.productName}</p>
+                            <p className="text-[10px] text-slate-400 font-mono">Código: {item.productId}</p>
+                          </td>
+                          <td className="py-3 px-3 text-center font-bold font-mono">{item.quantity}</td>
+                          <td className="py-3 px-3 text-right font-mono">
+                            {item.price === null ? 'Sob consulta' : formatProdutoPrice(item.price)}
+                          </td>
+                          <td className="py-3 px-3 text-right font-bold text-slate-900 font-mono">
+                            {formatLinhaPreco(item.price, item.quantity)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Totais */}
+                <div className="flex justify-end my-6 border-t border-slate-200 pt-4">
+                  <div className="w-full sm:w-72 space-y-2 text-xs">
+                    <div className="flex justify-between text-slate-600">
+                      <span>Subtotal Equipamentos:</span>
+                      <span className="font-semibold font-mono">
+                        {viewInvoiceOrder.total === null ? 'Sob consulta' : formatProdutoPrice(viewInvoiceOrder.total)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-slate-600">
+                      <span>Taxa de IVA (14% Incluso):</span>
+                      <span>Regime Geral</span>
+                    </div>
+                    <div className="flex justify-between text-slate-600">
+                      <span>Custo de Envio:</span>
+                      <span className="text-emerald-700 font-bold">Grátis</span>
+                    </div>
+                    <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
+                      <span>Total Liquidado:</span>
+                      <span className="font-mono">
+                        {viewInvoiceOrder.total === null ? 'Sob consulta' : formatProdutoPrice(viewInvoiceOrder.total)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Termos & Rodapé Fiscal */}
+                <div className="mt-8 pt-6 border-t border-slate-200 text-[10px] text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+                  <p>
+                    Documento processado por computador • ARKNET Soluções Tecnológicas Lda. • Garantia oficial de hardware.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="px-5 py-2.5 bg-slate-900 text-white font-bold text-xs uppercase rounded hover:bg-primary transition print:hidden"
+                  >
+                    Imprimir / Guardar Fatura PDF
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>

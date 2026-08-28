@@ -5,7 +5,7 @@ import { AdminLayoutWrapper } from '@/components/admin/admin-layout'
 
 export const metadata: Metadata = {
   title: 'Painel de Administração | ARKNET',
-  description: 'Dashboard de Gestão Central ARKNET — Produtos, Leads, Formações, Eventos e Carreiras',
+  description: 'Dashboard de Gestão Central ARKNET — Produtos, Leads, Encomendas, Eventos e Clientes',
 }
 
 export default function AdminRootLayout({
@@ -14,10 +14,8 @@ export default function AdminRootLayout({
   children: React.ReactNode
 }) {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <AdminLayoutWrapper>{children}</AdminLayoutWrapper>
-      </ToastProvider>
-    </AuthProvider>
+    <ToastProvider>
+      <AdminLayoutWrapper>{children}</AdminLayoutWrapper>
+    </ToastProvider>
   )
 }

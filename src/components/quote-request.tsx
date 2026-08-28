@@ -1,6 +1,7 @@
 "use client"
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react"
+import { FormEvent, Suspense, useEffect, useMemo, useRef, useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { CheckCircle2, Clock3, Headset, Mail, PhoneCall } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
@@ -15,7 +16,8 @@ type QuoteRequestFormState = {
   message: string
 }
 
-export default function QuoteRequest() {
+function QuoteRequestInner() {
+  const searchParams = useSearchParams()
   const [formState, setFormState] = useState<QuoteRequestFormState>({
     name: "",
     email: "",
@@ -36,6 +38,20 @@ export default function QuoteRequest() {
   }, [])
 
   const serviceOptions = useMemo(() => mockServices.map((item) => item.name), [])
+
+  // Auto-select service from URL param ?servico=...
+  useEffect(() => {
+    const servicoParam = searchParams.get('servico')
+    if (servicoParam) {
+      const decoded = decodeURIComponent(servicoParam)
+      const match = serviceOptions.find(
+        (s) => s.toLowerCase() === decoded.toLowerCase()
+      )
+      if (match) {
+        setFormState((prev) => ({ ...prev, service: match }))
+      }
+    }
+  }, [searchParams, serviceOptions])
 
   const primaryPhone = settings.phones?.[0] || "+244 935 208 449"
   const secondaryPhone = settings.phones?.[1] || ""
@@ -357,5 +373,13 @@ export default function QuoteRequest() {
         </div>
       </div>
     </section>
+  )
+}
+
+export default function QuoteRequest() {
+  return (
+    <Suspense fallback={null}>
+      <QuoteRequestInner />
+    </Suspense>
   )
 }

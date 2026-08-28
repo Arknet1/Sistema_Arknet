@@ -36,7 +36,7 @@ import arknetLogo from '@/assets/icon18.png'
 function CheckoutContent() {
   const router = useRouter()
   const { items, total, clearCart } = useCart()
-  const { customer } = useCustomerAuth()
+  const { customer, isLoading: isAuthLoading } = useCustomerAuth()
 
   // Form State
   const [formData, setFormData] = useState({
@@ -128,16 +128,24 @@ function CheckoutContent() {
     )
   }
 
-  // 2. TELA DE SUCESSO & FATURA PROFORMA
+  // 2. TELA DE SUCESSO: PEDIDO REGISTADO & FLUXO WHATSAPP
   if (submittedOrder) {
+    const formattedTotal =
+      submittedOrder.total === null ? 'Sob consulta' : formatProdutoPrice(submittedOrder.total)
+
+    const itemsSummaryText = (submittedOrder.items || [])
+      .map((it: StoreOrderItem) => `• ${it.quantity}x ${it.productName}`)
+      .join('%0A')
+
+    const whatsappMessage = `Ol%C3%A1%20ARKNET!%20Acabei%20de%20registar%20o%20pedido%20*${submittedOrder.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*%20na%20loja%20online.%0A%0A*Cliente:*%20${encodeURIComponent(submittedOrder.customerName)}%0A*Telefone:*%20${encodeURIComponent(submittedOrder.customerPhone || '')}%0A*M%C3%A9todo:*%20${encodeURIComponent(submittedOrder.paymentMethod || 'Transferência')}%0A%0A*Equipamentos:*%0A${itemsSummaryText}%0A%0AGostaria%20de%20finalizar%20o%20pagamento%20e%20enviar%20o%20comprovativo%20para%20valida%C3%A7%C3%A3o.`
+
     return (
       <main className="min-h-screen pt-24 pb-20 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           
-          {/* Printable Invoice Container */}
-          <div className="bg-white border border-slate-200 shadow-2xl p-8 sm:p-12 print:p-0 print:border-none print:shadow-none">
+          <div className="bg-white border border-slate-200 shadow-2xl p-8 sm:p-12 overflow-hidden">
             
-            {/* Header Documento Fiscal */}
+            {/* Header com Logo & Estado do Pedido */}
             <div className="flex flex-col sm:flex-row justify-between items-start border-b border-slate-200 pb-8 gap-6">
               <div>
                 <Image
@@ -151,12 +159,12 @@ function CheckoutContent() {
                   ARKNET — Soluções Tecnológicas & Telecomunicações Lda.
                 </p>
                 <p className="text-xs text-slate-500">NIF: 5412398760 • Kilamba, Luanda - Angola</p>
-                <p className="text-xs text-slate-500">Email: comercial@arknet.co.ao • Tel: +244 923 000 000</p>
+                <p className="text-xs text-slate-500">WhatsApp Comercial: +244 935 208 449</p>
               </div>
 
-              <div className="sm:text-right bg-slate-50 p-4 border border-slate-200 rounded sm:min-w-[240px]">
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded mb-1">
-                  Pedido Registado
+              <div className="sm:text-right bg-amber-50/80 p-4 border border-amber-200 rounded sm:min-w-[260px]">
+                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-0.5 rounded mb-1">
+                  Aguardando Validação WhatsApp
                 </span>
                 <h2 className="text-xl font-black text-slate-900 font-mono">
                   {submittedOrder.orderNumber}
@@ -171,16 +179,110 @@ function CheckoutContent() {
                   })}
                 </p>
                 <p className="text-xs font-semibold text-slate-700 mt-1">
-                  Estado: <span className="text-primary uppercase">Aguardando Pagamento</span>
+                  Total: <strong className="text-primary font-mono">{formattedTotal}</strong>
                 </p>
               </div>
             </div>
 
-            {/* Dados do Cliente & Entrega */}
-            <div className="grid sm:grid-cols-2 gap-6 my-8 p-6 bg-slate-50 border border-slate-200 text-xs">
+            {/* Banner de Instrução Principal: Pagamento via WhatsApp */}
+            <div className="my-8 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/60 border-2 border-emerald-500/40 p-6 sm:p-8 rounded-lg shadow-sm">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                  <MessageCircle className="h-7 w-7" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-[11px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-200/80 px-2.5 py-0.5 rounded inline-block mb-1.5">
+                    Passo Obrigatório para Concluir a Compra
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-snug">
+                    Finalize o Pagamento no WhatsApp com a nossa equipa
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-700 mt-2 leading-relaxed">
+                    O seu pedido está registado no sistema. Para confirmar o stock e validar o pagamento, clique no botão abaixo para contactar o nosso comercial no WhatsApp e enviar o comprovativo.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <a
+                      href={`https://wa.me/244935208449?text=${whatsappMessage}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded shadow-md transition transform hover:-translate-y-0.5"
+                    >
+                      <MessageCircle className="h-5 w-5" />
+                      <span>Finalizar Pagamento no WhatsApp</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+
+                    <Link
+                      href="/cliente/perfil"
+                      className="inline-flex items-center gap-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs uppercase tracking-wider rounded transition"
+                    >
+                      <UserCheck className="h-4 w-4 text-primary" />
+                      <span>Acompanhar no Meu Perfil</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Linha do Tempo / Processo da Compra */}
+            <div className="my-8 p-6 bg-slate-50 border border-slate-200 rounded">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+                Como funciona o processo de confirmação e faturação:
+              </h4>
+
+              <div className="grid sm:grid-cols-4 gap-4 text-xs">
+                <div className="p-3 bg-white border border-emerald-200 rounded">
+                  <div className="flex items-center gap-2 text-emerald-700 font-bold mb-1">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <span>1. Pedido Feito</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    O pedido #{submittedOrder.orderNumber} foi registado no sistema ARKNET.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-emerald-50 border-2 border-emerald-500 rounded relative">
+                  <span className="absolute -top-2 right-2 text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">
+                    Agora
+                  </span>
+                  <div className="flex items-center gap-2 text-emerald-900 font-bold mb-1">
+                    <MessageCircle className="h-4 w-4 text-emerald-700" />
+                    <span>2. WhatsApp</span>
+                  </div>
+                  <p className="text-[11px] text-slate-700">
+                    Envie o comprovativo de pagamento via WhatsApp para a nossa equipa.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-white border border-slate-200 rounded">
+                  <div className="flex items-center gap-2 text-slate-700 font-bold mb-1">
+                    <Lock className="h-4 w-4 text-amber-600" />
+                    <span>3. Aprovação Admin</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    O administrador confere o pagamento e aprova o pedido no painel de gestão.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-white border border-slate-200 rounded">
+                  <div className="flex items-center gap-2 text-slate-700 font-bold mb-1">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span>4. Fatura Liberada</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    Após aprovação, a fatura oficial fica disponível no seu Perfil de Cliente.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dados de Faturação & Entrega */}
+            <div className="grid sm:grid-cols-2 gap-6 my-6 p-5 bg-slate-50 border border-slate-200 text-xs">
               <div>
                 <h3 className="font-bold text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
-                  Dados de Faturação:
+                  Dados do Cliente:
                 </h3>
                 <p className="font-bold text-slate-800 text-sm">{submittedOrder.customerName}</p>
                 {submittedOrder.customerCompany && (
@@ -195,12 +297,12 @@ function CheckoutContent() {
 
               <div>
                 <h3 className="font-bold text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
-                  Local de Entrega & Método:
+                  Entrega & Pagamento:
                 </h3>
                 <p className="text-slate-800 font-semibold">{submittedOrder.customerAddress || 'A combinar com o cliente'}</p>
                 <p className="text-slate-600">{submittedOrder.customerCity || 'Luanda'}, Angola</p>
                 <p className="text-slate-600 mt-1">
-                  Método de Pagamento:{' '}
+                  Método Selecionado:{' '}
                   <strong className="text-slate-800 uppercase">
                     {submittedOrder.paymentMethod === 'transferencia'
                       ? 'Transferência Bancária / MCX'
@@ -214,8 +316,8 @@ function CheckoutContent() {
               </div>
             </div>
 
-            {/* Tabela de Itens */}
-            <div className="my-8 overflow-x-auto">
+            {/* Tabela Resumo de Itens */}
+            <div className="my-6 overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="border-b-2 border-slate-900 bg-slate-100 text-slate-800 uppercase tracking-wider">
@@ -249,10 +351,8 @@ function CheckoutContent() {
             <div className="flex justify-end my-6 border-t border-slate-200 pt-4">
               <div className="w-full sm:w-72 space-y-2 text-xs">
                 <div className="flex justify-between text-slate-600">
-                  <span>Subtotal:</span>
-                  <span className="font-semibold font-mono">
-                    {submittedOrder.total === null ? 'Sob consulta' : formatProdutoPrice(submittedOrder.total)}
-                  </span>
+                  <span>Subtotal Equipamentos:</span>
+                  <span className="font-semibold font-mono">{formattedTotal}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>IVA (14% Incluído):</span>
@@ -263,19 +363,17 @@ function CheckoutContent() {
                   <span className="text-emerald-700 font-bold">Grátis</span>
                 </div>
                 <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
-                  <span>Total Final:</span>
-                  <span className="font-mono">
-                    {submittedOrder.total === null ? 'Sob consulta' : formatProdutoPrice(submittedOrder.total)}
-                  </span>
+                  <span>Total do Pedido:</span>
+                  <span className="font-mono">{formattedTotal}</span>
                 </div>
               </div>
             </div>
 
             {/* Coordenadas Bancárias para Pagamento */}
-            <div className="p-6 bg-blue-50 border border-blue-200 rounded my-8 text-xs text-blue-900">
+            <div className="p-6 bg-blue-50 border border-blue-200 rounded my-6 text-xs text-blue-900">
               <h4 className="font-bold uppercase tracking-wider mb-2 flex items-center gap-2 text-primary">
                 <CreditCard className="h-4 w-4" />
-                Coordenadas Bancárias ARKNET (Transferência / Multicaixa Express):
+                Coordenadas Bancárias ARKNET para Transferência / MCX Express:
               </h4>
               <div className="grid sm:grid-cols-3 gap-3 font-mono text-[11px] mt-3">
                 <div className="p-2.5 bg-white border border-blue-100 rounded">
@@ -292,49 +390,39 @@ function CheckoutContent() {
                 </div>
               </div>
               <p className="text-[11px] text-blue-800 mt-2">
-                * Titular: <strong>ARKNET TECNOLOGIA LDA</strong> • NIF: <strong>5412398760</strong>. Por favor, indique o nº da encomenda <strong>{submittedOrder.orderNumber}</strong> no descritivo.
+                * Titular: <strong>ARKNET TECNOLOGIA LDA</strong> • NIF: <strong>5412398760</strong>. Por favor, mencione o nº <strong>{submittedOrder.orderNumber}</strong> no descritivo e envie o comprovativo pelo WhatsApp.
               </p>
             </div>
 
-            {/* Ações / Botões */}
-            <div className="flex flex-wrap gap-3 justify-between items-center pt-6 border-t border-slate-200 print:hidden">
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition"
-                >
-                  <Printer className="h-4 w-4" />
-                  Imprimir / Guardar Proforma PDF
-                </button>
-
-                <a
-                  href={`https://wa.me/244923000000?text=Ol%C3%A1%20ARKNET,%20acabei%20de%20registar%20a%20encomenda%20${submittedOrder.orderNumber}%20no%20valor%20de%20${submittedOrder.total}%20Kz%20e%20gostaria%20de%20enviar%20o%20comprovativo.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Enviar Comprovativo no WhatsApp
-                </a>
-              </div>
+            {/* Botões Finais de Navegação */}
+            <div className="flex flex-wrap gap-3 justify-between items-center pt-6 border-t border-slate-200">
+              <a
+                href={`https://wa.me/244935208449?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition rounded shadow-md"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Finalizar no WhatsApp (+244 935 208 449)
+              </a>
 
               <div className="flex gap-2">
                 <Link
                   href="/cliente/perfil"
-                  className="px-5 py-3 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-md"
+                  className="px-5 py-3.5 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-md rounded"
                 >
                   <UserCheck className="h-4 w-4" />
                   Acompanhar no Meu Perfil
                 </Link>
                 <Link
                   href="/loja"
-                  className="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition"
+                  className="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition rounded"
                 >
                   Voltar à Loja
                 </Link>
               </div>
             </div>
+
           </div>
         </div>
       </main>
@@ -347,12 +435,17 @@ function CheckoutContent() {
     setIsSubmitting(true)
 
     try {
-      // Registar pedido na base de dados central ARKNET
+      // Registar pedido completo na base de dados central ARKNET
       const newOrder = dataStore.addOrder({
         customerName: formData.name.trim(),
         customerEmail: formData.email.trim(),
         customerPhone: formData.phone.trim(),
+        customerCompany: formData.company.trim(),
+        customerNif: formData.nif.trim(),
+        customerCity: formData.city.trim(),
         customerAddress: `${formData.address.trim()} - ${formData.city}`,
+        deliveryMethod: formData.deliveryMethod,
+        paymentMethod: formData.paymentMethod,
         items: items.map((item) => ({
           productId: item.product.id,
           productName: item.product.name,
@@ -362,20 +455,10 @@ function CheckoutContent() {
         })),
         total: total,
         status: 'novo',
+        notes: formData.notes.trim(),
       })
 
-      // Guardar objeto da encomenda com métodos de pagamento
-      const fullOrder = {
-        ...newOrder,
-        customerCompany: formData.company,
-        customerNif: formData.nif,
-        customerCity: formData.city,
-        paymentMethod: formData.paymentMethod,
-        deliveryMethod: formData.deliveryMethod,
-        notes: formData.notes,
-      }
-
-      setSubmittedOrder(fullOrder)
+      setSubmittedOrder(newOrder)
       clearCart()
     } catch (err) {
       alert('Erro ao registar encomenda. Por favor, tente novamente.')

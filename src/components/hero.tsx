@@ -170,7 +170,7 @@ export default function Hero() {
                 className="flex w-full sm:w-auto"
               >
                 <Link
-                  href="#servicos"
+                  href="/servicos"
                   className="w-full sm:w-auto justify-center inline-flex items-center gap-2 border border-white/20 px-6 sm:px-8 py-4 text-sm font-semibold text-white hover:bg-white/[0.07] transition"
                 >
                   Ver Serviços
