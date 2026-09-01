@@ -32,8 +32,8 @@ function UnifiedLoginForm() {
     searchParams.get('tab') === 'registo'
       ? 'registo'
       : searchParams.get('tab') === 'recuperar'
-      ? 'recuperar'
-      : 'login'
+        ? 'recuperar'
+        : 'login'
 
   const { login: adminLogin, logout: adminLogout, user: adminUser } = useAuth()
   const {
@@ -205,13 +205,19 @@ function UnifiedLoginForm() {
     setErrorMessage('')
     setSuccessMessage('')
 
-    const res = sendRecoveryCode(recoveryEmail)
+    if (!recoveryEmail.trim()) {
+      setErrorMessage('Por favor, introduza o seu endereço de email.')
+      return
+    }
+
+    const res = sendRecoveryCode(recoveryEmail.trim())
     if (res.success && res.code) {
       setSimulatedCodeSent(res.code)
+      setRecoveryCode(res.code) // Preencher automaticamente para facilidade de teste
       setSuccessMessage(`Código de verificação enviado! Código de teste: ${res.code}`)
       setRecoveryStep(2)
     } else {
-      setErrorMessage(res.message)
+      setErrorMessage(res.message || 'Não foi possível enviar o código de verificação.')
     }
   }
 
@@ -220,19 +226,25 @@ function UnifiedLoginForm() {
     setErrorMessage('')
     setSuccessMessage('')
 
+    if (!recoveryCode.trim()) {
+      setErrorMessage('Por favor, introduza o código de verificação de 6 dígitos.')
+      return
+    }
+
     if (recoveryNewPassword.length < 6) {
       setErrorMessage('A nova palavra-passe deve conter pelo menos 6 caracteres.')
       return
     }
 
-    const res = resetPasswordWithCode(recoveryEmail, recoveryCode, recoveryNewPassword)
+    const res = resetPasswordWithCode(recoveryEmail.trim(), recoveryCode.trim(), recoveryNewPassword)
     if (res.success) {
-      setSuccessMessage('Palavra-passe alterada com sucesso! Já pode iniciar sessão.')
+      setSuccessMessage('Palavra-passe alterada com sucesso! As suas novas credenciais foram preenchidas. Clique em "Iniciar Sessão".')
       setRecoveryStep(1)
       setRecoveryCode('')
-      setRecoveryNewPassword('')
       setActiveTab('login')
-      setLoginEmail(recoveryEmail)
+      setLoginEmail(recoveryEmail.trim())
+      setLoginPassword(recoveryNewPassword)
+      setRecoveryNewPassword('')
     } else {
       setErrorMessage(res.message)
     }
@@ -241,7 +253,7 @@ function UnifiedLoginForm() {
   return (
     <main className="min-h-screen pt-24 pb-16 bg-slate-900 flex items-center justify-center px-4 sm:px-6">
       <div className="w-full max-w-lg bg-white border border-slate-200 shadow-2xl overflow-hidden">
-        
+
         {/* Top Branding Banner */}
         <div className="bg-slate-950 px-8 py-8 text-white text-center relative overflow-hidden">
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
@@ -277,11 +289,10 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${
-              activeTab === 'login'
-                ? 'border-primary text-primary bg-white shadow-xs'
-                : 'border-transparent text-slate-500 hover:text-slate-900'
-            }`}
+            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'login'
+              ? 'border-primary text-primary bg-white shadow-xs'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
           >
             Iniciar Sessão
           </button>
@@ -293,11 +304,10 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${
-              activeTab === 'registo'
-                ? 'border-secondary text-secondary bg-white shadow-xs'
-                : 'border-transparent text-slate-500 hover:text-slate-900'
-            }`}
+            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'registo'
+              ? 'border-secondary text-secondary bg-white shadow-xs'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
           >
             Criar Conta
           </button>
@@ -309,11 +319,10 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${
-              activeTab === 'recuperar'
-                ? 'border-slate-800 text-slate-900 bg-white shadow-xs'
-                : 'border-transparent text-slate-500 hover:text-slate-900'
-            }`}
+            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'recuperar'
+              ? 'border-slate-800 text-slate-900 bg-white shadow-xs'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+              }`}
           >
             Recuperar Senha
           </button>
@@ -477,6 +486,8 @@ function UnifiedLoginForm() {
                 <span>{isLoading ? 'A autenticar...' : 'Entrar no Sistema'}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
+
+
             </form>
           )}
 
@@ -734,8 +745,8 @@ function UnifiedLoginForm() {
             </div>
           )}
         </div>
-      </div>
-    </main>
+      </div >
+    </main >
   )
 }
 

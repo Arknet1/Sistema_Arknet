@@ -45,12 +45,6 @@ export default function PorqueNosEscolher() {
           className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <motion.p
-              variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
-              className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5"
-            >
-              — Por que escolher a ARKNET
-            </motion.p>
             <div className="overflow-hidden">
               <motion.h2
                 variants={{

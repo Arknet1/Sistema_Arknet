@@ -158,9 +158,6 @@ export default function ServicosListingClient() {
         {/* Header do Catálogo */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-slate-200 pb-8">
           <div>
-            <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-2">
-              — Catálogo Especializado
-            </p>
             <h2 className="text-3xl font-extrabold text-slate-900">
               Áreas de Atuação Técnica
             </h2>
@@ -259,9 +256,6 @@ export default function ServicosListingClient() {
       <section className="py-20 bg-slate-900 text-white border-y border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-secondary uppercase tracking-[0.25em] block mb-2">
-              — Metodologia & Transparência
-            </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Como Trabalhamos
             </h2>
@@ -308,9 +302,6 @@ export default function ServicosListingClient() {
       <section className="py-20 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-2">
-              — Prova Social & Experiência
-            </p>
             <h2 className="text-3xl font-extrabold text-slate-900">
               O que dizem os nossos clientes de serviços
             </h2>

@@ -5,6 +5,7 @@
  */
 
 import { mockProducts, mockCategories, mockContactInfo, mockServices, mockTrainingCourses, mockEventsInfo, mockCareersInfo, mockTestimonials, mockPartners, mockSocialProfiles, mockWhyChooseUs } from './mock-data'
+import { hashPasswordSync } from './security-utils'
 
 // ==========================================
 // 1. TIPOS DE DADOS
@@ -16,6 +17,7 @@ export interface AdminUser {
   id: string
   name: string
   email: string
+  password?: string
   passwordHash?: string // Simulado
   role: UserRole
   avatar?: string
@@ -49,6 +51,33 @@ export interface ProductCategory {
 
 export type OrderStatus = 'novo' | 'em_contacto' | 'fechado' | 'cancelado'
 
+export type WhatsAppBotStatus =
+  | 'bot_active'
+  | 'waiting_receipt'
+  | 'receipt_received'
+  | 'needs_human'
+  | 'confirmed'
+
+export type WhatsAppMessageSender = 'bot' | 'customer' | 'agent'
+
+export interface WhatsAppMessageMedia {
+  url: string
+  type: 'image' | 'document' | 'audio' | 'video'
+  filename?: string
+  mimeType?: string
+  fileSize?: number
+}
+
+export interface WhatsAppChatMessage {
+  id: string
+  sender: WhatsAppMessageSender
+  senderName?: string
+  text: string
+  media?: WhatsAppMessageMedia
+  timestamp: string
+  status?: 'sent' | 'delivered' | 'read'
+}
+
 export interface StoreOrderItem {
   productId: string
   productName: string
@@ -73,6 +102,12 @@ export interface StoreOrder {
   total: number | null
   status: OrderStatus
   notes?: string
+  whatsappPhone?: string
+  botStatus?: WhatsAppBotStatus
+  receiptUrl?: string
+  receiptFilename?: string
+  receiptReceivedAt?: string
+  conversationHistory?: WhatsAppChatMessage[]
   confirmedAt?: string
   createdAt: string
   updatedAt: string
@@ -193,6 +228,48 @@ export interface PartnerItem {
   updatedAt: string
 }
 
+export interface ProjectPartnerRef {
+  partnerId: string
+  partnerName: string
+  partnerLogo?: string
+  partnerWebsite?: string
+  role?: string // ex: "Fornecimento de Equipamentos", "Consultoria Técnica Conjunta", "Integração de Software"
+}
+
+export interface ProjectResultHighlight {
+  label: string // ex: "Postos Certificados", "SLA Garantido", "Redução de Latência"
+  value: string // ex: "+350", "99.99%", "-45%"
+}
+
+export interface ProjectItem {
+  id: string
+  title: string
+  slug: string
+  clientName: string
+  category: string // 'Internet Empresarial' | 'Cibersegurança' | 'Computação em Nuvem' | 'CFTV e Segurança' | 'Cabeamento Estruturado' | 'Consultoria & TI'
+  partnershipType: string // 'Projeto para Cliente' | 'Colaboração Técnica' | 'Patrocínio' | 'Evento Conjunto' | 'Fornecimento de Equipamento'
+  status: 'concluido' | 'em_curso'
+  tagline: string
+  description: string
+  challenge?: string
+  solution?: string
+  image: string
+  gallery?: string[]
+  partners?: ProjectPartnerRef[]
+  results?: ProjectResultHighlight[]
+  featured?: boolean
+  completedAt?: string
+  readTime?: string
+  newsCategory?: string
+  quote?: {
+    text: string
+    author: string
+    role: string
+  }
+  createdAt: string
+  updatedAt: string
+}
+
 export interface CompanySettings {
   id: string
   companyName: string
@@ -232,6 +309,7 @@ export interface CustomerAccount {
   name: string
   email: string
   password?: string
+  passwordHash?: string
   phone: string
   company?: string
   nif?: string
@@ -259,6 +337,7 @@ export interface ArknetDatabase {
   applications: JobApplication[]
   testimonials: TestimonialItem[]
   partners: PartnerItem[]
+  projects: ProjectItem[]
   settings: CompanySettings
   activities: ActivityLog[]
   version: number
@@ -273,6 +352,8 @@ const DEFAULT_USERS: AdminUser[] = [
     id: 'user-admin',
     name: 'Administrador ARKNET',
     email: 'admin@arknet.co.ao',
+    password: 'Admin123!',
+    passwordHash: hashPasswordSync('Admin123!'),
     role: 'admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     status: 'active',
@@ -283,6 +364,8 @@ const DEFAULT_USERS: AdminUser[] = [
     id: 'user-editor',
     name: 'Editor de Conteúdo',
     email: 'editor@arknet.co.ao',
+    password: 'Admin123!',
+    passwordHash: hashPasswordSync('Admin123!'),
     role: 'editor',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
     status: 'active',
@@ -425,6 +508,7 @@ const DEFAULT_ORDERS: StoreOrder[] = [
     customerName: 'Afonso Mário Ribeiro',
     customerEmail: 'afonso.mario@empresa.ao',
     customerPhone: '+244 923 111 222',
+    whatsappPhone: '244923111222',
     customerAddress: 'Av. 4 de Fevereiro, Luanda',
     items: [
       {
@@ -440,13 +524,52 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         price: DEFAULT_PRODUCTS[1]?.price ?? 120000,
         quantity: 1,
         image: DEFAULT_PRODUCTS[1]?.image,
-      }
+      },
     ],
     total: 210000,
-    status: 'novo',
-    notes: 'Solicitou entrega urgente para o escritório central.',
+    status: 'em_contacto',
+    botStatus: 'receipt_received',
+    receiptUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80',
+    receiptFilename: 'comprovativo_mcx_afonso.jpg',
+    receiptReceivedAt: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
+    notes: 'Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.',
+    conversationHistory: [
+      {
+        id: 'msg-1',
+        sender: 'customer',
+        senderName: 'Afonso Mário',
+        text: 'Olá ARKNET! Acabei de registar o pedido *PED-2026-0042* no valor de *210.000,00 Kz* na loja online.',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
+      },
+      {
+        id: 'msg-2',
+        sender: 'bot',
+        senderName: 'ARKNET Bot',
+        text: 'Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 2 + 1000).toISOString(),
+      },
+      {
+        id: 'msg-3',
+        sender: 'customer',
+        senderName: 'Afonso Mário',
+        text: 'Segue o comprovativo da transferência via Multicaixa Express.',
+        media: {
+          url: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80',
+          type: 'image',
+          filename: 'comprovativo_mcx_afonso.jpg',
+        },
+        timestamp: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
+      },
+      {
+        id: 'msg-4',
+        sender: 'bot',
+        senderName: 'ARKNET Bot',
+        text: '✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 1 + 2000).toISOString(),
+      },
+    ],
     createdAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
+    updatedAt: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
   },
   {
     id: 'order-2',
@@ -454,6 +577,7 @@ const DEFAULT_ORDERS: StoreOrder[] = [
     customerName: 'Beatriz Costa',
     customerEmail: 'beatriz.costa@techhub.ao',
     customerPhone: '+244 917 888 999',
+    whatsappPhone: '244917888999',
     customerAddress: 'Vila Alice, Luanda',
     items: [
       {
@@ -462,14 +586,79 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         price: DEFAULT_PRODUCTS[2]?.price ?? 85000,
         quantity: 1,
         image: DEFAULT_PRODUCTS[2]?.image,
-      }
+      },
     ],
     total: 85000,
     status: 'fechado',
-    notes: 'Pagamento confirmado e material entregue.',
+    botStatus: 'confirmed',
+    notes: 'Pagamento confirmado e fatura emitida via WhatsApp.',
+    confirmedAt: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
+    conversationHistory: [
+      {
+        id: 'msg-201',
+        sender: 'customer',
+        senderName: 'Beatriz Costa',
+        text: 'Olá ARKNET! Pedido #PED-2026-0041',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
+      },
+      {
+        id: 'msg-202',
+        sender: 'bot',
+        senderName: 'ARKNET Bot',
+        text: 'Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 12 + 1000).toISOString(),
+      },
+      {
+        id: 'msg-203',
+        sender: 'bot',
+        senderName: 'ARKNET Bot',
+        text: '🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
+      },
+    ],
     createdAt: new Date(Date.now() - 3600 * 1000 * 30).toISOString(),
     updatedAt: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
-  }
+  },
+  {
+    id: 'order-3',
+    orderNumber: 'PED-2026-0040',
+    customerName: 'Dr. Valdemar Pascoal',
+    customerEmail: 'v.pascoal@clinicasaude.co.ao',
+    customerPhone: '+244 944 555 666',
+    whatsappPhone: '244944555666',
+    customerAddress: 'Talatona, Luanda',
+    items: [
+      {
+        productId: DEFAULT_PRODUCTS[0]?.id || 'p-1',
+        productName: DEFAULT_PRODUCTS[0]?.name || 'Equipamento de Rede',
+        price: DEFAULT_PRODUCTS[0]?.price ?? 45000,
+        quantity: 3,
+        image: DEFAULT_PRODUCTS[0]?.image,
+      },
+    ],
+    total: 135000,
+    status: 'em_contacto',
+    botStatus: 'needs_human',
+    notes: 'Cliente perguntou se há desconto para faturamento a 30 dias. Requer atendimento humano.',
+    conversationHistory: [
+      {
+        id: 'msg-301',
+        sender: 'customer',
+        senderName: 'Dr. Valdemar Pascoal',
+        text: 'Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 3).toISOString(),
+      },
+      {
+        id: 'msg-302',
+        sender: 'bot',
+        senderName: 'ARKNET Bot',
+        text: 'Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.',
+        timestamp: new Date(Date.now() - 3600 * 1000 * 3 + 1000).toISOString(),
+      },
+    ],
+    createdAt: new Date(Date.now() - 3600 * 1000 * 15).toISOString(),
+    updatedAt: new Date(Date.now() - 3600 * 1000 * 3).toISOString(),
+  },
 ]
 
 const DEFAULT_SUBSCRIBERS: NewsletterSubscriber[] = [
@@ -670,6 +859,193 @@ const DEFAULT_PARTNERS: PartnerItem[] = mockPartners.map((p, i) => ({
   updatedAt: p.updatedAt,
 }))
 
+const DEFAULT_PROJECTS: ProjectItem[] = [
+  {
+    id: 'proj-1',
+    title: 'Modernização de Rede & Data Center — Tribunal Supremo',
+    slug: 'infraestrutura-rede-tribunal-supremo',
+    clientName: 'Tribunal Supremo de Angola',
+    category: 'Cabeamento Estruturado',
+    partnershipType: 'Projeto para Cliente',
+    status: 'concluido',
+    tagline: 'Infraestrutura de rede estruturada Cat6A de alta densidade e interligação de salas de audiência.',
+    description: 'Projeto de modernização integral da infraestrutura tecnológica do Tribunal Supremo em Luanda, contemplando a instalação de rede de dados de alta velocidade, reorganização dos bastidores principais e garantia de conectividade estável e cifrada para os sistemas judiciais.',
+    challenge: 'O Tribunal operava com infraestrutura legada e frequentes oscilações de rede que afetavam o andamento das sessões e a consulta célere aos autos de processos judiciais de alta relevância.',
+    solution: 'A ARKNET, em parceria com fornecedores de hardware e segurança, executou a reformulação total do cabeamento estruturado de 4 pisos, implantou switches gerenciáveis em stack com redundância de fibra e certificou cada ponto de rede sob rigorosas normas internacionais.',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-5', partnerName: 'Tribunal Supremo', role: 'Instituição Beneficiária / Cliente', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-11', partnerName: 'Neptec', role: 'Fornecimento de Bastidores & Equipamentos de Rede', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-13', partnerName: 'Power House', role: 'Sistemas de Energia Ininterrupta (UPS)', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Pontos Certificados', value: '+350' },
+      { label: 'Disponibilidade SLA', value: '99.99%' },
+      { label: 'Velocidade Backbone', value: '10 Gbps' },
+    ],
+    featured: true,
+    completedAt: '2025',
+    createdAt: '2026-01-05T00:00:00Z',
+    updatedAt: '2026-01-05T00:00:00Z',
+  },
+  {
+    id: 'proj-2',
+    title: 'Cibersegurança e Proteção Perimetral — Mota-Engil',
+    slug: 'ciberseguranca-mota-engil',
+    clientName: 'Mota-Engil Angola',
+    category: 'Cibersegurança',
+    partnershipType: 'Colaboração Técnica',
+    status: 'concluido',
+    tagline: 'Implementação de Firewalls de Próxima Geração (NGFW), VPNs corporativas e monitorização 24/7.',
+    description: 'Arquitetura e implementação de segurança perimetral para interligar os estaleiros de construção civil e a sede corporativa em Luanda com túneis cifrados, proteção anti-malware e políticas rigorosas de acesso.',
+    challenge: 'Com dezenas de estaleiros remotos distribuídos por várias províncias de Angola, a empresa necessitava de blindar a comunicação entre estaleiros e servidores centrais contra ataques de ransomware e acessos indevidos.',
+    solution: 'Implementação de cluster de firewalls UTM redundantes, autenticação multifator para colaboradores remotos e monitorização contínua com alertas automáticos de intrusão.',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-6', partnerName: 'Mota-Engil', role: 'Cliente Principal / Empreitada', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-10', partnerName: 'Vernon', role: 'Consultoria de Políticas de Acesso e Auditoria', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Estaleiros Interligados', value: '18' },
+      { label: 'Ameaças Bloqueadas', value: '100%' },
+      { label: 'Tempo de Resposta', value: '< 5 min' },
+    ],
+    featured: true,
+    completedAt: '2025',
+    createdAt: '2026-01-10T00:00:00Z',
+    updatedAt: '2026-01-10T00:00:00Z',
+  },
+  {
+    id: 'proj-3',
+    title: 'Link Dedicado para Transmissão HD — Record TV Africa',
+    slug: 'internet-dedicada-record-tv',
+    clientName: 'Record TV Africa',
+    category: 'Internet Empresarial',
+    partnershipType: 'Projeto para Cliente',
+    status: 'concluido',
+    tagline: 'Internet 100% simétrica de ultra-baixa latência para transmissão de sinal televisivo e streaming.',
+    description: 'Fornecimento e gestão de conectividade empresarial de alta capacidade com fibra óptica dedicada e redundância por rádio digital para suporte às emissões em direto e envio de ficheiros pesados de áudio e vídeo.',
+    challenge: 'As transmissões ao vivo e a subida de conteúdos para satélite exigiam largura de banda garantida sem qualquer oscilação de jitter ou perda de pacotes em horários de pico.',
+    solution: 'Desenho de topologia com anel de fibra óptica redundante, endereço IP estático dedicado e monitorização de tráfego 24 horas por dia com engenharia de suporte dedicada.',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-7', partnerName: 'Record TV Africa', role: 'Emissora de Televisão / Cliente', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-13', partnerName: 'Power House', role: 'Infraestrutura de Energia e Nobreaks', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Largura de Banda', value: '500 Mbps' },
+      { label: 'Disponibilidade Uptime', value: '99.98%' },
+      { label: 'Perda de Pacotes', value: '0%' },
+    ],
+    featured: true,
+    completedAt: '2026',
+    createdAt: '2026-01-15T00:00:00Z',
+    updatedAt: '2026-01-15T00:00:00Z',
+  },
+  {
+    id: 'proj-4',
+    title: 'CFTV Inteligente & Vigilância — Estação Central Macon',
+    slug: 'cftv-vigilancia-macon',
+    clientName: 'Macon Transportes',
+    category: 'CFTV e Segurança',
+    partnershipType: 'Projeto para Cliente',
+    status: 'concluido',
+    tagline: 'Vigilância eletrónica de alta definição com mais de 120 câmaras IP e gravação centralizada.',
+    description: 'Instalação de circuito fechado de televisão para monitorização de plataformas de embarque, bilheteiras, armazéns de encomendas e parque de viaturas no principal terminal rodoviário da Macon em Luanda.',
+    challenge: 'Necessidade de controlar o fluxo diário de milhares de passageiros, prevenir perdas de bagagens e otimizar a segurança patrimonial e operacional em tempo real.',
+    solution: 'Implementação de câmaras dome antivandalismo e câmaras PTZ de longo alcance com análise inteligente de vídeo, visão noturna e central de controlo operacional.',
+    image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-4', partnerName: 'Macon', role: 'Operador Rodoviário / Cliente', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-14', partnerName: 'A Mundial Seguros', role: 'Consultoria de Salvaguarda de Risco', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Câmaras Instaladas', value: '128' },
+      { label: 'Área Coberta', value: '25.000 m²' },
+      { label: 'Redução de Ocorrências', value: '-65%' },
+    ],
+    featured: false,
+    completedAt: '2025',
+    createdAt: '2026-01-20T00:00:00Z',
+    updatedAt: '2026-01-20T00:00:00Z',
+  },
+  {
+    id: 'proj-5',
+    title: 'Migração para Cloud e DRP — ANPG',
+    slug: 'cloud-disaster-recovery-anpg',
+    clientName: 'Agência Nacional de Petróleo, Gás e Biocombustíveis (ANPG)',
+    category: 'Computação em Nuvem',
+    partnershipType: 'Colaboração Técnica',
+    status: 'em_curso',
+    tagline: 'Arquitetura híbrida na nuvem com planos de Disaster Recovery (DRP) e replicação de dados.',
+    description: 'Projeto estratégico de transição dos sistemas de dados geológicos e cadastros de concessões petrolíferas para ambiente cloud de alta disponibilidade com backups encriptados.',
+    challenge: 'Garantir conformidade regulatória rigorosa do sector de hidrocarbonetos, preservando dados críticos de exploração com disponibilidade ininterrupta mesmo em caso de falhas físicas no centro de dados local.',
+    solution: 'Implementação de infraestrutura híbrida com replicação síncrona de base de dados, encriptação AES-256 e testes periódicos automatizados de failover.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-8', partnerName: 'ANPG', role: 'Entidade Reguladora / Cliente', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-11', partnerName: 'Neptec', role: 'Infraestrutura de Virtualização & Servidores', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Dados Migrados', value: '+80 TB' },
+      { label: 'RPO (Ponto Recuperação)', value: '< 15 seg' },
+      { label: 'RTO (Tempo Retoma)', value: '< 10 min' },
+    ],
+    featured: true,
+    completedAt: 'Em Curso',
+    createdAt: '2026-02-01T00:00:00Z',
+    updatedAt: '2026-02-01T00:00:00Z',
+  },
+  {
+    id: 'proj-6',
+    title: 'Interligação de Agências & Bilhética — Huambo Expresso',
+    slug: 'conectividade-huambo-expresso',
+    clientName: 'Huambo Expresso',
+    category: 'Consultoria & TI',
+    partnershipType: 'Colaboração Técnica',
+    status: 'em_curso',
+    tagline: 'Rede WAN corporativa interligando agências de Luanda, Huambo e Benguela.',
+    description: 'Interligação de agências de bilhética em tempo real através de VPNs multiponto e fornecimento de infraestrutura de conectividade de dados para telemetria de autocarros.',
+    challenge: 'Agências isoladas com vendas offline que causavam duplicação de lugares vendidos e falta de visão centralizada de receitas em tempo real.',
+    solution: 'Estruturação de rede SD-WAN com failover automático 4G e sincronização de bilhética em microssegundos.',
+    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80',
+    ],
+    partners: [
+      { partnerId: 'partner-9', partnerName: 'Huambo Expresso', role: 'Empresa de Transporte / Cliente', partnerWebsite: 'https://arknet.co.ao' },
+      { partnerId: 'partner-10', partnerName: 'Vernon', role: 'Integração de Software de Bilhética', partnerWebsite: 'https://arknet.co.ao' },
+    ],
+    results: [
+      { label: 'Agências Conectadas', value: '12' },
+      { label: 'Duplicação de Vendas', value: '0%' },
+      { label: 'Sincronização', value: 'Tempo Real' },
+    ],
+    featured: false,
+    completedAt: 'Em Curso',
+    createdAt: '2026-02-10T00:00:00Z',
+    updatedAt: '2026-02-10T00:00:00Z',
+  },
+]
+
 const DEFAULT_SETTINGS: CompanySettings = {
   id: 'settings-global',
   companyName: 'ARKNET — Soluções Tecnológicas & Telecomunicações',
@@ -733,6 +1109,7 @@ const INITIAL_DB: ArknetDatabase = {
   applications: DEFAULT_APPLICATIONS,
   testimonials: DEFAULT_TESTIMONIALS,
   partners: DEFAULT_PARTNERS,
+  projects: DEFAULT_PROJECTS,
   settings: DEFAULT_SETTINGS,
   activities: DEFAULT_ACTIVITIES,
   version: 1,
@@ -813,11 +1190,12 @@ class DataStoreManager {
           !parsed.partners.some((p: any) => p.logo?.includes('picsum.photos') || p.name === 'Angola Telecom' || p.name === 'Unitel Empresas')
             ? parsed.partners
             : INITIAL_DB.partners,
+        projects: parsed.projects?.length ? parsed.projects : INITIAL_DB.projects,
         settings: parsed.settings || INITIAL_DB.settings,
         activities: parsed.activities || INITIAL_DB.activities,
       }
     } catch (err) {
-      console.error('Error loading DB from storage, fallback to initial', err)
+      console.error('Failed to load DB from LocalStorage', err)
       return INITIAL_DB
     }
   }
@@ -1056,6 +1434,184 @@ class DataStoreManager {
       { action: `Eliminou pedido #${id}`, module: 'pedidos' }
     )
     return true
+  }
+
+  public findOrderByNumberOrPhone(search: string): StoreOrder | null {
+    const cleanSearch = search.trim().toLowerCase().replace(/[^a-z0-9]/g, '')
+    if (!cleanSearch) return null
+
+    // 1. Procurar por orderNumber ou ID
+    const byNumber = this.db.orders.find((o) => {
+      const cleanOrderNum = o.orderNumber.toLowerCase().replace(/[^a-z0-9]/g, '')
+      const cleanId = o.id.toLowerCase().replace(/[^a-z0-9]/g, '')
+      return cleanOrderNum === cleanSearch || cleanId === cleanSearch || cleanOrderNum.includes(cleanSearch)
+    })
+    if (byNumber) return byNumber
+
+    // 2. Procurar por telefone (cliente ou WhatsApp)
+    const phoneDigits = search.replace(/\D/g, '')
+    if (phoneDigits.length >= 7) {
+      const byPhone = this.db.orders.find((o) => {
+        const orderPhone = (o.customerPhone || '').replace(/\D/g, '')
+        const waPhone = (o.whatsappPhone || '').replace(/\D/g, '')
+        return (
+          (orderPhone && (orderPhone.endsWith(phoneDigits) || phoneDigits.endsWith(orderPhone))) ||
+          (waPhone && (waPhone.endsWith(phoneDigits) || phoneDigits.endsWith(waPhone)))
+        )
+      })
+      if (byPhone) return byPhone
+    }
+
+    return null
+  }
+
+  public addWhatsAppMessage(
+    orderId: string,
+    message: {
+      sender: WhatsAppMessageSender
+      senderName?: string
+      text: string
+      media?: WhatsAppMessageMedia
+      timestamp?: string
+      status?: 'sent' | 'delivered' | 'read'
+    }
+  ): StoreOrder | null {
+    let updatedItem: StoreOrder | null = null
+    const newMsg: WhatsAppChatMessage = {
+      id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      sender: message.sender,
+      senderName: message.senderName,
+      text: message.text,
+      media: message.media,
+      timestamp: message.timestamp || new Date().toISOString(),
+      status: message.status || 'sent',
+    }
+
+    this.mutate(
+      (db) => {
+        const orders = db.orders.map((o) => {
+          if (o.id === orderId) {
+            const history = o.conversationHistory ? [...o.conversationHistory, newMsg] : [newMsg]
+            updatedItem = {
+              ...o,
+              conversationHistory: history,
+              updatedAt: new Date().toISOString(),
+            }
+            return updatedItem
+          }
+          return o
+        })
+        return { ...db, orders }
+      },
+      {
+        action: `Mensagem WhatsApp (${message.sender}) no pedido #${orderId}`,
+        module: 'pedidos',
+      }
+    )
+    return updatedItem
+  }
+
+  public updateOrderReceipt(
+    orderId: string,
+    receipt: { url: string; filename?: string; mimeType?: string }
+  ): StoreOrder | null {
+    let updatedItem: StoreOrder | null = null
+    this.mutate(
+      (db) => {
+        const orders = db.orders.map((o) => {
+          if (o.id === orderId) {
+            updatedItem = {
+              ...o,
+              receiptUrl: receipt.url,
+              receiptFilename: receipt.filename || 'comprovativo.jpg',
+              receiptReceivedAt: new Date().toISOString(),
+              botStatus: 'receipt_received',
+              status: 'em_contacto',
+              updatedAt: new Date().toISOString(),
+            }
+            return updatedItem
+          }
+          return o
+        })
+        return { ...db, orders }
+      },
+      {
+        action: `Comprovativo de pagamento recebido para pedido #${orderId}`,
+        module: 'pedidos',
+      }
+    )
+    return updatedItem
+  }
+
+  public updateOrderBotStatus(
+    orderId: string,
+    botStatus: WhatsAppBotStatus,
+    notes?: string
+  ): StoreOrder | null {
+    let updatedItem: StoreOrder | null = null
+    this.mutate(
+      (db) => {
+        const orders = db.orders.map((o) => {
+          if (o.id === orderId) {
+            updatedItem = {
+              ...o,
+              botStatus,
+              notes: notes !== undefined ? notes : o.notes,
+              updatedAt: new Date().toISOString(),
+            }
+            return updatedItem
+          }
+          return o
+        })
+        return { ...db, orders }
+      },
+      {
+        action: `Estado do bot alterado para "${botStatus}" no pedido #${orderId}`,
+        module: 'pedidos',
+      }
+    )
+    return updatedItem
+  }
+
+  public confirmOrderPayment(orderId: string, agentName = 'Equipa ARKNET'): StoreOrder | null {
+    let updatedItem: StoreOrder | null = null
+    const now = new Date().toISOString()
+    const confirmationMsg: WhatsAppChatMessage = {
+      id: `msg-${Date.now()}-confirmed`,
+      sender: 'bot',
+      senderName: 'ARKNET Bot',
+      text: `🎉 *Pagamento Validado com Sucesso!*\n\nO seu pedido foi conferido no sistema e encontra-se agora em processamento logístico.\n\n📄 *Fatura Oficial:* A fatura comercial já se encontra emitida e disponível para descarregamento na sua Área de Cliente ARKNET.\n\n🚚 *Expedição:* A nossa equipa de logística/estafeta entrará em contacto consigo nas próximas horas para agendar o horário e local da entrega/levantamento (prazo: 24h a 48h úteis).\n\nAgradecemos a sua preferência e confiança na ARKNET!`,
+      timestamp: now,
+      status: 'sent',
+    }
+
+    this.mutate(
+      (db) => {
+        const orders = db.orders.map((o) => {
+          if (o.id === orderId) {
+            const history = o.conversationHistory
+              ? [...o.conversationHistory, confirmationMsg]
+              : [confirmationMsg]
+            updatedItem = {
+              ...o,
+              status: 'fechado',
+              botStatus: 'confirmed',
+              confirmedAt: now,
+              conversationHistory: history,
+              updatedAt: now,
+            }
+            return updatedItem
+          }
+          return o
+        })
+        return { ...db, orders }
+      },
+      {
+        action: `Pagamento aprovado com 1 clique no pedido #${orderId} por ${agentName}`,
+        module: 'pedidos',
+      }
+    )
+    return updatedItem
   }
 
   // ==========================================
@@ -1498,8 +2054,13 @@ class DataStoreManager {
     }
 
     // Validação de senha: se o utilizador forneceu senha e o cliente tem senha registada
-    if (password && customer.password) {
-      if (customer.password !== password && customer.password !== 'Password123!') {
+    if (password && (customer.password || customer.passwordHash)) {
+      const isPasswordValid =
+        customer.password === password ||
+        (customer.passwordHash && customer.passwordHash === password) ||
+        (customer.password && password === customer.password)
+
+      if (!isPasswordValid) {
         return { success: false, message: 'Palavra-passe incorreta. Verifique e tente novamente.' }
       }
     }
@@ -1521,7 +2082,11 @@ class DataStoreManager {
       return { success: false, message: 'Não encontramos nenhuma conta com esse endereço de email.' }
     }
 
-    this.updateCustomer(customer.id, { password: newPassword, updatedAt: new Date().toISOString() })
+    this.updateCustomer(customer.id, {
+      password: newPassword,
+      passwordHash: hashPasswordSync(newPassword),
+      updatedAt: new Date().toISOString(),
+    })
     this.mutate(
       (db) => db,
       { action: `Redefiniu palavra-passe do cliente "${customer.name}"`, module: 'clientes' }
@@ -1569,6 +2134,67 @@ class DataStoreManager {
   public getCustomerLeads(customerEmail: string): ServiceLead[] {
     const cleanEmail = customerEmail.toLowerCase().trim()
     return (this.db.leads || []).filter((l) => l.email.toLowerCase().trim() === cleanEmail)
+  }
+
+  // ==========================================
+  // OPERAÇÕES: PROJETOS / PORTFÓLIO
+  // ==========================================
+  public getProjects(): ProjectItem[] {
+    return this.db.projects || []
+  }
+
+  public getProjectBySlug(slug: string): ProjectItem | null {
+    const cleanSlug = slug.toLowerCase().trim()
+    return (this.db.projects || []).find((p) => p.slug.toLowerCase().trim() === cleanSlug) || null
+  }
+
+  public addProject(project: Omit<ProjectItem, 'id' | 'createdAt' | 'updatedAt'>): ProjectItem {
+    const slug =
+      project.slug ||
+      project.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+    const newProject: ProjectItem = {
+      ...project,
+      id: `proj-${Date.now()}`,
+      slug,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+    this.mutate(
+      (db) => ({ ...db, projects: [newProject, ...(db.projects || [])] }),
+      { action: `Criou novo projeto "${newProject.title}"`, module: 'projetos' }
+    )
+    return newProject
+  }
+
+  public updateProject(id: string, updates: Partial<ProjectItem>): ProjectItem | null {
+    let updatedItem: ProjectItem | null = null
+    this.mutate(
+      (db) => {
+        const projects = (db.projects || []).map((p) => {
+          if (p.id === id) {
+            updatedItem = { ...p, ...updates, updatedAt: new Date().toISOString() }
+            return updatedItem
+          }
+          return p
+        })
+        return { ...db, projects }
+      },
+      { action: `Atualizou projeto "${updates.title || id}"`, module: 'projetos' }
+    )
+    return updatedItem
+  }
+
+  public deleteProject(id: string): boolean {
+    const proj = (this.db.projects || []).find((p) => p.id === id)
+    if (!proj) return false
+    this.mutate(
+      (db) => ({ ...db, projects: (db.projects || []).filter((p) => p.id !== id) }),
+      { action: `Eliminou projeto "${proj.title}"`, module: 'projetos' }
+    )
+    return true
   }
 
   // ==========================================

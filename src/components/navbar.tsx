@@ -82,6 +82,7 @@ export default function Navbar() {
     { label: 'Início', href: '/' },
     { label: 'Empresa', href: '/empresa' },
     { label: 'Serviços', href: '/servicos' },
+    { label: 'Projetos', href: '/projetos' },
     { label: 'Loja', href: '/loja' },
     { label: 'Eventos', href: '/eventos' },
   ]

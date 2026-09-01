@@ -22,6 +22,7 @@ import {
   Shield,
   ShieldAlert,
   Sparkles,
+  Layers,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore } from '@/lib/data-store'
@@ -127,6 +128,11 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
     {
       title: 'Conteúdos Dinâmicos',
       items: [
+        {
+          label: 'Projetos & Portfólio',
+          href: '/admin/projetos',
+          icon: Layers,
+        },
         {
           label: 'Eventos & Workshops',
           href: '/admin/eventos',

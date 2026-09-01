@@ -192,13 +192,13 @@ function CheckoutContent() {
                 </div>
                 <div className="flex-1">
                   <span className="text-[11px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-200/80 px-2.5 py-0.5 rounded inline-block mb-1.5">
-                    Passo Obrigatório para Concluir a Compra
+                    Assistente Automático de Pagamentos
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-snug">
-                    Finalize o Pagamento no WhatsApp com a nossa equipa
+                    Finalize no WhatsApp com o Assistente ARKNET
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-700 mt-2 leading-relaxed">
-                    O seu pedido está registado no sistema. Para confirmar o stock e validar o pagamento, clique no botão abaixo para contactar o nosso comercial no WhatsApp e enviar o comprovativo.
+                    O seu pedido <strong className="font-mono text-slate-900">#{submittedOrder.orderNumber}</strong> foi registado. Ao clicar no botão abaixo, o nosso Bot de WhatsApp enviará instantaneamente o resumo, as coordenadas bancárias e receberá o seu comprovativo para aprovação rápida.
                   </p>
 
                   <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -209,7 +209,7 @@ function CheckoutContent() {
                       className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded shadow-md transition transform hover:-translate-y-0.5"
                     >
                       <MessageCircle className="h-5 w-5" />
-                      <span>Finalizar Pagamento no WhatsApp</span>
+                      <span>Abrir no WhatsApp & Enviar Comprovativo</span>
                       <ArrowRight className="h-4 w-4" />
                     </a>
 
@@ -440,6 +440,8 @@ function CheckoutContent() {
         customerName: formData.name.trim(),
         customerEmail: formData.email.trim(),
         customerPhone: formData.phone.trim(),
+        whatsappPhone: formData.phone.trim().replace(/\D/g, ''),
+        botStatus: 'bot_active',
         customerCompany: formData.company.trim(),
         customerNif: formData.nif.trim(),
         customerCity: formData.city.trim(),

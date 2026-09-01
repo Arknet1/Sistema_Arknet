@@ -120,9 +120,6 @@ function QuoteRequestInner() {
           viewport={{ once: true }}
           className="mb-14"
         >
-          <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5">
-            — Solicitar Serviço
-          </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
               Precisa de um serviço?

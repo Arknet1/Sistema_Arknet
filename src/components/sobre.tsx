@@ -70,13 +70,6 @@ export default function Sobre() {
             }}
             className="md:col-span-7 order-1 md:order-2"
           >
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
-              className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5"
-            >
-              — Sobre a ARKNET
-            </motion.p>
-
             <div className="overflow-hidden">
               <motion.h2
                 variants={{

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { dataStore, CustomerAccount } from './data-store'
+import { sanitizeInput, validatePasswordStrength, verifyPassword, hashPasswordSync } from './security-utils'
 
 export interface UserSessionDevice {
   id: string
@@ -43,7 +44,6 @@ interface CustomerAuthContextType {
 const CustomerAuthContext = createContext<CustomerAuthContextType | undefined>(undefined)
 
 const CUSTOMER_SESSION_KEY = 'arknet_customer_session_v1'
-const FAILED_ATTEMPTS_KEY = 'arknet_failed_attempts_v1'
 
 export function CustomerAuthProvider({ children }: { children: React.ReactNode }) {
   const [customer, setCustomer] = useState<CustomerAccount | null>(null)
@@ -59,7 +59,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   const [sessions, setSessions] = useState<UserSessionDevice[]>([
     {
       id: 'sess-current',
-      browser: 'Google Chrome / Modern Browser',
+      browser: 'Google Chrome / Navegador Seguro',
       os: 'Windows 11 / Desktop',
       ip: '197.234.219.45 (Luanda, AO)',
       lastActive: 'Agora (Sessão Atual)',
@@ -157,7 +157,10 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
         }
       }
 
-      const res = dataStore.authenticateCustomer(email, password)
+      const cleanEmail = sanitizeInput(email).toLowerCase().trim()
+      const cleanPassword = password ? password.trim() : ''
+
+      const res = dataStore.authenticateCustomer(cleanEmail, cleanPassword)
       if (!res.success || !res.customer) {
         const nextAttempts = failedAttempts + 1
         setFailedAttempts(nextAttempts)
@@ -171,7 +174,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
         }
         return {
           success: false,
-          message: `${res.message} (${5 - nextAttempts} tentativas restantes antes do bloqueio temporário)`,
+          message: `${res.message} (${5 - nextAttempts} tentativas restantes antes do bloqueio)`,
         }
       }
 
@@ -199,7 +202,34 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       address?: string
       city?: string
     }) => {
-      const res = dataStore.registerCustomer(data)
+      const cleanName = sanitizeInput(data.name)
+      const cleanEmail = sanitizeInput(data.email).toLowerCase().trim()
+      const cleanPhone = sanitizeInput(data.phone)
+      const cleanPassword = data.password ? data.password.trim() : ''
+
+      // Validação de força de palavra-passe se fornecida
+      if (cleanPassword) {
+        const passwordCheck = validatePasswordStrength(cleanPassword)
+        if (!passwordCheck.isValid) {
+          return {
+            success: false,
+            message: `Palavra-passe insegura: ${passwordCheck.errors.join(' ')}`,
+          }
+        }
+      }
+
+      const sanitizedData = {
+        name: cleanName,
+        email: cleanEmail,
+        password: cleanPassword,
+        phone: cleanPhone,
+        company: data.company ? sanitizeInput(data.company) : undefined,
+        nif: data.nif ? sanitizeInput(data.nif) : undefined,
+        address: data.address ? sanitizeInput(data.address) : undefined,
+        city: data.city ? sanitizeInput(data.city) : undefined,
+      }
+
+      const res = dataStore.registerCustomer(sanitizedData)
       if (res.success && res.customer) {
         setCustomer(res.customer)
         localStorage.setItem(CUSTOMER_SESSION_KEY, JSON.stringify(res.customer))
@@ -210,9 +240,12 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   )
 
   const sendRecoveryCode = useCallback((email: string) => {
-    const cleanEmail = email.toLowerCase().trim()
-    const found = dataStore.getCustomerByEmail(cleanEmail)
-    if (!found) {
+    const cleanEmail = sanitizeInput(email).toLowerCase().trim()
+    const foundCustomer = dataStore.getCustomerByEmail(cleanEmail)
+    const users = dataStore.getUsers()
+    const foundAdmin = users.find((u) => u.email.toLowerCase() === cleanEmail)
+
+    if (!foundCustomer && !foundAdmin) {
       return { success: false, message: 'Nenhuma conta encontrada com este email.' }
     }
 
@@ -220,22 +253,46 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     setGeneratedCode(code)
     return {
       success: true,
-      message: `Código de verificação gerado para ${cleanEmail}: ${code}`,
+      message: `Código de verificação enviado para ${cleanEmail}. (Código de teste seguro: ${code})`,
       code,
     }
   }, [])
 
   const resetPasswordWithCode = useCallback(
     (email: string, code: string, newPassword: string) => {
-      if (generatedCode && code.trim() !== generatedCode && code.trim() !== '123456') {
+      const cleanEmail = sanitizeInput(email).toLowerCase().trim()
+      const cleanCode = code.trim()
+      const cleanNewPassword = newPassword.trim()
+
+      if (!generatedCode || cleanCode !== generatedCode) {
         return { success: false, message: 'Código de verificação inválido ou expirado.' }
       }
 
-      const res = dataStore.resetCustomerPassword(email, newPassword)
-      if (res.success) {
-        setGeneratedCode(null)
+      const passwordCheck = validatePasswordStrength(cleanNewPassword)
+      if (!passwordCheck.isValid) {
+        return { success: false, message: `Palavra-passe fraca: ${passwordCheck.errors.join(' ')}` }
       }
-      return res
+
+      // 1. Verificar se é conta de cliente
+      const customer = dataStore.getCustomerByEmail(cleanEmail)
+      if (customer) {
+        const res = dataStore.resetCustomerPassword(cleanEmail, cleanNewPassword)
+        if (res.success) {
+          setGeneratedCode(null)
+        }
+        return res
+      }
+
+      // 2. Verificar se é conta de utilizador administrador/editor
+      const users = dataStore.getUsers()
+      const adminUser = users.find((u) => u.email.toLowerCase() === cleanEmail)
+      if (adminUser) {
+        dataStore.updateUser(adminUser.id, { password: cleanNewPassword, passwordHash: hashPasswordSync(cleanNewPassword) })
+        setGeneratedCode(null)
+        return { success: true, message: 'Palavra-passe de administração alterada com sucesso!' }
+      }
+
+      return { success: false, message: 'Não encontramos nenhuma conta com esse endereço de email.' }
     },
     [generatedCode]
   )
@@ -243,7 +300,16 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   const updateProfile = useCallback(
     (updates: Partial<CustomerAccount>) => {
       if (!customer) return { success: false, message: 'Nenhuma sessão ativa.' }
-      const updated = dataStore.updateCustomer(customer.id, updates)
+
+      const sanitizedUpdates: Partial<CustomerAccount> = {}
+      if (updates.name) sanitizedUpdates.name = sanitizeInput(updates.name)
+      if (updates.phone) sanitizedUpdates.phone = sanitizeInput(updates.phone)
+      if (updates.company !== undefined) sanitizedUpdates.company = sanitizeInput(updates.company)
+      if (updates.nif !== undefined) sanitizedUpdates.nif = sanitizeInput(updates.nif)
+      if (updates.address !== undefined) sanitizedUpdates.address = sanitizeInput(updates.address)
+      if (updates.city !== undefined) sanitizedUpdates.city = sanitizeInput(updates.city)
+
+      const updated = dataStore.updateCustomer(customer.id, sanitizedUpdates)
       if (updated) {
         setCustomer(updated)
         localStorage.setItem(CUSTOMER_SESSION_KEY, JSON.stringify(updated))
@@ -258,12 +324,26 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     (currentPassword: string, newPassword: string) => {
       if (!customer) return { success: false, message: 'Nenhuma sessão ativa.' }
 
-      // Verificar senha atual
-      if (customer.password && customer.password !== currentPassword && customer.password !== 'Password123!') {
+      const cleanCurrent = currentPassword.trim()
+      const cleanNew = newPassword.trim()
+
+      // Verificar palavra-passe atual com validação rigorosa
+      const isCurrentValid = verifyPassword(cleanCurrent, customer.passwordHash || customer.password || 'Cliente123!')
+      if (!isCurrentValid) {
         return { success: false, message: 'A palavra-passe atual indicada está incorreta.' }
       }
 
-      const updated = dataStore.updateCustomer(customer.id, { password: newPassword })
+      // Validar nova palavra-passe
+      const passwordCheck = validatePasswordStrength(cleanNew)
+      if (!passwordCheck.isValid) {
+        return { success: false, message: `Nova palavra-passe insegura: ${passwordCheck.errors.join(' ')}` }
+      }
+
+      const updated = dataStore.updateCustomer(customer.id, {
+        password: cleanNew,
+        passwordHash: hashPasswordSync(cleanNew),
+      })
+
       if (updated) {
         setCustomer(updated)
         return { success: true, message: 'Palavra-passe alterada com sucesso!' }

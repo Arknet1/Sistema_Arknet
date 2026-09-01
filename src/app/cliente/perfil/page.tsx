@@ -98,6 +98,7 @@ export default function ClientePerfilPage() {
 
       // Carregar pedidos e leads do cliente
       const syncData = () => {
+        if (!customer || !customer.email) return
         const clientOrders = dataStore.getCustomerOrders(customer.email)
         const clientLeads = dataStore.getCustomerLeads(customer.email)
         setOrders([...clientOrders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
@@ -185,10 +186,10 @@ export default function ClientePerfilPage() {
 
   const handleLogout = () => {
     setIsLoggingOut(true)
-    logout()
     setTimeout(() => {
-      router.push('/')
-    }, 150)
+      logout()
+      router.push('/login')
+    }, 200)
   }
 
   // Invoice Modal State

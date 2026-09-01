@@ -24,8 +24,6 @@ export default function LojaPage() {
   const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('relevance')
-  const [minPrice, setMinPrice] = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   useEffect(() => {
@@ -54,12 +52,7 @@ export default function LojaPage() {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.description.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const price = p.price ?? 0
-    const min = minPrice !== '' ? parseFloat(minPrice) : Number.NEGATIVE_INFINITY
-    const max = maxPrice !== '' ? parseFloat(maxPrice) : Number.POSITIVE_INFINITY
-    const matchesPrice = price >= min && price <= max
-
-    return matchesCategory && matchesSearch && matchesPrice
+    return matchesCategory && matchesSearch
   })
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -77,15 +70,13 @@ export default function LojaPage() {
   })
 
   const featuredProducts = products.filter(p => p.featured || p.inStock).slice(0, 4)
-  const showFeatured = selectedCategory === 'Todos' && !searchTerm && !minPrice && !maxPrice && featuredProducts.length > 0
+  const showFeatured = selectedCategory === 'Todos' && !searchTerm && featuredProducts.length > 0
 
-  const hasActiveFilters = selectedCategory !== 'Todos' || searchTerm !== '' || minPrice !== '' || maxPrice !== ''
+  const hasActiveFilters = selectedCategory !== 'Todos' || searchTerm !== ''
 
   const clearAllFilters = () => {
     setSelectedCategory('Todos')
     setSearchTerm('')
-    setMinPrice('')
-    setMaxPrice('')
     setSortBy('relevance')
   }
 
@@ -96,7 +87,7 @@ export default function LojaPage() {
       <div className="bg-slate-950 text-white">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">— Loja Online</p>
+            <p className="text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">Loja Online</p>
             <div className="flex items-center gap-4 mb-2">
               <Image src={jmatosIcon} alt="ARKNET" width={120} height={120} className="h-10 w-auto object-contain" />
             </div>
@@ -116,16 +107,13 @@ export default function LojaPage() {
         </div>
       </div>
 
-      {/* Category tabs */}
+      {/* Category tabs (Sem contador de quantidades) */}
       <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {visibleCategories.map((cat) => {
               const Icon = iconMap[cat.icon] || Globe
               const isActive = selectedCategory.toLowerCase() === cat.name.toLowerCase()
-              const count = cat.name === 'Todos'
-                ? products.length
-                : products.filter(p => p.category.toLowerCase() === cat.name.toLowerCase()).length
 
               return (
                 <button
@@ -139,9 +127,6 @@ export default function LojaPage() {
                 >
                   <Icon className="h-4 w-4" />
                   {cat.name}
-                  <span className={`text-xs font-bold tabular-nums ${isActive ? 'text-primary' : 'text-slate-400'}`}>
-                    {count}
-                  </span>
                 </button>
               )
             })}
@@ -151,7 +136,7 @@ export default function LojaPage() {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
-        {/* Search & Price Filter Bar */}
+        {/* Search & Sorting Toolbar */}
         <div className="mb-6 flex flex-col md:flex-row items-stretch bg-white border border-slate-200 shadow-xs">
           <select
             value={selectedCategory}
@@ -173,35 +158,6 @@ export default function LojaPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full h-12 outline-none text-sm text-slate-900 placeholder:text-slate-400"
             />
-          </div>
-
-          {/* Filtro por Preço (Mín / Máx) */}
-          <div className="flex items-center border-t md:border-t-0 md:border-l border-slate-200 bg-slate-50 px-4 py-2 gap-2 shrink-0">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider whitespace-nowrap">Preço (Kz):</span>
-            <input
-              type="number"
-              placeholder="Mín"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="h-9 w-20 px-2.5 bg-white border border-slate-200 text-xs outline-none focus:border-primary rounded-xs"
-            />
-            <span className="text-slate-400 text-xs">–</span>
-            <input
-              type="number"
-              placeholder="Máx"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="h-9 w-20 px-2.5 bg-white border border-slate-200 text-xs outline-none focus:border-primary rounded-xs"
-            />
-            {(minPrice || maxPrice) && (
-              <button
-                onClick={() => { setMinPrice(''); setMaxPrice('') }}
-                className="text-xs text-primary font-bold hover:underline px-1"
-                title="Limpar filtro de preço"
-              >
-                ×
-              </button>
-            )}
           </div>
 
           {/* Ordenação */}
@@ -240,27 +196,6 @@ export default function LojaPage() {
               </select>
             </div>
 
-            <div>
-              <p className="text-xs font-semibold text-slate-700 mb-1.5">Intervalo de Preço (Kz)</p>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  placeholder="Preço Mínimo"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  className="w-full h-9 px-3 bg-slate-50 border border-slate-200 text-xs outline-none"
-                />
-                <span className="text-slate-400 text-xs">–</span>
-                <input
-                  type="number"
-                  placeholder="Preço Máximo"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  className="w-full h-9 px-3 bg-slate-50 border border-slate-200 text-xs outline-none"
-                />
-              </div>
-            </div>
-
             {hasActiveFilters && (
               <button
                 onClick={clearAllFilters}
@@ -272,12 +207,11 @@ export default function LojaPage() {
           </div>
         )}
 
-        {/* Featured Products */}
+        {/* Featured Products (Sem contador de quantidades) */}
         {showFeatured && (
           <div className="mb-12">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-bold text-slate-900">Produtos em Destaque</h2>
-              <span className="text-xs text-slate-400">{featuredProducts.length} produtos</span>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {featuredProducts.map(p => (
@@ -289,7 +223,7 @@ export default function LojaPage() {
         )}
 
         <div className="flex gap-8">
-          {/* Sidebar Desktop */}
+          {/* Sidebar Desktop (Sem contador de quantidades) */}
           <aside className="w-60 shrink-0 hidden md:block">
             <div className="bg-white border border-slate-200 sticky top-36">
               <div className="px-4 py-3 border-b border-slate-100">
@@ -299,9 +233,6 @@ export default function LojaPage() {
                 {visibleCategories.map((cat) => {
                   const Icon = iconMap[cat.icon] || Globe
                   const isActive = selectedCategory.toLowerCase() === cat.name.toLowerCase()
-                  const count = cat.name === 'Todos'
-                    ? products.length
-                    : products.filter(p => p.category.toLowerCase() === cat.name.toLowerCase()).length
 
                   return (
                     <li key={cat.id || cat.name}>
@@ -315,66 +246,11 @@ export default function LojaPage() {
                       >
                         <Icon className="h-3.5 w-3.5 shrink-0" />
                         <span className="flex-1 truncate">{cat.name}</span>
-                        <span className="text-[11px] tabular-nums text-slate-400">
-                          {count}
-                        </span>
                       </button>
                     </li>
                   )
                 })}
               </ul>
-
-              {/* Filtro de Preço na Sidebar */}
-              <div className="p-4 border-t border-slate-100 bg-slate-50/50">
-                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2.5">Filtrar por Preço</p>
-                <div className="flex items-center gap-2 mb-3">
-                  <input
-                    type="number"
-                    placeholder="Mín (Kz)"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
-                    className="w-full h-9 px-2.5 bg-white border border-slate-200 text-xs outline-none focus:border-primary"
-                  />
-                  <span className="text-slate-400 text-xs">–</span>
-                  <input
-                    type="number"
-                    placeholder="Máx (Kz)"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
-                    className="w-full h-9 px-2.5 bg-white border border-slate-200 text-xs outline-none focus:border-primary"
-                  />
-                </div>
-
-                {/* Faixas de Preço Rápidas */}
-                <div className="space-y-1.5 pt-1">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">Faixas Rápidas</p>
-                  {[
-                    { label: 'Até 50.000 Kz', max: '50000' },
-                    { label: '50.000 - 150.000 Kz', min: '50000', max: '150000' },
-                    { label: 'Mais de 150.000 Kz', min: '150000' },
-                  ].map((preset, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setMinPrice(preset.min || '')
-                        setMaxPrice(preset.max || '')
-                      }}
-                      className="block text-left w-full text-[11px] text-slate-600 hover:text-primary transition font-medium"
-                    >
-                      • {preset.label}
-                    </button>
-                  ))}
-                </div>
-
-                {(minPrice || maxPrice) && (
-                  <button
-                    onClick={() => { setMinPrice(''); setMaxPrice(''); }}
-                    className="mt-3 text-[11px] font-semibold text-primary hover:underline block"
-                  >
-                    Limpar filtro de preço
-                  </button>
-                )}
-              </div>
 
               <div className="p-4 border-t border-slate-100">
                 <p className="text-xs text-slate-500 leading-relaxed mb-3">
@@ -393,25 +269,17 @@ export default function LojaPage() {
           {/* Products grid */}
           <div className="flex-1">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-slate-500">
-                <span className="font-semibold text-slate-900">{sortedProducts.length}</span> produtos encontrados
-                {selectedCategory !== 'Todos' && <span> em <span className="font-semibold text-slate-900">{selectedCategory}</span></span>}
-                {searchTerm && <span> para "<span className="font-semibold text-slate-900">{searchTerm}</span>"</span>}
-                {(minPrice || maxPrice) && (
-                  <span>
-                    {' '}(Preço:{' '}
-                    <span className="font-semibold text-slate-900">
-                      {minPrice ? `${Number(minPrice).toLocaleString()} Kz` : '0 Kz'} – {maxPrice ? `${Number(maxPrice).toLocaleString()} Kz` : 'Sem limite'}
-                    </span>)
-                  </span>
-                )}
+              <p className="text-sm text-slate-500 font-medium">
+                Catálogo de Equipamentos e Soluções ARKNET
+                {selectedCategory !== 'Todos' && <span> — Categoria: <span className="font-semibold text-slate-900">{selectedCategory}</span></span>}
+                {searchTerm && <span> — Pesquisa: "<span className="font-semibold text-slate-900">{searchTerm}</span>"</span>}
               </p>
 
               <div className="flex items-center gap-2">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="md:hidden px-3 py-1.5 border border-slate-200 bg-white text-xs outline-none text-slate-600"
+                  className="md:hidden px-3 py-1.5 border border-slate-200 bg-white text-xs outline-none text-slate-600 font-medium"
                 >
                   <option value="relevance">Relevância</option>
                   <option value="price-asc">Menor Preço</option>
@@ -443,12 +311,6 @@ export default function LojaPage() {
                     <button onClick={() => setSearchTerm('')} className="text-slate-400 hover:text-slate-800 font-bold ml-1">×</button>
                   </span>
                 )}
-                {(minPrice || maxPrice) && (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 text-slate-800 rounded-xs">
-                    Preço: {minPrice || '0'} – {maxPrice || '∞'} Kz
-                    <button onClick={() => { setMinPrice(''); setMaxPrice(''); }} className="text-slate-400 hover:text-slate-800 font-bold ml-1">×</button>
-                  </span>
-                )}
                 <button
                   onClick={clearAllFilters}
                   className="text-primary font-bold hover:underline ml-auto text-xs"
@@ -467,7 +329,7 @@ export default function LojaPage() {
             {sortedProducts.length === 0 && (
               <div className="py-20 text-center bg-white border border-slate-200">
                 <p className="text-slate-900 font-semibold text-lg">Nenhum produto encontrado.</p>
-                <p className="text-slate-500 text-sm mt-2">Tente ajustar a faixa de preço ou termos de busca.</p>
+                <p className="text-slate-500 text-sm mt-2">Tente ajustar a categoria ou os termos de busca.</p>
                 <button
                   onClick={clearAllFilters}
                   className="mt-6 bg-primary text-white px-6 py-2.5 text-sm font-medium hover:bg-primary/90 transition shadow-sm"

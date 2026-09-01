@@ -1,6 +1,8 @@
 'use client'
+
 import Hero from '../components/hero'
 import Services from '@/components/services'
+import FeaturedProducts from '@/components/featured-products'
 import Sobre from '@/components/sobre'
 import PorQueNosEscolher from '@/components/porque-nos-escolher'
 import Testimonials from '@/components/testimonials'
@@ -12,6 +14,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Hero />
       <Services />
+      <FeaturedProducts />
       <Sobre />
       <PorQueNosEscolher />
       <Testimonials />

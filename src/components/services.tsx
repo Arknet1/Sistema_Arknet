@@ -22,9 +22,6 @@ export default function Services() {
         {/* Editorial header — description splits right */}
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
-            <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5">
-              — Catálogo de Serviços
-            </p>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1] max-w-lg">
               Soluções completas<br />para o seu negócio
             </h2>

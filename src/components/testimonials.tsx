@@ -32,9 +32,6 @@ export default function Testimonials() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div className="max-w-xl">
-            <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5">
-              — Testemunhos
-            </p>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
               O que os nossos<br />clientes dizem
             </h2>
@@ -84,9 +81,6 @@ export default function Testimonials() {
         <div id="parceiros" className="mt-24">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-5">
-                — Parceiros & Clientes
-              </p>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
                 Marcas que confiam na ARKNET
               </h2>

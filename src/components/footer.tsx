@@ -217,6 +217,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/projetos" className="hover:text-white transition">
+                  Projetos & Portfólio
+                </Link>
+              </li>
+              <li>
                 <Link href="/loja" className="hover:text-white transition">
                   Loja Online
                 </Link>
@@ -325,19 +330,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Copyright & Admin Link */}
+      {/* Copyright */}
       <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-slate-600">
-            © {new Date().getFullYear()} ARKNET — Todos os direitos reservados.
+        <div className="max-w-7xl mx-auto px-6 py-6 text-center">
+          <p className="text-xs text-slate-600 font-medium">
+            @arknet2026
           </p>
-
-          <div className="flex items-center gap-6 text-xs text-slate-600">
-            <Link href="/admin/login" className="hover:text-primary transition flex items-center gap-1.5 font-semibold">
-              <Lock className="h-3 w-3" />
-              Painel de Gestão (Admin)
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

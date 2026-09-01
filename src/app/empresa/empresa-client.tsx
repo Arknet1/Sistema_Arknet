@@ -107,9 +107,6 @@ export default function EmpresaClient() {
 
             {/* Text Col */}
             <div className="md:col-span-7 order-1 md:order-2 space-y-6">
-              <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em]">
-                — A Nossa Essência
-              </p>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-[1.15]">
                 Tecnologia de ponta pensada para a realidade do mercado angolano
               </h2>
@@ -306,9 +303,6 @@ export default function EmpresaClient() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div>
-              <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-4">
-                — Diferenciais Competitivos
-              </p>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.1] max-w-lg">
                 Por que as empresas escolhem a ARKNET
               </h2>
@@ -356,9 +350,6 @@ export default function EmpresaClient() {
       <section className="py-24 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-3">
-              — Reconhecimento do Mercado
-            </p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
               O que dizem os nossos clientes
             </h2>
