@@ -34,6 +34,7 @@ export interface StoreProduct {
   price: number | null // null = Sob consulta
   image: string
   inStock: boolean
+  quantity?: number // Visível apenas no painel administrativo
   featured?: boolean
   sku?: string
   createdAt: string
@@ -323,6 +324,19 @@ export interface CustomerAccount {
   updatedAt?: string
 }
 
+export interface EventRegistration {
+  id: string
+  eventId: string
+  eventTitle: string
+  name: string
+  email: string
+  phone: string
+  company?: string
+  notes?: string
+  status: 'confirmada' | 'pendente' | 'cancelada'
+  createdAt: string
+}
+
 export interface ArknetDatabase {
   users: AdminUser[]
   customers: CustomerAccount[]
@@ -333,6 +347,7 @@ export interface ArknetDatabase {
   subscribers: NewsletterSubscriber[]
   courses: CourseItem[]
   events: EventItem[]
+  eventRegistrations?: EventRegistration[]
   jobs: JobPosition[]
   applications: JobApplication[]
   testimonials: TestimonialItem[]
@@ -440,6 +455,7 @@ const DEFAULT_PRODUCTS: StoreProduct[] = mockProducts.map((p, i) => ({
   price: p.price,
   image: p.image,
   inStock: p.inStock,
+  quantity: p.inStock ? 15 + ((i * 7) % 30) : 0,
   featured: i < 6,
   sku: `ARK-${String(i + 1).padStart(4, '0')}`,
   createdAt: '2026-01-15T00:00:00Z',
@@ -1095,6 +1111,45 @@ const DEFAULT_ACTIVITIES: ActivityLog[] = [
   },
 ]
 
+const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
+  {
+    id: 'reg-1',
+    eventId: 'evt-1',
+    eventTitle: 'Arknet Tech Summit 2026 — Transformação Digital em Angola',
+    name: 'Eng. António Kiala',
+    email: 'antonio.kiala@sonangol.co.ao',
+    phone: '+244 923 111 222',
+    company: 'Sonangol E.P.',
+    notes: 'Interesse em painel de cibersegurança e cloud híbrida.',
+    status: 'confirmada',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
+  },
+  {
+    id: 'reg-2',
+    eventId: 'evt-1',
+    eventTitle: 'Arknet Tech Summit 2026 — Transformação Digital em Angola',
+    name: 'Dra. Isabel Mateus',
+    email: 'isabel.mateus@bancobai.ao',
+    phone: '+244 912 333 444',
+    company: 'Banco BAI',
+    notes: 'Vaga VIP reservada.',
+    status: 'confirmada',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
+  },
+  {
+    id: 'reg-3',
+    eventId: 'evt-2',
+    eventTitle: 'Workshop Prático: Defesa Perimetral e Resposta a Incidentes',
+    name: 'Mário Lucas Bento',
+    email: 'mario.bento@techangola.com',
+    phone: '+244 934 555 666',
+    company: 'TechAngola Lda',
+    notes: 'Inscrição para workshop técnico.',
+    status: 'confirmada',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 5).toISOString(),
+  },
+]
+
 const INITIAL_DB: ArknetDatabase = {
   users: DEFAULT_USERS,
   customers: DEFAULT_CUSTOMERS,
@@ -1105,6 +1160,7 @@ const INITIAL_DB: ArknetDatabase = {
   subscribers: DEFAULT_SUBSCRIBERS,
   courses: DEFAULT_COURSES,
   events: DEFAULT_EVENTS,
+  eventRegistrations: DEFAULT_EVENT_REGISTRATIONS,
   jobs: DEFAULT_JOBS,
   applications: DEFAULT_APPLICATIONS,
   testimonials: DEFAULT_TESTIMONIALS,
@@ -1123,6 +1179,37 @@ const STORAGE_KEY = 'arknet_database_v1'
 const CHANNEL_NAME = 'arknet_db_sync_channel'
 
 type Listener = (db: ArknetDatabase) => void
+
+function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
+  const cleanProducts = (db.products || []).map((p) => {
+    // Se a imagem for uma string base64 gigante (> 150KB), otimiza desentupindo o LocalStorage
+    if (p.image && typeof p.image === 'string' && p.image.startsWith('data:image') && p.image.length > 150000) {
+      console.warn(`[DataStore] Otimizando imagem pesada do produto "${p.name}" para libertar LocalStorage (${Math.round(p.image.length / 1024)}KB)`)
+      return {
+        ...p,
+        image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
+      }
+    }
+    return p
+  })
+
+  const cleanProjects = (db.projects || []).map((p) => {
+    if (p.image && typeof p.image === 'string' && p.image.startsWith('data:image') && p.image.length > 150000) {
+      return {
+        ...p,
+        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80',
+      }
+    }
+    return p
+  })
+
+  return {
+    ...db,
+    products: cleanProducts,
+    projects: cleanProjects,
+    activities: (db.activities || []).slice(0, 20),
+  }
+}
 
 class DataStoreManager {
   private db: ArknetDatabase
@@ -1170,29 +1257,31 @@ class DataStoreManager {
         return INITIAL_DB
       }
       const parsed = JSON.parse(raw) as ArknetDatabase
+      const cleaned = cleanDatabaseForStorage(parsed)
       return {
         ...INITIAL_DB,
-        ...parsed,
-        users: parsed.users?.length ? parsed.users : INITIAL_DB.users,
-        customers: parsed.customers?.length ? parsed.customers : INITIAL_DB.customers,
-        products: parsed.products?.length ? parsed.products : INITIAL_DB.products,
-        categories: parsed.categories?.length ? parsed.categories : INITIAL_DB.categories,
-        orders: parsed.orders || INITIAL_DB.orders,
-        leads: parsed.leads || INITIAL_DB.leads,
-        subscribers: parsed.subscribers || INITIAL_DB.subscribers,
-        courses: parsed.courses?.length ? parsed.courses : INITIAL_DB.courses,
-        events: parsed.events?.length ? parsed.events : INITIAL_DB.events,
-        jobs: parsed.jobs?.length ? parsed.jobs : INITIAL_DB.jobs,
-        applications: parsed.applications || INITIAL_DB.applications,
-        testimonials: parsed.testimonials?.length ? parsed.testimonials : INITIAL_DB.testimonials,
+        ...cleaned,
+        users: cleaned.users?.length ? cleaned.users : INITIAL_DB.users,
+        customers: cleaned.customers?.length ? cleaned.customers : INITIAL_DB.customers,
+        products: cleaned.products?.length ? cleaned.products : INITIAL_DB.products,
+        categories: cleaned.categories?.length ? cleaned.categories : INITIAL_DB.categories,
+        orders: cleaned.orders || INITIAL_DB.orders,
+        leads: cleaned.leads || INITIAL_DB.leads,
+        subscribers: cleaned.subscribers || INITIAL_DB.subscribers,
+        courses: cleaned.courses?.length ? cleaned.courses : INITIAL_DB.courses,
+        events: cleaned.events?.length ? cleaned.events : INITIAL_DB.events,
+        eventRegistrations: cleaned.eventRegistrations || INITIAL_DB.eventRegistrations,
+        jobs: cleaned.jobs?.length ? cleaned.jobs : INITIAL_DB.jobs,
+        applications: cleaned.applications || INITIAL_DB.applications,
+        testimonials: cleaned.testimonials?.length ? cleaned.testimonials : INITIAL_DB.testimonials,
         partners:
-          parsed.partners?.length &&
-          !parsed.partners.some((p: any) => p.logo?.includes('picsum.photos') || p.name === 'Angola Telecom' || p.name === 'Unitel Empresas')
-            ? parsed.partners
+          cleaned.partners?.length &&
+          !cleaned.partners.some((p: any) => p.logo?.includes('picsum.photos') || p.name === 'Angola Telecom' || p.name === 'Unitel Empresas')
+            ? cleaned.partners
             : INITIAL_DB.partners,
-        projects: parsed.projects?.length ? parsed.projects : INITIAL_DB.projects,
-        settings: parsed.settings || INITIAL_DB.settings,
-        activities: parsed.activities || INITIAL_DB.activities,
+        projects: cleaned.projects?.length ? cleaned.projects : INITIAL_DB.projects,
+        settings: cleaned.settings || INITIAL_DB.settings,
+        activities: cleaned.activities || INITIAL_DB.activities,
       }
     } catch (err) {
       console.error('Failed to load DB from LocalStorage', err)
@@ -1209,6 +1298,17 @@ class DataStoreManager {
       }
     } catch (err) {
       console.error('Error saving DB to localStorage', err)
+      // Se exceder a quota por imagens pesadas antigas no localStorage, desentupa limpando imagens gigantes
+      try {
+        const cleanedDb = cleanDatabaseForStorage(db)
+        this.db = cleanedDb
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanedDb))
+        if (this.broadcastChannel) {
+          this.broadcastChannel.postMessage({ type: 'DB_UPDATED', timestamp: Date.now() })
+        }
+      } catch (retryErr) {
+        console.error('Failed retry of saveToStorage', retryErr)
+      }
     }
   }
 
@@ -1801,6 +1901,54 @@ class DataStoreManager {
     this.mutate(
       (db) => ({ ...db, events: db.events.filter((e) => e.id !== id) }),
       { action: `Eliminou evento "${evt.title}"`, module: 'eventos' }
+    )
+    return true
+  }
+
+  public getEventRegistrations(): EventRegistration[] {
+    return this.db.eventRegistrations || []
+  }
+
+  public addEventRegistration(reg: Omit<EventRegistration, 'id' | 'createdAt'>): EventRegistration {
+    const newReg: EventRegistration = {
+      ...reg,
+      id: `reg-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      createdAt: new Date().toISOString(),
+    }
+    this.mutate(
+      (db) => ({
+        ...db,
+        eventRegistrations: [newReg, ...(db.eventRegistrations || [])],
+      }),
+      { action: `Inscrição efetuada: "${newReg.name}" no evento "${newReg.eventTitle}"`, module: 'eventos' }
+    )
+    return newReg
+  }
+
+  public updateEventRegistrationStatus(id: string, status: EventRegistration['status'], notes?: string): EventRegistration | null {
+    let updatedItem: EventRegistration | null = null
+    this.mutate((db) => {
+      const list = (db.eventRegistrations || []).map((r) => {
+        if (r.id === id) {
+          updatedItem = { ...r, status, notes: notes !== undefined ? notes : r.notes }
+          return updatedItem
+        }
+        return r
+      })
+      return { ...db, eventRegistrations: list }
+    }, { action: `Atualizou estado da inscrição #${id} para "${status}"`, module: 'eventos' })
+    return updatedItem
+  }
+
+  public deleteEventRegistration(id: string): boolean {
+    const reg = (this.db.eventRegistrations || []).find((r) => r.id === id)
+    if (!reg) return false
+    this.mutate(
+      (db) => ({
+        ...db,
+        eventRegistrations: (db.eventRegistrations || []).filter((r) => r.id !== id),
+      }),
+      { action: `Eliminou inscrição de "${reg.name}"`, module: 'eventos' }
     )
     return true
   }

@@ -24,6 +24,58 @@ export function ImageUpload({
   const [dragActive, setDragActive] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  // Sincroniza o estado interno se o valor externo mudar (ex: ao abrir modal para editar)
+  React.useEffect(() => {
+    setUrlInput(value || '')
+  }, [value])
+
+  const compressImage = (dataUrl: string, callback: (compressed: string) => void) => {
+    if (typeof window === 'undefined' || !dataUrl.startsWith('data:image')) {
+      callback(dataUrl)
+      return
+    }
+
+    const img = new window.Image()
+    img.crossOrigin = 'anonymous'
+    img.onload = () => {
+      const maxDim = 800
+      let width = img.width
+      let height = img.height
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width)
+          width = maxDim
+        } else {
+          width = Math.round((width * maxDim) / height)
+          height = maxDim
+        }
+      }
+
+      const canvas = document.createElement('canvas')
+      canvas.width = width
+      canvas.height = height
+      const ctx = canvas.getContext('2d')
+
+      if (ctx) {
+        ctx.fillStyle = '#FFFFFF'
+        ctx.fillRect(0, 0, width, height)
+        ctx.drawImage(img, 0, 0, width, height)
+        try {
+          // Comprime para JPEG a 80% (reduz de 5MB para ~50KB-80KB)
+          const compressed = canvas.toDataURL('image/jpeg', 0.8)
+          callback(compressed)
+        } catch {
+          callback(dataUrl)
+        }
+      } else {
+        callback(dataUrl)
+      }
+    }
+    img.onerror = () => callback(dataUrl)
+    img.src = dataUrl
+  }
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -40,8 +92,10 @@ export function ImageUpload({
     reader.onload = (event) => {
       const result = event.target?.result as string
       if (result) {
-        onChange(result)
-        setUrlInput(result)
+        compressImage(result, (compressedUrl) => {
+          onChange(compressedUrl)
+          setUrlInput(compressedUrl)
+        })
       }
     }
     reader.readAsDataURL(file)
@@ -67,6 +121,11 @@ export function ImageUpload({
     if (file) {
       processFile(file)
     }
+  }
+
+  const handleUrlInputChange = (val: string) => {
+    setUrlInput(val)
+    onChange(val.trim())
   }
 
   const handleApplyUrl = () => {
@@ -146,7 +205,7 @@ export function ImageUpload({
             <input
               type="url"
               value={urlInput}
-              onChange={(e) => setUrlInput(e.target.value)}
+              onChange={(e) => handleUrlInputChange(e.target.value)}
               placeholder="https://exemplo.com/imagem.jpg"
               className="w-full pl-9 pr-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white text-slate-900"
             />

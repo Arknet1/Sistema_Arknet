@@ -69,7 +69,7 @@ export default function LojaPage() {
     return 0
   })
 
-  const featuredProducts = products.filter(p => p.featured || p.inStock).slice(0, 4)
+  const featuredProducts = products.filter(p => Boolean(p.featured)).slice(0, 8)
   const showFeatured = selectedCategory === 'Todos' && !searchTerm && featuredProducts.length > 0
 
   const hasActiveFilters = selectedCategory !== 'Todos' || searchTerm !== ''

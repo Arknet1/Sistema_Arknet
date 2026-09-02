@@ -47,6 +47,7 @@ export default function AdminProdutosPage() {
     priceValue: string
     image: string
     inStock: boolean
+    quantity: number
     featured: boolean
     sku: string
   }>({
@@ -57,6 +58,7 @@ export default function AdminProdutosPage() {
     priceValue: '',
     image: '',
     inStock: true,
+    quantity: 10,
     featured: false,
     sku: '',
   })
@@ -132,6 +134,7 @@ export default function AdminProdutosPage() {
       priceValue: '',
       image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
       inStock: true,
+      quantity: 10,
       featured: false,
       sku: `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
     })
@@ -148,6 +151,7 @@ export default function AdminProdutosPage() {
       priceValue: product.price !== null ? String(product.price) : '',
       image: product.image,
       inStock: product.inStock,
+      quantity: product.quantity ?? (product.inStock ? 10 : 0),
       featured: !!product.featured,
       sku: product.sku || '',
     })
@@ -165,6 +169,8 @@ export default function AdminProdutosPage() {
       ? null
       : parseFloat(formData.priceValue)
 
+    const isAvailable = formData.quantity > 0 && formData.inStock
+
     if (editingProduct) {
       dataStore.updateProduct(editingProduct.id, {
         name: formData.name.trim(),
@@ -172,7 +178,8 @@ export default function AdminProdutosPage() {
         category: formData.category,
         price,
         image: formData.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
-        inStock: formData.inStock,
+        inStock: isAvailable,
+        quantity: formData.quantity,
         featured: formData.featured,
         sku: formData.sku,
       })
@@ -184,7 +191,8 @@ export default function AdminProdutosPage() {
         category: formData.category,
         price,
         image: formData.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
-        inStock: formData.inStock,
+        inStock: isAvailable,
+        quantity: formData.quantity,
         featured: formData.featured,
         sku: formData.sku,
       })
@@ -204,8 +212,21 @@ export default function AdminProdutosPage() {
   }
 
   const handleToggleStock = (product: StoreProduct) => {
-    dataStore.updateProduct(product.id, { inStock: !product.inStock })
-    info(`Stock de "${product.name}" alterado para ${!product.inStock ? 'Disponível' : 'Indisponível'}.`)
+    const nextInStock = !product.inStock
+    const nextQty = nextInStock ? (product.quantity && product.quantity > 0 ? product.quantity : 10) : 0
+    dataStore.updateProduct(product.id, { inStock: nextInStock, quantity: nextQty })
+    info(`Stock de "${product.name}" alterado para ${nextInStock ? 'Disponível' : 'Indisponível'} (${nextQty} un.).`)
+  }
+
+  const handleUpdateQuantity = (product: StoreProduct, delta: number) => {
+    const currentQty = product.quantity ?? (product.inStock ? 10 : 0)
+    const nextQty = Math.max(0, currentQty + delta)
+    const nextInStock = nextQty > 0
+    dataStore.updateProduct(product.id, {
+      quantity: nextQty,
+      inStock: nextInStock,
+    })
+    info(`Quantidade de "${product.name}" alterada para ${nextQty} un.`)
   }
 
   const handleToggleFeatured = (product: StoreProduct) => {
@@ -339,7 +360,12 @@ export default function AdminProdutosPage() {
                 <th className="py-3.5 px-6">Produto</th>
                 <th className="py-3.5 px-4">Categoria</th>
                 <th className="py-3.5 px-4">Preço (Kz)</th>
-                <th className="py-3.5 px-4 text-center">Stock</th>
+                <th className="py-3.5 px-4 text-center">
+                  <div className="flex flex-col items-center">
+                    <span>Estado / Quantidade</span>
+                    <span className="text-[9px] text-amber-600 font-normal lowercase tracking-normal">(apenas admin)</span>
+                  </div>
+                </th>
                 <th className="py-3.5 px-4 text-center">Destaque</th>
                 <th className="py-3.5 px-6 text-right">Ações</th>
               </tr>
@@ -390,30 +416,54 @@ export default function AdminProdutosPage() {
                       )}
                     </td>
 
-                    {/* In Stock Toggle */}
+                    {/* In Stock & Quantity Control (Visível Apenas ao Admin) */}
                     <td className="py-3.5 px-4 text-center">
-                      <button
-                        type="button"
-                        onClick={() => handleToggleStock(product)}
-                        className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold uppercase transition ${
-                          product.inStock
-                            ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                            : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
-                        }`}
-                        title="Clique para alternar stock"
-                      >
-                        {product.inStock ? (
-                          <>
-                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                            Disponível
-                          </>
-                        ) : (
-                          <>
-                            <XCircle className="h-3.5 w-3.5 text-rose-600" />
-                            Esgotado
-                          </>
-                        )}
-                      </button>
+                      <div className="flex flex-col items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleToggleStock(product)}
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold uppercase transition ${
+                            product.inStock
+                              ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                              : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
+                          }`}
+                          title="Clique para alternar estado de stock"
+                        >
+                          {product.inStock ? (
+                            <>
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                              Disponível
+                            </>
+                          ) : (
+                            <>
+                              <XCircle className="h-3.5 w-3.5 text-rose-600" />
+                              Esgotado
+                            </>
+                          )}
+                        </button>
+
+                        <div className="inline-flex items-center bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5 text-xs font-mono">
+                          <button
+                            type="button"
+                            onClick={() => handleUpdateQuantity(product, -1)}
+                            className="px-1 text-slate-500 hover:text-rose-600 font-bold"
+                            title="Diminuir 1 unidade"
+                          >
+                            -
+                          </button>
+                          <span className="px-1.5 font-bold text-slate-900">
+                            {product.quantity ?? (product.inStock ? 10 : 0)} un.
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleUpdateQuantity(product, 1)}
+                            className="px-1 text-slate-500 hover:text-emerald-600 font-bold"
+                            title="Aumentar 1 unidade"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
                     </td>
 
                     {/* Featured Toggle */}
@@ -658,6 +708,37 @@ export default function AdminProdutosPage() {
                 onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}
                 label="Foto / Imagem do Produto"
               />
+
+              {/* Quantity in Stock (Admin Exclusivo) */}
+              <div className="p-4 bg-slate-50 border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Quantidade em Stock (Unidades) *
+                  </label>
+                  <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wide bg-amber-50 px-2 py-0.5 border border-amber-200 rounded">
+                    Visível Apenas ao Admin
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="number"
+                    min="0"
+                    required
+                    value={formData.quantity}
+                    onChange={(e) => {
+                      const qty = Math.max(0, parseInt(e.target.value) || 0)
+                      setFormData((prev) => ({
+                        ...prev,
+                        quantity: qty,
+                        inStock: qty > 0,
+                      }))
+                    }}
+                    placeholder="10"
+                    className="w-36 px-4 py-2 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white font-mono"
+                  />
+                  <span className="text-xs text-slate-500 font-medium">unidades físicas no inventário interno</span>
+                </div>
+              </div>
 
               {/* Toggles: Stock and Featured */}
               <div className="grid sm:grid-cols-2 gap-4 pt-2">

@@ -10,6 +10,7 @@ export type Product = {
   image?: string
   category?: string
   inStock?: boolean
+  featured?: boolean
 }
 
 export type CartItem = {

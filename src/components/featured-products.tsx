@@ -12,8 +12,8 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      // Filtrar produtos em destaque ou em stock
-      const featured = db.products.filter((p) => p.featured || p.inStock)
+      // Filtrar apenas produtos marcados explicitamente como em destaque
+      const featured = db.products.filter((p) => Boolean(p.featured))
       setProducts(featured.slice(0, 10))
     }
     sync()
@@ -23,8 +23,9 @@ export default function FeaturedProducts() {
 
   if (products.length === 0) return null
 
-  // Lista duplicada para o efeito de rotação infinita contínua (Marquee)
-  const doubledProducts = [...products, ...products]
+  // Garantir itens suficientes para a rotação contínua (Marquee)
+  const repeatCount = Math.max(2, Math.ceil(12 / products.length))
+  const doubledProducts = Array.from({ length: repeatCount }).flatMap(() => products)
 
   return (
     <section className="py-24 bg-slate-50 border-t border-b border-slate-200/80 overflow-hidden">

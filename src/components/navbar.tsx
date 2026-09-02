@@ -194,76 +194,6 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          ) : adminUser ? (
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-950 text-white hover:bg-primary text-xs font-bold uppercase tracking-wider rounded transition shadow-xs border border-slate-800"
-              >
-                <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                <span>Admin</span>
-                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${userDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {userDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-                  <div className="p-4 bg-slate-950 text-white">
-                    <p className="text-xs font-bold text-white truncate">{adminUser.name}</p>
-                    <p className="text-[11px] text-slate-400 font-mono truncate mt-0.5">{adminUser.email}</p>
-                    <span className="mt-2 inline-block px-2 py-0.5 bg-primary/20 border border-primary/40 text-primary text-[9px] font-bold uppercase rounded-full">
-                      {adminUser.role === 'admin' ? 'Administrador ARKNET' : 'Editor de Conteúdo'}
-                    </span>
-                  </div>
-
-                  <div className="p-1.5 text-xs text-slate-700">
-                    <Link
-                      href="/admin"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
-                    >
-                      <LayoutDashboard className="h-4 w-4 text-slate-400" />
-                      <span>Painel de Administração</span>
-                    </Link>
-                    <Link
-                      href="/admin/produtos"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
-                    >
-                      <Package className="h-4 w-4 text-slate-400" />
-                      <span>Catálogo de Produtos</span>
-                    </Link>
-                    <Link
-                      href="/admin/pedidos"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
-                    >
-                      <ShoppingBag className="h-4 w-4 text-slate-400" />
-                      <span>Pedidos & Faturas</span>
-                    </Link>
-                    <Link
-                      href="/admin/leads"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
-                    >
-                      <Headset className="h-4 w-4 text-slate-400" />
-                      <span>Pedidos de Serviço (Leads)</span>
-                    </Link>
-                  </div>
-
-                  <div className="p-1.5 border-t border-slate-100 bg-slate-50">
-                    <button
-                      type="button"
-                      onClick={handleAdminLogout}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg transition"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      <span>Terminar Sessão</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
           ) : (
             <Link
               href="/login"
@@ -337,25 +267,6 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={handleCustomerLogout}
-                      className="w-full p-3 bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 text-xs font-bold uppercase flex items-center justify-center gap-2 rounded transition"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      <span>Terminar Sessão</span>
-                    </button>
-                  </div>
-                ) : adminUser ? (
-                  <div className="space-y-2 pt-2 border-t border-slate-100">
-                    <Link
-                      href="/admin"
-                      onClick={() => setOpen(false)}
-                      className="p-3 bg-slate-950 text-white text-sm font-bold uppercase flex items-center gap-2 border border-slate-800 rounded"
-                    >
-                      <ShieldCheck className="h-4 w-4 text-primary" />
-                      <span>Painel Admin ({adminUser.name})</span>
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={handleAdminLogout}
                       className="w-full p-3 bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 text-xs font-bold uppercase flex items-center justify-center gap-2 rounded transition"
                     >
                       <LogOut className="h-4 w-4" />
