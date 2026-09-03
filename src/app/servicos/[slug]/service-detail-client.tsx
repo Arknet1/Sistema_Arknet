@@ -98,17 +98,17 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Breadcrumb */}
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400 mb-6 uppercase tracking-wider">
+          <nav aria-label="Breadcrumb de navegação" className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400 mb-6 uppercase tracking-wider">
             <Link href="/" className="hover:text-white transition">
               Início
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-slate-600" />
+            <ChevronRight className="h-3.5 w-3.5 text-slate-600" aria-hidden="true" />
             <Link href="/servicos" className="hover:text-white transition">
               Serviços
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-slate-600" />
-            <span className="text-primary font-bold">{service.name}</span>
-          </div>
+            <ChevronRight className="h-3.5 w-3.5 text-slate-600" aria-hidden="true" />
+            <span className="text-primary font-bold" aria-current="page">{service.name}</span>
+          </nav>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-8">

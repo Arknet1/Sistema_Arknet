@@ -2,10 +2,12 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ShoppingCart, Trash2 } from "lucide-react"
+import { ShoppingCart, Trash2, Heart } from "lucide-react"
 import { Product } from "@/lib/cart"
 import { useCart } from "@/lib/cart"
+import { useWishlist } from "@/lib/wishlist-store"
 import { formatProdutoPrice } from "@/lib/format-produto-price"
+import { useToast } from "@/lib/toast-context"
 
 type ProductCardProps = {
   product: Product
@@ -13,8 +15,11 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { items, addItem, removeItem } = useCart()
+  const { isInWishlist, toggleWishlist } = useWishlist()
+  const { success, info } = useToast()
   const [isAdding, setIsAdding] = useState(false)
 
+  const isFavorite = isInWishlist(product.id)
   const isInCart = items.some(item => item.product.id === product.id)
 
   const handleAddToCart = async () => {
@@ -25,38 +30,65 @@ export default function ProductCard({ product }: ProductCardProps) {
     setIsAdding(false)
   }
 
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const added = toggleWishlist(product as any)
+    if (added) {
+      success(`"${product.name}" adicionado aos seus favoritos!`, 'Favoritos')
+    } else {
+      info(`"${product.name}" removido dos favoritos.`)
+    }
+  }
+
   return (
-    <div className="group bg-white border border-slate-200 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col h-full min-w-0">
+    <div className="group bg-white border border-slate-200 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col h-full min-w-0 relative">
 
       {/* Image — aspect ratio scales with column width */}
-      <Link
-        href={`/loja/${product.id}`}
-        className="block relative overflow-hidden bg-slate-100 w-full shrink-0 aspect-5/4 min-h-30 sm:min-h-40 sm:aspect-4/3"
-      >
-        {product.image ? (
-          <img
-            src={product.image}
-            alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 text-slate-300" />
-          </div>
-        )}
+      <div className="relative overflow-hidden bg-slate-100 w-full shrink-0 aspect-5/4 min-h-30 sm:min-h-40 sm:aspect-4/3">
+        <Link
+          href={`/loja/${product.id}`}
+          className="block absolute inset-0 w-full h-full"
+        >
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.name}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 text-slate-300" />
+            </div>
+          )}
+        </Link>
 
         {product.featured && product.inStock !== false && (
-          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs">
+          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
             ★ Destaque
           </span>
         )}
 
         {product.inStock === false && (
-          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-slate-800 text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1">
+          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-slate-800 text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 pointer-events-none">
             Esgotado
           </span>
         )}
-      </Link>
+
+        {/* Favorite Heart Button */}
+        <button
+          type="button"
+          onClick={handleToggleFavorite}
+          className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
+            isFavorite
+              ? 'bg-rose-600 text-white shadow-rose-500/30 scale-110'
+              : 'bg-white/80 hover:bg-white text-slate-500 hover:text-rose-600 border border-slate-200'
+          }`}
+          title={isFavorite ? 'Remover dos favoritos' : 'Guardar nos favoritos'}
+        >
+          <Heart className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isFavorite ? 'fill-current' : ''}`} />
+        </button>
+      </div>
 
       {/* Content */}
       <div className="p-3 sm:p-4 flex flex-col flex-1 min-h-0">

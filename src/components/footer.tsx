@@ -114,13 +114,16 @@ export default function Footer() {
                 </button>
               </div>
             ) : (
-              <form className="flex gap-2 w-full sm:w-auto" onSubmit={handleNewsletter}>
+              <form className="flex gap-2 w-full sm:w-auto" onSubmit={handleNewsletter} aria-label="Subscrição de Newsletter ARKNET">
+                <label htmlFor="newsletter-email" className="sr-only">Endereço de email para newsletter</label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   required
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="O seu email"
+                  aria-label="Endereço de email para subscrição de newsletter"
                   className="flex-1 sm:w-72 bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-primary transition"
                 />
                 <button
@@ -128,7 +131,7 @@ export default function Footer() {
                   disabled={isSubscribing}
                   className="bg-secondary px-5 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition flex items-center gap-2 shrink-0 disabled:opacity-50"
                 >
-                  <Send className="h-4 w-4" />
+                  <Send className="h-4 w-4" aria-hidden="true" />
                   Subscrever
                 </button>
               </form>
@@ -147,10 +150,10 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0, ease: "easeOut" }}
           >
-            <Link href="/" className="inline-flex items-center">
+            <Link href="/" className="inline-flex items-center" aria-label="ARKNET — Página Inicial">
               <Image
                 src={icon}
-                alt="ARKNET Logo"
+                alt="ARKNET — Soluções de Telecomunicações e TI em Angola"
                 width={200}
                 height={200}
                 className="h-16 w-auto"
@@ -334,7 +337,7 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-6 text-center">
           <p className="text-xs text-slate-600 font-medium">
-            @arknet2026
+            © {new Date().getFullYear()} ARKNET — Soluções de Telecomunicações e TI em Angola. Todos os direitos reservados.
           </p>
         </div>
       </div>

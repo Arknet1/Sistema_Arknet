@@ -26,10 +26,12 @@ import {
   HelpCircle,
   Quote,
   Filter,
+  Calculator,
 } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { mockServices, mockTestimonials } from '@/lib/mock-data'
 import Footer from '@/components/footer'
+import { ServiceQuoteCalculator } from '@/components/service-calculator'
 
 const serviceIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu: Cpu,
@@ -132,6 +134,23 @@ export default function ServicosListingClient() {
             <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed">
               Explore as nossas áreas de atuação em telecomunicações, computação em nuvem, cibersegurança e infraestruturas tecnológicas com SLA garantido em Angola.
             </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#simulador"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-secondary hover:bg-secondary/90 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-lg shadow-secondary/25 transition"
+              >
+                <Calculator className="h-4 w-4" />
+                <span>Simulador de Custos Online</span>
+              </a>
+
+              <a
+                href="#catalogo"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition"
+              >
+                <span>Explorar Áreas Técnicas</span>
+              </a>
+            </div>
           </div>
 
           {/* Barra de Credibilidade / Métricas */}
@@ -251,6 +270,9 @@ export default function ServicosListingClient() {
           })}
         </div>
       </section>
+
+      {/* 3. SIMULADOR INTERATIVO DE COTAÇÕES */}
+      <ServiceQuoteCalculator />
 
       {/* 4. Secção "Como Trabalhamos" (Passos do Processo Comercial) */}
       <section className="py-20 bg-slate-900 text-white border-y border-slate-800 relative overflow-hidden">

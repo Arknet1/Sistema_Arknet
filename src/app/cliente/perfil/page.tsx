@@ -34,14 +34,19 @@ import {
   Receipt,
   CreditCard,
   ArrowRight,
+  Calendar,
+  Ticket,
+  QrCode,
 } from 'lucide-react'
 import arknetLogo from '@/assets/icon18.png'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
-import { dataStore, StoreOrder, ServiceLead } from '@/lib/data-store'
+import { dataStore, StoreOrder, ServiceLead, EventRegistration, EventItem } from '@/lib/data-store'
 import { formatProdutoPrice, formatLinhaPreco } from '@/lib/format-produto-price'
+import { useSearchParams } from 'next/navigation'
 
 export default function ClientePerfilPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const {
     customer,
     isLoading,
@@ -52,7 +57,7 @@ export default function ClientePerfilPage() {
     terminateOtherSessions,
   } = useCustomerAuth()
 
-  const [activeTab, setActiveTab] = useState<'perfil' | 'pedidos' | 'servicos' | 'seguranca'>('perfil')
+  const [activeTab, setActiveTab] = useState<'perfil' | 'pedidos' | 'servicos' | 'eventos' | 'seguranca'>('perfil')
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   // Edit Profile Form State
@@ -74,9 +79,22 @@ export default function ClientePerfilPage() {
   // Notifications
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
-  // Orders and Leads
+  // Orders, Leads, and Events
   const [orders, setOrders] = useState<StoreOrder[]>([])
   const [leads, setLeads] = useState<ServiceLead[]>([])
+  const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([])
+  const [allEvents, setAllEvents] = useState<EventItem[]>([])
+
+  // Modal de Credencial Digital
+  const [selectedTicket, setSelectedTicket] = useState<{ registration: EventRegistration; event?: EventItem } | null>(null)
+
+  // Sincronizar parâmetro tab da URL
+  useEffect(() => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam === 'eventos' || tabParam === 'pedidos' || tabParam === 'servicos' || tabParam === 'seguranca' || tabParam === 'perfil') {
+      setActiveTab(tabParam)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     if (isLoggingOut) return
@@ -96,13 +114,18 @@ export default function ClientePerfilPage() {
         city: customer.city || 'Luanda',
       })
 
-      // Carregar pedidos e leads do cliente
+      // Carregar pedidos, leads e eventos do cliente
       const syncData = () => {
         if (!customer || !customer.email) return
         const clientOrders = dataStore.getCustomerOrders(customer.email)
         const clientLeads = dataStore.getCustomerLeads(customer.email)
+        const clientEvents = dataStore.getCustomerEventRegistrations(customer.email, customer.id)
+        const eventsList = dataStore.getEvents()
+
         setOrders([...clientOrders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
         setLeads([...clientLeads].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
+        setEventRegistrations([...clientEvents].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
+        setAllEvents(eventsList)
       }
 
       syncData()
@@ -211,6 +234,8 @@ export default function ClientePerfilPage() {
   const totalSpent = orders.reduce((acc, order) => (order.total ? acc + order.total : acc), 0)
   const approvedOrdersCount = orders.filter((o) => o.status === 'fechado').length
   const pendingOrdersCount = orders.filter((o) => o.status === 'novo' || o.status === 'em_contacto').length
+  const confirmedEventsCount = eventRegistrations.filter((e) => e.status === 'confirmada').length
+  const pendingEventsCount = eventRegistrations.filter((e) => e.status === 'pendente').length
 
   const getOrderStatusBadge = (status: StoreOrder['status']) => {
     switch (status) {
@@ -239,6 +264,31 @@ export default function ClientePerfilPage() {
         return (
           <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-slate-100 text-slate-600 rounded-full">
             Cancelado
+          </span>
+        )
+    }
+  }
+
+  const getEventStatusBadge = (status: EventRegistration['status']) => {
+    switch (status) {
+      case 'confirmada':
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full inline-flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-emerald-700" />
+            Vaga Confirmada &amp; Aprovada
+          </span>
+        )
+      case 'pendente':
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 text-amber-700 animate-pulse" />
+            Pendente de Validação
+          </span>
+        )
+      case 'cancelada':
+        return (
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-rose-50 text-rose-700 rounded-full">
+            Inscrição Cancelada
           </span>
         )
     }
@@ -307,7 +357,7 @@ export default function ClientePerfilPage() {
         </div>
 
         {/* Metric Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-400 text-xs font-bold uppercase">Total de Pedidos</span>
@@ -330,14 +380,25 @@ export default function ClientePerfilPage() {
 
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-slate-400 text-xs font-bold uppercase">Cotações de Serviços</span>
-              <Headset className="h-5 w-5 text-secondary" />
+              <span className="text-slate-400 text-xs font-bold uppercase">Meus Eventos</span>
+              <Calendar className="h-5 w-5 text-indigo-600" />
             </div>
-            <p className="text-2xl font-black text-slate-900 font-mono">{leads.length}</p>
-            <p className="text-[11px] text-slate-500 mt-1">Propostas técnicas solicitadas</p>
+            <p className="text-2xl font-black text-slate-900 font-mono">{eventRegistrations.length}</p>
+            <p className="text-[11px] text-slate-500 mt-1">
+              {confirmedEventsCount > 0 ? `${confirmedEventsCount} confirmadas` : 'Inscrições efetuadas'}
+            </p>
           </div>
 
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-slate-400 text-xs font-bold uppercase">Cotações Técnicas</span>
+              <Headset className="h-5 w-5 text-secondary" />
+            </div>
+            <p className="text-2xl font-black text-slate-900 font-mono">{leads.length}</p>
+            <p className="text-[11px] text-slate-500 mt-1">Propostas solicitadas</p>
+          </div>
+
+          <div className="bg-white p-5 border border-slate-200 shadow-xs col-span-2 lg:col-span-1">
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-400 text-xs font-bold uppercase">Último Acesso</span>
               <Clock className="h-5 w-5 text-slate-400" />
@@ -348,6 +409,38 @@ export default function ClientePerfilPage() {
             <p className="text-[11px] text-slate-500 mt-1 font-mono">Sessão segura ativa</p>
           </div>
         </div>
+
+        {/* Notificação de Eventos Aprovados */}
+        {confirmedEventsCount > 0 && (
+          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-100/70 border-2 border-primary/50 text-slate-900 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Ticket className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded">
+                    Credencial Digital Disponível
+                  </span>
+                </div>
+                <p className="font-black text-slate-900 text-sm mt-1">
+                  🎉 Tem {confirmedEventsCount} {confirmedEventsCount === 1 ? 'vaga aprovada em evento' : 'vagas aprovadas em eventos'} da ARKNET!
+                </p>
+                <p className="text-slate-600 text-xs mt-0.5">
+                  A sua credencial nominal com código de acesso já foi gerada e está pronta para emissão e impressão.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setActiveTab('eventos')}
+              className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-white font-extrabold text-xs uppercase tracking-wider rounded transition shrink-0 shadow-sm flex items-center justify-center gap-1.5"
+            >
+              <Ticket className="h-4 w-4" />
+              <span>Ver Minhas Credenciais</span>
+            </button>
+          </div>
+        )}
 
         {/* Notificação de Encomendas Aprovadas / Novidades */}
         {approvedOrdersCount > 0 && (
@@ -386,20 +479,20 @@ export default function ClientePerfilPage() {
           <button
             type="button"
             onClick={() => setActiveTab('perfil')}
-            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition ${
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
               activeTab === 'perfil'
                 ? 'border-primary text-primary bg-primary/5'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             <User className="h-4 w-4" />
-            Dados da Conta & Empresa
+            Dados da Conta &amp; Empresa
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('pedidos')}
-            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition ${
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
               activeTab === 'pedidos'
                 ? 'border-primary text-primary bg-primary/5'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -411,28 +504,41 @@ export default function ClientePerfilPage() {
 
           <button
             type="button"
+            onClick={() => setActiveTab('eventos')}
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
+              activeTab === 'eventos'
+                ? 'border-primary text-primary bg-primary/5'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Calendar className="h-4 w-4" />
+            Meus Eventos &amp; Inscrições ({eventRegistrations.length})
+          </button>
+
+          <button
+            type="button"
             onClick={() => setActiveTab('servicos')}
-            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition ${
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
               activeTab === 'servicos'
                 ? 'border-primary text-primary bg-primary/5'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             <Headset className="h-4 w-4" />
-            Cotações & Serviços ({leads.length})
+            Cotações &amp; Serviços ({leads.length})
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('seguranca')}
-            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition ${
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
               activeTab === 'seguranca'
                 ? 'border-primary text-primary bg-primary/5'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             <KeyRound className="h-4 w-4" />
-            Segurança & Sessões
+            Segurança &amp; Sessões
           </button>
         </div>
 
@@ -696,6 +802,152 @@ export default function ClientePerfilPage() {
                             </>
                           )}
                         </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB: Meus Eventos & Inscrições */}
+        {activeTab === 'eventos' && (
+          <div className="bg-white border border-slate-200 shadow-xs overflow-hidden">
+            <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  Minhas Inscrições em Eventos &amp; Workshops
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Acompanhe o estado de aprovação das suas vagas e emita as suas credenciais de acesso.
+                </p>
+              </div>
+              <Link
+                href="/eventos"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase transition shadow-xs"
+              >
+                <Calendar className="h-4 w-4" />
+                <span>Explorar Agenda de Eventos</span>
+              </Link>
+            </div>
+
+            {eventRegistrations.length === 0 ? (
+              <div className="py-16 text-center">
+                <div className="w-16 h-16 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                  <Calendar className="h-8 w-8 text-slate-400" />
+                </div>
+                <h4 className="text-base font-bold text-slate-800">Ainda não tem inscrições em eventos</h4>
+                <p className="text-xs text-slate-500 max-w-md mx-auto mt-1 leading-relaxed">
+                  Inscreva-se nos nossos summits, workshops de cibersegurança e conferências de telecomunicações para garantir a sua credencial nominal.
+                </p>
+                <Link
+                  href="/eventos"
+                  className="mt-5 inline-flex items-center gap-2 px-6 py-3 bg-[#020817] hover:bg-primary text-white text-xs font-bold uppercase transition shadow-sm"
+                >
+                  <Calendar className="h-4 w-4" />
+                  <span>Ver Próximos Eventos</span>
+                </Link>
+              </div>
+            ) : (
+              <div className="divide-y divide-slate-100">
+                {eventRegistrations.map((reg) => {
+                  const evt = allEvents.find((e) => e.id === reg.eventId)
+                  const isConfirmed = reg.status === 'confirmada'
+                  const isPending = reg.status === 'pendente'
+
+                  return (
+                    <div key={reg.id} className="p-6 hover:bg-slate-50/70 transition flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="flex flex-col sm:flex-row items-start gap-4">
+                        {evt?.image ? (
+                          <div className="relative h-24 w-36 bg-slate-900 rounded overflow-hidden shrink-0 border border-slate-200">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={evt.image}
+                              alt={reg.eventTitle}
+                              className="h-full w-full object-cover"
+                            />
+                            <div className="absolute top-1.5 left-1.5 bg-slate-950/80 px-2 py-0.5 text-[9px] font-bold text-white uppercase rounded">
+                              {evt.format}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="h-24 w-36 bg-slate-100 border border-slate-200 rounded flex items-center justify-center shrink-0 text-slate-400">
+                            <Calendar className="h-8 w-8" />
+                          </div>
+                        )}
+
+                        <div className="space-y-1.5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            {getEventStatusBadge(reg.status)}
+                            <span className="text-[11px] text-slate-400 font-mono">
+                              Cód: ARK-EVT-{reg.id.slice(-6).toUpperCase()}
+                            </span>
+                          </div>
+
+                          <h4 className="text-base font-extrabold text-slate-900 leading-snug">
+                            {reg.eventTitle}
+                          </h4>
+
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 font-medium pt-1">
+                            <span className="flex items-center gap-1.5 text-primary font-bold">
+                              <Calendar className="h-3.5 w-3.5 text-primary" />
+                              {evt?.date ? new Date(evt.date).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Data a confirmar'}
+                            </span>
+                            {evt?.time && (
+                              <span className="flex items-center gap-1 text-slate-600">
+                                <Clock className="h-3.5 w-3.5 text-slate-400" />
+                                {evt.time}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-1 text-slate-600">
+                              <MapPin className="h-3.5 w-3.5 text-red-600" />
+                              {evt?.location || 'Luanda, Angola'}
+                            </span>
+                          </div>
+
+                          <div className="text-[11px] text-slate-400 pt-1">
+                            Participante: <strong className="text-slate-700">{reg.name}</strong> • Email: <span className="font-mono text-slate-600">{reg.email}</span>
+                            {reg.company && (
+                              <span> • Empresa: <strong className="text-slate-700">{reg.company}</strong></span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+                        {isConfirmed ? (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedTicket({ registration: reg, event: evt })}
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-sm"
+                          >
+                            <Ticket className="h-4 w-4" />
+                            <span>Emitir Credencial</span>
+                          </button>
+                        ) : isPending ? (
+                          <div className="p-2.5 bg-amber-50 border border-amber-200 rounded text-center sm:text-left">
+                            <p className="text-[11px] font-bold text-amber-900 flex items-center gap-1">
+                              <Clock className="h-3.5 w-3.5 text-amber-700" />
+                              Aguardando Validação
+                            </p>
+                            <p className="text-[10px] text-amber-700 mt-0.5">
+                              Credencial emitida após aprovação da vaga.
+                            </p>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-slate-400 italic">Inscrição Cancelada</span>
+                        )}
+
+                        <Link
+                          href="/eventos"
+                          className="inline-flex items-center justify-center gap-1 px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-bold uppercase rounded transition"
+                        >
+                          <ExternalLink className="h-3.5 w-3.5" />
+                          <span>Ver Evento</span>
+                        </Link>
                       </div>
                     </div>
                   )
@@ -1115,7 +1367,182 @@ export default function ClientePerfilPage() {
           </div>
         )}
 
+        {/* MODAL DE CREDENCIAL DIGITAL / PASSE DO EVENTO */}
+        {selectedTicket && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white">
+            <div className="relative w-full max-w-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden my-8 print:my-0 print:border-none print:shadow-none">
+              
+              {/* Modal Top Bar (Hidden on print) */}
+              <div className="p-4 bg-slate-900 text-white flex items-center justify-between print:hidden">
+                <div className="flex items-center gap-2">
+                  <Ticket className="h-5 w-5 text-emerald-400" />
+                  <span className="font-bold text-xs uppercase tracking-wider">
+                    Credencial Oficial de Acesso — #{selectedTicket.registration.id.slice(-6).toUpperCase()}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="px-4 py-2 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center gap-1.5 transition shadow-xs"
+                  >
+                    <Printer className="h-4 w-4" />
+                    <span>Imprimir / Salvar Passe PDF</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTicket(null)}
+                    className="p-2 text-slate-400 hover:text-white rounded transition"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Printable Ticket Badge Container */}
+              <div className="p-8 sm:p-10 text-slate-800">
+                
+                {/* Badge Header with Hologram effect */}
+                <div className="bg-gradient-to-r from-[#020817] via-[#10316b] to-[#020817] text-white p-6 rounded-t-xl relative overflow-hidden border-b-4 border-emerald-500">
+                  <div className="flex items-start justify-between gap-4 relative z-10">
+                    <div>
+                      <Image
+                        src={arknetLogo}
+                        alt="ARKNET"
+                        width={140}
+                        height={45}
+                        className="h-9 w-auto object-contain mb-2 brightness-200"
+                      />
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-slate-300 font-bold">
+                        Passe Oficial de Participante
+                      </p>
+                    </div>
+
+                    <div className="text-right">
+                      <span className="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-black uppercase tracking-wider rounded-full">
+                        ✓ Vaga Confirmada &amp; Aprovada
+                      </span>
+                      <p className="font-mono text-[11px] text-slate-300 mt-1">
+                        ID: ARK-EVT-{selectedTicket.registration.id.slice(-6).toUpperCase()}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
+                    <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-bold uppercase rounded inline-block mb-1.5">
+                      {selectedTicket.event?.format || 'Presencial'}
+                    </span>
+                    <h2 className="text-lg sm:text-xl font-black text-white leading-snug">
+                      {selectedTicket.registration.eventTitle}
+                    </h2>
+                  </div>
+                </div>
+
+                {/* Badge Body */}
+                <div className="p-6 sm:p-8 bg-slate-50 border-x border-b border-slate-200 rounded-b-xl space-y-6">
+                  
+                  {/* Attendee Info Box */}
+                  <div className="grid sm:grid-cols-3 gap-6 items-center p-5 bg-white border border-slate-200 rounded-lg shadow-xs">
+                    <div className="sm:col-span-2 space-y-2">
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                          Nome do Titular da Credencial:
+                        </span>
+                        <h3 className="text-xl font-black text-slate-900 uppercase">
+                          {selectedTicket.registration.name}
+                        </h3>
+                      </div>
+
+                      {selectedTicket.registration.company && (
+                        <div className="flex items-center gap-1.5 text-xs text-slate-700 font-semibold">
+                          <Building2 className="h-4 w-4 text-primary shrink-0" />
+                          <span>{selectedTicket.registration.company}</span>
+                        </div>
+                      )}
+
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 pt-1">
+                        <span className="flex items-center gap-1">
+                          <Mail className="h-3.5 w-3.5 text-slate-400" />
+                          {selectedTicket.registration.email}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Phone className="h-3.5 w-3.5 text-slate-400" />
+                          {selectedTicket.registration.phone}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Simulated QR Code / Pass Code */}
+                    <div className="flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded text-center">
+                      <div className="w-20 h-20 bg-white border-2 border-slate-900 p-2 rounded flex items-center justify-center mb-1.5 shadow-xs">
+                        <QrCode className="h-16 w-16 text-slate-900" />
+                      </div>
+                      <span className="text-[9px] font-mono font-bold text-slate-600 uppercase">
+                        VALIDAÇÃO CHECK-IN
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Schedule & Venue Card */}
+                  <div className="grid sm:grid-cols-2 gap-4 p-5 bg-white border border-slate-200 rounded-lg">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-primary flex items-center gap-1">
+                        <Calendar className="h-3.5 w-3.5" />
+                        Data &amp; Horário do Evento:
+                      </span>
+                      <p className="font-extrabold text-slate-900 text-sm">
+                        {selectedTicket.event?.date ? new Date(selectedTicket.event.date).toLocaleDateString('pt-PT', {
+                          weekday: 'long',
+                          day: '2-digit',
+                          month: 'long',
+                          year: 'numeric',
+                        }) : 'Data anunciada em breve'}
+                      </p>
+                      {selectedTicket.event?.time && (
+                        <p className="text-xs text-slate-600 flex items-center gap-1 font-medium">
+                          <Clock className="h-3.5 w-3.5 text-slate-400" />
+                          {selectedTicket.event.time}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1 sm:border-l sm:border-slate-100 sm:pl-4">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 flex items-center gap-1">
+                        <MapPin className="h-3.5 w-3.5" />
+                        Localização / Sala:
+                      </span>
+                      <p className="font-extrabold text-slate-900 text-sm">
+                        {selectedTicket.event?.location || 'Luanda, Angola'}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Apresente esta credencial à entrada da sala principal.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Instructions Footer */}
+                  <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-slate-500">
+                    <p className="text-center sm:text-left leading-relaxed">
+                      Credencial nominal e intransmissível emitida pelo sistema central da <strong>ARKNET</strong>. Em caso de dúvidas, contacte <code>eventos@arknet.co.ao</code>.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => window.print()}
+                      className="px-5 py-2.5 bg-slate-900 hover:bg-primary text-white font-bold text-xs uppercase rounded transition shrink-0 print:hidden"
+                    >
+                      Imprimir Passe
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </main>
   )
 }
+

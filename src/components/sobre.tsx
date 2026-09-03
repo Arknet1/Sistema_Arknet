@@ -41,7 +41,7 @@ export default function Sobre() {
             >
               <Image
                 src={about}
-                alt="Sobre a ARKNET"
+                alt="Escritório e equipa técnica da ARKNET em Luanda, Angola"
                 fill
                 className="object-cover"
               />

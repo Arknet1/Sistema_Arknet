@@ -46,7 +46,7 @@ export default function Hero() {
       >
         <Image
           src={hero}
-          alt="Arknet — infraestrutura e conectividade"
+          alt="ARKNET — Infraestrutura de Telecomunicações e Conectividade Empresarial em Angola"
           fill
           priority
           quality={72}
@@ -86,31 +86,20 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            <div className="flex items-end gap-2 sm:gap-4 overflow-hidden leading-[0.86] flex-wrap">
+            <div className="overflow-hidden leading-[0.86]">
               <motion.h1
                 initial={{ y: "105%" }}
                 animate={{ y: 0 }}
                 transition={{
                   duration: 0.7,
-                  delay: 0.18,
+                  delay: 0.2,
                   ease: EASE_EXPO,
                 }}
-                className="text-[clamp(3.4rem,18vw,8.5rem)] font-black tracking-tight text-white"
+                className="text-[clamp(3.4rem,18vw,8.5rem)] font-black tracking-tight leading-[0.86] flex items-baseline"
               >
-                ARK
-              </motion.h1>
-
-              <motion.h1
-                initial={{ y: "105%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.3,
-                  ease: EASE_EXPO,
-                }}
-                className="text-[clamp(3.4rem,18vw,8.5rem)] font-black tracking-tight text-secondary animate-text-glow"
-              >
-                NET
+                <span className="text-white">ARK</span>
+                <span className="text-secondary animate-text-glow">NET</span>
+                <span className="sr-only"> — Telecomunicações, Internet Empresarial e Soluções de TI em Angola</span>
               </motion.h1>
             </div>
 

@@ -33,6 +33,7 @@ export interface StoreProduct {
   category: string
   price: number | null // null = Sob consulta
   image: string
+  images?: string[]
   inStock: boolean
   quantity?: number // Visível apenas no painel administrativo
   featured?: boolean
@@ -166,6 +167,7 @@ export interface EventItem {
   image?: string
   status: EventStatus
   capacity?: number
+  registrationOpen?: boolean // Controla se o evento aceita inscrições
   link?: string
   createdAt: string
   updatedAt: string
@@ -328,6 +330,7 @@ export interface EventRegistration {
   id: string
   eventId: string
   eventTitle: string
+  customerId?: string
   name: string
   email: string
   phone: string
@@ -716,6 +719,7 @@ const DEFAULT_EVENTS: EventItem[] = [
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80',
     status: 'agendado',
     capacity: 250,
+    registrationOpen: true,
     link: '#inscricao-evento',
     createdAt: '2026-02-01T00:00:00Z',
     updatedAt: '2026-02-01T00:00:00Z',
@@ -731,6 +735,7 @@ const DEFAULT_EVENTS: EventItem[] = [
     image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80',
     status: 'agendado',
     capacity: 40,
+    registrationOpen: true,
     link: '#inscricao-evento',
     createdAt: '2026-02-05T00:00:00Z',
     updatedAt: '2026-02-05T00:00:00Z',
@@ -1938,6 +1943,16 @@ class DataStoreManager {
       return { ...db, eventRegistrations: list }
     }, { action: `Atualizou estado da inscrição #${id} para "${status}"`, module: 'eventos' })
     return updatedItem
+  }
+
+  public getCustomerEventRegistrations(email: string, customerId?: string): EventRegistration[] {
+    const list = this.db.eventRegistrations || []
+    const cleanEmail = email.toLowerCase().trim()
+    return list.filter(
+      (r) =>
+        (customerId && r.customerId === customerId) ||
+        (r.email && r.email.toLowerCase().trim() === cleanEmail)
+    )
   }
 
   public deleteEventRegistration(id: string): boolean {

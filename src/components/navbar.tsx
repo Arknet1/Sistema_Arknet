@@ -18,6 +18,8 @@ import {
   LayoutDashboard,
   Package,
   Layers,
+  Calendar,
+  Heart,
 } from 'lucide-react'
 import icon from '@/assets/icon18.png'
 import {
@@ -27,6 +29,7 @@ import {
 } from '@/components/ui/sheet'
 import Image from 'next/image'
 import { useCart } from '@/lib/cart'
+import { useWishlist } from '@/lib/wishlist-store'
 import { useAuth } from '@/lib/auth-context'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 
@@ -37,6 +40,7 @@ export default function Navbar() {
   const router = useRouter()
   const pathname = usePathname()
   const { itemCount } = useCart()
+  const { count: wishlistCount } = useWishlist()
   const { user: adminUser, logout: adminLogout } = useAuth()
   const { customer, logout: customerLogout } = useCustomerAuth()
 
@@ -95,8 +99,8 @@ export default function Navbar() {
       className="fixed top-0 left-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs"
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="inline-flex items-center">
-          <Image src={icon} alt="ARKNET Logo" width={200} height={200} className="h-16 w-auto object-contain" />
+        <Link href="/" className="inline-flex items-center" aria-label="ARKNET Angola — Página Inicial">
+          <Image src={icon} alt="ARKNET — Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" priority />
         </Link>
 
         <div className="hidden lg:flex items-center gap-6">
@@ -111,6 +115,19 @@ export default function Navbar() {
           ))}
 
           <Link
+            href="/loja/favoritos"
+            className="relative inline-flex items-center justify-center p-1.5 text-slate-700 hover:text-rose-600 transition"
+            title="Lista de Desejos / Favoritos"
+          >
+            <Heart className={`h-5 w-5 ${wishlistCount > 0 ? 'text-rose-600 fill-rose-600' : 'text-slate-700'}`} />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
+
+          <Link
             href="/loja/carrinho"
             className="relative inline-flex items-center justify-center p-1.5"
             title="Carrinho de Compras"
@@ -123,7 +140,73 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* User Account / Admin Area Dropdown */}
+          {/* Admin Indicator - Shows when admin is logged in */}
+          {adminUser && (
+            <div className="relative" ref={!customer ? dropdownRef : undefined}>
+              <button
+                type="button"
+                onClick={() => !customer ? setUserDropdownOpen(!userDropdownOpen) : null}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-500 hover:text-white text-xs font-bold uppercase tracking-wider rounded transition"
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                <span>Admin</span>
+                {!customer && <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${userDropdownOpen ? 'rotate-180' : ''}`} />}
+              </button>
+
+              {!customer && userDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                  <div className="p-4 bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+                    <p className="text-xs font-bold text-white truncate">{adminUser.name}</p>
+                    <p className="text-[11px] text-slate-400 font-mono truncate mt-0.5">{adminUser.email}</p>
+                    <span className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 bg-amber-950 border border-amber-700 text-amber-400 text-[9px] font-bold uppercase rounded-full">
+                      <ShieldCheck className="h-2.5 w-2.5" />
+                      Administrador
+                    </span>
+                  </div>
+
+                  <div className="p-1.5 text-xs text-slate-700">
+                    <Link
+                      href="/admin"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
+                    >
+                      <LayoutDashboard className="h-4 w-4 text-slate-400" />
+                      <span>Painel Admin</span>
+                    </Link>
+                    <Link
+                      href="/admin/produtos"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
+                    >
+                      <Package className="h-4 w-4 text-slate-400" />
+                      <span>Gerir Produtos</span>
+                    </Link>
+                    <Link
+                      href="/admin/leads"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
+                    >
+                      <Layers className="h-4 w-4 text-slate-400" />
+                      <span>Ver Leads</span>
+                    </Link>
+                  </div>
+
+                  <div className="p-1.5 border-t border-slate-100 bg-slate-50">
+                    <button
+                      type="button"
+                      onClick={handleAdminLogout}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      <span>Terminar Sessão Admin</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* User Account / Customer Dropdown */}
           {customer ? (
             <div className="relative" ref={dropdownRef}>
               <button
@@ -156,12 +239,28 @@ export default function Navbar() {
                       <span>Meu Perfil & Empresa</span>
                     </Link>
                     <Link
+                      href="/loja/favoritos"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition text-slate-700"
+                    >
+                      <Heart className="h-4 w-4 text-rose-500" />
+                      <span>Artigos Favoritos ({wishlistCount})</span>
+                    </Link>
+                    <Link
                       href="/cliente/perfil?tab=pedidos"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <ShoppingBag className="h-4 w-4 text-slate-400" />
-                      <span>Minhas Encomendas & Faturas</span>
+                      <span>Minhas Encomendas &amp; Faturas</span>
+                    </Link>
+                    <Link
+                      href="/cliente/perfil?tab=eventos"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
+                    >
+                      <Calendar className="h-4 w-4 text-slate-400" />
+                      <span>Meus Eventos &amp; Inscrições</span>
                     </Link>
                     <Link
                       href="/cliente/perfil?tab=servicos"
@@ -169,7 +268,7 @@ export default function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <Headset className="h-4 w-4 text-slate-400" />
-                      <span>Cotações & Serviços</span>
+                      <span>Cotações &amp; Serviços</span>
                     </Link>
                     <Link
                       href="/cliente/perfil?tab=seguranca"
@@ -177,7 +276,7 @@ export default function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <KeyRound className="h-4 w-4 text-slate-400" />
-                      <span>Segurança & Senha</span>
+                      <span>Segurança &amp; Senha</span>
                     </Link>
                   </div>
 
@@ -194,7 +293,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          ) : (
+          ) : !adminUser ? (
             <Link
               href="/login"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-sm"
@@ -203,7 +302,7 @@ export default function Navbar() {
               <User className="h-3.5 w-3.5" />
               <span>Entrar</span>
             </Link>
-          )}
+          ) : null}
 
           <Link
             href={resolveHref('#contacto')}
@@ -214,6 +313,19 @@ export default function Navbar() {
         </div>
 
         <div className="lg:hidden flex items-center gap-3">
+          <Link
+            href="/loja/favoritos"
+            className="relative inline-flex items-center"
+            title="Favoritos"
+          >
+            <Heart className={`h-6 w-6 ${wishlistCount > 0 ? 'text-rose-600 fill-rose-600' : 'text-slate-700'}`} />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-white">
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
+
           <Link
             href="/loja/carrinho"
             className="relative inline-flex items-center"
@@ -244,6 +356,15 @@ export default function Navbar() {
                 ))}
 
                 <Link
+                  href="/loja/favoritos"
+                  onClick={() => setOpen(false)}
+                  className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-rose-600 transition"
+                >
+                  <Heart className="h-5 w-5 text-rose-600" />
+                  <span>Favoritos ({wishlistCount})</span>
+                </Link>
+
+                <Link
                   href="/loja/carrinho"
                   onClick={() => setOpen(false)}
                   className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-primary transition"
@@ -251,7 +372,33 @@ export default function Navbar() {
                   Carrinho ({itemCount})
                 </Link>
 
-                {/* User Link in Mobile Menu */}
+                {/* Admin Link in Mobile Menu */}
+                {adminUser && (
+                  <div className="space-y-2 pt-2 border-t border-amber-200">
+                    <Link
+                      href="/admin"
+                      onClick={() => setOpen(false)}
+                      className="p-3 bg-amber-500/10 border border-amber-500/30 text-amber-700 text-sm font-bold uppercase flex items-center justify-between rounded"
+                    >
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="h-4 w-4" />
+                        <span>Painel Admin ({adminUser.name?.split(' ')[0]})</span>
+                      </div>
+                    </Link>
+                    {!customer && (
+                      <button
+                        type="button"
+                        onClick={handleAdminLogout}
+                        className="w-full p-3 bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 text-xs font-bold uppercase flex items-center justify-center gap-2 rounded transition"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        <span>Terminar Sessão Admin</span>
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* Customer Link in Mobile Menu */}
                 {customer ? (
                   <div className="space-y-2 pt-2 border-t border-slate-100">
                     <Link
@@ -273,7 +420,7 @@ export default function Navbar() {
                       <span>Terminar Sessão</span>
                     </button>
                   </div>
-                ) : (
+                ) : !adminUser ? (
                   <Link
                     href="/login"
                     onClick={() => setOpen(false)}
@@ -282,7 +429,7 @@ export default function Navbar() {
                     <User className="h-4 w-4" />
                     Iniciar Sessão
                   </Link>
-                )}
+                ) : null}
 
                 <Link
                   href={resolveHref('#contacto')}
