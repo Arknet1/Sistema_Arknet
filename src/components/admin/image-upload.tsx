@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react'
 import Image from 'next/image'
-import { UploadCloud, Link as LinkIcon, X, Eye, Check } from 'lucide-react'
+import { UploadCloud, Link as LinkIcon, X, Eye, Check, Loader2 } from 'lucide-react'
 
 interface ImageUploadProps {
   value: string
@@ -83,21 +83,74 @@ export function ImageUpload({
     }
   }
 
-  const processFile = (file: File) => {
+  const [uploading, setUploading] = useState(false)
+
+  const processFile = async (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Por favor, selecione um ficheiro de imagem válido.')
       return
     }
+
+    setUploading(true)
+
+    try {
+      // 1. Tentar upload direto via FormData
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success && data.url) {
+        onChange(data.url)
+        setUrlInput(data.url)
+        setUploading(false)
+        return
+      }
+    } catch (err) {
+      console.warn('[ImageUpload] Falha no upload via FormData, tentando compressão:', err)
+    }
+
+    // Fallback: comprimir e enviar via Base64 para a API
     const reader = new FileReader()
     reader.onload = (event) => {
       const result = event.target?.result as string
       if (result) {
-        compressImage(result, (compressedUrl) => {
-          onChange(compressedUrl)
-          setUrlInput(compressedUrl)
+        compressImage(result, async (compressedUrl) => {
+          try {
+            const res = await fetch('/api/upload', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                dataUrl: compressedUrl,
+                filename: file.name,
+              }),
+            })
+            const resData = await res.json()
+            if (res.ok && resData.success && resData.url) {
+              onChange(resData.url)
+              setUrlInput(resData.url)
+            } else {
+              // Se a API falhar completamente, usa o dataUrl
+              onChange(compressedUrl)
+              setUrlInput(compressedUrl)
+            }
+          } catch (e) {
+            onChange(compressedUrl)
+            setUrlInput(compressedUrl)
+          } finally {
+            setUploading(false)
+          }
         })
+      } else {
+        setUploading(false)
       }
     }
+    reader.onerror = () => setUploading(false)
     reader.readAsDataURL(file)
   }
 
@@ -189,13 +242,27 @@ export function ImageUpload({
             className="hidden"
           />
           <div className="flex flex-col items-center justify-center gap-2">
-            <div className="p-3 bg-white shadow-sm border border-slate-200 text-primary">
-              <UploadCloud className="h-6 w-6" />
-            </div>
-            <p className="text-sm font-semibold text-slate-700">
-              Clique para selecionar ou arraste a imagem para aqui
-            </p>
-            <p className="text-xs text-slate-400">{helperText}</p>
+            {uploading ? (
+              <>
+                <div className="p-3 bg-white shadow-sm border border-slate-200 text-primary animate-spin">
+                  <Loader2 className="h-6 w-6" />
+                </div>
+                <p className="text-sm font-semibold text-primary">
+                  A enviar e a guardar imagem no servidor...
+                </p>
+                <p className="text-xs text-slate-400">Por favor, aguarde um instante</p>
+              </>
+            ) : (
+              <>
+                <div className="p-3 bg-white shadow-sm border border-slate-200 text-primary">
+                  <UploadCloud className="h-6 w-6" />
+                </div>
+                <p className="text-sm font-semibold text-slate-700">
+                  Clique para selecionar ou arraste a imagem para aqui
+                </p>
+                <p className="text-xs text-slate-400">{helperText}</p>
+              </>
+            )}
           </div>
         </div>
       ) : (

@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server'
  * Middleware de Segurança Global ARKNET
  * Aplica cabeçalhos HTTP de segurança estritos e verifica a autenticação para rotas protegidas.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next()
 
   // 1. Configurar Cabeçalhos HTTP de Segurança

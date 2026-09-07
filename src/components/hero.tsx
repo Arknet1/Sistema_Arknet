@@ -5,7 +5,7 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Check, Users, Award, Clock, Wifi } from "lucide-react"
-import hero from "@/assets/sessoes/5.jpeg"
+import hero from "@/assets/projectos e actividades/img principal.jpeg"
 import { CountUp } from "@/components/count-up"
 
 const GlobeCanvas = dynamic(() => import("@/components/hero-globe"), {

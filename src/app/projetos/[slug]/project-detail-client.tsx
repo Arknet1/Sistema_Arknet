@@ -126,14 +126,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
               
               {/* Etiqueta de Categoria / Tipo */}
               <div className="flex flex-wrap items-center gap-2">
-                {project.partnershipType && (
-                  <span className="px-3 py-1 text-xs font-black uppercase tracking-wider bg-primary text-white rounded-md shadow-md">
-                    {project.partnershipType}
-                  </span>
-                )}
-                <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-white/10 text-slate-200 border border-white/15 rounded-md">
-                  {project.category}
-                </span>
                 <span className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-md ${
                   project.status === 'concluido' ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' : 'bg-amber-950 text-amber-400 border border-amber-500/30'
                 }`}>
@@ -152,10 +144,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                   <span className="flex items-center gap-1.5 font-mono font-bold text-slate-300">
                     <Calendar className="h-3.5 w-3.5 text-primary" />
                     Publicado em {formatDatePT(project.createdAt)}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-slate-300 font-semibold">
-                    <Building2 className="h-3.5 w-3.5 text-primary" />
-                    {project.clientName}
                   </span>
                 </div>
 
@@ -207,7 +195,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-80 sm:h-[450px] object-cover group-hover:scale-102 transition-transform duration-700"
+                className="w-full aspect-video object-cover group-hover:scale-102 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
               <button
@@ -226,55 +214,6 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
         <section className="py-12 max-w-5xl mx-auto px-6 bg-slate-50">
           
           {/* BLOCO DESTACADO: CAIXA DE ASSINATURA DAS EMPRESAS PARCEIRAS (PERTO DO INÍCIO) */}
-          {project.partners && project.partners.length > 0 && (
-            <div className="mb-10 p-6 bg-white border border-slate-200/90 rounded-2xl shadow-md space-y-4">
-              <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-                <Handshake className="h-5 w-5 text-primary" />
-                <h3 className="font-black text-slate-900 text-sm uppercase tracking-wider">
-                  Empresas Parceiras Envolvidas neste Projeto
-                </h3>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {project.partners.map((partner, pIdx) => (
-                  <div
-                    key={pIdx}
-                    className="p-4 bg-slate-50 border border-slate-200/80 rounded-xl flex items-start gap-3 hover:border-primary/40 transition"
-                  >
-                    <div className="p-2 bg-white border border-slate-200 rounded-lg shrink-0">
-                      {partner.partnerLogo ? (
-                        <img src={partner.partnerLogo} alt={partner.partnerName} className="h-8 w-auto max-w-[80px] object-contain" />
-                      ) : (
-                        <Building2 className="h-6 w-6 text-primary" />
-                      )}
-                    </div>
-                    <div className="space-y-1 flex-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-extrabold text-slate-900 text-xs">
-                          {partner.partnerName}
-                        </h4>
-                        {partner.partnerWebsite && (
-                          <a
-                            href={partner.partnerWebsite}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-slate-400 hover:text-primary transition"
-                            title={`Visitar site de ${partner.partnerName}`}
-                          >
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-slate-600 font-medium leading-snug">
-                        {partner.role || 'Parceiro Estratégico no Projeto'}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* TEXTO CORRIDO DO ARTIGO */}
           <div className="space-y-8 text-slate-800 leading-relaxed font-normal">
             

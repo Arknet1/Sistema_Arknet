@@ -1221,6 +1221,7 @@ class DataStoreManager {
   private listeners: Set<Listener> = new Set()
   private broadcastChannel: BroadcastChannel | null = null
   private isBrowser: boolean = typeof window !== 'undefined'
+  private syncTimer: any = null
 
   constructor() {
     this.db = this.loadFromStorage()
@@ -1247,10 +1248,60 @@ class DataStoreManager {
             }
           }
         })
+
+        // Sincroniza com o servidor na inicialização
+        setTimeout(() => {
+          this.syncWithServer().catch((e) => console.warn('[DataStore] Sincronização inicial com servidor falhou:', e))
+        }, 100)
       } catch (err) {
         console.warn('Storage sync channel not supported', err)
       }
     }
+  }
+
+  /**
+   * Sincroniza os dados locais com o arquivo do servidor (/api/db)
+   */
+  public async syncWithServer(): Promise<boolean> {
+    if (!this.isBrowser) return false
+    try {
+      const res = await fetch('/api/db', { cache: 'no-store' })
+      if (!res.ok) return false
+      const data = await res.json()
+      if (data && data.success && data.db) {
+        const cleaned = cleanDatabaseForStorage(data.db)
+        this.db = {
+          ...INITIAL_DB,
+          ...cleaned,
+        }
+        this.saveToStorage(this.db, false) // Não reenviar para o servidor pois acabamos de puxar
+        this.notifyListeners()
+        return true
+      }
+      return false
+    } catch (err) {
+      console.warn('[DataStore] Erro ao sincronizar com servidor:', err)
+      return false
+    }
+  }
+
+  /**
+   * Envia as alterações para o arquivo do servidor (/api/db)
+   */
+  private pushToServer(db: ArknetDatabase) {
+    if (!this.isBrowser) return
+    if (this.syncTimer) clearTimeout(this.syncTimer)
+    this.syncTimer = setTimeout(async () => {
+      try {
+        await fetch('/api/db', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ db }),
+        })
+      } catch (err) {
+        console.warn('[DataStore] Erro ao salvar dados no servidor:', err)
+      }
+    }, 300)
   }
 
   private loadFromStorage(): ArknetDatabase {
@@ -1294,12 +1345,15 @@ class DataStoreManager {
     }
   }
 
-  private saveToStorage(db: ArknetDatabase) {
+  private saveToStorage(db: ArknetDatabase, shouldPushServer = true) {
     if (!this.isBrowser) return
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(db))
       if (this.broadcastChannel) {
         this.broadcastChannel.postMessage({ type: 'DB_UPDATED', timestamp: Date.now() })
+      }
+      if (shouldPushServer) {
+        this.pushToServer(db)
       }
     } catch (err) {
       console.error('Error saving DB to localStorage', err)
@@ -1310,6 +1364,9 @@ class DataStoreManager {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanedDb))
         if (this.broadcastChannel) {
           this.broadcastChannel.postMessage({ type: 'DB_UPDATED', timestamp: Date.now() })
+        }
+        if (shouldPushServer) {
+          this.pushToServer(cleanedDb)
         }
       } catch (retryErr) {
         console.error('Failed retry of saveToStorage', retryErr)
@@ -1331,7 +1388,7 @@ class DataStoreManager {
       updated.activities = [newLog, ...(updated.activities || [])].slice(0, 50)
     }
     this.db = updated
-    this.saveToStorage(updated)
+    this.saveToStorage(updated, true)
     this.notifyListeners()
     return updated
   }
@@ -2387,7 +2444,7 @@ class DataStoreManager {
         throw new Error('Formato de dados inválido.')
       }
       this.db = parsed
-      this.saveToStorage(parsed)
+      this.saveToStorage(parsed, true)
       this.notifyListeners()
       return true
     } catch (err) {
@@ -2396,10 +2453,19 @@ class DataStoreManager {
     }
   }
 
-  public resetToDefaults(): void {
+  public async resetToDefaults(): Promise<void> {
     this.db = INITIAL_DB
-    this.saveToStorage(INITIAL_DB)
+    this.saveToStorage(INITIAL_DB, true)
     this.notifyListeners()
+    try {
+      await fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset' }),
+      })
+    } catch (e) {
+      console.warn('Reset server DB failed', e)
+    }
   }
 }
 

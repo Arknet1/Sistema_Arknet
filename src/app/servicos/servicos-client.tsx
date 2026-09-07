@@ -26,12 +26,10 @@ import {
   HelpCircle,
   Quote,
   Filter,
-  Calculator,
 } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { mockServices, mockTestimonials } from '@/lib/mock-data'
 import Footer from '@/components/footer'
-import { ServiceQuoteCalculator } from '@/components/service-calculator'
 
 const serviceIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu: Cpu,
@@ -137,14 +135,6 @@ export default function ServicosListingClient() {
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="#simulador"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-secondary hover:bg-secondary/90 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-lg shadow-secondary/25 transition"
-              >
-                <Calculator className="h-4 w-4" />
-                <span>Simulador de Custos Online</span>
-              </a>
-
-              <a
                 href="#catalogo"
                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition"
               >
@@ -192,11 +182,10 @@ export default function ServicosListingClient() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 ${
-                activeCategory === cat
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 ${activeCategory === cat
                   ? 'bg-primary text-white shadow-md shadow-primary/20'
                   : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:text-slate-900'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -271,10 +260,7 @@ export default function ServicosListingClient() {
         </div>
       </section>
 
-      {/* 3. SIMULADOR INTERATIVO DE COTAÇÕES */}
-      <ServiceQuoteCalculator />
-
-      {/* 4. Secção "Como Trabalhamos" (Passos do Processo Comercial) */}
+      {/* 3. Secção "Como Trabalhamos" (Passos do Processo Comercial) */}
       <section className="py-20 bg-slate-900 text-white border-y border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -386,9 +372,8 @@ export default function ServicosListingClient() {
                   >
                     <span>{faq.question}</span>
                     <ChevronDown
-                      className={`h-5 w-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-primary' : ''
-                      }`}
+                      className={`h-5 w-5 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-primary' : ''
+                        }`}
                     />
                   </button>
 

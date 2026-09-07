@@ -279,6 +279,18 @@ export default function AdminProjetosPage() {
     }))
   }
 
+  const handleGalleryImageChange = (index: number, url: string) => {
+    setFormData((prev) => {
+      const gallery = [...prev.gallery]
+      if (url) {
+        gallery[index] = url
+      } else {
+        gallery.splice(index, 1)
+      }
+      return { ...prev, gallery: gallery.filter(Boolean).slice(0, 3) }
+    })
+  }
+
   // Salvar Projeto
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault()
@@ -287,15 +299,10 @@ export default function AdminProjetosPage() {
       toastError('O título do projeto é obrigatório.')
       return
     }
-    if (!formData.clientName.trim()) {
-      toastError('O nome do cliente/instituição é obrigatório.')
-      return
-    }
-
     const payload = {
       title: formData.title.trim(),
       slug: formData.slug.trim() || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      clientName: formData.clientName.trim(),
+      clientName: formData.clientName.trim() || 'ARKNET',
       category: formData.category,
       partnershipType: formData.partnershipType,
       status: formData.status,
@@ -604,7 +611,7 @@ export default function AdminProjetosPage() {
               <div className="space-y-4">
                 <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
                   <FolderGit2 className="h-4 w-4 text-primary" />
-                  <span>1. Identificação do Projeto</span>
+                  <span>1. Conteúdo da Publicação</span>
                 </h4>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -622,22 +629,9 @@ export default function AdminProjetosPage() {
                     />
                   </div>
 
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">
-                      Cliente / Instituição *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.clientName}
-                      onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                      placeholder="Ex: Tribunal Supremo de Angola"
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
-                    />
-                  </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="hidden">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
                       Área / Categoria
@@ -743,7 +737,7 @@ export default function AdminProjetosPage() {
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="hidden">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1 text-rose-700">
                       O Desafio do Cliente
@@ -776,20 +770,42 @@ export default function AdminProjetosPage() {
               <div className="space-y-4">
                 <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
                   <ImageIcon className="h-4 w-4 text-primary" />
-                  <span>3. Imagem Principal</span>
+                  <span>3. Imagem da Publicação</span>
                 </h4>
 
                 <ImageUpload
                   value={formData.image}
                   onChange={(url) => setFormData({ ...formData, image: url })}
                   label="Fotografia de Destaque do Projeto"
-                  helperText="Recomendado: 800x600px ou formato 16:9"
+                  helperText="A imagem será recortada automaticamente para o formato da publicação."
                   aspectRatio="video"
                 />
               </div>
 
-              {/* Secção 4: Empresas Parceiras Envolvidas (N:N) */}
               <div className="space-y-4">
+                <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
+                  <ImageIcon className="h-4 w-4 text-primary" />
+                  <span>4. Imagens Adicionais</span>
+                </h4>
+                <p className="text-xs text-slate-500">
+                  Adicione até três imagens que serão apresentadas na galeria da publicação.
+                </p>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {[0, 1, 2].map((index) => (
+                    <ImageUpload
+                      key={index}
+                      value={formData.gallery[index] || ''}
+                      onChange={(url) => handleGalleryImageChange(index, url)}
+                      label={`Imagem ${index + 1}`}
+                      helperText="Opcional"
+                      aspectRatio="square"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Secção 4: Empresas Parceiras Envolvidas (N:N) */}
+              <div className="hidden">
                 <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
                   <Handshake className="h-4 w-4 text-primary" />
                   <span>4. Empresas Parceiras Envolvidas</span>
@@ -874,7 +890,7 @@ export default function AdminProjetosPage() {
               </div>
 
               {/* Secção 5: Métricas / Resultados de Destaque */}
-              <div className="space-y-4">
+              <div className="hidden">
                 <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
                   <Sparkles className="h-4 w-4 text-primary" />
                   <span>5. Resultados &amp; Conquistas (Métricas)</span>

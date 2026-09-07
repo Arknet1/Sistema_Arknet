@@ -48,11 +48,28 @@ export default function AdminDefinicoesPage() {
 
   // Modal de Restauro Seguro & Inspeção Prévia
   const [isResetModalOpen, setIsResetModalOpen] = useState(false)
+  const [isSyncing, setIsSyncing] = useState(false)
   const [pendingBackupContent, setPendingBackupContent] = useState<string | null>(null)
   const [pendingBackupData, setPendingBackupData] = useState<ArknetDatabase | null>(null)
   const [pendingBackupSizeKB, setPendingBackupSizeKB] = useState(0)
   const [isRestorePreviewOpen, setIsRestorePreviewOpen] = useState(false)
   const fileImportRef = useRef<HTMLInputElement>(null)
+
+  const handleSyncServer = async () => {
+    setIsSyncing(true)
+    try {
+      const ok = await dataStore.syncWithServer()
+      if (ok) {
+        success('Base de dados sincronizada com sucesso com o servidor!', 'Sincronização OK')
+      } else {
+        info('Sincronização concluída com os dados locais e do servidor.')
+      }
+    } catch (e) {
+      error('Erro ao conectar com o servidor para sincronização.')
+    } finally {
+      setIsSyncing(false)
+    }
+  }
 
   useEffect(() => {
     const sync = () => {
@@ -304,6 +321,17 @@ export default function AdminDefinicoesPage() {
         {/* Action Buttons: Full Backup, Restore, Module Exports */}
         <div className="pt-4 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
+            {/* Sync with Server */}
+            <button
+              type="button"
+              onClick={handleSyncServer}
+              disabled={isSyncing}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase tracking-wider rounded shadow-sm transition disabled:opacity-60"
+            >
+              <RefreshCw className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
+              <span>{isSyncing ? 'A sincronizar...' : 'Sincronizar com Servidor'}</span>
+            </button>
+
             {/* Download Full Backup */}
             <button
               type="button"

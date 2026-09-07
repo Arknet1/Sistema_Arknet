@@ -105,7 +105,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-AO" className={cn("h-full antialiased", inter.variable)}>
+    <html lang="pt-AO" data-scroll-behavior="smooth" className={cn("h-full antialiased", inter.variable)}>
       <head>
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />

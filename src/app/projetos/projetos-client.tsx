@@ -5,8 +5,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Calendar,
-  Building2,
-  Handshake,
   ArrowRight,
   ChevronRight,
   Sparkles,
@@ -146,7 +144,7 @@ export default function ProjetosPublicationClient() {
                     
                     {/* Imagem da Publicação (Intercalada: Lado Esquerdo se par, Lado Direito se ímpar) */}
                     <div
-                      className={`lg:col-span-6 relative h-80 sm:h-96 lg:h-[420px] w-full rounded-3xl overflow-hidden bg-slate-900 shadow-xl group ${
+                      className={`lg:col-span-6 relative aspect-video w-full rounded-3xl overflow-hidden bg-slate-900 shadow-xl group ${
                         isEven ? 'lg:order-1' : 'lg:order-2'
                       }`}
                     >
@@ -179,12 +177,6 @@ export default function ProjetosPublicationClient() {
                       }`}
                     >
                       
-                      {/* Cliente / Entidade */}
-                      <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
-                        <Building2 className="h-4 w-4 shrink-0" />
-                        <span>{item.clientName}</span>
-                      </div>
-
                       {/* Título da Publicação */}
                       <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-snug hover:text-primary transition">
                         <Link href={`/projetos/${item.slug}`}>
@@ -196,23 +188,6 @@ export default function ProjetosPublicationClient() {
                       <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
                         {item.description || item.tagline}
                       </p>
-
-                      {/* Assinatura das Empresas Parceiras Envolvidas */}
-                      {item.partners && item.partners.length > 0 && (
-                        <div className="p-4 bg-white border border-slate-200/90 rounded-2xl space-y-2 shadow-2xs">
-                          <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                            <Handshake className="h-4 w-4 text-primary shrink-0" />
-                            <span>Entidades &amp; Parceiros Envolvidos:</span>
-                          </div>
-                          <div className="flex flex-wrap gap-2 text-xs text-slate-600 font-medium">
-                            {item.partners.map((p, pIdx) => (
-                              <span key={pIdx} className="bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md text-[11px] font-bold text-slate-800">
-                                {p.partnerName} {p.role ? `(${p.role})` : ''}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
 
                       {/* Botão Ver Publicação Completa */}
                       <div className="pt-2">
