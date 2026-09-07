@@ -12,9 +12,9 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      // Filtrar apenas produtos marcados explicitamente como em destaque
-      const featured = db.products.filter((p) => Boolean(p.featured))
-      setProducts(featured.slice(0, 10))
+      const all = db.products || []
+      const featured = all.filter((p) => Boolean(p.featured))
+      setProducts(featured.length > 0 ? featured.slice(0, 10) : all.slice(0, 8))
     }
     sync()
     const unsub = dataStore.subscribe(sync)

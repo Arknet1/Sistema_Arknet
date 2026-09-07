@@ -112,7 +112,12 @@ function UnifiedLoginForm() {
     try {
       // 1. Verificar se é uma conta de Administrador / Editor
       const adminUsers = dataStore.getUsers()
-      const isAdminAccount = adminUsers.some((u) => u.email.toLowerCase() === cleanEmail)
+      const isAdminAccount =
+        adminUsers.some((u) => u.email.toLowerCase() === cleanEmail) ||
+        cleanEmail === 'admin' ||
+        cleanEmail === 'editor' ||
+        cleanEmail === 'admin@arknet.ao' ||
+        cleanEmail === 'admin@arknet.co.ao'
 
       if (isAdminAccount) {
         // Limpar qualquer sessão de cliente anterior
@@ -487,7 +492,34 @@ function UnifiedLoginForm() {
                 <ArrowRight className="h-4 w-4" />
               </button>
 
-
+              {/* Botões de Preenchimento Rápido */}
+              <div className="pt-4 mt-4 border-t border-slate-200">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-2 text-center">
+                  Preenchimento Rápido (Demonstração):
+                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLoginEmail('admin@arknet.co.ao')
+                      setLoginPassword('Admin123!')
+                    }}
+                    className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold rounded text-center transition"
+                  >
+                    👑 Administrador
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLoginEmail('manuel.domingos@petroangola.ao')
+                      setLoginPassword('Password123!')
+                    }}
+                    className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold rounded text-center transition"
+                  >
+                    👤 Cliente Teste
+                  </button>
+                </div>
+              </div>
             </form>
           )}
 

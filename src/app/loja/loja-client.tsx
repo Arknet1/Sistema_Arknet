@@ -5,7 +5,8 @@ import Image from "next/image"
 import {
   Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench, ArrowRight,
   SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets,
-  Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes
+  Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes,
+  Sparkles
 } from "lucide-react"
 import Link from "next/link"
 import ProductCard from "@/components/product-card"
@@ -69,8 +70,9 @@ export default function LojaClient() {
     return 0
   })
 
-  const featuredProducts = products.filter(p => Boolean(p.featured)).slice(0, 8)
-  const showFeatured = selectedCategory === 'Todos' && !searchTerm && featuredProducts.length > 0
+  // Produtos marcados em destaque (ou seleção dos principais produtos)
+  const explicitFeatured = products.filter(p => Boolean(p.featured))
+  const featuredProducts = explicitFeatured.length > 0 ? explicitFeatured : products.slice(0, 8)
 
   const hasActiveFilters = selectedCategory !== 'Todos' || searchTerm !== ''
 
@@ -110,7 +112,7 @@ export default function LojaClient() {
         </div>
       </div>
 
-      {/* Category tabs (Sem contador de quantidades) */}
+      {/* Category tabs */}
       <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -140,7 +142,7 @@ export default function LojaClient() {
       <div className="max-w-7xl mx-auto px-6 py-8">
 
         {/* Search & Sorting Toolbar */}
-        <div className="mb-6 flex flex-col md:flex-row items-stretch bg-white border border-slate-200 shadow-xs">
+        <div className="mb-8 flex flex-col md:flex-row items-stretch bg-white border border-slate-200 shadow-xs">
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
@@ -210,23 +212,34 @@ export default function LojaClient() {
           </div>
         )}
 
-        {/* Featured Products (Sem contador de quantidades) */}
-        {showFeatured && (
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-bold text-slate-900">Produtos em Destaque</h2>
+        {/* SECÇÃO ADICIONAL: PRODUTOS EM DESTAQUE */}
+        {featuredProducts.length > 0 && selectedCategory === 'Todos' && !searchTerm && (
+          <div className="mb-14 p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white rounded-2xl border border-slate-800 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+              <div>
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/20 px-2.5 py-0.5 rounded-full mb-2">
+                  <Sparkles className="h-3 w-3" /> Seleção Especial
+                </span>
+                <h2 className="text-2xl font-black text-white">Produtos em Destaque</h2>
+                <p className="text-xs text-slate-400 mt-1">
+                  Equipamentos e soluções mais requisitadas com disponibilidade imediata.
+                </p>
+              </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {featuredProducts.map(p => (
-                <ProductCard key={p.id} product={p as any} />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {featuredProducts.slice(0, 8).map(p => (
+                <div key={`featured-${p.id}`} className="bg-white rounded-xl overflow-hidden shadow-md text-slate-900">
+                  <ProductCard product={p as any} />
+                </div>
               ))}
             </div>
-            <div className="mt-6 border-t border-slate-100" />
           </div>
         )}
 
+        {/* LAYOUT PRINCIPAL DO CATÁLOGO COMPLETO */}
         <div className="flex gap-8">
-          {/* Sidebar Desktop (Sem contador de quantidades) */}
+          {/* Sidebar Desktop */}
           <aside className="w-60 shrink-0 hidden md:block">
             <div className="bg-white border border-slate-200 sticky top-36">
               <div className="px-4 py-3 border-b border-slate-100">
@@ -269,11 +282,11 @@ export default function LojaClient() {
             </div>
           </aside>
 
-          {/* Products grid */}
+          {/* Grid de Todos os Produtos */}
           <div className="flex-1">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-slate-500 font-medium">
-                Catálogo de Equipamentos e Soluções ARKNET
+                Catálogo Geral de Equipamentos
                 {selectedCategory !== 'Todos' && <span> — Categoria: <span className="font-semibold text-slate-900">{selectedCategory}</span></span>}
                 {searchTerm && <span> — Pesquisa: "<span className="font-semibold text-slate-900">{searchTerm}</span>"</span>}
               </p>

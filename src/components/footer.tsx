@@ -48,6 +48,12 @@ export default function Footer() {
   const phones = settings.phones?.length ? settings.phones : ["+244 935 208 449"]
   const emails = settings.emails?.length ? settings.emails : ["info@arknet.co.ao", "negocios@arknet.co.ao"]
   const address = [settings.address, settings.city].filter(Boolean).join(", ") || "Luanda, Angola"
+  const socialLinks = {
+    linkedin: settings.socialLinks?.linkedin ?? "https://www.linkedin.com/jmatostecnologias",
+    facebook: settings.socialLinks?.facebook ?? "https://www.facebook.com/jmatostecnologias",
+    instagram: settings.socialLinks?.instagram ?? "https://www.instagram.com/j.matostecnologias/",
+    ...(settings.socialLinks || {}),
+  }
 
   const resolveHref = (href: string) => {
     if (!href.startsWith("#")) {
@@ -166,9 +172,9 @@ export default function Footer() {
 
             {/* Socials */}
             <div className="mt-8 flex gap-3">
-              {settings.socialLinks?.linkedin && (
+              {socialLinks.linkedin && (
                 <a
-                  href={settings.socialLinks.linkedin}
+                  href={socialLinks.linkedin}
                   target="_blank"
                   rel="noreferrer"
                   className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
@@ -177,9 +183,9 @@ export default function Footer() {
                   <FaLinkedin className="h-4 w-4" />
                 </a>
               )}
-              {settings.socialLinks?.facebook && (
+              {socialLinks.facebook && (
                 <a
-                  href={settings.socialLinks.facebook}
+                  href={socialLinks.facebook}
                   target="_blank"
                   rel="noreferrer"
                   className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
@@ -188,9 +194,9 @@ export default function Footer() {
                   <FaFacebook className="h-4 w-4" />
                 </a>
               )}
-              {settings.socialLinks?.instagram && (
+              {socialLinks.instagram && (
                 <a
-                  href={settings.socialLinks.instagram}
+                  href={socialLinks.instagram}
                   target="_blank"
                   rel="noreferrer"
                   className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"

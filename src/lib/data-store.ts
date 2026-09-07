@@ -379,9 +379,33 @@ const DEFAULT_USERS: AdminUser[] = [
     lastLogin: new Date().toISOString(),
   },
   {
+    id: 'user-admin-ao',
+    name: 'Administrador Principal',
+    email: 'admin@arknet.ao',
+    password: 'Admin123!',
+    passwordHash: hashPasswordSync('Admin123!'),
+    role: 'admin',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    status: 'active',
+    createdAt: '2026-01-01T00:00:00Z',
+    lastLogin: new Date().toISOString(),
+  },
+  {
     id: 'user-editor',
     name: 'Editor de Conteúdo',
     email: 'editor@arknet.co.ao',
+    password: 'Admin123!',
+    passwordHash: hashPasswordSync('Admin123!'),
+    role: 'editor',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    status: 'active',
+    createdAt: '2026-01-10T00:00:00Z',
+    lastLogin: new Date().toISOString(),
+  },
+  {
+    id: 'user-editor-ao',
+    name: 'Gestor de Conteúdo',
+    email: 'editor@arknet.ao',
     password: 'Admin123!',
     passwordHash: hashPasswordSync('Admin123!'),
     role: 'editor',
@@ -1155,7 +1179,7 @@ const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
   },
 ]
 
-const INITIAL_DB: ArknetDatabase = {
+export const INITIAL_DB: ArknetDatabase = {
   users: DEFAULT_USERS,
   customers: DEFAULT_CUSTOMERS,
   products: DEFAULT_PRODUCTS,
@@ -1186,33 +1210,18 @@ const CHANNEL_NAME = 'arknet_db_sync_channel'
 type Listener = (db: ArknetDatabase) => void
 
 function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
-  const cleanProducts = (db.products || []).map((p) => {
-    // Se a imagem for uma string base64 gigante (> 150KB), otimiza desentupindo o LocalStorage
-    if (p.image && typeof p.image === 'string' && p.image.startsWith('data:image') && p.image.length > 150000) {
-      console.warn(`[DataStore] Otimizando imagem pesada do produto "${p.name}" para libertar LocalStorage (${Math.round(p.image.length / 1024)}KB)`)
-      return {
-        ...p,
-        image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
-      }
-    }
-    return p
-  })
-
-  const cleanProjects = (db.projects || []).map((p) => {
-    if (p.image && typeof p.image === 'string' && p.image.startsWith('data:image') && p.image.length > 150000) {
-      return {
-        ...p,
-        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80',
-      }
-    }
-    return p
-  })
-
+  if (!db) return INITIAL_DB
   return {
+    ...INITIAL_DB,
     ...db,
-    products: cleanProducts,
-    projects: cleanProjects,
-    activities: (db.activities || []).slice(0, 20),
+    products: Array.isArray(db.products) && db.products.length ? db.products : INITIAL_DB.products,
+    categories: Array.isArray(db.categories) && db.categories.length ? db.categories : INITIAL_DB.categories,
+    projects: Array.isArray(db.projects) && db.projects.length ? db.projects : INITIAL_DB.projects,
+    partners: Array.isArray(db.partners) && db.partners.length ? db.partners : INITIAL_DB.partners,
+    events: Array.isArray(db.events) && db.events.length ? db.events : INITIAL_DB.events,
+    courses: Array.isArray(db.courses) && db.courses.length ? db.courses : INITIAL_DB.courses,
+    testimonials: Array.isArray(db.testimonials) && db.testimonials.length ? db.testimonials : INITIAL_DB.testimonials,
+    activities: Array.isArray(db.activities) ? db.activities.slice(0, 30) : INITIAL_DB.activities,
   }
 }
 
@@ -1260,7 +1269,7 @@ class DataStoreManager {
   }
 
   /**
-   * Sincroniza os dados locais com o arquivo do servidor (/api/db)
+   * Sincroniza os dados locais com o arquivo do servidor (/api/db) de forma inteligente
    */
   public async syncWithServer(): Promise<boolean> {
     if (!this.isBrowser) return false
@@ -1269,12 +1278,44 @@ class DataStoreManager {
       if (!res.ok) return false
       const data = await res.json()
       if (data && data.success && data.db) {
-        const cleaned = cleanDatabaseForStorage(data.db)
+        const serverDb = cleanDatabaseForStorage(data.db)
+        const localDb = this.db
+
+        // Se houver produtos no storage local que tenham sido alterados mais recentemente, preserve
+        let mergedProducts = serverDb.products
+        if (localDb.products && localDb.products.length > 0) {
+          mergedProducts = serverDb.products.map((sp) => {
+            const lp = localDb.products.find((p) => p.id === sp.id)
+            if (lp && lp.updatedAt && sp.updatedAt && new Date(lp.updatedAt).getTime() > new Date(sp.updatedAt).getTime()) {
+              return lp
+            }
+            if (lp && lp.image && !sp.image) {
+              return { ...sp, image: lp.image }
+            }
+            return sp
+          })
+        }
+
         this.db = {
           ...INITIAL_DB,
-          ...cleaned,
+          ...serverDb,
+          products: mergedProducts,
+          settings: {
+            ...INITIAL_DB.settings,
+            ...(serverDb.settings || {}),
+            socialLinks: {
+              ...INITIAL_DB.settings?.socialLinks,
+              ...(serverDb.settings?.socialLinks || {}),
+            },
+          },
+          projects: serverDb.projects?.length ? serverDb.projects : INITIAL_DB.projects,
+          partners: serverDb.partners?.length ? serverDb.partners : INITIAL_DB.partners,
+          testimonials: serverDb.testimonials?.length ? serverDb.testimonials : INITIAL_DB.testimonials,
+          events: serverDb.events?.length ? serverDb.events : INITIAL_DB.events,
+          courses: serverDb.courses?.length ? serverDb.courses : INITIAL_DB.courses,
+          categories: serverDb.categories?.length ? serverDb.categories : INITIAL_DB.categories,
         }
-        this.saveToStorage(this.db, false) // Não reenviar para o servidor pois acabamos de puxar
+        this.saveToStorage(this.db, false)
         this.notifyListeners()
         return true
       }

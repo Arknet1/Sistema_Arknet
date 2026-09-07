@@ -9,7 +9,7 @@
       "avatar": "/images/team/admin.png",
       "status": "active",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-07T13:25:32.231Z"
+      "lastLogin": "2026-09-07T14:36:47.831Z"
     },
     {
       "id": "usr-2",
@@ -22,462 +22,930 @@
       "createdAt": "2025-01-15T00:00:00.000Z"
     }
   ],
-  "customers": [],
+  "customers": [
+    {
+      "name": "Jedy Suco",
+      "email": "jedyvandunem16@gmail.com",
+      "password": "Arknet@2026",
+      "phone": "932847952",
+      "city": "Luanda",
+      "status": "active",
+      "lastLogin": "2026-09-07T14:14:38.956Z",
+      "id": "cli-1788790478956",
+      "createdAt": "2026-09-07T14:14:38.956Z",
+      "updatedAt": "2026-09-07T14:14:38.956Z"
+    }
+  ],
   "products": [
     {
-      "id": "iphone16pro",
-      "name": "Apple iPhone 16 Pro 256 GB",
-      "description": "Smartphone premium da Apple com ecrã Super Retina XDR OLED de 6,3 polegadas, processador A18 Pro, sistema de câmaras Pro de 48 MP, gravação de vídeo 4K Dolby Vision, conectividade 5G, Wi-Fi 7, Face ID, USB-C e carregamento MagSafe.",
+      "name": "Câmera de segurança bullet",
+      "description": "Câmera de segurança bullet de rede IP da marca Dahua",
+      "category": "Segurança Eletrónica",
       "price": null,
-      "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg",
+      "image": "/uploads/photoroom_20260902_084124-1788796479204.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-2953",
+      "id": "prod-1788796512822-dir0",
+      "createdAt": "2026-09-07T15:55:12.822Z",
+      "updatedAt": "2026-09-07T15:55:12.822Z"
+    },
+    {
+      "name": "Adaptador de base para dois discoS",
+      "description": "Adaptador de base para dois discos- Dual-Bay HDD/SSD Docking Station genérica.",
       "category": "Smartphones e Telemóveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083842-1788796442122.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-9288",
+      "id": "prod-1788796446725-glp3",
+      "createdAt": "2026-09-07T15:54:06.725Z",
+      "updatedAt": "2026-09-07T15:54:06.725Z"
+    },
+    {
+      "name": "Cabo adaptador USB para Sata",
+      "description": "Cabo adaptador USB para Sata preto projetado para ligar disco rígidos (HDD) ou SSDs de 2,5 polegadas a portas USB de computadores.",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083828-1788796403360.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-1882",
+      "id": "prod-1788796410661-gkeo",
+      "createdAt": "2026-09-07T15:53:30.661Z",
+      "updatedAt": "2026-09-07T15:53:30.661Z"
+    },
+    {
+      "name": "Carregador de tomada bivolt",
+      "description": "Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083215-1788796324200.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-7982",
+      "id": "prod-1788796365453-086x",
+      "createdAt": "2026-09-07T15:52:45.453Z",
+      "updatedAt": "2026-09-07T15:52:45.453Z"
+    },
+    {
+      "name": "Adaptador PoE passivo",
+      "description": "Adaptador PoE passivo ou injetor de energia da TP-Link/ TL-POE4824G",
+      "category": "Redes e Internet",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083855-1788796205446.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-2178",
+      "id": "prod-1788796264885-v9rb",
+      "createdAt": "2026-09-07T15:51:04.885Z",
+      "updatedAt": "2026-09-07T15:51:04.885Z"
+    },
+    {
+      "name": "Tinteiro HP GT53 e GT52",
+      "description": "Tinteiro HP GT53 e GT52",
+      "category": "Impressoras e Consumíveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083652-1788796179439.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-1362",
+      "id": "prod-1788796183540-vzr2",
+      "createdAt": "2026-09-07T15:49:43.540Z",
+      "updatedAt": "2026-09-07T15:49:43.540Z"
+    },
+    {
+      "name": "Western Digital Caviar Blue modelo WD5000AAKX",
+      "description": "Western Digital Caviar Blue modelo WD5000AAKX",
+      "category": "Periféricos de Computador",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083722-1788796148614.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-4833",
+      "id": "prod-1788796152604-vq4z",
+      "createdAt": "2026-09-07T15:49:12.604Z",
+      "updatedAt": "2026-09-07T15:49:12.604Z"
+    },
+    {
+      "name": "Altifalante portátil Bluetooth T&G TG116C",
+      "description": "Altifalante portátil Bluetooth T&G TG116C",
+      "category": "Áudio",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083756-1788796115437.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-3961",
+      "id": "prod-1788796120628-l13k",
+      "createdAt": "2026-09-07T15:48:40.628Z",
+      "updatedAt": "2026-09-07T15:48:40.628Z"
+    },
+    {
+      "name": "Cabo adaptador de energia Molex de 4 pinos",
+      "description": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083540-1788796082259.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-8615",
+      "id": "prod-1788796086620-exid",
+      "createdAt": "2026-09-07T15:48:06.620Z",
+      "updatedAt": "2026-09-07T15:48:06.620Z"
+    },
+    {
+      "name": "Memoria KR M471A1K43EB1",
+      "description": "Memoria KR M471A1K43EB1-CWE2239",
+      "category": "Periféricos de Computador",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083230-1788796037926.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-7452",
+      "id": "prod-1788796041533-fn1j",
+      "createdAt": "2026-09-07T15:47:21.533Z",
+      "updatedAt": "2026-09-07T15:47:21.533Z"
+    },
+    {
+      "name": "Switch de rede 5 portas",
+      "description": "Switch de rede 5 portas",
+      "category": "Redes e Internet",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083504-1788795962878.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5293",
+      "id": "prod-1788795990180-pgrl",
+      "createdAt": "2026-09-07T15:46:30.180Z",
+      "updatedAt": "2026-09-07T15:46:30.180Z"
+    },
+    {
+      "name": "Cabo de rede UTP Cat6",
+      "description": "Cabo de rede UTP Cat6",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083410-1788795918540.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5173",
+      "id": "prod-1788795922211-pulm",
+      "createdAt": "2026-09-07T15:45:22.211Z",
+      "updatedAt": "2026-09-07T15:45:22.211Z"
+    },
+    {
+      "name": "Cabo USB impressora",
+      "description": "Cabo USB impressora",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083611-1788795881545.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-2728",
+      "id": "prod-1788795886203-xgxu",
+      "createdAt": "2026-09-07T15:44:46.203Z",
+      "updatedAt": "2026-09-07T15:44:46.203Z"
+    },
+    {
+      "name": "Cabo HDMI",
+      "description": "Cabo HDMI",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083523-1788795843377.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-3937",
+      "id": "prod-1788795847195-p64h",
+      "createdAt": "2026-09-07T15:44:07.195Z",
+      "updatedAt": "2026-09-07T15:44:07.195Z"
+    },
+    {
+      "name": "Microfone de lapela sem fio K9",
+      "description": "Microfone de lapela sem fio K9",
+      "category": "Áudio",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083444-1788795790622.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-9826",
+      "id": "prod-1788795814363-ify3",
+      "createdAt": "2026-09-07T15:43:34.363Z",
+      "updatedAt": "2026-09-07T15:43:34.363Z"
+    },
+    {
+      "name": "TP-LINK Omada EAP245",
+      "description": "TP-LINK Omada EAP245",
+      "category": "Periféricos de Computador",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_084443-1788795771840.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-4561",
+      "id": "prod-1788795776051-jkjo",
+      "createdAt": "2026-09-07T15:42:56.051Z",
+      "updatedAt": "2026-09-07T15:42:56.051Z"
+    },
+    {
+      "name": "Smart TV 50P",
+      "description": "Smart TV 50P",
+      "category": "Produtos",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083324-1788795716501.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-3238",
+      "id": "prod-1788795720299-mdu5",
+      "createdAt": "2026-09-07T15:42:00.299Z",
+      "updatedAt": "2026-09-07T15:42:00.299Z"
+    },
+    {
+      "name": "Medidor de potencia óptica portátil",
+      "description": "Medidor de potencia óptica portátil",
+      "category": "Energia e Proteção",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083355-1788795602169.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5635",
+      "id": "prod-1788795641586-5uhi",
+      "createdAt": "2026-09-07T15:40:41.586Z",
+      "updatedAt": "2026-09-07T15:40:41.586Z"
+    },
+    {
+      "name": "Tinteiro",
+      "description": "Tinteiro",
+      "category": "Impressoras e Consumíveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_151151-1788795584152.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-4352",
+      "id": "prod-1788795589610-olzw",
+      "createdAt": "2026-09-07T15:39:49.610Z",
+      "updatedAt": "2026-09-07T15:39:49.610Z"
+    },
+    {
+      "name": "Coluna bluetooth JBL",
+      "description": "Coluna bluetooth JBL",
+      "category": "Áudio",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083738-1788795529154.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-6623",
+      "id": "prod-1788795533450-5xlg",
+      "createdAt": "2026-09-07T15:38:53.450Z",
+      "updatedAt": "2026-09-07T15:38:53.450Z"
+    },
+    {
+      "name": "Bateria Kaise standard VRLA 12V 7Ah",
+      "description": "Bateria Kaise standard VRLA 12V 7Ah",
+      "category": "Produtos",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_084152-1788795460619.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-6985",
+      "id": "prod-1788795465482-l78u",
+      "createdAt": "2026-09-07T15:37:45.482Z",
+      "updatedAt": "2026-09-07T15:37:45.482Z"
+    },
+    {
+      "name": "UPS KS Offline Torre 800 VA",
+      "description": "UPS KS Offline Torre 800 VA",
+      "category": "Acessórios de Computador",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_084017-1788795403430.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5001",
+      "id": "prod-1788795407433-1dyl",
+      "createdAt": "2026-09-07T15:36:47.433Z",
+      "updatedAt": "2026-09-07T15:36:47.433Z"
+    },
+    {
+      "name": "Cassete de etiquetar Dy MOD1 de 9mm",
+      "description": "Cassete de etiquetar Dy MOD1 de 9mm",
+      "category": "Armazenamento",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_145749-1788795228653.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5291",
+      "id": "prod-1788795232608-gf9o",
+      "createdAt": "2026-09-07T15:33:52.608Z",
+      "updatedAt": "2026-09-07T15:33:52.608Z"
+    },
+    {
+      "name": "Pepetidor de sinal 2x antenas",
+      "description": "Pepetidor de sinal 2x antena exterior sem fio wireless-N Wif",
+      "category": "Redes e Internet",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_145838-1788795158804.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-6086",
+      "id": "prod-1788795163072-v5pe",
+      "createdAt": "2026-09-07T15:32:43.072Z",
+      "updatedAt": "2026-09-07T15:32:43.072Z"
+    },
+    {
+      "name": "Cabo VGA",
+      "description": "Cabo VGA macho para macho",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260901_112239-1788795042447.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-9164",
+      "id": "prod-1788795046135-fg73",
+      "createdAt": "2026-09-07T15:30:46.135Z",
+      "updatedAt": "2026-09-07T15:30:46.135Z"
+    },
+    {
+      "name": "Adaptador HDTV",
+      "description": "Adaptador HDTV para VGA",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260901_112255-1788794968534.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-9348",
+      "id": "prod-1788794974967-7vef",
+      "createdAt": "2026-09-07T15:29:34.967Z",
+      "updatedAt": "2026-09-07T15:29:34.967Z"
+    },
+    {
+      "name": "Adaptador Micro USB V8 Fêmea",
+      "description": "Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.",
+      "category": "Adaptadores e Conversores",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_151216-1788794924828.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-4552",
+      "id": "prod-1788794930198-5fe6",
+      "createdAt": "2026-09-07T15:28:50.198Z",
+      "updatedAt": "2026-09-07T15:28:50.198Z"
+    },
+    {
+      "name": "Câmera EZVIZ",
+      "description": "Câmera EZVIZ",
+      "category": "Segurança Eletrónica",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083959-1788794860605.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-6876",
+      "id": "prod-1788794867286-ybu9",
+      "createdAt": "2026-09-07T15:27:47.286Z",
+      "updatedAt": "2026-09-07T15:27:47.286Z"
+    },
+    {
+      "name": "Cabo multi-carregador USB 3 em 1",
+      "description": "Cabo multi-carregador USB 3 em 1 .Com revestimento em Nylon trançado na cor preta, apresentado um conector USB-A padrão em uma ponta e três saídas deferentes .",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_151238-1788794766224.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-4214",
+      "id": "prod-1788794806758-ajvz",
+      "createdAt": "2026-09-07T15:26:46.758Z",
+      "updatedAt": "2026-09-07T15:26:46.758Z"
+    },
+    {
+      "name": "Router TP-LINK Deco S7 AC1900",
+      "description": "Router TP-LINK Deco S7 AC1900 Dual-Band Wifi 5 Gigabit Mesh Pack-2",
+      "category": "Redes e Internet",
+      "price": 120000,
+      "image": "/uploads/photoroom_20260902_083249-1788794496160.JPG",
       "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-IPHONE16PRO",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-7002",
+      "id": "prod-1788794699965-e7f9",
+      "createdAt": "2026-09-07T15:24:59.965Z",
+      "updatedAt": "2026-09-07T15:24:59.965Z"
+    },
+    {
+      "name": "Cabo de força",
+      "description": "Cabo de força",
+      "category": "Cabos e Conectividade",
+      "price": 10000,
+      "image": "/uploads/photoroom_20260902_083627-1788794397650.JPG",
+      "inStock": true,
+      "quantity": 16,
+      "featured": false,
+      "sku": "ARK-7793",
+      "id": "prod-1788794477116-6e1i",
+      "createdAt": "2026-09-07T15:21:17.116Z",
+      "updatedAt": "2026-09-07T15:21:17.116Z"
+    },
+    {
+      "name": "Resma de papel",
+      "description": "Resma de papel",
+      "category": "Impressoras e Consumíveis",
+      "price": 4800,
+      "image": "/uploads/photoroom_20260902_083812-1788794265234.JPG",
+      "inStock": true,
+      "quantity": 199,
+      "featured": false,
+      "sku": "ARK-5315",
+      "id": "prod-1788794346899-0onf",
+      "createdAt": "2026-09-07T15:19:06.899Z",
+      "updatedAt": "2026-09-07T15:19:06.899Z"
+    },
+    {
+      "name": "Cabo HDTV 2Kx4K",
+      "description": "Cabo HDTV 2Kx4K",
+      "category": "Cabos e Conectividade",
+      "price": null,
+      "image": "/uploads/photoroom_20260901_112352-1788794223252.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-2363",
+      "id": "prod-1788794229819-qnld",
+      "createdAt": "2026-09-07T15:17:09.819Z",
+      "updatedAt": "2026-09-07T15:17:09.819Z"
+    },
+    {
+      "name": "Roteador sem fio LB-LINK N300",
+      "description": "Roteador sem fio LB-LINK N300- Velocidade wi-fi de 300 Mbps-4 antenas de alto ganho",
+      "category": "Redes e Internet",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083002-1788794093777.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-1566",
+      "id": "prod-1788794102738-0lm6",
+      "createdAt": "2026-09-07T15:15:02.738Z",
+      "updatedAt": "2026-09-07T15:15:02.738Z"
+    },
+    {
+      "name": "Impressora Konica",
+      "description": "Impressora Konica Minolta Bizhub 36A",
+      "category": "Impressoras e Consumíveis",
+      "price": 790000,
+      "image": "/uploads/photoroom_20260831_145717-1788793835412.JPG",
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-8294",
+      "id": "prod-1788793923296-032b",
+      "createdAt": "2026-09-07T15:12:03.296Z",
+      "updatedAt": "2026-09-07T15:12:03.296Z"
+    },
+    {
+      "name": "Impressora HP laserjet MFp",
+      "description": ": Impressora HP laserjet MFp color M3303FDw 25/25 PP",
+      "category": "Impressoras e Consumíveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_145734-1788793697307.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-5952",
+      "id": "prod-1788793819479-y5sj",
+      "createdAt": "2026-09-07T15:10:19.479Z",
+      "updatedAt": "2026-09-07T15:10:19.479Z"
+    },
+    {
+      "name": "Hostpot Router Wifi 4G LTE",
+      "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
+      "category": "Redes e Internet",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_083909-1788793577896.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-2999",
+      "id": "prod-1788793686542-1uuv",
+      "createdAt": "2026-09-07T15:08:06.542Z",
+      "updatedAt": "2026-09-07T15:08:06.542Z"
+    },
+    {
+      "name": "Impressora térmica X-printer",
+      "description": "Impressora térmica X-printer",
+      "category": "Impressoras e Consumíveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260902_084207-1788793520301.JPG",
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-7989",
+      "id": "prod-1788793523132-ysdl",
+      "createdAt": "2026-09-07T15:05:23.132Z",
+      "updatedAt": "2026-09-07T15:05:47.957Z"
+    },
+    {
+      "name": "Mochila Galática",
+      "description": "Mochila Galática",
+      "category": "Produtos",
+      "price": 54855,
+      "image": "/uploads/photoroom_20260902_084609-1788793412153.JPG",
+      "inStock": true,
+      "quantity": 21,
+      "featured": false,
+      "sku": "ARK-8438",
+      "id": "prod-1788793416443-uzwc",
+      "createdAt": "2026-09-07T15:03:36.443Z",
+      "updatedAt": "2026-09-07T15:03:36.443Z"
+    },
+    {
+      "name": "Mochila Cinzenta",
+      "description": "Mochila Cinzenta",
+      "category": "Produtos",
+      "price": 54855,
+      "image": "/uploads/photoroom_20260902_084554-1788793364055.JPG",
+      "inStock": true,
+      "quantity": 21,
+      "featured": false,
+      "sku": "ARK-1910",
+      "id": "prod-1788793369514-023m",
+      "createdAt": "2026-09-07T15:02:49.514Z",
+      "updatedAt": "2026-09-07T15:02:49.514Z"
+    },
+    {
+      "name": "Mochila Preta e Branca",
+      "description": "Mochila Preta e Branca",
+      "category": "Produtos",
+      "price": 54855,
+      "image": "/uploads/photoroom_20260902_084540-1788793312352.JPG",
+      "inStock": true,
+      "quantity": 21,
+      "featured": false,
+      "sku": "ARK-7234",
+      "id": "prod-1788793318826-jij0",
+      "createdAt": "2026-09-07T15:01:58.826Z",
+      "updatedAt": "2026-09-07T15:01:58.826Z"
+    },
+    {
+      "name": "Mochila preta",
+      "description": "Mochila preta",
+      "category": "Produtos",
+      "price": 54855,
+      "image": "/uploads/photoroom_20260831_145701-1788793208771.JPG",
+      "inStock": true,
+      "quantity": 21,
+      "featured": false,
+      "sku": "ARK-3436",
+      "id": "prod-1788793235834-50oz",
+      "createdAt": "2026-09-07T15:00:35.834Z",
+      "updatedAt": "2026-09-07T15:00:35.834Z"
+    },
+    {
+      "name": "Impressora HP Deskjet",
+      "description": ": Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "category": "Impressoras e Consumíveis",
+      "price": 68000,
+      "image": "/uploads/photoroom_20260902_083058-1788793133342.JPG",
+      "inStock": true,
+      "quantity": 9,
+      "featured": false,
+      "sku": "ARK-4350",
+      "id": "prod-1788793139851-0fup",
+      "createdAt": "2026-09-07T14:58:59.851Z",
+      "updatedAt": "2026-09-07T14:58:59.851Z"
     },
     {
       "id": "Adaptadorwifi",
       "name": "Adaptador Wi-Fi Alfa",
       "description": "Adaptador Wi-Fi USB Alfa de alto desempenho, ideal para melhorar a receção e transmissão de sinal sem fios em computadores e portáteis.",
       "price": 15000,
-      "image": "/_next/static/media/Adaptadorwi-fiAlfa.080qd_4jyj8u-.jpeg",
+      "image": "/uploads/photoroom_20260901_112409-1788791872351.JPG",
       "category": "Redes",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-ADAPTADORWIFI",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:37:54.509Z",
+      "featured": false
     },
     {
       "id": "repetidordesinal",
       "name": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
       "description": "Repetidor de sinal Wi-Fi desenvolvido para ampliar a cobertura da rede sem fios, reduzir zonas sem sinal e melhorar a ligação em residências e escritórios.",
       "price": 20000,
-      "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
+      "image": "/uploads/photoroom_20260831_145838-1788792274823.JPG",
       "category": "Redes",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-REPETIDORDESINAL",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "universalnotebook",
-      "name": "Universal Notebook Power Adaptador 8 conectores",
-      "description": "Adaptador universal de energia para computadores portáteis com 8 conectores diferentes. Compatível com vários modelos de notebooks.",
-      "price": 40000,
-      "image": "/_next/static/media/universal-notebook.0ed5a1rekq45~.jpeg",
-      "category": "Acessórios de Computador",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-UNIVERSALNOTEBOOK",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:44:36.684Z",
+      "featured": false
     },
     {
       "id": "extensao-ups-ewent",
       "name": "Extensão UPS Ewent",
       "description": "Extensão UPS Ewent com proteção contra sobrecargas e picos de tensão, ideal para proteger computadores, monitores e equipamentos de rede.",
       "price": 19000,
-      "image": "/_next/static/media/extensão.12svhud2o9_8_.jpeg",
+      "image": "/uploads/photoroom_20260831_150659-1788792043462.JPG",
       "category": "Energia e Proteção",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-EXTENSAO-UPS-EWENT",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:40:45.233Z",
+      "featured": false
     },
     {
       "id": "hdtv-splitter-ver1x4",
       "name": "HDTV Splitter Ver 1x4",
       "description": "HDTV Splitter permite distribuir um sinal HDMI para até quatro ecrãs mantendo qualidade de imagem e som em alta definição.",
       "price": 38000,
-      "image": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
+      "image": "/uploads/photoroom_20260831_150517-1788792095253.JPG",
       "category": "Áudio e Vídeo",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-HDTV-SPLITTER-VER1X4",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:41:36.553Z",
+      "featured": false
     },
     {
       "id": "colunas-manhattan",
       "name": "Colunas Manhattan",
       "description": "Colunas compactas com som de qualidade para computadores, portáteis e equipamentos multimédia.",
       "price": 6000,
-      "image": "/_next/static/media/colunam.17-fmq3zrr8ht.jpeg",
+      "image": "/uploads/photoroom_20260902_083118-1788791984023.JPG",
       "category": "Áudio e Multimédia",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-COLUNAS-MANHATTAN",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:39:46.303Z",
+      "featured": false
     },
     {
       "id": "alicate",
       "name": "Alicate de Crimpar RJ45",
       "description": "Ferramenta profissional para corte, decapagem e crimpagem de conectores RJ45 em instalações de rede.",
       "price": 18000,
-      "image": "/_next/static/media/alicate-grimpar.0mofx-_~10urt.jpeg",
+      "image": "/uploads/photoroom_20260831_150608-1788791884255.JPG",
       "category": "Ferramentas de Rede",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-ALICATE",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:38:08.221Z",
+      "featured": false
     },
     {
       "id": "gavetaposbematech",
       "name": "Gaveta POS Bematech",
       "description": "Gaveta metálica para caixas registadoras e sistemas POS, utilizada para armazenamento seguro de numerário.",
       "price": 57000,
-      "image": "/_next/static/media/gaveta-dinheiro-bematech.0axk~riwu16-b.jpeg",
+      "image": "/uploads/photoroom_20260831_150421-1788792076501.JPG",
       "category": "Automação Comercial",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-GAVETAPOSBEMATECH",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:41:18.929Z",
+      "featured": false
     },
     {
       "id": "testadordecabo",
       "name": "Testador Finder de Cabo UTP",
       "description": "Ferramenta para teste de cabos de rede UTP, permitindo identificar falhas em ligações Ethernet.",
       "price": null,
-      "image": "/_next/static/media/testadordecabo.0_alr.~_a~dw9.jpeg",
+      "image": "/uploads/photoroom_20260902_084358-1788792374688.JPG",
       "category": "Ferramentas de Rede",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-TESTADORDECABO",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "controleacesso",
-      "name": "Mini Teclado Controlo de Acesso TV",
-      "description": "Mini teclado compacto para controlo de acesso e navegação em sistemas TV, computadores e dispositivos multimédia.",
-      "price": 13000,
-      "image": "/_next/static/media/controledeacesso.04hbadyx3fuby.jpeg",
-      "category": "Acessórios",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-CONTROLEACESSO",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:46:16.461Z",
+      "featured": false
     },
     {
       "id": "monitorgamer",
       "name": "Monitor Wintech 27 Polegadas",
       "description": "Monitor Wintech de 27 polegadas com excelente qualidade de imagem para trabalho, jogos e entretenimento.",
       "price": null,
-      "image": "/_next/static/media/monitor-gamer-curvo.04hbr_xo3dil6.jpeg",
+      "image": "/uploads/photoroom_20260902_082947-1788792210998.JPG",
       "category": "Monitores",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-MONITORGAMER",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:43:32.835Z",
+      "featured": false
     },
     {
       "id": "mouse",
       "name": "Rato sem fio HP Preto",
       "description": "Rato sem fio HP com conexão wireless 2.4 GHz, design ergonómico e alta precisão para computadores e portáteis.",
       "price": null,
-      "image": "/_next/static/media/mouse.12zw2uar0-tm..jpeg",
+      "image": "/uploads/photoroom_20260831_150340-1788792252510.JPG",
       "category": "Periféricos",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-MOUSE",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:44:14.731Z",
+      "featured": false
     },
     {
       "id": "adaptadorhdmivga",
       "name": "Adaptador de Vídeo VGA para HDMI",
       "description": "Conversor de sinal VGA para HDMI compatível com monitores, televisores e projetores.",
       "price": null,
-      "image": "/_next/static/media/adaptador-vga-hdmi.0e15-3e9aqbi5.jpeg",
+      "image": "/uploads/photoroom_20260831_151406-1788791842279.JPG",
       "category": "Adaptadores e Conversores",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-ADAPTADORHDMIVGA",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:37:24.750Z",
+      "featured": false
     },
     {
       "id": "abracadeirasnylon",
       "name": "Conector de Rede Intellinet RJ45 Cat6 100 unidades",
       "description": "Conector RJ45 Cat6 UTP com contatos banhados a ouro, ideal para montagem de cabos Ethernet de alta performance.",
       "price": null,
-      "image": "/_next/static/media/abracadeira.0-6c25henq~y4.jpeg",
+      "image": "/uploads/photoroom_20260902_084033-1788792013816.JPG",
       "category": "Organização e Instalação",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-ABRACADEIRASNYLON",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "impressorahp",
-      "name": "Impressora HP DeskJet",
-      "description": "Impressora HP DeskJet para impressão, digitalização e cópia de documentos.",
-      "price": null,
-      "image": "/_next/static/media/impressora-multifuncional.08-gcufoyq9s4.jpeg",
-      "category": "Impressoras e Consumíveis",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-IMPRESSORAHP",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:40:16.216Z",
+      "featured": false
     },
     {
       "id": "microsd32gb",
       "name": "Cartão de Memória Micro SD 32GB Kingston",
       "description": "Cartão de memória de 32GB para smartphones, câmaras e outros dispositivos.",
       "price": null,
-      "image": "/_next/static/media/cartaodememoria32gb.0c5wrl80ftu4m.jpeg",
+      "image": "/uploads/photoroom_20260831_151301-1788791969978.JPG",
       "category": "Armazenamento",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-MICROSD32GB",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:39:31.567Z",
+      "featured": false
     },
     {
       "id": "pendrive32gb",
       "name": "Pen Drive Maxell 32GB USB 2.0",
       "description": "Pen drive Maxell para armazenamento e transporte de ficheiros.",
       "price": null,
-      "image": "/_next/static/media/pendrive.0tyy56er0qev6.jpeg",
+      "image": "/uploads/photoroom_20260831_151131-1788792220597.JPG",
       "category": "Armazenamento",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-PENDRIVE32GB",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:43:42.627Z",
+      "featured": false
     },
     {
       "id": "relogioponto",
       "name": "Relógio Biométrico ZKTeco K20",
       "description": "Relógio biométrico ZKTeco K20 para controlo de assiduidade, com ligação LAN, USB e armazenamento de registos.",
       "price": null,
-      "image": "/_next/static/media/relogiodepontobiométrico.0dmuta2sm5p_o.jpeg",
+      "image": "/uploads/photoroom_20260831_151112-1788792261808.JPG",
       "category": "Segurança Eletrónica",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-RELOGIOPONTO",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:44:24.692Z",
+      "featured": false
     },
     {
       "id": "roteador",
       "name": "Roteador Industrial Teltonika RUTM",
       "description": "Roteador industrial Teltonika desenvolvido para aplicações IoT e automação industrial, oferecendo conectividade segura, VPN, Dual SIM e gestão remota.",
       "price": 120000,
-      "image": "/_next/static/media/Roteador-Industrial.0w1yp0a8_7pt-.jpeg",
+      "image": "/uploads/photoroom_20260831_150116-1788792287321.JPG",
       "category": "Redes",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-ROTEADOR",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "router4g",
-      "name": "TP-Link 300Mbps Wireless N Router",
-      "description": "Router TP-Link Wireless N de 300 Mbps para redes domésticas e empresariais.",
-      "price": null,
-      "image": "/_next/static/media/router4g.0o4.1qs.-0140.jpeg",
-      "category": "Redes e Internet",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-ROUTER4G",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:44:49.660Z",
+      "featured": false
     },
     {
       "id": "headphones",
       "name": "Auriculares com fio AEG",
       "description": "Auriculares com fio para computadores, smartphones e outros dispositivos multimédia.",
       "price": null,
-      "image": "/_next/static/media/headphones.0i1kj6lytkbmq.jpeg",
+      "image": "/uploads/photoroom_20260902_083018-1788791910850.JPG",
       "category": "Áudio",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-HEADPHONES",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:38:33.413Z",
+      "featured": false
     },
     {
       "id": "ram-so-dimm",
       "name": "Memória RAM DDR4 8GB 3200MHz Para Portátil",
       "description": "Memória RAM DDR4 de 8GB para portáteis, proporcionando maior desempenho e velocidade.",
       "price": null,
-      "image": "/_next/static/media/memóriaramparanotebook.0hbgjhz~lkv40.jpeg",
+      "image": "/uploads/photoroom_20260901_112203-1788792174455.JPG",
       "category": "Acessórios de Computador",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-RAM-SO-DIMM",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "filtro-linha",
-      "name": "Extensão UPS Ewent",
-      "description": "Extensão elétrica Ewent com múltiplas tomadas para proteção e ligação segura de equipamentos eletrónicos.",
-      "price": 19000,
-      "image": "/_next/static/media/filtrodelinha.12svhud2o9_8_.jpeg",
-      "category": "Energia e Proteção",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-FILTRO-LINHA",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "mousepad",
-      "name": "Base de Rato Ewent",
-      "description": "Base para rato que proporciona maior conforto e precisão durante a utilização.",
-      "price": null,
-      "image": "/_next/static/media/mousepad.0d15r39w9guj6.jpeg",
-      "category": "Periféricos de Computador",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-MOUSEPAD",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "mouse-hp",
-      "name": "Teclado + Rato Genius",
-      "description": "Kit Genius composto por teclado e rato USB para uso profissional e doméstico.",
-      "price": null,
-      "image": "/_next/static/media/teclado-mouse.0x_i9r90.wiel.jpeg",
-      "category": "Periféricos de Computador",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-MOUSE-HP",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:42:55.938Z",
+      "featured": false
     },
     {
       "id": "tp-link-poe-switch",
       "name": "Router Wi-Fi TP-Link 300 Mbps com 2 Antenas",
       "description": "Router Wi-Fi TP-Link com velocidade até 300 Mbps, duas antenas externas, porta WAN e portas LAN para ligação estável à Internet.",
       "price": null,
-      "image": "/_next/static/media/TP-LINK PoE Switch.1182nwayn1bq3.jpeg",
+      "image": "/uploads/photoroom_20260902_084413-1788792311436.JPG",
       "category": "Redes e Internet",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-TP-LINK-POE-SWITCH",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:45:13.228Z",
+      "featured": false
     },
     {
       "id": "tp-link-oc200",
       "name": "TP-Link Omada Hardware Controller OC200",
       "description": "Controlador físico OC200 para gestão centralizada de equipamentos TP-Link Omada.",
       "price": 113000,
-      "image": "/_next/static/media/tplink-oc200.0aq7xyg3z16aj.jpeg",
+      "image": "/uploads/photoroom_20260902_084428-1788792415098.JPG",
       "category": "Redes e Internet",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-TP-LINK-OC200",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "cabo-cat6",
-      "name": "Cabo de Rede CAT6",
-      "description": "Cabo Ethernet CAT6 de alta velocidade para instalações de redes locais, garantindo melhor desempenho e estabilidade na transmissão de dados.",
-      "price": 85000,
-      "image": "/_next/static/media/caboderede.0~qf2uw3uahib.jpeg",
-      "category": "Cabos e Conectividade",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-CABO-CAT6",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "rack-servidor",
-      "name": "Bastidor de Rede Intellinet 09U (ALP-485x600x450) 19 com Porta de Vidro",
-      "description": "Bastidor de rede Intellinet 09U de 19 polegadas com estrutura metálica resistente e porta frontal em vidro, ideal para organização e proteção de equipamentos de rede.",
-      "price": 180000,
-      "image": "/_next/static/media/rack-servidor-parede-armario-rede.0g9-7kw4cmv9a.jpeg",
-      "category": "Infraestrutura de Redes",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-RACK-SERVIDOR",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:46:57.565Z",
+      "featured": false
     },
     {
       "id": "conector-rj45",
       "name": "Conector RJ45",
       "description": "Conector RJ45 Cat5e/Cat6 para montagem de cabos de rede Ethernet.",
       "price": 18000,
-      "image": "/_next/static/media/conectorrj45.0uoz69qepg.2_.jpeg",
+      "image": "/uploads/photoroom_20260902_083153-1788792034065.JPG",
       "category": "Cabos e Conectividade",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-CONECTOR-RJ45",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "computador-portatil",
-      "name": "Computador Portátil",
-      "description": "Computador portátil para produtividade, navegação na internet e utilização em ambientes empresariais.",
-      "price": 495000,
-      "image": "/_next/static/media/computador-portatil.0h40989gxhe91.jpeg",
-      "category": "Computadores",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-COMPUTADOR-PORTATIL",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:40:36.089Z",
+      "featured": false
     },
     {
       "id": "impressora-termica",
       "name": "Impressora Térmica X-Printer",
       "description": "Impressora térmica X-Printer ideal para emissão de recibos, talões e documentos em sistemas POS e comércio.",
       "price": null,
-      "image": "/_next/static/media/impressoratermica.0gd-.yhp_abez.jpeg",
+      "image": "/uploads/photoroom_20260902_084109-1788792153115.JPG",
       "category": "Impressoras e Automação Comercial",
       "inStock": true,
       "quantity": 15,
       "sku": "ARK-IMPRESSORA-TERMICA",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "pilha-maxell",
-      "name": "Pilha Maxell 9V",
-      "description": "Pilha alcalina Maxell de 9V indicada para equipamentos eletrónicos, alarmes e dispositivos de segurança.",
-      "price": 1400,
-      "image": "/_next/static/media/pilha-maxell.10dv-1hvhg8i-.jpeg",
-      "category": "Energia",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-PILHA-MAXELL",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "cabo-cat6-soho",
-      "name": "Cabo de Rede CAT6 Soho Plus",
-      "description": "Bobina de cabo CAT6 para instalações profissionais de redes Ethernet de alta velocidade.",
-      "price": 85000,
-      "image": "/_next/static/media/caboderede.0~qf2uw3uahib.jpeg",
-      "category": "Cabos e Conectividade",
-      "inStock": true,
-      "quantity": 15,
-      "sku": "ARK-CABO-CAT6-SOHO",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "updatedAt": "2026-09-07T14:42:35.058Z",
+      "featured": false
     }
   ],
   "categories": [
@@ -599,21 +1067,120 @@
       "icon": "Calculator"
     }
   ],
-  "events": {
-    "heroTitle": "Eventos ARKNET",
-    "heroSubtitle": "Workshops, conferências e encontros tecnológicos que conectam profissionais, empresas e inovação em Angola.",
-    "aboutTitle": "Onde a tecnologia encontra pessoas.",
-    "aboutDescription": "A ARKNET promove eventos presenciais e online para partilhar conhecimento, apresentar soluções e fortalecer a comunidade tecnológica angolana.",
-    "aboutDescription2": "Desde workshops técnicos a feiras de tecnologia, criamos espaços de aprendizagem, networking e oportunidades de negócio."
-  },
-  "eventRegistrations": [],
-  "jobs": {
-    "heroTitle": "Carreiras na ARKNET",
-    "heroSubtitle": "Junte-se a uma equipa apaixonada por tecnologia, inovação e transformação digital em Angola.",
-    "aboutTitle": "Construa o futuro connosco.",
-    "aboutDescription": "Na ARKNET, acreditamos que o talento é o motor da inovação. Oferecemos um ambiente dinâmico, desafiante e com oportunidades reais de crescimento profissional.",
-    "aboutDescription2": "Procuramos profissionais motivados, com espírito de equipa e vontade de fazer a diferença no sector das telecomunicações e tecnologias de informação."
-  },
+  "events": [
+    {
+      "id": "evt-1",
+      "title": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
+      "description": "Encontro anual de líderes de telecomunicações, cibersegurança e infraestruturas para debater o futuro da conectividade nacional.",
+      "date": "2026-09-18",
+      "time": "09:00 - 17:00",
+      "location": "Hotel Epic Sana, Luanda",
+      "format": "Presencial",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80",
+      "status": "agendado",
+      "capacity": 250,
+      "registrationOpen": true,
+      "link": "#inscricao-evento",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-01T00:00:00Z"
+    },
+    {
+      "id": "evt-2",
+      "title": "Workshop Prático: Defesa Perimetral e Resposta a Incidentes",
+      "description": "Sessão técnica imersiva para administradores de sistemas e analistas de segurança com laboratórios reais de mitigação de ataques.",
+      "date": "2026-10-05",
+      "time": "14:00 - 18:00",
+      "location": "Academia ARKNET, Luanda",
+      "format": "Híbrido",
+      "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80",
+      "status": "agendado",
+      "capacity": 40,
+      "registrationOpen": true,
+      "link": "#inscricao-evento",
+      "createdAt": "2026-02-05T00:00:00Z",
+      "updatedAt": "2026-02-05T00:00:00Z"
+    }
+  ],
+  "eventRegistrations": [
+    {
+      "eventId": "evt-1",
+      "eventTitle": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
+      "customerId": "cli-1788790478956",
+      "name": "Jedy Suco",
+      "email": "jedyvandunem16@gmail.com",
+      "phone": "932847952",
+      "status": "pendente",
+      "id": "reg-1788790517965-ow6m",
+      "createdAt": "2026-09-07T14:15:17.965Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job-1",
+      "title": "Engenheiro de Redes & Telecomunicações Sénior",
+      "department": "Engenharia & Infraestruturas",
+      "location": "Luanda, Angola",
+      "type": "Full-time",
+      "description": "Buscamos engenheiro experiente para liderar projetos de implementação de backbones de fibra, roteamento BGP/OSPF e infraestruturas core para clientes corporativos.",
+      "requirements": [
+        "Licenciatura em Engenharia de Telecomunicações, Informática ou áreas afins",
+        "Certificação Cisco CCNP ou Huawei HCIP (obrigatório)",
+        "Mínimo de 4 anos de experiência em redes corporativas",
+        "Domínio de protocolos de roteamento, switching e firewalls Fortinet/Mikrotik"
+      ],
+      "benefits": [
+        "Salário altamente competitivo no mercado angolano",
+        "Plano de saúde extensível ao agregado familiar",
+        "Formações e certificações custeadas pela empresa",
+        "Bónus de desempenho anual"
+      ],
+      "status": "aberta",
+      "createdAt": "2026-01-20T00:00:00Z",
+      "updatedAt": "2026-01-20T00:00:00Z"
+    },
+    {
+      "id": "job-2",
+      "title": "Especialista em Cibersegurança & SOC Analyst",
+      "department": "Segurança da Informação",
+      "location": "Luanda, Angola",
+      "type": "Full-time",
+      "description": "Profissional responsável por monitorização contínua de segurança, análise de vulnerabilidades, auditorias de segurança e resposta a incidentes.",
+      "requirements": [
+        "Experiência comprovada em ferramentas SIEM e análise de tráfego de rede",
+        "Conhecimento de frameworks de segurança (ISO 27001, NIST, CIS)",
+        "Certificações como CompTIA Security+, CEH ou similares serão valorizadas",
+        "Capacidade de elaboração de relatórios técnicos e executivos"
+      ],
+      "benefits": [
+        "Ambiente de trabalho moderno com equipamentos de topo",
+        "Seguro de saúde",
+        "Acesso livre a cursos da Academia ARKNET"
+      ],
+      "status": "aberta",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-01T00:00:00Z"
+    },
+    {
+      "id": "job-3",
+      "title": "Técnico de Instalação de Redes e CFTV",
+      "department": "Operações de Campo",
+      "location": "Luanda, Angola",
+      "type": "Full-time",
+      "description": "Instalação de cabeamento estruturado Cat6/Cat6A, fusão de fibra óptica, montagem de bastidores e sistemas de vigilância IP.",
+      "requirements": [
+        "Ensino Médio Técnico em Informática, Telecomunicações ou Eletrónica",
+        "Experiência de campo em instalação e testes de infraestruturas",
+        "Carta de condução válida"
+      ],
+      "benefits": [
+        "Subsídio de alimentação e transporte",
+        "Equipamento de proteção e ferramentas profissionais"
+      ],
+      "status": "aberta",
+      "createdAt": "2026-02-10T00:00:00Z",
+      "updatedAt": "2026-02-10T00:00:00Z"
+    }
+  ],
   "applications": [],
   "testimonials": [
     {
@@ -800,6 +1367,30 @@
     }
   ],
   "settings": {
+    "id": "settings-global",
+    "companyName": "ARKNET — Soluções Tecnológicas & Telecomunicações",
+    "tagline": "Transformando o Futuro Digital de Angola",
+    "phones": [
+      "+244 935 208 449"
+    ],
+    "emails": [
+      "info@arknet.co.ao",
+      "negocios@arknet.co.ao"
+    ],
+    "address": "Rua Directa do Kero, Casa Nº32 R/C, Kilamba, Luanda",
+    "city": "Luanda",
+    "country": "Angola",
+    "zipCode": "1000",
+    "whatsappChannelUrl": "https://whatsapp.com/channel/0029VbCsWdsLo4hhX7FJ2e0A",
+    "whatsappNumber": "+244935208449",
+    "socialLinks": {
+      "facebook": "https://www.facebook.com/jmatostecnologias",
+      "linkedin": "https://www.linkedin.com/jmatostecnologias",
+      "instagram": "https://www.instagram.com/j.matostecnologias/"
+    },
+    "institutionalText": "A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.",
+    "presentationLetter": "O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.",
+    "updatedAt": "2026-09-07T14:05:45.199Z",
     "contact": {
       "id": "1",
       "phones": [
@@ -1285,11 +1876,405 @@
   },
   "activities": [
     {
-      "id": "act-1",
-      "user": "Sistema",
-      "action": "Base de dados inicializada com sucesso",
-      "module": "Sistema",
-      "timestamp": "2026-09-07T13:25:32.231Z"
+      "id": "act-1788796512822-vhyy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Câmera de segurança bullet\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:55:12.822Z"
+    },
+    {
+      "id": "act-1788796446725-3d56",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Adaptador de base para dois discoS\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:54:06.725Z"
+    },
+    {
+      "id": "act-1788796410661-l6m3",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo adaptador USB para Sata\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:53:30.661Z"
+    },
+    {
+      "id": "act-1788796365453-jvk7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Carregador de tomada bivolt\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:52:45.453Z"
+    },
+    {
+      "id": "act-1788796264885-av4s",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Adaptador PoE passivo\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:51:04.885Z"
+    },
+    {
+      "id": "act-1788796183540-323o",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Tinteiro HP GT53 e GT52\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:49:43.540Z"
+    },
+    {
+      "id": "act-1788796152604-ft9a",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Western Digital Caviar Blue modelo WD5000AAKX\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:49:12.604Z"
+    },
+    {
+      "id": "act-1788796120628-dqbg",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Altifalante portátil Bluetooth T&G TG116C\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:48:40.628Z"
+    },
+    {
+      "id": "act-1788796086620-n77p",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo adaptador de energia Molex de 4 pinos\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:48:06.620Z"
+    },
+    {
+      "id": "act-1788796041533-92wq",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Memoria KR M471A1K43EB1\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:47:21.533Z"
+    },
+    {
+      "id": "act-1788795990180-nl79",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Switch de rede 5 portas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:46:30.180Z"
+    },
+    {
+      "id": "act-1788795922211-i0zy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo de rede UTP Cat6\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:45:22.211Z"
+    },
+    {
+      "id": "act-1788795886203-avdt",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo USB impressora\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:44:46.203Z"
+    },
+    {
+      "id": "act-1788795847195-pyek",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo HDMI\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:44:07.195Z"
+    },
+    {
+      "id": "act-1788795814363-9ege",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Microfone de lapela sem fio K9\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:43:34.363Z"
+    },
+    {
+      "id": "act-1788795776051-vo6n",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"TP-LINK Omada EAP245\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:42:56.051Z"
+    },
+    {
+      "id": "act-1788795720299-kbi6",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Smart TV 50P\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:42:00.299Z"
+    },
+    {
+      "id": "act-1788795641586-s0zo",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Medidor de potencia óptica portátil\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:40:41.586Z"
+    },
+    {
+      "id": "act-1788795589610-23ku",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Tinteiro\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:39:49.610Z"
+    },
+    {
+      "id": "act-1788795533450-40rp",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Coluna bluetooth JBL\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:38:53.450Z"
+    },
+    {
+      "id": "act-1788795465482-3lls",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Bateria Kaise standard VRLA 12V 7Ah\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:37:45.482Z"
+    },
+    {
+      "id": "act-1788795407433-6d8r",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"UPS KS Offline Torre 800 VA\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:36:47.433Z"
+    },
+    {
+      "id": "act-1788795232608-30sl",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cassete de etiquetar Dy MOD1 de 9mm\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:33:52.608Z"
+    },
+    {
+      "id": "act-1788795163072-6kzq",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Pepetidor de sinal 2x antenas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:32:43.072Z"
+    },
+    {
+      "id": "act-1788795046135-4cl7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo VGA\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:30:46.135Z"
+    },
+    {
+      "id": "act-1788794974967-zhh3",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Adaptador HDTV\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:29:34.967Z"
+    },
+    {
+      "id": "act-1788794930198-g2a7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Adaptador Micro USB V8 Fêmea\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:28:50.198Z"
+    },
+    {
+      "id": "act-1788794867286-w8yk",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Câmera EZVIZ\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:27:47.286Z"
+    },
+    {
+      "id": "act-1788794806758-amqj",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo multi-carregador USB 3 em 1\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:26:46.758Z"
+    },
+    {
+      "id": "act-1788794699965-8akc",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Router TP-LINK Deco S7 AC1900\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:24:59.965Z"
+    },
+    {
+      "id": "act-1788794477116-48vs",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo de força\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:21:17.116Z"
+    },
+    {
+      "id": "act-1788794346899-w67v",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Resma de papel\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:19:06.899Z"
+    },
+    {
+      "id": "act-1788794229819-1h02",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Cabo HDTV 2Kx4K\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:17:09.819Z"
+    },
+    {
+      "id": "act-1788794102738-morn",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Roteador sem fio LB-LINK N300\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:15:02.738Z"
+    },
+    {
+      "id": "act-1788793923296-exgr",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Impressora Konica\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:12:03.296Z"
+    },
+    {
+      "id": "act-1788793819479-bi0k",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Impressora HP laserjet MFp\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:10:19.479Z"
+    },
+    {
+      "id": "act-1788793686542-wzuo",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Hostpot Router Wifi 4G LTE\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:08:06.542Z"
+    },
+    {
+      "id": "act-1788793547957-qr5d",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Impressora térmica X-printer\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:05:47.957Z"
+    },
+    {
+      "id": "act-1788793523132-w3d4",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Impressora térmica X-printer\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:05:23.132Z"
+    },
+    {
+      "id": "act-1788793416443-2llt",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Galática\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:03:36.443Z"
+    },
+    {
+      "id": "act-1788793369514-7d9r",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Cinzenta\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:02:49.514Z"
+    },
+    {
+      "id": "act-1788793318826-lyk8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Preta e Branca\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:01:58.826Z"
+    },
+    {
+      "id": "act-1788793235834-knvu",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila preta\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T15:00:35.834Z"
+    },
+    {
+      "id": "act-1788793139851-19su",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Impressora HP Deskjet\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:58:59.851Z"
+    },
+    {
+      "id": "act-1788792438598-eoq6",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Universal Notebook Power Adaptador 8 conectores\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:47:18.598Z"
+    },
+    {
+      "id": "act-1788792417565-s83u",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TP-Link Omada Hardware Controller OC200\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:46:57.565Z"
+    },
+    {
+      "id": "act-1788792399709-2p12",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"TP-Link 300Mbps Wireless N Router\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:46:39.709Z"
+    },
+    {
+      "id": "act-1788792376461-jlug",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Testador Finder de Cabo UTP\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:46:16.461Z"
+    },
+    {
+      "id": "act-1788792360660-yned",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Teclado + Rato Genius\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:46:00.660Z"
+    },
+    {
+      "id": "act-1788792313228-bogm",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Router Wi-Fi TP-Link 300 Mbps com 2 Antenas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-07T14:45:13.228Z"
     }
-  ]
+  ],
+  "version": 1
 }

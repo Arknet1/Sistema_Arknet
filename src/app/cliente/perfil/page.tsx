@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import {
   User,
@@ -42,9 +42,8 @@ import arknetLogo from '@/assets/icon18.png'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 import { dataStore, StoreOrder, ServiceLead, EventRegistration, EventItem } from '@/lib/data-store'
 import { formatProdutoPrice, formatLinhaPreco } from '@/lib/format-produto-price'
-import { useSearchParams } from 'next/navigation'
 
-export default function ClientePerfilPage() {
+function ClientePerfilContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const {
@@ -1545,4 +1544,19 @@ export default function ClientePerfilPage() {
     </main>
   )
 }
+
+export default function ClientePerfilPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen pt-32 pb-20 bg-slate-900 flex items-center justify-center">
+          <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <ClientePerfilContent />
+    </Suspense>
+  )
+}
+
 

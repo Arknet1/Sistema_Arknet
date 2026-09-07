@@ -56,8 +56,9 @@ export default function EventosClient() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      setEvents(db.events.filter((e) => e.status === 'agendado' || e.status === 'decorrer'))
-      setRegistrations(db.eventRegistrations || [])
+      const eventList = Array.isArray(db.events) ? db.events : []
+      setEvents(eventList.filter((e) => e.status === 'agendado' || e.status === 'decorrer'))
+      setRegistrations(Array.isArray(db.eventRegistrations) ? db.eventRegistrations : [])
     }
     sync()
     const unsub = dataStore.subscribe(sync)

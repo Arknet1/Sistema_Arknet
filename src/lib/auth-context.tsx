@@ -122,7 +122,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const cleanPassword = password ? password.trim() : ''
 
     const allUsers = dataStore.getUsers()
-    const foundUser = allUsers.find((u) => u.email.toLowerCase() === cleanEmail)
+    const foundUser =
+      allUsers.find((u) => u.email.toLowerCase() === cleanEmail) ||
+      (cleanEmail === 'admin' ? allUsers.find((u) => u.role === 'admin') : undefined) ||
+      (cleanEmail === 'editor' ? allUsers.find((u) => u.role === 'editor') : undefined)
 
     if (!foundUser) {
       setIsLoading(false)
