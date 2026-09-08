@@ -19,6 +19,7 @@ import {
   ExternalLink,
   ShieldCheck,
   CheckCircle2,
+  Truck,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore, ArknetDatabase } from '@/lib/data-store'
@@ -46,6 +47,27 @@ export default function AdminOverviewPage() {
   const totalPartners = db.partners.length
   const totalTestimonials = db.testimonials.length
   const totalCategories = db.categories.length
+  const totalReservations = (db.reservations || []).length
+  const pendingReservations = (db.reservations || []).filter((r) => r.status === 'pendente').length
+
+  // Procura de produtos em trânsito
+  const productDemand = (db.reservations || []).reduce((acc, r) => {
+    if (!acc[r.productId]) {
+      acc[r.productId] = {
+        id: r.productId,
+        name: r.productName,
+        image: r.productImage,
+        price: r.productPrice,
+        count: 0,
+        units: 0,
+      }
+    }
+    acc[r.productId].count += 1
+    acc[r.productId].units += r.quantity || 1
+    return acc
+  }, {} as Record<string, { id: string; name: string; image?: string; price: number | null; count: number; units: number }>)
+
+  const topDemandProducts = Object.values(productDemand).sort((a, b) => b.units - a.units).slice(0, 3)
 
   // Histórico simplificado dos últimos 6 meses para o gráfico
   const monthlyData = [
@@ -144,8 +166,18 @@ export default function AdminOverviewPage() {
       </div>
 
       {/* Secondary Metrics Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white border border-slate-200 p-4 sm:p-6 shadow-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 bg-white border border-slate-200 p-4 sm:p-6 shadow-xs">
         <div className="flex items-center gap-3">
+          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+            <Truck className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-xl font-extrabold text-slate-900">{totalReservations}</p>
+            <p className="text-xs text-slate-500 font-medium">Reservas ({pendingReservations} pend.)</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
           <div className="p-3 bg-blue-50 text-primary rounded-lg shrink-0">
             <Calendar className="h-5 w-5" />
           </div>
@@ -171,7 +203,7 @@ export default function AdminOverviewPage() {
           </div>
           <div>
             <p className="text-xl font-extrabold text-slate-900">{totalPartners}</p>
-            <p className="text-xs text-slate-500 font-medium">Parceiros & Marcas</p>
+            <p className="text-xs text-slate-500 font-medium">Parceiros &amp; Marcas</p>
           </div>
         </div>
 
@@ -295,6 +327,62 @@ export default function AdminOverviewPage() {
           </div>
         </div>
       </div>
+
+      {/* Latest Leads Table Preview */}
+      {/* WIDGET: PROCURA DE PRODUTOS EM TRÂNSITO (RESERVAS) */}
+      {topDemandProducts.length > 0 && (
+        <div className="bg-white border border-slate-200 p-6 shadow-xs rounded-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-amber-50 text-amber-600 rounded-lg">
+                <Truck className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-slate-900">
+                  Procura de Equipamentos em Trânsito (Reservas Ativas)
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Itens fora de stock com maior volume de pedidos de reserva por clientes.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              href="/admin/reservas"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shadow-xs self-start sm:self-auto"
+            >
+              <span>Gerir Todas as Reservas ({totalReservations})</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {topDemandProducts.map((p, idx) => (
+              <div
+                key={p.id}
+                className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3"
+              >
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-extrabold uppercase text-amber-700 block">
+                    ★ Top #{idx + 1} em Procura
+                  </span>
+                  <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">
+                    {p.name}
+                  </h4>
+                  <p className="text-[11px] text-slate-500 font-semibold">
+                    {p.count} cliente(s) interessado(s)
+                  </p>
+                </div>
+                <div className="text-right shrink-0">
+                  <span className="inline-block px-2.5 py-1 bg-amber-600 text-white rounded-md text-xs font-black font-mono">
+                    {p.units} un.
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Latest Leads Table Preview */}
       <div className="bg-white border border-slate-200 shadow-xs overflow-hidden">

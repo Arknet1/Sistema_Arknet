@@ -7,12 +7,15 @@ import ProductCard from '@/components/product-card'
 import { dataStore, StoreProduct } from '@/lib/data-store'
 
 export default function FeaturedProducts() {
-  const [products, setProducts] = useState<StoreProduct[]>([])
+  const [products, setProducts] = useState<StoreProduct[]>(() => {
+    const all = dataStore.getProducts()
+    const featured = all.filter((p) => Boolean(p.featured))
+    return featured.length > 0 ? featured.slice(0, 10) : all.slice(0, 8)
+  })
 
   useEffect(() => {
     const sync = () => {
-      const db = dataStore.getSnapshot()
-      const all = db.products || []
+      const all = dataStore.getProducts()
       const featured = all.filter((p) => Boolean(p.featured))
       setProducts(featured.length > 0 ? featured.slice(0, 10) : all.slice(0, 8))
     }

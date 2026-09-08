@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ShoppingCart, Trash2, Heart } from "lucide-react"
+import { ShoppingCart, Trash2, Heart, Truck, PackagePlus } from "lucide-react"
 import { Product } from "@/lib/cart"
 import { useCart } from "@/lib/cart"
 import { useWishlist } from "@/lib/wishlist-store"
 import { formatProdutoPrice } from "@/lib/format-produto-price"
 import { useToast } from "@/lib/toast-context"
+import ReserveProductModal from "@/components/reserve-product-modal"
 
 type ProductCardProps = {
   product: Product
@@ -18,12 +19,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { isInWishlist, toggleWishlist } = useWishlist()
   const { success, info } = useToast()
   const [isAdding, setIsAdding] = useState(false)
+  const [isReserveModalOpen, setIsReserveModalOpen] = useState(false)
 
   const isFavorite = isInWishlist(product.id)
   const isInCart = items.some(item => item.product.id === product.id)
+  const isOutOfStock = product.inStock === false || (product as any).quantity === 0
 
   const handleAddToCart = async () => {
-    if (product.inStock === false || isAdding) return
+    if (isOutOfStock || isAdding) return
     setIsAdding(true)
     await new Promise(resolve => setTimeout(resolve, 300))
     addItem(product)
@@ -41,104 +44,128 @@ export default function ProductCard({ product }: ProductCardProps) {
     }
   }
 
+  const imageSrc = typeof product.image === 'object' && product.image !== null
+    ? (product.image as any).src || ''
+    : (typeof product.image === 'string' ? product.image : '')
+
   return (
-    <div className="group bg-white border border-slate-200 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col h-full min-w-0 relative">
+    <>
+      <div className="group bg-white border border-slate-200 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col h-full min-w-0 relative">
 
-      {/* Image — aspect ratio scales with column width */}
-      <div className="relative overflow-hidden bg-slate-100 w-full shrink-0 aspect-5/4 min-h-30 sm:min-h-40 sm:aspect-4/3">
-        <Link
-          href={`/loja/${product.id}`}
-          className="block absolute inset-0 w-full h-full"
-        >
-          {product.image ? (
-            <img
-              src={product.image}
-              alt={product.name}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 text-slate-300" />
-            </div>
+        {/* Image — aspect ratio scales with column width */}
+        <div className="relative overflow-hidden bg-slate-100 w-full shrink-0 aspect-5/4 min-h-30 sm:min-h-40 sm:aspect-4/3">
+          <Link
+            href={`/loja/${product.id}`}
+            className="block absolute inset-0 w-full h-full"
+          >
+            {imageSrc ? (
+              <img
+                src={imageSrc}
+                alt={product.name}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 text-slate-300" />
+              </div>
+            )}
+          </Link>
+
+          {product.featured && !isOutOfStock && (
+            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
+              ★ Destaque
+            </span>
           )}
-        </Link>
 
-        {product.featured && product.inStock !== false && (
-          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
-            ★ Destaque
-          </span>
-        )}
+          {isOutOfStock && (
+            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-600 text-white text-[10px] sm:text-xs font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded shadow-xs pointer-events-none flex items-center gap-1">
+              <Truck className="h-3 w-3" />
+              Em Trânsito
+            </span>
+          )}
 
-        {product.inStock === false && (
-          <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-slate-800 text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 pointer-events-none">
-            Esgotado
-          </span>
-        )}
+          {/* Favorite Heart Button */}
+          <button
+            type="button"
+            onClick={handleToggleFavorite}
+            className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
+              isFavorite
+                ? 'bg-rose-600 text-white shadow-rose-500/30 scale-110'
+                : 'bg-white/80 hover:bg-white text-slate-500 hover:text-rose-600 border border-slate-200'
+            }`}
+            title={isFavorite ? 'Remover dos favoritos' : 'Guardar nos favoritos'}
+          >
+            <Heart className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isFavorite ? 'fill-current' : ''}`} />
+          </button>
+        </div>
 
-        {/* Favorite Heart Button */}
-        <button
-          type="button"
-          onClick={handleToggleFavorite}
-          className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
-            isFavorite
-              ? 'bg-rose-600 text-white shadow-rose-500/30 scale-110'
-              : 'bg-white/80 hover:bg-white text-slate-500 hover:text-rose-600 border border-slate-200'
-          }`}
-          title={isFavorite ? 'Remover dos favoritos' : 'Guardar nos favoritos'}
-        >
-          <Heart className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isFavorite ? 'fill-current' : ''}`} />
-        </button>
-      </div>
+        {/* Content */}
+        <div className="p-3 sm:p-4 flex flex-col flex-1 min-h-0">
+          {product.category && (
+            <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide font-medium mb-1 line-clamp-1">
+              {product.category}
+            </p>
+          )}
 
-      {/* Content */}
-      <div className="p-3 sm:p-4 flex flex-col flex-1 min-h-0">
-        {product.category && (
-          <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide font-medium mb-1 line-clamp-1">
-            {product.category}
-          </p>
-        )}
+          <Link href={`/loja/${product.id}`} className="flex-1 min-h-0">
+            <h3 className="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+              {product.name}
+            </h3>
+          </Link>
 
-        <Link href={`/loja/${product.id}`} className="flex-1 min-h-0">
-          <h3 className="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-            {product.name}
-          </h3>
-        </Link>
-
-        <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 leading-relaxed">
-          {product.description}
-        </p>
-
-        <div className="mt-auto pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-          <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none">
-            {formatProdutoPrice(product.price)}
+          <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+            {product.description}
           </p>
 
-          {isInCart ? (
-            <button
-              onClick={() => removeItem(product.id)}
-              className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 transition shrink-0 self-end sm:self-auto"
-              title="Remover do carrinho"
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
-          ) : (
-            <button
-              onClick={handleAddToCart}
-              disabled={product.inStock === false || isAdding}
-              className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-2 sm:py-2 text-[11px] sm:text-xs font-semibold hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-9 sm:min-h-0"
-            >
-              {isAdding ? (
-                <div className="h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              ) : (
-                <ShoppingCart className="h-3.5 w-3.5 shrink-0" />
-              )}
-              <span className="truncate">
-                {product.inStock === false ? 'Esgotado' : isAdding ? '…' : 'Adicionar'}
-              </span>
-            </button>
-          )}
+          <div className="mt-auto pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+            <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none">
+              {formatProdutoPrice(product.price)}
+            </p>
+
+            {isInCart ? (
+              <button
+                onClick={() => removeItem(product.id)}
+                className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 transition shrink-0 self-end sm:self-auto"
+                title="Remover do carrinho"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            ) : isOutOfStock ? (
+              <button
+                type="button"
+                onClick={() => setIsReserveModalOpen(true)}
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-xs cursor-pointer min-h-9 sm:min-h-0"
+              >
+                <PackagePlus className="h-3.5 w-3.5 shrink-0" />
+                <span className="truncate">Reservar</span>
+              </button>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                disabled={isAdding}
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-2 sm:py-2 text-[11px] sm:text-xs font-semibold hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-9 sm:min-h-0"
+              >
+                {isAdding ? (
+                  <div className="h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <ShoppingCart className="h-3.5 w-3.5 shrink-0" />
+                )}
+                <span className="truncate">
+                  {isAdding ? '…' : 'Adicionar'}
+                </span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Modal de Reserva para Produtos em Trânsito */}
+      <ReserveProductModal
+        product={product as any}
+        isOpen={isReserveModalOpen}
+        onClose={() => setIsReserveModalOpen(false)}
+      />
+    </>
   )
 }
+

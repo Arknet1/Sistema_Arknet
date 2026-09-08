@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import {
   Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench, ArrowRight,
   SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets,
   Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes,
-  Sparkles
+  Sparkles, ChevronLeft, ChevronRight
 } from "lucide-react"
 import Link from "next/link"
 import ProductCard from "@/components/product-card"
@@ -20,37 +20,63 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 export default function LojaClient() {
-  const [products, setProducts] = useState<StoreProduct[]>([])
-  const [categories, setCategories] = useState<ProductCategory[]>([])
+  const [products, setProducts] = useState<StoreProduct[]>(() => dataStore.getProducts())
+  const [categories, setCategories] = useState<ProductCategory[]>(() => dataStore.getCategories())
   const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('relevance')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const carouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const sync = () => {
-      const db = dataStore.getSnapshot()
-      setProducts([...db.products])
-      setCategories([...db.categories].sort((a, b) => a.order - b.order))
+      const allProducts = dataStore.getProducts()
+      const allCategories = dataStore.getCategories()
+      setProducts([...allProducts])
+      setCategories([...allCategories].sort((a, b) => a.order - b.order))
     }
     sync()
     const unsub = dataStore.subscribe(sync)
     return () => unsub()
   }, [])
 
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -340 : 340
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
+
+  const isCategoryMatch = (productCat: string, selectedCat: string) => {
+    if (!selectedCat || selectedCat === 'Todos') return true
+    const pCat = (productCat || '').toLowerCase().trim()
+    const sCat = selectedCat.toLowerCase().trim()
+    if (pCat === sCat) return true
+    if (sCat === 'redes e internet' && (pCat.includes('rede') || pCat.includes('internet'))) return true
+    if (sCat === 'computadores e portáteis' && (pCat.includes('computador') || pCat.includes('portátil') || pCat.includes('notebook') || pCat.includes('ram'))) return true
+    if (sCat === 'periféricos de computador' && (pCat.includes('periférico') || pCat.includes('mouse') || pCat.includes('teclado') || pCat.includes('rato'))) return true
+    if (sCat === 'áudio' && (pCat.includes('áudio') || pCat.includes('som') || pCat.includes('coluna') || pCat.includes('headphone') || pCat.includes('auricular'))) return true
+    if (sCat === 'impressoras e consumíveis' && (pCat.includes('impressora') || pCat.includes('toner') || pCat.includes('tinteiro') || pCat.includes('térmica'))) return true
+    if (sCat === 'automação comercial' && (pCat.includes('pos') || pCat.includes('gaveta') || pCat.includes('biométrico') || pCat.includes('relógio') || pCat.includes('controlo'))) return true
+    if (sCat === 'energia e proteção' && (pCat.includes('energia') || pCat.includes('ups') || pCat.includes('filtro') || pCat.includes('extensão') || pCat.includes('pilha'))) return true
+    if (sCat === 'cabos e conectividade' && (pCat.includes('cabo') || pCat.includes('conector') || pCat.includes('rj45') || pCat.includes('adaptador') || pCat.includes('hdmi') || pCat.includes('splitter'))) return true
+    return pCat.includes(sCat) || sCat.includes(pCat)
+  }
+
   // Filtrar categorias que têm hideWhenEmpty === true e 0 produtos
   const visibleCategories = categories.filter((c) => {
     if (c.name === 'Todos') return true
     if (c.hideWhenEmpty) {
-      const count = products.filter((p) => p.category.toLowerCase() === c.name.toLowerCase()).length
+      const count = products.filter((p) => isCategoryMatch(p.category, c.name)).length
       return count > 0
     }
     return true
   })
 
   const filteredProducts = products.filter(p => {
-    const matchesCategory = selectedCategory === 'Todos' || p.category.toLowerCase() === selectedCategory.toLowerCase()
-    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesCategory = isCategoryMatch(p.category, selectedCategory)
+    const matchesSearch = !searchTerm ||
+                          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.description.toLowerCase().includes(searchTerm.toLowerCase())
 
     return matchesCategory && matchesSearch
@@ -212,24 +238,53 @@ export default function LojaClient() {
           </div>
         )}
 
-        {/* SECÇÃO ADICIONAL: PRODUTOS EM DESTAQUE */}
+        {/* CARROSSEL DE PRODUTOS EM DESTAQUE (DESIGN LIMPO SEM FUNDO ESCURO) */}
         {featuredProducts.length > 0 && selectedCategory === 'Todos' && !searchTerm && (
-          <div className="mb-14 p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white rounded-2xl border border-slate-800 shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+          <div className="mb-14 p-6 sm:p-8 bg-white rounded-2xl border border-slate-200/90 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
               <div>
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/20 px-2.5 py-0.5 rounded-full mb-2">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full mb-2">
                   <Sparkles className="h-3 w-3" /> Seleção Especial
                 </span>
-                <h2 className="text-2xl font-black text-white">Produtos em Destaque</h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Equipamentos e soluções mais requisitadas com disponibilidade imediata.
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+                  Produtos em Destaque
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Equipamentos selecionados com entrega imediata ou prioridade de reserva em Angola.
                 </p>
+              </div>
+
+              {/* Controlos do Carrossel */}
+              <div className="flex items-center gap-2 self-end sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => scrollCarousel('left')}
+                  className="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 text-slate-700 shadow-2xs hover:shadow-xs transition cursor-pointer"
+                  title="Anterior"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollCarousel('right')}
+                  className="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 text-slate-700 shadow-2xs hover:shadow-xs transition cursor-pointer"
+                  title="Seguinte"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {featuredProducts.slice(0, 8).map(p => (
-                <div key={`featured-${p.id}`} className="bg-white rounded-xl overflow-hidden shadow-md text-slate-900">
+            {/* Trilho de Cards Deslizante */}
+            <div
+              ref={carouselRef}
+              className="flex gap-5 overflow-x-auto pb-3 pt-1 scroll-smooth snap-x snap-mandatory [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full"
+            >
+              {featuredProducts.map((p) => (
+                <div
+                  key={`featured-${p.id}`}
+                  className="w-[260px] sm:w-[280px] lg:w-[290px] shrink-0 snap-start flex flex-col"
+                >
                   <ProductCard product={p as any} />
                 </div>
               ))}

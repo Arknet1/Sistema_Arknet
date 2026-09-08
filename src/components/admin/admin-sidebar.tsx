@@ -23,6 +23,7 @@ import {
   ShieldAlert,
   Sparkles,
   Layers,
+  Truck,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore } from '@/lib/data-store'
@@ -54,6 +55,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
   const [unreadLeads, setUnreadLeads] = useState(0)
   const [newOrders, setNewOrders] = useState(0)
   const [activeProductsCount, setActiveProductsCount] = useState(0)
+  const [pendingReservations, setPendingReservations] = useState(0)
 
   useEffect(() => {
     const updateCounts = () => {
@@ -61,6 +63,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       setUnreadLeads(db.leads.filter((l) => l.status === 'novo').length)
       setNewOrders(db.orders.filter((o) => o.status === 'novo').length)
       setActiveProductsCount(db.products.length)
+      setPendingReservations((db.reservations || []).filter((r) => r.status === 'pendente').length)
     }
 
     updateCounts()
@@ -100,6 +103,13 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           icon: ShoppingCart,
           badge: newOrders > 0 ? `${newOrders} novo` : undefined,
           badgeColor: 'bg-secondary text-white font-bold',
+        },
+        {
+          label: 'Reservas (Em Trânsito)',
+          href: '/admin/reservas',
+          icon: Truck,
+          badge: pendingReservations > 0 ? `${pendingReservations}` : undefined,
+          badgeColor: 'bg-amber-600 text-white font-bold',
         },
       ],
     },

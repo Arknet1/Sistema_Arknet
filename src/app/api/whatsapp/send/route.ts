@@ -8,20 +8,24 @@ import { sanitizeInput, verifySessionToken } from '@/lib/security-utils'
  */
 export async function POST(request: NextRequest) {
   try {
-    // 1. Verificação de Autenticação / Autorização de Administrador
+    // 1. Verificação OBRIGATÓRIA de Autenticação / Autorização de Administrador
     const authHeader = request.headers.get('authorization')
     const adminToken = request.cookies.get('arknet_admin_token')?.value
     const tokenToVerify = authHeader?.replace('Bearer ', '') || adminToken
 
-    // Para fins de dev/simulação do painel admin na interface local, verificar se o token é válido ou se vem com o cabeçalho de operador
-    if (tokenToVerify) {
-      const payload = verifySessionToken(tokenToVerify)
-      if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
-        return NextResponse.json(
-          { error: 'Acesso negado. Token de sessão de administrador inválido ou expirado.' },
-          { status: 403 }
-        )
-      }
+    if (!tokenToVerify) {
+      return NextResponse.json(
+        { error: 'Acesso não autorizado. Autenticação de administrador obrigatória.' },
+        { status: 401 }
+      )
+    }
+
+    const payload = verifySessionToken(tokenToVerify)
+    if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
+      return NextResponse.json(
+        { error: 'Acesso negado. Token de sessão de administrador inválido ou expirado.' },
+        { status: 403 }
+      )
     }
 
     const body = await request.json()

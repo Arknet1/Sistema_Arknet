@@ -53,6 +53,26 @@ export interface ProductCategory {
 
 export type OrderStatus = 'novo' | 'em_contacto' | 'fechado' | 'cancelado'
 
+export type ReservationStatus = 'pendente' | 'em_contacto' | 'confirmada' | 'notificado' | 'cancelada'
+
+export interface ProductReservation {
+  id: string
+  reservationNumber: string
+  productId: string
+  productName: string
+  productImage?: string
+  productPrice: number | null
+  customerName: string
+  customerEmail: string
+  customerPhone: string
+  customerCompany?: string
+  quantity: number
+  notes?: string
+  status: ReservationStatus
+  createdAt: string
+  updatedAt: string
+}
+
 export type WhatsAppBotStatus =
   | 'bot_active'
   | 'waiting_receipt'
@@ -340,6 +360,25 @@ export interface EventRegistration {
   createdAt: string
 }
 
+export interface DailyActivityItem {
+  id: string
+  title: string
+  category?: string
+  description: string
+  content?: string
+  image: string
+  clientOrLocation?: string
+  date: string
+  time?: string
+  tags?: string[]
+  status: 'concluida' | 'em_andamento'
+  featured?: boolean
+  readTime?: string
+  author?: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface ArknetDatabase {
   users: AdminUser[]
   customers: CustomerAccount[]
@@ -356,6 +395,8 @@ export interface ArknetDatabase {
   testimonials: TestimonialItem[]
   partners: PartnerItem[]
   projects: ProjectItem[]
+  dailyActivities?: DailyActivityItem[]
+  reservations?: ProductReservation[]
   settings: CompanySettings
   activities: ActivityLog[]
   version: number
@@ -474,20 +515,80 @@ const DEFAULT_CATEGORIES: ProductCategory[] = mockCategories.map((c, i) => ({
   hideWhenEmpty: false,
 }))
 
-const DEFAULT_PRODUCTS: StoreProduct[] = mockProducts.map((p, i) => ({
-  id: p.id,
-  name: p.name,
-  description: p.description,
-  category: p.category,
-  price: p.price,
-  image: p.image,
-  inStock: p.inStock,
-  quantity: p.inStock ? 15 + ((i * 7) % 30) : 0,
-  featured: i < 6,
-  sku: `ARK-${String(i + 1).padStart(4, '0')}`,
-  createdAt: '2026-01-15T00:00:00Z',
-  updatedAt: '2026-01-15T00:00:00Z',
-}))
+const DEFAULT_PRODUCTS: StoreProduct[] = mockProducts.map((p, i) => {
+  // Alguns produtos sem stock / em trânsito para simulação da loja e dashboard de procura
+  const isOutOfStock = i === 2 || i === 5 || i === 9 || i === 14 || (p.price === null && i % 4 === 0)
+  const inStock = !isOutOfStock
+  const qty = inStock ? 12 + ((i * 7) % 25) : 0
+  return {
+    id: p.id,
+    name: p.name,
+    description: p.description,
+    category: p.category,
+    price: p.price,
+    image: p.image,
+    inStock,
+    quantity: qty,
+    featured: i < 8,
+    sku: `ARK-${String(i + 1).padStart(4, '0')}`,
+    createdAt: '2026-01-15T00:00:00Z',
+    updatedAt: '2026-01-15T00:00:00Z',
+  }
+})
+
+const DEFAULT_RESERVATIONS: ProductReservation[] = [
+  {
+    id: 'res-1',
+    reservationNumber: 'RES-2026-0001',
+    productId: DEFAULT_PRODUCTS[2]?.id || 'prod-3',
+    productName: DEFAULT_PRODUCTS[2]?.name || 'Switch Gerenciável 24 Portas PoE+',
+    productImage: DEFAULT_PRODUCTS[2]?.image,
+    productPrice: DEFAULT_PRODUCTS[2]?.price ?? 245000,
+    customerName: 'Eng. David Kassoma',
+    customerEmail: 'david.kassoma@sonangol.co.ao',
+    customerPhone: '+244 923 112 233',
+    customerCompany: 'Sonangol E.P.',
+    quantity: 4,
+    notes: 'Necessitamos com urgência para expansão da rede do bloco administrativo em Luanda.',
+    status: 'pendente',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
+    updatedAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
+  },
+  {
+    id: 'res-2',
+    reservationNumber: 'RES-2026-0002',
+    productId: DEFAULT_PRODUCTS[5]?.id || 'prod-6',
+    productName: DEFAULT_PRODUCTS[5]?.name || 'Roteador Mikrotik CCR2004 16G 2S+',
+    productImage: DEFAULT_PRODUCTS[5]?.image,
+    productPrice: DEFAULT_PRODUCTS[5]?.price ?? 380000,
+    customerName: 'Dra. Beatriz Santos',
+    customerEmail: 'beatriz.santos@unitel.ao',
+    customerPhone: '+244 912 889 900',
+    customerCompany: 'Infranet Soluções Lda',
+    quantity: 2,
+    notes: 'Favor notificar por WhatsApp assim que desembarcar no armazém central.',
+    status: 'em_contacto',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 28).toISOString(),
+    updatedAt: new Date(Date.now() - 3600 * 1000 * 14).toISOString(),
+  },
+  {
+    id: 'res-3',
+    reservationNumber: 'RES-2026-0003',
+    productId: DEFAULT_PRODUCTS[2]?.id || 'prod-3',
+    productName: DEFAULT_PRODUCTS[2]?.name || 'Switch Gerenciável 24 Portas PoE+',
+    productImage: DEFAULT_PRODUCTS[2]?.image,
+    productPrice: DEFAULT_PRODUCTS[2]?.price ?? 245000,
+    customerName: 'Carlos Mendonça',
+    customerEmail: 'carlos.mendonca@gmail.com',
+    customerPhone: '+244 935 440 120',
+    customerCompany: 'TechAngola Serviços',
+    quantity: 1,
+    notes: 'Previsão de recolha na sede da ARKNET Kilamba.',
+    status: 'pendente',
+    createdAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
+    updatedAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
+  }
+]
 
 const DEFAULT_LEADS: ServiceLead[] = [
   {
@@ -1179,6 +1280,117 @@ const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
   },
 ]
 
+const DEFAULT_DAILY_ACTIVITIES: DailyActivityItem[] = [
+  {
+    id: 'd-act-1',
+    title: 'ARKNET em Direto na Rádio Mais: O Futuro da Conectividade e Cibersegurança em Angola',
+    category: 'Rádio & Imprensa',
+    description: 'A liderança de engenharia da ARKNET participou no programa de inovação tecnológica da Rádio Mais 99.1 FM, abordando os desafios da transição para redes de alta velocidade e as melhores práticas de proteção de dados corporativos em Angola.',
+    content: 'Num debate aprofundado transmitido em direto para todo o país, a equipa técnica da ARKNET partilhou visões estratégicas sobre a evolução das telecomunicações no mercado angolano. Foram destacados temas cruciais como a redundância em anel de fibra óptica, a mitigação de ataques perimetrais em instituições bancárias e a importância de formar quadros nacionais qualificados para suportar a transformação digital das empresas.',
+    image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'Estúdios da Rádio Mais 99.1 FM, Luanda',
+    date: '2026-03-08',
+    time: '09:30',
+    readTime: '4 min de leitura',
+    author: 'Comunicação & Engenharia ARKNET',
+    tags: ['Rádio & Imprensa', 'Cibersegurança', 'Telecomunicações', 'Inovação'],
+    status: 'concluida',
+    featured: true,
+    createdAt: '2026-03-08T09:30:00Z',
+    updatedAt: '2026-03-08T09:30:00Z',
+  },
+  {
+    id: 'd-act-2',
+    title: 'Workshop Prático de Fusão e Certificação de Fibra Óptica na ARKNET Academy',
+    category: 'Formações & Academia',
+    description: 'Concluímos com êxito mais uma edição do workshop intensivo com laboratórios imersivos de fusão por arco voltaico, reflectometria OTDR e medições de atenuação para técnicos e novos talentos.',
+    content: 'Durante dois dias intensivos de capacitação, mais de 25 profissionais e estudantes do ramo de telecomunicações tiveram acesso direto a máquinas de fusão de última geração e equipamentos de certificação Fluke Networks. O foco principal foi a preparação técnica para instalações em campo de alto rigor normativo.',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'ARKNET Academy — Kilamba, Luanda',
+    date: '2026-03-06',
+    time: '14:00',
+    readTime: '3 min de leitura',
+    author: 'ARKNET Academy',
+    tags: ['Formação Técnica', 'Fibra Óptica', 'Capacitação', 'Certificação'],
+    status: 'concluida',
+    featured: true,
+    createdAt: '2026-03-06T14:00:00Z',
+    updatedAt: '2026-03-06T14:00:00Z',
+  },
+  {
+    id: 'd-act-3',
+    title: 'Painel Tecnológico: O Impacto das Redes Simétricas no Crescimento das PMEs Angolanas',
+    category: 'Eventos & Palestras',
+    description: 'Apresentação de estudo de caso da ARKNET sobre como enlaces simétricos dedicados e soluções cloud redundantes alavancam a produtividade e a continuidade de negócios.',
+    content: 'No fórum empresarial realizado em Luanda, os nossos especialistas demonstraram dados reais de aumento de produtividade e redução de indisponibilidade de serviços após a migração para infraestruturas dedicadas de internet simétrica com monitorização 24/7.',
+    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'Hotel Epic Sana, Luanda',
+    date: '2026-03-04',
+    time: '11:15',
+    readTime: '3 min de leitura',
+    author: 'Equipa ARKNET',
+    tags: ['Conferência', 'Telecomunicações', 'PMEs', 'Transformação Digital'],
+    status: 'concluida',
+    featured: true,
+    createdAt: '2026-03-04T11:15:00Z',
+    updatedAt: '2026-03-04T11:15:00Z',
+  },
+  {
+    id: 'd-act-4',
+    title: 'Treinamento Avançado em Roteamento BGP e Engenharia de Tráfego Autónomo',
+    category: 'Formações & Academia',
+    description: 'Sessão interna imersiva de nivelamento técnico com simulação de contingências, failover automático e balanceamento dinâmico de tráfego IP internacional.',
+    content: 'O constante aperfeiçoamento da nossa equipa de NOC (Network Operations Center) assegura tempos de resposta inferiores a 5 minutos diante de instabilidades em operadoras upstream e rotas submarinas.',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'Laboratório de Redes ARKNET, Luanda',
+    date: '2026-03-02',
+    time: '16:00',
+    readTime: '2 min de leitura',
+    author: 'NOC ARKNET',
+    tags: ['Formação Interna', 'Roteamento BGP', 'Engenharia de Redes'],
+    status: 'concluida',
+    featured: false,
+    createdAt: '2026-03-02T16:00:00Z',
+    updatedAt: '2026-03-02T16:00:00Z',
+  },
+  {
+    id: 'd-act-5',
+    title: 'Jornada Portas Abertas: Estudantes Universitários Conhecem os Bastidores da ARKNET',
+    category: 'Institucional',
+    description: 'Recebemos mais de 30 finalistas universitários para uma visita técnica guiada aos nossos bastidores centrais, estações de fusão e simuladores de cibersegurança.',
+    content: 'Aproximar o meio académico do sector produtivo é um dos pilares de responsabilidade social da ARKNET. Os estudantes puderam interagir com os engenheiros de campo e vivenciar a operação real de telecomunicações corporativas.',
+    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'Sede ARKNET, Kilamba',
+    date: '2026-02-28',
+    time: '10:00',
+    readTime: '3 min de leitura',
+    author: 'Comunicação ARKNET',
+    tags: ['Jovens Talentos', 'Universidade', 'Educação', 'Inovação'],
+    status: 'concluida',
+    featured: true,
+    createdAt: '2026-02-28T10:00:00Z',
+    updatedAt: '2026-02-28T10:00:00Z',
+  },
+  {
+    id: 'd-act-6',
+    title: 'Instalação e Alinhamento de Radioenlace de Contingência no Polo de Viana',
+    category: 'Operações Técnicas',
+    description: 'Equipa de operações concluiu a fixação e calibração de antenas micro-ondas com link simétrico de alta imunidade a ruídos para cliente industrial.',
+    content: 'Intervenção técnica realizada com foco em resiliência operacional, garantindo canal secundário independente de qualquer rompimento de cabos de fibra na via pública.',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80',
+    clientOrLocation: 'Polo Industrial de Viana, Luanda',
+    date: '2026-02-25',
+    time: '15:30',
+    readTime: '2 min de leitura',
+    author: 'Operações de Campo',
+    tags: ['Radioenlace', 'Micro-ondas', 'Infraestrutura', 'Engenharia'],
+    status: 'concluida',
+    featured: false,
+    createdAt: '2026-02-25T15:30:00Z',
+    updatedAt: '2026-02-25T15:30:00Z',
+  },
+]
+
 export const INITIAL_DB: ArknetDatabase = {
   users: DEFAULT_USERS,
   customers: DEFAULT_CUSTOMERS,
@@ -1195,34 +1407,122 @@ export const INITIAL_DB: ArknetDatabase = {
   testimonials: DEFAULT_TESTIMONIALS,
   partners: DEFAULT_PARTNERS,
   projects: DEFAULT_PROJECTS,
+  dailyActivities: DEFAULT_DAILY_ACTIVITIES,
+  reservations: DEFAULT_RESERVATIONS,
   settings: DEFAULT_SETTINGS,
   activities: DEFAULT_ACTIVITIES,
-  version: 1,
+  version: 2,
 }
 
 // ==========================================
 // 3. GERENCIADOR DE ESTADO & PERSISTÊNCIA
 // ==========================================
 
-const STORAGE_KEY = 'arknet_database_v1'
+const STORAGE_KEY = 'arknet_database_v2'
 const CHANNEL_NAME = 'arknet_db_sync_channel'
+const AUTH_TOKEN_KEY = 'arknet_admin_token'
 
 type Listener = (db: ArknetDatabase) => void
 
+function mergeProducts(localList?: StoreProduct[], serverList?: StoreProduct[]): StoreProduct[] {
+  const defaultMap = new Map<string, StoreProduct>()
+  for (const dp of DEFAULT_PRODUCTS) {
+    defaultMap.set(dp.id, dp)
+  }
+
+  const map = new Map<string, StoreProduct>()
+
+  // 1. Inserir todos os 35 produtos padrão como garantia de catálogo base 100% completo
+  for (const dp of DEFAULT_PRODUCTS) {
+    map.set(dp.id, { ...dp })
+  }
+
+  // 2. Sobrepor produtos do servidor (com preços reais, imagens /uploads/ e stocks atualizados)
+  const server = Array.isArray(serverList) && serverList.length > 0 ? serverList : []
+  for (const sp of server) {
+    if (!sp || !sp.id) continue
+    const defaultItem = defaultMap.get(sp.id)
+    let img = sp.image
+    if (!img || img === '[object Object]') {
+      img = defaultItem?.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80'
+    }
+    map.set(sp.id, {
+      ...(defaultItem || {}),
+      ...sp,
+      image: img,
+    })
+  }
+
+  // 3. Sobrepor produtos locais alterados mais recentemente ou novos produtos criados
+  const local = Array.isArray(localList) && localList.length > 0 ? localList : []
+  for (const lp of local) {
+    if (!lp || !lp.id) continue
+    const existing = map.get(lp.id)
+    if (!existing) {
+      map.set(lp.id, lp)
+    } else {
+      const localTime = new Date(lp.updatedAt || lp.createdAt || 0).getTime()
+      const existingTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime()
+      if (localTime > existingTime) {
+        map.set(lp.id, { ...existing, ...lp })
+      }
+    }
+  }
+
+  return Array.from(map.values())
+}
+
 function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
   if (!db) return INITIAL_DB
+  const products = mergeProducts(db.products, undefined)
   return {
     ...INITIAL_DB,
     ...db,
-    products: Array.isArray(db.products) && db.products.length ? db.products : INITIAL_DB.products,
+    products: products.length > 0 ? products : INITIAL_DB.products,
     categories: Array.isArray(db.categories) && db.categories.length ? db.categories : INITIAL_DB.categories,
     projects: Array.isArray(db.projects) && db.projects.length ? db.projects : INITIAL_DB.projects,
+    dailyActivities: Array.isArray(db.dailyActivities) && db.dailyActivities.length ? db.dailyActivities : INITIAL_DB.dailyActivities || [],
+    reservations: Array.isArray(db.reservations) ? db.reservations : INITIAL_DB.reservations || [],
     partners: Array.isArray(db.partners) && db.partners.length ? db.partners : INITIAL_DB.partners,
     events: Array.isArray(db.events) && db.events.length ? db.events : INITIAL_DB.events,
     courses: Array.isArray(db.courses) && db.courses.length ? db.courses : INITIAL_DB.courses,
     testimonials: Array.isArray(db.testimonials) && db.testimonials.length ? db.testimonials : INITIAL_DB.testimonials,
     activities: Array.isArray(db.activities) ? db.activities.slice(0, 30) : INITIAL_DB.activities,
   }
+}
+
+function mergeCollection<T extends { id: string; updatedAt?: string; createdAt?: string }>(
+  localList: T[] | undefined,
+  serverList: T[] | undefined,
+  defaultList: T[]
+): T[] {
+  const local = Array.isArray(localList) ? localList : []
+  const server = Array.isArray(serverList) ? serverList : []
+  if (local.length === 0 && server.length === 0) return defaultList
+
+  const map = new Map<string, T>()
+  for (const item of server) {
+    if (item && item.id) {
+      map.set(item.id, item)
+    }
+  }
+
+  for (const item of local) {
+    if (!item || !item.id) continue
+    const serverItem = map.get(item.id)
+    if (!serverItem) {
+      map.set(item.id, item)
+    } else {
+      const localTime = new Date(item.updatedAt || item.createdAt || 0).getTime()
+      const serverTime = new Date(serverItem.updatedAt || serverItem.createdAt || 0).getTime()
+      if (localTime >= serverTime) {
+        map.set(item.id, item)
+      }
+    }
+  }
+
+  const result = Array.from(map.values())
+  return result.length > 0 ? result : defaultList
 }
 
 class DataStoreManager {
@@ -1274,32 +1574,39 @@ class DataStoreManager {
   public async syncWithServer(): Promise<boolean> {
     if (!this.isBrowser) return false
     try {
-      const res = await fetch('/api/db', { cache: 'no-store' })
+      const headers: Record<string, string> = {}
+      const token = localStorage.getItem(AUTH_TOKEN_KEY)
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+      const res = await fetch('/api/db', { cache: 'no-store', headers })
       if (!res.ok) return false
       const data = await res.json()
       if (data && data.success && data.db) {
         const serverDb = cleanDatabaseForStorage(data.db)
         const localDb = this.db
 
-        // Se houver produtos no storage local que tenham sido alterados mais recentemente, preserve
-        let mergedProducts = serverDb.products
-        if (localDb.products && localDb.products.length > 0) {
-          mergedProducts = serverDb.products.map((sp) => {
-            const lp = localDb.products.find((p) => p.id === sp.id)
-            if (lp && lp.updatedAt && sp.updatedAt && new Date(lp.updatedAt).getTime() > new Date(sp.updatedAt).getTime()) {
-              return lp
-            }
-            if (lp && lp.image && !sp.image) {
-              return { ...sp, image: lp.image }
-            }
-            return sp
-          })
-        }
+        const mergedProducts = mergeProducts(localDb.products, serverDb.products)
+        const mergedProjects = mergeCollection(localDb.projects, serverDb.projects, INITIAL_DB.projects)
+        const mergedDailyActivities = mergeCollection(localDb.dailyActivities, serverDb.dailyActivities, INITIAL_DB.dailyActivities || [])
+        const mergedEvents = mergeCollection(localDb.events, serverDb.events, INITIAL_DB.events)
+        const mergedReservations = mergeCollection(localDb.reservations, serverDb.reservations, INITIAL_DB.reservations || [])
+        const mergedCourses = mergeCollection(localDb.courses, serverDb.courses, INITIAL_DB.courses)
+        const mergedPartners = mergeCollection(localDb.partners, serverDb.partners, INITIAL_DB.partners)
+        const mergedTestimonials = mergeCollection(localDb.testimonials, serverDb.testimonials, INITIAL_DB.testimonials)
 
         this.db = {
           ...INITIAL_DB,
           ...serverDb,
           products: mergedProducts,
+          projects: mergedProjects,
+          dailyActivities: mergedDailyActivities,
+          events: mergedEvents,
+          reservations: mergedReservations,
+          courses: mergedCourses,
+          partners: mergedPartners,
+          testimonials: mergedTestimonials,
+          categories: serverDb.categories?.length ? serverDb.categories : INITIAL_DB.categories,
           settings: {
             ...INITIAL_DB.settings,
             ...(serverDb.settings || {}),
@@ -1308,12 +1615,6 @@ class DataStoreManager {
               ...(serverDb.settings?.socialLinks || {}),
             },
           },
-          projects: serverDb.projects?.length ? serverDb.projects : INITIAL_DB.projects,
-          partners: serverDb.partners?.length ? serverDb.partners : INITIAL_DB.partners,
-          testimonials: serverDb.testimonials?.length ? serverDb.testimonials : INITIAL_DB.testimonials,
-          events: serverDb.events?.length ? serverDb.events : INITIAL_DB.events,
-          courses: serverDb.courses?.length ? serverDb.courses : INITIAL_DB.courses,
-          categories: serverDb.categories?.length ? serverDb.categories : INITIAL_DB.categories,
         }
         this.saveToStorage(this.db, false)
         this.notifyListeners()
@@ -1327,22 +1628,32 @@ class DataStoreManager {
   }
 
   /**
-   * Envia as alterações para o arquivo do servidor (/api/db)
+   * Envia as alterações para o arquivo do servidor (/api/db) imediatamente
    */
   private pushToServer(db: ArknetDatabase) {
     if (!this.isBrowser) return
-    if (this.syncTimer) clearTimeout(this.syncTimer)
-    this.syncTimer = setTimeout(async () => {
-      try {
-        await fetch('/api/db', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ db }),
-        })
-      } catch (err) {
-        console.warn('[DataStore] Erro ao salvar dados no servidor:', err)
+    try {
+      const token = localStorage.getItem(AUTH_TOKEN_KEY)
+      if (!token) {
+        // Sem token de administrador: não enviar a BD completa ao servidor
+        // As ações públicas (encomendas, leads, etc.) usam endpoints granulares dedicados
+        return
       }
-    }, 300)
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+      fetch('/api/db', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ db }),
+        keepalive: true,
+      }).catch((err) => {
+        console.warn('[DataStore] Erro ao sincronizar dados com o servidor:', err)
+      })
+    } catch (err) {
+      console.warn('[DataStore] Erro ao salvar dados no servidor:', err)
+    }
   }
 
   private loadFromStorage(): ArknetDatabase {
@@ -1355,13 +1666,14 @@ class DataStoreManager {
       }
       const parsed = JSON.parse(raw) as ArknetDatabase
       const cleaned = cleanDatabaseForStorage(parsed)
+      const mergedProducts = mergeProducts(cleaned.products, undefined)
       return {
         ...INITIAL_DB,
         ...cleaned,
+        products: mergedProducts,
+        categories: cleaned.categories?.length ? cleaned.categories : INITIAL_DB.categories,
         users: cleaned.users?.length ? cleaned.users : INITIAL_DB.users,
         customers: cleaned.customers?.length ? cleaned.customers : INITIAL_DB.customers,
-        products: cleaned.products?.length ? cleaned.products : INITIAL_DB.products,
-        categories: cleaned.categories?.length ? cleaned.categories : INITIAL_DB.categories,
         orders: cleaned.orders || INITIAL_DB.orders,
         leads: cleaned.leads || INITIAL_DB.leads,
         subscribers: cleaned.subscribers || INITIAL_DB.subscribers,
@@ -1377,6 +1689,8 @@ class DataStoreManager {
             ? cleaned.partners
             : INITIAL_DB.partners,
         projects: cleaned.projects?.length ? cleaned.projects : INITIAL_DB.projects,
+        dailyActivities: cleaned.dailyActivities?.length ? cleaned.dailyActivities : (INITIAL_DB.dailyActivities || []),
+        reservations: cleaned.reservations || INITIAL_DB.reservations || [],
         settings: cleaned.settings || INITIAL_DB.settings,
         activities: cleaned.activities || INITIAL_DB.activities,
       }
@@ -1398,7 +1712,6 @@ class DataStoreManager {
       }
     } catch (err) {
       console.error('Error saving DB to localStorage', err)
-      // Se exceder a quota por imagens pesadas antigas no localStorage, desentupa limpando imagens gigantes
       try {
         const cleanedDb = cleanDatabaseForStorage(db)
         this.db = cleanedDb
@@ -1499,11 +1812,15 @@ class DataStoreManager {
   // OPERAÇÕES: PRODUTOS & CATEGORIAS
   // ==========================================
   public getProducts(): StoreProduct[] {
-    return this.db.products
+    if (this.db?.products && Array.isArray(this.db.products) && this.db.products.length > 0) {
+      return this.db.products
+    }
+    return DEFAULT_PRODUCTS
   }
 
   public getProductById(id: string): StoreProduct | undefined {
-    return this.db.products.find((p) => p.id === id)
+    const list = this.getProducts()
+    return list.find((p) => p.id === id) || DEFAULT_PRODUCTS.find((p) => p.id === id)
   }
 
   public addProduct(product: Omit<StoreProduct, 'id' | 'createdAt' | 'updatedAt'>): StoreProduct {
@@ -1514,7 +1831,7 @@ class DataStoreManager {
       updatedAt: new Date().toISOString(),
     }
     this.mutate(
-      (db) => ({ ...db, products: [newProduct, ...db.products] }),
+      (db) => ({ ...db, products: [newProduct, ...(db.products || DEFAULT_PRODUCTS)] }),
       { action: `Adicionou produto "${newProduct.name}"`, module: 'produtos' }
     )
     return newProduct
@@ -1523,7 +1840,8 @@ class DataStoreManager {
   public updateProduct(id: string, updates: Partial<StoreProduct>): StoreProduct | null {
     let updatedItem: StoreProduct | null = null
     this.mutate((db) => {
-      const products = db.products.map((p) => {
+      const currentProducts = db.products && db.products.length > 0 ? db.products : DEFAULT_PRODUCTS
+      const products = currentProducts.map((p) => {
         if (p.id === id) {
           updatedItem = { ...p, ...updates, updatedAt: new Date().toISOString() }
           return updatedItem
@@ -1536,17 +1854,21 @@ class DataStoreManager {
   }
 
   public deleteProduct(id: string): boolean {
-    const product = this.db.products.find((p) => p.id === id)
+    const currentProducts = this.getProducts()
+    const product = currentProducts.find((p) => p.id === id)
     if (!product) return false
     this.mutate(
-      (db) => ({ ...db, products: db.products.filter((p) => p.id !== id) }),
+      (db) => ({ ...db, products: (db.products || DEFAULT_PRODUCTS).filter((p) => p.id !== id) }),
       { action: `Eliminou produto "${product.name}"`, module: 'produtos' }
     )
     return true
   }
 
   public getCategories(): ProductCategory[] {
-    return this.db.categories
+    if (this.db?.categories && Array.isArray(this.db.categories) && this.db.categories.length > 0) {
+      return this.db.categories
+    }
+    return DEFAULT_CATEGORIES
   }
 
   public addCategory(category: Omit<ProductCategory, 'id'>): ProductCategory {
@@ -1815,6 +2137,77 @@ class DataStoreManager {
       }
     )
     return updatedItem
+  }
+
+  // ==========================================
+  // OPERAÇÕES: RESERVAS DE PRODUTOS EM TRÂNSITO
+  // ==========================================
+  public getReservations(): ProductReservation[] {
+    return this.db.reservations || []
+  }
+
+  public getReservationsByProductId(productId: string): ProductReservation[] {
+    return (this.db.reservations || []).filter((r) => r.productId === productId)
+  }
+
+  public addReservation(
+    data: Omit<ProductReservation, 'id' | 'reservationNumber' | 'createdAt' | 'updatedAt'>
+  ): ProductReservation {
+    const date = new Date()
+    const randomSeq = String(Math.floor(1000 + Math.random() * 9000))
+    const newReservation: ProductReservation = {
+      ...data,
+      id: `res-${Date.now()}`,
+      reservationNumber: `RES-${date.getFullYear()}-${randomSeq}`,
+      status: data.status || 'pendente',
+      createdAt: date.toISOString(),
+      updatedAt: date.toISOString(),
+    }
+    this.mutate(
+      (db) => ({ ...db, reservations: [newReservation, ...(db.reservations || [])] }),
+      {
+        action: `Nova reserva #${newReservation.reservationNumber} para "${newReservation.productName}" por ${newReservation.customerName}`,
+        module: 'loja',
+      }
+    )
+    return newReservation
+  }
+
+  public updateReservation(id: string, updates: Partial<ProductReservation>): ProductReservation | null {
+    let updatedItem: ProductReservation | null = null
+    this.mutate(
+      (db) => {
+        const reservations = (db.reservations || []).map((r) => {
+          if (r.id === id) {
+            updatedItem = { ...r, ...updates, updatedAt: new Date().toISOString() }
+            return updatedItem
+          }
+          return r
+        })
+        return { ...db, reservations }
+      },
+      {
+        action: `Atualizou reserva #${id} (${updates.status || 'dados'})`,
+        module: 'loja',
+      }
+    )
+    return updatedItem
+  }
+
+  public deleteReservation(id: string): boolean {
+    const res = (this.db.reservations || []).find((r) => r.id === id)
+    if (!res) return false
+    this.mutate(
+      (db) => ({
+        ...db,
+        reservations: (db.reservations || []).filter((r) => r.id !== id),
+      }),
+      {
+        action: `Eliminou reserva #${res.reservationNumber}`,
+        module: 'loja',
+      }
+    )
+    return true
   }
 
   // ==========================================
@@ -2459,6 +2852,61 @@ class DataStoreManager {
   }
 
   // ==========================================
+  // OPERAÇÕES: ATIVIDADES DIÁRIAS (ARKNET EM AÇÃO)
+  // ==========================================
+  public getDailyActivities(): DailyActivityItem[] {
+    return this.db.dailyActivities || []
+  }
+
+  public addDailyActivity(
+    item: Omit<DailyActivityItem, 'id' | 'createdAt' | 'updatedAt'>
+  ): DailyActivityItem {
+    const newActivity: DailyActivityItem = {
+      ...item,
+      id: `d-act-${Date.now()}`,
+      status: item.status || 'concluida',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+    this.mutate(
+      (db) => ({ ...db, dailyActivities: [newActivity, ...(db.dailyActivities || [])] }),
+      { action: `Registo de nova atividade diária "${newActivity.title}"`, module: 'projetos' }
+    )
+    return newActivity
+  }
+
+  public updateDailyActivity(id: string, updates: Partial<DailyActivityItem>): DailyActivityItem | null {
+    let updatedItem: DailyActivityItem | null = null
+    this.mutate(
+      (db) => {
+        const dailyActivities = (db.dailyActivities || []).map((a) => {
+          if (a.id === id) {
+            updatedItem = { ...a, ...updates, updatedAt: new Date().toISOString() }
+            return updatedItem
+          }
+          return a
+        })
+        return { ...db, dailyActivities }
+      },
+      { action: `Atualizou atividade diária "${updates.title || id}"`, module: 'projetos' }
+    )
+    return updatedItem
+  }
+
+  public deleteDailyActivity(id: string): boolean {
+    const act = (this.db.dailyActivities || []).find((a) => a.id === id)
+    if (!act) return false
+    this.mutate(
+      (db) => ({
+        ...db,
+        dailyActivities: (db.dailyActivities || []).filter((a) => a.id !== id),
+      }),
+      { action: `Eliminou atividade diária "${act.title}"`, module: 'projetos' }
+    )
+    return true
+  }
+
+  // ==========================================
   // OPERAÇÕES: DEFINIÇÕES GERAIS & BACKUP
   // ==========================================
   public getSettings(): CompanySettings {
@@ -2499,9 +2947,14 @@ class DataStoreManager {
     this.saveToStorage(INITIAL_DB, true)
     this.notifyListeners()
     try {
+      const token = this.isBrowser ? localStorage.getItem(AUTH_TOKEN_KEY) : null
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
       await fetch('/api/db', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ action: 'reset' }),
       })
     } catch (e) {

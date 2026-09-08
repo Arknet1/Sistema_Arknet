@@ -18,6 +18,7 @@ import {
   ArrowUpDown,
   X,
   ExternalLink,
+  Truck,
 } from 'lucide-react'
 import { dataStore, StoreProduct, ProductCategory } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
@@ -28,8 +29,9 @@ import { formatProdutoPrice } from '@/lib/format-produto-price'
 export default function AdminProdutosPage() {
   const { success, error, info } = useToast()
 
-  const [products, setProducts] = useState<StoreProduct[]>([])
-  const [categories, setCategories] = useState<ProductCategory[]>([])
+  const [products, setProducts] = useState<StoreProduct[]>(() => dataStore.getProducts())
+  const [categories, setCategories] = useState<ProductCategory[]>(() => dataStore.getCategories())
+  const [reservations, setReservations] = useState<any[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [stockFilter, setStockFilter] = useState<'all' | 'inStock' | 'outOfStock'>('all')
@@ -73,9 +75,12 @@ export default function AdminProdutosPage() {
 
   useEffect(() => {
     const sync = () => {
+      const allProducts = dataStore.getProducts()
+      const allCategories = dataStore.getCategories()
       const db = dataStore.getSnapshot()
-      setProducts([...db.products])
-      setCategories([...db.categories])
+      setProducts([...allProducts])
+      setCategories([...allCategories])
+      setReservations(db.reservations || [])
     }
     sync()
     const unsub = dataStore.subscribe(sync)
@@ -422,10 +427,10 @@ export default function AdminProdutosPage() {
                         <button
                           type="button"
                           onClick={() => handleToggleStock(product)}
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold uppercase transition ${
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold uppercase transition rounded-sm ${
                             product.inStock
                               ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                              : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
+                              : 'bg-amber-50 text-amber-700 hover:bg-amber-100'
                           }`}
                           title="Clique para alternar estado de stock"
                         >
@@ -436,8 +441,8 @@ export default function AdminProdutosPage() {
                             </>
                           ) : (
                             <>
-                              <XCircle className="h-3.5 w-3.5 text-rose-600" />
-                              Esgotado
+                              <Truck className="h-3.5 w-3.5 text-amber-600" />
+                              Em Trânsito
                             </>
                           )}
                         </button>
@@ -463,6 +468,16 @@ export default function AdminProdutosPage() {
                             +
                           </button>
                         </div>
+
+                        {/* Reservas associadas */}
+                        {reservations.filter((r) => r.productId === product.id).length > 0 && (
+                          <Link
+                            href="/admin/reservas"
+                            className="text-[10px] font-bold text-amber-700 hover:underline bg-amber-50/80 px-1.5 py-0.5 rounded border border-amber-200"
+                          >
+                            ★ {reservations.filter((r) => r.productId === product.id).length} reserva(s)
+                          </Link>
+                        )}
                       </div>
                     </td>
 
