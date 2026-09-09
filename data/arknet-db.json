@@ -10,7 +10,7 @@
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00Z",
-      "lastLogin": "2026-09-08T11:26:59.329Z"
+      "lastLogin": "2026-09-08T15:29:27.771Z"
     },
     {
       "id": "user-admin-ao",
@@ -22,7 +22,7 @@
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00Z",
-      "lastLogin": "2026-09-08T11:26:59.333Z"
+      "lastLogin": "2026-09-09T08:24:15.212Z"
     },
     {
       "id": "user-editor",
@@ -34,7 +34,7 @@
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-10T00:00:00Z",
-      "lastLogin": "2026-09-08T11:26:59.333Z"
+      "lastLogin": "2026-09-08T15:29:27.786Z"
     },
     {
       "id": "user-editor-ao",
@@ -46,7 +46,7 @@
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-10T00:00:00Z",
-      "lastLogin": "2026-09-08T11:26:59.333Z"
+      "lastLogin": "2026-09-08T15:29:27.786Z"
     }
   ],
   "customers": [
@@ -64,7 +64,7 @@
       "status": "active",
       "notes": "Cliente corporativo VIP de telecomunicações e links dedicados.",
       "createdAt": "2026-01-15T10:00:00Z",
-      "lastLogin": "2026-09-08T08:26:59.333Z"
+      "lastLogin": "2026-09-08T12:29:27.786Z"
     },
     {
       "id": "cli-2",
@@ -80,7 +80,7 @@
       "status": "active",
       "notes": "Contrato ativo de segurança cibernética e consultoria.",
       "createdAt": "2026-01-20T14:30:00Z",
-      "lastLogin": "2026-09-07T17:26:59.333Z"
+      "lastLogin": "2026-09-07T21:29:27.786Z"
     },
     {
       "id": "cli-3",
@@ -95,23 +95,23 @@
       "status": "active",
       "notes": "Cliente de equipamentos da loja online.",
       "createdAt": "2026-02-01T09:15:00Z",
-      "lastLogin": "2026-09-06T11:26:59.333Z"
+      "lastLogin": "2026-09-06T15:29:27.786Z"
     }
   ],
   "products": [
     {
-      "id": "iphone16pro",
-      "name": "Apple iPhone 16 Pro 256 GB",
-      "description": "Smartphone premium da Apple com ecrã Super Retina XDR OLED de 6,3 polegadas, processador A18 Pro, sistema de câmaras Pro de 48 MP, gravação de vídeo 4K Dolby Vision, conectividade 5G, Wi-Fi 7, Face ID, USB-C e carregamento MagSafe.",
-      "category": "Smartphones e Telemóveis",
+      "name": "Hostpot Router Wifi 4G LTE",
+      "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
+      "category": "Redes e Internet",
       "price": null,
-      "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg",
-      "inStock": false,
-      "quantity": 0,
-      "featured": true,
-      "sku": "ARK-0001",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "image": "/uploads/photoroom_20260902_083909-1788945167310.jpg",
+      "inStock": true,
+      "quantity": 10,
+      "featured": false,
+      "sku": "ARK-4510",
+      "id": "prod-1788945524001-0f01",
+      "createdAt": "2026-09-09T09:18:44.010Z",
+      "updatedAt": "2026-09-09T09:18:44.022Z"
     },
     {
       "id": "Adaptadorwifi",
@@ -119,13 +119,13 @@
       "description": "Adaptador Wi-Fi USB Alfa de alto desempenho, ideal para melhorar a receção e transmissão de sinal sem fios em computadores e portáteis.",
       "category": "Redes",
       "price": 15000,
-      "image": "/_next/static/media/Adaptadorwi-fiAlfa.080qd_4jyj8u-.jpeg",
+      "image": "/uploads/photoroom_20260901_112409-1788942301870.jpg",
       "inStock": true,
       "quantity": 19,
       "featured": true,
       "sku": "ARK-0002",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:25:04.009Z"
     },
     {
       "id": "repetidordesinal",
@@ -133,27 +133,13 @@
       "description": "Repetidor de sinal Wi-Fi desenvolvido para ampliar a cobertura da rede sem fios, reduzir zonas sem sinal e melhorar a ligação em residências e escritórios.",
       "category": "Redes",
       "price": 20000,
-      "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
+      "image": "/uploads/photoroom_20260831_145838-1788943827212.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": true,
       "sku": "ARK-0003",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "universalnotebook",
-      "name": "Universal Notebook Power Adaptador 8 conectores",
-      "description": "Adaptador universal de energia para computadores portáteis com 8 conectores diferentes. Compatível com vários modelos de notebooks.",
-      "category": "Acessórios de Computador",
-      "price": 40000,
-      "image": "/_next/static/media/universal-notebook.0ed5a1rekq45~.jpeg",
-      "inStock": true,
-      "quantity": 33,
-      "featured": true,
-      "sku": "ARK-0004",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:50:27.868Z"
     },
     {
       "id": "extensao-ups-ewent",
@@ -161,13 +147,13 @@
       "description": "Extensão UPS Ewent com proteção contra sobrecargas e picos de tensão, ideal para proteger computadores, monitores e equipamentos de rede.",
       "category": "Energia e Proteção",
       "price": 19000,
-      "image": "/_next/static/media/extensão.12svhud2o9_8_.jpeg",
+      "image": "/uploads/photoroom_20260831_150659-1788942578181.jpg",
       "inStock": true,
       "quantity": 15,
       "featured": true,
       "sku": "ARK-0005",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:29:39.077Z"
     },
     {
       "id": "hdtv-splitter-ver1x4",
@@ -175,13 +161,13 @@
       "description": "HDTV Splitter permite distribuir um sinal HDMI para até quatro ecrãs mantendo qualidade de imagem e som em alta definição.",
       "category": "Áudio e Vídeo",
       "price": 38000,
-      "image": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
+      "image": "/uploads/photoroom_20260831_150517-1788942691215.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": true,
       "sku": "ARK-0006",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:31:34.693Z"
     },
     {
       "id": "colunas-manhattan",
@@ -189,13 +175,13 @@
       "description": "Colunas compactas com som de qualidade para computadores, portáteis e equipamentos multimédia.",
       "category": "Áudio e Multimédia",
       "price": 6000,
-      "image": "/_next/static/media/colunam.17-fmq3zrr8ht.jpeg",
+      "image": "/uploads/photoroom_20260902_083118-1788942464922.jpg",
       "inStock": true,
       "quantity": 29,
       "featured": true,
       "sku": "ARK-0007",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:27:45.898Z"
     },
     {
       "id": "alicate",
@@ -203,13 +189,13 @@
       "description": "Ferramenta profissional para corte, decapagem e crimpagem de conectores RJ45 em instalações de rede.",
       "category": "Ferramentas de Rede",
       "price": 18000,
-      "image": "/_next/static/media/alicate-grimpar.0mofx-_~10urt.jpeg",
+      "image": "/uploads/photoroom_20260831_150608-1788942317559.jpg",
       "inStock": true,
       "quantity": 36,
-      "featured": true,
+      "featured": false,
       "sku": "ARK-0008",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:25:25.452Z"
     },
     {
       "id": "gavetaposbematech",
@@ -217,13 +203,13 @@
       "description": "Gaveta metálica para caixas registadoras e sistemas POS, utilizada para armazenamento seguro de numerário.",
       "category": "Automação Comercial",
       "price": 57000,
-      "image": "/_next/static/media/gaveta-dinheiro-bematech.0axk~riwu16-b.jpeg",
+      "image": "/uploads/photoroom_20260831_150421-1788942665318.jpg",
       "inStock": true,
       "quantity": 18,
       "featured": false,
       "sku": "ARK-0009",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:31:06.578Z"
     },
     {
       "id": "testadordecabo",
@@ -231,27 +217,13 @@
       "description": "Ferramenta para teste de cabos de rede UTP, permitindo identificar falhas em ligações Ethernet.",
       "category": "Ferramentas de Rede",
       "price": null,
-      "image": "/_next/static/media/testadordecabo.0_alr.~_a~dw9.jpeg",
+      "image": "/uploads/photoroom_20260902_084358-1788944280866.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0010",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "controleacesso",
-      "name": "Mini Teclado Controlo de Acesso TV",
-      "description": "Mini teclado compacto para controlo de acesso e navegação em sistemas TV, computadores e dispositivos multimédia.",
-      "category": "Acessórios",
-      "price": 13000,
-      "image": "/_next/static/media/controledeacesso.04hbadyx3fuby.jpeg",
-      "inStock": true,
-      "quantity": 32,
-      "featured": false,
-      "sku": "ARK-0011",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:58:41.531Z"
     },
     {
       "id": "monitorgamer",
@@ -259,13 +231,13 @@
       "description": "Monitor Wintech de 27 polegadas com excelente qualidade de imagem para trabalho, jogos e entretenimento.",
       "category": "Monitores",
       "price": null,
-      "image": "/_next/static/media/monitor-gamer-curvo.04hbr_xo3dil6.jpeg",
+      "image": "/uploads/photoroom_20260902_082947-1788943338534.jpg",
       "inStock": true,
       "quantity": 14,
       "featured": false,
       "sku": "ARK-0012",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:42:55.400Z"
     },
     {
       "id": "mouse",
@@ -273,13 +245,13 @@
       "description": "Rato sem fio HP com conexão wireless 2.4 GHz, design ergonómico e alta precisão para computadores e portáteis.",
       "category": "Periféricos",
       "price": null,
-      "image": "/_next/static/media/mouse.12zw2uar0-tm..jpeg",
+      "image": "/uploads/photoroom_20260831_150340-1788943702758.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0013",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:48:26.329Z"
     },
     {
       "id": "adaptadorhdmivga",
@@ -287,13 +259,13 @@
       "description": "Conversor de sinal VGA para HDMI compatível com monitores, televisores e projetores.",
       "category": "Adaptadores e Conversores",
       "price": null,
-      "image": "/_next/static/media/adaptador-vga-hdmi.0e15-3e9aqbi5.jpeg",
+      "image": "/uploads/photoroom_20260831_151406-1788942288148.jpg",
       "inStock": true,
       "quantity": 28,
       "featured": false,
       "sku": "ARK-0014",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:24:50.941Z"
     },
     {
       "id": "abracadeirasnylon",
@@ -301,27 +273,13 @@
       "description": "Conector RJ45 Cat6 UTP com contatos banhados a ouro, ideal para montagem de cabos Ethernet de alta performance.",
       "category": "Organização e Instalação",
       "price": null,
-      "image": "/_next/static/media/abracadeira.0-6c25henq~y4.jpeg",
+      "image": "/uploads/photoroom_20260902_084033-1788942493918.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0015",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "impressorahp",
-      "name": "Impressora HP DeskJet",
-      "description": "Impressora HP DeskJet para impressão, digitalização e cópia de documentos.",
-      "category": "Impressoras e Consumíveis",
-      "price": null,
-      "image": "/_next/static/media/impressora-multifuncional.08-gcufoyq9s4.jpeg",
-      "inStock": true,
-      "quantity": 17,
-      "featured": false,
-      "sku": "ARK-0016",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:28:15.722Z"
     },
     {
       "id": "microsd32gb",
@@ -329,13 +287,13 @@
       "description": "Cartão de memória de 32GB para smartphones, câmaras e outros dispositivos.",
       "category": "Armazenamento",
       "price": null,
-      "image": "/_next/static/media/cartaodememoria32gb.0c5wrl80ftu4m.jpeg",
+      "image": "/uploads/photoroom_20260831_151301-1788942419334.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0017",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:27:01.176Z"
     },
     {
       "id": "pendrive32gb",
@@ -343,13 +301,13 @@
       "description": "Pen drive Maxell para armazenamento e transporte de ficheiros.",
       "category": "Armazenamento",
       "price": null,
-      "image": "/_next/static/media/pendrive.0tyy56er0qev6.jpeg",
+      "image": "/uploads/photoroom_20260831_151131-1788943640360.jpg",
       "inStock": true,
       "quantity": 31,
       "featured": false,
       "sku": "ARK-0018",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:47:23.837Z"
     },
     {
       "id": "relogioponto",
@@ -357,13 +315,13 @@
       "description": "Relógio biométrico ZKTeco K20 para controlo de assiduidade, com ligação LAN, USB e armazenamento de registos.",
       "category": "Segurança Eletrónica",
       "price": null,
-      "image": "/_next/static/media/relogiodepontobiométrico.0dmuta2sm5p_o.jpeg",
+      "image": "/uploads/photoroom_20260831_151112-1788943796284.jpg",
       "inStock": true,
       "quantity": 13,
       "featured": false,
       "sku": "ARK-0019",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:50:01.521Z"
     },
     {
       "id": "roteador",
@@ -371,27 +329,13 @@
       "description": "Roteador industrial Teltonika desenvolvido para aplicações IoT e automação industrial, oferecendo conectividade segura, VPN, Dual SIM e gestão remota.",
       "category": "Redes",
       "price": 120000,
-      "image": "/_next/static/media/Roteador-Industrial.0w1yp0a8_7pt-.jpeg",
+      "image": "/uploads/photoroom_20260831_150116-1788943844221.jpg",
       "inStock": true,
       "quantity": 20,
       "featured": false,
       "sku": "ARK-0020",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "router4g",
-      "name": "TP-Link 300Mbps Wireless N Router",
-      "description": "Router TP-Link Wireless N de 300 Mbps para redes domésticas e empresariais.",
-      "category": "Redes e Internet",
-      "price": null,
-      "image": "/_next/static/media/router4g.0o4.1qs.-0140.jpeg",
-      "inStock": false,
-      "quantity": 0,
-      "featured": false,
-      "sku": "ARK-0021",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:50:46.749Z"
     },
     {
       "id": "headphones",
@@ -399,13 +343,13 @@
       "description": "Auriculares com fio para computadores, smartphones e outros dispositivos multimédia.",
       "category": "Áudio",
       "price": null,
-      "image": "/_next/static/media/headphones.0i1kj6lytkbmq.jpeg",
+      "image": "/uploads/photoroom_20260902_083018-1788942362270.jpg",
       "inStock": true,
       "quantity": 34,
       "featured": false,
       "sku": "ARK-0022",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:26:06.264Z"
     },
     {
       "id": "ram-so-dimm",
@@ -413,55 +357,13 @@
       "description": "Memória RAM DDR4 de 8GB para portáteis, proporcionando maior desempenho e velocidade.",
       "category": "Acessórios de Computador",
       "price": null,
-      "image": "/_next/static/media/memóriaramparanotebook.0hbgjhz~lkv40.jpeg",
+      "image": "/uploads/photoroom_20260901_112203-1788943002909.jpg",
       "inStock": true,
       "quantity": 16,
       "featured": false,
       "sku": "ARK-0023",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "filtro-linha",
-      "name": "Extensão UPS Ewent",
-      "description": "Extensão elétrica Ewent com múltiplas tomadas para proteção e ligação segura de equipamentos eletrónicos.",
-      "category": "Energia e Proteção",
-      "price": 19000,
-      "image": "/_next/static/media/filtrodelinha.12svhud2o9_8_.jpeg",
-      "inStock": true,
-      "quantity": 23,
-      "featured": false,
-      "sku": "ARK-0024",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "mousepad",
-      "name": "Base de Rato Ewent",
-      "description": "Base para rato que proporciona maior conforto e precisão durante a utilização.",
-      "category": "Periféricos de Computador",
-      "price": null,
-      "image": "/_next/static/media/mousepad.0d15r39w9guj6.jpeg",
-      "inStock": false,
-      "quantity": 0,
-      "featured": false,
-      "sku": "ARK-0025",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "mouse-hp",
-      "name": "Teclado + Rato Genius",
-      "description": "Kit Genius composto por teclado e rato USB para uso profissional e doméstico.",
-      "category": "Periféricos de Computador",
-      "price": null,
-      "image": "/_next/static/media/teclado-mouse.0x_i9r90.wiel.jpeg",
-      "inStock": true,
-      "quantity": 12,
-      "featured": false,
-      "sku": "ARK-0026",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:37:01.863Z"
     },
     {
       "id": "tp-link-poe-switch",
@@ -469,13 +371,13 @@
       "description": "Router Wi-Fi TP-Link com velocidade até 300 Mbps, duas antenas externas, porta WAN e portas LAN para ligação estável à Internet.",
       "category": "Redes e Internet",
       "price": null,
-      "image": "/_next/static/media/TP-LINK PoE Switch.1182nwayn1bq3.jpeg",
+      "image": "/uploads/photoroom_20260902_084413-1788943872709.jpg",
       "inStock": true,
       "quantity": 19,
       "featured": false,
       "sku": "ARK-0027",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:51:35.703Z"
     },
     {
       "id": "tp-link-oc200",
@@ -483,41 +385,13 @@
       "description": "Controlador físico OC200 para gestão centralizada de equipamentos TP-Link Omada.",
       "category": "Redes e Internet",
       "price": 113000,
-      "image": "/_next/static/media/tplink-oc200.0aq7xyg3z16aj.jpeg",
+      "image": "/uploads/photoroom_20260902_084428-1788944879486.jpg",
       "inStock": true,
       "quantity": 26,
       "featured": false,
       "sku": "ARK-0028",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "cabo-cat6",
-      "name": "Cabo de Rede CAT6",
-      "description": "Cabo Ethernet CAT6 de alta velocidade para instalações de redes locais, garantindo melhor desempenho e estabilidade na transmissão de dados.",
-      "category": "Cabos e Conectividade",
-      "price": 85000,
-      "image": "/_next/static/media/caboderede.0~qf2uw3uahib.jpeg",
-      "inStock": true,
-      "quantity": 33,
-      "featured": false,
-      "sku": "ARK-0029",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "rack-servidor",
-      "name": "Bastidor de Rede Intellinet 09U (ALP-485x600x450) 19 com Porta de Vidro",
-      "description": "Bastidor de rede Intellinet 09U de 19 polegadas com estrutura metálica resistente e porta frontal em vidro, ideal para organização e proteção de equipamentos de rede.",
-      "category": "Infraestrutura de Redes",
-      "price": 180000,
-      "image": "/_next/static/media/rack-servidor-parede-armario-rede.0g9-7kw4cmv9a.jpeg",
-      "inStock": true,
-      "quantity": 15,
-      "featured": false,
-      "sku": "ARK-0030",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T09:08:26.195Z"
     },
     {
       "id": "conector-rj45",
@@ -525,27 +399,13 @@
       "description": "Conector RJ45 Cat5e/Cat6 para montagem de cabos de rede Ethernet.",
       "category": "Cabos e Conectividade",
       "price": 18000,
-      "image": "/_next/static/media/conectorrj45.0uoz69qepg.2_.jpeg",
+      "image": "/uploads/photoroom_20260902_083153-1788942556932.jpg",
       "inStock": true,
       "quantity": 22,
       "featured": false,
       "sku": "ARK-0031",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "computador-portatil",
-      "name": "Computador Portátil",
-      "description": "Computador portátil para produtividade, navegação na internet e utilização em ambientes empresariais.",
-      "category": "Computadores",
-      "price": 495000,
-      "image": "/_next/static/media/computador-portatil.0h40989gxhe91.jpeg",
-      "inStock": true,
-      "quantity": 29,
-      "featured": false,
-      "sku": "ARK-0032",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:29:18.866Z"
     },
     {
       "id": "impressora-termica",
@@ -553,41 +413,13 @@
       "description": "Impressora térmica X-Printer ideal para emissão de recibos, talões e documentos em sistemas POS e comércio.",
       "category": "Impressoras e Automação Comercial",
       "price": null,
-      "image": "/_next/static/media/impressoratermica.0gd-.yhp_abez.jpeg",
+      "image": "/uploads/photoroom_20260902_084109-1788942785630.jpg",
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0033",
       "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "pilha-maxell",
-      "name": "Pilha Maxell 9V",
-      "description": "Pilha alcalina Maxell de 9V indicada para equipamentos eletrónicos, alarmes e dispositivos de segurança.",
-      "category": "Energia",
-      "price": 1400,
-      "image": "/_next/static/media/pilha-maxell.10dv-1hvhg8i-.jpeg",
-      "inStock": true,
-      "quantity": 18,
-      "featured": false,
-      "sku": "ARK-0034",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
-    },
-    {
-      "id": "cabo-cat6-soho",
-      "name": "Cabo de Rede CAT6 Soho Plus",
-      "description": "Bobina de cabo CAT6 para instalações profissionais de redes Ethernet de alta velocidade.",
-      "category": "Cabos e Conectividade",
-      "price": 85000,
-      "image": "/_next/static/media/caboderede.0~qf2uw3uahib.jpeg",
-      "inStock": true,
-      "quantity": 25,
-      "featured": false,
-      "sku": "ARK-0035",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "updatedAt": "2026-09-09T08:33:37.738Z"
     }
   ],
   "categories": [
@@ -755,7 +587,7 @@
       "botStatus": "receipt_received",
       "receiptUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
       "receiptFilename": "comprovativo_mcx_afonso.jpg",
-      "receiptReceivedAt": "2026-09-08T10:26:59.333Z",
+      "receiptReceivedAt": "2026-09-08T14:29:27.787Z",
       "notes": "Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.",
       "conversationHistory": [
         {
@@ -763,14 +595,14 @@
           "sender": "customer",
           "senderName": "Afonso Mário",
           "text": "Olá ARKNET! Acabei de registar o pedido *PED-2026-0042* no valor de *210.000,00 Kz* na loja online.",
-          "timestamp": "2026-09-08T09:26:59.333Z"
+          "timestamp": "2026-09-08T13:29:27.787Z"
         },
         {
           "id": "msg-2",
           "sender": "bot",
           "senderName": "ARKNET Bot",
           "text": "Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
-          "timestamp": "2026-09-08T09:27:00.333Z"
+          "timestamp": "2026-09-08T13:29:28.787Z"
         },
         {
           "id": "msg-3",
@@ -782,18 +614,18 @@
             "type": "image",
             "filename": "comprovativo_mcx_afonso.jpg"
           },
-          "timestamp": "2026-09-08T10:26:59.333Z"
+          "timestamp": "2026-09-08T14:29:27.787Z"
         },
         {
           "id": "msg-4",
           "sender": "bot",
           "senderName": "ARKNET Bot",
           "text": "✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
-          "timestamp": "2026-09-08T10:27:01.333Z"
+          "timestamp": "2026-09-08T14:29:29.787Z"
         }
       ],
-      "createdAt": "2026-09-08T05:26:59.333Z",
-      "updatedAt": "2026-09-08T10:26:59.333Z"
+      "createdAt": "2026-09-08T09:29:27.787Z",
+      "updatedAt": "2026-09-08T14:29:27.787Z"
     },
     {
       "id": "order-2",
@@ -816,32 +648,32 @@
       "status": "fechado",
       "botStatus": "confirmed",
       "notes": "Pagamento confirmado e fatura emitida via WhatsApp.",
-      "confirmedAt": "2026-09-08T01:26:59.333Z",
+      "confirmedAt": "2026-09-08T05:29:27.787Z",
       "conversationHistory": [
         {
           "id": "msg-201",
           "sender": "customer",
           "senderName": "Beatriz Costa",
           "text": "Olá ARKNET! Pedido #PED-2026-0041",
-          "timestamp": "2026-09-07T23:26:59.333Z"
+          "timestamp": "2026-09-08T03:29:27.787Z"
         },
         {
           "id": "msg-202",
           "sender": "bot",
           "senderName": "ARKNET Bot",
           "text": "Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
-          "timestamp": "2026-09-07T23:27:00.334Z"
+          "timestamp": "2026-09-08T03:29:28.787Z"
         },
         {
           "id": "msg-203",
           "sender": "bot",
           "senderName": "ARKNET Bot",
           "text": "🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
-          "timestamp": "2026-09-08T01:26:59.334Z"
+          "timestamp": "2026-09-08T05:29:27.787Z"
         }
       ],
-      "createdAt": "2026-09-07T05:26:59.334Z",
-      "updatedAt": "2026-09-08T01:26:59.334Z"
+      "createdAt": "2026-09-07T09:29:27.787Z",
+      "updatedAt": "2026-09-08T05:29:27.787Z"
     },
     {
       "id": "order-3",
@@ -870,21 +702,50 @@
           "sender": "customer",
           "senderName": "Dr. Valdemar Pascoal",
           "text": "Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?",
-          "timestamp": "2026-09-08T08:26:59.334Z"
+          "timestamp": "2026-09-08T12:29:27.787Z"
         },
         {
           "id": "msg-302",
           "sender": "bot",
           "senderName": "ARKNET Bot",
           "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
-          "timestamp": "2026-09-08T08:27:00.334Z"
+          "timestamp": "2026-09-08T12:29:28.787Z"
         }
       ],
-      "createdAt": "2026-09-07T20:26:59.334Z",
-      "updatedAt": "2026-09-08T08:26:59.334Z"
+      "createdAt": "2026-09-08T00:29:27.787Z",
+      "updatedAt": "2026-09-08T12:29:27.787Z"
     }
   ],
   "leads": [
+    {
+      "id": "lead-test-1788948718546",
+      "name": "Cliente Teste",
+      "email": "lead@teste.ao",
+      "service": "Infraestrutura de Redes",
+      "message": "Pedido de cotação de redes"
+    },
+    {
+      "id": "lead-test-1788948366063",
+      "name": "Lead Teste",
+      "email": "lead@teste.ao",
+      "service": "Desenvolvimento Web",
+      "message": "Teste de segurança"
+    },
+    {
+      "id": "lead-test-1788948245799",
+      "name": "Lead Teste",
+      "email": "lead@teste.ao",
+      "service": "Desenvolvimento Web",
+      "message": "Teste de segurança"
+    },
+    {
+      "name": "Teste Segurança",
+      "email": "teste@exemplo.com",
+      "phone": "+244900000000",
+      "company": "Empresa Teste",
+      "service": "Software à Medida",
+      "message": "Mensagem de teste automatizado de segurança"
+    },
     {
       "id": "lead-1",
       "name": "Eng. Manuel Domingos",
@@ -895,8 +756,8 @@
       "status": "novo",
       "notes": "Prioridade alta. Cliente corporativo do sector petrolífero.",
       "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-08T07:26:59.333Z",
-      "updatedAt": "2026-09-08T07:26:59.333Z"
+      "createdAt": "2026-09-08T11:29:27.787Z",
+      "updatedAt": "2026-09-08T11:29:27.787Z"
     },
     {
       "id": "lead-2",
@@ -908,8 +769,8 @@
       "status": "contactado",
       "notes": "Reunião preliminar agendada para sexta-feira às 10h.",
       "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-07T11:26:59.333Z",
-      "updatedAt": "2026-09-07T23:26:59.333Z"
+      "createdAt": "2026-09-07T15:29:27.787Z",
+      "updatedAt": "2026-09-08T03:29:27.787Z"
     },
     {
       "id": "lead-3",
@@ -921,8 +782,8 @@
       "status": "convertido",
       "notes": "Proposta adjudicada. Projecto em fase de planeamento e instalação.",
       "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-06T11:26:59.333Z",
-      "updatedAt": "2026-09-08T03:26:59.333Z"
+      "createdAt": "2026-09-06T15:29:27.787Z",
+      "updatedAt": "2026-09-08T07:29:27.787Z"
     },
     {
       "id": "lead-4",
@@ -934,8 +795,8 @@
       "status": "novo",
       "notes": "",
       "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-05T11:26:59.333Z",
-      "updatedAt": "2026-09-05T11:26:59.333Z"
+      "createdAt": "2026-09-05T15:29:27.787Z",
+      "updatedAt": "2026-09-05T15:29:27.787Z"
     }
   ],
   "subscribers": [
@@ -1125,7 +986,7 @@
       "company": "Sonangol E.P.",
       "notes": "Interesse em painel de cibersegurança e cloud híbrida.",
       "status": "confirmada",
-      "createdAt": "2026-09-07T11:26:59.334Z"
+      "createdAt": "2026-09-07T15:29:27.787Z"
     },
     {
       "id": "reg-2",
@@ -1137,7 +998,7 @@
       "company": "Banco BAI",
       "notes": "Vaga VIP reservada.",
       "status": "confirmada",
-      "createdAt": "2026-09-07T23:26:59.334Z"
+      "createdAt": "2026-09-08T03:29:27.787Z"
     },
     {
       "id": "reg-3",
@@ -1149,7 +1010,7 @@
       "company": "TechAngola Lda",
       "notes": "Inscrição para workshop técnico.",
       "status": "confirmada",
-      "createdAt": "2026-09-08T06:26:59.334Z"
+      "createdAt": "2026-09-08T10:29:27.787Z"
     }
   ],
   "jobs": [
@@ -1231,8 +1092,8 @@
       "cvFileName": "CV_Eduardo_Ndala_2026.pdf",
       "status": "em_analise",
       "notes": "Perfil muito alinhado. Convidar para entrevista técnica.",
-      "createdAt": "2026-09-07T15:26:59.334Z",
-      "updatedAt": "2026-09-07T15:26:59.334Z"
+      "createdAt": "2026-09-07T19:29:27.787Z",
+      "updatedAt": "2026-09-07T19:29:27.787Z"
     },
     {
       "id": "app-2",
@@ -1244,8 +1105,8 @@
       "cvFileName": "Curriculo_Mariana_Kiala.pdf",
       "status": "recebida",
       "notes": "",
-      "createdAt": "2026-09-06T14:26:59.334Z",
-      "updatedAt": "2026-09-06T14:26:59.334Z"
+      "createdAt": "2026-09-06T18:29:27.787Z",
+      "updatedAt": "2026-09-06T18:29:27.787Z"
     }
   ],
   "testimonials": [
@@ -1930,8 +1791,8 @@
       "quantity": 4,
       "notes": "Necessitamos com urgência para expansão da rede do bloco administrativo em Luanda.",
       "status": "pendente",
-      "createdAt": "2026-09-08T05:26:59.333Z",
-      "updatedAt": "2026-09-08T05:26:59.333Z"
+      "createdAt": "2026-09-08T09:29:27.787Z",
+      "updatedAt": "2026-09-08T09:29:27.787Z"
     },
     {
       "id": "res-2",
@@ -1947,8 +1808,8 @@
       "quantity": 2,
       "notes": "Favor notificar por WhatsApp assim que desembarcar no armazém central.",
       "status": "em_contacto",
-      "createdAt": "2026-09-07T07:26:59.333Z",
-      "updatedAt": "2026-09-07T21:26:59.333Z"
+      "createdAt": "2026-09-07T11:29:27.787Z",
+      "updatedAt": "2026-09-08T01:29:27.787Z"
     },
     {
       "id": "res-3",
@@ -1964,14 +1825,14 @@
       "quantity": 1,
       "notes": "Previsão de recolha na sede da ARKNET Kilamba.",
       "status": "pendente",
-      "createdAt": "2026-09-06T11:26:59.333Z",
-      "updatedAt": "2026-09-06T11:26:59.333Z"
+      "createdAt": "2026-09-06T15:29:27.787Z",
+      "updatedAt": "2026-09-06T15:29:27.787Z"
     }
   ],
   "settings": {
     "id": "settings-global",
     "companyName": "ARKNET — Soluções Tecnológicas & Telecomunicações",
-    "tagline": "Transformando o Futuro Digital de Angola",
+    "tagline": "Inovação Tecnológica e Conectividade de Alto Desempenho em Angola",
     "phones": [
       "+244 935 208 449"
     ],
@@ -1996,12 +1857,340 @@
   },
   "activities": [
     {
+      "id": "act-1788945524034-gozt",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Hostpot Router Wifi 4G LTE\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T09:18:44.034Z"
+    },
+    {
+      "id": "act-1788944919919-ku35",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Universal Notebook Power Adaptador 8 conectores\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T09:08:39.919Z"
+    },
+    {
+      "id": "act-1788944906197-blrx",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TP-Link Omada Hardware Controller OC200\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T09:08:26.199Z"
+    },
+    {
+      "id": "act-1788944830326-opoc",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"TP-Link 300Mbps Wireless N Router\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T09:07:10.326Z"
+    },
+    {
+      "id": "act-1788944321536-0hwk",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Testador Finder de Cabo UTP\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:58:41.540Z"
+    },
+    {
+      "id": "act-1788944078330-kvhs",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Teclado + Rato Genius\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:54:38.332Z"
+    },
+    {
+      "id": "act-1788943895712-81qy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Router Wi-Fi TP-Link 300 Mbps com 2 Antenas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:51:35.724Z"
+    },
+    {
+      "id": "act-1788943846749-v52t",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Roteador Industrial Teltonika RUTM\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:50:46.749Z"
+    },
+    {
+      "id": "act-1788943827869-wlqe",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Repetidor de Sinal Wi-Fi com 2 Antenas Externas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:50:27.869Z"
+    },
+    {
+      "id": "act-1788943801523-wi77",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Relógio Biométrico ZKTeco K20\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:50:01.526Z"
+    },
+    {
+      "id": "act-1788943706331-o5i1",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Rato sem fio HP Preto\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:48:26.332Z"
+    },
+    {
+      "id": "act-1788943649542-h9gz",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Pilha Maxell 9V\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:47:29.542Z"
+    },
+    {
+      "id": "act-1788943643837-rs7a",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Pen Drive Maxell 32GB USB 2.0\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:47:23.837Z"
+    },
+    {
+      "id": "act-1788943608964-8qyi",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Impressora HP DeskJet\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:46:48.964Z"
+    },
+    {
+      "id": "act-1788943375422-438u",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Monitor Wintech 27 Polegadas\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:42:55.438Z"
+    },
+    {
+      "id": "act-1788943094840-k8rm",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Mini Teclado Controlo de Acesso TV\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:38:14.841Z"
+    },
+    {
+      "id": "act-1788943021903-o3oi",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Memória RAM DDR4 8GB 3200MHz Para Portátil\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:37:01.986Z"
+    },
+    {
+      "id": "act-1788942938180-2hce",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Memória RAM DDR4 8GB 3200MHz Para Portátil\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:35:38.184Z"
+    },
+    {
+      "id": "act-1788942817757-afvy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Impressora Térmica X-Printer\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:33:37.775Z"
+    },
+    {
+      "id": "act-1788942694693-kfrn",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"HDTV Splitter Ver 1x4\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:31:34.693Z"
+    },
+    {
+      "id": "act-1788942666579-jxqh",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Gaveta POS Bematech\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:31:06.581Z"
+    },
+    {
+      "id": "act-1788942584212-kbrt",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Extensão UPS Ewent\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:29:44.212Z"
+    },
+    {
+      "id": "act-1788942579077-026o",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Extensão UPS Ewent\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:29:39.077Z"
+    },
+    {
+      "id": "act-1788942558867-a23r",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conector RJ45\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:29:18.868Z"
+    },
+    {
+      "id": "act-1788942516533-xtel",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conector RJ45\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:28:36.533Z"
+    },
+    {
+      "id": "act-1788942495722-ogxl",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conector de Rede Intellinet RJ45 Cat6 100 unidades\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:28:15.722Z"
+    },
+    {
+      "id": "act-1788942472629-vxw8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Computador Portátil\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:27:52.629Z"
+    },
+    {
+      "id": "act-1788942465899-e1uj",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Colunas Manhattan\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:27:45.900Z"
+    },
+    {
+      "id": "act-1788942421176-qxwk",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cartão de Memória Micro SD 32GB Kingston\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:27:01.176Z"
+    },
+    {
+      "id": "act-1788942393383-gc0j",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Cabo de Rede CAT6 Soho Plus\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:33.383Z"
+    },
+    {
+      "id": "act-1788942389262-a3r8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Cabo de Rede CAT6\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:29.262Z"
+    },
+    {
+      "id": "act-1788942383846-hp20",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Bastidor de Rede Intellinet 09U (ALP-485x600x450) 19 com Porta de Vidro\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:23.846Z"
+    },
+    {
+      "id": "act-1788942377184-ev8t",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Base de Rato Ewent\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:17.184Z"
+    },
+    {
+      "id": "act-1788942372166-sh5y",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"Apple iPhone 16 Pro 256 GB\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:12.166Z"
+    },
+    {
+      "id": "act-1788942366264-t5wc",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Auriculares com fio AEG\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:26:06.264Z"
+    },
+    {
+      "id": "act-1788942325452-xkp3",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Alicate de Crimpar RJ45\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:25:25.452Z"
+    },
+    {
+      "id": "act-1788942304009-0luz",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador Wi-Fi Alfa\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:25:04.009Z"
+    },
+    {
+      "id": "act-1788942290942-p9ma",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador de Vídeo VGA para HDMI\"",
+      "module": "produtos",
+      "timestamp": "2026-09-09T08:24:50.943Z"
+    },
+    {
+      "id": "act-1788942255213-xsuk",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou utilizador \"user-admin-ao\"",
+      "module": "utilizadores",
+      "timestamp": "2026-09-09T08:24:15.213Z"
+    },
+    {
+      "id": "act-1788881745228-bum3",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou utilizador \"user-admin-ao\"",
+      "module": "utilizadores",
+      "timestamp": "2026-09-08T15:35:45.228Z"
+    },
+    {
+      "id": "act-1788881740309-8vaz",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou utilizador \"user-admin-ao\"",
+      "module": "utilizadores",
+      "timestamp": "2026-09-08T15:35:40.312Z"
+    },
+    {
       "id": "act-1",
       "userId": "user-admin",
       "userName": "Administrador ARKNET",
       "action": "Criou novo produto \"Roteador Wi-Fi 6\"",
       "module": "produtos",
-      "timestamp": "2026-09-08T09:26:59.334Z"
+      "timestamp": "2026-09-08T13:29:27.787Z"
     },
     {
       "id": "act-2",
@@ -2009,7 +2198,7 @@
       "userName": "Editor de Conteúdo",
       "action": "Atualizou estado do lead \"Dra. Teresa Van-Dúnem\" para \"Contactado\"",
       "module": "leads",
-      "timestamp": "2026-09-07T23:26:59.334Z"
+      "timestamp": "2026-09-08T03:29:27.787Z"
     },
     {
       "id": "act-3",
@@ -2017,7 +2206,7 @@
       "userName": "Administrador ARKNET",
       "action": "Publicou vaga \"Engenheiro de Redes & Telecomunicações Sénior\"",
       "module": "carreiras",
-      "timestamp": "2026-09-07T11:26:59.334Z"
+      "timestamp": "2026-09-07T15:29:27.787Z"
     }
   ],
   "version": 2

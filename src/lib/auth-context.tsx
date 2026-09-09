@@ -193,10 +193,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     dataStore.updateUser(foundUser.id, { lastLogin: updatedUser.lastLogin })
     setUser(updatedUser)
 
-    const sessionToken = createSessionToken(updatedUser.id, updatedUser.email, updatedUser.role, 120)
+    const sessionToken = createSessionToken(updatedUser.id, updatedUser.email, updatedUser.role, 1440 * 7)
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser))
     localStorage.setItem(AUTH_TOKEN_KEY, sessionToken)
-    document.cookie = `${AUTH_TOKEN_KEY}=${sessionToken}; path=/; max-age=7200; SameSite=Strict; Secure`
+    
+    const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:'
+    const secureFlag = isHttps ? '; Secure' : ''
+    document.cookie = `${AUTH_TOKEN_KEY}=${sessionToken}; path=/; max-age=604800; SameSite=Lax${secureFlag}`
 
     setIsLoading(false)
 
@@ -249,10 +252,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       createdAt: new Date().toISOString(),
     }
     setUser(targetUser)
-    const sessionToken = createSessionToken(targetUser.id, targetUser.email, targetUser.role, 120)
+    const sessionToken = createSessionToken(targetUser.id, targetUser.email, targetUser.role, 1440 * 7)
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(targetUser))
     localStorage.setItem(AUTH_TOKEN_KEY, sessionToken)
-    document.cookie = `${AUTH_TOKEN_KEY}=${sessionToken}; path=/; max-age=7200; SameSite=Strict`
+    const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:'
+    const secureFlag = isHttps ? '; Secure' : ''
+    document.cookie = `${AUTH_TOKEN_KEY}=${sessionToken}; path=/; max-age=604800; SameSite=Lax${secureFlag}`
   }
 
   const role = user?.role || null

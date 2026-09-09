@@ -1424,105 +1424,70 @@ const AUTH_TOKEN_KEY = 'arknet_admin_token'
 
 type Listener = (db: ArknetDatabase) => void
 
-function mergeProducts(localList?: StoreProduct[], serverList?: StoreProduct[]): StoreProduct[] {
-  const defaultMap = new Map<string, StoreProduct>()
-  for (const dp of DEFAULT_PRODUCTS) {
-    defaultMap.set(dp.id, dp)
-  }
-
-  const map = new Map<string, StoreProduct>()
-
-  // 1. Inserir todos os 35 produtos padrão como garantia de catálogo base 100% completo
-  for (const dp of DEFAULT_PRODUCTS) {
-    map.set(dp.id, { ...dp })
-  }
-
-  // 2. Sobrepor produtos do servidor (com preços reais, imagens /uploads/ e stocks atualizados)
-  const server = Array.isArray(serverList) && serverList.length > 0 ? serverList : []
-  for (const sp of server) {
-    if (!sp || !sp.id) continue
-    const defaultItem = defaultMap.get(sp.id)
-    let img = sp.image
-    if (!img || img === '[object Object]') {
-      img = defaultItem?.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80'
-    }
-    map.set(sp.id, {
-      ...(defaultItem || {}),
-      ...sp,
-      image: img,
-    })
-  }
-
-  // 3. Sobrepor produtos locais alterados mais recentemente ou novos produtos criados
-  const local = Array.isArray(localList) && localList.length > 0 ? localList : []
-  for (const lp of local) {
-    if (!lp || !lp.id) continue
-    const existing = map.get(lp.id)
-    if (!existing) {
-      map.set(lp.id, lp)
-    } else {
-      const localTime = new Date(lp.updatedAt || lp.createdAt || 0).getTime()
-      const existingTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime()
-      if (localTime > existingTime) {
-        map.set(lp.id, { ...existing, ...lp })
+function getServerDbData(): ArknetDatabase | null {
+  if (typeof window !== 'undefined') return null
+  try {
+    const fs = eval('require')('fs')
+    const path = eval('require')('path')
+    const dbPath = path.join(process.cwd(), 'data', 'arknet-db.json')
+    if (fs.existsSync(dbPath)) {
+      const raw = fs.readFileSync(dbPath, 'utf-8')
+      if (raw.trim()) {
+        const parsed = JSON.parse(raw)
+        return {
+          ...INITIAL_DB,
+          ...parsed,
+          settings: {
+            ...INITIAL_DB.settings,
+            ...(parsed.settings || {}),
+            socialLinks: {
+              ...INITIAL_DB.settings?.socialLinks,
+              ...(parsed.settings?.socialLinks || {}),
+            },
+          },
+          products: Array.isArray(parsed.products) ? parsed.products : INITIAL_DB.products,
+          categories: Array.isArray(parsed.categories) ? parsed.categories : INITIAL_DB.categories,
+          users: Array.isArray(parsed.users) ? parsed.users : INITIAL_DB.users,
+          customers: Array.isArray(parsed.customers) ? parsed.customers : INITIAL_DB.customers,
+          projects: Array.isArray(parsed.projects) ? parsed.projects : INITIAL_DB.projects,
+          dailyActivities: Array.isArray(parsed.dailyActivities) ? parsed.dailyActivities : (INITIAL_DB.dailyActivities || []),
+          events: Array.isArray(parsed.events) ? parsed.events : INITIAL_DB.events,
+          eventRegistrations: Array.isArray(parsed.eventRegistrations) ? parsed.eventRegistrations : (INITIAL_DB.eventRegistrations || []),
+          reservations: Array.isArray(parsed.reservations) ? parsed.reservations : (INITIAL_DB.reservations || []),
+          courses: Array.isArray(parsed.courses) ? parsed.courses : INITIAL_DB.courses,
+          jobs: Array.isArray(parsed.jobs) ? parsed.jobs : (INITIAL_DB.jobs || []),
+          applications: Array.isArray(parsed.applications) ? parsed.applications : (INITIAL_DB.applications || []),
+          partners: Array.isArray(parsed.partners) ? parsed.partners : INITIAL_DB.partners,
+          testimonials: Array.isArray(parsed.testimonials) ? parsed.testimonials : INITIAL_DB.testimonials,
+          leads: Array.isArray(parsed.leads) ? parsed.leads : (INITIAL_DB.leads || []),
+          orders: Array.isArray(parsed.orders) ? parsed.orders : (INITIAL_DB.orders || []),
+          subscribers: Array.isArray(parsed.subscribers) ? parsed.subscribers : (INITIAL_DB.subscribers || []),
+          activities: Array.isArray(parsed.activities) ? parsed.activities : (INITIAL_DB.activities || []),
+        }
       }
     }
+  } catch {
+    return null
   }
-
-  return Array.from(map.values())
+  return null
 }
 
 function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
   if (!db) return INITIAL_DB
-  const products = mergeProducts(db.products, undefined)
   return {
     ...INITIAL_DB,
     ...db,
-    products: products.length > 0 ? products : INITIAL_DB.products,
-    categories: Array.isArray(db.categories) && db.categories.length ? db.categories : INITIAL_DB.categories,
-    projects: Array.isArray(db.projects) && db.projects.length ? db.projects : INITIAL_DB.projects,
-    dailyActivities: Array.isArray(db.dailyActivities) && db.dailyActivities.length ? db.dailyActivities : INITIAL_DB.dailyActivities || [],
-    reservations: Array.isArray(db.reservations) ? db.reservations : INITIAL_DB.reservations || [],
-    partners: Array.isArray(db.partners) && db.partners.length ? db.partners : INITIAL_DB.partners,
-    events: Array.isArray(db.events) && db.events.length ? db.events : INITIAL_DB.events,
-    courses: Array.isArray(db.courses) && db.courses.length ? db.courses : INITIAL_DB.courses,
-    testimonials: Array.isArray(db.testimonials) && db.testimonials.length ? db.testimonials : INITIAL_DB.testimonials,
-    activities: Array.isArray(db.activities) ? db.activities.slice(0, 30) : INITIAL_DB.activities,
+    products: Array.isArray(db.products) ? db.products : INITIAL_DB.products,
+    categories: Array.isArray(db.categories) ? db.categories : INITIAL_DB.categories,
+    projects: Array.isArray(db.projects) ? db.projects : INITIAL_DB.projects,
+    dailyActivities: Array.isArray(db.dailyActivities) ? db.dailyActivities : (INITIAL_DB.dailyActivities || []),
+    reservations: Array.isArray(db.reservations) ? db.reservations : (INITIAL_DB.reservations || []),
+    partners: Array.isArray(db.partners) ? db.partners : INITIAL_DB.partners,
+    events: Array.isArray(db.events) ? db.events : INITIAL_DB.events,
+    courses: Array.isArray(db.courses) ? db.courses : INITIAL_DB.courses,
+    testimonials: Array.isArray(db.testimonials) ? db.testimonials : INITIAL_DB.testimonials,
+    activities: Array.isArray(db.activities) ? db.activities.slice(0, 50) : (INITIAL_DB.activities || []),
   }
-}
-
-function mergeCollection<T extends { id: string; updatedAt?: string; createdAt?: string }>(
-  localList: T[] | undefined,
-  serverList: T[] | undefined,
-  defaultList: T[]
-): T[] {
-  const local = Array.isArray(localList) ? localList : []
-  const server = Array.isArray(serverList) ? serverList : []
-  if (local.length === 0 && server.length === 0) return defaultList
-
-  const map = new Map<string, T>()
-  for (const item of server) {
-    if (item && item.id) {
-      map.set(item.id, item)
-    }
-  }
-
-  for (const item of local) {
-    if (!item || !item.id) continue
-    const serverItem = map.get(item.id)
-    if (!serverItem) {
-      map.set(item.id, item)
-    } else {
-      const localTime = new Date(item.updatedAt || item.createdAt || 0).getTime()
-      const serverTime = new Date(serverItem.updatedAt || serverItem.createdAt || 0).getTime()
-      if (localTime >= serverTime) {
-        map.set(item.id, item)
-      }
-    }
-  }
-
-  const result = Array.from(map.values())
-  return result.length > 0 ? result : defaultList
 }
 
 class DataStoreManager {
@@ -1569,7 +1534,7 @@ class DataStoreManager {
   }
 
   /**
-   * Sincroniza os dados locais com o arquivo do servidor (/api/db) de forma inteligente
+   * Sincroniza os dados locais com o arquivo do servidor (/api/db) de forma inteligente e segura
    */
   public async syncWithServer(): Promise<boolean> {
     if (!this.isBrowser) return false
@@ -1583,39 +1548,71 @@ class DataStoreManager {
       if (!res.ok) return false
       const data = await res.json()
       if (data && data.success && data.db) {
-        const serverDb = cleanDatabaseForStorage(data.db)
-        const localDb = this.db
+        const serverDb = data.db
+        const localDb = this.db || this.loadFromStorage()
+        const isAdminPayload = Array.isArray(serverDb.users) && serverDb.users.length > 0
 
-        const mergedProducts = mergeProducts(localDb.products, serverDb.products)
-        const mergedProjects = mergeCollection(localDb.projects, serverDb.projects, INITIAL_DB.projects)
-        const mergedDailyActivities = mergeCollection(localDb.dailyActivities, serverDb.dailyActivities, INITIAL_DB.dailyActivities || [])
-        const mergedEvents = mergeCollection(localDb.events, serverDb.events, INITIAL_DB.events)
-        const mergedReservations = mergeCollection(localDb.reservations, serverDb.reservations, INITIAL_DB.reservations || [])
-        const mergedCourses = mergeCollection(localDb.courses, serverDb.courses, INITIAL_DB.courses)
-        const mergedPartners = mergeCollection(localDb.partners, serverDb.partners, INITIAL_DB.partners)
-        const mergedTestimonials = mergeCollection(localDb.testimonials, serverDb.testimonials, INITIAL_DB.testimonials)
-
-        this.db = {
-          ...INITIAL_DB,
-          ...serverDb,
-          products: mergedProducts,
-          projects: mergedProjects,
-          dailyActivities: mergedDailyActivities,
-          events: mergedEvents,
-          reservations: mergedReservations,
-          courses: mergedCourses,
-          partners: mergedPartners,
-          testimonials: mergedTestimonials,
-          categories: serverDb.categories?.length ? serverDb.categories : INITIAL_DB.categories,
-          settings: {
-            ...INITIAL_DB.settings,
-            ...(serverDb.settings || {}),
-            socialLinks: {
-              ...INITIAL_DB.settings?.socialLinks,
-              ...(serverDb.settings?.socialLinks || {}),
+        if (isAdminPayload) {
+          // Atualização autorizada do Administrador: sincroniza todos os dados do servidor
+          this.db = {
+            ...INITIAL_DB,
+            ...localDb,
+            ...serverDb,
+            settings: {
+              ...INITIAL_DB.settings,
+              ...(localDb.settings || {}),
+              ...(serverDb.settings || {}),
+              socialLinks: {
+                ...INITIAL_DB.settings?.socialLinks,
+                ...(localDb.settings?.socialLinks || {}),
+                ...(serverDb.settings?.socialLinks || {}),
+              },
             },
-          },
+            products: Array.isArray(serverDb.products) ? serverDb.products : (localDb.products || INITIAL_DB.products),
+            categories: Array.isArray(serverDb.categories) ? serverDb.categories : (localDb.categories || INITIAL_DB.categories),
+            projects: Array.isArray(serverDb.projects) ? serverDb.projects : (localDb.projects || INITIAL_DB.projects),
+            dailyActivities: Array.isArray(serverDb.dailyActivities) ? serverDb.dailyActivities : (localDb.dailyActivities || []),
+            events: Array.isArray(serverDb.events) ? serverDb.events : (localDb.events || INITIAL_DB.events),
+            eventRegistrations: Array.isArray(serverDb.eventRegistrations) ? serverDb.eventRegistrations : (localDb.eventRegistrations || []),
+            reservations: Array.isArray(serverDb.reservations) ? serverDb.reservations : (localDb.reservations || []),
+            courses: Array.isArray(serverDb.courses) ? serverDb.courses : (localDb.courses || INITIAL_DB.courses),
+            jobs: Array.isArray(serverDb.jobs) ? serverDb.jobs : (localDb.jobs || []),
+            applications: Array.isArray(serverDb.applications) ? serverDb.applications : (localDb.applications || []),
+            partners: Array.isArray(serverDb.partners) ? serverDb.partners : (localDb.partners || INITIAL_DB.partners),
+            testimonials: Array.isArray(serverDb.testimonials) ? serverDb.testimonials : (localDb.testimonials || INITIAL_DB.testimonials),
+            leads: Array.isArray(serverDb.leads) ? serverDb.leads : (localDb.leads || []),
+            orders: Array.isArray(serverDb.orders) ? serverDb.orders : (localDb.orders || []),
+            users: Array.isArray(serverDb.users) ? serverDb.users : (localDb.users || INITIAL_DB.users),
+            customers: Array.isArray(serverDb.customers) ? serverDb.customers : (localDb.customers || INITIAL_DB.customers),
+            subscribers: Array.isArray(serverDb.subscribers) ? serverDb.subscribers : (localDb.subscribers || []),
+            activities: Array.isArray(serverDb.activities) ? serverDb.activities : (localDb.activities || []),
+          }
+        } else {
+          // Payload público (visitante não autenticado): atualiza dados do catálogo sem apagar encomendas/clientes locais
+          this.db = {
+            ...localDb,
+            products: Array.isArray(serverDb.products) && serverDb.products.length ? serverDb.products : (localDb.products || INITIAL_DB.products),
+            categories: Array.isArray(serverDb.categories) && serverDb.categories.length ? serverDb.categories : (localDb.categories || INITIAL_DB.categories),
+            projects: Array.isArray(serverDb.projects) && serverDb.projects.length ? serverDb.projects : (localDb.projects || INITIAL_DB.projects),
+            dailyActivities: Array.isArray(serverDb.dailyActivities) ? serverDb.dailyActivities : (localDb.dailyActivities || []),
+            events: Array.isArray(serverDb.events) && serverDb.events.length ? serverDb.events : (localDb.events || INITIAL_DB.events),
+            courses: Array.isArray(serverDb.courses) && serverDb.courses.length ? serverDb.courses : (localDb.courses || INITIAL_DB.courses),
+            jobs: Array.isArray(serverDb.jobs) ? serverDb.jobs : (localDb.jobs || []),
+            partners: Array.isArray(serverDb.partners) && serverDb.partners.length ? serverDb.partners : (localDb.partners || INITIAL_DB.partners),
+            testimonials: Array.isArray(serverDb.testimonials) && serverDb.testimonials.length ? serverDb.testimonials : (localDb.testimonials || INITIAL_DB.testimonials),
+            settings: {
+              ...INITIAL_DB.settings,
+              ...(localDb.settings || {}),
+              ...(serverDb.settings || {}),
+              socialLinks: {
+                ...INITIAL_DB.settings?.socialLinks,
+                ...(localDb.settings?.socialLinks || {}),
+                ...(serverDb.settings?.socialLinks || {}),
+              },
+            },
+          }
         }
+
         this.saveToStorage(this.db, false)
         this.notifyListeners()
         return true
@@ -1631,68 +1628,83 @@ class DataStoreManager {
    * Envia as alterações para o arquivo do servidor (/api/db) imediatamente
    */
   private pushToServer(db: ArknetDatabase) {
-    if (!this.isBrowser) return
+    if (!this.isBrowser) {
+      try {
+        const fs = eval('require')('fs')
+        const path = eval('require')('path')
+        const dataDir = path.join(process.cwd(), 'data')
+        const dbPath = path.join(dataDir, 'arknet-db.json')
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true })
+        }
+        fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf-8')
+      } catch (err) {
+        console.error('[DataStore] Erro ao salvar dados no ficheiro do servidor:', err)
+      }
+      return
+    }
     try {
       const token = localStorage.getItem(AUTH_TOKEN_KEY)
-      if (!token) {
-        // Sem token de administrador: não enviar a BD completa ao servidor
-        // As ações públicas (encomendas, leads, etc.) usam endpoints granulares dedicados
-        return
-      }
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+      }
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
       }
       fetch('/api/db', {
         method: 'POST',
         headers,
         body: JSON.stringify({ db }),
         keepalive: true,
-      }).catch((err) => {
-        console.warn('[DataStore] Erro ao sincronizar dados com o servidor:', err)
       })
+        .then((res) => {
+          if (!res.ok) {
+            console.warn(`[DataStore] pushToServer respondeu com status ${res.status}`)
+          }
+        })
+        .catch((err) => {
+          console.warn('[DataStore] Erro ao sincronizar dados com o servidor:', err)
+        })
     } catch (err) {
       console.warn('[DataStore] Erro ao salvar dados no servidor:', err)
     }
   }
 
   private loadFromStorage(): ArknetDatabase {
-    if (!this.isBrowser) return INITIAL_DB
+    if (!this.isBrowser) {
+      const serverData = getServerDbData()
+      return serverData || INITIAL_DB
+    }
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (!raw) {
-        this.saveToStorage(INITIAL_DB)
+        this.saveToStorage(INITIAL_DB, false)
         return INITIAL_DB
       }
       const parsed = JSON.parse(raw) as ArknetDatabase
       const cleaned = cleanDatabaseForStorage(parsed)
-      const mergedProducts = mergeProducts(cleaned.products, undefined)
       return {
         ...INITIAL_DB,
         ...cleaned,
-        products: mergedProducts,
-        categories: cleaned.categories?.length ? cleaned.categories : INITIAL_DB.categories,
-        users: cleaned.users?.length ? cleaned.users : INITIAL_DB.users,
-        customers: cleaned.customers?.length ? cleaned.customers : INITIAL_DB.customers,
-        orders: cleaned.orders || INITIAL_DB.orders,
-        leads: cleaned.leads || INITIAL_DB.leads,
-        subscribers: cleaned.subscribers || INITIAL_DB.subscribers,
-        courses: cleaned.courses?.length ? cleaned.courses : INITIAL_DB.courses,
-        events: cleaned.events?.length ? cleaned.events : INITIAL_DB.events,
-        eventRegistrations: cleaned.eventRegistrations || INITIAL_DB.eventRegistrations,
-        jobs: cleaned.jobs?.length ? cleaned.jobs : INITIAL_DB.jobs,
-        applications: cleaned.applications || INITIAL_DB.applications,
-        testimonials: cleaned.testimonials?.length ? cleaned.testimonials : INITIAL_DB.testimonials,
-        partners:
-          cleaned.partners?.length &&
-          !cleaned.partners.some((p: any) => p.logo?.includes('picsum.photos') || p.name === 'Angola Telecom' || p.name === 'Unitel Empresas')
-            ? cleaned.partners
-            : INITIAL_DB.partners,
-        projects: cleaned.projects?.length ? cleaned.projects : INITIAL_DB.projects,
-        dailyActivities: cleaned.dailyActivities?.length ? cleaned.dailyActivities : (INITIAL_DB.dailyActivities || []),
-        reservations: cleaned.reservations || INITIAL_DB.reservations || [],
+        products: Array.isArray(cleaned.products) ? cleaned.products : INITIAL_DB.products,
+        categories: Array.isArray(cleaned.categories) ? cleaned.categories : INITIAL_DB.categories,
+        users: Array.isArray(cleaned.users) ? cleaned.users : INITIAL_DB.users,
+        customers: Array.isArray(cleaned.customers) ? cleaned.customers : INITIAL_DB.customers,
+        orders: Array.isArray(cleaned.orders) ? cleaned.orders : (INITIAL_DB.orders || []),
+        leads: Array.isArray(cleaned.leads) ? cleaned.leads : (INITIAL_DB.leads || []),
+        subscribers: Array.isArray(cleaned.subscribers) ? cleaned.subscribers : (INITIAL_DB.subscribers || []),
+        courses: Array.isArray(cleaned.courses) ? cleaned.courses : INITIAL_DB.courses,
+        events: Array.isArray(cleaned.events) ? cleaned.events : INITIAL_DB.events,
+        eventRegistrations: Array.isArray(cleaned.eventRegistrations) ? cleaned.eventRegistrations : (INITIAL_DB.eventRegistrations || []),
+        jobs: Array.isArray(cleaned.jobs) ? cleaned.jobs : (INITIAL_DB.jobs || []),
+        applications: Array.isArray(cleaned.applications) ? cleaned.applications : (INITIAL_DB.applications || []),
+        testimonials: Array.isArray(cleaned.testimonials) ? cleaned.testimonials : INITIAL_DB.testimonials,
+        partners: Array.isArray(cleaned.partners) ? cleaned.partners : INITIAL_DB.partners,
+        projects: Array.isArray(cleaned.projects) ? cleaned.projects : INITIAL_DB.projects,
+        dailyActivities: Array.isArray(cleaned.dailyActivities) ? cleaned.dailyActivities : (INITIAL_DB.dailyActivities || []),
+        reservations: Array.isArray(cleaned.reservations) ? cleaned.reservations : (INITIAL_DB.reservations || []),
         settings: cleaned.settings || INITIAL_DB.settings,
-        activities: cleaned.activities || INITIAL_DB.activities,
+        activities: Array.isArray(cleaned.activities) ? cleaned.activities : (INITIAL_DB.activities || []),
       }
     } catch (err) {
       console.error('Failed to load DB from LocalStorage', err)
@@ -1812,7 +1824,7 @@ class DataStoreManager {
   // OPERAÇÕES: PRODUTOS & CATEGORIAS
   // ==========================================
   public getProducts(): StoreProduct[] {
-    if (this.db?.products && Array.isArray(this.db.products) && this.db.products.length > 0) {
+    if (this.db?.products && Array.isArray(this.db.products)) {
       return this.db.products
     }
     return DEFAULT_PRODUCTS
@@ -1820,7 +1832,7 @@ class DataStoreManager {
 
   public getProductById(id: string): StoreProduct | undefined {
     const list = this.getProducts()
-    return list.find((p) => p.id === id) || DEFAULT_PRODUCTS.find((p) => p.id === id)
+    return list.find((p) => p.id === id)
   }
 
   public addProduct(product: Omit<StoreProduct, 'id' | 'createdAt' | 'updatedAt'>): StoreProduct {
@@ -1831,7 +1843,7 @@ class DataStoreManager {
       updatedAt: new Date().toISOString(),
     }
     this.mutate(
-      (db) => ({ ...db, products: [newProduct, ...(db.products || DEFAULT_PRODUCTS)] }),
+      (db) => ({ ...db, products: [newProduct, ...(db.products || [])] }),
       { action: `Adicionou produto "${newProduct.name}"`, module: 'produtos' }
     )
     return newProduct
@@ -1840,7 +1852,7 @@ class DataStoreManager {
   public updateProduct(id: string, updates: Partial<StoreProduct>): StoreProduct | null {
     let updatedItem: StoreProduct | null = null
     this.mutate((db) => {
-      const currentProducts = db.products && db.products.length > 0 ? db.products : DEFAULT_PRODUCTS
+      const currentProducts = db.products || []
       const products = currentProducts.map((p) => {
         if (p.id === id) {
           updatedItem = { ...p, ...updates, updatedAt: new Date().toISOString() }
@@ -1858,14 +1870,14 @@ class DataStoreManager {
     const product = currentProducts.find((p) => p.id === id)
     if (!product) return false
     this.mutate(
-      (db) => ({ ...db, products: (db.products || DEFAULT_PRODUCTS).filter((p) => p.id !== id) }),
+      (db) => ({ ...db, products: (db.products || []).filter((p) => p.id !== id) }),
       { action: `Eliminou produto "${product.name}"`, module: 'produtos' }
     )
     return true
   }
 
   public getCategories(): ProductCategory[] {
-    if (this.db?.categories && Array.isArray(this.db.categories) && this.db.categories.length > 0) {
+    if (this.db?.categories && Array.isArray(this.db.categories)) {
       return this.db.categories
     }
     return DEFAULT_CATEGORIES
