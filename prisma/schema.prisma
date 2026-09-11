@@ -1,0 +1,359 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// -------------------------------------------------------------
+// 1. UTILIZADORES ADMINISTRATIVOS & RBAC
+// -------------------------------------------------------------
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  password     String?
+  passwordHash String?
+  role         String    @default("editor") // 'admin' | 'editor'
+  avatar       String?
+  status       String    @default("active") // 'active' | 'inactive'
+  createdAt    DateTime  @default(now())
+  lastLogin    DateTime?
+}
+
+// -------------------------------------------------------------
+// 2. CLIENTES & CONTAS DE CLIENTE
+// -------------------------------------------------------------
+model Customer {
+  id           String             @id @default(cuid())
+  name         String
+  email        String             @unique
+  password     String?
+  passwordHash String?
+  phone        String
+  company      String?
+  nif          String?
+  address      String?
+  city         String?            @default("Luanda")
+  avatar       String?
+  status       String             @default("active") // 'active' | 'inactive'
+  notes        String?
+  createdAt    DateTime           @default(now())
+  lastLogin    DateTime?
+  orders       StoreOrder[]
+  reservations ProductReservation[]
+}
+
+// -------------------------------------------------------------
+// 3. CATEGORIAS & PRODUTOS DA LOJA
+// -------------------------------------------------------------
+model ProductCategory {
+  id            String    @id @default(cuid())
+  name          String    @unique
+  icon          String    @default("Package")
+  description   String?
+  order         Int       @default(0)
+  hideWhenEmpty Boolean   @default(false)
+  products      Product[]
+}
+
+model Product {
+  id           String             @id @default(cuid())
+  name         String
+  description  String
+  categoryId   String?
+  categoryRef  ProductCategory?   @relation(fields: [categoryId], references: [id])
+  category     String             // Nome da categoria desnormalizado para consultas rápidas
+  price        Float?             // null = Sob consulta
+  image        String
+  images       String?            // JSON array serializado de strings
+  inStock      Boolean            @default(true)
+  quantity     Int                @default(0)
+  featured     Boolean            @default(false)
+  sku          String?
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  orderItems   StoreOrderItem[]
+  reservations ProductReservation[]
+}
+
+// -------------------------------------------------------------
+// 4. ENCOMENDAS & ITENS
+// -------------------------------------------------------------
+model StoreOrder {
+  id                  String           @id @default(cuid())
+  orderNumber         String           @unique
+  customerId          String?
+  customerRef         Customer?        @relation(fields: [customerId], references: [id])
+  customerName        String
+  customerEmail       String
+  customerPhone       String
+  customerCompany     String?
+  customerNif         String?
+  customerCity        String?
+  customerAddress     String?
+  deliveryMethod      String?          @default("entrega_luanda")
+  paymentMethod       String?          @default("transferencia")
+  total               Float?
+  status              String           @default("novo") // 'novo' | 'em_contacto' | 'fechado' | 'cancelado'
+  notes               String?
+  whatsappPhone       String?
+  botStatus           String?          @default("bot_active")
+  receiptUrl          String?
+  receiptFilename     String?
+  receiptReceivedAt   DateTime?
+  conversationHistory String?          // JSON array serializado de mensagens WhatsApp
+  confirmedAt         DateTime?
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  items               StoreOrderItem[]
+}
+
+model StoreOrderItem {
+  id          String      @id @default(cuid())
+  orderId     String
+  orderRef    StoreOrder  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  productRef  Product?    @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String
+  price       Float?
+  quantity    Int         @default(1)
+  image       String?
+}
+
+// -------------------------------------------------------------
+// 5. RESERVAS DE EQUIPAMENTOS
+// -------------------------------------------------------------
+model ProductReservation {
+  id                String    @id @default(cuid())
+  reservationNumber String    @unique
+  productId         String?
+  productRef        Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+  customerId        String?
+  customerRef       Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  productName       String
+  productImage      String?
+  productPrice      Float?
+  customerName      String
+  customerEmail     String
+  customerPhone     String
+  customerCompany   String?
+  quantity          Int       @default(1)
+  notes             String?
+  status            String    @default("pendente") // 'pendente' | 'em_contacto' | 'confirmada' | 'notificado' | 'cancelada'
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+// -------------------------------------------------------------
+// 6. LEADS COMERCIAIS & NEWSLETTER
+// -------------------------------------------------------------
+model ServiceLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  service   String
+  message   String
+  status    String   @default("novo") // 'novo' | 'contactado' | 'convertido' | 'arquivado'
+  notes     String?
+  source    String?  @default("site_quote")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  status       String   @default("active") // 'active' | 'inactive'
+  subscribedAt DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// 7. EVENTOS & INSCRIÇÕES
+// -------------------------------------------------------------
+model Event {
+  id               String              @id @default(cuid())
+  title            String
+  slug             String              @unique
+  date             String
+  time             String?
+  location         String
+  format           String              @default("Presencial") // 'Presencial' | 'Online' | 'Híbrido'
+  description      String
+  fullDescription  String?
+  image            String?
+  capacity         Int?
+  status           String              @default("agendado") // 'agendado' | 'a_decorrer' | 'encerrado' | 'cancelado'
+  speakers         String?             // JSON serializado
+  schedule         String?             // JSON serializado
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  registrations    EventRegistration[]
+}
+
+model EventRegistration {
+  id           String   @id @default(cuid())
+  eventId      String
+  eventRef     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name         String
+  email        String
+  phone        String?
+  company      String?
+  position     String?
+  status       String   @default("pendente") // 'pendente' | 'confirmada' | 'cancelada'
+  ticketCode   String?
+  registeredAt DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// 8. FORMAÇÃO / ACADEMIA ARKNET
+// -------------------------------------------------------------
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  duration    String
+  level       String
+  format      String
+  description String
+  price       Float?
+  icon        String?
+  skills      String?  // JSON array serializado de tópicos
+  isPopular   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// 9. PROJETOS & ATIVIDADES DIÁRIAS (BLOG/NOTÍCIAS)
+// -------------------------------------------------------------
+model Project {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  client          String
+  category        String
+  sector          String?
+  year            Int?
+  description     String
+  fullDescription String?
+  metrics         String?  // JSON serializado
+  challenge       String?
+  solution        String?
+  results         String?  // JSON array serializado
+  testimonial     String?  // JSON serializado
+  image           String?
+  gallery         String?  // JSON array serializado
+  featured        Boolean  @default(false)
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+}
+
+model DailyActivity {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  date      String
+  category  String
+  summary   String
+  content   String
+  author    String?
+  image     String?
+  readTime  String?
+  tags      String?  // JSON array serializado
+  featured  Boolean  @default(false)
+  views     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// 10. PARCEIROS & TESTEMUNHOS
+// -------------------------------------------------------------
+model Partner {
+  id       String  @id @default(cuid())
+  name     String
+  logo     String
+  website  String?
+  category String?
+  order    Int     @default(0)
+  active   Boolean @default(true)
+}
+
+model Testimonial {
+  id       String  @id @default(cuid())
+  name     String
+  role     String
+  company  String
+  avatar   String?
+  text     String
+  rating   Int     @default(5)
+  active   Boolean @default(true)
+  order    Int     @default(0)
+}
+
+// -------------------------------------------------------------
+// 11. CARREIRAS / VAGAS DE EMPREGO
+// -------------------------------------------------------------
+model Job {
+  id               String           @id @default(cuid())
+  title            String
+  department       String
+  location         String
+  type             String
+  description      String
+  requirements     String?          // JSON array serializado
+  responsibilities String?          // JSON array serializado
+  active           Boolean          @default(true)
+  createdAt        DateTime         @default(now())
+  applications     JobApplication[]
+}
+
+model JobApplication {
+  id        String   @id @default(cuid())
+  jobId     String?
+  jobRef    Job?     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobTitle  String?
+  name      String
+  email     String
+  phone     String
+  resumeUrl String?
+  message   String?
+  status    String   @default("recebida")
+  appliedAt DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// 12. CONFIGURAÇÕES INSTITUCIONAIS GLOBAIS
+// -------------------------------------------------------------
+model CompanySetting {
+  id                 String   @id @default("global")
+  companyName        String   @default("ARKNET")
+  tagline            String?
+  phones             String?  // JSON array serializado
+  emails             String?  // JSON array serializado
+  address            String?
+  city               String?  @default("Luanda")
+  country            String?  @default("Angola")
+  whatsappChannelUrl String?
+  whatsappNumber     String?
+  socialLinks        String?  // JSON serializado
+  institutionalText  String?
+  presentationLetter String?
+  updatedAt          DateTime @updatedAt
+}
+
+// -------------------------------------------------------------
+// 13. LOG DE AUDITORIA & ATIVIDADES ADMINISTRATIVAS
+// -------------------------------------------------------------
+model AuditActivity {
+  id        String   @id @default(cuid())
+  userId    String?
+  userName  String
+  action    String
+  target    String
+  targetId  String?
+  timestamp DateTime @default(now())
+  details   String?
+}

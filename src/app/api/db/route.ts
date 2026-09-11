@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import {
   readServerDb,
+  readServerDbFromPrisma,
   writeServerDb,
   getInitialServerDb,
   getSanitizedPublicDb,
-  appendServerOrder,
-  appendServerReservation,
-  appendServerLead,
-  appendServerSubscriber,
-  appendServerEventRegistration,
+  appendServerOrderAsync,
+  appendServerReservationAsync,
+  appendServerLeadAsync,
+  appendServerSubscriberAsync,
+  appendServerEventRegistrationAsync,
 } from '@/lib/server-db'
+import { prisma } from '@/lib/prisma'
 import { verifySessionToken } from '@/lib/security-utils'
 
 // ==========================================
@@ -28,20 +30,27 @@ function getAdminPayload(request: NextRequest) {
 // ==========================================
 // GET /api/db — Leitura de Dados
 // ==========================================
-// Administradores autenticados: Retorna a base de dados completa
+// Administradores autenticados: Retorna a base de dados completa (via Prisma)
 // Visitantes públicos: Retorna apenas dados públicos sanitizados (produtos, eventos, projetos, etc.)
 export async function GET(request: NextRequest) {
   try {
     const admin = getAdminPayload(request)
 
-    if (admin) {
-      // Administrador autenticado: acesso completo
-      const db = readServerDb()
-      return NextResponse.json({ success: true, db }, { status: 200 })
+    // Tentar ler a partir do Prisma ORM
+    let fullDb: any = null
+    try {
+      fullDb = await readServerDbFromPrisma()
+    } catch {
+      fullDb = readServerDb()
     }
 
-    // Visitante público: apenas dados do site e da loja (sem utilizadores, encomendas, leads, etc.)
-    const publicDb = getSanitizedPublicDb()
+    if (admin) {
+      // Administrador autenticado: acesso completo
+      return NextResponse.json({ success: true, db: fullDb }, { status: 200 })
+    }
+
+    // Visitante público: apenas dados do site e da loja
+    const publicDb = getSanitizedPublicDb(fullDb)
     return NextResponse.json({ success: true, db: publicDb }, { status: 200 })
   } catch (error) {
     console.error('[API /api/db GET] Erro:', error)
@@ -71,7 +80,7 @@ export async function POST(request: NextRequest) {
       if (!order || !order.id || !order.customerName || !order.customerEmail || !order.items) {
         return NextResponse.json({ success: false, message: 'Dados da encomenda incompletos' }, { status: 400 })
       }
-      const success = appendServerOrder(order)
+      const success = await appendServerOrderAsync(order)
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao gravar encomenda no servidor' }, { status: 500 })
       }
@@ -83,7 +92,7 @@ export async function POST(request: NextRequest) {
       if (!lead || !lead.name || !lead.email || !lead.service) {
         return NextResponse.json({ success: false, message: 'Dados do lead incompletos' }, { status: 400 })
       }
-      const success = appendServerLead(lead)
+      const success = await appendServerLeadAsync(lead)
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao gravar lead no servidor' }, { status: 500 })
       }
@@ -95,7 +104,7 @@ export async function POST(request: NextRequest) {
       if (!reservation || !reservation.id || !reservation.customerName || !reservation.productId) {
         return NextResponse.json({ success: false, message: 'Dados da reserva incompletos' }, { status: 400 })
       }
-      const success = appendServerReservation(reservation)
+      const success = await appendServerReservationAsync(reservation)
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao gravar reserva no servidor' }, { status: 500 })
       }
@@ -113,7 +122,7 @@ export async function POST(request: NextRequest) {
         status: 'active',
         subscribedAt: new Date().toISOString(),
       }
-      const success = appendServerSubscriber(subscriber)
+      const success = await appendServerSubscriberAsync(subscriber)
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao registar subscrição' }, { status: 500 })
       }
@@ -125,7 +134,7 @@ export async function POST(request: NextRequest) {
       if (!registration || !registration.eventId || !registration.name || !registration.email) {
         return NextResponse.json({ success: false, message: 'Dados de inscrição incompletos' }, { status: 400 })
       }
-      const success = appendServerEventRegistration(registration)
+      const success = await appendServerEventRegistrationAsync(registration)
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao registar inscrição' }, { status: 500 })
       }
@@ -137,18 +146,46 @@ export async function POST(request: NextRequest) {
       if (!customer || !customer.name || !customer.email || !customer.phone) {
         return NextResponse.json({ success: false, message: 'Dados do cliente incompletos' }, { status: 400 })
       }
-      const current = readServerDb()
-      const existing = (current.customers || []).find(
-        (c: any) => c.email?.toLowerCase() === customer.email?.toLowerCase()
-      )
-      if (existing) {
-        return NextResponse.json({ success: false, message: 'Já existe uma conta com este email' }, { status: 409 })
+
+      try {
+        const existing = await prisma.customer.findUnique({
+          where: { email: customer.email.toLowerCase().trim() },
+        })
+        if (existing) {
+          return NextResponse.json({ success: false, message: 'Já existe uma conta com este email' }, { status: 409 })
+        }
+
+        await prisma.customer.create({
+          data: {
+            id: customer.id || `cli-${Date.now()}`,
+            name: customer.name,
+            email: customer.email.toLowerCase().trim(),
+            password: customer.password || null,
+            passwordHash: customer.passwordHash || null,
+            phone: customer.phone,
+            company: customer.company || null,
+            nif: customer.nif || null,
+            address: customer.address || null,
+            city: customer.city || 'Luanda',
+            avatar: customer.avatar || null,
+            status: customer.status || 'active',
+            notes: customer.notes || null,
+            createdAt: customer.createdAt ? new Date(customer.createdAt) : new Date(),
+          },
+        })
+      } catch (e) {
+        console.error('[register_customer] Prisma fallback to JSON:', e)
+        const current = readServerDb()
+        const existing = (current.customers || []).find(
+          (c: any) => c.email?.toLowerCase() === customer.email?.toLowerCase()
+        )
+        if (existing) {
+          return NextResponse.json({ success: false, message: 'Já existe uma conta com este email' }, { status: 409 })
+        }
+        const customers = [customer, ...(current.customers || [])]
+        writeServerDb({ customers })
       }
-      const customers = [customer, ...(current.customers || [])]
-      const success = writeServerDb({ customers })
-      if (!success) {
-        return NextResponse.json({ success: false, message: 'Falha ao registar cliente' }, { status: 500 })
-      }
+
       return NextResponse.json({ success: true, message: 'Conta de cliente criada com sucesso' }, { status: 201 })
     }
 
@@ -168,7 +205,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, message: 'Base de dados restaurada com sucesso', db: initial }, { status: 200 })
     }
 
-    // Sincronização completa do painel de administração
+    // Sincronização do painel de administração
     const dataToSave = body.db ? body.db : body
     const success = writeServerDb(dataToSave)
 
@@ -182,4 +219,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, message: 'Erro ao processar requisição' }, { status: 500 })
   }
 }
-
