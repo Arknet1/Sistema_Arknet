@@ -37,6 +37,15 @@
   100% { background-position: 200% center; }
 }
 
+@keyframes hero-carousel-progress {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+.hero-carousel-progress {
+  animation: hero-carousel-progress 5.5s linear both;
+}
+
 html {
   scroll-behavior: smooth;
 }

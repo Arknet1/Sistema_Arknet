@@ -213,6 +213,48 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: 'Falha ao gravar base de dados no servidor' }, { status: 500 })
     }
 
+    if (dataToSave.settings) {
+      try {
+        const settings = dataToSave.settings
+        await prisma.companySetting.upsert({
+          where: { id: 'global' },
+          create: {
+            id: 'global',
+            companyName: settings.companyName || 'ARKNET',
+            tagline: settings.tagline || null,
+            phones: JSON.stringify(settings.phones || []),
+            emails: JSON.stringify(settings.emails || []),
+            address: settings.address || null,
+            city: settings.city || 'Luanda',
+            country: settings.country || 'Angola',
+            whatsappChannelUrl: settings.whatsappChannelUrl || null,
+            whatsappNumber: settings.whatsappNumber || null,
+            socialLinks: JSON.stringify(settings.socialLinks || {}),
+            institutionalText: settings.institutionalText || null,
+            presentationLetter: settings.presentationLetter || null,
+            carouselSlides: JSON.stringify(settings.carouselSlides || []),
+          },
+          update: {
+            companyName: settings.companyName || 'ARKNET',
+            tagline: settings.tagline || null,
+            phones: JSON.stringify(settings.phones || []),
+            emails: JSON.stringify(settings.emails || []),
+            address: settings.address || null,
+            city: settings.city || 'Luanda',
+            country: settings.country || 'Angola',
+            whatsappChannelUrl: settings.whatsappChannelUrl || null,
+            whatsappNumber: settings.whatsappNumber || null,
+            socialLinks: JSON.stringify(settings.socialLinks || {}),
+            institutionalText: settings.institutionalText || null,
+            presentationLetter: settings.presentationLetter || null,
+            carouselSlides: JSON.stringify(settings.carouselSlides || []),
+          },
+        })
+      } catch (settingsError) {
+        console.error('[API /api/db POST] Falha ao sincronizar definições no Prisma:', settingsError)
+      }
+    }
+
     return NextResponse.json({ success: true, message: 'Base de dados atualizada com sucesso' }, { status: 200 })
   } catch (error) {
     console.error('[API /api/db POST] Erro:', error)

@@ -5,7 +5,7 @@ import path from 'path'
 const UPLOADS_DIR = path.join(process.cwd(), 'public', 'uploads')
 
 // Extensões de ficheiros permitidas (imagens e comprovativos PDF)
-const ALLOWED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.pdf'])
+const ALLOWED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.mp4', '.webm', '.ogg', '.pdf'])
 
 // Extensões perigosas explicitamente bloqueadas
 const DANGEROUS_EXTENSIONS = new Set([
@@ -16,12 +16,14 @@ const DANGEROUS_EXTENSIONS = new Set([
   '.dll', '.sys', '.py', '.rb', '.pl',
 ])
 
-// Tamanho máximo de ficheiro: 10MB
-const MAX_FILE_SIZE = 10 * 1024 * 1024
+// Imagens mantêm o limite menor; banners de vídeo podem ser maiores.
+const MAX_IMAGE_FILE_SIZE = 10 * 1024 * 1024
+const MAX_VIDEO_FILE_SIZE = 50 * 1024 * 1024
 
 // MIME types permitidos
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
+  'video/mp4', 'video/webm', 'video/ogg',
   'application/pdf',
 ])
 
@@ -61,10 +63,12 @@ export async function POST(req: Request) {
         return NextResponse.json({ success: false, message: 'Nenhum ficheiro enviado' }, { status: 400 })
       }
 
+      const maxFileSize = file.type.startsWith('video/') ? MAX_VIDEO_FILE_SIZE : MAX_IMAGE_FILE_SIZE
+
       // Validar tamanho
-      if (file.size > MAX_FILE_SIZE) {
+      if (file.size > maxFileSize) {
         return NextResponse.json(
-          { success: false, message: `Ficheiro demasiado grande. Tamanho máximo permitido: ${MAX_FILE_SIZE / 1024 / 1024}MB` },
+          { success: false, message: `Ficheiro demasiado grande. Tamanho máximo permitido: ${maxFileSize / 1024 / 1024}MB` },
           { status: 400 }
         )
       }
@@ -124,9 +128,9 @@ export async function POST(req: Request) {
       const buffer = Buffer.from(base64Data, 'base64')
 
       // Validar tamanho do ficheiro decodificado
-      if (buffer.length > MAX_FILE_SIZE) {
+      if (buffer.length > MAX_IMAGE_FILE_SIZE) {
         return NextResponse.json(
-          { success: false, message: `Ficheiro demasiado grande. Tamanho máximo permitido: ${MAX_FILE_SIZE / 1024 / 1024}MB` },
+          { success: false, message: `Ficheiro demasiado grande. Tamanho máximo permitido: ${MAX_IMAGE_FILE_SIZE / 1024 / 1024}MB` },
           { status: 400 }
         )
       }

@@ -109,6 +109,8 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
         return 'Catálogo de Produtos'
       case '/admin/categorias':
         return 'Categorias de Produtos'
+      case '/admin/carrossel':
+        return 'Conteúdo do Carrossel da Loja'
       case '/admin/pedidos':
         return 'Pedidos & Cotações da Loja'
       case '/admin/leads':

@@ -9,7 +9,7 @@
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
-      "createdAt": "2026-01-01T00:00:00Z",
+      "createdAt": "2026-01-01T00:00:00.000Z",
       "lastLogin": "2026-09-08T15:29:27.771Z"
     },
     {
@@ -21,7 +21,7 @@
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
-      "createdAt": "2026-01-01T00:00:00Z",
+      "createdAt": "2026-01-01T00:00:00.000Z",
       "lastLogin": "2026-09-09T08:24:15.212Z"
     },
     {
@@ -33,7 +33,7 @@
       "role": "editor",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
-      "createdAt": "2026-01-10T00:00:00Z",
+      "createdAt": "2026-01-10T00:00:00.000Z",
       "lastLogin": "2026-09-08T15:29:27.786Z"
     },
     {
@@ -45,32 +45,34 @@
       "role": "editor",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
-      "createdAt": "2026-01-10T00:00:00Z",
+      "createdAt": "2026-01-10T00:00:00.000Z",
       "lastLogin": "2026-09-08T15:29:27.786Z"
     }
   ],
   "customers": [
     {
-      "id": "cli-1",
-      "name": "Eng. Manuel Domingos",
-      "email": "manuel.domingos@petroangola.ao",
+      "id": "cli-3",
+      "name": "Carlos Alberto Ferreira",
+      "email": "carlos.ferreira@gmail.com",
       "password": "Password123!",
-      "phone": "+244 923 456 789",
-      "company": "PetroAngola E.P.",
-      "nif": "5412987654",
-      "address": "Rua Principal de Talatona, Edifício Kilamba, 4º Andar",
+      "passwordHash": null,
+      "phone": "+244 933 112 233",
+      "company": "Independente / Particular",
+      "nif": "006789123LA042",
+      "address": "Condomínio Vila Flor, Casa 12",
       "city": "Luanda",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "avatar": null,
       "status": "active",
-      "notes": "Cliente corporativo VIP de telecomunicações e links dedicados.",
-      "createdAt": "2026-01-15T10:00:00Z",
-      "lastLogin": "2026-09-08T12:29:27.786Z"
+      "notes": "Cliente de equipamentos da loja online.",
+      "createdAt": "2026-02-01T09:15:00.000Z",
+      "lastLogin": "2026-09-06T15:29:27.786Z"
     },
     {
       "id": "cli-2",
       "name": "Dra. Teresa Van-Dúnem",
       "email": "teresa.vdunem@bancocomerce.co.ao",
       "password": "Password123!",
+      "passwordHash": null,
       "phone": "+244 912 345 678",
       "company": "Banco Comercial Angolano",
       "nif": "5401876543",
@@ -79,37 +81,41 @@
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "notes": "Contrato ativo de segurança cibernética e consultoria.",
-      "createdAt": "2026-01-20T14:30:00Z",
+      "createdAt": "2026-01-20T14:30:00.000Z",
       "lastLogin": "2026-09-07T21:29:27.786Z"
     },
     {
-      "id": "cli-3",
-      "name": "Carlos Alberto Ferreira",
-      "email": "carlos.ferreira@gmail.com",
+      "id": "cli-1",
+      "name": "Eng. Manuel Domingos",
+      "email": "manuel.domingos@petroangola.ao",
       "password": "Password123!",
-      "phone": "+244 933 112 233",
-      "company": "Independente / Particular",
-      "nif": "006789123LA042",
-      "address": "Condomínio Vila Flor, Casa 12",
+      "passwordHash": null,
+      "phone": "+244 923 456 789",
+      "company": "PetroAngola E.P.",
+      "nif": "5412987654",
+      "address": "Rua Principal de Talatona, Edifício Kilamba, 4º Andar",
       "city": "Luanda",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
-      "notes": "Cliente de equipamentos da loja online.",
-      "createdAt": "2026-02-01T09:15:00Z",
-      "lastLogin": "2026-09-06T15:29:27.786Z"
+      "notes": "Cliente corporativo VIP de telecomunicações e links dedicados.",
+      "createdAt": "2026-01-15T10:00:00.000Z",
+      "lastLogin": "2026-09-08T12:29:27.786Z"
     }
   ],
   "products": [
     {
+      "id": "prod-1788945524001-0f01",
       "name": "Hostpot Router Wifi 4G LTE",
       "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
+      "categoryId": "cat-6",
       "category": "Redes e Internet",
       "price": null,
       "image": "/uploads/photoroom_20260902_083909-1788945167310.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 10,
       "featured": false,
       "sku": "ARK-4510",
-      "id": "prod-1788945524001-0f01",
       "createdAt": "2026-09-09T09:18:44.010Z",
       "updatedAt": "2026-09-09T09:18:44.022Z"
     },
@@ -117,308 +123,352 @@
       "id": "Adaptadorwifi",
       "name": "Adaptador Wi-Fi Alfa",
       "description": "Adaptador Wi-Fi USB Alfa de alto desempenho, ideal para melhorar a receção e transmissão de sinal sem fios em computadores e portáteis.",
+      "categoryId": null,
       "category": "Redes",
       "price": 15000,
       "image": "/uploads/photoroom_20260901_112409-1788942301870.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 19,
       "featured": true,
       "sku": "ARK-0002",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:25:04.009Z"
     },
     {
       "id": "repetidordesinal",
       "name": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
       "description": "Repetidor de sinal Wi-Fi desenvolvido para ampliar a cobertura da rede sem fios, reduzir zonas sem sinal e melhorar a ligação em residências e escritórios.",
+      "categoryId": null,
       "category": "Redes",
       "price": 20000,
       "image": "/uploads/photoroom_20260831_145838-1788943827212.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": true,
       "sku": "ARK-0003",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:50:27.868Z"
     },
     {
       "id": "extensao-ups-ewent",
       "name": "Extensão UPS Ewent",
       "description": "Extensão UPS Ewent com proteção contra sobrecargas e picos de tensão, ideal para proteger computadores, monitores e equipamentos de rede.",
+      "categoryId": "cat-10",
       "category": "Energia e Proteção",
       "price": 19000,
       "image": "/uploads/photoroom_20260831_150659-1788942578181.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 15,
       "featured": true,
       "sku": "ARK-0005",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:29:39.077Z"
     },
     {
       "id": "hdtv-splitter-ver1x4",
       "name": "HDTV Splitter Ver 1x4",
       "description": "HDTV Splitter permite distribuir um sinal HDMI para até quatro ecrãs mantendo qualidade de imagem e som em alta definição.",
+      "categoryId": null,
       "category": "Áudio e Vídeo",
       "price": 38000,
       "image": "/uploads/photoroom_20260831_150517-1788942691215.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": true,
       "sku": "ARK-0006",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:31:34.693Z"
     },
     {
       "id": "colunas-manhattan",
       "name": "Colunas Manhattan",
       "description": "Colunas compactas com som de qualidade para computadores, portáteis e equipamentos multimédia.",
+      "categoryId": null,
       "category": "Áudio e Multimédia",
       "price": 6000,
       "image": "/uploads/photoroom_20260902_083118-1788942464922.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 29,
       "featured": true,
       "sku": "ARK-0007",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:27:45.898Z"
     },
     {
       "id": "alicate",
       "name": "Alicate de Crimpar RJ45",
       "description": "Ferramenta profissional para corte, decapagem e crimpagem de conectores RJ45 em instalações de rede.",
+      "categoryId": "cat-7",
       "category": "Ferramentas de Rede",
       "price": 18000,
       "image": "/uploads/photoroom_20260831_150608-1788942317559.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 36,
       "featured": false,
       "sku": "ARK-0008",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:25:25.452Z"
     },
     {
       "id": "gavetaposbematech",
       "name": "Gaveta POS Bematech",
       "description": "Gaveta metálica para caixas registadoras e sistemas POS, utilizada para armazenamento seguro de numerário.",
+      "categoryId": "cat-18",
       "category": "Automação Comercial",
       "price": 57000,
       "image": "/uploads/photoroom_20260831_150421-1788942665318.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 18,
       "featured": false,
       "sku": "ARK-0009",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:31:06.578Z"
     },
     {
       "id": "testadordecabo",
       "name": "Testador Finder de Cabo UTP",
       "description": "Ferramenta para teste de cabos de rede UTP, permitindo identificar falhas em ligações Ethernet.",
+      "categoryId": "cat-7",
       "category": "Ferramentas de Rede",
       "price": null,
       "image": "/uploads/photoroom_20260902_084358-1788944280866.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0010",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:58:41.531Z"
     },
     {
       "id": "monitorgamer",
       "name": "Monitor Wintech 27 Polegadas",
       "description": "Monitor Wintech de 27 polegadas com excelente qualidade de imagem para trabalho, jogos e entretenimento.",
+      "categoryId": "cat-13",
       "category": "Monitores",
       "price": null,
       "image": "/uploads/photoroom_20260902_082947-1788943338534.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 14,
       "featured": false,
       "sku": "ARK-0012",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:42:55.400Z"
     },
     {
       "id": "mouse",
       "name": "Rato sem fio HP Preto",
       "description": "Rato sem fio HP com conexão wireless 2.4 GHz, design ergonómico e alta precisão para computadores e portáteis.",
+      "categoryId": null,
       "category": "Periféricos",
       "price": null,
       "image": "/uploads/photoroom_20260831_150340-1788943702758.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0013",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:48:26.329Z"
     },
     {
       "id": "adaptadorhdmivga",
       "name": "Adaptador de Vídeo VGA para HDMI",
       "description": "Conversor de sinal VGA para HDMI compatível com monitores, televisores e projetores.",
+      "categoryId": "cat-9",
       "category": "Adaptadores e Conversores",
       "price": null,
       "image": "/uploads/photoroom_20260831_151406-1788942288148.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 28,
       "featured": false,
       "sku": "ARK-0014",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:24:50.941Z"
     },
     {
       "id": "abracadeirasnylon",
       "name": "Conector de Rede Intellinet RJ45 Cat6 100 unidades",
       "description": "Conector RJ45 Cat6 UTP com contatos banhados a ouro, ideal para montagem de cabos Ethernet de alta performance.",
+      "categoryId": "cat-16",
       "category": "Organização e Instalação",
       "price": null,
       "image": "/uploads/photoroom_20260902_084033-1788942493918.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0015",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:28:15.722Z"
     },
     {
       "id": "microsd32gb",
       "name": "Cartão de Memória Micro SD 32GB Kingston",
       "description": "Cartão de memória de 32GB para smartphones, câmaras e outros dispositivos.",
+      "categoryId": "cat-5",
       "category": "Armazenamento",
       "price": null,
       "image": "/uploads/photoroom_20260831_151301-1788942419334.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0017",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:27:01.176Z"
     },
     {
       "id": "pendrive32gb",
       "name": "Pen Drive Maxell 32GB USB 2.0",
       "description": "Pen drive Maxell para armazenamento e transporte de ficheiros.",
+      "categoryId": "cat-5",
       "category": "Armazenamento",
       "price": null,
       "image": "/uploads/photoroom_20260831_151131-1788943640360.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 31,
       "featured": false,
       "sku": "ARK-0018",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:47:23.837Z"
     },
     {
       "id": "relogioponto",
       "name": "Relógio Biométrico ZKTeco K20",
       "description": "Relógio biométrico ZKTeco K20 para controlo de assiduidade, com ligação LAN, USB e armazenamento de registos.",
+      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
       "price": null,
       "image": "/uploads/photoroom_20260831_151112-1788943796284.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 13,
       "featured": false,
       "sku": "ARK-0019",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:50:01.521Z"
     },
     {
       "id": "roteador",
       "name": "Roteador Industrial Teltonika RUTM",
       "description": "Roteador industrial Teltonika desenvolvido para aplicações IoT e automação industrial, oferecendo conectividade segura, VPN, Dual SIM e gestão remota.",
+      "categoryId": null,
       "category": "Redes",
       "price": 120000,
       "image": "/uploads/photoroom_20260831_150116-1788943844221.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 20,
       "featured": false,
       "sku": "ARK-0020",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:50:46.749Z"
     },
     {
       "id": "headphones",
       "name": "Auriculares com fio AEG",
       "description": "Auriculares com fio para computadores, smartphones e outros dispositivos multimédia.",
+      "categoryId": "cat-12",
       "category": "Áudio",
       "price": null,
       "image": "/uploads/photoroom_20260902_083018-1788942362270.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 34,
       "featured": false,
       "sku": "ARK-0022",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:26:06.264Z"
     },
     {
       "id": "ram-so-dimm",
       "name": "Memória RAM DDR4 8GB 3200MHz Para Portátil",
       "description": "Memória RAM DDR4 de 8GB para portáteis, proporcionando maior desempenho e velocidade.",
+      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
       "price": null,
       "image": "/uploads/photoroom_20260901_112203-1788943002909.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 16,
       "featured": false,
       "sku": "ARK-0023",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:37:01.863Z"
     },
     {
       "id": "tp-link-poe-switch",
       "name": "Router Wi-Fi TP-Link 300 Mbps com 2 Antenas",
       "description": "Router Wi-Fi TP-Link com velocidade até 300 Mbps, duas antenas externas, porta WAN e portas LAN para ligação estável à Internet.",
+      "categoryId": "cat-6",
       "category": "Redes e Internet",
       "price": null,
       "image": "/uploads/photoroom_20260902_084413-1788943872709.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 19,
       "featured": false,
       "sku": "ARK-0027",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:51:35.703Z"
     },
     {
       "id": "tp-link-oc200",
       "name": "TP-Link Omada Hardware Controller OC200",
       "description": "Controlador físico OC200 para gestão centralizada de equipamentos TP-Link Omada.",
+      "categoryId": "cat-6",
       "category": "Redes e Internet",
       "price": 113000,
       "image": "/uploads/photoroom_20260902_084428-1788944879486.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 26,
       "featured": false,
       "sku": "ARK-0028",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T09:08:26.195Z"
     },
     {
       "id": "conector-rj45",
       "name": "Conector RJ45",
       "description": "Conector RJ45 Cat5e/Cat6 para montagem de cabos de rede Ethernet.",
+      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
       "price": 18000,
       "image": "/uploads/photoroom_20260902_083153-1788942556932.jpg",
+      "images": null,
       "inStock": true,
       "quantity": 22,
       "featured": false,
       "sku": "ARK-0031",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:29:18.866Z"
     },
     {
       "id": "impressora-termica",
       "name": "Impressora Térmica X-Printer",
       "description": "Impressora térmica X-Printer ideal para emissão de recibos, talões e documentos em sistemas POS e comércio.",
+      "categoryId": null,
       "category": "Impressoras e Automação Comercial",
       "price": null,
       "image": "/uploads/photoroom_20260902_084109-1788942785630.jpg",
+      "images": null,
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-0033",
-      "createdAt": "2026-01-15T00:00:00Z",
+      "createdAt": "2026-01-15T00:00:00.000Z",
       "updatedAt": "2026-09-09T08:33:37.738Z"
     }
   ],
@@ -427,6 +477,7 @@
       "id": "cat-1",
       "name": "Todos",
       "icon": "Globe",
+      "description": null,
       "order": 1,
       "hideWhenEmpty": false
     },
@@ -434,6 +485,7 @@
       "id": "cat-2",
       "name": "Smartphones e Telemóveis",
       "icon": "Smartphone",
+      "description": null,
       "order": 2,
       "hideWhenEmpty": false
     },
@@ -441,6 +493,7 @@
       "id": "cat-3",
       "name": "Computadores e Portáteis",
       "icon": "Laptop",
+      "description": null,
       "order": 3,
       "hideWhenEmpty": false
     },
@@ -448,6 +501,7 @@
       "id": "cat-4",
       "name": "Periféricos de Computador",
       "icon": "Mouse",
+      "description": null,
       "order": 4,
       "hideWhenEmpty": false
     },
@@ -455,6 +509,7 @@
       "id": "cat-5",
       "name": "Armazenamento",
       "icon": "HardDrive",
+      "description": null,
       "order": 5,
       "hideWhenEmpty": false
     },
@@ -462,6 +517,7 @@
       "id": "cat-6",
       "name": "Redes e Internet",
       "icon": "Wifi",
+      "description": null,
       "order": 6,
       "hideWhenEmpty": false
     },
@@ -469,6 +525,7 @@
       "id": "cat-7",
       "name": "Ferramentas de Rede",
       "icon": "Wrench",
+      "description": null,
       "order": 7,
       "hideWhenEmpty": false
     },
@@ -476,6 +533,7 @@
       "id": "cat-8",
       "name": "Cabos e Conectividade",
       "icon": "Cable",
+      "description": null,
       "order": 8,
       "hideWhenEmpty": false
     },
@@ -483,6 +541,7 @@
       "id": "cat-9",
       "name": "Adaptadores e Conversores",
       "icon": "Usb",
+      "description": null,
       "order": 9,
       "hideWhenEmpty": false
     },
@@ -490,6 +549,7 @@
       "id": "cat-10",
       "name": "Energia e Proteção",
       "icon": "Zap",
+      "description": null,
       "order": 10,
       "hideWhenEmpty": false
     },
@@ -497,6 +557,7 @@
       "id": "cat-11",
       "name": "Acessórios de Computador",
       "icon": "Cpu",
+      "description": null,
       "order": 11,
       "hideWhenEmpty": false
     },
@@ -504,6 +565,7 @@
       "id": "cat-12",
       "name": "Áudio",
       "icon": "Headphones",
+      "description": null,
       "order": 12,
       "hideWhenEmpty": false
     },
@@ -511,6 +573,7 @@
       "id": "cat-13",
       "name": "Monitores",
       "icon": "Monitor",
+      "description": null,
       "order": 13,
       "hideWhenEmpty": false
     },
@@ -518,6 +581,7 @@
       "id": "cat-14",
       "name": "Impressoras e Consumíveis",
       "icon": "Printer",
+      "description": null,
       "order": 14,
       "hideWhenEmpty": false
     },
@@ -525,6 +589,7 @@
       "id": "cat-15",
       "name": "Material de Escritório",
       "icon": "FileText",
+      "description": null,
       "order": 15,
       "hideWhenEmpty": false
     },
@@ -532,6 +597,7 @@
       "id": "cat-16",
       "name": "Organização e Instalação",
       "icon": "Boxes",
+      "description": null,
       "order": 16,
       "hideWhenEmpty": false
     },
@@ -539,6 +605,7 @@
       "id": "cat-17",
       "name": "Segurança Eletrónica",
       "icon": "Shield",
+      "description": null,
       "order": 17,
       "hideWhenEmpty": false
     },
@@ -546,6 +613,7 @@
       "id": "cat-18",
       "name": "Automação Comercial",
       "icon": "Store",
+      "description": null,
       "order": 18,
       "hideWhenEmpty": false
     },
@@ -553,6 +621,7 @@
       "id": "cat-19",
       "name": "Produtos",
       "icon": "Package",
+      "description": null,
       "order": 19,
       "hideWhenEmpty": false
     }
@@ -561,34 +630,24 @@
     {
       "id": "order-1",
       "orderNumber": "PED-2026-0042",
+      "customerId": null,
       "customerName": "Afonso Mário Ribeiro",
       "customerEmail": "afonso.mario@empresa.ao",
       "customerPhone": "+244 923 111 222",
-      "whatsappPhone": "244923111222",
+      "customerCompany": null,
+      "customerNif": null,
+      "customerCity": "Luanda",
       "customerAddress": "Av. 4 de Fevereiro, Luanda",
-      "items": [
-        {
-          "productId": "iphone16pro",
-          "productName": "Apple iPhone 16 Pro 256 GB",
-          "price": 45000,
-          "quantity": 2,
-          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
-        },
-        {
-          "productId": "Adaptadorwifi",
-          "productName": "Adaptador Wi-Fi Alfa",
-          "price": 15000,
-          "quantity": 1,
-          "image": "/_next/static/media/Adaptadorwi-fiAlfa.080qd_4jyj8u-.jpeg"
-        }
-      ],
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
       "total": 210000,
       "status": "em_contacto",
+      "notes": "Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.",
+      "whatsappPhone": "244923111222",
       "botStatus": "receipt_received",
       "receiptUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
       "receiptFilename": "comprovativo_mcx_afonso.jpg",
       "receiptReceivedAt": "2026-09-08T14:29:27.787Z",
-      "notes": "Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.",
       "conversationHistory": [
         {
           "id": "msg-1",
@@ -625,30 +684,92 @@
         }
       ],
       "createdAt": "2026-09-08T09:29:27.787Z",
-      "updatedAt": "2026-09-08T14:29:27.787Z"
+      "updatedAt": "2026-09-08T14:29:27.787Z",
+      "items": [
+        {
+          "productId": "",
+          "productName": "Apple iPhone 16 Pro 256 GB",
+          "price": 45000,
+          "quantity": 2,
+          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
+        },
+        {
+          "productId": "Adaptadorwifi",
+          "productName": "Adaptador Wi-Fi Alfa",
+          "price": 15000,
+          "quantity": 1,
+          "image": "/_next/static/media/Adaptadorwi-fiAlfa.080qd_4jyj8u-.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "order-3",
+      "orderNumber": "PED-2026-0040",
+      "customerId": null,
+      "customerName": "Dr. Valdemar Pascoal",
+      "customerEmail": "v.pascoal@clinicasaude.co.ao",
+      "customerPhone": "+244 944 555 666",
+      "customerCompany": null,
+      "customerNif": null,
+      "customerCity": "Luanda",
+      "customerAddress": "Talatona, Luanda",
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
+      "total": 135000,
+      "status": "em_contacto",
+      "notes": "Cliente perguntou se há desconto para faturamento a 30 dias. Requer atendimento humano.",
+      "whatsappPhone": "244944555666",
+      "botStatus": "needs_human",
+      "receiptUrl": null,
+      "receiptFilename": null,
+      "conversationHistory": [
+        {
+          "id": "msg-301",
+          "sender": "customer",
+          "senderName": "Dr. Valdemar Pascoal",
+          "text": "Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?",
+          "timestamp": "2026-09-08T12:29:27.787Z"
+        },
+        {
+          "id": "msg-302",
+          "sender": "bot",
+          "senderName": "ARKNET Bot",
+          "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
+          "timestamp": "2026-09-08T12:29:28.787Z"
+        }
+      ],
+      "createdAt": "2026-09-08T00:29:27.787Z",
+      "updatedAt": "2026-09-08T12:29:27.787Z",
+      "items": [
+        {
+          "productId": "",
+          "productName": "Apple iPhone 16 Pro 256 GB",
+          "price": 45000,
+          "quantity": 3,
+          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
+        }
+      ]
     },
     {
       "id": "order-2",
       "orderNumber": "PED-2026-0041",
+      "customerId": null,
       "customerName": "Beatriz Costa",
       "customerEmail": "beatriz.costa@techhub.ao",
       "customerPhone": "+244 917 888 999",
-      "whatsappPhone": "244917888999",
+      "customerCompany": null,
+      "customerNif": null,
+      "customerCity": "Luanda",
       "customerAddress": "Vila Alice, Luanda",
-      "items": [
-        {
-          "productId": "repetidordesinal",
-          "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
-          "price": 20000,
-          "quantity": 1,
-          "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg"
-        }
-      ],
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
       "total": 85000,
       "status": "fechado",
-      "botStatus": "confirmed",
       "notes": "Pagamento confirmado e fatura emitida via WhatsApp.",
-      "confirmedAt": "2026-09-08T05:29:27.787Z",
+      "whatsappPhone": "244917888999",
+      "botStatus": "confirmed",
+      "receiptUrl": null,
+      "receiptFilename": null,
       "conversationHistory": [
         {
           "id": "msg-201",
@@ -672,79 +793,72 @@
           "timestamp": "2026-09-08T05:29:27.787Z"
         }
       ],
+      "confirmedAt": "2026-09-08T05:29:27.787Z",
       "createdAt": "2026-09-07T09:29:27.787Z",
-      "updatedAt": "2026-09-08T05:29:27.787Z"
-    },
-    {
-      "id": "order-3",
-      "orderNumber": "PED-2026-0040",
-      "customerName": "Dr. Valdemar Pascoal",
-      "customerEmail": "v.pascoal@clinicasaude.co.ao",
-      "customerPhone": "+244 944 555 666",
-      "whatsappPhone": "244944555666",
-      "customerAddress": "Talatona, Luanda",
+      "updatedAt": "2026-09-08T05:29:27.787Z",
       "items": [
         {
-          "productId": "iphone16pro",
-          "productName": "Apple iPhone 16 Pro 256 GB",
-          "price": 45000,
-          "quantity": 3,
-          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
+          "productId": "repetidordesinal",
+          "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
+          "price": 20000,
+          "quantity": 1,
+          "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg"
         }
-      ],
-      "total": 135000,
-      "status": "em_contacto",
-      "botStatus": "needs_human",
-      "notes": "Cliente perguntou se há desconto para faturamento a 30 dias. Requer atendimento humano.",
-      "conversationHistory": [
-        {
-          "id": "msg-301",
-          "sender": "customer",
-          "senderName": "Dr. Valdemar Pascoal",
-          "text": "Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?",
-          "timestamp": "2026-09-08T12:29:27.787Z"
-        },
-        {
-          "id": "msg-302",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
-          "timestamp": "2026-09-08T12:29:28.787Z"
-        }
-      ],
-      "createdAt": "2026-09-08T00:29:27.787Z",
-      "updatedAt": "2026-09-08T12:29:27.787Z"
+      ]
     }
   ],
   "leads": [
     {
-      "id": "lead-test-1788948718546",
-      "name": "Cliente Teste",
-      "email": "lead@teste.ao",
-      "service": "Infraestrutura de Redes",
-      "message": "Pedido de cotação de redes"
-    },
-    {
-      "id": "lead-test-1788948366063",
-      "name": "Lead Teste",
-      "email": "lead@teste.ao",
-      "service": "Desenvolvimento Web",
-      "message": "Teste de segurança"
+      "id": "cmu2cqutm0000ute4s9j1u3jl",
+      "name": "Teste Segurança",
+      "email": "teste@exemplo.com",
+      "phone": "+244900000000",
+      "service": "Software à Medida",
+      "message": "Mensagem de teste automatizado de segurança",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.937Z",
+      "updatedAt": "2026-09-15T07:30:20.937Z"
     },
     {
       "id": "lead-test-1788948245799",
       "name": "Lead Teste",
       "email": "lead@teste.ao",
+      "phone": "",
       "service": "Desenvolvimento Web",
-      "message": "Teste de segurança"
+      "message": "Teste de segurança",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.931Z",
+      "updatedAt": "2026-09-15T07:30:20.931Z"
     },
     {
-      "name": "Teste Segurança",
-      "email": "teste@exemplo.com",
-      "phone": "+244900000000",
-      "company": "Empresa Teste",
-      "service": "Software à Medida",
-      "message": "Mensagem de teste automatizado de segurança"
+      "id": "lead-test-1788948366063",
+      "name": "Lead Teste",
+      "email": "lead@teste.ao",
+      "phone": "",
+      "service": "Desenvolvimento Web",
+      "message": "Teste de segurança",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.920Z",
+      "updatedAt": "2026-09-15T07:30:20.920Z"
+    },
+    {
+      "id": "lead-test-1788948718546",
+      "name": "Cliente Teste",
+      "email": "lead@teste.ao",
+      "phone": "",
+      "service": "Infraestrutura de Redes",
+      "message": "Pedido de cotação de redes",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.913Z",
+      "updatedAt": "2026-09-15T07:30:20.913Z"
     },
     {
       "id": "lead-1",
@@ -793,7 +907,7 @@
       "service": "Cabeamento Estruturado",
       "message": "Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.",
       "status": "novo",
-      "notes": "",
+      "notes": null,
       "source": "Website - Formulário de Cotação",
       "createdAt": "2026-09-05T15:29:27.787Z",
       "updatedAt": "2026-09-05T15:29:27.787Z"
@@ -801,241 +915,214 @@
   ],
   "subscribers": [
     {
-      "id": "sub-1",
-      "email": "director.ti@sonangol.co.ao",
+      "id": "sub-5",
+      "email": "inovacao@startuangola.com",
       "status": "active",
-      "subscribedAt": "2026-01-10T11:20:00Z"
-    },
-    {
-      "id": "sub-2",
-      "email": "geral@infrasul.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-14T09:45:00Z"
-    },
-    {
-      "id": "sub-3",
-      "email": "compras@hospitalcentral.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-20T16:15:00Z"
+      "subscribedAt": "2026-02-18T10:00:00.000Z"
     },
     {
       "id": "sub-4",
       "email": "redes@universidade-luanda.ao",
       "status": "active",
-      "subscribedAt": "2026-02-02T14:30:00Z"
+      "subscribedAt": "2026-02-02T14:30:00.000Z"
     },
     {
-      "id": "sub-5",
-      "email": "inovacao@startuangola.com",
+      "id": "sub-3",
+      "email": "compras@hospitalcentral.ao",
       "status": "active",
-      "subscribedAt": "2026-02-18T10:00:00Z"
+      "subscribedAt": "2026-01-20T16:15:00.000Z"
+    },
+    {
+      "id": "sub-2",
+      "email": "geral@infrasul.ao",
+      "status": "active",
+      "subscribedAt": "2026-01-14T09:45:00.000Z"
+    },
+    {
+      "id": "sub-1",
+      "email": "director.ti@sonangol.co.ao",
+      "status": "active",
+      "subscribedAt": "2026-01-10T11:20:00.000Z"
     }
   ],
   "courses": [
     {
       "id": "01",
       "title": "Cyber Segurança e Pentest",
-      "description": "Proteção, vulnerabilidades, auditorias de segurança e testes de penetração.",
-      "modality": "Presencial",
+      "category": "Tecnologia",
       "duration": "30 dias (60h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Proteção, vulnerabilidades, auditorias de segurança e testes de penetração.",
+      "price": null,
       "icon": "Shield",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "02",
       "title": "Introdução à Informática",
-      "description": "Fundamentos digitais, produtividade e boas práticas tecnológicas.",
-      "modality": "Online",
+      "category": "Tecnologia",
       "duration": "4 semanas (40h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Fundamentos digitais, produtividade e boas práticas tecnológicas.",
+      "price": null,
       "icon": "Laptop",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "03",
       "title": "Redes e Hardware",
-      "description": "Infraestruturas de rede, cabeamento, switches e equipamentos.",
-      "modality": "Presencial",
+      "category": "Tecnologia",
       "duration": "30 dias (60h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Infraestruturas de rede, cabeamento, switches e equipamentos.",
+      "price": null,
       "icon": "Network",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "04",
       "title": "Eletrónica Avançada",
-      "description": "Componentes eletrónicos, automação e manutenção técnica.",
-      "modality": "Online",
+      "category": "Tecnologia",
       "duration": "4 semanas (40h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Componentes eletrónicos, automação e manutenção técnica.",
+      "price": null,
       "icon": "Cpu",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": false,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "05",
       "title": "Recursos Humanos",
-      "description": "Gestão de talentos, recrutamento, liderança e equipas.",
-      "modality": "Presencial",
+      "category": "Tecnologia",
       "duration": "30 dias (60h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Gestão de talentos, recrutamento, liderança e equipas.",
+      "price": null,
       "icon": "Users",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": false,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "06",
       "title": "Contabilidade",
-      "description": "Gestão financeira, processos contabilísticos e análise de custos.",
-      "modality": "Online",
+      "category": "Tecnologia",
       "duration": "4 semanas (40h)",
+      "level": "Intermédio",
+      "format": "Presencial / Prático",
+      "description": "Gestão financeira, processos contabilísticos e análise de custos.",
+      "price": null,
       "icon": "Calculator",
-      "syllabus": [
-        "Fundamentos e Arquitetura Teórica",
-        "Configuração Prática em Laboratório",
-        "Segurança e Boas Práticas",
-        "Projeto Final Integrador e Certificação"
-      ],
-      "status": "active",
-      "featured": false,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "skills": [],
+      "isPopular": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
     }
   ],
   "events": [
     {
-      "id": "evt-1",
-      "title": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
-      "description": "Encontro anual de líderes de telecomunicações, cibersegurança e infraestruturas para debater o futuro da conectividade nacional.",
-      "date": "2026-09-18",
-      "time": "09:00 - 17:00",
-      "location": "Hotel Epic Sana, Luanda",
-      "format": "Presencial",
-      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80",
-      "status": "agendado",
-      "capacity": 250,
-      "registrationOpen": true,
-      "link": "#inscricao-evento",
-      "createdAt": "2026-02-01T00:00:00Z",
-      "updatedAt": "2026-02-01T00:00:00Z"
-    },
-    {
       "id": "evt-2",
       "title": "Workshop Prático: Defesa Perimetral e Resposta a Incidentes",
-      "description": "Sessão técnica imersiva para administradores de sistemas e analistas de segurança com laboratórios reais de mitigação de ataques.",
+      "slug": "evento-evt-2",
       "date": "2026-10-05",
       "time": "14:00 - 18:00",
       "location": "Academia ARKNET, Luanda",
       "format": "Híbrido",
+      "description": "Sessão técnica imersiva para administradores de sistemas e analistas de segurança com laboratórios reais de mitigação de ataques.",
+      "fullDescription": null,
       "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80",
-      "status": "agendado",
       "capacity": 40,
-      "registrationOpen": true,
-      "link": "#inscricao-evento",
-      "createdAt": "2026-02-05T00:00:00Z",
-      "updatedAt": "2026-02-05T00:00:00Z"
+      "status": "agendado",
+      "speakers": null,
+      "schedule": null,
+      "createdAt": "2026-02-05T00:00:00.000Z",
+      "updatedAt": "2026-02-05T00:00:00.000Z"
+    },
+    {
+      "id": "evt-1",
+      "title": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
+      "slug": "evento-evt-1",
+      "date": "2026-09-18",
+      "time": "09:00 - 17:00",
+      "location": "Hotel Epic Sana, Luanda",
+      "format": "Presencial",
+      "description": "Encontro anual de líderes de telecomunicações, cibersegurança e infraestruturas para debater o futuro da conectividade nacional.",
+      "fullDescription": null,
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80",
+      "capacity": 250,
+      "status": "agendado",
+      "speakers": null,
+      "schedule": null,
+      "createdAt": "2026-02-01T00:00:00.000Z",
+      "updatedAt": "2026-02-01T00:00:00.000Z"
     }
   ],
   "eventRegistrations": [
     {
-      "id": "reg-1",
-      "eventId": "evt-1",
-      "eventTitle": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
-      "name": "Eng. António Kiala",
-      "email": "antonio.kiala@sonangol.co.ao",
-      "phone": "+244 923 111 222",
-      "company": "Sonangol E.P.",
-      "notes": "Interesse em painel de cibersegurança e cloud híbrida.",
-      "status": "confirmada",
-      "createdAt": "2026-09-07T15:29:27.787Z"
-    },
-    {
-      "id": "reg-2",
-      "eventId": "evt-1",
-      "eventTitle": "Arknet Tech Summit 2026 — Transformação Digital em Angola",
-      "name": "Dra. Isabel Mateus",
-      "email": "isabel.mateus@bancobai.ao",
-      "phone": "+244 912 333 444",
-      "company": "Banco BAI",
-      "notes": "Vaga VIP reservada.",
-      "status": "confirmada",
-      "createdAt": "2026-09-08T03:29:27.787Z"
-    },
-    {
       "id": "reg-3",
       "eventId": "evt-2",
-      "eventTitle": "Workshop Prático: Defesa Perimetral e Resposta a Incidentes",
       "name": "Mário Lucas Bento",
       "email": "mario.bento@techangola.com",
       "phone": "+244 934 555 666",
       "company": "TechAngola Lda",
-      "notes": "Inscrição para workshop técnico.",
+      "position": null,
       "status": "confirmada",
-      "createdAt": "2026-09-08T10:29:27.787Z"
+      "ticketCode": null,
+      "registeredAt": "2026-09-15T07:30:21.000Z"
+    },
+    {
+      "id": "reg-2",
+      "eventId": "evt-1",
+      "name": "Dra. Isabel Mateus",
+      "email": "isabel.mateus@bancobai.ao",
+      "phone": "+244 912 333 444",
+      "company": "Banco BAI",
+      "position": null,
+      "status": "confirmada",
+      "ticketCode": null,
+      "registeredAt": "2026-09-15T07:30:20.996Z"
+    },
+    {
+      "id": "reg-1",
+      "eventId": "evt-1",
+      "name": "Eng. António Kiala",
+      "email": "antonio.kiala@sonangol.co.ao",
+      "phone": "+244 923 111 222",
+      "company": "Sonangol E.P.",
+      "position": null,
+      "status": "confirmada",
+      "ticketCode": null,
+      "registeredAt": "2026-09-15T07:30:20.992Z"
     }
   ],
   "jobs": [
     {
-      "id": "job-1",
-      "title": "Engenheiro de Redes & Telecomunicações Sénior",
-      "department": "Engenharia & Infraestruturas",
+      "id": "job-3",
+      "title": "Técnico de Instalação de Redes e CFTV",
+      "department": "Operações de Campo",
       "location": "Luanda, Angola",
       "type": "Full-time",
-      "description": "Buscamos engenheiro experiente para liderar projetos de implementação de backbones de fibra, roteamento BGP/OSPF e infraestruturas core para clientes corporativos.",
+      "description": "Instalação de cabeamento estruturado Cat6/Cat6A, fusão de fibra óptica, montagem de bastidores e sistemas de vigilância IP.",
       "requirements": [
-        "Licenciatura em Engenharia de Telecomunicações, Informática ou áreas afins",
-        "Certificação Cisco CCNP ou Huawei HCIP (obrigatório)",
-        "Mínimo de 4 anos de experiência em redes corporativas",
-        "Domínio de protocolos de roteamento, switching e firewalls Fortinet/Mikrotik"
+        "Ensino Médio Técnico em Informática, Telecomunicações ou Eletrónica",
+        "Experiência de campo em instalação e testes de infraestruturas",
+        "Carta de condução válida"
       ],
-      "benefits": [
-        "Salário altamente competitivo no mercado angolano",
-        "Plano de saúde extensível ao agregado familiar",
-        "Formações e certificações custeadas pela empresa",
-        "Bónus de desempenho anual"
-      ],
-      "status": "aberta",
-      "createdAt": "2026-01-20T00:00:00Z",
-      "updatedAt": "2026-01-20T00:00:00Z"
+      "responsibilities": [],
+      "active": true,
+      "createdAt": "2026-02-10T00:00:00.000Z"
     },
     {
       "id": "job-2",
@@ -1050,34 +1137,26 @@
         "Certificações como CompTIA Security+, CEH ou similares serão valorizadas",
         "Capacidade de elaboração de relatórios técnicos e executivos"
       ],
-      "benefits": [
-        "Ambiente de trabalho moderno com equipamentos de topo",
-        "Seguro de saúde",
-        "Acesso livre a cursos da Academia ARKNET"
-      ],
-      "status": "aberta",
-      "createdAt": "2026-02-01T00:00:00Z",
-      "updatedAt": "2026-02-01T00:00:00Z"
+      "responsibilities": [],
+      "active": true,
+      "createdAt": "2026-02-01T00:00:00.000Z"
     },
     {
-      "id": "job-3",
-      "title": "Técnico de Instalação de Redes e CFTV",
-      "department": "Operações de Campo",
+      "id": "job-1",
+      "title": "Engenheiro de Redes & Telecomunicações Sénior",
+      "department": "Engenharia & Infraestruturas",
       "location": "Luanda, Angola",
       "type": "Full-time",
-      "description": "Instalação de cabeamento estruturado Cat6/Cat6A, fusão de fibra óptica, montagem de bastidores e sistemas de vigilância IP.",
+      "description": "Buscamos engenheiro experiente para liderar projetos de implementação de backbones de fibra, roteamento BGP/OSPF e infraestruturas core para clientes corporativos.",
       "requirements": [
-        "Ensino Médio Técnico em Informática, Telecomunicações ou Eletrónica",
-        "Experiência de campo em instalação e testes de infraestruturas",
-        "Carta de condução válida"
+        "Licenciatura em Engenharia de Telecomunicações, Informática ou áreas afins",
+        "Certificação Cisco CCNP ou Huawei HCIP (obrigatório)",
+        "Mínimo de 4 anos de experiência em redes corporativas",
+        "Domínio de protocolos de roteamento, switching e firewalls Fortinet/Mikrotik"
       ],
-      "benefits": [
-        "Subsídio de alimentação e transporte",
-        "Equipamento de proteção e ferramentas profissionais"
-      ],
-      "status": "aberta",
-      "createdAt": "2026-02-10T00:00:00Z",
-      "updatedAt": "2026-02-10T00:00:00Z"
+      "responsibilities": [],
+      "active": true,
+      "createdAt": "2026-01-20T00:00:00.000Z"
     }
   ],
   "applications": [
@@ -1085,95 +1164,82 @@
       "id": "app-1",
       "jobId": "job-1",
       "jobTitle": "Engenheiro de Redes & Telecomunicações Sénior",
-      "candidateName": "Eduardo Ndala",
-      "candidateEmail": "eduardo.ndala@gmail.com",
-      "candidatePhone": "+244 923 888 111",
+      "name": "Eduardo Ndala",
+      "email": "eduardo.ndala@gmail.com",
+      "phone": "+244 923 888 111",
+      "resumeUrl": "CV_Eduardo_Ndala_2026.pdf",
       "message": "Tenho 6 anos de experiência em redes IP e certificação CCNP Enterprise ativa. Gostaria de integrar a equipa ARKNET.",
-      "cvFileName": "CV_Eduardo_Ndala_2026.pdf",
       "status": "em_analise",
-      "notes": "Perfil muito alinhado. Convidar para entrevista técnica.",
-      "createdAt": "2026-09-07T19:29:27.787Z",
-      "updatedAt": "2026-09-07T19:29:27.787Z"
+      "appliedAt": "2026-09-07T19:29:27.787Z"
     },
     {
       "id": "app-2",
+      "jobId": null,
       "jobTitle": "Candidatura Espontânea — Gestão Comercial",
-      "candidateName": "Mariana Kiala",
-      "candidateEmail": "mariana.kiala@hotmail.com",
-      "candidatePhone": "+244 912 777 333",
+      "name": "Mariana Kiala",
+      "email": "mariana.kiala@hotmail.com",
+      "phone": "+244 912 777 333",
+      "resumeUrl": "Curriculo_Mariana_Kiala.pdf",
       "message": "Experiência de 4 anos em prospeção e fecho de negócios B2B em soluções de TI.",
-      "cvFileName": "Curriculo_Mariana_Kiala.pdf",
       "status": "recebida",
-      "notes": "",
-      "createdAt": "2026-09-06T18:29:27.787Z",
-      "updatedAt": "2026-09-06T18:29:27.787Z"
+      "appliedAt": "2026-09-06T18:29:27.787Z"
     }
   ],
   "testimonials": [
     {
       "id": "1",
-      "clientName": "Banco Angolano de Investimento",
-      "company": "Banco Angolano de Investimento",
+      "name": "Banco Angolano de Investimento",
       "role": "Instituição Financeira",
-      "testimonial": "A ARKNET transformou a nossa infraestrutura de rede. O suporte 24/7 e a qualidade da conexão superaram as nossas expectativas. Recomendamos sem hesitação.",
+      "company": "Banco Angolano de Investimento",
+      "avatar": "https://picsum.photos/seed/bank/200/100",
+      "text": "A ARKNET transformou a nossa infraestrutura de rede. O suporte 24/7 e a qualidade da conexão superaram as nossas expectativas. Recomendamos sem hesitação.",
       "rating": 5,
-      "logo": "https://picsum.photos/seed/bank/200/100",
-      "order": 1,
       "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "order": 1
     },
     {
       "id": "2",
-      "clientName": "AngoTelecom Serviços",
-      "company": "AngoTelecom Serviços",
+      "name": "AngoTelecom Serviços",
       "role": "Telecomunicações",
-      "testimonial": "Parceria estratégica que nos permitiu expandir o nosso alcance. A expertise técnica da ARKNET é incomparável no mercado angolano.",
+      "company": "AngoTelecom Serviços",
+      "avatar": "https://picsum.photos/seed/telecom/200/100",
+      "text": "Parceria estratégica que nos permitiu expandir o nosso alcance. A expertise técnica da ARKNET é incomparável no mercado angolano.",
       "rating": 5,
-      "logo": "https://picsum.photos/seed/telecom/200/100",
-      "order": 2,
       "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "order": 2
     },
     {
       "id": "3",
-      "clientName": "TechSolutions Luanda",
-      "company": "TechSolutions Luanda",
+      "name": "TechSolutions Luanda",
       "role": "Tecnologia",
-      "testimonial": "Implementaram a nossa infraestrutura de cloud com excelência. O tempo de resposta e a qualidade do serviço são excecionais.",
+      "company": "TechSolutions Luanda",
+      "avatar": "https://picsum.photos/seed/tech/200/100",
+      "text": "Implementaram a nossa infraestrutura de cloud com excelência. O tempo de resposta e a qualidade do serviço são excecionais.",
       "rating": 5,
-      "logo": "https://picsum.photos/seed/tech/200/100",
-      "order": 3,
       "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "order": 3
     },
     {
       "id": "4",
-      "clientName": "Construtora África Nova",
-      "company": "Construtora África Nova",
+      "name": "Construtora África Nova",
       "role": "Construção Civil",
-      "testimonial": "A solução de videovigilância instalada pela ARKNET melhorou significativamente a segurança dos nossos canteiros de obra. Excelente serviço.",
+      "company": "Construtora África Nova",
+      "avatar": "https://picsum.photos/seed/construction/200/100",
+      "text": "A solução de videovigilância instalada pela ARKNET melhorou significativamente a segurança dos nossos canteiros de obra. Excelente serviço.",
       "rating": 5,
-      "logo": "https://picsum.photos/seed/construction/200/100",
-      "order": 4,
       "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "order": 4
     },
     {
       "id": "5",
-      "clientName": "Hospital Central Luanda",
-      "company": "Hospital Central Luanda",
+      "name": "Hospital Central Luanda",
       "role": "Saúde",
-      "testimonial": "A rede estruturada instalada permite o funcionamento crítico dos nossos sistemas hospitalares com 100% de disponibilidade.",
+      "company": "Hospital Central Luanda",
+      "avatar": "https://picsum.photos/seed/hospital/200/100",
+      "text": "A rede estruturada instalada permite o funcionamento crítico dos nossos sistemas hospitalares com 100% de disponibilidade.",
       "rating": 5,
-      "logo": "https://picsum.photos/seed/hospital/200/100",
-      "order": 5,
       "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "order": 5
     }
   ],
   "partners": [
@@ -1181,155 +1247,127 @@
       "id": "partner-1",
       "name": "AnyConnect",
       "logo": "/_next/static/media/vendor-1.05.vug~-ajd33.jpg",
-      "category": "Tecnologia & Redes",
       "website": "https://arknet.co.ao",
+      "category": "Tecnologia & Redes",
       "order": 1,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-2",
       "name": "Tecnimed",
       "logo": "/_next/static/media/vendor-2.07ty4hpg-8scc.jpg",
-      "category": "Saúde & Equipamento Hospitalar",
       "website": "https://arknet.co.ao",
+      "category": "Saúde & Equipamento Hospitalar",
       "order": 2,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-3",
       "name": "Igreja Universal",
       "logo": "/_next/static/media/vendor-3.0m_am6lk9t8h_.jpg",
-      "category": "Institucional & Mídia",
       "website": "https://arknet.co.ao",
+      "category": "Institucional & Mídia",
       "order": 3,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-4",
       "name": "Macon",
       "logo": "/_next/static/media/vendor-4.0.ffd~m.ybqjs.jpg",
-      "category": "Transportes & Logística",
       "website": "https://arknet.co.ao",
+      "category": "Transportes & Logística",
       "order": 4,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-5",
       "name": "Tribunal Supremo",
       "logo": "/_next/static/media/vendor-5.0y-4d6gje____.jpg",
-      "category": "Governo & Justiça",
       "website": "https://arknet.co.ao",
+      "category": "Governo & Justiça",
       "order": 5,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-6",
       "name": "Mota-Engil",
       "logo": "/_next/static/media/vendor-6.0z.l7c75p6k4i.jpg",
-      "category": "Construção & Engenharia",
       "website": "https://arknet.co.ao",
+      "category": "Construção & Engenharia",
       "order": 6,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-7",
       "name": "Record TV Africa",
       "logo": "/_next/static/media/vendor-7.0iypt2z912vxq.jpg",
-      "category": "Comunicação & Mídia",
       "website": "https://arknet.co.ao",
+      "category": "Comunicação & Mídia",
       "order": 7,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-8",
       "name": "ANPG",
       "logo": "/_next/static/media/vendor-8.0c5bju5dxci0a.jpg",
-      "category": "Petróleo, Gás & Energia",
       "website": "https://arknet.co.ao",
+      "category": "Petróleo, Gás & Energia",
       "order": 8,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-9",
       "name": "Huambo Expresso",
       "logo": "/_next/static/media/vendor-9.07rq_awul94-f.jpg",
-      "category": "Transportes & Logística",
       "website": "https://arknet.co.ao",
+      "category": "Transportes & Logística",
       "order": 9,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-10",
       "name": "Vernon",
       "logo": "/_next/static/media/vendor-10.15z4p3nfzp5pj.jpg",
-      "category": "Consultoria & Gestão",
       "website": "https://arknet.co.ao",
+      "category": "Consultoria & Gestão",
       "order": 10,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-11",
       "name": "Neptec",
       "logo": "/_next/static/media/vendor-11.165-~ra14gpiu.jpg",
-      "category": "Soluções Tecnológicas",
       "website": "https://arknet.co.ao",
+      "category": "Soluções Tecnológicas",
       "order": 11,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-12",
       "name": "Comando MGA",
       "logo": "/_next/static/media/vendor-12.04e~3_torvafa.jpg",
-      "category": "Defesa & Segurança",
       "website": "https://arknet.co.ao",
+      "category": "Defesa & Segurança",
       "order": 12,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-13",
       "name": "Power House",
       "logo": "/_next/static/media/vendor-13.0nqxcsmw1opgw.jpg",
-      "category": "Energia & Infraestruturas",
       "website": "https://arknet.co.ao",
+      "category": "Energia & Infraestruturas",
       "order": 13,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     },
     {
       "id": "partner-14",
       "name": "A Mundial Seguros",
       "logo": "/_next/static/media/vendor-14.0wf0zpwgrc98s.jpg",
-      "category": "Banca & Seguros",
       "website": "https://arknet.co.ao",
+      "category": "Banca & Seguros",
       "order": 14,
-      "active": true,
-      "createdAt": "2026-01-01T00:00:00Z",
-      "updatedAt": "2026-01-01T00:00:00Z"
+      "active": true
     }
   ],
   "projects": [
@@ -1337,40 +1375,15 @@
       "id": "proj-1",
       "title": "Modernização de Rede & Data Center — Tribunal Supremo",
       "slug": "infraestrutura-rede-tribunal-supremo",
-      "clientName": "Tribunal Supremo de Angola",
+      "client": "Cliente ARKNET",
       "category": "Cabeamento Estruturado",
-      "partnershipType": "Projeto para Cliente",
-      "status": "concluido",
-      "tagline": "Infraestrutura de rede estruturada Cat6A de alta densidade e interligação de salas de audiência.",
+      "sector": null,
+      "year": null,
       "description": "Projeto de modernização integral da infraestrutura tecnológica do Tribunal Supremo em Luanda, contemplando a instalação de rede de dados de alta velocidade, reorganização dos bastidores principais e garantia de conectividade estável e cifrada para os sistemas judiciais.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "O Tribunal operava com infraestrutura legada e frequentes oscilações de rede que afetavam o andamento das sessões e a consulta célere aos autos de processos judiciais de alta relevância.",
       "solution": "A ARKNET, em parceria com fornecedores de hardware e segurança, executou a reformulação total do cabeamento estruturado de 4 pisos, implantou switches gerenciáveis em stack com redundância de fibra e certificou cada ponto de rede sob rigorosas normas internacionais.",
-      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-5",
-          "partnerName": "Tribunal Supremo",
-          "role": "Instituição Beneficiária / Cliente",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-11",
-          "partnerName": "Neptec",
-          "role": "Fornecimento de Bastidores & Equipamentos de Rede",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-13",
-          "partnerName": "Power House",
-          "role": "Sistemas de Energia Ininterrupta (UPS)",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Pontos Certificados",
@@ -1385,42 +1398,30 @@
           "value": "10 Gbps"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": true,
-      "completedAt": "2025",
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-01-05T00:00:00.000Z"
     },
     {
       "id": "proj-2",
       "title": "Cibersegurança e Proteção Perimetral — Mota-Engil",
       "slug": "ciberseguranca-mota-engil",
-      "clientName": "Mota-Engil Angola",
+      "client": "Cliente ARKNET",
       "category": "Cibersegurança",
-      "partnershipType": "Colaboração Técnica",
-      "status": "concluido",
-      "tagline": "Implementação de Firewalls de Próxima Geração (NGFW), VPNs corporativas e monitorização 24/7.",
+      "sector": null,
+      "year": null,
       "description": "Arquitetura e implementação de segurança perimetral para interligar os estaleiros de construção civil e a sede corporativa em Luanda com túneis cifrados, proteção anti-malware e políticas rigorosas de acesso.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "Com dezenas de estaleiros remotos distribuídos por várias províncias de Angola, a empresa necessitava de blindar a comunicação entre estaleiros e servidores centrais contra ataques de ransomware e acessos indevidos.",
       "solution": "Implementação de cluster de firewalls UTM redundantes, autenticação multifator para colaboradores remotos e monitorização contínua com alertas automáticos de intrusão.",
-      "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-6",
-          "partnerName": "Mota-Engil",
-          "role": "Cliente Principal / Empreitada",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-10",
-          "partnerName": "Vernon",
-          "role": "Consultoria de Políticas de Acesso e Auditoria",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Estaleiros Interligados",
@@ -1435,41 +1436,29 @@
           "value": "< 5 min"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": true,
-      "completedAt": "2025",
-      "createdAt": "2026-01-10T00:00:00Z",
-      "updatedAt": "2026-01-10T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-01-10T00:00:00.000Z"
     },
     {
       "id": "proj-3",
       "title": "Link Dedicado para Transmissão HD — Record TV Africa",
       "slug": "internet-dedicada-record-tv",
-      "clientName": "Record TV Africa",
+      "client": "Cliente ARKNET",
       "category": "Internet Empresarial",
-      "partnershipType": "Projeto para Cliente",
-      "status": "concluido",
-      "tagline": "Internet 100% simétrica de ultra-baixa latência para transmissão de sinal televisivo e streaming.",
+      "sector": null,
+      "year": null,
       "description": "Fornecimento e gestão de conectividade empresarial de alta capacidade com fibra óptica dedicada e redundância por rádio digital para suporte às emissões em direto e envio de ficheiros pesados de áudio e vídeo.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "As transmissões ao vivo e a subida de conteúdos para satélite exigiam largura de banda garantida sem qualquer oscilação de jitter ou perda de pacotes em horários de pico.",
       "solution": "Desenho de topologia com anel de fibra óptica redundante, endereço IP estático dedicado e monitorização de tráfego 24 horas por dia com engenharia de suporte dedicada.",
-      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-7",
-          "partnerName": "Record TV Africa",
-          "role": "Emissora de Televisão / Cliente",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-13",
-          "partnerName": "Power House",
-          "role": "Infraestrutura de Energia e Nobreaks",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Largura de Banda",
@@ -1484,41 +1473,28 @@
           "value": "0%"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": true,
-      "completedAt": "2026",
-      "createdAt": "2026-01-15T00:00:00Z",
-      "updatedAt": "2026-01-15T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-01-15T00:00:00.000Z"
     },
     {
       "id": "proj-4",
       "title": "CFTV Inteligente & Vigilância — Estação Central Macon",
       "slug": "cftv-vigilancia-macon",
-      "clientName": "Macon Transportes",
+      "client": "Cliente ARKNET",
       "category": "CFTV e Segurança",
-      "partnershipType": "Projeto para Cliente",
-      "status": "concluido",
-      "tagline": "Vigilância eletrónica de alta definição com mais de 120 câmaras IP e gravação centralizada.",
+      "sector": null,
+      "year": null,
       "description": "Instalação de circuito fechado de televisão para monitorização de plataformas de embarque, bilheteiras, armazéns de encomendas e parque de viaturas no principal terminal rodoviário da Macon em Luanda.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "Necessidade de controlar o fluxo diário de milhares de passageiros, prevenir perdas de bagagens e otimizar a segurança patrimonial e operacional em tempo real.",
       "solution": "Implementação de câmaras dome antivandalismo e câmaras PTZ de longo alcance com análise inteligente de vídeo, visão noturna e central de controlo operacional.",
-      "image": "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-4",
-          "partnerName": "Macon",
-          "role": "Operador Rodoviário / Cliente",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-14",
-          "partnerName": "A Mundial Seguros",
-          "role": "Consultoria de Salvaguarda de Risco",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Câmaras Instaladas",
@@ -1533,41 +1509,28 @@
           "value": "-65%"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": false,
-      "completedAt": "2025",
-      "createdAt": "2026-01-20T00:00:00Z",
-      "updatedAt": "2026-01-20T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-01-20T00:00:00.000Z"
     },
     {
       "id": "proj-5",
       "title": "Migração para Cloud e DRP — ANPG",
       "slug": "cloud-disaster-recovery-anpg",
-      "clientName": "Agência Nacional de Petróleo, Gás e Biocombustíveis (ANPG)",
+      "client": "Cliente ARKNET",
       "category": "Computação em Nuvem",
-      "partnershipType": "Colaboração Técnica",
-      "status": "em_curso",
-      "tagline": "Arquitetura híbrida na nuvem com planos de Disaster Recovery (DRP) e replicação de dados.",
+      "sector": null,
+      "year": null,
       "description": "Projeto estratégico de transição dos sistemas de dados geológicos e cadastros de concessões petrolíferas para ambiente cloud de alta disponibilidade com backups encriptados.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "Garantir conformidade regulatória rigorosa do sector de hidrocarbonetos, preservando dados críticos de exploração com disponibilidade ininterrupta mesmo em caso de falhas físicas no centro de dados local.",
       "solution": "Implementação de infraestrutura híbrida com replicação síncrona de base de dados, encriptação AES-256 e testes periódicos automatizados de failover.",
-      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-8",
-          "partnerName": "ANPG",
-          "role": "Entidade Reguladora / Cliente",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-11",
-          "partnerName": "Neptec",
-          "role": "Infraestrutura de Virtualização & Servidores",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Dados Migrados",
@@ -1582,41 +1545,28 @@
           "value": "< 10 min"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": true,
-      "completedAt": "Em Curso",
-      "createdAt": "2026-02-01T00:00:00Z",
-      "updatedAt": "2026-02-01T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-02-01T00:00:00.000Z"
     },
     {
       "id": "proj-6",
       "title": "Interligação de Agências & Bilhética — Huambo Expresso",
       "slug": "conectividade-huambo-expresso",
-      "clientName": "Huambo Expresso",
+      "client": "Cliente ARKNET",
       "category": "Consultoria & TI",
-      "partnershipType": "Colaboração Técnica",
-      "status": "em_curso",
-      "tagline": "Rede WAN corporativa interligando agências de Luanda, Huambo e Benguela.",
+      "sector": null,
+      "year": null,
       "description": "Interligação de agências de bilhética em tempo real através de VPNs multiponto e fornecimento de infraestrutura de conectividade de dados para telemetria de autocarros.",
+      "fullDescription": null,
+      "metrics": null,
       "challenge": "Agências isoladas com vendas offline que causavam duplicação de lugares vendidos e falta de visão centralizada de receitas em tempo real.",
       "solution": "Estruturação de rede SD-WAN com failover automático 4G e sincronização de bilhética em microssegundos.",
-      "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop&q=80",
-      "gallery": [
-        "https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80"
-      ],
-      "partners": [
-        {
-          "partnerId": "partner-9",
-          "partnerName": "Huambo Expresso",
-          "role": "Empresa de Transporte / Cliente",
-          "partnerWebsite": "https://arknet.co.ao"
-        },
-        {
-          "partnerId": "partner-10",
-          "partnerName": "Vernon",
-          "role": "Integração de Software de Bilhética",
-          "partnerWebsite": "https://arknet.co.ao"
-        }
-      ],
       "results": [
         {
           "label": "Agências Conectadas",
@@ -1631,149 +1581,141 @@
           "value": "Tempo Real"
         }
       ],
+      "testimonial": null,
+      "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1520869562399-e772f312f722?w=800&auto=format&fit=crop&q=80"
+      ],
       "featured": false,
-      "completedAt": "Em Curso",
-      "createdAt": "2026-02-10T00:00:00Z",
-      "updatedAt": "2026-02-10T00:00:00Z"
+      "order": 0,
+      "createdAt": "2026-02-10T00:00:00.000Z"
     }
   ],
   "dailyActivities": [
     {
       "id": "d-act-1",
       "title": "ARKNET em Direto na Rádio Mais: O Futuro da Conectividade e Cibersegurança em Angola",
-      "category": "Rádio & Imprensa",
-      "description": "A liderança de engenharia da ARKNET participou no programa de inovação tecnológica da Rádio Mais 99.1 FM, abordando os desafios da transição para redes de alta velocidade e as melhores práticas de proteção de dados corporativos em Angola.",
-      "content": "Num debate aprofundado transmitido em direto para todo o país, a equipa técnica da ARKNET partilhou visões estratégicas sobre a evolução das telecomunicações no mercado angolano. Foram destacados temas cruciais como a redundância em anel de fibra óptica, a mitigação de ataques perimetrais em instituições bancárias e a importância de formar quadros nacionais qualificados para suportar a transformação digital das empresas.",
-      "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "Estúdios da Rádio Mais 99.1 FM, Luanda",
+      "slug": "atividade-d-act-1",
       "date": "2026-03-08",
-      "time": "09:30",
-      "readTime": "4 min de leitura",
+      "category": "Rádio & Imprensa",
+      "summary": "",
+      "content": "Num debate aprofundado transmitido em direto para todo o país, a equipa técnica da ARKNET partilhou visões estratégicas sobre a evolução das telecomunicações no mercado angolano. Foram destacados temas cruciais como a redundância em anel de fibra óptica, a mitigação de ataques perimetrais em instituições bancárias e a importância de formar quadros nacionais qualificados para suportar a transformação digital das empresas.",
       "author": "Comunicação & Engenharia ARKNET",
+      "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80",
+      "readTime": "4 min de leitura",
       "tags": [
         "Rádio & Imprensa",
         "Cibersegurança",
         "Telecomunicações",
         "Inovação"
       ],
-      "status": "concluida",
       "featured": true,
-      "createdAt": "2026-03-08T09:30:00Z",
-      "updatedAt": "2026-03-08T09:30:00Z"
+      "views": 0,
+      "createdAt": "2026-03-08T09:30:00.000Z"
     },
     {
       "id": "d-act-2",
       "title": "Workshop Prático de Fusão e Certificação de Fibra Óptica na ARKNET Academy",
-      "category": "Formações & Academia",
-      "description": "Concluímos com êxito mais uma edição do workshop intensivo com laboratórios imersivos de fusão por arco voltaico, reflectometria OTDR e medições de atenuação para técnicos e novos talentos.",
-      "content": "Durante dois dias intensivos de capacitação, mais de 25 profissionais e estudantes do ramo de telecomunicações tiveram acesso direto a máquinas de fusão de última geração e equipamentos de certificação Fluke Networks. O foco principal foi a preparação técnica para instalações em campo de alto rigor normativo.",
-      "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "ARKNET Academy — Kilamba, Luanda",
+      "slug": "atividade-d-act-2",
       "date": "2026-03-06",
-      "time": "14:00",
-      "readTime": "3 min de leitura",
+      "category": "Formações & Academia",
+      "summary": "",
+      "content": "Durante dois dias intensivos de capacitação, mais de 25 profissionais e estudantes do ramo de telecomunicações tiveram acesso direto a máquinas de fusão de última geração e equipamentos de certificação Fluke Networks. O foco principal foi a preparação técnica para instalações em campo de alto rigor normativo.",
       "author": "ARKNET Academy",
+      "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80",
+      "readTime": "3 min de leitura",
       "tags": [
         "Formação Técnica",
         "Fibra Óptica",
         "Capacitação",
         "Certificação"
       ],
-      "status": "concluida",
       "featured": true,
-      "createdAt": "2026-03-06T14:00:00Z",
-      "updatedAt": "2026-03-06T14:00:00Z"
+      "views": 0,
+      "createdAt": "2026-03-06T14:00:00.000Z"
     },
     {
       "id": "d-act-3",
       "title": "Painel Tecnológico: O Impacto das Redes Simétricas no Crescimento das PMEs Angolanas",
-      "category": "Eventos & Palestras",
-      "description": "Apresentação de estudo de caso da ARKNET sobre como enlaces simétricos dedicados e soluções cloud redundantes alavancam a produtividade e a continuidade de negócios.",
-      "content": "No fórum empresarial realizado em Luanda, os nossos especialistas demonstraram dados reais de aumento de produtividade e redução de indisponibilidade de serviços após a migração para infraestruturas dedicadas de internet simétrica com monitorização 24/7.",
-      "image": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "Hotel Epic Sana, Luanda",
+      "slug": "atividade-d-act-3",
       "date": "2026-03-04",
-      "time": "11:15",
-      "readTime": "3 min de leitura",
+      "category": "Eventos & Palestras",
+      "summary": "",
+      "content": "No fórum empresarial realizado em Luanda, os nossos especialistas demonstraram dados reais de aumento de produtividade e redução de indisponibilidade de serviços após a migração para infraestruturas dedicadas de internet simétrica com monitorização 24/7.",
       "author": "Equipa ARKNET",
+      "image": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80",
+      "readTime": "3 min de leitura",
       "tags": [
         "Conferência",
         "Telecomunicações",
         "PMEs",
         "Transformação Digital"
       ],
-      "status": "concluida",
       "featured": true,
-      "createdAt": "2026-03-04T11:15:00Z",
-      "updatedAt": "2026-03-04T11:15:00Z"
+      "views": 0,
+      "createdAt": "2026-03-04T11:15:00.000Z"
     },
     {
       "id": "d-act-4",
       "title": "Treinamento Avançado em Roteamento BGP e Engenharia de Tráfego Autónomo",
-      "category": "Formações & Academia",
-      "description": "Sessão interna imersiva de nivelamento técnico com simulação de contingências, failover automático e balanceamento dinâmico de tráfego IP internacional.",
-      "content": "O constante aperfeiçoamento da nossa equipa de NOC (Network Operations Center) assegura tempos de resposta inferiores a 5 minutos diante de instabilidades em operadoras upstream e rotas submarinas.",
-      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "Laboratório de Redes ARKNET, Luanda",
+      "slug": "atividade-d-act-4",
       "date": "2026-03-02",
-      "time": "16:00",
-      "readTime": "2 min de leitura",
+      "category": "Formações & Academia",
+      "summary": "",
+      "content": "O constante aperfeiçoamento da nossa equipa de NOC (Network Operations Center) assegura tempos de resposta inferiores a 5 minutos diante de instabilidades em operadoras upstream e rotas submarinas.",
       "author": "NOC ARKNET",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
+      "readTime": "2 min de leitura",
       "tags": [
         "Formação Interna",
         "Roteamento BGP",
         "Engenharia de Redes"
       ],
-      "status": "concluida",
       "featured": false,
-      "createdAt": "2026-03-02T16:00:00Z",
-      "updatedAt": "2026-03-02T16:00:00Z"
+      "views": 0,
+      "createdAt": "2026-03-02T16:00:00.000Z"
     },
     {
       "id": "d-act-5",
       "title": "Jornada Portas Abertas: Estudantes Universitários Conhecem os Bastidores da ARKNET",
-      "category": "Institucional",
-      "description": "Recebemos mais de 30 finalistas universitários para uma visita técnica guiada aos nossos bastidores centrais, estações de fusão e simuladores de cibersegurança.",
-      "content": "Aproximar o meio académico do sector produtivo é um dos pilares de responsabilidade social da ARKNET. Os estudantes puderam interagir com os engenheiros de campo e vivenciar a operação real de telecomunicações corporativas.",
-      "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "Sede ARKNET, Kilamba",
+      "slug": "atividade-d-act-5",
       "date": "2026-02-28",
-      "time": "10:00",
-      "readTime": "3 min de leitura",
+      "category": "Institucional",
+      "summary": "",
+      "content": "Aproximar o meio académico do sector produtivo é um dos pilares de responsabilidade social da ARKNET. Os estudantes puderam interagir com os engenheiros de campo e vivenciar a operação real de telecomunicações corporativas.",
       "author": "Comunicação ARKNET",
+      "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
+      "readTime": "3 min de leitura",
       "tags": [
         "Jovens Talentos",
         "Universidade",
         "Educação",
         "Inovação"
       ],
-      "status": "concluida",
       "featured": true,
-      "createdAt": "2026-02-28T10:00:00Z",
-      "updatedAt": "2026-02-28T10:00:00Z"
+      "views": 0,
+      "createdAt": "2026-02-28T10:00:00.000Z"
     },
     {
       "id": "d-act-6",
       "title": "Instalação e Alinhamento de Radioenlace de Contingência no Polo de Viana",
-      "category": "Operações Técnicas",
-      "description": "Equipa de operações concluiu a fixação e calibração de antenas micro-ondas com link simétrico de alta imunidade a ruídos para cliente industrial.",
-      "content": "Intervenção técnica realizada com foco em resiliência operacional, garantindo canal secundário independente de qualquer rompimento de cabos de fibra na via pública.",
-      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
-      "clientOrLocation": "Polo Industrial de Viana, Luanda",
+      "slug": "atividade-d-act-6",
       "date": "2026-02-25",
-      "time": "15:30",
-      "readTime": "2 min de leitura",
+      "category": "Operações Técnicas",
+      "summary": "",
+      "content": "Intervenção técnica realizada com foco em resiliência operacional, garantindo canal secundário independente de qualquer rompimento de cabos de fibra na via pública.",
       "author": "Operações de Campo",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
+      "readTime": "2 min de leitura",
       "tags": [
         "Radioenlace",
         "Micro-ondas",
         "Infraestrutura",
         "Engenharia"
       ],
-      "status": "concluida",
       "featured": false,
-      "createdAt": "2026-02-25T15:30:00Z",
-      "updatedAt": "2026-02-25T15:30:00Z"
+      "views": 0,
+      "createdAt": "2026-02-25T15:30:00.000Z"
     }
   ],
   "reservations": [
@@ -1781,6 +1723,7 @@
       "id": "res-1",
       "reservationNumber": "RES-2026-0001",
       "productId": "repetidordesinal",
+      "customerId": null,
       "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
       "productImage": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
       "productPrice": 20000,
@@ -1798,6 +1741,7 @@
       "id": "res-2",
       "reservationNumber": "RES-2026-0002",
       "productId": "hdtv-splitter-ver1x4",
+      "customerId": null,
       "productName": "HDTV Splitter Ver 1x4",
       "productImage": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
       "productPrice": 38000,
@@ -1815,6 +1759,7 @@
       "id": "res-3",
       "reservationNumber": "RES-2026-0003",
       "productId": "repetidordesinal",
+      "customerId": null,
       "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
       "productImage": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
       "productPrice": 20000,
@@ -1853,361 +1798,535 @@
     },
     "institutionalText": "A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.",
     "presentationLetter": "O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.",
-    "updatedAt": "2026-09-08T11:26:59.334Z"
+    "carouselSlides": [
+      {
+        "id": "shop-hero-router",
+        "imageUrl": "/uploads/whatsapp_video_2026-09-15_at_17.08.47-1789488726521.mp4",
+        "mediaType": "video",
+        "linkHref": "/loja?categoria=Redes%20e%20Internet",
+        "altText": "Router LB-Link para redes sem fios",
+        "active": true,
+        "title": "ARKNET Conexão sem Limites",
+        "subtitle": "Fique ligado nas nossas novidades"
+      },
+      {
+        "id": "shop-hero-monitor",
+        "imageUrl": "/uploads/whatsapp_video_2026-09-15_at_17.08.48-1789488736437.mp4",
+        "mediaType": "video",
+        "linkHref": "/loja?categoria=Monitores",
+        "altText": "Monitor curvo para jogos e entretenimento",
+        "active": true,
+        "title": "ARKNET Conexão sem Limites",
+        "subtitle": "Fique ligado nas nossas novidades"
+      },
+      {
+        "id": "shop-hero-backpack",
+        "imageUrl": "/uploads/whatsapp_video_2026-09-15_at_17.08.45-1789488744021.mp4",
+        "mediaType": "video",
+        "linkHref": "/loja?categoria=Produtos",
+        "altText": "Mochila preta para computador e uso diário",
+        "active": true,
+        "title": "ARKNET Conexão sem Limites",
+        "subtitle": "Fique ligado nas nossas novidades"
+      },
+      {
+        "id": "shop-hero-printer",
+        "imageUrl": "/uploads/whatsapp_video_2026-09-15_at_17.08.43-1789488881756.mp4",
+        "mediaType": "video",
+        "linkHref": "/loja?categoria=Impressoras%20e%20Consumíveis",
+        "altText": "Impressora multifunções para escritório",
+        "active": true,
+        "subtitle": "Fique ligado nas nossas novidades",
+        "title": "ARKNET Conexão sem Limites"
+      }
+    ],
+    "updatedAt": "2026-09-15T16:14:46.219Z"
   },
   "activities": [
+    {
+      "id": "act-1789488886219-93aa",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T16:14:46.219Z"
+    },
+    {
+      "id": "act-1789488751315-804j",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T16:12:31.315Z"
+    },
+    {
+      "id": "act-1789488649563-c5ox",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T16:10:49.563Z"
+    },
+    {
+      "id": "act-1789488094849-h36s",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T16:01:34.849Z"
+    },
+    {
+      "id": "act-1789487705392-81tz",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T15:55:05.392Z"
+    },
+    {
+      "id": "act-1789487594720-gyds",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T15:53:14.720Z"
+    },
+    {
+      "id": "act-1789487505850-7tu7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T15:51:45.850Z"
+    },
+    {
+      "id": "act-1789487345386-7sfq",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-15T15:49:05.386Z"
+    },
     {
       "id": "act-1788945524034-gozt",
       "userId": "system",
       "userName": "Administrador",
       "action": "Adicionou produto \"Hostpot Router Wifi 4G LTE\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T09:18:44.034Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T09:18:44.034Z",
+      "details": null
     },
     {
       "id": "act-1788944919919-ku35",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Universal Notebook Power Adaptador 8 conectores\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T09:08:39.919Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T09:08:39.919Z",
+      "details": null
     },
     {
       "id": "act-1788944906197-blrx",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"TP-Link Omada Hardware Controller OC200\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T09:08:26.199Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T09:08:26.199Z",
+      "details": null
     },
     {
       "id": "act-1788944830326-opoc",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"TP-Link 300Mbps Wireless N Router\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T09:07:10.326Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T09:07:10.326Z",
+      "details": null
     },
     {
       "id": "act-1788944321536-0hwk",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Testador Finder de Cabo UTP\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:58:41.540Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:58:41.540Z",
+      "details": null
     },
     {
       "id": "act-1788944078330-kvhs",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Teclado + Rato Genius\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:54:38.332Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:54:38.332Z",
+      "details": null
     },
     {
       "id": "act-1788943895712-81qy",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Router Wi-Fi TP-Link 300 Mbps com 2 Antenas\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:51:35.724Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:51:35.724Z",
+      "details": null
     },
     {
       "id": "act-1788943846749-v52t",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Roteador Industrial Teltonika RUTM\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:50:46.749Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:50:46.749Z",
+      "details": null
     },
     {
       "id": "act-1788943827869-wlqe",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Repetidor de Sinal Wi-Fi com 2 Antenas Externas\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:50:27.869Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:50:27.869Z",
+      "details": null
     },
     {
       "id": "act-1788943801523-wi77",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Relógio Biométrico ZKTeco K20\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:50:01.526Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:50:01.526Z",
+      "details": null
     },
     {
       "id": "act-1788943706331-o5i1",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Rato sem fio HP Preto\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:48:26.332Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:48:26.332Z",
+      "details": null
     },
     {
       "id": "act-1788943649542-h9gz",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Pilha Maxell 9V\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:47:29.542Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:47:29.542Z",
+      "details": null
     },
     {
       "id": "act-1788943643837-rs7a",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Pen Drive Maxell 32GB USB 2.0\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:47:23.837Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:47:23.837Z",
+      "details": null
     },
     {
       "id": "act-1788943608964-8qyi",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Impressora HP DeskJet\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:46:48.964Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:46:48.964Z",
+      "details": null
     },
     {
       "id": "act-1788943375422-438u",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Monitor Wintech 27 Polegadas\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:42:55.438Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:42:55.438Z",
+      "details": null
     },
     {
       "id": "act-1788943094840-k8rm",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Mini Teclado Controlo de Acesso TV\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:38:14.841Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:38:14.841Z",
+      "details": null
     },
     {
       "id": "act-1788943021903-o3oi",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Memória RAM DDR4 8GB 3200MHz Para Portátil\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:37:01.986Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:37:01.986Z",
+      "details": null
     },
     {
       "id": "act-1788942938180-2hce",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Memória RAM DDR4 8GB 3200MHz Para Portátil\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:35:38.184Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:35:38.184Z",
+      "details": null
     },
     {
       "id": "act-1788942817757-afvy",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Impressora Térmica X-Printer\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:33:37.775Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:33:37.775Z",
+      "details": null
     },
     {
       "id": "act-1788942694693-kfrn",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"HDTV Splitter Ver 1x4\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:31:34.693Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:31:34.693Z",
+      "details": null
     },
     {
       "id": "act-1788942666579-jxqh",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Gaveta POS Bematech\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:31:06.581Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:31:06.581Z",
+      "details": null
     },
     {
       "id": "act-1788942584212-kbrt",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Extensão UPS Ewent\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:29:44.212Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:29:44.212Z",
+      "details": null
     },
     {
       "id": "act-1788942579077-026o",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Extensão UPS Ewent\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:29:39.077Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:29:39.077Z",
+      "details": null
     },
     {
       "id": "act-1788942558867-a23r",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Conector RJ45\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:29:18.868Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:29:18.868Z",
+      "details": null
     },
     {
       "id": "act-1788942516533-xtel",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Conector RJ45\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:28:36.533Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:28:36.533Z",
+      "details": null
     },
     {
       "id": "act-1788942495722-ogxl",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Conector de Rede Intellinet RJ45 Cat6 100 unidades\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:28:15.722Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:28:15.722Z",
+      "details": null
     },
     {
       "id": "act-1788942472629-vxw8",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Computador Portátil\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:27:52.629Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:27:52.629Z",
+      "details": null
     },
     {
       "id": "act-1788942465899-e1uj",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Colunas Manhattan\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:27:45.900Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:27:45.900Z",
+      "details": null
     },
     {
       "id": "act-1788942421176-qxwk",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Cartão de Memória Micro SD 32GB Kingston\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:27:01.176Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:27:01.176Z",
+      "details": null
     },
     {
       "id": "act-1788942393383-gc0j",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Cabo de Rede CAT6 Soho Plus\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:33.383Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:33.383Z",
+      "details": null
     },
     {
       "id": "act-1788942389262-a3r8",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Cabo de Rede CAT6\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:29.262Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:29.262Z",
+      "details": null
     },
     {
       "id": "act-1788942383846-hp20",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Bastidor de Rede Intellinet 09U (ALP-485x600x450) 19 com Porta de Vidro\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:23.846Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:23.846Z",
+      "details": null
     },
     {
       "id": "act-1788942377184-ev8t",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Base de Rato Ewent\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:17.184Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:17.184Z",
+      "details": null
     },
     {
       "id": "act-1788942372166-sh5y",
       "userId": "system",
       "userName": "Administrador",
       "action": "Eliminou produto \"Apple iPhone 16 Pro 256 GB\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:12.166Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:12.166Z",
+      "details": null
     },
     {
       "id": "act-1788942366264-t5wc",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Auriculares com fio AEG\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:26:06.264Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:26:06.264Z",
+      "details": null
     },
     {
       "id": "act-1788942325452-xkp3",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Alicate de Crimpar RJ45\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:25:25.452Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:25:25.452Z",
+      "details": null
     },
     {
       "id": "act-1788942304009-0luz",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Adaptador Wi-Fi Alfa\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:25:04.009Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:25:04.009Z",
+      "details": null
     },
     {
       "id": "act-1788942290942-p9ma",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou produto \"Adaptador de Vídeo VGA para HDMI\"",
-      "module": "produtos",
-      "timestamp": "2026-09-09T08:24:50.943Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:24:50.943Z",
+      "details": null
     },
     {
       "id": "act-1788942255213-xsuk",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou utilizador \"user-admin-ao\"",
-      "module": "utilizadores",
-      "timestamp": "2026-09-09T08:24:15.213Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-09T08:24:15.213Z",
+      "details": null
     },
     {
       "id": "act-1788881745228-bum3",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou utilizador \"user-admin-ao\"",
-      "module": "utilizadores",
-      "timestamp": "2026-09-08T15:35:45.228Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-08T15:35:45.228Z",
+      "details": null
     },
     {
       "id": "act-1788881740309-8vaz",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou utilizador \"user-admin-ao\"",
-      "module": "utilizadores",
-      "timestamp": "2026-09-08T15:35:40.312Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-08T15:35:40.312Z",
+      "details": null
     },
     {
       "id": "act-1",
       "userId": "user-admin",
       "userName": "Administrador ARKNET",
       "action": "Criou novo produto \"Roteador Wi-Fi 6\"",
-      "module": "produtos",
-      "timestamp": "2026-09-08T13:29:27.787Z"
-    },
-    {
-      "id": "act-2",
-      "userId": "user-editor",
-      "userName": "Editor de Conteúdo",
-      "action": "Atualizou estado do lead \"Dra. Teresa Van-Dúnem\" para \"Contactado\"",
-      "module": "leads",
-      "timestamp": "2026-09-08T03:29:27.787Z"
-    },
-    {
-      "id": "act-3",
-      "userId": "user-admin",
-      "userName": "Administrador ARKNET",
-      "action": "Publicou vaga \"Engenheiro de Redes & Telecomunicações Sénior\"",
-      "module": "carreiras",
-      "timestamp": "2026-09-07T15:29:27.787Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-08T13:29:27.787Z",
+      "details": null
     }
   ],
-  "version": 2
+  "version": 3
 }

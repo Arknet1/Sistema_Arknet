@@ -24,6 +24,7 @@ import {
   Sparkles,
   Layers,
   Truck,
+  ImageIcon,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore } from '@/lib/data-store'
@@ -96,6 +97,11 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           label: 'Categorias',
           href: '/admin/categorias',
           icon: Tags,
+        },
+        {
+          label: 'Carrossel da Loja',
+          href: '/admin/carrossel',
+          icon: ImageIcon,
         },
         {
           label: 'Pedidos & Cotações',

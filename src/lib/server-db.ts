@@ -184,6 +184,7 @@ export async function readServerDbFromPrisma() {
           socialLinks: safeJsonParse(settingsRecord.socialLinks, {}),
           institutionalText: settingsRecord.institutionalText || '',
           presentationLetter: settingsRecord.presentationLetter || '',
+          carouselSlides: safeJsonParse(settingsRecord.carouselSlides, INITIAL_DB.settings.carouselSlides),
           updatedAt: settingsRecord.updatedAt.toISOString(),
         }
       : INITIAL_DB.settings
@@ -369,6 +370,7 @@ export function getSanitizedPublicDb(fullData?: any) {
       socialLinks: full.settings?.socialLinks || {},
       institutionalText: full.settings?.institutionalText || '',
       presentationLetter: full.settings?.presentationLetter || '',
+      carouselSlides: full.settings?.carouselSlides || INITIAL_DB.settings.carouselSlides,
       updatedAt: full.settings?.updatedAt || new Date().toISOString(),
     },
     version: full.version || 3,

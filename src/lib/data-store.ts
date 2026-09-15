@@ -315,7 +315,20 @@ export interface CompanySettings {
   }
   institutionalText: string
   presentationLetter: string
+  carouselSlides: StoreHeroSlide[]
   updatedAt: string
+}
+
+export interface StoreHeroSlide {
+  id: string
+  imageUrl: string
+  videoUrl?: string
+  mediaType: 'image' | 'video'
+  linkHref: string
+  altText: string
+  title?: string
+  subtitle?: string
+  active: boolean
 }
 
 export interface ActivityLog {
@@ -1192,6 +1205,49 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
 ]
 
+const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
+  {
+    id: 'shop-hero-router',
+    imageUrl: '/uploads/hero-router.jpg',
+    mediaType: 'image',
+    linkHref: '/loja?categoria=Redes%20e%20Internet',
+    altText: 'Router LB-Link para redes sem fios',
+    title: 'Conecte tudo. Navegue melhor.',
+    subtitle: 'Routers e soluções de rede para uma ligação rápida e estável.',
+    active: true,
+  },
+  {
+    id: 'shop-hero-monitor',
+    imageUrl: '/uploads/hero-monitor.jpg',
+    mediaType: 'image',
+    linkHref: '/loja?categoria=Monitores',
+    altText: 'Monitor curvo para jogos e entretenimento',
+    title: 'Mais espaço para grandes ideias.',
+    subtitle: 'Monitores para trabalhar, criar e aproveitar cada detalhe.',
+    active: true,
+  },
+  {
+    id: 'shop-hero-backpack',
+    imageUrl: '/uploads/hero-mochila.jpg',
+    mediaType: 'image',
+    linkHref: '/loja?categoria=Produtos',
+    altText: 'Mochila preta para computador e uso diário',
+    title: 'Leve a sua tecnologia consigo.',
+    subtitle: 'Mochilas práticas para proteger o seu equipamento todos os dias.',
+    active: true,
+  },
+  {
+    id: 'shop-hero-printer',
+    imageUrl: '/uploads/hero-impressora.jpg',
+    mediaType: 'image',
+    linkHref: '/loja?categoria=Impressoras%20e%20Consumíveis',
+    altText: 'Impressora multifunções para escritório',
+    title: 'O seu escritório, mais eficiente.',
+    subtitle: 'Impressoras e consumíveis para manter o trabalho em movimento.',
+    active: true,
+  },
+]
+
 const DEFAULT_SETTINGS: CompanySettings = {
   id: 'settings-global',
   companyName: 'ARKNET — Soluções Tecnológicas & Telecomunicações',
@@ -1211,6 +1267,7 @@ const DEFAULT_SETTINGS: CompanySettings = {
   },
   institutionalText: 'A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.',
   presentationLetter: 'O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.',
+  carouselSlides: DEFAULT_CAROUSEL_SLIDES,
   updatedAt: new Date().toISOString(),
 }
 

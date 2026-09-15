@@ -10,13 +10,17 @@ interface ImageUploadProps {
   label?: string
   helperText?: string
   aspectRatio?: 'square' | 'video' | 'banner' | 'auto'
+  mediaType?: 'image' | 'video'
 }
 
 export function ImageUpload({
   value,
   onChange,
   label = 'Imagem',
-  helperText = 'Formatos suportados: PNG, JPG, WebP (máx. 5MB)',
+  mediaType = 'image',
+  helperText = mediaType === 'video'
+    ? 'Formatos suportados: MP4, WebM ou OGG (máx. 50MB)'
+    : 'Formatos suportados: PNG, JPG, WebP (máx. 10MB)',
   aspectRatio = 'auto',
 }: ImageUploadProps) {
   const [tab, setTab] = useState<'upload' | 'url'>('upload')
@@ -86,8 +90,9 @@ export function ImageUpload({
   const [uploading, setUploading] = useState(false)
 
   const processFile = async (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      alert('Por favor, selecione um ficheiro de imagem válido.')
+    const validFile = mediaType === 'video' ? file.type.startsWith('video/') : file.type.startsWith('image/')
+    if (!validFile) {
+      alert(`Por favor, selecione um ficheiro de ${mediaType === 'video' ? 'vídeo' : 'imagem'} válido.`)
       return
     }
 
@@ -116,6 +121,12 @@ export function ImageUpload({
     }
 
     // Fallback: comprimir e enviar via Base64 para a API
+    if (mediaType === 'video') {
+      setUploading(false)
+      alert('Não foi possível carregar o vídeo. Verifique o formato e tente novamente.')
+      return
+    }
+
     const reader = new FileReader()
     reader.onload = (event) => {
       const result = event.target?.result as string
@@ -237,7 +248,7 @@ export function ImageUpload({
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
+            accept={mediaType === 'video' ? 'video/*' : 'image/*'}
             onChange={handleFileChange}
             className="hidden"
           />
@@ -248,7 +259,7 @@ export function ImageUpload({
                   <Loader2 className="h-6 w-6" />
                 </div>
                 <p className="text-sm font-semibold text-primary">
-                  A enviar e a guardar imagem no servidor...
+                  A enviar e a guardar {mediaType === 'video' ? 'vídeo' : 'imagem'} no servidor...
                 </p>
                 <p className="text-xs text-slate-400">Por favor, aguarde um instante</p>
               </>
@@ -258,9 +269,9 @@ export function ImageUpload({
                   <UploadCloud className="h-6 w-6" />
                 </div>
                 <p className="text-sm font-semibold text-slate-700">
-                  Clique para selecionar ou arraste a imagem para aqui
+                  Clique para selecionar ou arraste o {mediaType === 'video' ? 'vídeo' : 'ficheiro'} para aqui
                 </p>
-                <p className="text-xs text-slate-400">{helperText}</p>
+                  <p className="text-xs text-slate-400">{helperText}</p>
               </>
             )}
           </div>
@@ -292,11 +303,15 @@ export function ImageUpload({
       {value && (
         <div className="relative mt-3 p-3 bg-slate-100 border border-slate-200 flex items-center gap-4">
           <div className="relative h-20 w-24 bg-white border border-slate-200 overflow-hidden shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={value} alt="Pré-visualização" className="h-full w-full object-cover" />
+            {mediaType === 'video' ? (
+              <video src={value} muted className="h-full w-full object-contain" />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={value} alt="Pré-visualização" className="h-full w-full object-contain" />
+            )}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-slate-800 truncate">Imagem selecionada</p>
+            <p className="text-xs font-bold text-slate-800 truncate">{mediaType === 'video' ? 'Vídeo selecionado' : 'Imagem selecionada'}</p>
             <p className="text-[11px] text-slate-500 truncate max-w-xs">{value}</p>
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 mt-1">
               <Check className="h-3 w-3" /> Pronta a utilizar

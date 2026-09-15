@@ -1,17 +1,16 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
 import {
-  Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench, ArrowRight,
+  Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench,
   SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets,
   Package, Layers, Monitor, Headphones, Smartphone, Tv, Camera, Server, Laptop, Usb, Boxes,
   Sparkles, ChevronLeft, ChevronRight
 } from "lucide-react"
 import Link from "next/link"
 import ProductCard from "@/components/product-card"
+import HeroCarousel, { type HeroSlide } from "@/components/hero-carousel"
 import { dataStore, StoreProduct, ProductCategory } from "@/lib/data-store"
-import jmatosIcon from "@/assets/icon18.png"
 
 const iconMap: Record<string, React.ElementType> = {
   Globe, Wifi, Cloud, Cpu, MessageSquare, Shield, Wrench,
@@ -20,8 +19,10 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 export default function LojaClient() {
-  const [products, setProducts] = useState<StoreProduct[]>(() => dataStore.getProducts())
-  const [categories, setCategories] = useState<ProductCategory[]>(() => dataStore.getCategories())
+  // O catálogo pode vir do localStorage no browser; começa vazio para o SSR e o cliente hidratarem igual.
+  const [products, setProducts] = useState<StoreProduct[]>([])
+  const [categories, setCategories] = useState<ProductCategory[]>([])
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>(() => dataStore.getSettings().carouselSlides)
   const [selectedCategory, setSelectedCategory] = useState('Todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('relevance')
@@ -32,8 +33,10 @@ export default function LojaClient() {
     const sync = () => {
       const allProducts = dataStore.getProducts()
       const allCategories = dataStore.getCategories()
+      const settings = dataStore.getSettings()
       setProducts([...allProducts])
       setCategories([...allCategories].sort((a, b) => a.order - b.order))
+      setHeroSlides(settings.carouselSlides || [])
     }
     sync()
     const unsub = dataStore.subscribe(sync)
@@ -111,32 +114,7 @@ export default function LojaClient() {
   return (
     <main className="min-h-screen bg-background pt-20">
 
-      {/* Clean page header */}
-      <div className="bg-slate-950 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
-            <p className="text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">Loja Online ARKNET</p>
-            <div className="flex items-center gap-4 mb-2">
-              <Image src={jmatosIcon} alt="ARKNET Angola — Equipamentos de TI e Redes" width={120} height={120} className="h-10 w-auto object-contain" />
-            </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white mt-2">
-              Equipamentos de TI, Redes e Telecomunicações em Angola
-            </h1>
-            <p className="mt-3 text-slate-400 text-sm max-w-xl leading-relaxed">
-              Equipamentos e soluções tecnológicas ARKNET — telecomunicações, redes estruturadas, segurança e conectividade para a sua empresa com entrega em Luanda e em todo o país.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-4 shrink-0">
-            <Link
-              href="/#contacto"
-              className="inline-flex items-center gap-2 bg-secondary px-6 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition shadow-sm"
-            >
-              Pedir Cotação de Equipamentos
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </div>
+      <HeroCarousel slides={heroSlides} />
 
       {/* Category tabs */}
       <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
