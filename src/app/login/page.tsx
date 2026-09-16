@@ -75,14 +75,13 @@ function UnifiedLoginForm() {
   const [recoveryCode, setRecoveryCode] = useState('')
   const [recoveryNewPassword, setRecoveryNewPassword] = useState('')
   const [recoveryStep, setRecoveryStep] = useState<1 | 2>(1)
-  const [simulatedCodeSent, setSimulatedCodeSent] = useState<string | null>(null)
 
   // Feedback Messages
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  // Cálculo da Força da Senha para Registo
+  // Cálculo da força da palavra-passe para o registo
   const getPasswordStrength = (pwd: string) => {
     let score = 0
     if (pwd.length >= 6) score += 25
@@ -124,7 +123,7 @@ function UnifiedLoginForm() {
         customerLogout()
         const adminRes = await adminLogin(cleanEmail, loginPassword)
         if (adminRes.success) {
-          setSuccessMessage('Autenticação de gestão confirmada. A aceder ao Painel Admin...')
+          setSuccessMessage('Autenticação de gestão confirmada. A aceder ao painel de administração...')
           setTimeout(() => {
             router.push('/admin')
           }, 400)
@@ -204,8 +203,8 @@ function UnifiedLoginForm() {
     }
   }
 
-  // --- RECUPERAÇÃO DE SENHA ---
-  const handleSendRecoveryCode = (e: React.FormEvent) => {
+  // --- RECUPERAÇÃO DA PALAVRA-PASSE ---
+  const handleSendRecoveryCode = async (e: React.FormEvent) => {
     e.preventDefault()
     setErrorMessage('')
     setSuccessMessage('')
@@ -215,18 +214,16 @@ function UnifiedLoginForm() {
       return
     }
 
-    const res = sendRecoveryCode(recoveryEmail.trim())
-    if (res.success && res.code) {
-      setSimulatedCodeSent(res.code)
-      setRecoveryCode(res.code) // Preencher automaticamente para facilidade de teste
-      setSuccessMessage(`Código de verificação enviado! Código de teste: ${res.code}`)
+    const res = await sendRecoveryCode(recoveryEmail.trim())
+    if (res.success) {
+      setSuccessMessage(res.message)
       setRecoveryStep(2)
     } else {
       setErrorMessage(res.message || 'Não foi possível enviar o código de verificação.')
     }
   }
 
-  const handleResetPasswordSubmit = (e: React.FormEvent) => {
+  const handleResetPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setErrorMessage('')
     setSuccessMessage('')
@@ -241,7 +238,7 @@ function UnifiedLoginForm() {
       return
     }
 
-    const res = resetPasswordWithCode(recoveryEmail.trim(), recoveryCode.trim(), recoveryNewPassword)
+    const res = await resetPasswordWithCode(recoveryEmail.trim(), recoveryCode.trim(), recoveryNewPassword)
     if (res.success) {
       setSuccessMessage('Palavra-passe alterada com sucesso! As suas novas credenciais foram preenchidas. Clique em "Iniciar Sessão".')
       setRecoveryStep(1)
@@ -329,7 +326,7 @@ function UnifiedLoginForm() {
               : 'border-transparent text-slate-500 hover:text-slate-900'
               }`}
           >
-            Recuperar Senha
+            Recuperar palavra-passe
           </button>
         </div>
 
@@ -375,7 +372,7 @@ function UnifiedLoginForm() {
                   href="/admin"
                   className="px-3 py-1.5 bg-primary text-white font-bold text-[11px] uppercase rounded hover:bg-primary/90 transition"
                 >
-                  Painel Admin
+                  Painel de Administração
                 </Link>
                 <button
                   type="button"
@@ -448,7 +445,7 @@ function UnifiedLoginForm() {
                     }}
                     className="text-[11px] text-primary hover:underline font-semibold"
                   >
-                    Esqueceu a senha?
+                    Esqueceu a palavra-passe?
                   </button>
                 </div>
                 <div className="relative">
@@ -492,34 +489,6 @@ function UnifiedLoginForm() {
                 <ArrowRight className="h-4 w-4" />
               </button>
 
-              {/* Botões de Preenchimento Rápido */}
-              <div className="pt-4 mt-4 border-t border-slate-200">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-2 text-center">
-                  Preenchimento Rápido (Demonstração):
-                </span>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setLoginEmail('admin@arknet.co.ao')
-                      setLoginPassword('Admin123!')
-                    }}
-                    className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold rounded text-center transition"
-                  >
-                    👑 Administrador
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setLoginEmail('manuel.domingos@petroangola.ao')
-                      setLoginPassword('Password123!')
-                    }}
-                    className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold rounded text-center transition"
-                  >
-                    👤 Cliente Teste
-                  </button>
-                </div>
-              </div>
             </form>
           )}
 
@@ -637,17 +606,17 @@ function UnifiedLoginForm() {
                     required
                     value={regData.confirmPassword}
                     onChange={(e) => setRegData({ ...regData, confirmPassword: e.target.value })}
-                    placeholder="Repita a senha"
+                    placeholder="Repita a palavra-passe"
                     className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
               </div>
 
-              {/* Medidor de Força da Senha */}
+              {/* Medidor da força da palavra-passe */}
               {regData.password && (
                 <div className="p-3 bg-slate-50 border border-slate-200 rounded">
                   <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-[10px] font-bold uppercase text-slate-500">Força da Senha:</span>
+                    <span className="text-[10px] font-bold uppercase text-slate-500">Força da palavra-passe:</span>
                     <span className={`text-[10px] font-bold ${getStrengthLabel(pwdStrength).text}`}>
                       {getStrengthLabel(pwdStrength).label}
                     </span>

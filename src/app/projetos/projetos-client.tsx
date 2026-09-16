@@ -302,7 +302,7 @@ export default function ProjetosPublicationClient() {
                   Blog de <span className="text-primary">Notícias</span> &amp; Atividades
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  Acompanhe a participação da ARKNET em programas de rádio, workshops técnicos da nossa academia, palestras do setor, parcerias universitárias e operações diárias de engenharia no terreno.
+                  Acompanhe a participação da ARKNET em programas de rádio, oficinas técnicas da nossa academia, palestras do sector, parcerias universitárias e operações diárias de engenharia no terreno.
                 </p>
               </div>
 

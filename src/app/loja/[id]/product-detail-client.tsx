@@ -102,7 +102,7 @@ function getCategorySpecs(product: StoreProduct) {
   if (cat.includes('energia') || name.includes('ups') || name.includes('filtro') || name.includes('extensão') || name.includes('pilha')) {
     return [
       ...commonSpecs,
-      { label: 'Tensão de Entrada/Saída', value: '220V - 240V AC 50/60 Hz' },
+      { label: 'Tensão de Entrada/Saída', value: '220 V a 240 V AC, 50/60 Hz' },
       { label: 'Proteção Elétrica', value: 'Filtro contra Picos, Sobretensões, Curto-circuitos e Ruído de Linha' },
       { label: 'Tomadas de Ligação', value: 'Tomadas Schuko padrão europeu / angolano com proteção infantil' },
       { label: 'Material da Carcaça', value: 'Polímero ABS Ignífugo resistente a altas temperaturas' },
@@ -597,7 +597,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 {isInCart && cartItem && (
                   <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between text-xs text-emerald-950">
                     <span className="font-medium">
-                      ✓ Já tem <strong>{cartItem.quantity} unidade(s)</strong> deste produto no carrinho.
+                      ✓ Já tem <strong>{cartItem.quantity} {cartItem.quantity === 1 ? 'unidade' : 'unidades'}</strong> deste produto no carrinho.
                     </span>
                     <button
                       type="button"

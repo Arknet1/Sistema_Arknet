@@ -52,7 +52,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <>
       <div className="group bg-white border border-slate-200 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col h-full min-w-0 relative">
 
-        {/* Image — aspect ratio scales with column width */}
+        {/* Imagem com proporção adaptada à largura da coluna */}
         <div className="relative overflow-hidden bg-slate-100 w-full shrink-0 aspect-5/4 min-h-30 sm:min-h-40 sm:aspect-4/3">
           <Link
             href={`/loja/${product.id}`}

@@ -5,6 +5,14 @@ import { Quote, Star } from "lucide-react"
 import PartnerCarousel from "@/components/partner-carousel"
 import { dataStore, TestimonialItem } from "@/lib/data-store"
 
+const individualTestimonials: Record<string, { name: string; role: string }> = {
+  'Banco Angolano de Investimento': { name: 'Marta Domingos', role: 'Directora de Tecnologia' },
+  'AngoTelecom Serviços': { name: 'Carlos Manuel', role: 'Responsável de Operações' },
+  'TechSolutions Luanda': { name: 'Ana Joaquim', role: 'Gestora de Sistemas' },
+  'Construtora África Nova': { name: 'João António', role: 'Coordenador de Segurança' },
+  'Hospital Central Luanda': { name: 'Teresa Francisco', role: 'Administradora Hospitalar' },
+}
+
 export default function Testimonials() {
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>([])
 
@@ -13,7 +21,25 @@ export default function Testimonials() {
       const db = dataStore.getSnapshot()
       const activeList = db.testimonials
         .filter((t) => t.active !== false)
-        .sort((a, b) => a.order - b.order)
+        .map((item) => {
+          const legacyItem = item as TestimonialItem & {
+            name?: string
+            text?: string
+            avatar?: string
+          }
+          const storedName = item.clientName || legacyItem.name || 'Cliente ARKNET'
+          const individual = individualTestimonials[storedName]
+
+          return {
+            ...item,
+            clientName: individual?.name || storedName,
+            company: item.company || '',
+            role: individual?.role || item.role,
+            testimonial: item.testimonial || legacyItem.text || 'Uma experiência profissional, próxima e consistente.',
+            logo: item.logo || legacyItem.avatar || '',
+          }
+        })
+        .sort(() => Math.random() - 0.5)
       setTestimonials(activeList)
     }
     sync()
@@ -37,7 +63,7 @@ export default function Testimonials() {
             </h2>
           </div>
           <p className="text-base text-slate-500 leading-relaxed max-w-sm md:text-right">
-            Feedback de empresas que contam com a ARKNET para suporte e infraestrutura tecnológica em Angola.
+            Experiências partilhadas por profissionais que contam com a ARKNET para suporte e infraestrutura tecnológica em Angola.
           </p>
         </div>
 
@@ -69,7 +95,7 @@ export default function Testimonials() {
 
                   <div className="mt-6 pt-5 border-t border-slate-100">
                     <p className="text-sm font-bold text-slate-900">{item.clientName}</p>
-                    <p className="mt-0.5 text-xs text-slate-500">{item.company} {item.role ? `— ${item.role}` : ''}</p>
+                    {item.role && <p className="mt-0.5 text-xs text-slate-500">{item.role}</p>}
                   </div>
                 </article>
               ))}

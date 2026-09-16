@@ -19,7 +19,7 @@ export default function Services() {
     <section id="servicos" className="py-28 bg-white">
       <div className="mx-auto max-w-7xl px-6">
 
-        {/* Editorial header — description splits right */}
+        {/* Cabeçalho editorial com descrição à direita */}
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1] max-w-lg">

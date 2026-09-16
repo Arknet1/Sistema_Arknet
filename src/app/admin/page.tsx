@@ -95,7 +95,7 @@ export default function AdminOverviewPage() {
               Olá, {user?.name || 'Administrador'}!
             </h1>
             <p className="text-slate-200 text-xs sm:text-sm max-w-2xl mt-2 leading-relaxed">
-              Bem-vindo ao centro de gestão da ARKNET. Aqui pode monitorizar novos pedidos, leads de serviços comerciais, produtos da loja e conteúdos do website em tempo real.
+              Bem-vindo ao centro de gestão da ARKNET. Aqui pode acompanhar novos pedidos, pedidos de serviço, produtos da loja e conteúdos do sítio em tempo real.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export default function AdminOverviewPage() {
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary text-white text-xs font-bold uppercase tracking-wider hover:bg-secondary/90 transition shadow-sm"
             >
               <Inbox className="h-4 w-4" />
-              Ver Leads ({newLeads})
+              Ver pedidos de serviço ({newLeads})
             </Link>
           </div>
         </div>

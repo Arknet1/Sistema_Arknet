@@ -249,7 +249,7 @@ export default function ClienteRegistoPage() {
                   required
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  placeholder="Repita a senha"
+                  placeholder="Repita a palavra-passe"
                   className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono"
                 />
               </div>

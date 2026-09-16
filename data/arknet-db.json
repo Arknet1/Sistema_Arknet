@@ -104,20 +104,52 @@
   ],
   "products": [
     {
+      "id": "prod-1789558601406-iv3d",
+      "name": "Impressora Konica Minolta Bizhub 36A",
+      "description": "Impressora Konica Minolta Bizhub 36A",
+      "categoryId": "cat-14",
+      "category": "Impressoras e Consumíveis",
+      "price": null,
+      "image": "/uploads/photoroom_20260831_145717-1789558928616.jpg",
+      "images": null,
+      "inStock": false,
+      "quantity": 0,
+      "featured": false,
+      "sku": "ARK-7553",
+      "createdAt": "2026-09-16T11:36:41.406Z",
+      "updatedAt": "2026-09-16T15:07:03.665Z"
+    },
+    {
+      "id": "prod-1789558149566-cwd7",
+      "name": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "description": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "categoryId": "cat-14",
+      "category": "Impressoras e Consumíveis",
+      "price": 68000,
+      "image": "/uploads/photoroom_20260902_083058-1789558146522.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 7,
+      "featured": false,
+      "sku": "ARK-6038",
+      "createdAt": "2026-09-16T11:29:09.566Z",
+      "updatedAt": "2026-09-16T15:07:03.674Z"
+    },
+    {
       "id": "prod-1788945524001-0f01",
       "name": "Hostpot Router Wifi 4G LTE",
       "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
       "categoryId": "cat-6",
       "category": "Redes e Internet",
-      "price": null,
+      "price": 37000,
       "image": "/uploads/photoroom_20260902_083909-1788945167310.jpg",
       "images": null,
       "inStock": true,
-      "quantity": 10,
+      "quantity": 17,
       "featured": false,
       "sku": "ARK-4510",
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-09-09T09:18:44.022Z"
+      "updatedAt": "2026-09-16T15:07:03.677Z"
     },
     {
       "id": "Adaptadorwifi",
@@ -133,7 +165,7 @@
       "featured": true,
       "sku": "ARK-0002",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:25:04.009Z"
+      "updatedAt": "2026-09-16T15:07:03.679Z"
     },
     {
       "id": "repetidordesinal",
@@ -144,12 +176,12 @@
       "price": 20000,
       "image": "/uploads/photoroom_20260831_145838-1788943827212.jpg",
       "images": null,
-      "inStock": false,
-      "quantity": 0,
+      "inStock": true,
+      "quantity": 5,
       "featured": true,
       "sku": "ARK-0003",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:50:27.868Z"
+      "updatedAt": "2026-09-16T15:07:03.683Z"
     },
     {
       "id": "extensao-ups-ewent",
@@ -165,7 +197,7 @@
       "featured": true,
       "sku": "ARK-0005",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:29:39.077Z"
+      "updatedAt": "2026-09-16T15:07:03.689Z"
     },
     {
       "id": "hdtv-splitter-ver1x4",
@@ -181,7 +213,7 @@
       "featured": true,
       "sku": "ARK-0006",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:31:34.693Z"
+      "updatedAt": "2026-09-16T15:07:03.692Z"
     },
     {
       "id": "colunas-manhattan",
@@ -197,7 +229,7 @@
       "featured": true,
       "sku": "ARK-0007",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:27:45.898Z"
+      "updatedAt": "2026-09-16T15:07:03.694Z"
     },
     {
       "id": "alicate",
@@ -209,11 +241,11 @@
       "image": "/uploads/photoroom_20260831_150608-1788942317559.jpg",
       "images": null,
       "inStock": true,
-      "quantity": 36,
+      "quantity": 3,
       "featured": false,
       "sku": "ARK-0008",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:25:25.452Z"
+      "updatedAt": "2026-09-16T15:07:03.700Z"
     },
     {
       "id": "gavetaposbematech",
@@ -229,7 +261,7 @@
       "featured": false,
       "sku": "ARK-0009",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:31:06.578Z"
+      "updatedAt": "2026-09-16T15:07:03.703Z"
     },
     {
       "id": "testadordecabo",
@@ -245,7 +277,7 @@
       "featured": false,
       "sku": "ARK-0010",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:58:41.531Z"
+      "updatedAt": "2026-09-16T15:07:03.704Z"
     },
     {
       "id": "monitorgamer",
@@ -253,7 +285,7 @@
       "description": "Monitor Wintech de 27 polegadas com excelente qualidade de imagem para trabalho, jogos e entretenimento.",
       "categoryId": "cat-13",
       "category": "Monitores",
-      "price": null,
+      "price": 205000,
       "image": "/uploads/photoroom_20260902_082947-1788943338534.jpg",
       "images": null,
       "inStock": true,
@@ -261,7 +293,7 @@
       "featured": false,
       "sku": "ARK-0012",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:42:55.400Z"
+      "updatedAt": "2026-09-16T15:07:03.706Z"
     },
     {
       "id": "mouse",
@@ -277,7 +309,7 @@
       "featured": false,
       "sku": "ARK-0013",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:48:26.329Z"
+      "updatedAt": "2026-09-16T15:07:03.712Z"
     },
     {
       "id": "adaptadorhdmivga",
@@ -288,20 +320,20 @@
       "price": null,
       "image": "/uploads/photoroom_20260831_151406-1788942288148.jpg",
       "images": null,
-      "inStock": true,
-      "quantity": 28,
+      "inStock": false,
+      "quantity": 0,
       "featured": false,
       "sku": "ARK-0014",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:24:50.941Z"
+      "updatedAt": "2026-09-16T15:07:03.715Z"
     },
     {
       "id": "abracadeirasnylon",
       "name": "Conector de Rede Intellinet RJ45 Cat6 100 unidades",
       "description": "Conector RJ45 Cat6 UTP com contatos banhados a ouro, ideal para montagem de cabos Ethernet de alta performance.",
-      "categoryId": "cat-16",
-      "category": "Organização e Instalação",
-      "price": null,
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 18000,
       "image": "/uploads/photoroom_20260902_084033-1788942493918.jpg",
       "images": null,
       "inStock": false,
@@ -309,7 +341,7 @@
       "featured": false,
       "sku": "ARK-0015",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:28:15.722Z"
+      "updatedAt": "2026-09-16T15:07:03.719Z"
     },
     {
       "id": "microsd32gb",
@@ -317,15 +349,15 @@
       "description": "Cartão de memória de 32GB para smartphones, câmaras e outros dispositivos.",
       "categoryId": "cat-5",
       "category": "Armazenamento",
-      "price": null,
+      "price": 6000,
       "image": "/uploads/photoroom_20260831_151301-1788942419334.jpg",
       "images": null,
-      "inStock": false,
-      "quantity": 0,
+      "inStock": true,
+      "quantity": 8,
       "featured": false,
       "sku": "ARK-0017",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:27:01.176Z"
+      "updatedAt": "2026-09-16T15:07:03.723Z"
     },
     {
       "id": "pendrive32gb",
@@ -333,15 +365,15 @@
       "description": "Pen drive Maxell para armazenamento e transporte de ficheiros.",
       "categoryId": "cat-5",
       "category": "Armazenamento",
-      "price": null,
+      "price": 6000,
       "image": "/uploads/photoroom_20260831_151131-1788943640360.jpg",
       "images": null,
-      "inStock": true,
-      "quantity": 31,
+      "inStock": false,
+      "quantity": 0,
       "featured": false,
       "sku": "ARK-0018",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:47:23.837Z"
+      "updatedAt": "2026-09-16T15:07:03.727Z"
     },
     {
       "id": "relogioponto",
@@ -357,7 +389,7 @@
       "featured": false,
       "sku": "ARK-0019",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:50:01.521Z"
+      "updatedAt": "2026-09-16T15:07:03.730Z"
     },
     {
       "id": "roteador",
@@ -373,7 +405,7 @@
       "featured": false,
       "sku": "ARK-0020",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:50:46.749Z"
+      "updatedAt": "2026-09-16T15:07:03.733Z"
     },
     {
       "id": "headphones",
@@ -381,15 +413,15 @@
       "description": "Auriculares com fio para computadores, smartphones e outros dispositivos multimédia.",
       "categoryId": "cat-12",
       "category": "Áudio",
-      "price": null,
+      "price": 15000,
       "image": "/uploads/photoroom_20260902_083018-1788942362270.jpg",
       "images": null,
       "inStock": true,
-      "quantity": 34,
+      "quantity": 15,
       "featured": false,
       "sku": "ARK-0022",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:26:06.264Z"
+      "updatedAt": "2026-09-16T15:07:03.740Z"
     },
     {
       "id": "ram-so-dimm",
@@ -400,12 +432,12 @@
       "price": null,
       "image": "/uploads/photoroom_20260901_112203-1788943002909.jpg",
       "images": null,
-      "inStock": true,
-      "quantity": 16,
+      "inStock": false,
+      "quantity": 0,
       "featured": false,
       "sku": "ARK-0023",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:37:01.863Z"
+      "updatedAt": "2026-09-16T15:07:03.743Z"
     },
     {
       "id": "tp-link-poe-switch",
@@ -421,7 +453,7 @@
       "featured": false,
       "sku": "ARK-0027",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:51:35.703Z"
+      "updatedAt": "2026-09-16T15:07:03.746Z"
     },
     {
       "id": "tp-link-oc200",
@@ -437,7 +469,7 @@
       "featured": false,
       "sku": "ARK-0028",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T09:08:26.195Z"
+      "updatedAt": "2026-09-16T15:07:03.748Z"
     },
     {
       "id": "conector-rj45",
@@ -453,7 +485,7 @@
       "featured": false,
       "sku": "ARK-0031",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:29:18.866Z"
+      "updatedAt": "2026-09-16T15:07:03.756Z"
     },
     {
       "id": "impressora-termica",
@@ -461,15 +493,15 @@
       "description": "Impressora térmica X-Printer ideal para emissão de recibos, talões e documentos em sistemas POS e comércio.",
       "categoryId": null,
       "category": "Impressoras e Automação Comercial",
-      "price": null,
+      "price": 80000,
       "image": "/uploads/photoroom_20260902_084109-1788942785630.jpg",
       "images": null,
-      "inStock": false,
-      "quantity": 0,
+      "inStock": true,
+      "quantity": 3,
       "featured": false,
       "sku": "ARK-0033",
       "createdAt": "2026-01-15T00:00:00.000Z",
-      "updatedAt": "2026-09-09T08:33:37.738Z"
+      "updatedAt": "2026-09-16T15:07:03.763Z"
     }
   ],
   "categories": [
@@ -1798,6 +1830,26 @@
     },
     "institutionalText": "A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.",
     "presentationLetter": "O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.",
+    "executiveTeam": [
+      {
+        "id": "executive-general",
+        "title": "Direcção Geral",
+        "description": "Define a orientação estratégica da ARKNET e assegura o alinhamento entre visão, investimento e resultados.",
+        "image": "/uploads/3-1789573029851.jpeg"
+      },
+      {
+        "id": "executive-technical",
+        "title": "Direcção Jurídica",
+        "description": "Constrói relações duradouras e transforma necessidades concretas em propostas claras e sustentáveis.",
+        "image": "/uploads/img_2312.jpg-1789573047689.jpeg"
+      },
+      {
+        "id": "executive-commercial",
+        "title": "Gestor Logístico",
+        "description": "Garante a qualidade da gestão logística e património da empresa e dá apoio a direção e as equipes",
+        "image": "/uploads/whatsapp_image_2026-09-16_at_16.46.42-1789573736167.jpeg"
+      }
+    ],
     "carouselSlides": [
       {
         "id": "shop-hero-router",
@@ -1840,72 +1892,24 @@
         "title": "ARKNET Conexão sem Limites"
       }
     ],
-    "updatedAt": "2026-09-15T16:14:46.219Z"
+    "updatedAt": "2026-09-16T15:48:57.580Z"
   },
   "activities": [
     {
-      "id": "act-1789488886219-93aa",
+      "id": "act-1789573737581-f2xk",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou as definições de contacto e institucionais da ARKNET",
       "module": "definicoes",
-      "timestamp": "2026-09-15T16:14:46.219Z"
+      "timestamp": "2026-09-16T15:48:57.581Z"
     },
     {
-      "id": "act-1789488751315-804j",
+      "id": "act-1789573420483-qmf4",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou as definições de contacto e institucionais da ARKNET",
       "module": "definicoes",
-      "timestamp": "2026-09-15T16:12:31.315Z"
-    },
-    {
-      "id": "act-1789488649563-c5ox",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T16:10:49.563Z"
-    },
-    {
-      "id": "act-1789488094849-h36s",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T16:01:34.849Z"
-    },
-    {
-      "id": "act-1789487705392-81tz",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T15:55:05.392Z"
-    },
-    {
-      "id": "act-1789487594720-gyds",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T15:53:14.720Z"
-    },
-    {
-      "id": "act-1789487505850-7tu7",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T15:51:45.850Z"
-    },
-    {
-      "id": "act-1789487345386-7sfq",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-15T15:49:05.386Z"
+      "timestamp": "2026-09-16T15:43:40.483Z"
     },
     {
       "id": "act-1788945524034-gozt",
@@ -2325,6 +2329,26 @@
       "target": "",
       "targetId": null,
       "timestamp": "2026-09-08T13:29:27.787Z",
+      "details": null
+    },
+    {
+      "id": "act-2",
+      "userId": "user-editor",
+      "userName": "Editor de Conteúdo",
+      "action": "Atualizou estado do lead \"Dra. Teresa Van-Dúnem\" para \"Contactado\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-08T03:29:27.787Z",
+      "details": null
+    },
+    {
+      "id": "act-3",
+      "userId": "user-admin",
+      "userName": "Administrador ARKNET",
+      "action": "Publicou vaga \"Engenheiro de Redes & Telecomunicações Sénior\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-07T15:29:27.787Z",
       "details": null
     }
   ],

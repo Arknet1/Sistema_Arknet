@@ -3,7 +3,7 @@ import ProjetosListingClient from './projetos-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Projetos & Casos de Sucesso em Angola | ARKNET',
+  title: 'Projetos e Casos de Sucesso em Angola | ARKNET',
   description:
     'Conheça os projetos de infraestrutura de rede, cibersegurança, cloud, CFTV e internet dedicada implementados pela ARKNET para empresas e instituições de referência em Angola.',
   alternates: {

@@ -817,7 +817,7 @@ function ClientePerfilContent() {
               <div>
                 <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                   <Calendar className="h-5 w-5 text-primary" />
-                  Minhas Inscrições em Eventos &amp; Workshops
+                  As minhas inscrições em eventos e oficinas
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Acompanhe o estado de aprovação das suas vagas e emita as suas credenciais de acesso.
@@ -839,7 +839,7 @@ function ClientePerfilContent() {
                 </div>
                 <h4 className="text-base font-bold text-slate-800">Ainda não tem inscrições em eventos</h4>
                 <p className="text-xs text-slate-500 max-w-md mx-auto mt-1 leading-relaxed">
-                  Inscreva-se nos nossos summits, workshops de cibersegurança e conferências de telecomunicações para garantir a sua credencial nominal.
+                  Inscreva-se nos nossos encontros, oficinas de cibersegurança e conferências de telecomunicações para garantir a sua credencial nominal.
                 </p>
                 <Link
                   href="/eventos"
@@ -1067,7 +1067,7 @@ function ClientePerfilContent() {
                       required
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Repita a nova senha"
+                      placeholder="Repita a nova palavra-passe"
                       className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none font-mono"
                     />
                   </div>
@@ -1077,7 +1077,7 @@ function ClientePerfilContent() {
                 {newPassword && (
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded">
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-[10px] font-bold uppercase text-slate-500">Força da Nova Senha:</span>
+                      <span className="text-[10px] font-bold uppercase text-slate-500">Força da nova palavra-passe:</span>
                       <span className="text-[10px] font-bold text-primary">
                         {pwdScore <= 50 ? 'Média' : pwdScore <= 75 ? 'Boa' : 'Excelente'}
                       </span>
@@ -1145,7 +1145,7 @@ function ClientePerfilContent() {
                       </div>
                       <div>
                         <p className="font-bold text-slate-900">
-                          {sess.browser} — {sess.os}
+                          {sess.browser}, {sess.os}
                         </p>
                         <p className="text-[11px] text-slate-500 font-mono">
                           IP: {sess.ip} • {sess.lastActive}
@@ -1175,7 +1175,7 @@ function ClientePerfilContent() {
                 <div className="flex items-center gap-2">
                   <Receipt className="h-5 w-5 text-emerald-400" />
                   <span className="font-bold text-xs uppercase tracking-wider">
-                    Fatura Oficial ARKNET — #{viewInvoiceOrder.orderNumber}
+                    Fatura Oficial ARKNET, n.º {viewInvoiceOrder.orderNumber}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1211,9 +1211,9 @@ function ClientePerfilContent() {
                       className="h-12 w-auto object-contain mb-3"
                     />
                     <p className="text-xs font-black uppercase text-slate-900">
-                      ARKNET — Soluções Tecnológicas & Telecomunicações Lda.
+                          ARKNET, Soluções Tecnológicas e Telecomunicações, Lda.
                     </p>
-                    <p className="text-slate-500">NIF: 5412398760 • Kilamba, Luanda - Angola</p>
+                    <p className="text-slate-500">NIF: 5412398760 • Kilamba, Luanda, Angola</p>
                     <p className="text-slate-500">Email: comercial@arknet.co.ao • Tel: +244 935 208 449</p>
                   </div>
 
@@ -1376,7 +1376,7 @@ function ClientePerfilContent() {
                 <div className="flex items-center gap-2">
                   <Ticket className="h-5 w-5 text-emerald-400" />
                   <span className="font-bold text-xs uppercase tracking-wider">
-                    Credencial Oficial de Acesso — #{selectedTicket.registration.id.slice(-6).toUpperCase()}
+                    Credencial Oficial de Acesso, n.º {selectedTicket.registration.id.slice(-6).toUpperCase()}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">

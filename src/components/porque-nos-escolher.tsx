@@ -65,7 +65,7 @@ export default function PorqueNosEscolher() {
           </motion.p>
         </motion.div>
 
-        {/* Cards — staggered entrance */}
+        {/* Cartões com entrada faseada */}
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -81,7 +81,7 @@ export default function PorqueNosEscolher() {
                 variants={cardVariants}
                 className="group bg-slate-950 p-8 hover:bg-slate-900 transition-colors duration-300 relative overflow-hidden"
               >
-                {/* Ghost number — grows on hover */}
+                {/* Número de fundo, ampliado ao passar o cursor */}
                 <motion.span
                   className="absolute top-4 right-4 text-7xl font-black text-white/[0.04] leading-none select-none group-hover:text-white/[0.07] transition-colors duration-500"
                 >

@@ -97,7 +97,7 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-slate-400 text-sm">
-              Receba novidades, promoções e dicas tecnológicas directamente no seu email.
+              Receba novidades, promoções e dicas tecnológicas directamente no seu correio eletrónico.
             </p>
           </div>
 
@@ -156,10 +156,10 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0, ease: "easeOut" }}
           >
-            <Link href="/" className="inline-flex items-center" aria-label="ARKNET — Página Inicial">
+                <Link href="/" className="inline-flex items-center" aria-label="ARKNET, Página Inicial">
               <Image
                 src={icon}
-                alt="ARKNET — Soluções de Telecomunicações e TI em Angola"
+                  alt="ARKNET, Soluções de Telecomunicações e TI em Angola"
                 width={200}
                 height={200}
                 className="h-16 w-auto"
@@ -232,7 +232,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/loja" className="hover:text-white transition">
-                  Loja Online
+                  Loja em linha
                 </Link>
               </li>
               <li>
@@ -343,7 +343,7 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-6 text-center">
           <p className="text-xs text-slate-600 font-medium">
-            © {new Date().getFullYear()} ARKNET — Soluções de Telecomunicações e TI em Angola. Todos os direitos reservados.
+            © {new Date().getFullYear()} ARKNET, Soluções de Telecomunicações e TI em Angola. Todos os direitos reservados.
           </p>
         </div>
       </div>

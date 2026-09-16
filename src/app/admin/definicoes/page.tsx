@@ -32,6 +32,7 @@ import {
 import { dataStore, CompanySettings, ArknetDatabase } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
 import { ConfirmModal } from '@/components/admin/confirm-modal'
+import { ImageUpload } from '@/components/admin/image-upload'
 
 export default function AdminDefinicoesPage() {
   const { success, error, info } = useToast()
@@ -628,6 +629,58 @@ export default function AdminDefinicoesPage() {
                 className="w-full p-3.5 text-sm border border-slate-300 focus:border-primary focus:outline-none leading-relaxed"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Corpo Executivo */}
+        <div className="bg-white border border-slate-200 p-6 shadow-xs space-y-6">
+          <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
+            <Users className="h-5 w-5 text-primary" />
+            <div>
+              <h3 className="text-base font-bold text-slate-900">Corpo Executivo</h3>
+              <p className="text-xs text-slate-500 mt-1">Edite os três cartões apresentados na página Empresa.</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-5">
+            {(formData.executiveTeam || []).map((member, index) => (
+              <div key={member.id} className="border border-slate-200 bg-slate-50 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Cartão 0{index + 1}</span>
+                  <span className="text-[10px] font-mono text-slate-400">{member.id}</span>
+                </div>
+                <input
+                  type="text"
+                  value={member.title}
+                  onChange={(e) => setFormData((prev) => ({
+                    ...prev,
+                    executiveTeam: prev.executiveTeam.map((item, itemIndex) => itemIndex === index ? { ...item, title: e.target.value } : item),
+                  }))}
+                  placeholder="Título da direcção"
+                  className="w-full px-3 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white"
+                />
+                <textarea
+                  rows={4}
+                  value={member.description}
+                  onChange={(e) => setFormData((prev) => ({
+                    ...prev,
+                    executiveTeam: prev.executiveTeam.map((item, itemIndex) => itemIndex === index ? { ...item, description: e.target.value } : item),
+                  }))}
+                  placeholder="Descrição da responsabilidade"
+                  className="w-full px-3 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white leading-relaxed"
+                />
+                <ImageUpload
+                  value={member.image}
+                  onChange={(url) => setFormData((prev) => ({
+                    ...prev,
+                    executiveTeam: prev.executiveTeam.map((item, itemIndex) => itemIndex === index ? { ...item, image: url } : item),
+                  }))}
+                  label="Imagem do cartão"
+                  helperText="Seleccione uma imagem da galeria ou introduza um endereço."
+                  aspectRatio="video"
+                />
+              </div>
+            ))}
           </div>
         </div>
 

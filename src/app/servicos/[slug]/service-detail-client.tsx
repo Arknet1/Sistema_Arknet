@@ -397,7 +397,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
             <div>
               <p className="text-xs font-bold text-secondary uppercase tracking-[0.2em]">
-                — Continue a Navegar
+                Continue a Navegar
               </p>
               <h2 className="text-2xl font-extrabold text-slate-900 mt-1">
                 Serviços Relacionados

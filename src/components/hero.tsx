@@ -46,7 +46,7 @@ export default function Hero() {
       >
         <Image
           src={hero}
-          alt="ARKNET — Infraestrutura de Telecomunicações e Conectividade Empresarial em Angola"
+              alt="ARKNET, Infraestrutura de Telecomunicações e Conectividade Empresarial em Angola"
           fill
           priority
           quality={72}
@@ -99,7 +99,7 @@ export default function Hero() {
               >
                 <span className="text-white">ARK</span>
                 <span className="text-secondary animate-text-glow">NET</span>
-                <span className="sr-only"> — Telecomunicações, Internet Empresarial e Soluções de TI em Angola</span>
+                <span className="sr-only">, Telecomunicações, Internet Empresarial e Soluções de TI em Angola</span>
               </motion.h1>
             </div>
 

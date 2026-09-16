@@ -782,7 +782,7 @@ export default function AdminProjetosPage() {
                   Painel Editorial: Blog de Notícias &amp; Atividades da Empresa
                 </h3>
                 <p className="text-xs text-slate-600 mt-0.5">
-                  Publique reportagens, idas à rádio, workshops da academia, palestras e operações de campo. Estas notícias alimentam diretamente o blog de atividades no site público.
+                  Publique reportagens, idas à rádio, oficinas da academia, palestras e operações de campo. Estas notícias alimentam directamente o espaço de actividades do sítio público.
                 </p>
               </div>
             </div>
@@ -985,7 +985,7 @@ export default function AdminProjetosPage() {
                       required
                       value={projectFormData.title}
                       onChange={(e) => handleProjectTitleChange(e.target.value)}
-                      placeholder="Ex: Modernização de Rede — Tribunal Supremo"
+                      placeholder="Ex.: Modernização de Rede: Tribunal Supremo"
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>

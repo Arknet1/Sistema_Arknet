@@ -83,7 +83,7 @@ export function ServiceQuoteCalculator() {
         `Link de Internet Dedicada: ${internetBandwidth} Mbps`,
         `Tecnologia: ${internetType === 'fibra' ? 'Fibra Óptica Dedicada' : internetType === 'radio' ? 'Rádio Micro-ondas PTP' : 'Alta Disponibilidade (Fibra + Rádio Redundante)'}`,
         hasDedicatedIp ? 'Endereço IP Público Fixo Dedicado' : 'IP Dinâmico',
-        'SLA 99.9% de Disponibilidade com Suporte 24/7',
+        'Acordo de nível de serviço com 99,9% de disponibilidade e apoio permanente',
       ]
     } else if (activeModule === 'cablagem') {
       const pricePerPoint = cableType === 'cat6' ? 22000 : cableType === 'cat6a' ? 32000 : 45000
@@ -125,7 +125,7 @@ export function ServiceQuoteCalculator() {
       summaryList = [
         `Ambiente Cloud Corporativo para ${userCount} Utilizadores`,
         includeFirewall ? 'Firewall UTM Gerido com Prevenção de Intrusões & Filtro Web' : 'Firewall Básico',
-        includeCloudBackup ? 'Backup Cloud Automatizado Diário com Encriptação AES-256' : 'Sem backup cloud',
+        includeCloudBackup ? 'Cópia de segurança diária na nuvem com encriptação AES-256' : 'Sem cópia de segurança na nuvem',
         'Gestão e Monitorização de Segurança Centralizada',
       ]
     }
@@ -187,7 +187,7 @@ export function ServiceQuoteCalculator() {
         phone: clientPhone.trim(),
         service: `Simulação: ${moduleTitle}`,
         message: fullMessage,
-        source: 'Website - Simulador Interativo',
+        source: 'Sítio: Simulador Interactivo',
       })
 
       setSubmittedLeadId(lead.id)
@@ -202,7 +202,7 @@ export function ServiceQuoteCalculator() {
   // Montar link direto para o WhatsApp com os dados da simulação
   const whatsappSimulationText = useMemo(() => {
     const lines = [
-      `Olá ARKNET! Efetuei uma simulação no website para *${activeModule.toUpperCase()}*:`,
+      `Olá ARKNET! Efetuei uma simulação no sítio da empresa para *${activeModule.toUpperCase()}*:`,
       '',
       ...calculation.summaryList.map((item) => `• ${item}`),
       '',

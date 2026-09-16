@@ -69,8 +69,8 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
         .forEach((l) => {
           list.push({
             id: l.id,
-            title: `Novo Lead: ${l.name}`,
-            description: `${l.service} — ${l.email}`,
+            title: `Novo pedido de serviço: ${l.name}`,
+            description: `${l.service}, ${l.email}`,
             time: new Date(l.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             link: '/admin/leads',
             type: 'lead',
@@ -114,11 +114,11 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
       case '/admin/pedidos':
         return 'Pedidos & Cotações da Loja'
       case '/admin/leads':
-        return 'Pedidos de Serviço / Leads'
+        return 'Pedidos de Serviço'
       case '/admin/newsletter':
         return 'Subscritores da Newsletter'
       case '/admin/eventos':
-        return 'Eventos & Workshops'
+        return 'Eventos e Oficinas'
       case '/admin/testemunhos':
         return 'Testemunhos de Clientes'
       case '/admin/parceiros':
@@ -165,7 +165,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition"
         >
           <ExternalLink className="h-3.5 w-3.5 text-slate-500" />
-          Ver Site
+          Ver sítio público
         </Link>
 
         {/* Notifications Dropdown */}
@@ -252,7 +252,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
                   onClick={() => setIsNotifOpen(false)}
                   className="text-[11px] font-bold text-primary hover:underline"
                 >
-                  Ver todos os pedidos e leads &rarr;
+                  Ver todos os pedidos de contacto &rarr;
                 </Link>
               </div>
             </div>
@@ -274,7 +274,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
                 {user?.name || 'Administrador'}
               </p>
               <p className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
-                {isAdmin ? 'Admin' : 'Editor'}
+                {isAdmin ? 'Administrador' : 'Editor'}
               </p>
             </div>
           </button>
@@ -286,7 +286,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
                 <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
                 <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary/10 text-primary">
                   <Shield className="h-3 w-3" />
-                  {isAdmin ? 'Acesso Total (Admin)' : 'Gestor de Conteúdo (Editor)'}
+                  {isAdmin ? 'Acesso total (Administrador)' : 'Gestor de conteúdos (Editor)'}
                 </div>
               </div>
 

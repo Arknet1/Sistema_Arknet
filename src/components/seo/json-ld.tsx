@@ -9,7 +9,7 @@ export function OrganizationJsonLd({ url = 'https://www.arknet.co.ao' }: Organiz
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${url}/#organization`,
-    name: 'ARKNET — Soluções de Telecomunicações e TI',
+    name: 'ARKNET, Soluções de Telecomunicações e TI',
     alternateName: 'ARKNET Angola',
     url: url,
     logo: {

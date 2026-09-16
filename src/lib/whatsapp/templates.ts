@@ -86,7 +86,7 @@ export function getOrderConfirmedMessage(order: StoreOrder): string {
     `📄 *Fatura Oficial:* A fatura comercial já se encontra emitida e disponível para descarregamento na sua Área de Cliente ARKNET.\n\n` +
     `🚚 *Expedição & Contacto:* A nossa equipa de logística/estafeta entrará em contacto consigo nas próximas horas pelo número *${order.customerPhone || order.whatsappPhone}* para agendar o horário e local da entrega/levantamento (prazo: 24h a 48h úteis).\n\n` +
     `Agradecemos a sua preferência e confiança na ARKNET!\n` +
-    `_ARKNET — Conectividade & Soluções Tecnológicas_`
+    `_ARKNET, Conectividade e Soluções Tecnológicas_`
   )
 }
 

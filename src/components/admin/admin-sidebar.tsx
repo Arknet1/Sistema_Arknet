@@ -84,7 +84,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       ],
     },
     {
-      title: 'Loja & Vendas',
+      title: 'Loja e Vendas',
       items: [
         {
           label: 'Produtos',
@@ -104,14 +104,14 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           icon: ImageIcon,
         },
         {
-          label: 'Pedidos & Cotações',
+          label: 'Pedidos e Cotações',
           href: '/admin/pedidos',
           icon: ShoppingCart,
           badge: newOrders > 0 ? `${newOrders} novo` : undefined,
           badgeColor: 'bg-secondary text-white font-bold',
         },
         {
-          label: 'Reservas (Em Trânsito)',
+          label: 'Reservas (em trânsito)',
           href: '/admin/reservas',
           icon: Truck,
           badge: pendingReservations > 0 ? `${pendingReservations}` : undefined,
@@ -120,7 +120,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       ],
     },
     {
-      title: 'Comercial & Clientes',
+      title: 'Comercial e Clientes',
       items: [
         {
           label: 'Clientes',
@@ -128,7 +128,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           icon: Users,
         },
         {
-          label: 'Leads (Serviços)',
+          label: 'Pedidos de Serviço',
           href: '/admin/leads',
           icon: Inbox,
           badge: unreadLeads > 0 ? `${unreadLeads} novos` : undefined,
@@ -145,12 +145,12 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       title: 'Conteúdos Dinâmicos',
       items: [
         {
-          label: 'Projetos & Portfólio',
+          label: 'Projetos e Portfólio',
           href: '/admin/projetos',
           icon: Layers,
         },
         {
-          label: 'Eventos & Workshops',
+          label: 'Eventos e Oficinas',
           href: '/admin/eventos',
           icon: Calendar,
         },
@@ -160,14 +160,14 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           icon: MessageSquareQuote,
         },
         {
-          label: 'Parceiros & Clientes',
+          label: 'Parceiros e Clientes',
           href: '/admin/parceiros',
           icon: Handshake,
         },
       ],
     },
     {
-      title: 'Administração & Sistema',
+      title: 'Administração e Sistema',
       items: [
         {
           label: 'Definições Gerais',
@@ -194,7 +194,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           </div>
           <div>
             <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1.5">
-              ARKNET <span className="text-secondary text-xs px-1.5 py-0.5 bg-secondary/15 rounded font-mono font-bold">ADMIN</span>
+              ARKNET <span className="text-secondary text-xs px-1.5 py-0.5 bg-secondary/15 rounded font-mono font-bold">ADMINISTRAÇÃO</span>
             </span>
             <p className="text-[11px] text-slate-400 font-medium">Gestão & Controlo</p>
           </div>
@@ -216,7 +216,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
                 }`}
               />
               <span className="text-[11px] uppercase font-bold tracking-wider text-slate-400">
-                {isAdmin ? 'Admin (Acesso Total)' : 'Editor de Conteúdo'}
+                {isAdmin ? 'Administrador (acesso total)' : 'Editor de conteúdos'}
               </span>
             </div>
           </div>
@@ -235,7 +235,7 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
             }`}
             title="Alternar para Administrador"
           >
-            Admin
+              Administrador
           </button>
           <button
             type="button"

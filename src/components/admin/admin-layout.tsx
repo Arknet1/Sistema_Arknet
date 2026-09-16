@@ -42,7 +42,7 @@ export function AdminLayoutWrapper({ children, requireAdmin = false }: AdminLayo
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
           </div>
           <div className="text-center">
-            <h3 className="font-extrabold text-lg tracking-tight">ARKNET Admin</h3>
+            <h3 className="font-extrabold text-lg tracking-tight">Administração ARKNET</h3>
             <p className="text-xs text-slate-400 mt-1">A carregar o painel de gestão...</p>
           </div>
         </div>

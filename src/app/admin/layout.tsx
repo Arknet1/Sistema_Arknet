@@ -5,7 +5,7 @@ import { AdminLayoutWrapper } from '@/components/admin/admin-layout'
 
 export const metadata: Metadata = {
   title: 'Painel de Administração | ARKNET',
-  description: 'Dashboard de Gestão Central ARKNET — Produtos, Leads, Encomendas, Eventos e Clientes',
+  description: 'Painel de Gestão Central ARKNET: Produtos, Pedidos de Serviço, Encomendas, Eventos e Clientes',
 }
 
 export default function AdminRootLayout({

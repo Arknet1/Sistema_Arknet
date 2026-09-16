@@ -67,7 +67,7 @@ export default function AdminEventosPage() {
     title: '',
     description: '',
     date: new Date().toISOString().split('T')[0],
-    time: '09:00 - 17:00',
+    time: '09:00 às 17:00',
     location: 'Luanda, Angola',
     format: 'Presencial',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80',
@@ -119,7 +119,7 @@ export default function AdminEventosPage() {
       title: '',
       description: '',
       date: new Date().toISOString().split('T')[0],
-      time: '09:00 - 17:00',
+      time: '09:00 às 17:00',
       location: 'Luanda, Angola',
       format: 'Presencial',
       image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80',
@@ -178,12 +178,12 @@ export default function AdminEventosPage() {
       })
       const data = await res.json()
       if (res.ok && data.success) {
-        success(`Email de notificação (${reg.status}) enviado para ${reg.email}!`, 'Email Enviado')
+          success(`Notificação (${reg.status}) enviada para ${reg.email}.`, 'Notificação enviada')
       } else {
         error(data.error || 'Não foi possível enviar o email de notificação.')
       }
     } catch (e) {
-      error('Erro ao enviar email.')
+        error('Ocorreu um erro ao enviar a notificação.')
     } finally {
       setResendingEmailId(null)
     }
@@ -271,7 +271,7 @@ export default function AdminEventosPage() {
           status: 'confirmada',
         }),
       })
-      info(`Email de confirmação oficial enviado para ${reg.email}.`)
+        info(`Notificação de confirmação oficial enviada para ${reg.email}.`)
     } catch (e) {
       console.error('Erro ao enviar email após aprovação:', e)
     }
@@ -379,7 +379,7 @@ export default function AdminEventosPage() {
         <div>
           <div className="flex items-center gap-2">
             <Calendar className="h-6 w-6 text-primary" />
-            <h1 className="text-2xl font-extrabold text-slate-900">Eventos & Workshops</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900">Eventos e Oficinas</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
             Gestão de conferências, limites de lotação, aprovação de vagas e notificações por email.
@@ -652,7 +652,7 @@ export default function AdminEventosPage() {
                     type="text"
                     value={formData.time}
                     onChange={(e) => setFormData((prev) => ({ ...prev, time: e.target.value }))}
-                    placeholder="09:00 - 17:00"
+                    placeholder="09:00 às 17:00"
                     className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none"
                   />
                 </div>
@@ -926,7 +926,7 @@ export default function AdminEventosPage() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h1 className="text-lg font-black uppercase text-slate-900">
-                            ARKNET — Lista Oficial de Presenças / Check-in
+                            ARKNET: Lista Oficial de Presenças / Check-in
                           </h1>
                           <h2 className="text-base font-bold text-slate-800 mt-1">
                             {selectedEventForRegs.title}

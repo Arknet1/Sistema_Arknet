@@ -143,7 +143,7 @@ export function WhatsAppSimulatorModal({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-extrabold text-sm text-white">
-                  Simulador do Bot de WhatsApp — ARKNET
+                  Simulador do Bot de WhatsApp, ARKNET
                 </h3>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold">
                   Meta Cloud API
@@ -189,7 +189,7 @@ export function WhatsAppSimulatorModal({
               >
                 {dataStore.getOrders().map((o) => (
                   <option key={o.id} value={o.id}>
-                    {o.orderNumber} — {o.customerName} ({o.status})
+                    {o.orderNumber}, {o.customerName} ({o.status})
                   </option>
                 ))}
               </select>

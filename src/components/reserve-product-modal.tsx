@@ -131,7 +131,7 @@ export default function ReserveProductModal({
 
           <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded-full w-fit mb-2">
             <Truck className="h-3.5 w-3.5" />
-            <span>Produto em Trânsito / Reposição</span>
+            <span>Produto em trânsito ou em reposição</span>
           </div>
 
           <h3 className="text-lg sm:text-xl font-black text-white">
@@ -140,7 +140,7 @@ export default function ReserveProductModal({
           <p className="text-xs text-slate-300 mt-1">
             {createdReservation
               ? 'A sua reserva foi registada no nosso sistema com prioridade de entrega.'
-              : 'Garanta prioridade de entrega e seja notificado assim que o lote der entrada na ARKNET.'}
+                : 'Garanta prioridade de entrega e receba uma notificação assim que o novo lote chegar à ARKNET.'}
           </p>
         </div>
 
@@ -194,7 +194,7 @@ export default function ReserveProductModal({
                   {createdReservation.reservationNumber}
                 </div>
                 <p className="text-xs text-slate-600 max-w-sm mx-auto pt-2 leading-relaxed">
-                  Obrigado, <strong>{createdReservation.customerName}</strong>! Reservámos <strong>{createdReservation.quantity} unidade(s)</strong> do produto. A equipa comercial da ARKNET entrará em contacto direto consigo através do <strong>{createdReservation.customerPhone}</strong> ou e-mail.
+                  Obrigado, <strong>{createdReservation.customerName}</strong>! Reservámos <strong>{createdReservation.quantity} {createdReservation.quantity === 1 ? 'unidade' : 'unidades'}</strong> do produto. A equipa comercial da ARKNET entrará em contacto consigo através do número <strong>{createdReservation.customerPhone}</strong> ou do correio eletrónico.
                 </p>
               </div>
 

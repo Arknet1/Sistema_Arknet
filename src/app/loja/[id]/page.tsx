@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   return {
     title: `${product.name} | Loja Online ARKNET Angola`,
-    description: `${product.description?.substring(0, 150) || product.name} — Equipamento disponível na ARKNET, Luanda. Entrega em Angola.`,
+    description: `${product.description?.substring(0, 150) || product.name}. Equipamento disponível na ARKNET, Luanda. Entrega em Angola.`,
     alternates: {
       canonical: canonicalUrl,
     },

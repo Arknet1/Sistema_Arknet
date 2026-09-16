@@ -156,9 +156,9 @@ function CheckoutContent() {
                   className="h-12 w-auto object-contain mb-3"
                 />
                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">
-                  ARKNET — Soluções Tecnológicas & Telecomunicações Lda.
+                  ARKNET, Soluções Tecnológicas e Telecomunicações, Lda.
                 </p>
-                <p className="text-xs text-slate-500">NIF: 5412398760 • Kilamba, Luanda - Angola</p>
+                <p className="text-xs text-slate-500">NIF: 5412398760 • Kilamba, Luanda, Angola</p>
                 <p className="text-xs text-slate-500">WhatsApp Comercial: +244 935 208 449</p>
               </div>
 
@@ -445,7 +445,7 @@ function CheckoutContent() {
         customerCompany: formData.company.trim(),
         customerNif: formData.nif.trim(),
         customerCity: formData.city.trim(),
-        customerAddress: `${formData.address.trim()} - ${formData.city}`,
+        customerAddress: `${formData.address.trim()}, ${formData.city}`,
         deliveryMethod: formData.deliveryMethod,
         paymentMethod: formData.paymentMethod,
         items: items.map((item) => ({
@@ -646,7 +646,7 @@ function CheckoutContent() {
                       </div>
                       <p className="font-bold text-sm text-slate-900">Entrega em Luanda</p>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Talatona, Kilamba, Maianga, Viana, Belas (24h - 48h).
+                        Talatona, Kilamba, Maianga, Viana, Belas (24 a 48 horas).
                       </p>
                     </div>
                     <span className="mt-3 font-bold text-emerald-600 text-xs">Grátis</span>

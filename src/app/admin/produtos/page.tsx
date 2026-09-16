@@ -19,6 +19,7 @@ import {
   X,
   ExternalLink,
   Truck,
+  Loader2,
 } from 'lucide-react'
 import { dataStore, StoreProduct, ProductCategory } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
@@ -41,6 +42,7 @@ export default function AdminProdutosPage() {
   // Modal de Criar/Editar
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<StoreProduct | null>(null)
+  const [isSavingProduct, setIsSavingProduct] = useState(false)
   const [formData, setFormData] = useState<{
     name: string
     description: string
@@ -163,8 +165,9 @@ export default function AdminProdutosPage() {
     setIsModalOpen(true)
   }
 
-  const handleSaveProduct = (e: React.FormEvent) => {
+  const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSavingProduct) return
     if (!formData.name.trim()) {
       error('O nome do produto é obrigatório.')
       return
@@ -174,37 +177,50 @@ export default function AdminProdutosPage() {
       ? null
       : parseFloat(formData.priceValue)
 
-    const isAvailable = formData.quantity > 0 && formData.inStock
-
-    if (editingProduct) {
-      dataStore.updateProduct(editingProduct.id, {
-        name: formData.name.trim(),
-        description: formData.description.trim(),
-        category: formData.category,
-        price,
-        image: formData.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
-        inStock: isAvailable,
-        quantity: formData.quantity,
-        featured: formData.featured,
-        sku: formData.sku,
-      })
-      success(`Produto "${formData.name}" atualizado com sucesso!`, 'Produto Atualizado')
-    } else {
-      dataStore.addProduct({
-        name: formData.name.trim(),
-        description: formData.description.trim(),
-        category: formData.category,
-        price,
-        image: formData.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
-        inStock: isAvailable,
-        quantity: formData.quantity,
-        featured: formData.featured,
-        sku: formData.sku,
-      })
-      success(`Novo produto "${formData.name}" adicionado ao catálogo!`, 'Produto Criado')
+    if (price !== null && !Number.isFinite(price)) {
+      error('Indique um preço válido em Kwanzas.')
+      return
     }
 
-    setIsModalOpen(false)
+    const isAvailable = formData.quantity > 0 && formData.inStock
+    setIsSavingProduct(true)
+
+    try {
+      const productData = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        category: formData.category,
+        price,
+        image: formData.image || 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&auto=format&fit=crop&q=80',
+        inStock: isAvailable,
+        quantity: formData.quantity,
+        featured: formData.featured,
+        sku: formData.sku,
+      }
+
+      if (editingProduct) {
+        dataStore.updateProduct(editingProduct.id, productData)
+      } else {
+        dataStore.addProduct(productData)
+      }
+
+      const persisted = await dataStore.persistNow()
+      if (!persisted) {
+        error('O produto foi atualizado localmente, mas não foi possível confirmar a gravação no servidor. Tente novamente.')
+        return
+      }
+
+      success(
+        editingProduct ? `Produto "${formData.name}" atualizado e guardado.` : `Novo produto "${formData.name}" criado e guardado.`,
+        editingProduct ? 'Produto Atualizado' : 'Produto Criado'
+      )
+      setIsModalOpen(false)
+    } catch (saveError) {
+      console.error('[Admin Produtos] Erro ao guardar produto:', saveError)
+      error('Não foi possível guardar o produto. Verifique a ligação ao servidor e tente novamente.')
+    } finally {
+      setIsSavingProduct(false)
+    }
   }
 
   const handleDeleteConfirm = () => {
@@ -249,7 +265,7 @@ export default function AdminProdutosPage() {
             <h1 className="text-2xl font-extrabold text-slate-900">Catálogo de Produtos</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Gerencie o catálogo da loja online (`/loja`), preços em Kwanzas (Kz), stock e produtos em destaque.
+            Gira o catálogo da loja em linha (`/loja`), os preços em kwanzas (Kz), o stock e os produtos em destaque.
           </p>
         </div>
 
@@ -680,7 +696,7 @@ export default function AdminProdutosPage() {
                       onChange={() => setFormData((prev) => ({ ...prev, priceType: 'sob_consulta' }))}
                       className="text-primary focus:ring-primary"
                     />
-                    Preço Sob Consulta (—)
+                    Preço Sob Consulta
                   </label>
                 </div>
 
@@ -789,15 +805,18 @@ export default function AdminProdutosPage() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
+                  disabled={isSavingProduct}
                   className="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 uppercase"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 uppercase shadow-sm"
+                  disabled={isSavingProduct}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed uppercase shadow-sm"
                 >
-                  {editingProduct ? 'Guardar Alterações' : 'Criar Produto'}
+                  {isSavingProduct && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  {isSavingProduct ? 'A guardar...' : editingProduct ? 'Guardar Alterações' : 'Criar Produto'}
                 </button>
               </div>
             </form>

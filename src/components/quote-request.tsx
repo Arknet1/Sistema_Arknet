@@ -59,9 +59,9 @@ function QuoteRequestInner() {
   const quoteEmail = primaryEmail
 
   const buildQuoteMailto = (data: QuoteRequestFormState) => {
-    const subject = `Pedido de Cotação: ${data.service} — ${data.name}`
+    const subject = `Pedido de Cotação: ${data.service}, ${data.name}`
     const body = [
-      "Novo pedido de cotação via website ARKNET",
+      "Novo pedido de cotação através do sítio da ARKNET",
       "",
       `Nome: ${data.name}`,
       `Email: ${data.email}`,
@@ -90,7 +90,7 @@ function QuoteRequestInner() {
       phone: formState.phone.trim(),
       service: formState.service,
       message: formState.message.trim(),
-      source: "Website - Formulário de Cotação",
+      source: "Sítio: Formulário de Cotação",
     })
 
     // 2. Preparar link mailto
@@ -132,7 +132,7 @@ function QuoteRequestInner() {
 
         <div className="grid lg:grid-cols-12 gap-10">
 
-          {/* Left panel — contact info */}
+          {/* Painel esquerdo, informações de contacto */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -194,7 +194,7 @@ function QuoteRequestInner() {
             </div>
           </motion.div>
 
-          {/* Right panel — form */}
+          {/* Painel direito, formulário */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -222,7 +222,7 @@ function QuoteRequestInner() {
                 </p>
 
                 <p className="text-sm text-slate-500 mb-8">
-                  Caso pretenda enviar uma cópia adicional por email, clique no botão abaixo.
+                  Caso pretenda enviar uma cópia adicional por correio eletrónico, selecione o botão abaixo.
                 </p>
 
                 <a
@@ -230,7 +230,7 @@ function QuoteRequestInner() {
                   className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-secondary px-8 py-4 text-sm font-bold text-white uppercase tracking-wide hover:bg-secondary/90 transition shadow-lg shadow-secondary/20"
                 >
                   <Mail className="h-4 w-4" />
-                  Abrir app de email
+                  Abrir aplicação de correio eletrónico
                 </a>
 
                 <button

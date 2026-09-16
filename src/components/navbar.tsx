@@ -99,8 +99,8 @@ export default function Navbar() {
       className="fixed top-0 left-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs"
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="inline-flex items-center" aria-label="ARKNET Angola — Página Inicial">
-          <Image src={icon} alt="ARKNET — Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" priority />
+        <Link href="/" className="inline-flex items-center" aria-label="ARKNET Angola, Página Inicial">
+          <Image src={icon} alt="ARKNET, Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" priority />
         </Link>
 
         <div className="hidden lg:flex items-center gap-6">
@@ -140,7 +140,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* Admin Indicator - Shows when admin is logged in */}
+          {/* Indicador de administração */}
           {adminUser && (
             <div className="relative" ref={!customer ? dropdownRef : undefined}>
               <button
@@ -149,7 +149,7 @@ export default function Navbar() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-500 hover:text-white text-xs font-bold uppercase tracking-wider rounded transition"
               >
                 <ShieldCheck className="h-3.5 w-3.5" />
-                <span>Admin</span>
+                <span>Administração</span>
                 {!customer && <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${userDropdownOpen ? 'rotate-180' : ''}`} />}
               </button>
 
@@ -171,7 +171,7 @@ export default function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <LayoutDashboard className="h-4 w-4 text-slate-400" />
-                      <span>Painel Admin</span>
+                      <span>Painel de Administração</span>
                     </Link>
                     <Link
                       href="/admin/produtos"
@@ -187,7 +187,7 @@ export default function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <Layers className="h-4 w-4 text-slate-400" />
-                      <span>Ver Leads</span>
+                      <span>Ver pedidos de contacto</span>
                     </Link>
                   </div>
 
@@ -198,7 +198,7 @@ export default function Navbar() {
                       className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg transition"
                     >
                       <LogOut className="h-4 w-4" />
-                      <span>Terminar Sessão Admin</span>
+                      <span>Terminar sessão de administração</span>
                     </button>
                   </div>
                 </div>
@@ -276,7 +276,7 @@ export default function Navbar() {
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
                     >
                       <KeyRound className="h-4 w-4 text-slate-400" />
-                      <span>Segurança &amp; Senha</span>
+                      <span>Segurança e palavra-passe</span>
                     </Link>
                   </div>
 
@@ -382,7 +382,7 @@ export default function Navbar() {
                     >
                       <div className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4" />
-                        <span>Painel Admin ({adminUser.name?.split(' ')[0]})</span>
+                        <span>Painel de Administração ({adminUser.name?.split(' ')[0]})</span>
                       </div>
                     </Link>
                     {!customer && (
@@ -392,7 +392,7 @@ export default function Navbar() {
                         className="w-full p-3 bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 text-xs font-bold uppercase flex items-center justify-center gap-2 rounded transition"
                       >
                         <LogOut className="h-4 w-4" />
-                        <span>Terminar Sessão Admin</span>
+                        <span>Terminar sessão de administração</span>
                       </button>
                     )}
                   </div>

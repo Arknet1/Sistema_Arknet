@@ -184,6 +184,7 @@ export async function readServerDbFromPrisma() {
           socialLinks: safeJsonParse(settingsRecord.socialLinks, {}),
           institutionalText: settingsRecord.institutionalText || '',
           presentationLetter: settingsRecord.presentationLetter || '',
+          executiveTeam: safeJsonParse(settingsRecord.executiveTeam, INITIAL_DB.settings.executiveTeam),
           carouselSlides: safeJsonParse(settingsRecord.carouselSlides, INITIAL_DB.settings.carouselSlides),
           updatedAt: settingsRecord.updatedAt.toISOString(),
         }

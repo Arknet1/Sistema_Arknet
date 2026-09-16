@@ -4,7 +4,7 @@ import { produtosCatalogo } from '@/lib/produtos-catalogo'
 import { produtoImagensRestantes } from '@/lib/produto-imagens-restantes'
 import { precosProdutos } from "@/lib/precos"
 
-// ---- PRODUTOS (Loja) — fotos em src/assets/produtos ----
+// ---- PRODUTOS (Loja): fotografias em src/assets/produtos ----
 export type MockProduct = {
   id: string
   name: string
@@ -17,7 +17,7 @@ export type MockProduct = {
 }
 
 const DESCRICAO_OUTROS =
-  'Equipamento disponível na ARKNET. Para modelo exacto, stock e preço final, contacte-nos — enviamos especificações e condições comerciais.'
+  'Equipamento disponível na ARKNET. Para conhecer o modelo exacto, o stock e o preço final, contacte-nos. Enviaremos as especificações e as condições comerciais.'
 
 const catalogoCompleto = produtosCatalogo
 
@@ -580,7 +580,7 @@ export const mockEventsHighlights = [
 export const mockEventsEmptyState = {
   title: 'Nenhum evento agendado',
   description:
-    'De momento não temos eventos programados. Estamos a preparar workshops, conferências e encontros tecnológicos — fique atento às novidades ou entre em contacto connosco.',
+    'De momento não temos eventos programados. Estamos a preparar oficinas, conferências e encontros tecnológicos. Fique atento às novidades ou entre em contacto connosco.',
   email: 'info@arknet.co.ao',
 }
 
@@ -614,45 +614,45 @@ export const mockSpontaneousApplication = {
 export const mockTestimonials = [
   {
     id: '1',
-    clientName: 'Banco Angolano de Investimento',
-    type: 'Instituição Financeira',
-    testimonial: 'A ARKNET transformou a nossa infraestrutura de rede. O suporte 24/7 e a qualidade da conexão superaram as nossas expectativas. Recomendamos sem hesitação.',
+    clientName: 'Marta Domingos',
+    type: 'Directora de Tecnologia',
+    testimonial: 'Desde que a ARKNET assumiu o apoio à nossa rede, a equipa trabalha com muito mais tranquilidade. Quando surge uma questão, temos resposta e acompanhamento.',
     logo: 'https://picsum.photos/seed/bank/200/100',
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '2',
-    clientName: 'AngoTelecom Serviços',
-    type: 'Telecomunicações',
-    testimonial: 'Parceria estratégica que nos permitiu expandir o nosso alcance. A expertise técnica da ARKNET é incomparável no mercado angolano.',
+    clientName: 'Carlos Manuel',
+    type: 'Responsável de Operações',
+    testimonial: 'Precisávamos de uma solução prática e de alguém que percebesse a nossa realidade. A equipa ouviu, explicou as opções e entregou dentro do combinado.',
     logo: 'https://picsum.photos/seed/telecom/200/100',
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '3',
-    clientName: 'TechSolutions Luanda',
-    type: 'Tecnologia',
-    testimonial: 'Implementaram a nossa infraestrutura de cloud com excelência. O tempo de resposta e a qualidade do serviço são excecionais.',
+    clientName: 'Ana Joaquim',
+    type: 'Gestora de Sistemas',
+    testimonial: 'A migração para a nuvem foi conduzida com cuidado e sem interromper o trabalho. O acompanhamento depois da instalação fez toda a diferença.',
     logo: 'https://picsum.photos/seed/tech/200/100',
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '4',
-    clientName: 'Construtora África Nova',
-    type: 'Construção Civil',
-    testimonial: 'A solução de videovigilância instalada pela ARKNET melhorou significativamente a segurança dos nossos canteiros de obra. Excelente serviço.',
+    clientName: 'João António',
+    type: 'Coordenador de Segurança',
+    testimonial: 'Hoje conseguimos acompanhar melhor o que acontece nas nossas instalações. A solução ficou simples de consultar e a assistência tem sido muito presente.',
     logo: 'https://picsum.photos/seed/construction/200/100',
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '5',
-    clientName: 'Hospital Central Luanda',
-    type: 'Saúde',
-    testimonial: 'A rede estruturada instalada permite o funcionamento crítico dos nossos sistemas hospitalares com 100% de disponibilidade.',
+    clientName: 'Teresa Francisco',
+    type: 'Administradora Hospitalar',
+    testimonial: 'A nova rede trouxe estabilidade aos serviços e facilitou o trabalho das equipas. Foi um projecto exigente, mas a execução foi organizada do princípio ao fim.',
     logo: 'https://picsum.photos/seed/hospital/200/100',
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
@@ -820,7 +820,7 @@ export const mockSocialProfiles = [
 export const mockPortfolio = [
   {
     id: '1',
-    title: 'Infraestrutura de Rede - Banco Angolano',
+    title: 'Infraestrutura de Rede: Banco Angolano',
     image: 'https://picsum.photos/seed/portfolio1/600/400',
     description: 'Implementação completa de infraestrutura de rede para banco, incluindo cabeamento estruturado, configuração de switches e segurança de perímetro.',
     createdAt: '2026-01-01T00:00:00Z',
@@ -828,7 +828,7 @@ export const mockPortfolio = [
   },
   {
     id: '2',
-    title: 'Cloud Migration - TechSolutions',
+    title: 'Migração para a Nuvem: TechSolutions',
     image: 'https://picsum.photos/seed/portfolio2/600/400',
     description: 'Migração completa de servidores on-premises para a nuvem, com garantia de zero downtime e segurança de dados.',
     createdAt: '2026-01-01T00:00:00Z',
@@ -836,7 +836,7 @@ export const mockPortfolio = [
   },
   {
     id: '3',
-    title: 'Sistema de Videovigilância - Hospital Central',
+    title: 'Sistema de Videovigilância: Hospital Central',
     image: 'https://picsum.photos/seed/portfolio3/600/400',
     description: 'Instalação de sistema CFTV com 200+ câmaras IP, gravação em nuvem e acesso remoto para monitorização hospitalar.',
     createdAt: '2026-01-01T00:00:00Z',
@@ -844,7 +844,7 @@ export const mockPortfolio = [
   },
   {
     id: '4',
-    title: 'Segurança de Dados - Construtora África',
+    title: 'Segurança de Dados: Construtora África',
     image: 'https://picsum.photos/seed/portfolio4/600/400',
     description: 'Implementação de firewall UTM, antivírus empresarial e política de segurança para proteção de dados sensíveis.',
     createdAt: '2026-01-01T00:00:00Z',

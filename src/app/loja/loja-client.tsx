@@ -320,8 +320,8 @@ export default function LojaClient() {
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-slate-500 font-medium">
                 Catálogo Geral de Equipamentos
-                {selectedCategory !== 'Todos' && <span> — Categoria: <span className="font-semibold text-slate-900">{selectedCategory}</span></span>}
-                {searchTerm && <span> — Pesquisa: "<span className="font-semibold text-slate-900">{searchTerm}</span>"</span>}
+                {selectedCategory !== 'Todos' && <span>, Categoria: <span className="font-semibold text-slate-900">{selectedCategory}</span></span>}
+                {searchTerm && <span>, Pesquisa: "<span className="font-semibold text-slate-900">{searchTerm}</span>"</span>}
               </p>
 
               <div className="flex items-center gap-2">

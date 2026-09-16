@@ -46,7 +46,7 @@ export default function Sobre() {
                 className="object-cover"
               />
             </motion.div>
-            {/* Overlap card — slides in after image */}
+            {/* Cartão sobreposto, apresentado depois da imagem */}
             <motion.div
               initial={{ opacity: 0, x: 20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -89,7 +89,7 @@ export default function Sobre() {
               {mockAboutUs.institutionalText}
             </motion.p>
 
-            {/* Feature list — staggered */}
+                {/* Lista de características com entrada faseada */}
             <motion.div
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }}
               className="mt-10 grid grid-cols-2 gap-4"

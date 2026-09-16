@@ -31,8 +31,8 @@ interface CustomerAuthContextType {
     address?: string
     city?: string
   }) => { success: boolean; message: string; customer?: CustomerAccount }
-  sendRecoveryCode: (email: string) => { success: boolean; message: string; code?: string }
-  resetPasswordWithCode: (email: string, code: string, newPassword: string) => { success: boolean; message: string }
+  sendRecoveryCode: (email: string) => Promise<{ success: boolean; message: string }>
+  resetPasswordWithCode: (email: string, code: string, newPassword: string) => Promise<{ success: boolean; message: string }>
   updateProfile: (updates: Partial<CustomerAccount>) => { success: boolean; message: string; customer?: CustomerAccount }
   changePassword: (currentPassword: string, newPassword: string) => { success: boolean; message: string }
   logout: () => void
@@ -239,62 +239,28 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     []
   )
 
-  const sendRecoveryCode = useCallback((email: string) => {
-    const cleanEmail = sanitizeInput(email).toLowerCase().trim()
-    const foundCustomer = dataStore.getCustomerByEmail(cleanEmail)
-    const users = dataStore.getUsers()
-    const foundAdmin = users.find((u) => u.email.toLowerCase() === cleanEmail)
-
-    if (!foundCustomer && !foundAdmin) {
-      return { success: false, message: 'Nenhuma conta encontrada com este email.' }
-    }
-
-    const code = Math.floor(100000 + Math.random() * 900000).toString()
-    setGeneratedCode(code)
-    return {
-      success: true,
-      message: `Código de verificação enviado para ${cleanEmail}. (Código de teste seguro: ${code})`,
-      code,
-    }
+  const sendRecoveryCode = useCallback(async (email: string) => {
+    const response = await fetch('/api/auth/recovery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'send', email: sanitizeInput(email).toLowerCase().trim() }),
+    })
+    return response.json()
   }, [])
 
   const resetPasswordWithCode = useCallback(
-    (email: string, code: string, newPassword: string) => {
+    async (email: string, code: string, newPassword: string) => {
       const cleanEmail = sanitizeInput(email).toLowerCase().trim()
       const cleanCode = code.trim()
       const cleanNewPassword = newPassword.trim()
-
-      if (!generatedCode || cleanCode !== generatedCode) {
-        return { success: false, message: 'Código de verificação inválido ou expirado.' }
-      }
-
-      const passwordCheck = validatePasswordStrength(cleanNewPassword)
-      if (!passwordCheck.isValid) {
-        return { success: false, message: `Palavra-passe fraca: ${passwordCheck.errors.join(' ')}` }
-      }
-
-      // 1. Verificar se é conta de cliente
-      const customer = dataStore.getCustomerByEmail(cleanEmail)
-      if (customer) {
-        const res = dataStore.resetCustomerPassword(cleanEmail, cleanNewPassword)
-        if (res.success) {
-          setGeneratedCode(null)
-        }
-        return res
-      }
-
-      // 2. Verificar se é conta de utilizador administrador/editor
-      const users = dataStore.getUsers()
-      const adminUser = users.find((u) => u.email.toLowerCase() === cleanEmail)
-      if (adminUser) {
-        dataStore.updateUser(adminUser.id, { password: cleanNewPassword, passwordHash: hashPasswordSync(cleanNewPassword) })
-        setGeneratedCode(null)
-        return { success: true, message: 'Palavra-passe de administração alterada com sucesso!' }
-      }
-
-      return { success: false, message: 'Não encontramos nenhuma conta com esse endereço de email.' }
+      const response = await fetch('/api/auth/recovery', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset', email: cleanEmail, code: cleanCode, password: cleanNewPassword }),
+      })
+      return response.json()
     },
-    [generatedCode]
+    []
   )
 
   const updateProfile = useCallback(

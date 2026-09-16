@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -16,12 +16,15 @@ import {
   Zap,
   Headphones,
   Building2,
-  Quote,
   Sparkles,
   Handshake,
 } from 'lucide-react'
-import aboutOffice from '@/assets/office.jpeg'
-import { mockAboutUs, mockWhyChooseUs, mockTestimonials } from '@/lib/mock-data'
+import deepConnection from '@/assets/projectos e actividades/deepconection.avif'
+import executiveGeneral from '@/assets/about2.jpg'
+import executiveTechnical from '@/assets/about3.jpg'
+import executiveCommercial from '@/assets/office.jpeg'
+import { mockAboutUs, mockWhyChooseUs } from '@/lib/mock-data'
+import { dataStore, ExecutiveMember } from '@/lib/data-store'
 import { CountUp } from '@/components/count-up'
 import Footer from '@/components/footer'
 
@@ -37,6 +40,14 @@ const whyIcons: Record<string, React.ComponentType<{ className?: string }>> = {
 }
 
 export default function EmpresaClient() {
+  const [executiveTeam, setExecutiveTeam] = useState<ExecutiveMember[]>(dataStore.getSettings().executiveTeam)
+
+  useEffect(() => {
+    const sync = () => setExecutiveTeam(dataStore.getSettings().executiveTeam)
+    sync()
+    return dataStore.subscribe(sync)
+  }, [])
+
   const metrics = [
     { to: 10, suffix: '+', label: 'Anos no Mercado Angolano' },
     { to: 500, suffix: '+', label: 'Clientes & Projetos Satisfeitos' },
@@ -90,8 +101,8 @@ export default function EmpresaClient() {
                 className="relative h-[420px] md:h-[500px] overflow-hidden shadow-2xl border border-slate-200"
               >
                 <Image
-                  src={aboutOffice}
-                  alt="Instalações e Equipa da ARKNET"
+                  src={deepConnection}
+                  alt="Infraestrutura de conectividade da ARKNET"
                   fill
                   className="object-cover"
                 />
@@ -171,7 +182,7 @@ export default function EmpresaClient() {
         </div>
       </section>
 
-      {/* 3. Missão, Visão e Valores — Estrutura Clara com Valores Destacados */}
+      {/* 3. Missão, Visão e Valores: Estrutura Clara com Valores Destacados */}
       <section className="py-20 bg-slate-50 text-slate-900 relative overflow-hidden border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Section Header */}
@@ -298,7 +309,59 @@ export default function EmpresaClient() {
         </div>
       </section>
 
-      {/* 4. Por que Escolher a ARKNET */}
+      {/* 4. Corpo Executivo */}
+      <section className="py-24 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-[0.18em] mb-4">
+                Corpo Executivo
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                Liderança que transforma estratégia em execução
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm text-slate-500 leading-relaxed lg:text-right">
+              Três áreas de liderança que trabalham em conjunto para garantir clareza, rigor técnico e continuidade em cada decisão.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {executiveTeam.map((executive, index) => {
+              const fallbackImages = [executiveGeneral, executiveTechnical, executiveCommercial]
+              const executiveIcons = [Building2, ShieldCheck, Handshake]
+              const executiveAccents = ['bg-primary', 'bg-secondary', 'bg-amber-500']
+              const ExecutiveIcon = executiveIcons[index] || Building2
+              const executiveImage = executive.image || fallbackImages[index] || executiveGeneral
+              return (
+                <article key={executive.title} className="group relative overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div className={`absolute inset-x-0 top-0 h-1 ${executiveAccents[index] || 'bg-primary'}`} />
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={executiveImage}
+                      alt={`${executive.title} da ARKNET`}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                    <div className="absolute left-6 bottom-5 flex h-11 w-11 items-center justify-center border border-white/20 bg-slate-950/70 text-white backdrop-blur-sm">
+                      <ExecutiveIcon className="h-5 w-5" />
+                    </div>
+                    <span className="absolute right-6 top-5 font-mono text-3xl font-bold text-white/80">{String(index + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div className="p-8 pt-6">
+                    <h3 className="text-xl font-bold text-white">{executive.title}</h3>
+                    <div className={`mt-4 h-px w-12 ${executiveAccents[index] || 'bg-primary'}`} />
+                    <p className="mt-5 text-sm leading-7 text-slate-300">{executive.description}</p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Por que Escolher a ARKNET */}
       <section className="py-24 bg-slate-950 text-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
@@ -342,41 +405,6 @@ export default function EmpresaClient() {
                 </div>
               )
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Testemunhos de Clientes */}
-      <section className="py-24 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-              O que dizem os nossos clientes
-            </h2>
-            <p className="text-sm text-slate-500 mt-3">
-              Depoimentos reais de instituições e empresas que confiam na infraestrutura da ARKNET.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {mockTestimonials.slice(0, 3).map((item) => (
-              <div
-                key={item.id}
-                className="bg-slate-50 border border-slate-200 p-8 flex flex-col justify-between shadow-xs hover:shadow-md transition"
-              >
-                <div>
-                  <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                  <p className="text-sm text-slate-700 italic leading-relaxed mb-6">
-                    "{item.testimonial}"
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-200">
-                  <p className="font-bold text-sm text-slate-900">{item.clientName}</p>
-                  <p className="text-xs text-primary font-semibold">{item.type}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import LojaClient from './loja-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Loja Online de Equipamentos de TI & Redes em Angola | ARKNET',
+  title: 'Loja em Linha de Equipamentos de TI e Redes em Angola | ARKNET',
   description:
     'Compre equipamentos de redes, cabos de fibra óptica, servidores, computadores, routers e CFTV em Angola. Entrega rápida em Luanda e cotações sob medida.',
   alternates: {

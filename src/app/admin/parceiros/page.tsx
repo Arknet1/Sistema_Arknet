@@ -147,7 +147,7 @@ export default function AdminParceirosPage() {
             <h1 className="text-2xl font-extrabold text-slate-900">Parceiros & Marcas</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Gestão dos logótipos e marcas que aparecem no carrossel de parceiros do website público.
+            Gestão dos logótipos e marcas que aparecem no carrossel de parceiros do sítio público.
           </p>
         </div>
 
@@ -304,7 +304,7 @@ export default function AdminParceirosPage() {
 
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Website Oficial (Opcional)
+                    Sítio oficial (opcional)
                   </label>
                   <input
                     type="url"

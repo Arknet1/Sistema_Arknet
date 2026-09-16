@@ -3,7 +3,7 @@ import ServicosListingClient from './servicos-client'
 import { BreadcrumbJsonLd, FaqJsonLd } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Serviços de Telecomunicações & TI em Angola | ARKNET',
+  title: 'Serviços de Telecomunicações e TI em Angola | ARKNET',
   description:
     'Soluções integradas de TI em Angola: Internet Empresarial Dedicada, Cibersegurança, Cloud Corporativo, Cabeamento Estruturado e CFTV com suporte 24/7 em Luanda.',
   alternates: {

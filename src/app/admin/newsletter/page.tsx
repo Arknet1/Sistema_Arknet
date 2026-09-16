@@ -113,7 +113,7 @@ export default function AdminNewsletterPage() {
             <h1 className="text-2xl font-extrabold text-slate-900">Subscritores da Newsletter</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Gestão da base de emails registados através do rodapé do website para envio de novidades e comunicados.
+            Gestão dos endereços de correio eletrónico registados através do rodapé do sítio, para envio de novidades e comunicados.
           </p>
         </div>
 

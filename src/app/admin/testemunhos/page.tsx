@@ -199,7 +199,7 @@ export default function AdminTestemunhosPage() {
 
               <div className="pt-3 border-t border-slate-100">
                 <p className="font-bold text-slate-900 text-xs">{t.clientName}</p>
-                <p className="text-[11px] text-slate-500">{t.company} — {t.role}</p>
+                <p className="text-[11px] text-slate-500">{t.company}{t.role ? `, ${t.role}` : ''}</p>
               </div>
             </div>
 
@@ -360,7 +360,7 @@ export default function AdminTestemunhosPage() {
                     className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
                   />
                   <div>
-                    <p className="text-xs font-bold text-slate-900">Visível no Website</p>
+                    <p className="text-xs font-bold text-slate-900">Visível no sítio</p>
                     <p className="text-[10px] text-slate-500">Exibido na secção de testemunhos</p>
                   </div>
                 </label>

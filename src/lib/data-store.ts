@@ -315,8 +315,16 @@ export interface CompanySettings {
   }
   institutionalText: string
   presentationLetter: string
+  executiveTeam: ExecutiveMember[]
   carouselSlides: StoreHeroSlide[]
   updatedAt: string
+}
+
+export interface ExecutiveMember {
+  id: string
+  title: string
+  description: string
+  image: string
 }
 
 export interface StoreHeroSlide {
@@ -613,7 +621,7 @@ const DEFAULT_LEADS: ServiceLead[] = [
     message: 'Precisamos de uma ligação dedicada simétrica de 100Mbps com redundância para os nossos escritórios em Talatona.',
     status: 'novo',
     notes: 'Prioridade alta. Cliente corporativo do sector petrolífero.',
-    source: 'Website - Formulário de Cotação',
+    source: 'Sítio: Formulário de Cotação',
     createdAt: new Date(Date.now() - 3600 * 1000 * 4).toISOString(),
     updatedAt: new Date(Date.now() - 3600 * 1000 * 4).toISOString(),
   },
@@ -626,7 +634,7 @@ const DEFAULT_LEADS: ServiceLead[] = [
     message: 'Solicitamos auditoria de pentest e reforço de segurança perimetral para 3 agências bancárias.',
     status: 'contactado',
     notes: 'Reunião preliminar agendada para sexta-feira às 10h.',
-    source: 'Website - Formulário de Cotação',
+    source: 'Sítio: Formulário de Cotação',
     createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
     updatedAt: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
   },
@@ -639,7 +647,7 @@ const DEFAULT_LEADS: ServiceLead[] = [
     message: 'Orçamento para sistema de vigilância IP com 32 câmaras e gravação em nuvem para centro de distribuição.',
     status: 'convertido',
     notes: 'Proposta adjudicada. Projecto em fase de planeamento e instalação.',
-    source: 'Website - Formulário de Cotação',
+    source: 'Sítio: Formulário de Cotação',
     createdAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
     updatedAt: new Date(Date.now() - 3600 * 1000 * 8).toISOString(),
   },
@@ -652,7 +660,7 @@ const DEFAULT_LEADS: ServiceLead[] = [
     message: 'Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.',
     status: 'novo',
     notes: '',
-    source: 'Website - Formulário de Cotação',
+    source: 'Sítio: Formulário de Cotação',
     createdAt: new Date(Date.now() - 3600 * 1000 * 72).toISOString(),
     updatedAt: new Date(Date.now() - 3600 * 1000 * 72).toISOString(),
   },
@@ -848,10 +856,10 @@ const DEFAULT_COURSES: CourseItem[] = mockTrainingCourses.map((c, i) => ({
 const DEFAULT_EVENTS: EventItem[] = [
   {
     id: 'evt-1',
-    title: 'Arknet Tech Summit 2026 — Transformação Digital em Angola',
+    title: 'Arknet Tech Summit 2026: Transformação Digital em Angola',
     description: 'Encontro anual de líderes de telecomunicações, cibersegurança e infraestruturas para debater o futuro da conectividade nacional.',
     date: '2026-09-18',
-    time: '09:00 - 17:00',
+    time: '09:00 às 17:00',
     location: 'Hotel Epic Sana, Luanda',
     format: 'Presencial',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80',
@@ -867,7 +875,7 @@ const DEFAULT_EVENTS: EventItem[] = [
     title: 'Workshop Prático: Defesa Perimetral e Resposta a Incidentes',
     description: 'Sessão técnica imersiva para administradores de sistemas e analistas de segurança com laboratórios reais de mitigação de ataques.',
     date: '2026-10-05',
-    time: '14:00 - 18:00',
+    time: '14:00 às 18:00',
     location: 'Academia ARKNET, Luanda',
     format: 'Híbrido',
     image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80',
@@ -962,7 +970,7 @@ const DEFAULT_APPLICATIONS: JobApplication[] = [
   },
   {
     id: 'app-2',
-    jobTitle: 'Candidatura Espontânea — Gestão Comercial',
+    jobTitle: 'Candidatura Espontânea: Gestão Comercial',
     candidateName: 'Mariana Kiala',
     candidateEmail: 'mariana.kiala@hotmail.com',
     candidatePhone: '+244 912 777 333',
@@ -978,7 +986,7 @@ const DEFAULT_APPLICATIONS: JobApplication[] = [
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = mockTestimonials.map((t, i) => ({
   id: t.id,
   clientName: t.clientName,
-  company: t.clientName,
+  company: '',
   role: t.type,
   testimonial: t.testimonial,
   rating: 5,
@@ -1021,7 +1029,7 @@ const DEFAULT_PARTNERS: PartnerItem[] = mockPartners.map((p, i) => ({
 const DEFAULT_PROJECTS: ProjectItem[] = [
   {
     id: 'proj-1',
-    title: 'Modernização de Rede & Data Center — Tribunal Supremo',
+    title: 'Modernização de Rede e Centro de Dados: Tribunal Supremo',
     slug: 'infraestrutura-rede-tribunal-supremo',
     clientName: 'Tribunal Supremo de Angola',
     category: 'Cabeamento Estruturado',
@@ -1054,7 +1062,7 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
   {
     id: 'proj-2',
-    title: 'Cibersegurança e Proteção Perimetral — Mota-Engil',
+    title: 'Cibersegurança e Proteção Perimetral: Mota-Engil',
     slug: 'ciberseguranca-mota-engil',
     clientName: 'Mota-Engil Angola',
     category: 'Cibersegurança',
@@ -1085,7 +1093,7 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
   {
     id: 'proj-3',
-    title: 'Link Dedicado para Transmissão HD — Record TV Africa',
+    title: 'Ligação Dedicada para Transmissão HD: Record TV Africa',
     slug: 'internet-dedicada-record-tv',
     clientName: 'Record TV Africa',
     category: 'Internet Empresarial',
@@ -1115,7 +1123,7 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
   {
     id: 'proj-4',
-    title: 'CFTV Inteligente & Vigilância — Estação Central Macon',
+    title: 'CFTV Inteligente e Vigilância: Estação Central Macon',
     slug: 'cftv-vigilancia-macon',
     clientName: 'Macon Transportes',
     category: 'CFTV e Segurança',
@@ -1145,7 +1153,7 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
   {
     id: 'proj-5',
-    title: 'Migração para Cloud e DRP — ANPG',
+    title: 'Migração para a Nuvem e DRP: ANPG',
     slug: 'cloud-disaster-recovery-anpg',
     clientName: 'Agência Nacional de Petróleo, Gás e Biocombustíveis (ANPG)',
     category: 'Computação em Nuvem',
@@ -1175,7 +1183,7 @@ const DEFAULT_PROJECTS: ProjectItem[] = [
   },
   {
     id: 'proj-6',
-    title: 'Interligação de Agências & Bilhética — Huambo Expresso',
+    title: 'Interligação de Agências e Bilhética: Huambo Expresso',
     slug: 'conectividade-huambo-expresso',
     clientName: 'Huambo Expresso',
     category: 'Consultoria & TI',
@@ -1250,7 +1258,7 @@ const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
 
 const DEFAULT_SETTINGS: CompanySettings = {
   id: 'settings-global',
-  companyName: 'ARKNET — Soluções Tecnológicas & Telecomunicações',
+  companyName: 'ARKNET, Soluções Tecnológicas e Telecomunicações',
   tagline: 'Transformando o Futuro Digital de Angola',
   phones: mockContactInfo.phones || ['+244 935 208 449'],
   emails: mockContactInfo.emails || ['info@arknet.co.ao', 'negocios@arknet.co.ao'],
@@ -1267,6 +1275,11 @@ const DEFAULT_SETTINGS: CompanySettings = {
   },
   institutionalText: 'A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.',
   presentationLetter: 'O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.',
+  executiveTeam: [
+    { id: 'executive-general', title: 'Direcção Geral', description: 'Define a orientação estratégica da ARKNET e assegura o alinhamento entre visão, investimento e resultados.', image: '' },
+    { id: 'executive-technical', title: 'Direcção Técnica', description: 'Garante a qualidade das implementações, a evolução das soluções e a consistência das equipas de engenharia.', image: '' },
+    { id: 'executive-commercial', title: 'Direcção Comercial', description: 'Constrói relações duradouras e transforma necessidades concretas em propostas claras e sustentáveis.', image: '' },
+  ],
   carouselSlides: DEFAULT_CAROUSEL_SLIDES,
   updatedAt: new Date().toISOString(),
 }
@@ -1302,7 +1315,7 @@ const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
   {
     id: 'reg-1',
     eventId: 'evt-1',
-    eventTitle: 'Arknet Tech Summit 2026 — Transformação Digital em Angola',
+    eventTitle: 'Arknet Tech Summit 2026: Transformação Digital em Angola',
     name: 'Eng. António Kiala',
     email: 'antonio.kiala@sonangol.co.ao',
     phone: '+244 923 111 222',
@@ -1314,7 +1327,7 @@ const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
   {
     id: 'reg-2',
     eventId: 'evt-1',
-    eventTitle: 'Arknet Tech Summit 2026 — Transformação Digital em Angola',
+    eventTitle: 'Arknet Tech Summit 2026: Transformação Digital em Angola',
     name: 'Dra. Isabel Mateus',
     email: 'isabel.mateus@bancobai.ao',
     phone: '+244 912 333 444',
@@ -1363,7 +1376,7 @@ const DEFAULT_DAILY_ACTIVITIES: DailyActivityItem[] = [
     description: 'Concluímos com êxito mais uma edição do workshop intensivo com laboratórios imersivos de fusão por arco voltaico, reflectometria OTDR e medições de atenuação para técnicos e novos talentos.',
     content: 'Durante dois dias intensivos de capacitação, mais de 25 profissionais e estudantes do ramo de telecomunicações tiveram acesso direto a máquinas de fusão de última geração e equipamentos de certificação Fluke Networks. O foco principal foi a preparação técnica para instalações em campo de alto rigor normativo.',
     image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80',
-    clientOrLocation: 'ARKNET Academy — Kilamba, Luanda',
+    clientOrLocation: 'ARKNET Academy, Kilamba, Luanda',
     date: '2026-03-06',
     time: '14:00',
     readTime: '3 min de leitura',
@@ -1553,6 +1566,8 @@ class DataStoreManager {
   private broadcastChannel: BroadcastChannel | null = null
   private isBrowser: boolean = typeof window !== 'undefined'
   private syncTimer: any = null
+  private persistenceQueue: Promise<boolean> = Promise.resolve(true)
+  private localRevision = 0
 
   constructor() {
     this.db = this.loadFromStorage()
@@ -1596,6 +1611,7 @@ class DataStoreManager {
   public async syncWithServer(): Promise<boolean> {
     if (!this.isBrowser) return false
     try {
+      const syncRevision = this.localRevision
       const headers: Record<string, string> = {}
       const token = localStorage.getItem(AUTH_TOKEN_KEY)
       if (token) {
@@ -1605,6 +1621,9 @@ class DataStoreManager {
       if (!res.ok) return false
       const data = await res.json()
       if (data && data.success && data.db) {
+        if (this.localRevision !== syncRevision) {
+          return false
+        }
         const serverDb = data.db
         const localDb = this.db || this.loadFromStorage()
         const isAdminPayload = Array.isArray(serverDb.users) && serverDb.users.length > 0
@@ -1684,9 +1703,9 @@ class DataStoreManager {
   /**
    * Envia as alterações para o arquivo do servidor (/api/db) imediatamente
    */
-  private pushToServer(db: ArknetDatabase) {
+  private sendToServer(db: ArknetDatabase) {
     if (!this.isBrowser) {
-      try {
+      return Promise.resolve().then(() => {
         const fs = eval('require')('fs')
         const path = eval('require')('path')
         const dataDir = path.join(process.cwd(), 'data')
@@ -1695,12 +1714,13 @@ class DataStoreManager {
           fs.mkdirSync(dataDir, { recursive: true })
         }
         fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf-8')
-      } catch (err) {
+        return true
+      }).catch((err) => {
         console.error('[DataStore] Erro ao salvar dados no ficheiro do servidor:', err)
-      }
-      return
+        return false
+      })
     }
-    try {
+    return Promise.resolve().then(() => {
       const token = localStorage.getItem(AUTH_TOKEN_KEY)
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -1708,23 +1728,34 @@ class DataStoreManager {
       if (token) {
         headers['Authorization'] = `Bearer ${token}`
       }
-      fetch('/api/db', {
+      return fetch('/api/db', {
         method: 'POST',
         headers,
         body: JSON.stringify({ db }),
         keepalive: true,
       })
-        .then((res) => {
+        .then(async (res) => {
           if (!res.ok) {
+            const payload = await res.json().catch(() => null)
             console.warn(`[DataStore] pushToServer respondeu com status ${res.status}`)
+            throw new Error(payload?.message || `Servidor respondeu com ${res.status}`)
           }
+          return true
         })
-        .catch((err) => {
-          console.warn('[DataStore] Erro ao sincronizar dados com o servidor:', err)
-        })
-    } catch (err) {
-      console.warn('[DataStore] Erro ao salvar dados no servidor:', err)
-    }
+    }).catch((err) => {
+      console.warn('[DataStore] Erro ao sincronizar dados com o servidor:', err)
+      return false
+    })
+  }
+
+  private pushToServer(db: ArknetDatabase): Promise<boolean> {
+    const write = () => this.sendToServer(db)
+    this.persistenceQueue = this.persistenceQueue.then(write, write)
+    return this.persistenceQueue
+  }
+
+  public async persistNow(): Promise<boolean> {
+    return this.pushToServer(this.db)
   }
 
   private loadFromStorage(): ArknetDatabase {
@@ -1799,6 +1830,7 @@ class DataStoreManager {
 
   private mutate(updater: (current: ArknetDatabase) => ArknetDatabase, logAction?: { user?: string; action: string; module: string }) {
     const updated = updater(this.db)
+    this.localRevision += 1
     if (logAction) {
       const newLog: ActivityLog = {
         id: `act-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
@@ -2979,7 +3011,13 @@ class DataStoreManager {
   // OPERAÇÕES: DEFINIÇÕES GERAIS & BACKUP
   // ==========================================
   public getSettings(): CompanySettings {
-    return this.db.settings
+    return {
+      ...INITIAL_DB.settings,
+      ...this.db.settings,
+      executiveTeam: this.db.settings.executiveTeam?.length
+        ? this.db.settings.executiveTeam
+        : INITIAL_DB.settings.executiveTeam,
+    }
   }
 
   public updateSettings(updates: Partial<CompanySettings>): CompanySettings {

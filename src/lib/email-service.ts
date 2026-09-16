@@ -20,6 +20,29 @@ export interface SendEmailResult {
   error?: string
 }
 
+export async function sendPasswordRecoveryEmail(to: string, code: string): Promise<SendEmailResult> {
+  const { transporter, from, mode } = await createTransporter()
+  const subject = 'ARKNET, código de recuperação da palavra-passe'
+  const html = `<p>Foi solicitado um código para recuperar a sua palavra-passe da ARKNET.</p><p><strong>${code}</strong></p><p>O código expira em 15 minutos. Se não fez este pedido, ignore esta mensagem.</p>`
+
+  if (!transporter) {
+    return { success: false, message: 'O serviço de correio electrónico não está disponível.', mode }
+  }
+
+  try {
+    const info = await transporter.sendMail({ from, to, subject, html })
+    return {
+      success: true,
+      message: 'Código de recuperação enviado.',
+      messageId: info.messageId,
+      previewUrl: mode === 'ethereal_test' ? nodemailer.getTestMessageUrl(info) : undefined,
+      mode,
+    }
+  } catch (error: any) {
+    return { success: false, message: 'Não foi possível enviar o código de recuperação.', mode, error: error.message }
+  }
+}
+
 /**
  * Cria o transportador Nodemailer com base nas variáveis de ambiente ou fallback de teste.
  */
@@ -100,10 +123,10 @@ export async function sendEventNotificationEmail(
   const isCancelled = status === 'cancelada'
 
   const subject = isPending
-    ? `⏳ Solicitação de Inscrição Recebida — ${eventTitle}`
+    ? `⏳ Solicitação de Inscrição Recebida: ${eventTitle}`
     : isConfirmed
-    ? `🎉 Vaga Aprovada & Confirmada — ${eventTitle}`
-    : `Atualização sobre Inscrição — ${eventTitle}`
+    ? `🎉 Vaga Aprovada e Confirmada: ${eventTitle}`
+    : `Atualização sobre Inscrição: ${eventTitle}`
 
   const badgeHtml = isPending
     ? `<span style="display:inline-block; background:#fef3c7; color:#92400e; padding:8px 20px; border-radius:999px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; border:1px solid #fde68a;">
@@ -203,7 +226,7 @@ export async function sendEventNotificationEmail(
     <tr>
       <td style="background:#f8fafc; border-top:1px solid #e2e8f0; padding:20px 32px; text-align:center;">
         <p style="font-size:11px; color:#94a3b8; margin:0 0 4px 0;">
-          ARKNET — Soluções de Telecomunicações &amp; Tecnologia
+          ARKNET, Soluções de Telecomunicações e Tecnologia
         </p>
         <p style="font-size:10px; color:#cbd5e1; margin:0;">
           Este é um email automático de gestão de eventos.

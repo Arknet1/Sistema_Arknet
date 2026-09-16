@@ -341,6 +341,7 @@ model CompanySetting {
   socialLinks        String?  // JSON serializado
   institutionalText  String?
   presentationLetter String?
+  executiveTeam      String?  // JSON array serializado
   carouselSlides     String?  // JSON array serializado
   updatedAt          DateTime @updatedAt
 }

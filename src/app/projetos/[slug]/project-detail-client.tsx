@@ -235,7 +235,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 "{project.quote?.text || `A execução deste projeto demonstrou a elevada capacidade técnica das nossas equipas e fortaleceu as alianças estratégicas com o sector em Angola.`}"
               </p>
               <p className="text-xs font-bold text-slate-600">
-                — {project.quote?.author || project.clientName} ({project.quote?.role || 'Comunicação Corporativa'})
+                {project.quote?.author || project.clientName} ({project.quote?.role || 'Comunicação Corporativa'})
               </p>
             </div>
 
@@ -340,7 +340,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           </div>
         </section>
 
-        {/* 4. MAIS PROJETOS E PARCERIAS ("LEIA TAMBÉM" - CLARO / LIGHT) */}
+        {/* 4. MAIS PROJETOS E PARCERIAS ("LEIA TAMBÉM", FUNDO CLARO) */}
         {relatedProjects.length > 0 && (
           <section className="py-16 border-t border-slate-200 max-w-5xl mx-auto px-6 bg-white">
             <div className="flex items-center justify-between mb-8">

@@ -161,7 +161,7 @@ export default function AdminLeadsPage() {
             <h1 className="text-2xl font-extrabold text-slate-900">Pedidos de Serviço (Leads)</h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Contactos comerciais recebidos pelo formulário "Solicitar Serviço" do website.
+            Contactos comerciais recebidos pelo formulário "Solicitar Serviço" do sítio.
           </p>
         </div>
 
@@ -249,7 +249,7 @@ export default function AdminLeadsPage() {
                     <td className="py-3.5 px-4">
                       <div className="flex flex-col text-[11px] font-mono">
                         <a href={`tel:${lead.phone}`} className="text-slate-800 hover:text-primary">
-                          {lead.phone || '—'}
+                          {lead.phone || 'Não indicado'}
                         </a>
                         <a href={`mailto:${lead.email}`} className="text-slate-400 hover:text-primary">
                           {lead.email}
@@ -280,7 +280,7 @@ export default function AdminLeadsPage() {
                           </a>
                         )}
                         <a
-                          href={`mailto:${lead.email}?subject=ARKNET — Resposta ao Pedido de ${lead.service}`}
+                          href={`mailto:${lead.email}?subject=ARKNET: Resposta ao Pedido de ${lead.service}`}
                           className="p-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded transition"
                           title="Enviar Email"
                         >
@@ -349,7 +349,7 @@ export default function AdminLeadsPage() {
                 <div className="flex flex-col justify-between">
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Origem & Data</p>
-                    <p className="text-slate-600">{selectedLead.source || 'Website ARKNET'}</p>
+                    <p className="text-slate-600">{selectedLead.source || 'Sítio da ARKNET'}</p>
                     <p className="text-slate-400 mt-1">{new Date(selectedLead.createdAt).toLocaleString('pt-PT')}</p>
                   </div>
                   <div className="flex items-center gap-2 mt-3">
@@ -365,7 +365,7 @@ export default function AdminLeadsPage() {
                       </a>
                     )}
                     <a
-                      href={`mailto:${selectedLead.email}?subject=ARKNET — Resposta ao Pedido de ${selectedLead.service}`}
+                      href={`mailto:${selectedLead.email}?subject=ARKNET: Resposta ao Pedido de ${selectedLead.service}`}
                       className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white font-bold text-xs rounded transition flex items-center gap-1"
                     >
                       <Send className="h-3.5 w-3.5" />

@@ -63,7 +63,7 @@ export const precosProdutos: Record<string, number> = {
 
   "roteador industrial teltonika": 120000,
 
-  "repetidor de sinal 2x antena exterior sem fio wireless - N wifi": 20000,
+  "repetidor de sinal 2x antena exterior sem fio wireless, N wifi": 20000,
 
 
  "Bastidor de Rede Intellinet 09U (ALP-485x600x450) 19 com Porta de Vidro":180000,
