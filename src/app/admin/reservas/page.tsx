@@ -91,16 +91,31 @@ export default function AdminReservasPage() {
   const pendingReservations = reservations.filter((r) => r.status === 'pendente').length
   const totalUnitsReserved = reservations.reduce((acc, r) => acc + (r.quantity || 1), 0)
 
+  // Mapeamento dinâmico de produtos para garantir imagens e nomes sempre atualizados
+  const productMap = new Map(products.map((p) => [p.id, p]))
+
   // Agrupamento de procura por produto
   const productDemandMap = reservations.reduce((acc, r) => {
+    const liveProduct = productMap.get(r.productId)
+    const currentName = liveProduct?.name || r.productName
+    const currentImage = liveProduct?.image || r.productImage
+    const currentPrice = liveProduct?.price ?? r.productPrice
+
     if (!acc[r.productId]) {
       acc[r.productId] = {
         productId: r.productId,
-        productName: r.productName,
-        productImage: r.productImage,
-        productPrice: r.productPrice,
+        productName: currentName,
+        productImage: currentImage,
+        productPrice: currentPrice,
         count: 0,
         units: 0,
+      }
+    } else {
+      if (!acc[r.productId].productImage && currentImage) {
+        acc[r.productId].productImage = currentImage
+      }
+      if (!acc[r.productId].productName && currentName) {
+        acc[r.productId].productName = currentName
       }
     }
     acc[r.productId].count += 1
@@ -360,38 +375,46 @@ export default function AdminReservasPage() {
 
                     {/* Produto & Qty */}
                     <td className="py-4 px-4 align-top max-w-xs">
-                      <div className="flex items-start gap-2.5">
-                        <div className="h-10 w-10 bg-slate-50 border border-slate-200 rounded shrink-0 overflow-hidden flex items-center justify-center p-0.5">
-                          {r.productImage ? (
-                            /* eslint-disable-next-line @next/next/no-img-element */
-                            <img
-                              src={r.productImage}
-                              alt={r.productName}
-                              className="max-h-full max-w-full object-contain"
-                            />
-                          ) : (
-                            <Truck className="h-4 w-4 text-slate-400" />
-                          )}
-                        </div>
-                        <div>
-                          <p className="font-bold text-slate-900 leading-snug line-clamp-2">
-                            {r.productName}
-                          </p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="px-2 py-0.5 bg-slate-900 text-white rounded text-[10px] font-black">
-                              {r.quantity} un.
-                            </span>
-                            <span className="text-[11px] text-slate-500 font-semibold">
-                              {formatProdutoPrice(r.productPrice)}
-                            </span>
+                      {(() => {
+                        const liveProduct = productMap.get(r.productId)
+                        const rowImage = liveProduct?.image || r.productImage
+                        const rowName = liveProduct?.name || r.productName
+                        const rowPrice = liveProduct?.price ?? r.productPrice
+                        return (
+                          <div className="flex items-start gap-2.5">
+                            <div className="h-10 w-10 bg-slate-50 border border-slate-200 rounded shrink-0 overflow-hidden flex items-center justify-center p-0.5">
+                              {rowImage ? (
+                                /* eslint-disable-next-line @next/next/no-img-element */
+                                <img
+                                  src={rowImage}
+                                  alt={rowName}
+                                  className="max-h-full max-w-full object-contain"
+                                />
+                              ) : (
+                                <Truck className="h-4 w-4 text-slate-400" />
+                              )}
+                            </div>
+                            <div>
+                              <p className="font-bold text-slate-900 leading-snug line-clamp-2">
+                                {rowName}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="px-2 py-0.5 bg-slate-900 text-white rounded text-[10px] font-black">
+                                  {r.quantity} un.
+                                </span>
+                                <span className="text-[11px] text-slate-500 font-semibold">
+                                  {formatProdutoPrice(rowPrice)}
+                                </span>
+                              </div>
+                              {r.notes && (
+                                <p className="text-[10px] text-slate-500 italic mt-1 bg-amber-50/60 p-1.5 rounded border border-amber-200/50">
+                                  "{r.notes}"
+                                </p>
+                              )}
+                            </div>
                           </div>
-                          {r.notes && (
-                            <p className="text-[10px] text-slate-500 italic mt-1 bg-amber-50/60 p-1.5 rounded border border-amber-200/50">
-                              "{r.notes}"
-                            </p>
-                          )}
-                        </div>
-                      </div>
+                        )
+                      })()}
                     </td>
 
                     {/* Cliente & Contacto */}

@@ -44,9 +44,9 @@ export function OrganizationJsonLd({ url = 'https://www.arknet.co.ao' }: Organiz
       },
     ],
     sameAs: [
-      'https://www.linkedin.com/company/arknet',
-      'https://www.facebook.com/arknet',
-      'https://www.instagram.com/arknet',
+      'https://www.linkedin.com/company/arknet-oficial/?originalSubdomain=ao',
+      'https://www.facebook.com/p/Arknet-61563707010243/',
+      'https://www.instagram.com/p/DYRqhy6DNS6/',
     ],
   }
 

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import ProjetosListingClient from './projetos-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Projetos e Casos de Sucesso em Angola | ARKNET',
   description:

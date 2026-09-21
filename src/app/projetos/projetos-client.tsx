@@ -18,9 +18,9 @@ import {
   X,
   PhoneCall,
   Activity,
-  Building2,
 } from 'lucide-react'
 import { dataStore, ProjectItem, DailyActivityItem } from '@/lib/data-store'
+import ProjectsFeaturedCarousel from '@/components/projects-featured-carousel'
 import Footer from '@/components/footer'
 
 export default function ProjetosPublicationClient() {
@@ -73,10 +73,6 @@ export default function ProjetosPublicationClient() {
     })
   }, [dailyActivities, activityFilter])
 
-  // Projeto em Foco Principal (Featured Spotlight)
-  const spotlightProject = useMemo(() => {
-    return projects.find((p) => p.featured) || projects[0] || null
-  }, [projects])
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -137,7 +133,7 @@ export default function ProjetosPublicationClient() {
                 </Link>
 
                 <a
-                  href="https://wa.me/244935208449?text=Olá%20ARKNET!%20Gostaria%20de%20consultar%20a%20vossa%20equipa%20técnica%20sobre%20um%20novo%20projeto."
+                  href="https://wa.me/244975669357?text=Olá%20ARKNET!%20Gostaria%20de%20consultar%20a%20vossa%20equipa%20técnica%20sobre%20um%20novo%20projeto."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl backdrop-blur-md transition"
@@ -196,91 +192,8 @@ export default function ProjetosPublicationClient() {
           </div>
         </section>
 
-        {/* 3. PROJETO EM FOCO / SPOTLIGHT SHOWCASE */}
-        {spotlightProject && (
-          <section className="py-12 max-w-7xl mx-auto px-6">
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden">
-              
-              <div className="grid lg:grid-cols-12 gap-8 items-center">
-                
-                {/* Visual Image */}
-                <div className="lg:col-span-6 relative aspect-16/10 rounded-2xl overflow-hidden shadow-md bg-slate-950 group">
-                  <img
-                    src={spotlightProject.image}
-                    alt={spotlightProject.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-                  
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 bg-amber-500 text-white text-[11px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1.5">
-                      <Sparkles className="h-3.5 w-3.5" /> Caso em Destaque
-                    </span>
-                    <span className="px-3 py-1 bg-slate-900/90 text-white text-[11px] font-bold uppercase rounded-lg border border-white/20 backdrop-blur-md">
-                      {spotlightProject.category}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs">
-                    <span className="font-mono bg-slate-900/80 px-2.5 py-1 rounded-md border border-white/10 flex items-center gap-1.5">
-                      <Building2 className="h-3.5 w-3.5 text-primary" />
-                      Cliente: <strong>{spotlightProject.clientName}</strong>
-                    </span>
-                    <span className="px-2.5 py-1 rounded-md font-bold uppercase text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-500/30">
-                      {spotlightProject.status === 'concluido' ? 'Concluído' : 'Em Curso'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="lg:col-span-6 space-y-5">
-                  <div>
-                    <span className="text-xs font-black uppercase tracking-widest text-primary">
-                      {spotlightProject.partnershipType || 'Projeto de Engenharia'}
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 leading-snug">
-                      <Link href={`/projetos/${spotlightProject.slug}`} className="hover:text-primary transition">
-                        {spotlightProject.title}
-                      </Link>
-                    </h2>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-                      {spotlightProject.description || spotlightProject.tagline}
-                    </p>
-                  </div>
-
-                  {/* Highlights de Resultados */}
-                  {spotlightProject.results && spotlightProject.results.length > 0 && (
-                    <div className="grid grid-cols-3 gap-3 pt-2">
-                      {spotlightProject.results.slice(0, 3).map((res, i) => (
-                        <div key={i} className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                          <p className="text-base sm:text-lg font-black text-slate-900 font-mono">
-                            {res.value}
-                          </p>
-                          <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium line-clamp-1">
-                            {res.label}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Botão de Ver Completo */}
-                  <div className="pt-3 flex items-center gap-4">
-                    <Link
-                      href={`/projetos/${spotlightProject.slug}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 hover:bg-primary text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition"
-                    >
-                      <span>Ler Estudo de Caso Completo</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </section>
-        )}
+        {/* 3. CARROSSEL DINÂMICO DE PROJETOS EM DESTAQUE */}
+        <ProjectsFeaturedCarousel projects={projects} />
 
         {/* 5. BLOG DE NOTÍCIAS & ATIVIDADES EM DESTAQUE (RÁDIO, FORMAÇÕES, PALESTRAS) */}
         <section id="blog-atividades" className="py-24 bg-gradient-to-b from-slate-100 via-slate-50 to-white text-slate-900 relative overflow-hidden border-y border-slate-200/90">

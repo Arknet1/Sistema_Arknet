@@ -786,7 +786,7 @@ function ClientePerfilContent() {
                           ) : (
                             <>
                               <a
-                                href={`https://wa.me/244935208449?text=${whatsappText}`}
+                                href={`https://wa.me/244975669357?text=${whatsappText}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
@@ -1214,7 +1214,7 @@ function ClientePerfilContent() {
                           ARKNET, Soluções Tecnológicas e Telecomunicações, Lda.
                     </p>
                     <p className="text-slate-500">NIF: 5412398760 • Kilamba, Luanda, Angola</p>
-                    <p className="text-slate-500">Email: comercial@arknet.co.ao • Tel: +244 935 208 449</p>
+                    <p className="text-slate-500">Email: info@arknet.co.ao • Tel: +244 935 208 449</p>
                   </div>
 
                   <div className="sm:text-right bg-slate-50 p-4 border border-slate-200 rounded sm:min-w-[260px]">

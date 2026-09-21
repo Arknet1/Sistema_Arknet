@@ -704,7 +704,7 @@ export function ServiceQuoteCalculator() {
                   A nossa equipa de engenharia recebeu a sua especificação (Ref: <code>#{submittedLeadId}</code>) e apresentará a proposta técnica oficial.
                 </p>
                 <a
-                  href={`https://wa.me/244935208449?text=${whatsappSimulationText}`}
+                  href={`https://wa.me/244975669357?text=${whatsappSimulationText}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase rounded shadow-xs transition"
@@ -770,7 +770,7 @@ export function ServiceQuoteCalculator() {
                   </button>
 
                   <a
-                    href={`https://wa.me/244935208449?text=${whatsappSimulationText}`}
+                    href={`https://wa.me/244975669357?text=${whatsappSimulationText}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-xs transition flex items-center justify-center gap-2 text-center"

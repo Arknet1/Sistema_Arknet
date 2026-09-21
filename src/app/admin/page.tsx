@@ -50,16 +50,29 @@ export default function AdminOverviewPage() {
   const totalReservations = (db.reservations || []).length
   const pendingReservations = (db.reservations || []).filter((r) => r.status === 'pendente').length
 
-  // Procura de produtos em trânsito
+  // Procura de produtos em trânsito com dados sempre atualizados do catálogo
+  const productMap = new Map((db.products || []).map((p) => [p.id, p]))
   const productDemand = (db.reservations || []).reduce((acc, r) => {
+    const liveProduct = productMap.get(r.productId)
+    const currentName = liveProduct?.name || r.productName
+    const currentImage = liveProduct?.image || r.productImage
+    const currentPrice = liveProduct?.price ?? r.productPrice
+
     if (!acc[r.productId]) {
       acc[r.productId] = {
         id: r.productId,
-        name: r.productName,
-        image: r.productImage,
-        price: r.productPrice,
+        name: currentName,
+        image: currentImage,
+        price: currentPrice,
         count: 0,
         units: 0,
+      }
+    } else {
+      if (!acc[r.productId].image && currentImage) {
+        acc[r.productId].image = currentImage
+      }
+      if (!acc[r.productId].name && currentName) {
+        acc[r.productId].name = currentName
       }
     }
     acc[r.productId].count += 1

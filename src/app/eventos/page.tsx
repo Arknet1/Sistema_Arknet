@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import EventosClient from './eventos-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Eventos e Oficinas de Tecnologia em Angola | ARKNET',
   description:

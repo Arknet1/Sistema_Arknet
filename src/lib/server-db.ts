@@ -150,11 +150,18 @@ export async function readServerDbFromPrisma() {
     }))
 
     // Formatar reservas
-    const formattedReservations = reservations.map((r) => ({
-      ...r,
-      createdAt: r.createdAt.toISOString(),
-      updatedAt: r.updatedAt.toISOString(),
-    }))
+    const prodMap = new Map(products.map((p) => [p.id, p]))
+    const formattedReservations = reservations.map((r) => {
+      const liveProd = r.productId ? prodMap.get(r.productId) : null
+      return {
+        ...r,
+        productName: liveProd?.name || r.productName,
+        productImage: liveProd?.image || r.productImage || null,
+        productPrice: liveProd?.price ?? r.productPrice ?? null,
+        createdAt: r.createdAt.toISOString(),
+        updatedAt: r.updatedAt.toISOString(),
+      }
+    })
 
     // Formatar leads
     const formattedLeads = leads.map((l) => ({
@@ -175,7 +182,7 @@ export async function readServerDbFromPrisma() {
           companyName: settingsRecord.companyName || 'ARKNET',
           tagline: settingsRecord.tagline || '',
           phones: safeJsonParse(settingsRecord.phones, ['+244 923 000 000']),
-          emails: safeJsonParse(settingsRecord.emails, ['comercial@arknet.co.ao']),
+          emails: safeJsonParse(settingsRecord.emails, ['info@arknet.co.ao']),
           address: settingsRecord.address || 'Luanda, Angola',
           city: settingsRecord.city || 'Luanda',
           country: settingsRecord.country || 'Angola',

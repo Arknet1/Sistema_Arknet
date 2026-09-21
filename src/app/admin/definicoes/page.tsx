@@ -82,7 +82,7 @@ export default function AdminDefinicoesPage() {
       setPhone1(s.phones?.[0] || '+244 935 208 449')
       setPhone2(s.phones?.[1] || '')
       setEmail1(s.emails?.[0] || 'info@arknet.co.ao')
-      setEmail2(s.emails?.[1] || 'negocios@arknet.co.ao')
+      setEmail2(s.emails?.[1] || '')
     }
     sync()
     const unsub = dataStore.subscribe(sync)
@@ -469,13 +469,13 @@ export default function AdminDefinicoesPage() {
 
             <div>
               <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                Email Comercial / Negócios
+                Email Secundário (Opcional)
               </label>
               <input
                 type="email"
                 value={email2}
                 onChange={(e) => setEmail2(e.target.value)}
-                placeholder="negocios@arknet.co.ao"
+                placeholder="exemplo@arknet.co.ao"
                 className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none font-mono"
               />
             </div>

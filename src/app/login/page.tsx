@@ -695,7 +695,7 @@ function UnifiedLoginForm() {
               ) : (
                 <form onSubmit={handleResetPasswordSubmit} className="space-y-4 text-xs">
                   <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded">
-                    Código de verificação para <strong>{recoveryEmail}</strong>: <span className="font-mono font-bold">{simulatedCodeSent || '123456'}</span>
+                    Código de verificação enviado para <strong>{recoveryEmail}</strong>. Verifique a sua caixa de entrada ou introduza o código de 6 dígitos.
                   </div>
 
                   <div>

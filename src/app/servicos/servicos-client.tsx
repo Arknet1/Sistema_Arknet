@@ -163,7 +163,7 @@ export default function ServicosListingClient() {
       </section>
 
       {/* 2. Filtro por Categoria & Grelha de Serviços */}
-      <section className="py-20 max-w-7xl mx-auto px-6">
+      <section id="catalogo" className="py-20 max-w-7xl mx-auto px-6 scroll-mt-24">
         {/* Header do Catálogo */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-slate-200 pb-8">
           <div>

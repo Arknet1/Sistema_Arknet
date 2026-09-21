@@ -607,7 +607,7 @@ export const mockSpontaneousApplication = {
   title: 'Candidatura Espontânea',
   description:
     'Não temos vagas abertas de momento, mas estamos sempre à procura de talento. Envie-nos o seu CV e conte-nos como pode contribuir para a ARKNET.',
-  email: 'negocios@arknet.co.ao',
+  email: 'info@arknet.co.ao',
 }
 
 // ---- TESTEMUNHOS ----
@@ -780,7 +780,7 @@ export const mockPartners = [
 export const mockContactInfo = {
   id: '1',
   phones: ['+244 935 208 449'],
-  emails: ['info@arknet.co.ao', 'negocios@arknet.co.ao'],
+  emails: ['info@arknet.co.ao'],
   address: 'Rua Directa do Kero, Casa Nº32 R/C, Kilamba, Luanda',
   city: 'Luanda',
   country: 'Angola',
@@ -799,19 +799,19 @@ export const mockSocialProfiles = [
   {
     id: '1',
     platform: 'facebook',
-    url: 'https://www.facebook.com/jmatostecnologias',
+    url: 'https://www.facebook.com/p/Arknet-61563707010243/',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '2',
     platform: 'linkedin',
-    url: 'https://www.linkedin.com/jmatostecnologias',
+    url: 'https://www.linkedin.com/company/arknet-oficial/?originalSubdomain=ao',
     updatedAt: '2026-01-01T00:00:00Z',
   },
   {
     id: '3',
     platform: 'instagram',
-    url: 'https://www.instagram.com/j.matostecnologias/',
+    url: 'https://www.instagram.com/p/DYRqhy6DNS6/',
     updatedAt: '2026-01-01T00:00:00Z',
   },
 ]

@@ -179,6 +179,7 @@ export type EventStatus = 'agendado' | 'decorrer' | 'passado' | 'cancelado'
 export interface EventItem {
   id: string
   title: string
+  slug?: string
   description: string
   date: string // ISO ou data formatada
   time?: string
@@ -1261,7 +1262,7 @@ const DEFAULT_SETTINGS: CompanySettings = {
   companyName: 'ARKNET, Soluções Tecnológicas e Telecomunicações',
   tagline: 'Transformando o Futuro Digital de Angola',
   phones: mockContactInfo.phones || ['+244 935 208 449'],
-  emails: mockContactInfo.emails || ['info@arknet.co.ao', 'negocios@arknet.co.ao'],
+  emails: mockContactInfo.emails || ['info@arknet.co.ao'],
   address: mockContactInfo.address || 'Rua Directa do Kero, Casa Nº32 R/C, Kilamba, Luanda',
   city: mockContactInfo.city || 'Luanda',
   country: mockContactInfo.country || 'Angola',
@@ -1269,9 +1270,9 @@ const DEFAULT_SETTINGS: CompanySettings = {
   whatsappChannelUrl: mockContactInfo.whatsappChannel?.url || 'https://whatsapp.com/channel/0029VbCsWdsLo4hhX7FJ2e0A',
   whatsappNumber: '+244935208449',
   socialLinks: {
-    facebook: 'https://www.facebook.com/jmatostecnologias',
-    linkedin: 'https://www.linkedin.com/jmatostecnologias',
-    instagram: 'https://www.instagram.com/j.matostecnologias/',
+    facebook: 'https://www.facebook.com/p/Arknet-61563707010243/',
+    linkedin: 'https://www.linkedin.com/company/arknet-oficial/?originalSubdomain=ao',
+    instagram: 'https://www.instagram.com/p/DYRqhy6DNS6/',
   },
   institutionalText: 'A Arknet é uma empresa tecnológica focada em inovação, conectividade e transformação digital, preparada para responder às exigências do mercado moderno através de soluções inteligentes e integradas. Com uma visão voltada para o futuro, actuamos no desenvolvimento de infraestruturas tecnológicas, serviços digitais e capacitação profissional, contribuindo para o crescimento tecnológico de Angola e África.',
   presentationLetter: 'O nosso compromisso é transformar a realidade tecnológica das empresas em Angola, oferecendo soluções integradas que impulsionam o crescimento e a eficiência operacional.',
@@ -1605,6 +1606,15 @@ class DataStoreManager {
     }
   }
 
+  private ensureServerSync() {
+    if (!this.isBrowser) {
+      const serverData = getServerDbData()
+      if (serverData) {
+        this.db = serverData
+      }
+    }
+  }
+
   /**
    * Sincroniza os dados locais com o arquivo do servidor (/api/db) de forma inteligente e segura
    */
@@ -1617,7 +1627,7 @@ class DataStoreManager {
       if (token) {
         headers['Authorization'] = `Bearer ${token}`
       }
-      const res = await fetch('/api/db', { cache: 'no-store', headers })
+      const res = await fetch('/api/db', { cache: 'no-store', headers, credentials: 'include' })
       if (!res.ok) return false
       const data = await res.json()
       if (data && data.success && data.db) {
@@ -1667,15 +1677,15 @@ class DataStoreManager {
           // Payload público (visitante não autenticado): atualiza dados do catálogo sem apagar encomendas/clientes locais
           this.db = {
             ...localDb,
-            products: Array.isArray(serverDb.products) && serverDb.products.length ? serverDb.products : (localDb.products || INITIAL_DB.products),
-            categories: Array.isArray(serverDb.categories) && serverDb.categories.length ? serverDb.categories : (localDb.categories || INITIAL_DB.categories),
-            projects: Array.isArray(serverDb.projects) && serverDb.projects.length ? serverDb.projects : (localDb.projects || INITIAL_DB.projects),
+            products: Array.isArray(serverDb.products) ? serverDb.products : (localDb.products || INITIAL_DB.products),
+            categories: Array.isArray(serverDb.categories) ? serverDb.categories : (localDb.categories || INITIAL_DB.categories),
+            projects: Array.isArray(serverDb.projects) ? serverDb.projects : (localDb.projects || INITIAL_DB.projects),
             dailyActivities: Array.isArray(serverDb.dailyActivities) ? serverDb.dailyActivities : (localDb.dailyActivities || []),
-            events: Array.isArray(serverDb.events) && serverDb.events.length ? serverDb.events : (localDb.events || INITIAL_DB.events),
-            courses: Array.isArray(serverDb.courses) && serverDb.courses.length ? serverDb.courses : (localDb.courses || INITIAL_DB.courses),
+            events: Array.isArray(serverDb.events) ? serverDb.events : (localDb.events || INITIAL_DB.events),
+            courses: Array.isArray(serverDb.courses) ? serverDb.courses : (localDb.courses || INITIAL_DB.courses),
             jobs: Array.isArray(serverDb.jobs) ? serverDb.jobs : (localDb.jobs || []),
-            partners: Array.isArray(serverDb.partners) && serverDb.partners.length ? serverDb.partners : (localDb.partners || INITIAL_DB.partners),
-            testimonials: Array.isArray(serverDb.testimonials) && serverDb.testimonials.length ? serverDb.testimonials : (localDb.testimonials || INITIAL_DB.testimonials),
+            partners: Array.isArray(serverDb.partners) ? serverDb.partners : (localDb.partners || INITIAL_DB.partners),
+            testimonials: Array.isArray(serverDb.testimonials) ? serverDb.testimonials : (localDb.testimonials || INITIAL_DB.testimonials),
             settings: {
               ...INITIAL_DB.settings,
               ...(localDb.settings || {}),
@@ -1732,6 +1742,7 @@ class DataStoreManager {
         method: 'POST',
         headers,
         body: JSON.stringify({ db }),
+        credentials: 'include',
         keepalive: true,
       })
         .then(async (res) => {
@@ -1861,6 +1872,7 @@ class DataStoreManager {
   }
 
   public getSnapshot(): ArknetDatabase {
+    this.ensureServerSync()
     return this.db
   }
 
@@ -1868,7 +1880,8 @@ class DataStoreManager {
   // OPERAÇÕES: UTILIZADORES
   // ==========================================
   public getUsers(): AdminUser[] {
-    return this.db.users
+    this.ensureServerSync()
+    return this.db.users || []
   }
 
   public addUser(user: Omit<AdminUser, 'id' | 'createdAt'>): AdminUser {
@@ -1913,6 +1926,7 @@ class DataStoreManager {
   // OPERAÇÕES: PRODUTOS & CATEGORIAS
   // ==========================================
   public getProducts(): StoreProduct[] {
+    this.ensureServerSync()
     if (this.db?.products && Array.isArray(this.db.products)) {
       return this.db.products
     }
@@ -1920,6 +1934,7 @@ class DataStoreManager {
   }
 
   public getProductById(id: string): StoreProduct | undefined {
+    this.ensureServerSync()
     const list = this.getProducts()
     return list.find((p) => p.id === id)
   }
@@ -1966,6 +1981,7 @@ class DataStoreManager {
   }
 
   public getCategories(): ProductCategory[] {
+    this.ensureServerSync()
     if (this.db?.categories && Array.isArray(this.db.categories)) {
       return this.db.categories
     }
@@ -2013,7 +2029,8 @@ class DataStoreManager {
   // OPERAÇÕES: PEDIDOS DA LOJA
   // ==========================================
   public getOrders(): StoreOrder[] {
-    return this.db.orders
+    this.ensureServerSync()
+    return this.db.orders || []
   }
 
   public addOrder(order: Omit<StoreOrder, 'id' | 'orderNumber' | 'createdAt' | 'updatedAt'>): StoreOrder {
@@ -2244,11 +2261,25 @@ class DataStoreManager {
   // OPERAÇÕES: RESERVAS DE PRODUTOS EM TRÂNSITO
   // ==========================================
   public getReservations(): ProductReservation[] {
-    return this.db.reservations || []
+    this.ensureServerSync()
+    const products = this.db.products || []
+    const prodMap = new Map(products.map((p) => [p.id, p]))
+    return (this.db.reservations || []).map((r) => {
+      const liveProduct = prodMap.get(r.productId)
+      if (liveProduct) {
+        return {
+          ...r,
+          productName: liveProduct.name || r.productName,
+          productImage: liveProduct.image || r.productImage,
+          productPrice: liveProduct.price ?? r.productPrice,
+        }
+      }
+      return r
+    })
   }
 
   public getReservationsByProductId(productId: string): ProductReservation[] {
-    return (this.db.reservations || []).filter((r) => r.productId === productId)
+    return this.getReservations().filter((r) => r.productId === productId)
   }
 
   public addReservation(
@@ -2256,8 +2287,12 @@ class DataStoreManager {
   ): ProductReservation {
     const date = new Date()
     const randomSeq = String(Math.floor(1000 + Math.random() * 9000))
+    const liveProd = (this.db.products || []).find((p) => p.id === data.productId)
     const newReservation: ProductReservation = {
       ...data,
+      productName: liveProd?.name || data.productName,
+      productImage: liveProd?.image || data.productImage,
+      productPrice: liveProd?.price ?? data.productPrice,
       id: `res-${Date.now()}`,
       reservationNumber: `RES-${date.getFullYear()}-${randomSeq}`,
       status: data.status || 'pendente',
@@ -2414,7 +2449,8 @@ class DataStoreManager {
   // OPERAÇÕES: ACADEMIA / CURSOS
   // ==========================================
   public getCourses(): CourseItem[] {
-    return this.db.courses
+    this.ensureServerSync()
+    return this.db.courses || []
   }
 
   public addCourse(course: Omit<CourseItem, 'id' | 'createdAt' | 'updatedAt'>): CourseItem {
@@ -2460,18 +2496,30 @@ class DataStoreManager {
   // OPERAÇÕES: EVENTOS
   // ==========================================
   public getEvents(): EventItem[] {
-    return this.db.events
+    this.ensureServerSync()
+    return this.db.events || []
   }
 
   public addEvent(event: Omit<EventItem, 'id' | 'createdAt' | 'updatedAt'>): EventItem {
+    const slug =
+      (event as any).slug ||
+      event.title
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '') ||
+      `evt-${Date.now()}`
+
     const newEvent: EventItem = {
       ...event,
+      slug,
       id: `evt-${Date.now()}`,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
     this.mutate(
-      (db) => ({ ...db, events: [newEvent, ...db.events] }),
+      (db) => ({ ...db, events: [newEvent, ...(db.events || [])] }),
       { action: `Agendou novo evento "${newEvent.title}"`, module: 'eventos' }
     )
     return newEvent
@@ -2480,9 +2528,20 @@ class DataStoreManager {
   public updateEvent(id: string, updates: Partial<EventItem>): EventItem | null {
     let updatedItem: EventItem | null = null
     this.mutate((db) => {
-      const events = db.events.map((e) => {
+      const events = (db.events || []).map((e) => {
         if (e.id === id) {
-          updatedItem = { ...e, ...updates, updatedAt: new Date().toISOString() }
+          const slug =
+            updates.slug ||
+            e.slug ||
+            (updates.title
+              ? updates.title
+                  .toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/[^a-z0-9]+/g, '-')
+                  .replace(/(^-|-$)/g, '')
+              : `evt-${id}`)
+          updatedItem = { ...e, ...updates, slug, updatedAt: new Date().toISOString() }
           return updatedItem
         }
         return e
@@ -2493,16 +2552,17 @@ class DataStoreManager {
   }
 
   public deleteEvent(id: string): boolean {
-    const evt = this.db.events.find((e) => e.id === id)
+    const evt = (this.db.events || []).find((e) => e.id === id)
     if (!evt) return false
     this.mutate(
-      (db) => ({ ...db, events: db.events.filter((e) => e.id !== id) }),
+      (db) => ({ ...db, events: (db.events || []).filter((e) => e.id !== id) }),
       { action: `Eliminou evento "${evt.title}"`, module: 'eventos' }
     )
     return true
   }
 
   public getEventRegistrations(): EventRegistration[] {
+    this.ensureServerSync()
     return this.db.eventRegistrations || []
   }
 
@@ -2564,7 +2624,8 @@ class DataStoreManager {
   // OPERAÇÕES: CARREIRAS & CANDIDATURAS
   // ==========================================
   public getJobs(): JobPosition[] {
-    return this.db.jobs
+    this.ensureServerSync()
+    return this.db.jobs || []
   }
 
   public addJob(job: Omit<JobPosition, 'id' | 'createdAt' | 'updatedAt'>): JobPosition {
@@ -2607,7 +2668,8 @@ class DataStoreManager {
   }
 
   public getApplications(): JobApplication[] {
-    return this.db.applications
+    this.ensureServerSync()
+    return this.db.applications || []
   }
 
   public addApplication(app: Omit<JobApplication, 'id' | 'status' | 'createdAt' | 'updatedAt'>): JobApplication {
@@ -2657,7 +2719,8 @@ class DataStoreManager {
   // OPERAÇÕES: TESTEMUNHOS & PARCEIROS
   // ==========================================
   public getTestimonials(): TestimonialItem[] {
-    return this.db.testimonials
+    this.ensureServerSync()
+    return this.db.testimonials || []
   }
 
   public addTestimonial(t: Omit<TestimonialItem, 'id' | 'createdAt' | 'updatedAt'>): TestimonialItem {
@@ -2700,7 +2763,8 @@ class DataStoreManager {
   }
 
   public getPartners(): PartnerItem[] {
-    return this.db.partners
+    this.ensureServerSync()
+    return this.db.partners || []
   }
 
   public addPartner(p: Omit<PartnerItem, 'id' | 'createdAt' | 'updatedAt'>): PartnerItem {
@@ -2746,14 +2810,17 @@ class DataStoreManager {
   // OPERAÇÕES: CLIENTES / PORTAL DO CLIENTE
   // ==========================================
   public getCustomers(): CustomerAccount[] {
+    this.ensureServerSync()
     return this.db.customers || []
   }
 
   public getCustomerById(id: string): CustomerAccount | undefined {
+    this.ensureServerSync()
     return (this.db.customers || []).find((c) => c.id === id)
   }
 
   public getCustomerByEmail(email: string): CustomerAccount | undefined {
+    this.ensureServerSync()
     return (this.db.customers || []).find((c) => c.email.toLowerCase() === email.toLowerCase().trim())
   }
 
@@ -2882,11 +2949,13 @@ class DataStoreManager {
   }
 
   public getCustomerOrders(customerEmail: string): StoreOrder[] {
+    this.ensureServerSync()
     const cleanEmail = customerEmail.toLowerCase().trim()
     return (this.db.orders || []).filter((o) => o.customerEmail.toLowerCase().trim() === cleanEmail)
   }
 
   public getCustomerLeads(customerEmail: string): ServiceLead[] {
+    this.ensureServerSync()
     const cleanEmail = customerEmail.toLowerCase().trim()
     return (this.db.leads || []).filter((l) => l.email.toLowerCase().trim() === cleanEmail)
   }
@@ -2895,10 +2964,12 @@ class DataStoreManager {
   // OPERAÇÕES: PROJETOS / PORTFÓLIO
   // ==========================================
   public getProjects(): ProjectItem[] {
+    this.ensureServerSync()
     return this.db.projects || []
   }
 
   public getProjectBySlug(slug: string): ProjectItem | null {
+    this.ensureServerSync()
     const cleanSlug = slug.toLowerCase().trim()
     return (this.db.projects || []).find((p) => p.slug.toLowerCase().trim() === cleanSlug) || null
   }
@@ -2956,6 +3027,7 @@ class DataStoreManager {
   // OPERAÇÕES: ATIVIDADES DIÁRIAS (ARKNET EM AÇÃO)
   // ==========================================
   public getDailyActivities(): DailyActivityItem[] {
+    this.ensureServerSync()
     return this.db.dailyActivities || []
   }
 
@@ -3011,10 +3083,11 @@ class DataStoreManager {
   // OPERAÇÕES: DEFINIÇÕES GERAIS & BACKUP
   // ==========================================
   public getSettings(): CompanySettings {
+    this.ensureServerSync()
     return {
       ...INITIAL_DB.settings,
       ...this.db.settings,
-      executiveTeam: this.db.settings.executiveTeam?.length
+      executiveTeam: this.db.settings?.executiveTeam?.length
         ? this.db.settings.executiveTeam
         : INITIAL_DB.settings.executiveTeam,
     }

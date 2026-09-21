@@ -46,12 +46,12 @@ export default function Footer() {
   }, [])
 
   const phones = settings.phones?.length ? settings.phones : ["+244 935 208 449"]
-  const emails = settings.emails?.length ? settings.emails : ["info@arknet.co.ao", "negocios@arknet.co.ao"]
+  const emails = settings.emails?.length ? settings.emails : ["info@arknet.co.ao"]
   const address = [settings.address, settings.city].filter(Boolean).join(", ") || "Luanda, Angola"
   const socialLinks = {
-    linkedin: settings.socialLinks?.linkedin ?? "https://www.linkedin.com/jmatostecnologias",
-    facebook: settings.socialLinks?.facebook ?? "https://www.facebook.com/jmatostecnologias",
-    instagram: settings.socialLinks?.instagram ?? "https://www.instagram.com/j.matostecnologias/",
+    linkedin: settings.socialLinks?.linkedin ?? "https://www.linkedin.com/company/arknet-oficial/?originalSubdomain=ao",
+    facebook: settings.socialLinks?.facebook ?? "https://www.facebook.com/p/Arknet-61563707010243/",
+    instagram: settings.socialLinks?.instagram ?? "https://www.instagram.com/p/DYRqhy6DNS6/",
     ...(settings.socialLinks || {}),
   }
 

@@ -4,6 +4,9 @@ import { dataStore } from '@/lib/data-store'
 import ProjectDetailClient from './project-detail-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 export function generateStaticParams() {
   const db = dataStore.getSnapshot()
   return (db.projects || []).map((p) => ({ slug: p.slug }))

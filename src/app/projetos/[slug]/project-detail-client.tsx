@@ -331,7 +331,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
             </div>
 
             <Link
-              href="/empresa#contacto"
+              href="/#contacto"
               className="px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition whitespace-nowrap shrink-0 flex items-center gap-2"
             >
               <span>Solicitar Parceria</span>

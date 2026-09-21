@@ -23,8 +23,8 @@ import {
 } from 'lucide-react'
 
 import arknetLogo from '@/assets/icon18.png'
-import heroImage from '@/assets/office.jpeg'
-import aboutImage from '@/assets/office.jpeg'
+import heroImage from '@/assets/formacao/hero.jpeg'
+import aboutImage from '@/assets/formacao/about.jpeg'
 
 import {
   mockEventsInfo,
