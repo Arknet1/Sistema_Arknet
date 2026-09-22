@@ -577,3 +577,128 @@ export function appendServerEventRegistration(registration: any) {
   const eventRegistrations = [registration, ...(current.eventRegistrations || [])]
   return writeServerDb({ eventRegistrations })
 }
+
+/**
+ * Retorna todos os produtos do Prisma com fallback para JSON
+ */
+export async function getProductsServerAsync() {
+  try {
+    const products = await prisma.product.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+    if (products && products.length > 0) {
+      return products.map((p) => ({
+        ...p,
+        images: safeJsonParse(p.images, undefined),
+        createdAt: p.createdAt.toISOString(),
+        updatedAt: p.updatedAt.toISOString(),
+      }))
+    }
+  } catch (err) {
+    console.error('[getProductsServerAsync] Erro no Prisma:', err)
+  }
+  const fallbackDb = readServerDbFallback()
+  return fallbackDb.products || []
+}
+
+/**
+ * Cria ou atualiza um produto no Prisma e no arknet-db.json de forma atómica
+ */
+export async function saveProductServerAsync(productData: any) {
+  const id = productData.id || `prod-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`
+  const now = new Date()
+
+  // 1. Resolver categoria no Prisma se aplicável
+  let categoryId = productData.categoryId || null
+  if (!categoryId && productData.category) {
+    try {
+      const cat = await prisma.productCategory.findFirst({
+        where: { name: productData.category },
+      })
+      if (cat) categoryId = cat.id
+    } catch {}
+  }
+
+  const payload = {
+    name: (productData.name || '').trim(),
+    description: productData.description || '',
+    categoryId,
+    category: productData.category || 'Produtos',
+    price: typeof productData.price === 'number' ? productData.price : null,
+    image: productData.image || '',
+    images: Array.isArray(productData.images)
+      ? JSON.stringify(productData.images)
+      : (typeof productData.images === 'string' ? productData.images : null),
+    inStock: productData.inStock !== undefined ? Boolean(productData.inStock) : true,
+    quantity: typeof productData.quantity === 'number' ? productData.quantity : 10,
+    featured: Boolean(productData.featured),
+    sku: productData.sku || `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
+  }
+
+  try {
+    await prisma.product.upsert({
+      where: { id },
+      create: {
+        id,
+        ...payload,
+        createdAt: productData.createdAt ? new Date(productData.createdAt) : now,
+        updatedAt: now,
+      },
+      update: {
+        ...payload,
+        updatedAt: now,
+      },
+    })
+  } catch (err) {
+    console.error('[saveProductServerAsync] Erro Prisma:', err)
+  }
+
+  const formattedProduct = {
+    id,
+    ...payload,
+    images: safeJsonParse(payload.images, undefined),
+    createdAt: productData.createdAt || now.toISOString(),
+    updatedAt: now.toISOString(),
+  }
+
+  // 2. Atualizar JSON (arknet-db.json)
+  const current = readServerDbFallback()
+  const existingProds = current.products || []
+  const idx = existingProds.findIndex((p: any) => p.id === id)
+  let updatedProds: any[]
+  if (idx >= 0) {
+    updatedProds = existingProds.map((p: any) => (p.id === id ? { ...p, ...formattedProduct } : p))
+  } else {
+    updatedProds = [formattedProduct, ...existingProds]
+  }
+
+  writeServerDb({ products: updatedProds })
+  return formattedProduct
+}
+
+/**
+ * Elimina um produto no Prisma e no arknet-db.json de forma atómica
+ */
+export async function deleteProductServerAsync(id: string) {
+  try {
+    await prisma.storeOrderItem.updateMany({
+      where: { productId: id },
+      data: { productId: null },
+    })
+    await prisma.productReservation.updateMany({
+      where: { productId: id },
+      data: { productId: null },
+    })
+    await prisma.product.deleteMany({
+      where: { id },
+    })
+  } catch (err) {
+    console.error('[deleteProductServerAsync] Erro Prisma:', err)
+  }
+
+  const current = readServerDbFallback()
+  const updatedProds = (current.products || []).filter((p: any) => p.id !== id)
+  writeServerDb({ products: updatedProds })
+  return true
+}
+

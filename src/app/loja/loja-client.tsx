@@ -30,6 +30,8 @@ export default function LojaClient() {
   const carouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    dataStore.fetchProductsFromServer().catch((e) => console.warn('Erro ao carregar produtos na loja:', e))
+
     const sync = () => {
       const allProducts = dataStore.getProducts()
       const allCategories = dataStore.getCategories()

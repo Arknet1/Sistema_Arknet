@@ -172,3 +172,32 @@ export async function POST(req: Request) {
   }
 }
 
+export async function GET() {
+  try {
+    ensureUploadsDir()
+    const files = fs.readdirSync(UPLOADS_DIR)
+    const mediaFiles = files
+      .filter((file) => {
+        const ext = path.extname(file).toLowerCase()
+        return isExtensionAllowed(ext)
+      })
+      .map((file) => {
+        const filePath = path.join(UPLOADS_DIR, file)
+        const stats = fs.statSync(filePath)
+        return {
+          fileName: file,
+          url: `/uploads/${file}`,
+          size: stats.size,
+          mtime: stats.mtimeMs,
+        }
+      })
+      .sort((a, b) => b.mtime - a.mtime)
+
+    return NextResponse.json({ success: true, files: mediaFiles }, { status: 200 })
+  } catch (error) {
+    console.error('[API /api/upload GET] Erro ao listar uploads:', error)
+    return NextResponse.json({ success: false, files: [] }, { status: 500 })
+  }
+}
+
+

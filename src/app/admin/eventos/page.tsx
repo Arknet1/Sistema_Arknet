@@ -191,20 +191,17 @@ export default function AdminEventosPage() {
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.title.trim()) {
-      error('O título do evento é obrigatório.')
-      return
-    }
 
+    const fallbackTitle = formData.title.trim() || 'Evento ARKNET'
     const cap = formData.capacity ? parseInt(formData.capacity, 10) : undefined
 
     if (editingEvent) {
       dataStore.updateEvent(editingEvent.id, {
-        title: formData.title.trim(),
-        description: formData.description.trim(),
-        date: formData.date,
-        time: formData.time.trim(),
-        location: formData.location.trim(),
+        title: fallbackTitle,
+        description: formData.description.trim() || 'Detalhes em breve.',
+        date: formData.date || new Date().toISOString().split('T')[0],
+        time: formData.time.trim() || '09:00 às 17:00',
+        location: formData.location.trim() || 'Luanda, Angola',
         format: formData.format,
         image: formData.image,
         status: formData.status,
@@ -212,14 +209,14 @@ export default function AdminEventosPage() {
         registrationOpen: formData.registrationOpen,
         link: formData.link,
       })
-      success(`Evento "${formData.title}" atualizado com sucesso!`, 'Evento Atualizado')
+      success(`Evento "${fallbackTitle}" atualizado com sucesso!`, 'Evento Atualizado')
     } else {
       dataStore.addEvent({
-        title: formData.title.trim(),
-        description: formData.description.trim(),
-        date: formData.date,
-        time: formData.time.trim(),
-        location: formData.location.trim(),
+        title: fallbackTitle,
+        description: formData.description.trim() || 'Detalhes em breve.',
+        date: formData.date || new Date().toISOString().split('T')[0],
+        time: formData.time.trim() || '09:00 às 17:00',
+        location: formData.location.trim() || 'Luanda, Angola',
         format: formData.format,
         image: formData.image,
         status: formData.status,
@@ -227,7 +224,7 @@ export default function AdminEventosPage() {
         registrationOpen: formData.registrationOpen,
         link: formData.link,
       })
-      success(`Novo evento "${formData.title}" agendado!`, 'Evento Criado')
+      success(`Novo evento "${fallbackTitle}" agendado!`, 'Evento Criado')
     }
 
     setIsModalOpen(false)
@@ -462,7 +459,7 @@ export default function AdminEventosPage() {
               className="bg-white border border-slate-200 shadow-xs hover:shadow-md transition flex flex-col overflow-hidden group"
             >
               {evt.image && (
-                <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
+                <div className="relative h-56 w-full bg-slate-900 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={evt.image}
@@ -618,11 +615,10 @@ export default function AdminEventosPage() {
             <form onSubmit={handleSave} className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
               <div>
                 <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Título do Evento *
+                  Título do Evento
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.title}
                   onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
                   placeholder="ex: ARKNET Tech Summit 2026"
@@ -633,11 +629,10 @@ export default function AdminEventosPage() {
               <div className="grid sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Data do Evento *
+                    Data do Evento
                   </label>
                   <input
                     type="date"
-                    required
                     value={formData.date}
                     onChange={(e) => setFormData((prev) => ({ ...prev, date: e.target.value }))}
                     className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none"
@@ -659,7 +654,7 @@ export default function AdminEventosPage() {
 
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Formato *
+                    Formato
                   </label>
                   <select
                     value={formData.format}
@@ -676,11 +671,10 @@ export default function AdminEventosPage() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Local / Endereço *
+                    Local / Endereço
                   </label>
                   <input
                     type="text"
-                    required
                     value={formData.location}
                     onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
                     placeholder="Hotel Epic Sana, Luanda"

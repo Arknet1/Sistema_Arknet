@@ -282,16 +282,6 @@ export async function POST(request: NextRequest) {
               update: { ...productData, createdAt: undefined },
             })
           }
-
-          await transaction.storeOrderItem.updateMany({
-            where: { productId: { notIn: productIds } },
-            data: { productId: null },
-          })
-          await transaction.productReservation.updateMany({
-            where: { productId: { notIn: productIds } },
-            data: { productId: null },
-          })
-          await transaction.product.deleteMany({ where: { id: { notIn: productIds } } })
         })
       } catch (productsError) {
         console.error('[API /api/db POST] Falha ao sincronizar produtos no Prisma:', productsError)

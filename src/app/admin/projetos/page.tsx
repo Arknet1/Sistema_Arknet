@@ -329,47 +329,71 @@ export default function AdminProjetosPage() {
 
   const handleGalleryImageChange = (index: number, url: string) => {
     setProjectFormData((prev) => {
-      const gallery = [...prev.gallery]
-      if (url) {
-        gallery[index] = url
-      } else {
-        gallery.splice(index, 1)
-      }
-      return { ...prev, gallery: gallery.filter(Boolean).slice(0, 3) }
+      const gallery = [...(prev.gallery || [])]
+      gallery[index] = url
+      return { ...prev, gallery: gallery.filter(Boolean) }
+    })
+  }
+
+  const handleAddGallerySlot = () => {
+    setProjectFormData((prev) => {
+      const currentGallery = prev.gallery || []
+      if (currentGallery.length >= 6) return prev
+      return { ...prev, gallery: [...currentGallery, ''] }
+    })
+  }
+
+  const handleRemoveGalleryImage = (index: number) => {
+    setProjectFormData((prev) => {
+      const nextGallery = (prev.gallery || []).filter((_, i) => i !== index)
+      return { ...prev, gallery: nextGallery }
     })
   }
 
   const handleSaveProject = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!projectFormData.title.trim()) {
-      toastError('O título do projeto é obrigatório.')
-      return
-    }
+    
+    const fallbackTitle = projectFormData.title.trim() || 'Projeto Sem Título'
+    const generatedSlug = fallbackTitle
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+
+    const projectStatus: 'concluido' | 'em_curso' = projectFormData.status === 'em_curso' ? 'em_curso' : 'concluido'
+
     const payload = {
-      title: projectFormData.title.trim(),
-      slug: projectFormData.slug.trim() || projectFormData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      title: fallbackTitle,
+      slug: projectFormData.slug.trim() || generatedSlug || `projeto-${Date.now()}`,
       clientName: projectFormData.clientName.trim() || 'ARKNET',
-      category: projectFormData.category,
-      partnershipType: projectFormData.partnershipType,
-      status: projectFormData.status,
-      tagline: projectFormData.tagline.trim(),
-      description: projectFormData.description.trim(),
-      challenge: projectFormData.challenge.trim(),
-      solution: projectFormData.solution.trim(),
+      category: projectFormData.category || 'Internet Empresarial',
+      partnershipType: projectFormData.partnershipType || 'Projeto para Cliente',
+      status: projectStatus,
+      tagline: projectFormData.tagline.trim() || '',
+      description: projectFormData.description.trim() || '',
+      challenge: projectFormData.challenge.trim() || '',
+      solution: projectFormData.solution.trim() || '',
       image: projectFormData.image || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80',
-      gallery: projectFormData.gallery,
-      partners: projectFormData.partners,
-      results: projectFormData.results,
-      featured: projectFormData.featured,
-      completedAt: projectFormData.completedAt.trim(),
+      gallery: (projectFormData.gallery || []).filter(Boolean),
+      partners: projectFormData.partners || [],
+      results: projectFormData.results || [],
+      featured: Boolean(projectFormData.featured),
+      completedAt: projectFormData.completedAt.trim() || new Date().getFullYear().toString(),
     }
 
-    if (editingProject) {
-      dataStore.updateProject(editingProject.id, payload)
-      success(`Projeto "${projectFormData.title}" atualizado com sucesso!`)
-    } else {
-      dataStore.addProject(payload)
-      success(`Projeto "${projectFormData.title}" criado com sucesso!`)
+    try {
+      if (editingProject) {
+        dataStore.updateProject(editingProject.id, payload)
+        success(`Projeto "${payload.title}" atualizado com sucesso!`)
+      } else {
+        dataStore.addProject(payload)
+        success(`Projeto "${payload.title}" criado com sucesso!`)
+      }
+    } catch (err) {
+      console.error('[AdminProjetos] Erro ao guardar projeto:', err)
+      toastError('Ocorreu um erro ao guardar o projeto. Verifique os dados e tente novamente.')
+      return
     }
 
     setIsProjectModalOpen(false)
@@ -404,30 +428,28 @@ export default function AdminProjetosPage() {
 
   const handleSaveActivity = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!activityFormData.title.trim()) {
-      toastError('O título da notícia / atividade é obrigatório.')
-      return
-    }
 
     const tagList = activityFormData.tags
       .split(',')
       .map((t) => t.trim())
       .filter(Boolean)
 
+    const fallbackTitle = activityFormData.title.trim() || 'Notícia / Atividade ARKNET'
+
     const payload = {
-      title: activityFormData.title.trim(),
-      category: activityFormData.category,
-      description: activityFormData.description.trim(),
-      content: activityFormData.content.trim() || activityFormData.description.trim(),
+      title: fallbackTitle,
+      category: activityFormData.category || 'Operações Técnicas',
+      description: activityFormData.description.trim() || 'Registo de atividade operacional ARKNET.',
+      content: activityFormData.content.trim() || activityFormData.description.trim() || 'Registo de atividade e novidades da ARKNET.',
       image: activityFormData.image || 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80',
       clientOrLocation: activityFormData.clientOrLocation.trim() || 'Luanda, Angola',
-      date: activityFormData.date.trim() || '2026-03-08',
+      date: activityFormData.date.trim() || new Date().toISOString().split('T')[0],
       time: activityFormData.time.trim() || '12:00',
       readTime: activityFormData.readTime.trim() || '3 min de leitura',
       author: activityFormData.author.trim() || 'Comunicação ARKNET',
       tags: tagList.length > 0 ? tagList : ['Atividades', 'ARKNET'],
-      status: activityFormData.status,
-      featured: activityFormData.featured,
+      status: activityFormData.status || 'concluida',
+      featured: Boolean(activityFormData.featured),
     }
 
     if (editingActivity) {
@@ -978,11 +1000,10 @@ export default function AdminProjetosPage() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
-                      Título do Projeto *
+                      Título do Projeto
                     </label>
                     <input
                       type="text"
-                      required
                       value={projectFormData.title}
                       onChange={(e) => handleProjectTitleChange(e.target.value)}
                       placeholder="Ex.: Modernização de Rede: Tribunal Supremo"
@@ -992,11 +1013,10 @@ export default function AdminProjetosPage() {
 
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
-                      Cliente / Instituição *
+                      Cliente / Instituição
                     </label>
                     <input
                       type="text"
-                      required
                       value={projectFormData.clientName}
                       onChange={(e) => setProjectFormData({ ...projectFormData, clientName: e.target.value })}
                       placeholder="Ex: Tribunal Supremo de Angola"
@@ -1126,6 +1146,50 @@ export default function AdminProjetosPage() {
                   />
                 </div>
 
+                {/* Galeria de Imagens do Projeto */}
+                <div className="space-y-3">
+                  <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
+                    <ImageIcon className="h-4 w-4 text-primary" />
+                    <span>Galeria de Imagens</span>
+                    <span className="text-[10px] font-mono text-slate-400 ml-auto normal-case">
+                      {(projectFormData.gallery || []).filter(Boolean).length} / 6
+                    </span>
+                  </h4>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {(projectFormData.gallery || []).map((imgUrl, gIdx) => (
+                      <div key={gIdx} className="relative">
+                        <ImageUpload
+                          value={imgUrl}
+                          onChange={(url) => handleGalleryImageChange(gIdx, url)}
+                          label={`Foto da Galeria ${gIdx + 1}`}
+                          helperText="Selecione do PC, galeria do servidor ou cole um URL."
+                          aspectRatio="video"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveGalleryImage(gIdx)}
+                          className="absolute top-0 right-0 p-1 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition shadow-md z-10"
+                          title="Remover esta imagem da galeria"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {(projectFormData.gallery || []).length < 6 && (
+                    <button
+                      type="button"
+                      onClick={handleAddGallerySlot}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 text-slate-700 text-[11px] font-bold uppercase hover:bg-slate-200 transition rounded border border-slate-200"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                      Adicionar Imagem à Galeria
+                    </button>
+                  )}
+                </div>
+
                 <div className="flex items-center gap-2 pt-2">
                   <input
                     type="checkbox"
@@ -1194,11 +1258,10 @@ export default function AdminProjetosPage() {
               <div className="grid sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block font-bold text-slate-700 mb-1">
-                    Título da Notícia / Atividade *
+                    Título da Notícia / Atividade
                   </label>
                   <input
                     type="text"
-                    required
                     value={activityFormData.title}
                     onChange={(e) => setActivityFormData({ ...activityFormData, title: e.target.value })}
                     placeholder="Ex: ARKNET em Direto na Rádio Mais: O Futuro da Conectividade em Angola"
@@ -1208,7 +1271,7 @@ export default function AdminProjetosPage() {
 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    Categoria / Editoria *
+                    Categoria / Editoria
                   </label>
                   <select
                     value={activityFormData.category}
@@ -1227,11 +1290,10 @@ export default function AdminProjetosPage() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    Localização / Emissora / Veículo *
+                    Localização / Emissora / Veículo
                   </label>
                   <input
                     type="text"
-                    required
                     value={activityFormData.clientOrLocation}
                     onChange={(e) => setActivityFormData({ ...activityFormData, clientOrLocation: e.target.value })}
                     placeholder="Ex: Rádio Mais 99.1 FM, Luanda ou Polo de Viana"
@@ -1256,11 +1318,10 @@ export default function AdminProjetosPage() {
               <div className="grid sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    Data da Atividade / Notícia *
+                    Data da Atividade / Notícia
                   </label>
                   <input
                     type="date"
-                    required
                     value={activityFormData.date}
                     onChange={(e) => setActivityFormData({ ...activityFormData, date: e.target.value })}
                     className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-secondary focus:outline-none font-mono"
@@ -1309,11 +1370,10 @@ export default function AdminProjetosPage() {
 
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
-                  Resumo Curto (Exibido no cartão do blog) *
+                  Resumo Curto (Exibido no cartão do blog)
                 </label>
                 <textarea
                   rows={2}
-                  required
                   value={activityFormData.description}
                   onChange={(e) => setActivityFormData({ ...activityFormData, description: e.target.value })}
                   placeholder="Resumo de 2 linhas sobre a participação ou evento..."

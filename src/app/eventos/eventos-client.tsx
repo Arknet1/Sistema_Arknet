@@ -273,7 +273,7 @@ export default function EventosClient() {
                       className="bg-white border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden"
                     >
                       {evt.image && (
-                        <div className="relative h-48 w-full bg-slate-900 overflow-hidden">
+                        <div className="relative h-56 w-full bg-slate-900 overflow-hidden">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={evt.image}

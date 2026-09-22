@@ -75,7 +75,55 @@ export default function AdminProdutosPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
+  // Assistente de Recuperação de Fotos
+  const [unlinkedPhotos, setUnlinkedPhotos] = useState<any[]>([])
+  const [isRecovering, setIsRecovering] = useState(false)
+  const [showPhotoPreviewModal, setShowPhotoPreviewModal] = useState(false)
+
+  const checkUnlinkedPhotos = async () => {
+    try {
+      const res = await fetch('/api/products/recover')
+      if (res.ok) {
+        const data = await res.json()
+        if (data && data.success && Array.isArray(data.unlinkedFiles)) {
+          setUnlinkedPhotos(data.unlinkedFiles)
+        }
+      }
+    } catch {}
+  }
+
+  const handleRecoverAllPhotos = async () => {
+    setIsRecovering(true)
+    try {
+      const res = await fetch('/api/products/recover', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('arknet_admin_token') || ''}`,
+        },
+        body: JSON.stringify({}),
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        success(data.message || 'Produtos restaurados com sucesso!', 'Restauro Concluído')
+        await dataStore.fetchProductsFromServer()
+        setUnlinkedPhotos([])
+        setShowPhotoPreviewModal(false)
+      } else {
+        error(data.message || 'Falha ao restaurar produtos.')
+      }
+    } catch (e) {
+      error('Erro de ligação ao tentar restaurar produtos.')
+    } finally {
+      setIsRecovering(false)
+    }
+  }
+
   useEffect(() => {
+    // Sincronização server-first imediata ao abrir o painel
+    dataStore.fetchProductsFromServer().catch((e) => console.warn('Erro ao carregar produtos:', e))
+    checkUnlinkedPhotos()
+
     const sync = () => {
       const allProducts = dataStore.getProducts()
       const allCategories = dataStore.getCategories()
@@ -199,18 +247,13 @@ export default function AdminProdutosPage() {
       }
 
       if (editingProduct) {
-        dataStore.updateProduct(editingProduct.id, productData)
+        await dataStore.updateProductAsync(editingProduct.id, productData)
       } else {
-        dataStore.addProduct(productData)
+        await dataStore.addProductAsync(productData)
       }
 
-      // Persistir no servidor
-      await dataStore.persistNow().catch((e) => {
-        console.warn('[Admin Produtos] Gravação no servidor em segundo plano:', e)
-      })
-
       success(
-        editingProduct ? `Produto "${formData.name}" atualizado e guardado com sucesso.` : `Novo produto "${formData.name}" criado e guardado com sucesso.`,
+        editingProduct ? `Produto "${formData.name}" atualizado e guardado com sucesso na base de dados.` : `Novo produto "${formData.name}" criado e guardado com sucesso na base de dados.`,
         editingProduct ? 'Produto Atualizado' : 'Produto Criado'
       )
       setIsModalOpen(false)
@@ -222,9 +265,9 @@ export default function AdminProdutosPage() {
     }
   }
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (deletingId) {
-      dataStore.deleteProduct(deletingId)
+      await dataStore.deleteProductAsync(deletingId)
       success('Produto eliminado do catálogo com sucesso.', 'Produto Eliminado')
       setIsDeleteModalOpen(false)
       setDeletingId(null)
@@ -277,6 +320,53 @@ export default function AdminProdutosPage() {
           Adicionar Produto
         </button>
       </div>
+
+      {/* Recovery Banner if unlinked photos exist */}
+      {unlinkedPhotos.length > 0 && (
+        <div className="bg-amber-50 border-2 border-amber-300 p-5 rounded-lg shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2.5 bg-amber-500 text-white rounded-full shrink-0">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-black text-amber-900 uppercase tracking-wide">
+                {unlinkedPhotos.length} Fotos de Produtos Encontradas no Servidor
+              </h3>
+              <p className="text-xs text-amber-800 mt-0.5 leading-relaxed">
+                Detetámos {unlinkedPhotos.length} imagens carregadas recentemente que ainda não estão associadas a produtos ativos. Pode restaurá-las com 1 clique.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
+            <button
+              type="button"
+              onClick={() => setShowPhotoPreviewModal(true)}
+              className="px-4 py-2 border border-amber-300 bg-white text-amber-800 text-xs font-bold hover:bg-amber-100 transition rounded"
+            >
+              Ver Fotos ({unlinkedPhotos.length})
+            </button>
+            <button
+              type="button"
+              disabled={isRecovering}
+              onClick={handleRecoverAllPhotos}
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-extrabold uppercase tracking-wide transition rounded flex items-center gap-2 shadow-xs disabled:opacity-50 cursor-pointer"
+            >
+              {isRecovering ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  A Restaurar...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4" />
+                  Restaurar Todos os Produtos
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Filters & Search Toolbar */}
       <div className="bg-white border border-slate-200 p-4 shadow-xs space-y-3">
@@ -833,6 +923,83 @@ export default function AdminProdutosPage() {
         confirmText="Sim, Eliminar"
         cancelText="Cancelar"
       />
+
+      {/* Modal de Pré-visualização de Fotos Órfãs */}
+      {showPhotoPreviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
+            onClick={() => setShowPhotoPreviewModal(false)}
+          />
+
+          <div className="relative w-full max-w-4xl bg-white border border-slate-200 shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
+            <div className="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-extrabold text-slate-900">
+                  Fotos Carregadas Recentemente no Servidor ({unlinkedPhotos.length})
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Estas são as imagens que foram enviadas para o servidor e ainda não constam como produtos ativos.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowPhotoPreviewModal(false)}
+                className="text-slate-400 hover:text-slate-700 p-1"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto flex-1 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 bg-slate-50">
+              {unlinkedPhotos.map((file) => (
+                <div key={file.fileName} className="bg-white border border-slate-200 rounded p-2 flex flex-col items-center text-center gap-1 shadow-2xs">
+                  <div className="relative h-24 w-full bg-slate-100 rounded overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={file.url} alt={file.fileName} className="h-full w-full object-contain p-1" />
+                  </div>
+                  <p className="text-[10px] text-slate-600 truncate w-full font-mono mt-1" title={file.fileName}>
+                    {file.fileName}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between">
+              <span className="text-xs text-slate-500">
+                Total: <strong>{unlinkedPhotos.length}</strong> fotos prontas para restauro
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowPhotoPreviewModal(false)}
+                  className="px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200"
+                >
+                  Fechar
+                </button>
+                <button
+                  type="button"
+                  disabled={isRecovering}
+                  onClick={handleRecoverAllPhotos}
+                  className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase transition flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-50"
+                >
+                  {isRecovering ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      A Restaurar...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4" />
+                      Restaurar Todos os {unlinkedPhotos.length} Produtos
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

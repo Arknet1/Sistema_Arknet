@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { UploadCloud, Link as LinkIcon, X, Eye, Check, Loader2 } from 'lucide-react'
+import { UploadCloud, Link as LinkIcon, X, Eye, Check, Loader2, FolderOpen, Search, RefreshCw } from 'lucide-react'
 
 interface ImageUploadProps {
   value: string
@@ -11,6 +11,13 @@ interface ImageUploadProps {
   helperText?: string
   aspectRatio?: 'square' | 'video' | 'banner' | 'auto'
   mediaType?: 'image' | 'video'
+}
+
+interface UploadedFileItem {
+  fileName: string
+  url: string
+  size: number
+  mtime: number
 }
 
 export function ImageUpload({
@@ -23,15 +30,43 @@ export function ImageUpload({
     : 'Formatos suportados: PNG, JPG, WebP (máx. 10MB)',
   aspectRatio = 'auto',
 }: ImageUploadProps) {
-  const [tab, setTab] = useState<'upload' | 'url'>('upload')
+  const [tab, setTab] = useState<'upload' | 'url' | 'gallery'>('upload')
   const [urlInput, setUrlInput] = useState(value || '')
   const [dragActive, setDragActive] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  // Galeria de ficheiros do servidor
+  const [galleryFiles, setGalleryFiles] = useState<UploadedFileItem[]>([])
+  const [loadingGallery, setLoadingGallery] = useState(false)
+  const [gallerySearch, setGallerySearch] = useState('')
+
   // Sincroniza o estado interno se o valor externo mudar (ex: ao abrir modal para editar)
-  React.useEffect(() => {
+  useEffect(() => {
     setUrlInput(value || '')
   }, [value])
+
+  const fetchGallery = async () => {
+    setLoadingGallery(true)
+    try {
+      const res = await fetch('/api/upload')
+      if (res.ok) {
+        const data = await res.json()
+        if (data && data.success && Array.isArray(data.files)) {
+          setGalleryFiles(data.files)
+        }
+      }
+    } catch (e) {
+      console.warn('[ImageUpload] Erro ao carregar galeria:', e)
+    } finally {
+      setLoadingGallery(false)
+    }
+  }
+
+  useEffect(() => {
+    if (tab === 'gallery') {
+      fetchGallery()
+    }
+  }, [tab])
 
   const compressImage = (dataUrl: string, callback: (compressed: string) => void) => {
     if (typeof window === 'undefined' || !dataUrl.startsWith('data:image')) {
@@ -146,7 +181,6 @@ export function ImageUpload({
               onChange(resData.url)
               setUrlInput(resData.url)
             } else {
-              // Se a API falhar completamente, usa o dataUrl
               onChange(compressedUrl)
               setUrlInput(compressedUrl)
             }
@@ -206,6 +240,11 @@ export function ImageUpload({
     }
   }
 
+  const filteredGallery = galleryFiles.filter((f) => {
+    if (!gallerySearch.trim()) return true
+    return f.fileName.toLowerCase().includes(gallerySearch.toLowerCase())
+  })
+
   return (
     <div className="space-y-2">
       {label && <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">{label}</label>}
@@ -223,6 +262,16 @@ export function ImageUpload({
         </button>
         <button
           type="button"
+          onClick={() => setTab('gallery')}
+          className={`text-xs font-semibold px-3 py-1.5 transition flex items-center gap-1.5 ${
+            tab === 'gallery' ? 'bg-primary text-white' : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <FolderOpen className="h-3.5 w-3.5" />
+          Fotos no Servidor ({galleryFiles.length > 0 ? galleryFiles.length : 'Galeria'})
+        </button>
+        <button
+          type="button"
           onClick={() => setTab('url')}
           className={`text-xs font-semibold px-3 py-1.5 transition ${
             tab === 'url' ? 'bg-primary text-white' : 'text-slate-600 hover:bg-slate-100'
@@ -232,8 +281,8 @@ export function ImageUpload({
         </button>
       </div>
 
-      {/* Upload Zone or URL Input */}
-      {tab === 'upload' ? (
+      {/* Upload Zone */}
+      {tab === 'upload' && (
         <div
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -271,12 +320,89 @@ export function ImageUpload({
                 <p className="text-sm font-semibold text-slate-700">
                   Clique para selecionar ou arraste o {mediaType === 'video' ? 'vídeo' : 'ficheiro'} para aqui
                 </p>
-                  <p className="text-xs text-slate-400">{helperText}</p>
+                <p className="text-xs text-slate-400">{helperText}</p>
               </>
             )}
           </div>
         </div>
-      ) : (
+      )}
+
+      {/* Server Gallery Tab */}
+      {tab === 'gallery' && (
+        <div className="border border-slate-200 bg-slate-50 p-3 space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Filtrar fotos guardadas no servidor..."
+                value={gallerySearch}
+                onChange={(e) => setGallerySearch(e.target.value)}
+                className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-300 bg-white focus:outline-none focus:border-primary"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={fetchGallery}
+              className="p-2 bg-white border border-slate-300 text-slate-600 hover:text-primary transition"
+              title="Atualizar fotos do servidor"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${loadingGallery ? 'animate-spin' : ''}`} />
+            </button>
+          </div>
+
+          {loadingGallery ? (
+            <div className="py-8 flex flex-col items-center justify-center text-slate-400 gap-2">
+              <Loader2 className="h-5 w-5 animate-spin text-primary" />
+              <p className="text-xs font-medium">A carregar fotos do servidor...</p>
+            </div>
+          ) : filteredGallery.length === 0 ? (
+            <div className="py-8 text-center text-slate-400 text-xs">
+              Nenhuma imagem encontrada na pasta de uploads.
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 max-h-56 overflow-y-auto p-1 bg-white border border-slate-200">
+              {filteredGallery.map((file) => {
+                const isSelected = value === file.url
+                return (
+                  <button
+                    key={file.fileName}
+                    type="button"
+                    onClick={() => {
+                      onChange(file.url)
+                      setUrlInput(file.url)
+                    }}
+                    className={`relative group aspect-square border rounded overflow-hidden p-1 transition ${
+                      isSelected
+                        ? 'border-primary ring-2 ring-primary/40 bg-primary/5'
+                        : 'border-slate-200 hover:border-slate-400 bg-slate-50'
+                    }`}
+                    title={file.fileName}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={file.url}
+                      alt={file.fileName}
+                      className="h-full w-full object-contain"
+                    />
+                    {isSelected && (
+                      <span className="absolute top-1 right-1 bg-primary text-white p-0.5 rounded-full">
+                        <Check className="h-2.5 w-2.5" />
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+          <p className="text-[11px] text-slate-500">
+            Dica: Todas as fotos carregadas anteriormente no servidor estão disponíveis aqui para seleção com 1 clique.
+          </p>
+        </div>
+      )}
+
+      {/* URL Input */}
+      {tab === 'url' && (
         <div className="flex gap-2">
           <div className="relative flex-1">
             <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -312,7 +438,7 @@ export function ImageUpload({
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-slate-800 truncate">{mediaType === 'video' ? 'Vídeo selecionado' : 'Imagem selecionada'}</p>
-            <p className="text-[11px] text-slate-500 truncate max-w-xs">{value}</p>
+            <p className="text-[11px] text-slate-500 truncate max-w-xs font-mono">{value}</p>
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 mt-1">
               <Check className="h-3 w-3" /> Pronta a utilizar
             </span>

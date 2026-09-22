@@ -1939,6 +1939,78 @@ class DataStoreManager {
     return list.find((p) => p.id === id)
   }
 
+  private getAuthHeaders(): Record<string, string> {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    }
+    if (this.isBrowser) {
+      const token = localStorage.getItem(AUTH_TOKEN_KEY)
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+    }
+    return headers
+  }
+
+  public async fetchProductsFromServer(): Promise<StoreProduct[]> {
+    if (!this.isBrowser) return this.getProducts()
+    try {
+      const res = await fetch('/api/products', { cache: 'no-store' })
+      if (res.ok) {
+        const data = await res.json()
+        if (data && data.success && Array.isArray(data.products)) {
+          this.mutate(
+            (db) => ({ ...db, products: data.products }),
+            undefined
+          )
+          return data.products
+        }
+      }
+    } catch (err) {
+      console.warn('[DataStore] Erro ao buscar produtos da API:', err)
+    }
+    return this.getProducts()
+  }
+
+  public async addProductAsync(product: Omit<StoreProduct, 'id' | 'createdAt' | 'updatedAt'>): Promise<StoreProduct> {
+    const newProduct: StoreProduct = {
+      ...product,
+      id: `prod-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+
+    // Atualização otimista local
+    this.mutate(
+      (db) => ({ ...db, products: [newProduct, ...(db.products || [])] }),
+      { action: `Adicionou produto "${newProduct.name}"`, module: 'produtos' }
+    )
+
+    if (this.isBrowser) {
+      try {
+        const res = await fetch('/api/products', {
+          method: 'POST',
+          headers: this.getAuthHeaders(),
+          body: JSON.stringify(newProduct),
+          credentials: 'include',
+        })
+        if (res.ok) {
+          const data = await res.json()
+          if (data && data.product) {
+            this.mutate((db) => {
+              const prods = (db.products || []).map((p) => (p.id === newProduct.id ? data.product : p))
+              return { ...db, products: prods }
+            })
+            return data.product
+          }
+        }
+      } catch (err) {
+        console.error('[DataStore] Erro ao gravar produto no servidor:', err)
+      }
+    }
+    return newProduct
+  }
+
   public addProduct(product: Omit<StoreProduct, 'id' | 'createdAt' | 'updatedAt'>): StoreProduct {
     const newProduct: StoreProduct = {
       ...product,
@@ -1950,7 +2022,53 @@ class DataStoreManager {
       (db) => ({ ...db, products: [newProduct, ...(db.products || [])] }),
       { action: `Adicionou produto "${newProduct.name}"`, module: 'produtos' }
     )
+
+    if (this.isBrowser) {
+      fetch('/api/products', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify(newProduct),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addProduct background sync]:', e))
+    }
+
     return newProduct
+  }
+
+  public async updateProductAsync(id: string, updates: Partial<StoreProduct>): Promise<StoreProduct | null> {
+    let updatedItem: StoreProduct | null = null
+    this.mutate((db) => {
+      const currentProducts = db.products || []
+      const products = currentProducts.map((p) => {
+        if (p.id === id) {
+          updatedItem = { ...p, ...updates, updatedAt: new Date().toISOString() }
+          return updatedItem
+        }
+        return p
+      })
+      return { ...db, products }
+    }, { action: `Atualizou produto "${updates.name || id}"`, module: 'produtos' })
+
+    if (this.isBrowser) {
+      try {
+        const res = await fetch(`/api/products/${id}`, {
+          method: 'PUT',
+          headers: this.getAuthHeaders(),
+          body: JSON.stringify(updates),
+          credentials: 'include',
+        })
+        if (res.ok) {
+          const data = await res.json()
+          if (data && data.product) {
+            return data.product
+          }
+        }
+      } catch (err) {
+        console.error('[DataStore] Erro ao atualizar produto no servidor:', err)
+      }
+    }
+
+    return updatedItem
   }
 
   public updateProduct(id: string, updates: Partial<StoreProduct>): StoreProduct | null {
@@ -1966,7 +2084,43 @@ class DataStoreManager {
       })
       return { ...db, products }
     }, { action: `Atualizou produto "${updates.name || id}"`, module: 'produtos' })
+
+    if (this.isBrowser) {
+      fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: this.getAuthHeaders(),
+        body: JSON.stringify(updates),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore updateProduct background sync]:', e))
+    }
+
     return updatedItem
+  }
+
+  public async deleteProductAsync(id: string): Promise<boolean> {
+    const currentProducts = this.getProducts()
+    const product = currentProducts.find((p) => p.id === id)
+    if (!product) return false
+
+    this.mutate(
+      (db) => ({ ...db, products: (db.products || []).filter((p) => p.id !== id) }),
+      { action: `Eliminou produto "${product.name}"`, module: 'produtos' }
+    )
+
+    if (this.isBrowser) {
+      try {
+        const res = await fetch(`/api/products/${id}`, {
+          method: 'DELETE',
+          headers: this.getAuthHeaders(),
+          credentials: 'include',
+        })
+        return res.ok
+      } catch (err) {
+        console.error('[DataStore] Erro ao eliminar produto no servidor:', err)
+        return false
+      }
+    }
+    return true
   }
 
   public deleteProduct(id: string): boolean {
@@ -1977,6 +2131,15 @@ class DataStoreManager {
       (db) => ({ ...db, products: (db.products || []).filter((p) => p.id !== id) }),
       { action: `Eliminou produto "${product.name}"`, module: 'produtos' }
     )
+
+    if (this.isBrowser) {
+      fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders(),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore deleteProduct background sync]:', e))
+    }
+
     return true
   }
 
