@@ -188,20 +188,31 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
           </div>
         </section>
 
-        {/* IMAGEM DE DESTAQUE EM LARGURA TOTAL (CONTAINED MAX-W-5XL) */}
+        {/* IMAGEM DE DESTAQUE EM LARGURA TOTAL COM AJUSTE AUTOMÁTICO E SEM CORTES */}
         <section className="bg-white py-8 border-b border-slate-200">
           <div className="max-w-5xl mx-auto px-6">
-            <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-slate-900 group">
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-slate-950 group min-h-[340px] max-h-[580px] flex items-center justify-center">
+              {/* Fundo suave com efeito blur para preencher qualquer proporção sem barras pretas duras */}
+              <img
+                src={project.image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-25 scale-110 pointer-events-none"
+              />
+              
+              {/* Imagem Principal sem cortes, 100% visível e centralizada */}
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full aspect-video object-cover group-hover:scale-102 transition-transform duration-700"
+                className="relative z-10 w-full max-h-[560px] h-auto object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none z-10" />
+
               <button
                 type="button"
                 onClick={() => setSelectedGalleryImage(project.image)}
-                className="absolute bottom-4 right-4 p-2.5 bg-slate-950/80 hover:bg-primary text-white rounded-xl backdrop-blur-md transition shadow-md cursor-pointer flex items-center gap-1.5"
+                className="absolute bottom-4 right-4 p-2.5 bg-slate-950/80 hover:bg-primary text-white rounded-xl backdrop-blur-md transition shadow-md cursor-pointer flex items-center gap-1.5 z-20"
               >
                 <Maximize2 className="h-4 w-4" />
                 <span className="text-xs font-bold">Ampliar Imagem</span>
@@ -283,33 +294,7 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
               </div>
             )}
 
-            {/* Galeria de Fotos */}
-            {project.gallery && project.gallery.length > 0 && (
-              <div className="pt-6 border-t border-slate-200 space-y-4">
-                <h3 className="text-xl font-bold uppercase text-slate-900 tracking-tight flex items-center gap-2">
-                  <ImageIcon className="h-5 w-5 text-primary" />
-                  <span>Galeria de Fotos da Atividade</span>
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {project.gallery.map((imgUrl, gIdx) => (
-                    <div
-                      key={gIdx}
-                      className="relative h-40 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 group cursor-pointer shadow-sm hover:shadow-md"
-                      onClick={() => setSelectedGalleryImage(imgUrl)}
-                    >
-                      <img
-                        src={imgUrl}
-                        alt={`Foto do Artigo ${gIdx + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <Maximize2 className="h-6 w-6 text-white" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* (Apenas a imagem principal é mantida conforme solicitado) */}
 
           </div>
 
@@ -364,15 +349,17 @@ export default function ProjectDetailClient({ slug }: ProjectDetailClientProps) 
                 <Link
                   key={rel.id}
                   href={`/projetos/${rel.slug}`}
-                  className="group p-4 bg-slate-50 border border-slate-200/90 hover:border-primary/50 rounded-2xl transition space-y-3 hover:shadow-md"
+                  className="group p-4 bg-slate-50 border border-slate-200/90 hover:border-primary/50 rounded-2xl transition space-y-3 hover:shadow-md flex flex-col justify-between"
                 >
-                  <div className="relative h-40 rounded-xl overflow-hidden bg-slate-900">
+                  <div className="relative h-48 rounded-xl overflow-hidden bg-slate-900">
+                    {/* Imagem enquadrada ao espaço do card */}
                     <img
                       src={rel.image}
                       alt={rel.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute top-2 left-2 px-2 py-0.5 text-[9px] font-black uppercase bg-slate-950/80 text-primary rounded">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute top-2 left-2 z-20 px-2 py-0.5 text-[9px] font-black uppercase bg-slate-950/80 text-primary rounded border border-white/10">
                       {rel.category}
                     </div>
                   </div>

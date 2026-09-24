@@ -79,13 +79,14 @@ export default function Portfolio() {
                 className="overflow-hidden border border-white/10 bg-white/5 flex flex-col justify-between group hover:border-primary/50 transition duration-300"
               >
                 {projeto.image ? (
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden bg-slate-900">
+                    {/* Imagem enquadrada ao espaço do card */}
                     <img
                       src={projeto.image}
                       alt={projeto.title}
-                      className="h-full w-full object-cover opacity-75 group-hover:scale-105 transition duration-500"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700"
                     />
-                    <div className="absolute inset-0 bg-slate-950/35" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
                   </div>
                 ) : null}
 

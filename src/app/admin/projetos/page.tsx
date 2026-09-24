@@ -181,12 +181,39 @@ export default function AdminProjetosPage() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      setProjects(db.projects || [])
-      setDailyActivities(db.dailyActivities && db.dailyActivities.length > 0 ? db.dailyActivities : dataStore.getDailyActivities())
+      const rawProjects = db.projects || []
+      setProjects(
+        rawProjects.map((p: any) => ({
+          ...p,
+          clientName: p.clientName || p.client || 'ARKNET',
+          partnershipType: p.partnershipType || p.sector || 'Projeto para Cliente',
+          completedAt: p.completedAt || (p.year ? String(p.year) : '2026'),
+          tagline: p.tagline || p.fullDescription || '',
+          description: p.description || '',
+          challenge: p.challenge || '',
+          solution: p.solution || '',
+          status: p.status === 'em_curso' ? 'em_curso' : 'concluido',
+          partners: Array.isArray(p.partners) ? p.partners : [],
+          results: Array.isArray(p.results) ? p.results : [],
+          gallery: Array.isArray(p.gallery) ? p.gallery : [],
+        }))
+      )
+      const rawActivities = Array.isArray(db.dailyActivities) ? db.dailyActivities : dataStore.getDailyActivities()
+      setDailyActivities(
+        (rawActivities || []).map((a: any) => ({
+          ...a,
+          description: a.description || a.summary || '',
+          content: a.content || a.description || a.summary || '',
+        }))
+      )
       setAvailablePartners(db.partners || [])
     }
     sync()
     const unsub = dataStore.subscribe(sync)
+    // Força sincronização com o servidor ao carregar para garantir dados frescos
+    dataStore.syncWithServer().then((synced) => {
+      if (synced) sync()
+    })
     return () => unsub()
   }, [])
 
@@ -233,25 +260,25 @@ export default function AdminProjetosPage() {
     setIsProjectModalOpen(true)
   }
 
-  const handleOpenEditProject = (p: ProjectItem) => {
+  const handleOpenEditProject = (p: any) => {
     setEditingProject(p)
     setProjectFormData({
-      title: p.title,
-      slug: p.slug,
-      clientName: p.clientName,
-      category: p.category,
-      partnershipType: p.partnershipType || 'Projeto para Cliente',
-      status: p.status,
-      tagline: p.tagline || '',
+      title: p.title || '',
+      slug: p.slug || '',
+      clientName: p.clientName || p.client || 'ARKNET',
+      category: p.category || 'Internet Empresarial',
+      partnershipType: p.partnershipType || p.sector || 'Projeto para Cliente',
+      status: p.status === 'em_curso' ? 'em_curso' : 'concluido',
+      tagline: p.tagline || p.fullDescription || '',
       description: p.description || '',
       challenge: p.challenge || '',
       solution: p.solution || '',
       image: p.image || '',
-      gallery: p.gallery || [],
-      partners: p.partners || [],
-      results: p.results || [],
+      gallery: Array.isArray(p.gallery) ? p.gallery : [],
+      partners: Array.isArray(p.partners) ? p.partners : [],
+      results: Array.isArray(p.results) ? p.results : [],
       featured: Boolean(p.featured),
-      completedAt: p.completedAt || '',
+      completedAt: p.completedAt || (p.year ? String(p.year) : '2026'),
     })
     setSelectedPartnerId('')
     setPartnerRoleInput('')
@@ -352,37 +379,38 @@ export default function AdminProjetosPage() {
 
   const handleSaveProject = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    const fallbackTitle = projectFormData.title.trim() || 'Projeto Sem Título'
-    const generatedSlug = fallbackTitle
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
-
-    const projectStatus: 'concluido' | 'em_curso' = projectFormData.status === 'em_curso' ? 'em_curso' : 'concluido'
-
-    const payload = {
-      title: fallbackTitle,
-      slug: projectFormData.slug.trim() || generatedSlug || `projeto-${Date.now()}`,
-      clientName: projectFormData.clientName.trim() || 'ARKNET',
-      category: projectFormData.category || 'Internet Empresarial',
-      partnershipType: projectFormData.partnershipType || 'Projeto para Cliente',
-      status: projectStatus,
-      tagline: projectFormData.tagline.trim() || '',
-      description: projectFormData.description.trim() || '',
-      challenge: projectFormData.challenge.trim() || '',
-      solution: projectFormData.solution.trim() || '',
-      image: projectFormData.image || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80',
-      gallery: (projectFormData.gallery || []).filter(Boolean),
-      partners: projectFormData.partners || [],
-      results: projectFormData.results || [],
-      featured: Boolean(projectFormData.featured),
-      completedAt: projectFormData.completedAt.trim() || new Date().getFullYear().toString(),
-    }
 
     try {
+      const fallbackTitle = (projectFormData.title || '').trim() || 'Projeto Sem Título'
+      const generatedSlug = fallbackTitle
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+
+      const projectStatus: 'concluido' | 'em_curso' =
+        projectFormData.status === 'em_curso' ? 'em_curso' : 'concluido'
+
+      const payload = {
+        title: fallbackTitle,
+        slug: (projectFormData.slug || '').trim() || generatedSlug || `projeto-${Date.now()}`,
+        clientName: (projectFormData.clientName || '').trim() || 'ARKNET',
+        category: projectFormData.category || 'Internet Empresarial',
+        partnershipType: projectFormData.partnershipType || 'Projeto para Cliente',
+        status: projectStatus,
+        tagline: (projectFormData.tagline || '').trim() || '',
+        description: (projectFormData.description || '').trim() || '',
+        challenge: (projectFormData.challenge || '').trim() || '',
+        solution: (projectFormData.solution || '').trim() || '',
+        image: projectFormData.image || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80',
+        gallery: (projectFormData.gallery || []).filter(Boolean),
+        partners: projectFormData.partners || [],
+        results: projectFormData.results || [],
+        featured: Boolean(projectFormData.featured),
+        completedAt: (projectFormData.completedAt || '').trim() || new Date().getFullYear().toString(),
+      }
+
       if (editingProject) {
         dataStore.updateProject(editingProject.id, payload)
         success(`Projeto "${payload.title}" atualizado com sucesso!`)
@@ -390,13 +418,17 @@ export default function AdminProjetosPage() {
         dataStore.addProject(payload)
         success(`Projeto "${payload.title}" criado com sucesso!`)
       }
+
+      // Força persistência imediata no servidor
+      dataStore.persistNow().catch((err: any) =>
+        console.warn('[AdminProjetos] Falha ao persistir projeto no servidor:', err)
+      )
+
+      setIsProjectModalOpen(false)
     } catch (err) {
       console.error('[AdminProjetos] Erro ao guardar projeto:', err)
       toastError('Ocorreu um erro ao guardar o projeto. Verifique os dados e tente novamente.')
-      return
     }
-
-    setIsProjectModalOpen(false)
   }
 
   // Open Daily Activity Modals
@@ -406,20 +438,26 @@ export default function AdminProjetosPage() {
     setIsActivityModalOpen(true)
   }
 
-  const handleOpenEditActivity = (act: DailyActivityItem) => {
+  const handleOpenEditActivity = (act: any) => {
     setEditingActivity(act)
+    const rawTags = Array.isArray(act.tags)
+      ? act.tags.join(', ')
+      : typeof act.tags === 'string'
+      ? act.tags
+      : ''
+
     setActivityFormData({
-      title: act.title,
+      title: act.title || '',
       category: act.category || 'Rádio & Imprensa',
-      description: act.description,
-      content: act.content || act.description,
+      description: act.description || act.summary || '',
+      content: act.content || act.description || act.summary || '',
       image: act.image || '',
       clientOrLocation: act.clientOrLocation || '',
       date: act.date || '2026-03-08',
       time: act.time || '09:30',
       readTime: act.readTime || '3 min de leitura',
       author: act.author || 'Comunicação ARKNET',
-      tags: (act.tags || []).join(', '),
+      tags: rawTags,
       status: act.status || 'concluida',
       featured: Boolean(act.featured),
     })
@@ -429,38 +467,50 @@ export default function AdminProjetosPage() {
   const handleSaveActivity = (e: React.FormEvent) => {
     e.preventDefault()
 
-    const tagList = activityFormData.tags
-      .split(',')
-      .map((t) => t.trim())
-      .filter(Boolean)
+    try {
+      const tagList = (activityFormData.tags || '')
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean)
 
-    const fallbackTitle = activityFormData.title.trim() || 'Notícia / Atividade ARKNET'
+      const fallbackTitle = (activityFormData.title || '').trim() || 'Notícia / Atividade ARKNET'
+      const fallbackDesc = (activityFormData.description || '').trim() || 'Registo de atividade operacional ARKNET.'
+      const fallbackContent = (activityFormData.content || '').trim() || fallbackDesc
 
-    const payload = {
-      title: fallbackTitle,
-      category: activityFormData.category || 'Operações Técnicas',
-      description: activityFormData.description.trim() || 'Registo de atividade operacional ARKNET.',
-      content: activityFormData.content.trim() || activityFormData.description.trim() || 'Registo de atividade e novidades da ARKNET.',
-      image: activityFormData.image || 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80',
-      clientOrLocation: activityFormData.clientOrLocation.trim() || 'Luanda, Angola',
-      date: activityFormData.date.trim() || new Date().toISOString().split('T')[0],
-      time: activityFormData.time.trim() || '12:00',
-      readTime: activityFormData.readTime.trim() || '3 min de leitura',
-      author: activityFormData.author.trim() || 'Comunicação ARKNET',
-      tags: tagList.length > 0 ? tagList : ['Atividades', 'ARKNET'],
-      status: activityFormData.status || 'concluida',
-      featured: Boolean(activityFormData.featured),
+      const payload = {
+        title: fallbackTitle,
+        category: activityFormData.category || 'Operações Técnicas',
+        description: fallbackDesc,
+        content: fallbackContent,
+        image: activityFormData.image || 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80',
+        clientOrLocation: (activityFormData.clientOrLocation || '').trim() || 'Luanda, Angola',
+        date: (activityFormData.date || '').trim() || new Date().toISOString().split('T')[0],
+        time: (activityFormData.time || '').trim() || '12:00',
+        readTime: (activityFormData.readTime || '').trim() || '3 min de leitura',
+        author: (activityFormData.author || '').trim() || 'Comunicação ARKNET',
+        tags: tagList.length > 0 ? tagList : ['Atividades', 'ARKNET'],
+        status: (activityFormData.status === 'em_andamento' ? 'em_andamento' : 'concluida') as 'concluida' | 'em_andamento',
+        featured: Boolean(activityFormData.featured),
+      }
+
+      if (editingActivity) {
+        dataStore.updateDailyActivity(editingActivity.id, payload)
+        success(`Notícia / Atividade "${payload.title}" atualizada com sucesso!`)
+      } else {
+        dataStore.addDailyActivity(payload)
+        success(`Nova notícia / atividade "${payload.title}" publicada no Blog com sucesso!`)
+      }
+
+      // Força persistência imediata no servidor
+      dataStore.persistNow().catch((err: any) =>
+        console.warn('[AdminProjetos] Falha ao persistir atividade no servidor:', err)
+      )
+
+      setIsActivityModalOpen(false)
+    } catch (err) {
+      console.error('[AdminProjetos] Erro ao guardar notícia / atividade:', err)
+      toastError('Ocorreu um erro ao guardar a notícia. Verifique os dados e tente novamente.')
     }
-
-    if (editingActivity) {
-      dataStore.updateDailyActivity(editingActivity.id, payload)
-      success(`Notícia / Atividade "${payload.title}" atualizada com sucesso!`)
-    } else {
-      dataStore.addDailyActivity(payload)
-      success(`Nova notícia / atividade "${payload.title}" publicada no Blog com sucesso!`)
-    }
-
-    setIsActivityModalOpen(false)
   }
 
   // Confirm Delete Handler
@@ -658,7 +708,6 @@ export default function AdminProjetosPage() {
                     <th className="py-3.5 px-4">Área / Categoria</th>
                     <th className="py-3.5 px-4">Estado</th>
                     <th className="py-3.5 px-4">Parceiros</th>
-                    <th className="py-3.5 px-4 text-center">Destaque</th>
                     <th className="py-3.5 px-6 text-right">Ações</th>
                   </tr>
                 </thead>
@@ -681,7 +730,7 @@ export default function AdminProjetosPage() {
                               <img
                                 src={p.image}
                                 alt={p.title}
-                                className="w-12 h-10 object-cover rounded border border-slate-200 shrink-0"
+                                className="w-14 h-11 object-contain bg-slate-900 rounded p-0.5 border border-slate-200 shrink-0"
                               />
                               <div>
                                 <p className="font-bold text-slate-900 group-hover:text-primary transition">
@@ -732,15 +781,6 @@ export default function AdminProjetosPage() {
                               </div>
                             ) : (
                               <span className="text-slate-400 italic text-[11px]">Direto</span>
-                            )}
-                          </td>
-
-                          {/* Featured */}
-                          <td className="py-3.5 px-4 text-center">
-                            {p.featured ? (
-                              <Star className="h-4 w-4 text-amber-500 fill-amber-500 mx-auto" />
-                            ) : (
-                              <span className="text-slate-300">-</span>
                             )}
                           </td>
 
@@ -854,7 +894,7 @@ export default function AdminProjetosPage() {
                     <th className="py-3.5 px-6">Notícia / Atividade</th>
                     <th className="py-3.5 px-4">Categoria / Editoria</th>
                     <th className="py-3.5 px-4">Local / Veículo / Autor</th>
-                    <th className="py-3.5 px-4">Data &amp; Leitura</th>
+                    <th className="py-3.5 px-4">Data</th>
                     <th className="py-3.5 px-4 text-center">Destaque</th>
                     <th className="py-3.5 px-6 text-right">Ações</th>
                   </tr>
@@ -907,13 +947,10 @@ export default function AdminProjetosPage() {
                             </p>
                           </td>
 
-                          {/* Date & Read Time */}
+                          {/* Date */}
                           <td className="py-3.5 px-4">
                             <div className="font-mono text-[11px] text-slate-700 font-semibold">
                               {act.date}
-                            </div>
-                            <div className="text-[10px] text-slate-400">
-                              {act.readTime || '3 min de leitura'}
                             </div>
                           </td>
 
@@ -990,7 +1027,7 @@ export default function AdminProjetosPage() {
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSaveProject} className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
+            <form onSubmit={handleSaveProject} noValidate className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
               <div className="space-y-4">
                 <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
                   <FolderGit2 className="h-4 w-4 text-primary" />
@@ -1023,22 +1060,9 @@ export default function AdminProjetosPage() {
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">
-                      Área / Categoria
-                    </label>
-                    <select
-                      value={projectFormData.category}
-                      onChange={(e) => setProjectFormData({ ...projectFormData, category: e.target.value })}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-medium"
-                    >
-                      {CATEGORIES.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </select>
-                  </div>
-
+                <div className="grid sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
                       Estado do Projeto
@@ -1052,9 +1076,7 @@ export default function AdminProjetosPage() {
                       <option value="em_curso">Em Curso</option>
                     </select>
                   </div>
-                </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
                       Modelo de Parceria / Atuação
@@ -1063,7 +1085,7 @@ export default function AdminProjetosPage() {
                       type="text"
                       value={projectFormData.partnershipType}
                       onChange={(e) => setProjectFormData({ ...projectFormData, partnershipType: e.target.value })}
-                      placeholder="Ex: Fornecedor de Engenharia &amp; Implementação"
+                      placeholder="Ex: Engenharia &amp; Implementação"
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>
@@ -1136,6 +1158,7 @@ export default function AdminProjetosPage() {
                   </div>
                 </div>
 
+                {/* Imagem Principal do Projeto (apenas a imagem principal mantida) */}
                 <div>
                   <ImageUpload
                     value={projectFormData.image}
@@ -1144,63 +1167,6 @@ export default function AdminProjetosPage() {
                     helperText="Imagem em destaque exibida no portfólio (16:9 recomendado)."
                     aspectRatio="video"
                   />
-                </div>
-
-                {/* Galeria de Imagens do Projeto */}
-                <div className="space-y-3">
-                  <h4 className="font-extrabold uppercase text-slate-900 tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
-                    <ImageIcon className="h-4 w-4 text-primary" />
-                    <span>Galeria de Imagens</span>
-                    <span className="text-[10px] font-mono text-slate-400 ml-auto normal-case">
-                      {(projectFormData.gallery || []).filter(Boolean).length} / 6
-                    </span>
-                  </h4>
-
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {(projectFormData.gallery || []).map((imgUrl, gIdx) => (
-                      <div key={gIdx} className="relative">
-                        <ImageUpload
-                          value={imgUrl}
-                          onChange={(url) => handleGalleryImageChange(gIdx, url)}
-                          label={`Foto da Galeria ${gIdx + 1}`}
-                          helperText="Selecione do PC, galeria do servidor ou cole um URL."
-                          aspectRatio="video"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveGalleryImage(gIdx)}
-                          className="absolute top-0 right-0 p-1 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition shadow-md z-10"
-                          title="Remover esta imagem da galeria"
-                        >
-                          <X className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  {(projectFormData.gallery || []).length < 6 && (
-                    <button
-                      type="button"
-                      onClick={handleAddGallerySlot}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 text-slate-700 text-[11px] font-bold uppercase hover:bg-slate-200 transition rounded border border-slate-200"
-                    >
-                      <Plus className="h-3.5 w-3.5" />
-                      Adicionar Imagem à Galeria
-                    </button>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2 pt-2">
-                  <input
-                    type="checkbox"
-                    id="proj-featured"
-                    checked={projectFormData.featured}
-                    onChange={(e) => setProjectFormData({ ...projectFormData, featured: e.target.checked })}
-                    className="h-4 w-4 text-primary rounded border-slate-300"
-                  />
-                  <label htmlFor="proj-featured" className="font-bold text-slate-700 cursor-pointer">
-                    Destacar projeto no topo da página de projetos
-                  </label>
                 </div>
               </div>
 
@@ -1254,7 +1220,7 @@ export default function AdminProjetosPage() {
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSaveActivity} className="p-6 overflow-y-auto space-y-5 flex-1 text-xs">
+            <form onSubmit={handleSaveActivity} noValidate className="p-6 overflow-y-auto space-y-5 flex-1 text-xs">
               <div className="grid sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block font-bold text-slate-700 mb-1">
@@ -1315,7 +1281,7 @@ export default function AdminProjetosPage() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
                     Data da Atividade / Notícia
@@ -1338,19 +1304,6 @@ export default function AdminProjetosPage() {
                     onChange={(e) => setActivityFormData({ ...activityFormData, time: e.target.value })}
                     placeholder="Ex: 09:30"
                     className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-secondary focus:outline-none font-mono"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">
-                    Tempo de Leitura Estimado
-                  </label>
-                  <input
-                    type="text"
-                    value={activityFormData.readTime}
-                    onChange={(e) => setActivityFormData({ ...activityFormData, readTime: e.target.value })}
-                    placeholder="Ex: 3 min de leitura"
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 focus:bg-white focus:border-secondary focus:outline-none"
                   />
                 </div>
               </div>

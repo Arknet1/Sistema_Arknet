@@ -32,6 +32,10 @@ export default function AdminOverviewPage() {
   useEffect(() => {
     const update = () => setDb({ ...dataStore.getSnapshot() })
     const unsub = dataStore.subscribe(update)
+    // Força sincronização com o servidor ao carregar o painel
+    dataStore.syncWithServer().then((synced) => {
+      if (synced) update()
+    })
     return () => unsub()
   }, [])
 

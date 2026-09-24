@@ -1548,6 +1548,14 @@ function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
   return {
     ...INITIAL_DB,
     ...db,
+    settings: {
+      ...INITIAL_DB.settings,
+      ...(db.settings || {}),
+      socialLinks: {
+        ...INITIAL_DB.settings?.socialLinks,
+        ...(db.settings?.socialLinks || {}),
+      },
+    },
     products: Array.isArray(db.products) ? db.products : INITIAL_DB.products,
     categories: Array.isArray(db.categories) ? db.categories : INITIAL_DB.categories,
     projects: Array.isArray(db.projects) ? db.projects : INITIAL_DB.projects,
@@ -1555,8 +1563,16 @@ function cleanDatabaseForStorage(db: ArknetDatabase): ArknetDatabase {
     reservations: Array.isArray(db.reservations) ? db.reservations : (INITIAL_DB.reservations || []),
     partners: Array.isArray(db.partners) ? db.partners : INITIAL_DB.partners,
     events: Array.isArray(db.events) ? db.events : INITIAL_DB.events,
+    eventRegistrations: Array.isArray(db.eventRegistrations) ? db.eventRegistrations : (INITIAL_DB.eventRegistrations || []),
     courses: Array.isArray(db.courses) ? db.courses : INITIAL_DB.courses,
+    jobs: Array.isArray(db.jobs) ? db.jobs : (INITIAL_DB.jobs || []),
+    applications: Array.isArray(db.applications) ? db.applications : (INITIAL_DB.applications || []),
     testimonials: Array.isArray(db.testimonials) ? db.testimonials : INITIAL_DB.testimonials,
+    leads: Array.isArray(db.leads) ? db.leads : (INITIAL_DB.leads || []),
+    orders: Array.isArray(db.orders) ? db.orders : (INITIAL_DB.orders || []),
+    users: Array.isArray(db.users) ? db.users : INITIAL_DB.users,
+    customers: Array.isArray(db.customers) ? db.customers : (INITIAL_DB.customers || []),
+    subscribers: Array.isArray(db.subscribers) ? db.subscribers : (INITIAL_DB.subscribers || []),
     activities: Array.isArray(db.activities) ? db.activities.slice(0, 50) : (INITIAL_DB.activities || []),
   }
 }
@@ -1743,7 +1759,6 @@ class DataStoreManager {
         headers,
         body: JSON.stringify({ db }),
         credentials: 'include',
-        keepalive: true,
       })
         .then(async (res) => {
           if (!res.ok) {
@@ -3138,12 +3153,14 @@ class DataStoreManager {
   }
 
   public addProject(project: Omit<ProjectItem, 'id' | 'createdAt' | 'updatedAt'>): ProjectItem {
-    const slug =
-      project.slug ||
-      project.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '')
+    const fallbackSlug = (project.title || 'projeto')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '') || `proj-${Date.now()}`
+
+    const slug = project.slug ? project.slug.trim() : fallbackSlug
     const newProject: ProjectItem = {
       ...project,
       id: `proj-${Date.now()}`,

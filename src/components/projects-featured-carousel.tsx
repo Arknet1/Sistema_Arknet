@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, Sparkles, Building2 } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { ProjectItem } from '@/lib/data-store'
 
 interface ProjectsFeaturedCarouselProps {
@@ -69,29 +69,16 @@ export default function ProjectsFeaturedCarousel({
                 >
                   <article className="bg-white border border-slate-200 hover:border-primary/60 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex flex-col justify-between h-full">
                     
-                    {/* Imagem com Capa e Badge Simples */}
-                    <div className="relative aspect-16/10 overflow-hidden bg-slate-100">
-                      <Link href={`/projetos/${project.slug}`} className="block w-full h-full">
+                    {/* Imagem perfeitamente enquadrada ao espaço do Card */}
+                    <div className="relative aspect-16/10 overflow-hidden bg-slate-900">
+                      <Link href={`/projetos/${project.slug}`} className="block w-full h-full relative">
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 ease-out"
+                          className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
                           loading="lazy"
                         />
                       </Link>
-
-                      {/* Badge da Categoria */}
-                      <span className="absolute top-2.5 left-2.5 bg-slate-900/90 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none border border-white/10">
-                        {project.category || 'Engenharia'}
-                      </span>
-
-                      {/* Cliente */}
-                      {project.clientName && (
-                        <span className="absolute bottom-2.5 left-2.5 right-2.5 bg-slate-950/80 text-slate-200 text-[11px] font-medium px-2.5 py-1 rounded-md backdrop-blur-sm flex items-center gap-1.5 border border-white/10 truncate">
-                          <Building2 className="h-3 w-3 text-primary shrink-0" />
-                          <span className="truncate">{project.clientName}</span>
-                        </span>
-                      )}
                     </div>
 
                     {/* Conteúdo Limpo e Curioso */}

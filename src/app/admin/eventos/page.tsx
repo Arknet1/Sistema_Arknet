@@ -92,19 +92,35 @@ export default function AdminEventosPage() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      setEvents([...db.events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()))
+      const rawEvents = db.events || []
+      setEvents(
+        [...rawEvents]
+          .map((e: any) => ({
+            ...e,
+            description: e.description || '',
+            location: e.location || 'Luanda, Angola',
+            time: e.time || '09:00 às 17:00',
+            link: e.link || e.fullDescription || '',
+            registrationOpen: e.registrationOpen !== false,
+          }))
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      )
       setRegistrations(db.eventRegistrations || [])
     }
     sync()
     const unsub = dataStore.subscribe(sync)
+    // Força sincronização com o servidor ao carregar para garantir dados frescos
+    dataStore.syncWithServer().then((synced) => {
+      if (synced) sync()
+    })
     return () => unsub()
   }, [])
 
   const filteredEvents = events.filter((evt) => {
     const matchSearch =
-      evt.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      evt.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      evt.description.toLowerCase().includes(searchTerm.toLowerCase())
+      (evt.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (evt.location || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (evt.description || '').toLowerCase().includes(searchTerm.toLowerCase())
     const matchStatus = statusFilter === 'all' || evt.status === statusFilter
     return matchSearch && matchStatus
   })
@@ -131,20 +147,20 @@ export default function AdminEventosPage() {
     setIsModalOpen(true)
   }
 
-  const handleOpenEdit = (evt: EventItem) => {
+  const handleOpenEdit = (evt: any) => {
     setEditingEvent(evt)
     setFormData({
-      title: evt.title,
-      description: evt.description,
-      date: evt.date,
+      title: evt.title || '',
+      description: evt.description || '',
+      date: evt.date || new Date().toISOString().split('T')[0],
       time: evt.time || '',
-      location: evt.location,
-      format: evt.format,
+      location: evt.location || 'Luanda, Angola',
+      format: evt.format || 'Presencial',
       image: evt.image || '',
-      status: evt.status,
-      capacity: evt.capacity ? String(evt.capacity) : '',
+      status: evt.status || 'agendado',
+      capacity: evt.capacity !== undefined && evt.capacity !== null ? String(evt.capacity) : '',
       registrationOpen: evt.registrationOpen !== false,
-      link: evt.link || '',
+      link: evt.link || evt.fullDescription || '',
     })
     setIsModalOpen(true)
   }
@@ -192,42 +208,43 @@ export default function AdminEventosPage() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault()
 
-    const fallbackTitle = formData.title.trim() || 'Evento ARKNET'
-    const cap = formData.capacity ? parseInt(formData.capacity, 10) : undefined
+    try {
+      const fallbackTitle = (formData.title || '').trim() || 'Evento ARKNET'
+      const rawCap = (formData.capacity || '').trim()
+      const cap = rawCap ? parseInt(rawCap, 10) : undefined
 
-    if (editingEvent) {
-      dataStore.updateEvent(editingEvent.id, {
+      const payload = {
         title: fallbackTitle,
-        description: formData.description.trim() || 'Detalhes em breve.',
+        description: (formData.description || '').trim() || 'Detalhes em breve.',
         date: formData.date || new Date().toISOString().split('T')[0],
-        time: formData.time.trim() || '09:00 às 17:00',
-        location: formData.location.trim() || 'Luanda, Angola',
-        format: formData.format,
-        image: formData.image,
-        status: formData.status,
-        capacity: cap,
-        registrationOpen: formData.registrationOpen,
-        link: formData.link,
-      })
-      success(`Evento "${fallbackTitle}" atualizado com sucesso!`, 'Evento Atualizado')
-    } else {
-      dataStore.addEvent({
-        title: fallbackTitle,
-        description: formData.description.trim() || 'Detalhes em breve.',
-        date: formData.date || new Date().toISOString().split('T')[0],
-        time: formData.time.trim() || '09:00 às 17:00',
-        location: formData.location.trim() || 'Luanda, Angola',
-        format: formData.format,
-        image: formData.image,
-        status: formData.status,
-        capacity: cap,
-        registrationOpen: formData.registrationOpen,
-        link: formData.link,
-      })
-      success(`Novo evento "${fallbackTitle}" agendado!`, 'Evento Criado')
+        time: (formData.time || '').trim() || '09:00 às 17:00',
+        location: (formData.location || '').trim() || 'Luanda, Angola',
+        format: formData.format || 'Presencial',
+        image: formData.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&auto=format&fit=crop&q=80',
+        status: formData.status || 'agendado',
+        capacity: isNaN(Number(cap)) ? undefined : Number(cap),
+        registrationOpen: formData.registrationOpen !== false,
+        link: (formData.link || '').trim() || '#inscricao-evento',
+      }
+
+      if (editingEvent) {
+        dataStore.updateEvent(editingEvent.id, payload)
+        success(`Evento "${fallbackTitle}" atualizado com sucesso!`, 'Evento Atualizado')
+      } else {
+        dataStore.addEvent(payload)
+        success(`Novo evento "${fallbackTitle}" agendado!`, 'Evento Criado')
+      }
+
+      // Força persistência imediata no servidor
+      dataStore.persistNow().catch((err: any) =>
+        console.warn('[AdminEventos] Falha ao persistir evento no servidor:', err)
+      )
+
+      setIsModalOpen(false)
+    } catch (err) {
+      console.error('[AdminEventos] Erro ao guardar evento:', err)
+      error('Ocorreu um erro ao guardar o evento. Verifique os dados e tente novamente.')
     }
-
-    setIsModalOpen(false)
   }
 
   const handleDeleteConfirm = () => {
@@ -612,7 +629,7 @@ export default function AdminEventosPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
+            <form onSubmit={handleSave} noValidate className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
               <div>
                 <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                   Título do Evento

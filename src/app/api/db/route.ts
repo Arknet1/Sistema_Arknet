@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import {
   readServerDb,
+  readServerDbFromPrisma,
   writeServerDb,
   getInitialServerDb,
   getSanitizedPublicDb,
@@ -39,22 +40,21 @@ function getAdminPayload(request: NextRequest) {
 // ==========================================
 // GET /api/db: Leitura de Dados
 // ==========================================
-// Administradores autenticados: Retorna a base de dados completa (via Prisma)
+// Administradores autenticados: Retorna a base de dados completa e íntegra
 // Visitantes públicos: Retorna apenas dados públicos sanitizados (produtos, eventos, projetos, etc.)
 export async function GET(request: NextRequest) {
   try {
     const admin = getAdminPayload(request)
 
-    // O ficheiro JSON é a fonte de verdade do painel: todas as operações CRUD
-    // administrativas são gravadas nele, incluindo módulos sem tabela Prisma.
-    const fullDb = readServerDb()
-
     if (admin) {
-      // Administrador autenticado: acesso completo
+      // Para administradores: lê os dados completos de arknet-db.json
+      // NUNCA executa escritas destrutivas durante a leitura (GET).
+      const fullDb = readServerDb()
       return NextResponse.json({ success: true, db: fullDb }, { status: 200 })
     }
 
     // Visitante público: apenas dados do site e da loja
+    const fullDb = readServerDb()
     const publicDb = getSanitizedPublicDb(fullDb)
     return NextResponse.json({ success: true, db: publicDb }, { status: 200 })
   } catch (error) {
@@ -258,6 +258,21 @@ export async function POST(request: NextRequest) {
         const productIds = dataToSave.products.filter((product: any) => product?.id).map((product: any) => product.id)
 
         await prisma.$transaction(async (transaction) => {
+          // Desvincular relações e eliminar produtos que foram removidos pelo administrador
+          if (productIds.length > 0) {
+            await transaction.storeOrderItem.updateMany({
+              where: { productId: { notIn: productIds } },
+              data: { productId: null },
+            })
+            await transaction.productReservation.updateMany({
+              where: { productId: { notIn: productIds } },
+              data: { productId: null },
+            })
+            await transaction.product.deleteMany({
+              where: { id: { notIn: productIds } },
+            })
+          }
+
           for (const product of dataToSave.products) {
             if (!product?.id || !product?.name) continue
             const category = dataToSave.categories.find((item: any) => item.name === product.category)
@@ -288,12 +303,11 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    if (Array.isArray(dataToSave.projects)) {
+    if (Array.isArray(dataToSave.projects) && dataToSave.projects.length > 0) {
       try {
-        const projectIds = dataToSave.projects.filter((p: any) => p?.id).map((p: any) => p.id)
         for (const project of dataToSave.projects) {
           if (!project?.id || !project?.title) continue
-          const slug =
+          const baseSlug =
             project.slug ||
             project.title
               .toLowerCase()
@@ -302,11 +316,12 @@ export async function POST(request: NextRequest) {
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/(^-|-$)/g, '') ||
             `proj-${project.id}`
+
           const projectData = {
             title: project.title,
-            slug,
+            slug: baseSlug,
             client: project.clientName || project.client || 'ARKNET',
-            category: project.category || 'Cabeamento Estruturado',
+            category: project.category || 'Engenharia & TI',
             sector: project.partnershipType || null,
             year: project.completedAt ? parseInt(project.completedAt, 10) || 2026 : 2026,
             description: project.description || '',
@@ -323,26 +338,33 @@ export async function POST(request: NextRequest) {
             createdAt: project.createdAt ? new Date(project.createdAt) : new Date(),
           }
 
-          await prisma.project.upsert({
-            where: { id: project.id },
-            create: { id: project.id, ...projectData },
-            update: { ...projectData, createdAt: undefined },
-          })
+          try {
+            await prisma.project.upsert({
+              where: { id: project.id },
+              create: { id: project.id, ...projectData },
+              update: { ...projectData, createdAt: undefined },
+            })
+          } catch (slugErr) {
+            // Se houver colisão de slug único, garante slug único associando o ID
+            const safeSlug = `${baseSlug}-${project.id}`
+            await prisma.project.upsert({
+              where: { id: project.id },
+              create: { id: project.id, ...projectData, slug: safeSlug },
+              update: { ...projectData, slug: safeSlug, createdAt: undefined },
+            }).catch((err) => console.warn('[Prisma Project Upsert Fallback]:', err))
+          }
         }
-        if (projectIds.length > 0) {
-          await prisma.project.deleteMany({ where: { id: { notIn: projectIds } } })
-        }
+        // NOTA: Não fazemos deleteMany para não perder projetos que o browser não conhece
       } catch (projectsError) {
         console.error('[API /api/db POST] Falha ao sincronizar projetos no Prisma:', projectsError)
       }
     }
 
-    if (Array.isArray(dataToSave.events)) {
+    if (Array.isArray(dataToSave.events) && dataToSave.events.length > 0) {
       try {
-        const eventIds = dataToSave.events.filter((e: any) => e?.id).map((e: any) => e.id)
         for (const evt of dataToSave.events) {
           if (!evt?.id || !evt?.title) continue
-          const slug =
+          const baseSlug =
             evt.slug ||
             evt.title
               .toLowerCase()
@@ -351,9 +373,10 @@ export async function POST(request: NextRequest) {
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/(^-|-$)/g, '') ||
             `evt-${evt.id}`
+
           const eventData = {
             title: evt.title,
-            slug,
+            slug: baseSlug,
             date: evt.date || new Date().toISOString().split('T')[0],
             time: evt.time || null,
             location: evt.location || 'Luanda, Angola',
@@ -369,26 +392,32 @@ export async function POST(request: NextRequest) {
             updatedAt: evt.updatedAt ? new Date(evt.updatedAt) : new Date(),
           }
 
-          await prisma.event.upsert({
-            where: { id: evt.id },
-            create: { id: evt.id, ...eventData },
-            update: { ...eventData, createdAt: undefined },
-          })
+          try {
+            await prisma.event.upsert({
+              where: { id: evt.id },
+              create: { id: evt.id, ...eventData },
+              update: { ...eventData, createdAt: undefined },
+            })
+          } catch (slugErr) {
+            const safeSlug = `${baseSlug}-${evt.id}`
+            await prisma.event.upsert({
+              where: { id: evt.id },
+              create: { id: evt.id, ...eventData, slug: safeSlug },
+              update: { ...eventData, slug: safeSlug, createdAt: undefined },
+            }).catch((err) => console.warn('[Prisma Event Upsert Fallback]:', err))
+          }
         }
-        if (eventIds.length > 0) {
-          await prisma.event.deleteMany({ where: { id: { notIn: eventIds } } })
-        }
+        // NOTA: Não fazemos deleteMany para não perder eventos que o browser não conhece
       } catch (eventsError) {
         console.error('[API /api/db POST] Falha ao sincronizar eventos no Prisma:', eventsError)
       }
     }
 
-    if (Array.isArray(dataToSave.dailyActivities)) {
+    if (Array.isArray(dataToSave.dailyActivities) && dataToSave.dailyActivities.length > 0) {
       try {
-        const actIds = dataToSave.dailyActivities.filter((a: any) => a?.id).map((a: any) => a.id)
         for (const act of dataToSave.dailyActivities) {
           if (!act?.id || !act?.title) continue
-          const slug =
+          const baseSlug =
             act.slug ||
             act.title
               .toLowerCase()
@@ -397,9 +426,10 @@ export async function POST(request: NextRequest) {
               .replace(/[^a-z0-9]+/g, '-')
               .replace(/(^-|-$)/g, '') ||
             `d-act-${act.id}`
+
           const actData = {
             title: act.title,
-            slug,
+            slug: baseSlug,
             date: act.date || new Date().toISOString().split('T')[0],
             category: act.category || 'Institucional',
             summary: act.description || '',
@@ -413,15 +443,22 @@ export async function POST(request: NextRequest) {
             createdAt: act.createdAt ? new Date(act.createdAt) : new Date(),
           }
 
-          await prisma.dailyActivity.upsert({
-            where: { id: act.id },
-            create: { id: act.id, ...actData },
-            update: { ...actData, createdAt: undefined },
-          })
+          try {
+            await prisma.dailyActivity.upsert({
+              where: { id: act.id },
+              create: { id: act.id, ...actData },
+              update: { ...actData, createdAt: undefined },
+            })
+          } catch (slugErr) {
+            const safeSlug = `${baseSlug}-${act.id}`
+            await prisma.dailyActivity.upsert({
+              where: { id: act.id },
+              create: { id: act.id, ...actData, slug: safeSlug },
+              update: { ...actData, slug: safeSlug, createdAt: undefined },
+            }).catch((err) => console.warn('[Prisma DailyActivity Upsert Fallback]:', err))
+          }
         }
-        if (actIds.length > 0) {
-          await prisma.dailyActivity.deleteMany({ where: { id: { notIn: actIds } } })
-        }
+        // NOTA: Não fazemos deleteMany para não perder atividades que o browser não conhece
       } catch (actError) {
         console.error('[API /api/db POST] Falha ao sincronizar atividades no Prisma:', actError)
       }
@@ -468,6 +505,111 @@ export async function POST(request: NextRequest) {
         })
       } catch (settingsError) {
         console.error('[API /api/db POST] Falha ao sincronizar definições no Prisma:', settingsError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.partners) && dataToSave.partners.length > 0) {
+      try {
+        for (let i = 0; i < dataToSave.partners.length; i++) {
+          const part = dataToSave.partners[i]
+          if (!part?.id || !part?.name) continue
+          const partData = {
+            name: part.name,
+            logo: part.logo || `/uploads/vendor-${i + 1}.jpg`,
+            website: part.website || null,
+            category: part.category || null,
+            order: part.order !== undefined ? part.order : i,
+            active: part.active !== undefined ? Boolean(part.active) : true,
+          }
+          await prisma.partner.upsert({
+            where: { id: part.id },
+            create: { id: part.id, ...partData },
+            update: partData,
+          })
+        }
+      } catch (partnersError) {
+        console.error('[API /api/db POST] Falha ao sincronizar parceiros no Prisma:', partnersError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.testimonials) && dataToSave.testimonials.length > 0) {
+      try {
+        for (let i = 0; i < dataToSave.testimonials.length; i++) {
+          const test = dataToSave.testimonials[i]
+          const testName = test?.clientName || test?.name
+          if (!test?.id || !testName) continue
+          const testData = {
+            name: testName,
+            role: test.role || '',
+            company: test.company || '',
+            avatar: test.logo || test.avatar || null,
+            text: test.testimonial || test.text || '',
+            rating: typeof test.rating === 'number' ? test.rating : 5,
+            active: test.active !== undefined ? Boolean(test.active) : true,
+            order: test.order !== undefined ? test.order : i,
+          }
+          await prisma.testimonial.upsert({
+            where: { id: test.id },
+            create: { id: test.id, ...testData },
+            update: testData,
+          })
+        }
+      } catch (testimonialsError) {
+        console.error('[API /api/db POST] Falha ao sincronizar testemunhos no Prisma:', testimonialsError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.courses) && dataToSave.courses.length > 0) {
+      try {
+        for (const course of dataToSave.courses) {
+          if (!course?.id || !course?.title) continue
+          const courseData = {
+            title: course.title,
+            category: course.category || 'Geral',
+            duration: course.duration || '40h',
+            level: course.level || 'Iniciante',
+            format: course.format || 'Presencial',
+            description: course.description || '',
+            price: typeof course.price === 'number' ? course.price : null,
+            icon: course.icon || null,
+            skills: Array.isArray(course.skills) ? JSON.stringify(course.skills) : null,
+            isPopular: Boolean(course.isPopular),
+            createdAt: course.createdAt ? new Date(course.createdAt) : new Date(),
+          }
+          await prisma.course.upsert({
+            where: { id: course.id },
+            create: { id: course.id, ...courseData },
+            update: { ...courseData, createdAt: undefined },
+          })
+        }
+      } catch (coursesError) {
+        console.error('[API /api/db POST] Falha ao sincronizar cursos no Prisma:', coursesError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.jobs) && dataToSave.jobs.length > 0) {
+      try {
+        for (const job of dataToSave.jobs) {
+          if (!job?.id || !job?.title) continue
+          const jobData = {
+            title: job.title,
+            department: job.department || 'Geral',
+            location: job.location || 'Luanda',
+            type: job.type || 'Tempo Inteiro',
+            description: job.description || '',
+            requirements: Array.isArray(job.requirements) ? JSON.stringify(job.requirements) : null,
+            responsibilities: Array.isArray(job.responsibilities) ? JSON.stringify(job.responsibilities) : null,
+            active: job.active !== undefined ? Boolean(job.active) : true,
+            createdAt: job.createdAt ? new Date(job.createdAt) : new Date(),
+          }
+          await prisma.job.upsert({
+            where: { id: job.id },
+            create: { id: job.id, ...jobData },
+            update: { ...jobData, createdAt: undefined },
+          })
+        }
+      } catch (jobsError) {
+        console.error('[API /api/db POST] Falha ao sincronizar vagas no Prisma:', jobsError)
       }
     }
 

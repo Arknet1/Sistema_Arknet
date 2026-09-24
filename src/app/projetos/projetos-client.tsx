@@ -41,7 +41,7 @@ export default function ProjetosPublicationClient() {
     const sync = () => {
       const db = dataStore.getSnapshot()
       setProjects(db.projects || [])
-      setDailyActivities(db.dailyActivities && db.dailyActivities.length > 0 ? db.dailyActivities : dataStore.getDailyActivities())
+      setDailyActivities(Array.isArray(db.dailyActivities) ? db.dailyActivities : dataStore.getDailyActivities())
     }
     sync()
     const unsub = dataStore.subscribe(sync)
@@ -296,12 +296,6 @@ export default function ProjetosPublicationClient() {
                             {act.category || 'Notícia'}
                           </span>
                         </div>
-
-                        {/* Tempo de Leitura */}
-                        <div className="absolute bottom-3 left-3.5 flex items-center gap-1.5 text-[11px] font-semibold text-slate-300 bg-slate-950/70 px-2.5 py-1 rounded-lg backdrop-blur-sm border border-white/10">
-                          <Clock className="h-3 w-3 text-secondary" />
-                          <span>{act.readTime || '3 min de leitura'}</span>
-                        </div>
                       </div>
 
                       {/* Corpo do Artigo */}
@@ -516,8 +510,6 @@ export default function ProjetosPublicationClient() {
                   <span className="text-primary font-bold">
                     {selectedActivity.author || 'Comunicação ARKNET'}
                   </span>
-                  <span>•</span>
-                  <span>{selectedActivity.readTime || '3 min de leitura'}</span>
                   {selectedActivity.clientOrLocation && (
                     <>
                       <span>•</span>

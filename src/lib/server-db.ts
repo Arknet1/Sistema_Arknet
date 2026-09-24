@@ -99,6 +99,11 @@ export async function readServerDbFromPrisma() {
     // Formatar eventos
     const formattedEvents = events.map((e) => ({
       ...e,
+      description: e.description || '',
+      location: e.location || 'Luanda, Angola',
+      time: e.time || '09:00 às 17:00',
+      link: (e as any).link || e.fullDescription || '',
+      registrationOpen: (e as any).registrationOpen !== false,
       speakers: safeJsonParse(e.speakers, undefined),
       schedule: safeJsonParse(e.schedule, undefined),
       createdAt: e.createdAt.toISOString(),
@@ -112,27 +117,84 @@ export async function readServerDbFromPrisma() {
     }))
 
     // Formatar cursos
+    // Formatar cursos
     const formattedCourses = courses.map((c) => ({
       ...c,
+      modality: (c.format || 'Presencial') as any,
+      image: c.icon || undefined,
+      syllabus: safeJsonParse(c.skills, []),
+      status: 'active' as const,
+      featured: Boolean(c.isPopular),
       skills: safeJsonParse(c.skills, []),
       createdAt: c.createdAt.toISOString(),
+      updatedAt: c.createdAt.toISOString(),
+    }))
+
+    // Formatar testemunhos
+    const formattedTestimonials = testimonials.map((t, idx) => ({
+      id: t.id,
+      clientName: t.name || '',
+      company: t.company || '',
+      role: t.role || '',
+      testimonial: t.text || '',
+      rating: t.rating || 5,
+      logo: t.avatar || undefined,
+      order: t.order !== undefined ? t.order : idx + 1,
+      active: t.active !== undefined ? t.active : true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }))
+
+    // Formatar parceiros
+    const formattedPartners = partners.map((p, idx) => ({
+      id: p.id,
+      name: p.name,
+      logo: p.logo,
+      category: p.category || 'Parceiro Estratégico',
+      website: p.website || 'https://arknet.co.ao',
+      order: p.order !== undefined ? p.order : idx + 1,
+      active: p.active !== undefined ? p.active : true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }))
 
     // Formatar projetos
-    const formattedProjects = projects.map((pr) => ({
-      ...pr,
-      metrics: safeJsonParse(pr.metrics, undefined),
-      results: safeJsonParse(pr.results, undefined),
-      testimonial: safeJsonParse(pr.testimonial, undefined),
-      gallery: safeJsonParse(pr.gallery, undefined),
-      createdAt: pr.createdAt.toISOString(),
-    }))
+    const formattedProjects = projects.map((pr) => {
+      const partnersParsed = safeJsonParse(pr.metrics, [])
+      const resultsParsed = safeJsonParse(pr.results, [])
+      const galleryParsed = safeJsonParse(pr.gallery, [])
+      const quoteParsed = safeJsonParse(pr.testimonial, undefined)
+
+      return {
+        ...pr,
+        clientName: (pr as any).clientName || pr.client || 'ARKNET',
+        partnershipType: (pr as any).partnershipType || pr.sector || 'Projeto para Cliente',
+        completedAt: (pr as any).completedAt || (pr.year ? String(pr.year) : '2026'),
+        tagline: (pr as any).tagline || pr.fullDescription || '',
+        description: pr.description || '',
+        challenge: pr.challenge || '',
+        solution: pr.solution || '',
+        status: ((pr as any).status === 'em_curso' ? 'em_curso' : 'concluido') as 'concluido' | 'em_curso',
+        partners: Array.isArray(partnersParsed) ? partnersParsed : [],
+        results: Array.isArray(resultsParsed) ? resultsParsed : [],
+        gallery: Array.isArray(galleryParsed) ? galleryParsed : [],
+        quote: quoteParsed,
+        createdAt: pr.createdAt.toISOString(),
+        updatedAt: pr.createdAt.toISOString(),
+      }
+    })
 
     // Formatar atividades diárias (blog)
     const formattedDailyActivities = dailyActivities.map((d) => ({
       ...d,
+      description: d.summary || '',
+      content: d.content || d.summary || '',
       tags: safeJsonParse(d.tags, []),
+      status: ((d as any).status || 'concluida') as 'concluida' | 'em_andamento',
+      clientOrLocation: (d as any).clientOrLocation || 'Luanda, Angola',
+      time: (d as any).time || '12:00',
       createdAt: d.createdAt.toISOString(),
+      updatedAt: d.createdAt.toISOString(),
     }))
 
     // Formatar vagas
@@ -140,7 +202,10 @@ export async function readServerDbFromPrisma() {
       ...j,
       requirements: safeJsonParse(j.requirements, []),
       responsibilities: safeJsonParse(j.responsibilities, []),
+      benefits: safeJsonParse(j.responsibilities, []),
+      status: (j.active ? 'aberta' : 'fechada') as 'aberta' | 'fechada' | 'pausada',
       createdAt: j.createdAt.toISOString(),
+      updatedAt: j.createdAt.toISOString(),
     }))
 
     // Formatar candidaturas
@@ -222,8 +287,8 @@ export async function readServerDbFromPrisma() {
       courses: formattedCourses as any,
       projects: formattedProjects as any,
       dailyActivities: formattedDailyActivities as any,
-      partners: partners as any,
-      testimonials: testimonials as any,
+      partners: formattedPartners as any,
+      testimonials: formattedTestimonials as any,
       jobs: formattedJobs as any,
       applications: formattedApplications as any,
       settings: settings as any,
@@ -255,13 +320,14 @@ function readServerDbFallback() {
     }
 
     const raw = fs.readFileSync(DB_FILE, 'utf-8')
-    if (!raw.trim()) {
+    const cleanRaw = raw.replace(/^\uFEFF/, '').trim()
+    if (!cleanRaw) {
       const initialData = getInitialServerDb()
       fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8')
       return initialData
     }
 
-    const parsed = JSON.parse(raw)
+    const parsed = JSON.parse(cleanRaw)
     return {
       ...INITIAL_DB,
       ...parsed,
@@ -308,6 +374,47 @@ export function readServerDb() {
 /**
  * Gravação de backup em JSON e sincronização no ficheiro
  */
+/**
+ * Faz merge inteligente de arrays por ID.
+ * Os itens recebidos (incoming) sobrepõem os existentes pelo ID.
+ * Os itens existentes que NÃO estão no incoming são PRESERVADOS (nunca apagados).
+ * Excepção: se `incoming` é um array vazio, isso é tratado como "sem alterações" e o existing é mantido.
+ */
+function mergeArrayById(existing: any[], incoming: any[]): any[] {
+  if (!Array.isArray(incoming) || incoming.length === 0) return Array.isArray(existing) ? existing : []
+  if (!Array.isArray(existing) || existing.length === 0) return incoming
+
+  const map = new Map<string, any>()
+  // Primeiro carrega os existentes
+  for (const item of existing) {
+    if (item?.id) map.set(item.id, item)
+  }
+  // Depois aplica/substitui com os recebidos (incoming tem prioridade)
+  for (const item of incoming) {
+    if (item?.id) map.set(item.id, { ...(map.get(item.id) || {}), ...item })
+  }
+  return Array.from(map.values())
+}
+
+/**
+ * Arrays aditivos: nunca apagam registos existentes, apenas acrescentam.
+ * Utilizado para encomendas, leads, subscritores, etc.
+ */
+function mergeAdditiveArray(existing: any[], incoming: any[]): any[] {
+  if (!Array.isArray(incoming) || incoming.length === 0) return Array.isArray(existing) ? existing : []
+  if (!Array.isArray(existing) || existing.length === 0) return incoming
+
+  const map = new Map<string, any>()
+  for (const item of incoming) {
+    if (item?.id) map.set(item.id, item)
+  }
+  // Adiciona existentes que não constam no incoming
+  for (const item of existing) {
+    if (item?.id && !map.has(item.id)) map.set(item.id, item)
+  }
+  return Array.from(map.values())
+}
+
 export function writeServerDb(data: any) {
   try {
     if (!fs.existsSync(DATA_DIR)) {
@@ -326,10 +433,37 @@ export function writeServerDb(data: any) {
       }
     }
 
+    // Sincronização inteligente: quando o array editorial é explicitamente enviado,
+    // usamos o array fornecido (respeitando adições, edições e exclusões feitas pelo utilizador).
+    // Se o campo não for enviado (estado parcial), mantemos o existingData.
     const mergedData = {
       ...INITIAL_DB,
       ...existingData,
       ...data,
+      // Arrays editoriais: se enviados, assume a lista exata; caso contrário, mantém existentes
+      projects: data.projects !== undefined ? data.projects : (existingData.projects || INITIAL_DB.projects),
+      events: data.events !== undefined ? data.events : (existingData.events || INITIAL_DB.events),
+      dailyActivities: data.dailyActivities !== undefined ? data.dailyActivities : (existingData.dailyActivities || []),
+      partners: data.partners !== undefined ? data.partners : (existingData.partners || INITIAL_DB.partners),
+      testimonials: data.testimonials !== undefined ? data.testimonials : (existingData.testimonials || INITIAL_DB.testimonials),
+      courses: data.courses !== undefined ? data.courses : (existingData.courses || INITIAL_DB.courses),
+      jobs: data.jobs !== undefined ? data.jobs : (existingData.jobs || []),
+      products: data.products !== undefined ? data.products : (existingData.products || INITIAL_DB.products),
+      categories: data.categories !== undefined ? data.categories : (existingData.categories || INITIAL_DB.categories),
+      // Arrays transacionais: aditivos (nunca eliminam encomendas/leads existentes)
+      orders: mergeAdditiveArray(existingData.orders || [], data.orders || []),
+      leads: mergeAdditiveArray(existingData.leads || [], data.leads || []),
+      subscribers: mergeAdditiveArray(existingData.subscribers || [], data.subscribers || []),
+      reservations: mergeAdditiveArray(existingData.reservations || [], data.reservations || []),
+      eventRegistrations: mergeAdditiveArray(existingData.eventRegistrations || [], data.eventRegistrations || []),
+      applications: mergeAdditiveArray(existingData.applications || [], data.applications || []),
+      // Users e customers: merge por ID
+      users: data.users && data.users.length > 0
+        ? mergeArrayById(existingData.users || [], data.users)
+        : (existingData.users || INITIAL_DB.users),
+      customers: data.customers && data.customers.length > 0
+        ? mergeArrayById(existingData.customers || [], data.customers)
+        : (existingData.customers || []),
       settings: {
         ...INITIAL_DB.settings,
         ...(existingData.settings || {}),
@@ -579,9 +713,14 @@ export function appendServerEventRegistration(registration: any) {
 }
 
 /**
- * Retorna todos os produtos do Prisma com fallback para JSON
+ * Retorna todos os produtos do arquivo JSON com fallback para Prisma
  */
 export async function getProductsServerAsync() {
+  const fallbackDb = readServerDbFallback()
+  if (Array.isArray(fallbackDb.products) && fallbackDb.products.length > 0) {
+    return fallbackDb.products
+  }
+
   try {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
@@ -597,51 +736,81 @@ export async function getProductsServerAsync() {
   } catch (err) {
     console.error('[getProductsServerAsync] Erro no Prisma:', err)
   }
-  const fallbackDb = readServerDbFallback()
   return fallbackDb.products || []
 }
 
 /**
- * Cria ou atualiza um produto no Prisma e no arknet-db.json de forma atómica
+ * Cria ou atualiza um produto no Prisma e no arknet-db.json de forma atómica e segura
  */
 export async function saveProductServerAsync(productData: any) {
   const id = productData.id || `prod-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`
   const now = new Date()
 
+  // Buscar produto existente para nunca apagar imagens ou campos em atualizações parciais
+  const current = readServerDbFallback()
+  const existingProds = current.products || []
+  const existingProduct = existingProds.find((p: any) => p.id === id) || {}
+
+  const merged = {
+    ...existingProduct,
+    ...productData,
+    id,
+  }
+
   // 1. Resolver categoria no Prisma se aplicável
-  let categoryId = productData.categoryId || null
-  if (!categoryId && productData.category) {
+  let categoryId = merged.categoryId || null
+  if (!categoryId && merged.category) {
     try {
       const cat = await prisma.productCategory.findFirst({
-        where: { name: productData.category },
+        where: { name: merged.category },
       })
       if (cat) categoryId = cat.id
     } catch {}
   }
 
   const payload = {
-    name: (productData.name || '').trim(),
-    description: productData.description || '',
+    name: (merged.name || 'Produto').trim(),
+    description: merged.description || '',
     categoryId,
-    category: productData.category || 'Produtos',
-    price: typeof productData.price === 'number' ? productData.price : null,
-    image: productData.image || '',
-    images: Array.isArray(productData.images)
-      ? JSON.stringify(productData.images)
-      : (typeof productData.images === 'string' ? productData.images : null),
-    inStock: productData.inStock !== undefined ? Boolean(productData.inStock) : true,
-    quantity: typeof productData.quantity === 'number' ? productData.quantity : 10,
-    featured: Boolean(productData.featured),
-    sku: productData.sku || `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
+    category: merged.category || 'Produtos',
+    price: typeof merged.price === 'number' ? merged.price : null,
+    image: merged.image || '',
+    images: Array.isArray(merged.images)
+      ? JSON.stringify(merged.images)
+      : (typeof merged.images === 'string' ? merged.images : null),
+    inStock: merged.inStock !== undefined ? Boolean(merged.inStock) : true,
+    quantity: typeof merged.quantity === 'number' ? merged.quantity : 10,
+    featured: Boolean(merged.featured),
+    sku: merged.sku || `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
   }
 
+  const formattedProduct = {
+    id,
+    ...payload,
+    images: safeJsonParse(payload.images, undefined),
+    createdAt: merged.createdAt || now.toISOString(),
+    updatedAt: now.toISOString(),
+  }
+
+  // 1. Atualizar JSON (arknet-db.json)
+  const idx = existingProds.findIndex((p: any) => p.id === id)
+  let updatedProds: any[]
+  if (idx >= 0) {
+    updatedProds = existingProds.map((p: any) => (p.id === id ? { ...p, ...formattedProduct } : p))
+  } else {
+    updatedProds = [formattedProduct, ...existingProds]
+  }
+
+  writeServerDb({ products: updatedProds })
+
+  // 2. Atualizar Prisma
   try {
     await prisma.product.upsert({
       where: { id },
       create: {
         id,
         ...payload,
-        createdAt: productData.createdAt ? new Date(productData.createdAt) : now,
+        createdAt: formattedProduct.createdAt ? new Date(formattedProduct.createdAt) : now,
         updatedAt: now,
       },
       update: {
@@ -653,26 +822,6 @@ export async function saveProductServerAsync(productData: any) {
     console.error('[saveProductServerAsync] Erro Prisma:', err)
   }
 
-  const formattedProduct = {
-    id,
-    ...payload,
-    images: safeJsonParse(payload.images, undefined),
-    createdAt: productData.createdAt || now.toISOString(),
-    updatedAt: now.toISOString(),
-  }
-
-  // 2. Atualizar JSON (arknet-db.json)
-  const current = readServerDbFallback()
-  const existingProds = current.products || []
-  const idx = existingProds.findIndex((p: any) => p.id === id)
-  let updatedProds: any[]
-  if (idx >= 0) {
-    updatedProds = existingProds.map((p: any) => (p.id === id ? { ...p, ...formattedProduct } : p))
-  } else {
-    updatedProds = [formattedProduct, ...existingProds]
-  }
-
-  writeServerDb({ products: updatedProds })
   return formattedProduct
 }
 
