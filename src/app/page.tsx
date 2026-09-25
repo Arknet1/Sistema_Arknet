@@ -45,8 +45,8 @@ export default function HomePage() {
       />
       <Hero />
       <Services />
-      <FeaturedProducts />
       <Sobre />
+      <FeaturedProducts />
       <PorQueNosEscolher />
       <Testimonials />
       <QuoteRequest />

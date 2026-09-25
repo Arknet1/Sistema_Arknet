@@ -25,11 +25,30 @@ import {
   ChevronDown,
   HelpCircle,
   Quote,
-  Filter,
 } from 'lucide-react'
-import { FaWhatsapp } from 'react-icons/fa'
 import { mockServices, mockTestimonials } from '@/lib/mock-data'
 import Footer from '@/components/footer'
+
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: EASE_OUT_EXPO },
+  },
+}
 
 const serviceIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu: Cpu,
@@ -121,7 +140,12 @@ export default function ServicosListingClient() {
             <span className="text-primary font-bold">Serviços</span>
           </div>
 
-          <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
+            className="max-w-3xl"
+          >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest mb-4">
               <Sparkles className="h-3.5 w-3.5" />
               Soluções Tecnológicas ARKNET
@@ -141,31 +165,46 @@ export default function ServicosListingClient() {
                 <span>Explorar Áreas Técnicas</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Barra de Credibilidade / Métricas */}
-          <div className="mt-14 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={containerVariants}
+            className="mt-14 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-4"
+          >
             {trustMetrics.map((item, idx) => {
               const MetricIcon = item.icon
               return (
-                <div key={idx} className="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl">
+                <motion.div
+                  variants={itemVariants}
+                  key={idx}
+                  className="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl hover:bg-white/10 transition"
+                >
                   <div className="p-2 bg-primary/20 text-primary rounded-lg shrink-0">
                     <MetricIcon className="h-4 w-4" />
                   </div>
                   <span className="text-xs sm:text-sm font-bold text-slate-200">
                     {item.label}
                   </span>
-                </div>
+                </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 2. Filtro por Categoria & Grelha de Serviços */}
       <section id="catalogo" className="py-20 max-w-7xl mx-auto px-6 scroll-mt-24">
         {/* Header do Catálogo */}
-        <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-slate-200 pb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-slate-200 pb-8"
+        >
           <div>
             <h2 className="text-3xl font-extrabold text-slate-900">
               Áreas de Atuação Técnica
@@ -174,7 +213,7 @@ export default function ServicosListingClient() {
           <p className="text-sm text-slate-500 max-w-sm">
             Filtre por categoria e descubra os serviços adequados às necessidades operacionais da sua empresa.
           </p>
-        </div>
+        </motion.div>
 
         {/* Separadores de Filtro (Tabs) */}
         <div className="flex flex-wrap gap-2.5 mb-12">
@@ -182,7 +221,7 @@ export default function ServicosListingClient() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 ${activeCategory === cat
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer ${activeCategory === cat
                   ? 'bg-primary text-white shadow-md shadow-primary/20'
                   : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                 }`}
@@ -192,8 +231,14 @@ export default function ServicosListingClient() {
           ))}
         </div>
 
-        {/* 3. Grelha de Cartões de Serviço Enriquecidos */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 3. Grelha de Cartões de Serviço com Scroll Reveal e Stagger */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={containerVariants}
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {filteredServices.map((service, index) => {
             const Icon = serviceIcons[service.icon] || Cpu
             const number = String(index + 1).padStart(2, '0')
@@ -202,11 +247,7 @@ export default function ServicosListingClient() {
             return (
               <motion.article
                 key={service.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.35, delay: index * 0.05 }}
+                variants={itemVariants}
                 className="group bg-white border border-slate-200 hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between p-8 relative overflow-hidden rounded-2xl h-full"
               >
                 {/* Top Accent Hover */}
@@ -257,26 +298,39 @@ export default function ServicosListingClient() {
               </motion.article>
             )
           })}
-        </div>
+        </motion.div>
       </section>
 
       {/* 3. Secção "Como Trabalhamos" (Passos do Processo Comercial) */}
       <section className="py-20 bg-slate-900 text-white border-y border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto mb-16"
+          >
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Como Trabalhamos
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 mt-2">
               Processo comercial e técnico claro em 4 etapas para assegurar rigor e resultados imediatos.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={containerVariants}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {processSteps.map((stepItem, idx) => {
               const StepIcon = stepItem.icon
               return (
-                <div
+                <motion.div
+                  variants={itemVariants}
                   key={idx}
                   className="bg-slate-950/80 border border-slate-800 p-7 rounded-xl relative overflow-hidden flex flex-col justify-between group hover:border-primary/50 transition-all duration-300"
                 >
@@ -299,35 +353,48 @@ export default function ServicosListingClient() {
                   <div className="mt-6 pt-4 border-t border-slate-800/80 text-[10px] font-mono text-slate-500 uppercase">
                     Etapa 0{idx + 1}
                   </div>
-                </div>
+                </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 5. Testemunhos Relacionados a Serviços */}
-      <section className="py-20 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white border-b border-slate-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto mb-14"
+          >
             <h2 className="text-3xl font-extrabold text-slate-900">
               O que dizem os nossos clientes de serviços
             </h2>
             <p className="text-sm text-slate-500 mt-2">
               Depoimentos reais de organizações que transformaram a sua infraestrutura com a ARKNET.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={containerVariants}
+            className="grid md:grid-cols-3 gap-8"
+          >
             {mockTestimonials.slice(0, 3).map((tItem) => (
-              <div
+              <motion.div
+                variants={itemVariants}
                 key={tItem.id}
                 className="bg-slate-50 border border-slate-200 p-8 flex flex-col justify-between rounded-xl shadow-2xs hover:shadow-md transition"
               >
                 <div>
                   <Quote className="h-8 w-8 text-primary/30 mb-4" />
                   <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6">
-                    "{tItem.testimonial}"
+                    &ldquo;{tItem.testimonial}&rdquo;
                   </p>
                 </div>
 
@@ -335,16 +402,22 @@ export default function ServicosListingClient() {
                   <p className="font-bold text-sm text-slate-900">{tItem.clientName}</p>
                   <p className="text-xs text-primary font-semibold">{tItem.type}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 6. FAQ Curta (Perguntas Frequentes com Accordion) */}
       <section className="py-20 bg-slate-100/70 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14"
+          >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-3">
               <HelpCircle className="h-3.5 w-3.5" />
               Esclarecimentos Rápidos
@@ -355,20 +428,24 @@ export default function ServicosListingClient() {
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
               Respostas às dúvidas mais comuns sobre contratação, prazos e cobertura de serviços.
             </p>
-          </div>
+          </motion.div>
 
           <div className="space-y-4">
             {generalFaqs.map((faq, idx) => {
               const isOpen = openFaq === idx
               return (
-                <div
+                <motion.div
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
                   key={idx}
                   className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs transition"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-primary transition"
+                    className="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-primary transition cursor-pointer"
                   >
                     <span>{faq.question}</span>
                     <ChevronDown
@@ -392,7 +469,7 @@ export default function ServicosListingClient() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               )
             })}
           </div>
@@ -403,3 +480,4 @@ export default function ServicosListingClient() {
     </main>
   )
 }
+

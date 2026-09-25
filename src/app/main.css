@@ -46,6 +46,53 @@
   animation: hero-carousel-progress 5.5s linear both;
 }
 
+@keyframes hero-title-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-subtitle-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-badge-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-hero-badge {
+  animation: hero-badge-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-title {
+  animation: hero-title-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.animate-hero-subtitle {
+  animation: hero-subtitle-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -31,7 +31,7 @@ export default function FeaturedProducts() {
   const doubledProducts = Array.from({ length: repeatCount }).flatMap(() => products)
 
   return (
-    <section className="py-24 bg-slate-50 border-t border-b border-slate-200/80 overflow-hidden">
+    <section className="py-24 bg-white border-t border-slate-200/80 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Cabeçalho Editorial Limpo e Direto */}

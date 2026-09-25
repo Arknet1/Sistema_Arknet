@@ -30,6 +30,25 @@ import Footer from '@/components/footer'
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: EASE_OUT_EXPO },
+  },
+}
+
 const whyIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Zap: Zap,
   ShieldCheck: ShieldCheck,
@@ -72,7 +91,12 @@ export default function EmpresaClient() {
             <span className="text-primary font-bold">Sobre a ARKNET</span>
           </div>
 
-          <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
+            className="max-w-3xl"
+          >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest mb-4">
               <Building2 className="h-3.5 w-3.5" />
               Institucional ARKNET
@@ -83,12 +107,12 @@ export default function EmpresaClient() {
             <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed">
               Conheça a nossa trajetória, os valores que orientam as nossas soluções e o nosso compromisso com a modernização tecnológica de Angola.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 2. Institutional Overview & Image */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Image Col */}
@@ -108,28 +132,40 @@ export default function EmpresaClient() {
                 />
               </motion.div>
 
-              <div className="absolute -bottom-6 -right-6 bg-primary text-white p-6 shadow-2xl hidden sm:block">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: EASE_OUT_EXPO }}
+                viewport={{ once: true }}
+                className="absolute -bottom-6 -right-6 bg-primary text-white p-6 shadow-2xl hidden sm:block"
+              >
                 <p className="text-4xl font-black">10+</p>
                 <p className="text-xs font-medium text-white/80 uppercase tracking-wider mt-1">
                   Anos de experiência comprovada
                 </p>
-              </div>
+              </motion.div>
             </div>
 
             {/* Text Col */}
-            <div className="md:col-span-7 order-1 md:order-2 space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-[1.15]">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={containerVariants}
+              className="md:col-span-7 order-1 md:order-2 space-y-6"
+            >
+              <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-[1.15]">
                 Tecnologia de ponta pensada para a realidade do mercado angolano
-              </h2>
-              <p className="text-base text-slate-600 leading-relaxed">
+              </motion.h2>
+              <motion.p variants={itemVariants} className="text-base text-slate-600 leading-relaxed">
                 {mockAboutUs.institutionalText}
-              </p>
-              <p className="text-sm text-slate-500 leading-relaxed bg-slate-50 p-5 border-l-4 border-primary italic">
-                "{mockAboutUs.presentationLetter}"
-              </p>
+              </motion.p>
+              <motion.p variants={itemVariants} className="text-sm text-slate-500 leading-relaxed bg-slate-50 p-5 border-l-4 border-primary italic">
+                &ldquo;{mockAboutUs.presentationLetter}&rdquo;
+              </motion.p>
 
               {/* Badges Grid */}
-              <div className="grid grid-cols-2 gap-4 pt-4">
+              <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4 pt-4">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-primary/10 text-primary rounded">
                     <ShieldCheck className="h-5 w-5" />
@@ -162,23 +198,33 @@ export default function EmpresaClient() {
                     Resultados Mensuráveis
                   </span>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
 
           {/* Metrics Counter Bar */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 bg-slate-900 text-white divide-y md:divide-y-0 md:divide-x divide-slate-800 overflow-hidden shadow-xl">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 bg-slate-900 text-white divide-y md:divide-y-0 md:divide-x divide-slate-800 overflow-hidden shadow-xl"
+          >
             {metrics.map((metric, idx) => (
-              <div key={idx} className="p-8 text-center group hover:bg-primary transition-all duration-300">
+              <motion.div
+                variants={itemVariants}
+                key={idx}
+                className="p-8 text-center group hover:bg-primary transition-all duration-300"
+              >
                 <p className="text-4xl sm:text-5xl font-black text-white">
                   <CountUp to={metric.to} suffix={metric.suffix} duration={1.8 + idx * 0.15} />
                 </p>
                 <p className="mt-2 text-xs sm:text-sm text-slate-400 group-hover:text-white/90 font-medium">
                   {metric.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -186,7 +232,13 @@ export default function EmpresaClient() {
       <section className="py-20 bg-slate-50 text-slate-900 relative overflow-hidden border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-3">
               <Sparkles className="h-3.5 w-3.5" />
               Propósito & Princípios
@@ -197,12 +249,21 @@ export default function EmpresaClient() {
             <p className="text-sm text-slate-500 mt-2">
               O alicerce que orienta cada projeto, intervenção técnica e parceria na ARKNET.
             </p>
-          </div>
+          </motion.div>
 
           {/* Top Block: Missão e Visão (2 Cards Principais) */}
-          <div className="grid md:grid-cols-2 gap-8 mb-14">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={containerVariants}
+            className="grid md:grid-cols-2 gap-8 mb-14"
+          >
             {/* Missão Card */}
-            <div className="bg-white border border-slate-200 p-8 rounded-xl shadow-xs hover:shadow-md hover:border-primary/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            <motion.div
+              variants={itemVariants}
+              className="bg-white border border-slate-200 p-8 rounded-xl shadow-xs hover:shadow-md hover:border-primary/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
+            >
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
               <div>
                 <div className="flex items-center justify-between mb-5">
@@ -218,10 +279,13 @@ export default function EmpresaClient() {
                   {mockAboutUs.mission}
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Visão Card */}
-            <div className="bg-white border border-slate-200 p-8 rounded-xl shadow-xs hover:shadow-md hover:border-secondary/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            <motion.div
+              variants={itemVariants}
+              className="bg-white border border-slate-200 p-8 rounded-xl shadow-xs hover:shadow-md hover:border-secondary/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
+            >
               <div className="absolute top-0 left-0 right-0 h-1 bg-secondary" />
               <div>
                 <div className="flex items-center justify-between mb-5">
@@ -237,21 +301,33 @@ export default function EmpresaClient() {
                   {mockAboutUs.vision}
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Bottom Block: Estrutura dos 3 Valores */}
           <div className="border-t border-slate-200/80 pt-12">
-            <div className="text-center max-w-xl mx-auto mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center max-w-xl mx-auto mb-10"
+            >
               <h3 className="text-2xl font-extrabold text-slate-900">
                 Os Nossos Valores Fundamentais
               </h3>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 Princípios que sustentam o nosso compromisso diário com a qualidade e com os nossos clientes.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={containerVariants}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
               {[
                 {
                   title: 'Excelência Técnica',
@@ -277,7 +353,8 @@ export default function EmpresaClient() {
               ].map((val, idx) => {
                 const ValIcon = val.icon
                 return (
-                  <div
+                  <motion.div
+                    variants={itemVariants}
                     key={idx}
                     className="bg-white border border-slate-200 p-6 rounded-xl shadow-2xs hover:shadow-md hover:border-slate-300 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
                   >
@@ -301,18 +378,24 @@ export default function EmpresaClient() {
                         {val.desc}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 )
               })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* 4. Corpo Executivo */}
-      <section className="py-24 bg-white border-b border-slate-200">
+      <section className="py-24 bg-white border-b border-slate-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12"
+          >
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-[0.18em] mb-4">
                 Corpo Executivo
@@ -324,9 +407,15 @@ export default function EmpresaClient() {
             <p className="max-w-sm text-sm text-slate-500 leading-relaxed lg:text-right">
               Três áreas de liderança que trabalham em conjunto para garantir clareza, rigor técnico e continuidade em cada decisão.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={containerVariants}
+            className="grid md:grid-cols-3 gap-5"
+          >
             {executiveTeam.map((executive, index) => {
               const fallbackImages = [executiveGeneral, executiveTechnical, executiveCommercial]
               const executiveIcons = [Building2, ShieldCheck, Handshake]
@@ -334,7 +423,11 @@ export default function EmpresaClient() {
               const ExecutiveIcon = executiveIcons[index] || Building2
               const executiveImage = executive.image || fallbackImages[index] || executiveGeneral
               return (
-                <article key={executive.title} className="group relative overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <motion.article
+                  variants={itemVariants}
+                  key={executive.title}
+                  className="group relative overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
                   <div className={`absolute inset-x-0 top-0 h-1 ${executiveAccents[index] || 'bg-primary'}`} />
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -354,17 +447,23 @@ export default function EmpresaClient() {
                     <div className={`mt-4 h-px w-12 ${executiveAccents[index] || 'bg-primary'}`} />
                     <p className="mt-5 text-sm leading-7 text-slate-300">{executive.description}</p>
                   </div>
-                </article>
+                </motion.article>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 5. Por que Escolher a ARKNET */}
-      <section className="py-24 bg-slate-950 text-white">
+      <section className="py-24 bg-slate-950 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+          >
             <div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.1] max-w-lg">
                 Por que as empresas escolhem a ARKNET
@@ -373,15 +472,22 @@ export default function EmpresaClient() {
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm md:text-right">
               Combinamos rigor técnico, equipamentos certificados e presença contínua para proteger e acelerar a sua operação.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={containerVariants}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {mockWhyChooseUs.map((item, index) => {
               const Icon = whyIcons[item.icon] || Zap
               const number = String(index + 1).padStart(2, '0')
 
               return (
-                <div
+                <motion.div
+                  variants={itemVariants}
                   key={item.id}
                   className="bg-slate-900/90 border border-slate-800 p-8 hover:border-primary/60 transition-all duration-300 relative overflow-hidden group"
                 >
@@ -402,10 +508,10 @@ export default function EmpresaClient() {
                       {item.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -414,3 +520,4 @@ export default function EmpresaClient() {
     </main>
   )
 }
+

@@ -335,8 +335,11 @@ export interface StoreHeroSlide {
   mediaType: 'image' | 'video'
   linkHref: string
   altText: string
+  badge?: string
   title?: string
   subtitle?: string
+  ctaText?: string
+  highlights?: string[]
   active: boolean
 }
 
@@ -453,81 +456,9 @@ const DEFAULT_USERS: AdminUser[] = [
     createdAt: '2026-01-01T00:00:00Z',
     lastLogin: new Date().toISOString(),
   },
-  {
-    id: 'user-editor',
-    name: 'Editor de Conteúdo',
-    email: 'editor@arknet.co.ao',
-    password: 'Admin123!',
-    passwordHash: hashPasswordSync('Admin123!'),
-    role: 'editor',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    status: 'active',
-    createdAt: '2026-01-10T00:00:00Z',
-    lastLogin: new Date().toISOString(),
-  },
-  {
-    id: 'user-editor-ao',
-    name: 'Gestor de Conteúdo',
-    email: 'editor@arknet.ao',
-    password: 'Admin123!',
-    passwordHash: hashPasswordSync('Admin123!'),
-    role: 'editor',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    status: 'active',
-    createdAt: '2026-01-10T00:00:00Z',
-    lastLogin: new Date().toISOString(),
-  },
 ]
 
-const DEFAULT_CUSTOMERS: CustomerAccount[] = [
-  {
-    id: 'cli-1',
-    name: 'Eng. Manuel Domingos',
-    email: 'manuel.domingos@petroangola.ao',
-    password: 'Password123!',
-    phone: '+244 923 456 789',
-    company: 'PetroAngola E.P.',
-    nif: '5412987654',
-    address: 'Rua Principal de Talatona, Edifício Kilamba, 4º Andar',
-    city: 'Luanda',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    status: 'active',
-    notes: 'Cliente corporativo VIP de telecomunicações e links dedicados.',
-    createdAt: '2026-01-15T10:00:00Z',
-    lastLogin: new Date(Date.now() - 3600 * 1000 * 3).toISOString(),
-  },
-  {
-    id: 'cli-2',
-    name: 'Dra. Teresa Van-Dúnem',
-    email: 'teresa.vdunem@bancocomerce.co.ao',
-    password: 'Password123!',
-    phone: '+244 912 345 678',
-    company: 'Banco Comercial Angolano',
-    nif: '5401876543',
-    address: 'Avenida 4 de Fevereiro, Marginal de Luanda',
-    city: 'Luanda',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    status: 'active',
-    notes: 'Contrato ativo de segurança cibernética e consultoria.',
-    createdAt: '2026-01-20T14:30:00Z',
-    lastLogin: new Date(Date.now() - 3600 * 1000 * 18).toISOString(),
-  },
-  {
-    id: 'cli-3',
-    name: 'Carlos Alberto Ferreira',
-    email: 'carlos.ferreira@gmail.com',
-    password: 'Password123!',
-    phone: '+244 933 112 233',
-    company: 'Independente / Particular',
-    nif: '006789123LA042',
-    address: 'Condomínio Vila Flor, Casa 12',
-    city: 'Luanda',
-    status: 'active',
-    notes: 'Cliente de equipamentos da loja online.',
-    createdAt: '2026-02-01T09:15:00Z',
-    lastLogin: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
-  },
-]
+const DEFAULT_CUSTOMERS: CustomerAccount[] = []
 
 const DEFAULT_CATEGORIES: ProductCategory[] = mockCategories.map((c, i) => ({
   id: `cat-${i + 1}`,
@@ -1221,8 +1152,11 @@ const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
     mediaType: 'image',
     linkHref: '/loja?categoria=Redes%20e%20Internet',
     altText: 'Router LB-Link para redes sem fios',
-    title: 'Conecte tudo. Navegue melhor.',
-    subtitle: 'Routers e soluções de rede para uma ligação rápida e estável.',
+    badge: 'Redes & Conectividade de Alto Rendimento',
+    title: 'Conecte tudo. Navegue com máxima estabilidade.',
+    subtitle: 'Routers Wi-Fi 6, switches e soluções de rede empresariais para uma ligação ultrarrápida e sem quebras em toda a infraestrutura.',
+    ctaText: 'Ver Equipamentos de Rede',
+    highlights: ['Pronta Entrega em Luanda', 'Garantia Oficial ARKNET', 'Faturação Proforma & Pós-Venda'],
     active: true,
   },
   {
@@ -1231,8 +1165,11 @@ const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
     mediaType: 'image',
     linkHref: '/loja?categoria=Monitores',
     altText: 'Monitor curvo para jogos e entretenimento',
-    title: 'Mais espaço para grandes ideias.',
-    subtitle: 'Monitores para trabalhar, criar e aproveitar cada detalhe.',
+    badge: 'Displays Profissionais & Produtividade',
+    title: 'Mais espaço e precisão visual para as suas ideias.',
+    subtitle: 'Monitores de alta definição para engenharia, escritório, design e análise operacional com tecnologia Eye-Care.',
+    ctaText: 'Explorar Monitores',
+    highlights: ['Resolução Ultra-Clear', 'Conexão HDMI & DisplayPort', 'Suporte Técnico Direto'],
     active: true,
   },
   {
@@ -1241,8 +1178,11 @@ const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
     mediaType: 'image',
     linkHref: '/loja?categoria=Produtos',
     altText: 'Mochila preta para computador e uso diário',
-    title: 'Leve a sua tecnologia consigo.',
-    subtitle: 'Mochilas práticas para proteger o seu equipamento todos os dias.',
+    badge: 'Proteção & Mobilidade Tecnológica',
+    title: 'Transporte a sua tecnologia com total segurança.',
+    subtitle: 'Mochilas e malas executivas impermeáveis projetadas para proteger portáteis e acessórios em qualquer deslocação.',
+    ctaText: 'Ver Acessórios de Transporte',
+    highlights: ['Compartimento Antichoque', 'Material Impermeável', 'Design Ergonómico'],
     active: true,
   },
   {
@@ -1251,8 +1191,11 @@ const DEFAULT_CAROUSEL_SLIDES: StoreHeroSlide[] = [
     mediaType: 'image',
     linkHref: '/loja?categoria=Impressoras%20e%20Consumíveis',
     altText: 'Impressora multifunções para escritório',
-    title: 'O seu escritório, mais eficiente.',
-    subtitle: 'Impressoras e consumíveis para manter o trabalho em movimento.',
+    badge: 'Automação & Escritório Inteligente',
+    title: 'Eficiência e rapidez em cada documento impresso.',
+    subtitle: 'Impressoras multifunções e consumíveis originais de alto rendimento para manter a sua empresa sempre em movimento.',
+    ctaText: 'Descobrir Impressoras & Consumíveis',
+    highlights: ['Alta Velocidade de Impressão', 'Conectividade Wi-Fi / Rede', 'Consumíveis de Longa Duração'],
     active: true,
   },
 ]
