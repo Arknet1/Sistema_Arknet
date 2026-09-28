@@ -108,10 +108,24 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-09-25T15:56:48.657Z",
+      "lastLogin": "2026-09-25T16:08:34.526Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
-      "updatedAt": "2026-09-25T15:56:48.657Z"
+      "updatedAt": "2026-09-25T16:08:34.526Z"
+    },
+    {
+      "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
+      "name": "Jey Suco",
+      "email": "jedysucosuco@gmail.com",
+      "passwordHash": "$scrypt$5f9ce7f394109aa20b98c2bbb6161656$f4eed5c441312e206a5673c7697c3a5988b47cc3f70402fa8af6c66c53679af3091ec1edbd16cc7948827eafa0e249332386307a58743801980698d31fffaa24",
+      "phone": "932847952",
+      "company": "",
+      "nif": "",
+      "address": "",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-28T10:39:18.701Z",
+      "lastLogin": "2026-09-28T10:39:18.701Z"
     }
   ],
   "products": [
@@ -1319,6 +1333,42 @@
     }
   ],
   "orders": [
+    {
+      "customerName": "Jedy Suco",
+      "customerEmail": "jedyvandunem16@gmail.com",
+      "customerPhone": "932847952",
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "customerCompany": "",
+      "customerNif": "",
+      "customerCity": "Luanda",
+      "customerAddress": "Zango, Luanda",
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
+      "items": [
+        {
+          "productId": "prod-rec-1790066189556-26",
+          "productName": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+          "price": 11500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083540-1790003177971.jpg"
+        },
+        {
+          "productId": "prod-rec-1790066189556-23",
+          "productName": "Microfone de lapela sem fio K9",
+          "price": 18500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg"
+        }
+      ],
+      "total": 30000,
+      "status": "novo",
+      "notes": "",
+      "id": "order-1790352606566",
+      "orderNumber": "PED-2026-2866",
+      "createdAt": "2026-09-25T16:10:06.566Z",
+      "updatedAt": "2026-09-25T16:10:06.566Z"
+    },
     {
       "id": "order-1",
       "orderNumber": "PED-2026-0042",
@@ -2813,6 +2863,30 @@
   },
   "activities": [
     {
+      "id": "act-1790352606566-3qmt",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Novo pedido recebido #PED-2026-2866 (Jedy Suco)",
+      "module": "pedidos",
+      "timestamp": "2026-09-25T16:10:06.566Z"
+    },
+    {
+      "id": "act-1790352514527-og81",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Início de sessão de cliente \"Jedy Suco\" (jedyvandunem16@gmail.com)",
+      "module": "clientes",
+      "timestamp": "2026-09-25T16:08:34.527Z"
+    },
+    {
+      "id": "act-1790352514526-tsab",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou perfil do cliente \"cli-1790351808657\"",
+      "module": "clientes",
+      "timestamp": "2026-09-25T16:08:34.526Z"
+    },
+    {
       "id": "act-1790352226759-jz6q",
       "userId": "system",
       "userName": "Administrador",
@@ -3187,31 +3261,31 @@
       "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
       "module": "produtos",
       "timestamp": "2026-09-25T15:49:59.257Z"
-    },
-    {
-      "id": "act-1790351399033-2doo",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:49:59.033Z"
-    },
-    {
-      "id": "act-1790351398801-d6zr",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:49:58.801Z"
-    },
-    {
-      "id": "act-1790351398361-xtu0",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:49:58.361Z"
     }
   ],
-  "version": 3
+  "version": 3,
+  "recoveryTokens": [
+    {
+      "email": "jedysucosuco@gmail.com",
+      "accountId": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
+      "accountType": "customer",
+      "codeHash": "e2b70cbf8ac7a9aa662179fd11026ba58f3669ac4209845ba50879c192383435",
+      "sentAt": 1790608984182,
+      "windowStartedAt": 1790608977019,
+      "sendCount": 3,
+      "expiresAt": 1790609884182,
+      "attempts": 0
+    },
+    {
+      "email": "jedyvandunem16@gmail.com",
+      "accountId": "cli-1790351808657",
+      "accountType": "customer",
+      "codeHash": "e4c4511f4bbcda915d40152dec785d5420de2f4aff7b2418da3a4ed497f4b050",
+      "sentAt": 1790609120212,
+      "windowStartedAt": 1790609120212,
+      "sendCount": 1,
+      "expiresAt": 1790610020212,
+      "attempts": 0
+    }
+  ]
 }

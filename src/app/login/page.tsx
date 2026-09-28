@@ -22,7 +22,6 @@ import {
 import arknetLogo from '@/assets/icon18.png'
 import { useAuth } from '@/lib/auth-context'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
-import { dataStore } from '@/lib/data-store'
 
 function UnifiedLoginForm() {
   const router = useRouter()
@@ -75,6 +74,7 @@ function UnifiedLoginForm() {
   const [recoveryCode, setRecoveryCode] = useState('')
   const [recoveryNewPassword, setRecoveryNewPassword] = useState('')
   const [recoveryStep, setRecoveryStep] = useState<1 | 2>(1)
+  const [recoveryPreviewUrl, setRecoveryPreviewUrl] = useState<string | null>(null)
 
   // Feedback Messages
   const [errorMessage, setErrorMessage] = useState('')
@@ -110,17 +110,9 @@ function UnifiedLoginForm() {
 
     try {
       // 1. Verificar se é uma conta de Administrador / Editor
-      const adminUsers = dataStore.getUsers()
-      const isAdminAccount =
-        adminUsers.some((u) => u.email.toLowerCase() === cleanEmail) ||
-        cleanEmail === 'admin' ||
-        cleanEmail === 'editor' ||
-        cleanEmail === 'admin@arknet.ao' ||
-        cleanEmail === 'admin@arknet.co.ao'
+      const isAdminAccount = cleanEmail.endsWith('@arknet.ao') || cleanEmail.endsWith('@arknet.co.ao')
 
       if (isAdminAccount) {
-        // Limpar qualquer sessão de cliente anterior
-        customerLogout()
         const adminRes = await adminLogin(cleanEmail, loginPassword)
         if (adminRes.success) {
           setSuccessMessage('Autenticação de gestão confirmada. A aceder ao painel de administração...')
@@ -136,9 +128,7 @@ function UnifiedLoginForm() {
       }
 
       // 2. Caso contrário, autenticar como Conta de Cliente
-      // Limpar qualquer sessão de administrador anterior
-      adminLogout()
-      const clientRes = customerLogin(cleanEmail, loginPassword, rememberMe)
+      const clientRes = await customerLogin(cleanEmail, loginPassword, rememberMe)
       if (clientRes.success) {
         setSuccessMessage(clientRes.message)
         setTimeout(() => {
@@ -178,8 +168,7 @@ function UnifiedLoginForm() {
     setIsLoading(true)
 
     try {
-      adminLogout()
-      const res = customerRegister({
+      const res = await customerRegister({
         name: regData.name,
         email: regData.email,
         password: regData.password,
@@ -208,6 +197,7 @@ function UnifiedLoginForm() {
     e.preventDefault()
     setErrorMessage('')
     setSuccessMessage('')
+    setRecoveryPreviewUrl(null)
 
     if (!recoveryEmail.trim()) {
       setErrorMessage('Por favor, introduza o seu endereço de email.')
@@ -217,6 +207,7 @@ function UnifiedLoginForm() {
     const res = await sendRecoveryCode(recoveryEmail.trim())
     if (res.success) {
       setSuccessMessage(res.message)
+      setRecoveryPreviewUrl(typeof res.previewUrl === 'string' ? res.previewUrl : null)
       setRecoveryStep(2)
     } else {
       setErrorMessage(res.message || 'Não foi possível enviar o código de verificação.')
@@ -233,8 +224,8 @@ function UnifiedLoginForm() {
       return
     }
 
-    if (recoveryNewPassword.length < 6) {
-      setErrorMessage('A nova palavra-passe deve conter pelo menos 6 caracteres.')
+    if (recoveryNewPassword.length < 8 || !/[A-Z]/.test(recoveryNewPassword) || !/[a-z]/.test(recoveryNewPassword) || !/[0-9]/.test(recoveryNewPassword) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)) {
+      setErrorMessage('Use pelo menos 8 caracteres, com maiúscula, minúscula, número e símbolo.')
       return
     }
 
@@ -396,7 +387,14 @@ function UnifiedLoginForm() {
           {successMessage && (
             <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
-              <span>{successMessage}</span>
+              <div className="min-w-0">
+                <p>{successMessage}</p>
+                {recoveryPreviewUrl && (
+                  <a href={recoveryPreviewUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block underline break-all">
+                    Abrir email de teste
+                  </a>
+                )}
+              </div>
             </div>
           )}
 

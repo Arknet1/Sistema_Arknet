@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { dataStore } from '@/lib/data-store'
 import { sendWhatsAppTextMessage } from '@/lib/whatsapp/meta-api'
-import { sanitizeInput, verifySessionToken } from '@/lib/security-utils'
+import { sanitizeInput } from '@/lib/security-utils'
+import { verifySessionToken } from '@/lib/server-auth'
 
 /**
  * POST: Enviar mensagem direta a partir do painel de administração (Seguro)

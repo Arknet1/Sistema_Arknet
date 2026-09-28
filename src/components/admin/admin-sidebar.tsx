@@ -51,7 +51,7 @@ interface NavSection {
 
 export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps) {
   const pathname = usePathname()
-  const { user, role, isAdmin, isEditor, logout, switchRole } = useAuth()
+  const { user, role, isAdmin, isEditor, logout } = useAuth()
 
   const [unreadLeads, setUnreadLeads] = useState(0)
   const [newOrders, setNewOrders] = useState(0)
@@ -220,33 +220,6 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
               </span>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Quick Role Switcher for Testing/Dev */}
-      <div className="px-6 py-2 bg-slate-950/60 border-b border-slate-800/40 flex items-center justify-between text-[11px]">
-        <span className="text-slate-400">Perfil ativo:</span>
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => switchRole('admin')}
-            className={`px-2 py-0.5 text-[10px] font-bold rounded uppercase transition ${
-              isAdmin ? 'bg-primary text-white shadow-sm' : 'text-slate-400 hover:text-white bg-white/5'
-            }`}
-            title="Alternar para Administrador"
-          >
-              Administrador
-          </button>
-          <button
-            type="button"
-            onClick={() => switchRole('editor')}
-            className={`px-2 py-0.5 text-[10px] font-bold rounded uppercase transition ${
-              isEditor ? 'bg-secondary text-white shadow-sm' : 'text-slate-400 hover:text-white bg-white/5'
-            }`}
-            title="Alternar para Editor"
-          >
-            Editor
-          </button>
         </div>
       </div>
 

@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { verifySessionToken } from '@/lib/security-utils'
+import { verifySessionToken } from '@/lib/edge-auth'
 
 /**
  * Middleware de Segurança Global ARKNET
  * Aplica cabeçalhos HTTP de segurança estritos e verifica a autenticação para rotas protegidas.
  */
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const response = NextResponse.next()
 
@@ -34,7 +34,7 @@ export function middleware(request: NextRequest) {
       )
     }
 
-    const payload = verifySessionToken(token)
+    const payload = await verifySessionToken(token)
     if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
       return NextResponse.json(
         { error: 'Acesso negado. Token de sessão de administrador inválido ou expirado.' },
@@ -52,7 +52,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl)
     }
 
-    const payload = verifySessionToken(adminCookie)
+    const payload = await verifySessionToken(adminCookie)
     if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
       const loginUrl = new URL('/admin/login', request.url)
       loginUrl.searchParams.set('error', 'session_expired')

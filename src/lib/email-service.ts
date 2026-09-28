@@ -31,6 +31,15 @@ export async function sendPasswordRecoveryEmail(to: string, code: string): Promi
 
   try {
     const info = await transporter.sendMail({ from, to, subject, html })
+    const recipientAccepted = info.accepted.some((recipient) => String(recipient).toLowerCase() === to.toLowerCase())
+    if (!recipientAccepted) {
+      return {
+        success: false,
+        message: 'O servidor de email não aceitou o endereço destinatário.',
+        mode,
+        error: `SMTP rejected recipient (${info.rejected.length} rejected)`,
+      }
+    }
     return {
       success: true,
       message: 'Código de recuperação enviado.',
@@ -60,12 +69,18 @@ async function createTransporter() {
         port,
         secure,
         auth: { user, pass },
-        tls: {
-          rejectUnauthorized: false, // Permitir certificados de servidores locais ou corporativos
-        },
       }),
       from: process.env.SMTP_FROM || `"ARKNET Eventos" <${user}>`,
       mode: 'real_smtp' as const,
+    }
+  }
+
+  if (host || user || pass) {
+    console.error('[ARKNET Mailer] Configuração SMTP incompleta. Verifique SMTP_HOST, SMTP_USER e SMTP_PASS.')
+    return {
+      transporter: null,
+      from: process.env.SMTP_FROM || 'ARKNET',
+      mode: 'simulated' as const,
     }
   }
 

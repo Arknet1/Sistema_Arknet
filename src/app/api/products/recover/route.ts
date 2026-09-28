@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 import { saveProductServerAsync } from '@/lib/server-db'
-import { verifySessionToken } from '@/lib/security-utils'
+import { verifySessionToken } from '@/lib/server-auth'
 
 const UPLOADS_DIR = path.join(process.cwd(), 'public', 'uploads')
 const DB_FILE = path.join(process.cwd(), 'data', 'arknet-db.json')
@@ -11,17 +11,9 @@ function getAdminPayload(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
   const adminCookie = request.cookies.get('arknet_admin_token')?.value
   const token = authHeader?.replace('Bearer ', '') || adminCookie
-  if (!token) {
-    if (process.env.NODE_ENV === 'development') {
-      return { userId: 'admin-dev', email: 'admin@arknet.co.ao', role: 'admin' }
-    }
-    return null
-  }
+  if (!token) return null
   const payload = verifySessionToken(token)
   if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
-    if (process.env.NODE_ENV === 'development') {
-      return { userId: 'admin-dev', email: 'admin@arknet.co.ao', role: 'admin' }
-    }
     return null
   }
   return payload

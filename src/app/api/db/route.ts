@@ -12,7 +12,7 @@ import {
   appendServerEventRegistrationAsync,
 } from '@/lib/server-db'
 import { prisma } from '@/lib/prisma'
-import { verifySessionToken } from '@/lib/security-utils'
+import { verifySessionToken } from '@/lib/server-auth'
 
 // ==========================================
 // UTILITÁRIO: Verificar token de administrador
@@ -21,17 +21,9 @@ function getAdminPayload(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
   const adminCookie = request.cookies.get('arknet_admin_token')?.value
   const token = authHeader?.replace('Bearer ', '') || adminCookie
-  if (!token) {
-    if (process.env.NODE_ENV === 'development') {
-      return { userId: 'admin-dev', email: 'admin@arknet.co.ao', role: 'admin', exp: Date.now() + 86400000 }
-    }
-    return null
-  }
+  if (!token) return null
   const payload = verifySessionToken(token)
   if (!payload || (payload.role !== 'admin' && payload.role !== 'editor')) {
-    if (process.env.NODE_ENV === 'development') {
-      return { userId: 'admin-dev', email: 'admin@arknet.co.ao', role: 'admin', exp: Date.now() + 86400000 }
-    }
     return null
   }
   return payload
@@ -50,7 +42,16 @@ export async function GET(request: NextRequest) {
       // Para administradores: lê os dados completos de arknet-db.json
       // NUNCA executa escritas destrutivas durante a leitura (GET).
       const fullDb = readServerDb()
-      return NextResponse.json({ success: true, db: fullDb }, { status: 200 })
+      const { recoveryTokens: _recoveryTokens, ...safeDb } = fullDb
+      safeDb.users = (safeDb.users || []).map((user: any) => {
+        const { password: _password, passwordHash: _passwordHash, ...safeUser } = user
+        return safeUser
+      })
+      safeDb.customers = (safeDb.customers || []).map((customer: any) => {
+        const { password: _password, passwordHash: _passwordHash, ...safeCustomer } = customer
+        return safeCustomer
+      })
+      return NextResponse.json({ success: true, db: safeDb }, { status: 200 })
     }
 
     // Visitante público: apenas dados do site e da loja

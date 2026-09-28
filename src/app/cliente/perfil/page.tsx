@@ -176,12 +176,12 @@ function ClientePerfilContent() {
     }
   }
 
-  const handleChangePassword = (e: React.FormEvent) => {
+  const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setFeedback(null)
 
-    if (newPassword.length < 6) {
-      setFeedback({ type: 'error', message: 'A nova palavra-passe deve ter no mínimo 6 caracteres.' })
+    if (newPassword.length < 8 || !/[A-Z]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/[0-9]/.test(newPassword) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(newPassword)) {
+      setFeedback({ type: 'error', message: 'Use pelo menos 8 caracteres, com maiúscula, minúscula, número e símbolo.' })
       return
     }
 
@@ -190,7 +190,7 @@ function ClientePerfilContent() {
       return
     }
 
-    const res = changePassword(currentPassword, newPassword)
+    const res = await changePassword(currentPassword, newPassword)
     if (res.success) {
       setFeedback({ type: 'success', message: res.message })
       setCurrentPassword('')
