@@ -62,19 +62,37 @@ export default function Footer() {
     return pathname === "/" ? href : `/${href}`
   }
 
-  const handleNewsletter = (e: FormEvent<HTMLFormElement>) => {
+  const handleNewsletter = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!newsletterEmail.trim()) return
+    const emailToSubscribe = newsletterEmail.trim()
+    if (!emailToSubscribe) return
 
     setIsSubscribing(true)
-    const res = dataStore.addSubscriber(newsletterEmail.trim())
-    setIsSubscribing(false)
-
-    if (res.success) {
-      setNewsletterMsg({ type: "success", text: res.message })
-      setNewsletterEmail("")
-    } else {
-      setNewsletterMsg({ type: "error", text: res.message })
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailToSubscribe }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        dataStore.addSubscriber(emailToSubscribe)
+        setNewsletterMsg({ type: "success", text: data.message || "Obrigado por subscrever a nossa newsletter!" })
+        setNewsletterEmail("")
+      } else {
+        setNewsletterMsg({ type: "error", text: data.message || "Erro ao subscrever. Tente novamente." })
+      }
+    } catch {
+      // Fallback local
+      const res = dataStore.addSubscriber(emailToSubscribe)
+      if (res.success) {
+        setNewsletterMsg({ type: "success", text: res.message })
+        setNewsletterEmail("")
+      } else {
+        setNewsletterMsg({ type: "error", text: res.message })
+      }
+    } finally {
+      setIsSubscribing(false)
     }
   }
 

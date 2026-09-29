@@ -302,7 +302,7 @@ export function WhatsAppSimulatorModal({
                         {/* Sender Label */}
                         <div className="flex items-center justify-between gap-3 text-[10px] opacity-75 mb-1 pb-1 border-b border-white/10">
                           <span className="font-bold">
-                            {isBot ? '🤖 Bot ARKNET' : isAgent ? `👨‍💼 ${msg.senderName || 'Operador'}` : `👤 ${msg.senderName || 'Cliente'}`}
+                            {isBot ? 'Bot ARKNET' : isAgent ? `${msg.senderName || 'Operador'}` : `${msg.senderName || 'Cliente'}`}
                           </span>
                           <span className="font-mono">
                             {new Date(msg.timestamp).toLocaleTimeString([], {

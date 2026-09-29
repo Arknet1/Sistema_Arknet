@@ -487,7 +487,7 @@ export default function AdminProdutosPage() {
                             href="/admin/reservas"
                             className="text-[10px] font-bold text-amber-700 hover:underline bg-amber-50/80 px-1.5 py-0.5 rounded border border-amber-200"
                           >
-                            ★ {reservations.filter((r) => r.productId === product.id).length} reserva(s)
+                            {reservations.filter((r) => r.productId === product.id).length} reserva(s)
                           </Link>
                         )}
                       </div>

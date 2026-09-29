@@ -120,13 +120,10 @@ function QuoteRequestInner() {
           viewport={{ once: true }}
           className="mb-14"
         >
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
               Precisa de um serviço?
             </h2>
-            <p className="text-base text-slate-500 max-w-sm md:text-right">
-              Entre em contacto e receba uma proposta personalizada para o seu negócio.
-            </p>
           </div>
         </motion.div>
 

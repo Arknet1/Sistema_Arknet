@@ -18,6 +18,7 @@ import {
   Building2,
   Sparkles,
   Handshake,
+  Briefcase,
 } from 'lucide-react'
 import deepConnection from '@/assets/projectos e actividades/deepconection.avif'
 import executiveGeneral from '@/assets/about2.jpg'
@@ -394,7 +395,7 @@ export default function EmpresaClient() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12"
+            className="mb-12"
           >
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-[0.18em] mb-4">
@@ -404,9 +405,6 @@ export default function EmpresaClient() {
                 Liderança que transforma estratégia em execução
               </h2>
             </div>
-            <p className="max-w-sm text-sm text-slate-500 leading-relaxed lg:text-right">
-              Três áreas de liderança que trabalham em conjunto para garantir clareza, rigor técnico e continuidade em cada decisão.
-            </p>
           </motion.div>
 
           <motion.div
@@ -414,18 +412,18 @@ export default function EmpresaClient() {
             whileInView="show"
             viewport={{ once: true, amount: 0.15 }}
             variants={containerVariants}
-            className="grid md:grid-cols-3 gap-5"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
           >
             {executiveTeam.map((executive, index) => {
-              const fallbackImages = [executiveGeneral, executiveTechnical, executiveCommercial]
-              const executiveIcons = [Building2, ShieldCheck, Handshake]
-              const executiveAccents = ['bg-primary', 'bg-secondary', 'bg-amber-500']
+              const fallbackImages = [executiveGeneral, executiveTechnical, executiveCommercial, executiveGeneral]
+              const executiveIcons = [Building2, ShieldCheck, Handshake, Briefcase]
+              const executiveAccents = ['bg-primary', 'bg-secondary', 'bg-amber-500', 'bg-sky-500']
               const ExecutiveIcon = executiveIcons[index] || Building2
               const executiveImage = executive.image || fallbackImages[index] || executiveGeneral
               return (
                 <motion.article
                   variants={itemVariants}
-                  key={executive.title}
+                  key={executive.id || executive.title || index}
                   className="group relative overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className={`absolute inset-x-0 top-0 h-1 ${executiveAccents[index] || 'bg-primary'}`} />
@@ -462,16 +460,13 @@ export default function EmpresaClient() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+            className="mb-16"
           >
             <div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.1] max-w-lg">
                 Por que as empresas escolhem a ARKNET
               </h2>
             </div>
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm md:text-right">
-              Combinamos rigor técnico, equipamentos certificados e presença contínua para proteger e acelerar a sua operação.
-            </p>
           </motion.div>
 
           <motion.div

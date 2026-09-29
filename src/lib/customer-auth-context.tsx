@@ -32,6 +32,7 @@ interface CustomerAuthContextType {
     city?: string
   }) => Promise<{ success: boolean; message: string; customer?: CustomerAccount }>
   sendRecoveryCode: (email: string) => Promise<{ success: boolean; message: string; previewUrl?: string | false }>
+  verifyRecoveryCode: (email: string, code: string) => Promise<{ success: boolean; message: string }>
   resetPasswordWithCode: (email: string, code: string, newPassword: string) => Promise<{ success: boolean; message: string }>
   updateProfile: (updates: Partial<CustomerAccount>) => { success: boolean; message: string; customer?: CustomerAccount }
   changePassword: (currentPassword: string, newPassword: string) => Promise<{ success: boolean; message: string }>
@@ -165,6 +166,16 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     return result
   }, [])
 
+  const verifyRecoveryCode = useCallback(async (email: string, code: string) => {
+    const response = await fetch('/api/auth/recovery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verify', email: sanitizeInput(email).toLowerCase().trim(), code: code.trim() }),
+    })
+    const result = await response.json()
+    return result
+  }, [])
+
   const resetPasswordWithCode = useCallback(
     async (email: string, code: string, newPassword: string) => {
       const cleanEmail = sanitizeInput(email).toLowerCase().trim()
@@ -247,6 +258,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
         login,
         register,
         sendRecoveryCode,
+        verifyRecoveryCode,
         resetPasswordWithCode,
         updateProfile,
         changePassword,

@@ -73,7 +73,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {product.featured && !isOutOfStock && (
             <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
-              ★ Destaque
+              Destaque
             </span>
           )}
 

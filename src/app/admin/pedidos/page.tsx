@@ -464,10 +464,10 @@ export default function AdminPedidosPage() {
               className="px-3 py-2 bg-slate-50 border border-slate-300 text-xs text-slate-700 focus:bg-white focus:border-primary focus:outline-none font-medium"
             >
               <option value="all">Todos os Estados do Bot ({orders.length})</option>
-              <option value="receipt_received">🔔 Comprovativo Recebido ({orders.filter((o) => o.botStatus === 'receipt_received').length})</option>
-              <option value="needs_human">⚠️ Requer Atenção Humana ({orders.filter((o) => o.botStatus === 'needs_human').length})</option>
-              <option value="waiting_receipt">⏳ Aguarda Comprovativo ({orders.filter((o) => o.botStatus === 'waiting_receipt').length})</option>
-              <option value="confirmed">✅ Confirmado ({orders.filter((o) => o.botStatus === 'confirmed').length})</option>
+              <option value="receipt_received">Comprovativo Recebido ({orders.filter((o) => o.botStatus === 'receipt_received').length})</option>
+              <option value="needs_human">Requer Atenção Humana ({orders.filter((o) => o.botStatus === 'needs_human').length})</option>
+              <option value="waiting_receipt">Aguarda Comprovativo ({orders.filter((o) => o.botStatus === 'waiting_receipt').length})</option>
+              <option value="confirmed">Confirmado ({orders.filter((o) => o.botStatus === 'confirmed').length})</option>
             </select>
           </div>
 
@@ -1059,7 +1059,7 @@ export default function AdminPedidosPage() {
                               >
                                 <div className="flex items-center justify-between gap-3 text-[10px] opacity-75 mb-1 pb-1 border-b border-white/10">
                                   <span className="font-bold">
-                                    {isBot ? '🤖 Bot ARKNET' : isAgent ? `👨‍💼 ${msg.senderName || 'Operador'}` : `👤 ${msg.senderName || 'Cliente'}`}
+                                    {isBot ? 'Bot ARKNET' : isAgent ? `${msg.senderName || 'Operador'}` : `${msg.senderName || 'Cliente'}`}
                                   </span>
                                   <span className="font-mono">
                                     {new Date(msg.timestamp).toLocaleTimeString([], {

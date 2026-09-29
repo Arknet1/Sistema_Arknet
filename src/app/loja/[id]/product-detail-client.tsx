@@ -266,7 +266,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   }
 
   const whatsappMessage = encodeURIComponent(
-    `Olá ARKNET! 👋 Gostaria de obter cotação e especificações para o equipamento: *"${product.name}"* (Ref: ${product.sku || product.id}). Podem informar disponibilidade e condições comerciais?`
+    `Olá ARKNET! Gostaria de obter cotação e especificações para o equipamento: *"${product.name}"* (Ref: ${product.sku || product.id}). Podem informar disponibilidade e condições comerciais?`
   )
 
   const activeImage = galleryImages[selectedImageIndex] || product.image
@@ -319,7 +319,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   {product.featured && (
                     <span className="px-3 py-1 bg-amber-500 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
                       <Sparkles className="h-3 w-3" />
-                      ★ Destaque ARKNET
+                      Destaque ARKNET
                     </span>
                   )}
                   {!isOutOfStock ? (
@@ -1015,7 +1015,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               <div className="pt-2 flex gap-3">
                 <a
                   href={`https://wa.me/244935208449?text=${encodeURIComponent(
-                    `Olá ARKNET! 👋 Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* (${quantity} un.). Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
+                    `Olá ARKNET! Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* (${quantity} un.). Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

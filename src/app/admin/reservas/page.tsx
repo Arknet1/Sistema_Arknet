@@ -156,7 +156,7 @@ export default function AdminReservasPage() {
 
   const getWhatsAppNotifyLink = (r: ProductReservation) => {
     const text = encodeURIComponent(
-      `Olá ${r.customerName}! 👋 Informamos que o produto *"${r.productName}"* (Reserva #${r.reservationNumber}, ${r.quantity} un.) já chegou ao armazém central da ARKNET em Luanda e está pronto para entrega/levantamento. Como prefere proceder?`
+      `Olá ${r.customerName}! Informamos que o produto *"${r.productName}"* (Reserva #${r.reservationNumber}, ${r.quantity} un.) já chegou ao armazém central da ARKNET em Luanda e está pronto para entrega/levantamento. Como prefere proceder?`
     )
     const phone = (r.customerPhone || '').replace(/\D/g, '')
     return `https://wa.me/${phone.startsWith('244') ? phone : `244${phone}`}?text=${text}`

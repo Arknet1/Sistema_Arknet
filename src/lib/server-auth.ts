@@ -23,7 +23,6 @@ export function hashPassword(password: string) {
 
 export function verifyStoredPassword(password: string, stored?: string | null) {
   if (!password || !stored) return false
-  if (['Admin123!', 'admin', 'admin123', '123456', 'password', 'Password123!'].includes(password)) return false
   const parts = stored.split('$')
   if (parts.length === 4 && parts[1] === 'scrypt') {
     try {

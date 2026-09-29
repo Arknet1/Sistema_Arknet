@@ -16,13 +16,13 @@
       "id": "user-admin-ao",
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
-      "password": "Admin123!",
-      "passwordHash": "arkhash_wd0n26_61",
+      "password": null,
+      "passwordHash": "$scrypt$f4ba45b397593f6a7d49f60004375af4$2b4eb60a8490275ee0c28431222b5c4a352516d4b011864702b5eb30677c17ede92adce8be7e5aa05da82279a1612e2215886d5375881d5dbf4bab51d61b7846",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-25T16:01:16.625Z"
+      "lastLogin": "2026-09-29T15:06:38.827Z"
     },
     {
       "id": "user-editor",
@@ -104,14 +104,15 @@
     {
       "name": "Jedy Suco",
       "email": "jedyvandunem16@gmail.com",
-      "password": "Ark2027%2028",
+      "password": null,
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-09-25T16:08:34.526Z",
+      "lastLogin": "2026-09-29T14:59:53.882Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
-      "updatedAt": "2026-09-25T16:08:34.526Z"
+      "updatedAt": "2026-09-25T16:08:34.526Z",
+      "passwordHash": "$scrypt$ed90f6b05da222b00ea3a02fc18e41a5$015951d3dae0fa0edc078fda04be688572750bbca6a078e261f146564cec82d31a6dc94fc9c81de807549d681b93c74b43999c907ba3f3cd2e0a7de51f07bda9"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
@@ -126,6 +127,35 @@
       "status": "active",
       "createdAt": "2026-09-28T10:39:18.701Z",
       "lastLogin": "2026-09-28T10:39:18.701Z"
+    },
+    {
+      "id": "cli-66dc98b1-8d63-47c9-bd86-4d5e6e664782",
+      "name": "Arknet",
+      "email": "jedy.suco@arknet.co.ao",
+      "passwordHash": "$scrypt$72a48ee2da2e08eb6e92394b9df435fb$878b3256f383ed30bee7d6ff513c67762926de4787b7dc63929d54416fbdb177aee11500a75787fa3f283c1aa38f57e87bdfcaa297f051428f30af43c7e0f3e3",
+      "phone": "932847952",
+      "company": "Arknet",
+      "nif": "",
+      "address": "",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-29T08:18:58.053Z",
+      "lastLogin": "2026-09-29T08:18:58.053Z"
+    },
+    {
+      "id": "cli-b87a714e-67ab-451b-91de-34342b044a42",
+      "name": "Adaltino Paquete Bernardo Fernandes Lima",
+      "email": "adaltinolima16@gmail.com",
+      "passwordHash": "$scrypt$c9f0c957c536a8792bd17d8374ca9297$6046b979b7579bedd09a56fc1862043f391c5bdd9844e08107b92ef35ebbdcc9e0fa52c74da18f1ed3456e14e6cf35521beb023bbdefc39027ddc1bf1417f0ea",
+      "phone": "+244947998506",
+      "company": "JMATOS",
+      "nif": "",
+      "address": "",
+      "city": "Kilamba",
+      "status": "active",
+      "createdAt": "2026-09-29T14:55:51.325Z",
+      "lastLogin": "2026-09-29T15:06:18.590Z",
+      "password": null
     }
   ],
   "products": [
@@ -323,8 +353,8 @@
     },
     {
       "id": "prod-1790258033587-3dxx",
-      "name": "Extensão  UPS Ewent de 6 entradas",
-      "description": "Extensão  UPS Ewent de 6 entradas",
+      "name": "Extensão UPS Ewent de 6 entradas",
+      "description": "Extensão UPS Ewent de 6 entradas",
       "categoryId": "cat-10",
       "category": "Energia e Proteção",
       "price": null,
@@ -531,8 +561,8 @@
     },
     {
       "id": "prod-1790256879461-ei7a",
-      "name": "Monitor curvo wintech 27 FHD HDMI/VGA         75Hz",
-      "description": "Monitor curvo wintech 27 FHD HDMI/VGA         75Hz",
+      "name": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
+      "description": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
       "categoryId": "cat-13",
       "category": "Monitores",
       "price": 180000,
@@ -1402,7 +1432,7 @@
           "id": "msg-2",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
+          "text": "Olá Afonso Mário Ribeiro! Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
           "timestamp": "2026-09-08T13:29:28.787Z"
         },
         {
@@ -1421,7 +1451,7 @@
           "id": "msg-4",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
+          "text": " *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
           "timestamp": "2026-09-08T14:29:29.787Z"
         }
       ],
@@ -1476,7 +1506,7 @@
           "id": "msg-302",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
+          "text": "Obrigado pela sua mensagem. ‍ Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
           "timestamp": "2026-09-08T12:29:28.787Z"
         }
       ],
@@ -1524,14 +1554,14 @@
           "id": "msg-202",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
+          "text": "Olá Beatriz Costa! Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
           "timestamp": "2026-09-08T03:29:28.787Z"
         },
         {
           "id": "msg-203",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
+          "text": " *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
           "timestamp": "2026-09-08T05:29:27.787Z"
         }
       ],
@@ -1693,16 +1723,10 @@
   ],
   "subscribers": [
     {
-      "id": "sub-2",
-      "email": "geral@infrasul.ao",
+      "id": "sub-5",
+      "email": "inovacao@startuangola.com",
       "status": "active",
-      "subscribedAt": "2026-01-14T09:45:00.000Z"
-    },
-    {
-      "id": "sub-1790251647582",
-      "email": "audit-subscriber-1790251647557@arknet.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-09-24T12:07:27.582Z"
+      "subscribedAt": "2026-02-18T10:00:00.000Z"
     },
     {
       "id": "sub-4",
@@ -1711,10 +1735,22 @@
       "subscribedAt": "2026-02-02T14:30:00.000Z"
     },
     {
-      "id": "sub-1790244140592",
-      "email": "audit-subscriber-1790244140574@arknet.co.ao",
+      "id": "sub-3",
+      "email": "compras@hospitalcentral.ao",
       "status": "active",
-      "subscribedAt": "2026-09-24T10:02:20.592Z"
+      "subscribedAt": "2026-01-20T16:15:00.000Z"
+    },
+    {
+      "id": "sub-2",
+      "email": "geral@infrasul.ao",
+      "status": "active",
+      "subscribedAt": "2026-01-14T09:45:00.000Z"
+    },
+    {
+      "id": "sub-1",
+      "email": "director.ti@sonangol.co.ao",
+      "status": "active",
+      "subscribedAt": "2026-01-10T11:20:00.000Z"
     },
     {
       "id": "sub-1790243017688",
@@ -1723,22 +1759,16 @@
       "subscribedAt": "2026-09-24T09:43:37.688Z"
     },
     {
-      "id": "sub-5",
-      "email": "inovacao@startuangola.com",
+      "id": "sub-1790244140592",
+      "email": "audit-subscriber-1790244140574@arknet.co.ao",
       "status": "active",
-      "subscribedAt": "2026-02-18T10:00:00.000Z"
+      "subscribedAt": "2026-09-24T10:02:20.592Z"
     },
     {
-      "id": "sub-3",
-      "email": "compras@hospitalcentral.ao",
+      "id": "sub-1790251647582",
+      "email": "audit-subscriber-1790251647557@arknet.co.ao",
       "status": "active",
-      "subscribedAt": "2026-01-20T16:15:00.000Z"
-    },
-    {
-      "id": "sub-1",
-      "email": "director.ti@sonangol.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-10T11:20:00.000Z"
+      "subscribedAt": "2026-09-24T12:07:27.582Z"
     }
   ],
   "courses": [
@@ -2786,9 +2816,15 @@
       },
       {
         "id": "executive-commercial",
-        "title": " Direcção Logística",
-        "description": "Garante a organização dos produtos,  organização das equipe e uma melhor comunicação entre os departamentos\n",
+        "title": "Gestor Logística e Património",
+        "description": "Garante a organização dos produtos, organização das equipe e uma melhor comunicação entre os departamentos\n",
         "image": "/uploads/whatsapp_image_2026-09-16_at_16.46.42_3_-1790324193285.jpeg"
+      },
+      {
+        "id": "executive-operations",
+        "title": "Coordenador Técnico",
+        "description": "Responsável pela coordenação e acompanhamento das atividades técnicas, gestão das equipas, supervisão de projetos e garantia do cumprimento dos requisitos, prazos e padrões de qualidade.",
+        "image": "/uploads/whatsapp_image_2026-09-29_at_14.22.08_1_1_-1790694894771.jpeg"
       }
     ],
     "carouselSlides": [
@@ -2859,9 +2895,153 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-09-25T14:46:44.378Z"
+    "updatedAt": "2026-09-29T15:14:56.747Z"
   },
   "activities": [
+    {
+      "id": "act-1790694896747-mvx3",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T15:14:56.747Z"
+    },
+    {
+      "id": "act-1790694823564-m4ur",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T15:13:43.564Z"
+    },
+    {
+      "id": "act-1790688725899-fai8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T13:32:05.899Z"
+    },
+    {
+      "id": "act-1790687213965-sjbw",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T13:06:53.965Z"
+    },
+    {
+      "id": "act-1790686752866-o2ca",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T12:59:12.866Z"
+    },
+    {
+      "id": "act-1790686666755-k188",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T12:57:46.755Z"
+    },
+    {
+      "id": "act-1790686627746-ckv7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
+      "module": "definicoes",
+      "timestamp": "2026-09-29T12:57:07.746Z"
+    },
+    {
+      "id": "act-1790685189705-4dx6",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou produto \"roter\"",
+      "module": "produtos",
+      "timestamp": "2026-09-29T12:33:09.705Z"
+    },
+    {
+      "id": "act-1790685021483-je8w",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"roter\"",
+      "module": "produtos",
+      "timestamp": "2026-09-29T12:30:21.483Z"
+    },
+    {
+      "id": "act-1790684662937-8s20",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-4",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:24:22.937Z"
+    },
+    {
+      "id": "act-1790684658567-pwdy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-3",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:24:18.567Z"
+    },
+    {
+      "id": "act-1790684652610-khbx",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-2",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:24:12.610Z"
+    },
+    {
+      "id": "act-1790684646406-vyqg",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:24:06.406Z"
+    },
+    {
+      "id": "act-1790684638689-rsjr",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1790243017688",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:23:58.689Z"
+    },
+    {
+      "id": "act-1790684634554-0p4d",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1790244140592",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:23:54.554Z"
+    },
+    {
+      "id": "act-1790684631483-zgq2",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1790251647582",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T12:23:51.483Z"
+    },
+    {
+      "id": "act-1790679479915-ysh8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1790244140592",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T10:57:59.915Z"
+    },
+    {
+      "id": "act-1790679477443-qk06",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Removeu subscritor da newsletter #sub-1790251647582",
+      "module": "newsletter",
+      "timestamp": "2026-09-29T10:57:57.443Z"
+    },
     {
       "id": "act-1790352606566-3qmt",
       "userId": "system",
@@ -3117,150 +3297,6 @@
       "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
       "module": "produtos",
       "timestamp": "2026-09-25T15:52:05.416Z"
-    },
-    {
-      "id": "act-1790351525056-17et",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:05.056Z"
-    },
-    {
-      "id": "act-1790351524848-q7xx",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:04.848Z"
-    },
-    {
-      "id": "act-1790351524576-g6ln",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:04.576Z"
-    },
-    {
-      "id": "act-1790351517097-7dun",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Adaptador PoE passivo\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:57.097Z"
-    },
-    {
-      "id": "act-1790351505784-y53r",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-41\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:45.784Z"
-    },
-    {
-      "id": "act-1790351505136-xld9",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-41\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:45.136Z"
-    },
-    {
-      "id": "act-1790351497033-zx94",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Bateria Kaise standard VRLA 12V 7Ah\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:37.033Z"
-    },
-    {
-      "id": "act-1790351482392-r1e2",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:22.392Z"
-    },
-    {
-      "id": "act-1790351481920-2g14",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:21.920Z"
-    },
-    {
-      "id": "act-1790351481488-icv6",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:21.488Z"
-    },
-    {
-      "id": "act-1790351481168-gp06",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:51:21.168Z"
-    },
-    {
-      "id": "act-1790351432137-94hp",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-44\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:50:32.137Z"
-    },
-    {
-      "id": "act-1790351406617-mwyg",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:50:06.617Z"
-    },
-    {
-      "id": "act-1790351406426-yfu4",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:50:06.426Z"
-    },
-    {
-      "id": "act-1790351406193-9kdu",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:50:06.193Z"
-    },
-    {
-      "id": "act-1790351405921-a1ui",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-1790257220820-sl3g\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:50:05.921Z"
-    },
-    {
-      "id": "act-1790351399433-mixk",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:49:59.433Z"
-    },
-    {
-      "id": "act-1790351399257-lqt2",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:49:59.257Z"
     }
   ],
   "version": 3,
@@ -3277,14 +3313,27 @@
       "attempts": 0
     },
     {
+      "email": "jedy.suco@arknet.co.ao",
+      "accountId": "cli-66dc98b1-8d63-47c9-bd86-4d5e6e664782",
+      "accountType": "customer",
+      "userName": "Arknet",
+      "codeHash": "84d9fe147f56c2589c0970b42f2f1b98ed5c5f6f08754fb3e0c48a6f58456d33",
+      "sentAt": 1790671122826,
+      "windowStartedAt": 1790671122826,
+      "sendCount": 1,
+      "expiresAt": 1790672022826,
+      "attempts": 0
+    },
+    {
       "email": "jedyvandunem16@gmail.com",
       "accountId": "cli-1790351808657",
       "accountType": "customer",
-      "codeHash": "e4c4511f4bbcda915d40152dec785d5420de2f4aff7b2418da3a4ed497f4b050",
-      "sentAt": 1790609120212,
-      "windowStartedAt": 1790609120212,
+      "userName": "Jedy Suco",
+      "codeHash": "7cc7327a3c6a308a51e42f9d8182d8be46d7801690d341a36e3882e644cd64cc",
+      "sentAt": 1790675170415,
+      "windowStartedAt": 1790675170415,
       "sendCount": 1,
-      "expiresAt": 1790610020212,
+      "expiresAt": 1790676070415,
       "attempts": 0
     }
   ]

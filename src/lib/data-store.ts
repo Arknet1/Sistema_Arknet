@@ -638,7 +638,7 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         id: 'msg-2',
         sender: 'bot',
         senderName: 'ARKNET Bot',
-        text: 'Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.',
+        text: 'Olá Afonso Mário Ribeiro! Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n*Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n*Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\nPor favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.',
         timestamp: new Date(Date.now() - 3600 * 1000 * 2 + 1000).toISOString(),
       },
       {
@@ -657,7 +657,7 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         id: 'msg-4',
         sender: 'bot',
         senderName: 'ARKNET Bot',
-        text: '✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.',
+        text: '*Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.',
         timestamp: new Date(Date.now() - 3600 * 1000 * 1 + 2000).toISOString(),
       },
     ],
@@ -698,14 +698,14 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         id: 'msg-202',
         sender: 'bot',
         senderName: 'ARKNET Bot',
-        text: 'Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.',
+        text: 'Olá Beatriz Costa! Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.',
         timestamp: new Date(Date.now() - 3600 * 1000 * 12 + 1000).toISOString(),
       },
       {
         id: 'msg-203',
         sender: 'bot',
         senderName: 'ARKNET Bot',
-        text: '🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!',
+        text: '*Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!',
         timestamp: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
       },
     ],
@@ -745,7 +745,7 @@ const DEFAULT_ORDERS: StoreOrder[] = [
         id: 'msg-302',
         sender: 'bot',
         senderName: 'ARKNET Bot',
-        text: 'Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.',
+        text: 'Obrigado pela sua mensagem. Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.',
         timestamp: new Date(Date.now() - 3600 * 1000 * 3 + 1000).toISOString(),
       },
     ],
@@ -1219,6 +1219,7 @@ const DEFAULT_SETTINGS: CompanySettings = {
     { id: 'executive-general', title: 'Direcção Geral', description: 'Define a orientação estratégica da ARKNET e assegura o alinhamento entre visão, investimento e resultados.', image: '' },
     { id: 'executive-technical', title: 'Direcção Técnica', description: 'Garante a qualidade das implementações, a evolução das soluções e a consistência das equipas de engenharia.', image: '' },
     { id: 'executive-commercial', title: 'Direcção Comercial', description: 'Constrói relações duradouras e transforma necessidades concretas em propostas claras e sustentáveis.', image: '' },
+    { id: 'executive-operations', title: 'Direcção de Operações', description: 'Assegura a eficiência dos processos internos, gestão de infraestruturas e entrega contínua com excelência.', image: '' },
   ],
   carouselSlides: DEFAULT_CAROUSEL_SLIDES,
   updatedAt: new Date().toISOString(),
@@ -2340,7 +2341,7 @@ class DataStoreManager {
       id: `msg-${Date.now()}-confirmed`,
       sender: 'bot',
       senderName: 'ARKNET Bot',
-      text: `🎉 *Pagamento Validado com Sucesso!*\n\nO seu pedido foi conferido no sistema e encontra-se agora em processamento logístico.\n\n📄 *Fatura Oficial:* A fatura comercial já se encontra emitida e disponível para descarregamento na sua Área de Cliente ARKNET.\n\n🚚 *Expedição:* A nossa equipa de logística/estafeta entrará em contacto consigo nas próximas horas para agendar o horário e local da entrega/levantamento (prazo: 24h a 48h úteis).\n\nAgradecemos a sua preferência e confiança na ARKNET!`,
+      text: `*Pagamento Validado com Sucesso!*\n\nO seu pedido foi conferido no sistema e encontra-se agora em processamento logístico.\n\n*Fatura Oficial:* A fatura comercial já se encontra emitida e disponível para descarregamento na sua Área de Cliente ARKNET.\n\n*Expedição:* A nossa equipa de logística/estafeta entrará em contacto consigo nas próximas horas para agendar o horário e local da entrega/levantamento (prazo: 24h a 48h úteis).\n\nAgradecemos a sua preferência e confiança na ARKNET!`,
       timestamp: now,
       status: 'sent',
     }
@@ -3203,12 +3204,19 @@ class DataStoreManager {
   // ==========================================
   public getSettings(): CompanySettings {
     this.ensureServerSync()
+    const currentTeam = this.db.settings?.executiveTeam || []
+    let mergedTeam = [...currentTeam]
+    if (mergedTeam.length < 4) {
+      const defaultTeam = INITIAL_DB.settings.executiveTeam
+      for (let i = mergedTeam.length; i < defaultTeam.length; i++) {
+        mergedTeam.push(defaultTeam[i])
+      }
+    }
+
     return {
       ...INITIAL_DB.settings,
       ...this.db.settings,
-      executiveTeam: this.db.settings?.executiveTeam?.length
-        ? this.db.settings.executiveTeam
-        : INITIAL_DB.settings.executiveTeam,
+      executiveTeam: mergedTeam,
     }
   }
 

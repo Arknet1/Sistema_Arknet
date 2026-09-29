@@ -35,18 +35,14 @@ export default function FeaturedProducts() {
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Cabeçalho Editorial Limpo e Direto */}
-        <div className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="mb-14 flex items-center justify-between gap-6">
           <div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
               Produtos em Destaque
             </h2>
           </div>
 
-          <div className="flex items-center gap-4 shrink-0">
-            <p className="hidden md:block text-sm text-slate-500 max-w-xs text-right leading-relaxed">
-              Equipamentos de redes, telecomunicações e infraestrutura prontos a entregar em Angola.
-            </p>
-
+          <div className="shrink-0">
             <Link
               href="/loja"
               className="inline-flex items-center gap-2 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-lg shadow-sm transition-colors group"

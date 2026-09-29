@@ -203,16 +203,13 @@ export default function ServicosListingClient() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-b border-slate-200 pb-8"
+          className="mb-10 border-b border-slate-200 pb-8"
         >
           <div>
             <h2 className="text-3xl font-extrabold text-slate-900">
               Áreas de Atuação Técnica
             </h2>
           </div>
-          <p className="text-sm text-slate-500 max-w-sm">
-            Filtre por categoria e descubra os serviços adequados às necessidades operacionais da sua empresa.
-          </p>
         </motion.div>
 
         {/* Separadores de Filtro (Tabs) */}

@@ -346,9 +346,9 @@ export default function AdminTestemunhosPage() {
                     onChange={(e) => setFormData((prev) => ({ ...prev, rating: parseInt(e.target.value, 10) }))}
                     className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white font-bold"
                   >
-                    <option value={5}>⭐⭐⭐⭐⭐ (5 Estrelas)</option>
-                    <option value={4}>⭐⭐⭐⭐ (4 Estrelas)</option>
-                    <option value={3}>⭐⭐⭐ (3 Estrelas)</option>
+                    <option value={5}>5 Estrelas (Classificação Máxima)</option>
+                    <option value={4}>4 Estrelas (Excelente)</option>
+                    <option value={3}>3 Estrelas (Bom)</option>
                   </select>
                 </div>
 

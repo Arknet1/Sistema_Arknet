@@ -19,16 +19,13 @@ export default function Services() {
     <section id="servicos" className="py-28 bg-white">
       <div className="mx-auto max-w-7xl px-6">
 
-        {/* Cabeçalho editorial com descrição à direita */}
-        <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        {/* Cabeçalho */}
+        <div className="mb-16">
           <div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1] max-w-lg">
               Soluções completas<br />para o seu negócio
             </h2>
           </div>
-          <p className="text-base text-slate-500 leading-relaxed max-w-sm md:text-right">
-            Telecomunicações e IT com tecnologia de ponta e resultados garantidos em Angola.
-          </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

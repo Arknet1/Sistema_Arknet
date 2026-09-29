@@ -638,11 +638,11 @@ export default function AdminDefinicoesPage() {
             <Users className="h-5 w-5 text-primary" />
             <div>
               <h3 className="text-base font-bold text-slate-900">Corpo Executivo</h3>
-              <p className="text-xs text-slate-500 mt-1">Edite os três cartões apresentados na página Empresa.</p>
+              <p className="text-xs text-slate-500 mt-1">Edite os cartões do corpo executivo apresentados na página Empresa.</p>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {(formData.executiveTeam || []).map((member, index) => (
               <div key={member.id} className="border border-slate-200 bg-slate-50 p-4 space-y-3">
                 <div className="flex items-center justify-between">

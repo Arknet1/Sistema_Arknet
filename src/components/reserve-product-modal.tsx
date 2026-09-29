@@ -110,7 +110,7 @@ export default function ReserveProductModal({
   const getWhatsAppReservationLink = () => {
     if (!createdReservation) return '#'
     const text = encodeURIComponent(
-      `Olá ARKNET! 📦 Efetuei a Reserva *#${createdReservation.reservationNumber}* no vosso site para o produto *"${product.name}"* (${createdReservation.quantity} un.). Gostaria de acompanhar a previsão de chegada ao vosso armazém em Luanda.`
+      `Olá ARKNET! Efetuei a Reserva *#${createdReservation.reservationNumber}* no vosso site para o produto *"${product.name}"* (${createdReservation.quantity} un.). Gostaria de acompanhar a previsão de chegada ao vosso armazém em Luanda.`
     )
     return `https://wa.me/244935208449?text=${text}`
   }

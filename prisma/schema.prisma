@@ -171,6 +171,20 @@ model NewsletterSubscriber {
   subscribedAt DateTime @default(now())
 }
 
+model NewsletterCampaign {
+  id             String   @id @default(cuid())
+  subject        String
+  body           String   // Conteúdo HTML da newsletter
+  recipientCount Int      @default(0)
+  successCount   Int      @default(0)
+  failCount      Int      @default(0)
+  status         String   @default("rascunho") // 'rascunho' | 'a_enviar' | 'enviada' | 'erro'
+  sentBy         String?  // Nome do admin que enviou
+  sentAt         DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
 // -------------------------------------------------------------
 // 7. EVENTOS & INSCRIÇÕES
 // -------------------------------------------------------------

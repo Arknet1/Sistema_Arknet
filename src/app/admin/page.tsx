@@ -381,7 +381,7 @@ export default function AdminOverviewPage() {
               >
                 <div className="min-w-0 flex-1">
                   <span className="text-[10px] font-extrabold uppercase text-amber-700 block">
-                    ★ Top #{idx + 1} em Procura
+                    Top #{idx + 1} em Procura
                   </span>
                   <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">
                     {p.name}

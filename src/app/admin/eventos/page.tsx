@@ -739,8 +739,8 @@ export default function AdminEventosPage() {
                     onChange={(e) => setFormData((prev) => ({ ...prev, registrationOpen: e.target.value === 'abertas' }))}
                     className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white font-medium"
                   >
-                    <option value="abertas">🟢 Inscrições Abertas (Aceitar participantes)</option>
-                    <option value="encerradas">🔴 Inscrições Encerradas (Bloquear novas inscrições)</option>
+                    <option value="abertas">Inscrições Abertas (Aceitar participantes)</option>
+                    <option value="encerradas">Inscrições Encerradas (Bloquear novas inscrições)</option>
                   </select>
                 </div>
               </div>

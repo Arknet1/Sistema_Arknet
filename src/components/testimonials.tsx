@@ -56,15 +56,12 @@ export default function Testimonials() {
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div className="mb-14">
           <div className="max-w-xl">
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
               O que os nossos<br />clientes dizem
             </h2>
           </div>
-          <p className="text-base text-slate-500 leading-relaxed max-w-sm md:text-right">
-            Experiências partilhadas por profissionais que contam com a ARKNET para suporte e infraestrutura tecnológica em Angola.
-          </p>
         </div>
 
         {/* Testimonials auto-scroll marquee */}
@@ -105,15 +102,12 @@ export default function Testimonials() {
 
         {/* Partners */}
         <div id="parceiros" className="mt-24">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
                 Marcas que confiam na ARKNET
               </h2>
             </div>
-            <p className="text-sm text-slate-500 max-w-xs md:text-right">
-              Empresas e instituições que escolheram a ARKNET como parceiro tecnológico.
-            </p>
           </div>
 
           <PartnerCarousel />

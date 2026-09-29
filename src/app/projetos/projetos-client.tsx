@@ -74,9 +74,20 @@ export default function ProjetosPublicationClient() {
   }, [dailyActivities, activityFilter])
 
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (newsletterEmail) {
+    const emailToSubscribe = newsletterEmail.trim()
+    if (emailToSubscribe) {
+      try {
+        await fetch('/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailToSubscribe }),
+        })
+        dataStore.addSubscriber(emailToSubscribe)
+      } catch {
+        dataStore.addSubscriber(emailToSubscribe)
+      }
       setNewsletterSuccess(true)
       setNewsletterEmail('')
       setTimeout(() => setNewsletterSuccess(false), 5000)

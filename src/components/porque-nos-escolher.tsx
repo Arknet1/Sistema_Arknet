@@ -42,7 +42,7 @@ export default function PorqueNosEscolher() {
           whileInView="show"
           viewport={{ once: true }}
           variants={headerVariants}
-          className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+          className="mb-16"
         >
           <div>
             <div className="overflow-hidden">
@@ -57,12 +57,6 @@ export default function PorqueNosEscolher() {
               </motion.h2>
             </div>
           </div>
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-            className="text-base text-slate-400 leading-relaxed max-w-sm md:text-right"
-          >
-            Combinamos expertise técnica e suporte especializado para impulsionar o seu negócio.
-          </motion.p>
         </motion.div>
 
         {/* Cartões com entrada faseada */}

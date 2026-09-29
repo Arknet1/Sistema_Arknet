@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto'
 import { readServerDb, writeServerDb } from '@/lib/server-db'
 import { validatePasswordStrength } from '@/lib/security-utils'
 import { createSessionToken, hashPassword, verifySessionToken, verifyStoredPassword } from '@/lib/server-auth'
+import { prisma } from '@/lib/prisma'
 
 const ADMIN_COOKIE = 'arknet_admin_token'
 const CUSTOMER_COOKIE = 'arknet_customer_token'
@@ -108,7 +109,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: 'Demasiadas tentativas. Aguarde 15 minutos.' }, { status: 429 })
     }
     const accounts = kind === 'admin' ? db.users || [] : db.customers || []
-    const account = accounts.find((item: any) => item.email?.toLowerCase() === email)
+    let account = accounts.find((item: any) => item.email?.toLowerCase() === email)
+    if (!account) {
+      try {
+        if (kind === 'admin') {
+          account = (await prisma.adminUser.findUnique({ where: { email } })) as any
+        } else {
+          account = (await prisma.customer.findUnique({ where: { email } })) as any
+        }
+      } catch {}
+    }
     if (!account || account.status !== 'active' || !verifyStoredPassword(password, account.passwordHash || account.password)) {
       const next = limit && limit.resetAt > Date.now() ? limit : { count: 0, resetAt: Date.now() + 15 * 60 * 1000 }
       next.count += 1
@@ -119,7 +129,10 @@ export async function POST(request: NextRequest) {
     attempts.delete(key)
     const updated = { ...account, passwordHash: hashPassword(password), password: null, lastLogin: new Date().toISOString() }
     const collection = kind === 'admin' ? 'users' : 'customers'
-    writeServerDb({ [collection]: accounts.map((item: any) => item.id === account.id ? updated : item) })
+    const updatedAccounts = accounts.some((item: any) => item.id === account.id)
+      ? accounts.map((item: any) => (item.id === account.id ? updated : item))
+      : [...accounts, updated]
+    writeServerDb({ [collection]: updatedAccounts })
     return issueSession(updated, kind, body.rememberMe !== false)
   } catch (error) {
     console.error('[Auth] Erro ao autenticar:', error)

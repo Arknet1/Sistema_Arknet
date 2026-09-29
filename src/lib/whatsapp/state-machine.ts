@@ -102,7 +102,7 @@ export async function processIncomingWhatsAppMessage(
     dataStore.addWhatsAppMessage(order.id, {
       sender: 'customer',
       senderName,
-      text: text || '📎 [Comprovativo de Pagamento anexado]',
+      text: text || '[Comprovativo de Pagamento anexado]',
       media: mediaPayload,
     })
 

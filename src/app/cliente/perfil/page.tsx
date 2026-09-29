@@ -423,7 +423,7 @@ function ClientePerfilContent() {
                   </span>
                 </div>
                 <p className="font-black text-slate-900 text-sm mt-1">
-                  🎉 Tem {confirmedEventsCount} {confirmedEventsCount === 1 ? 'vaga aprovada em evento' : 'vagas aprovadas em eventos'} da ARKNET!
+                  Tem {confirmedEventsCount} {confirmedEventsCount === 1 ? 'vaga aprovada em evento' : 'vagas aprovadas em eventos'} da ARKNET!
                 </p>
                 <p className="text-slate-600 text-xs mt-0.5">
                   A sua credencial nominal com código de acesso já foi gerada e está pronta para emissão e impressão.
@@ -455,7 +455,7 @@ function ClientePerfilContent() {
                   </span>
                 </div>
                 <p className="font-black text-slate-900 text-sm mt-1">
-                  🎉 Tem {approvedOrdersCount} {approvedOrdersCount === 1 ? 'encomenda aprovada' : 'encomendas aprovadas'} pelo Administrador!
+                  Tem {approvedOrdersCount} {approvedOrdersCount === 1 ? 'encomenda aprovada' : 'encomendas aprovadas'} pelo Administrador!
                 </p>
                 <p className="text-slate-600 text-xs mt-0.5">
                   A sua fatura oficial com carimbo fiscal já foi emitida e está pronta para visualização, descarregamento e impressão.

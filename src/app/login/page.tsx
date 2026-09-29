@@ -18,6 +18,8 @@ import {
   ShieldAlert,
   Send,
   Building2,
+  RefreshCw,
+  Check,
 } from 'lucide-react'
 import arknetLogo from '@/assets/icon18.png'
 import { useAuth } from '@/lib/auth-context'
@@ -41,6 +43,7 @@ function UnifiedLoginForm() {
     register: customerRegister,
     customer,
     sendRecoveryCode,
+    verifyRecoveryCode,
     resetPasswordWithCode,
     isLocked,
     lockCountdown,
@@ -69,17 +72,49 @@ function UnifiedLoginForm() {
   })
   const [showRegPassword, setShowRegPassword] = useState(false)
 
-  // Recovery Form State
+  // Recovery Form State (Passo 1: Email, Passo 2: Código, Passo 3: Nova Palavra-passe)
   const [recoveryEmail, setRecoveryEmail] = useState('')
   const [recoveryCode, setRecoveryCode] = useState('')
   const [recoveryNewPassword, setRecoveryNewPassword] = useState('')
-  const [recoveryStep, setRecoveryStep] = useState<1 | 2>(1)
+  const [recoveryConfirmPassword, setRecoveryConfirmPassword] = useState('')
+  const [showRecoveryPassword, setShowRecoveryPassword] = useState(false)
+  const [showRecoveryConfirmPassword, setShowRecoveryConfirmPassword] = useState(false)
+  const [recoveryStep, setRecoveryStep] = useState<1 | 2 | 3>(1)
   const [recoveryPreviewUrl, setRecoveryPreviewUrl] = useState<string | null>(null)
+  const [resendCooldown, setResendCooldown] = useState(0)
+  const [isSendingRecovery, setIsSendingRecovery] = useState(false)
+  const [isValidatingCode, setIsValidatingCode] = useState(false)
+  const [isResettingPassword, setIsResettingPassword] = useState(false)
 
   // Feedback Messages
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  // Suporte a links diretos vindos do email de recuperação (?tab=recuperar&email=...&code=...)
+  useEffect(() => {
+    const tabParam = searchParams.get('tab')
+    const emailParam = searchParams.get('email')
+    const codeParam = searchParams.get('code')
+
+    if (tabParam === 'recuperar' || emailParam || codeParam) {
+      if (emailParam) setRecoveryEmail(emailParam)
+      if (codeParam) {
+        setRecoveryCode(codeParam)
+        setRecoveryStep(2)
+      }
+      if (tabParam === 'recuperar') setActiveTab('recuperar')
+    }
+  }, [searchParams])
+
+  // Timer para reenvio de código
+  useEffect(() => {
+    if (resendCooldown <= 0) return
+    const interval = setInterval(() => {
+      setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0))
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [resendCooldown])
 
   // Cálculo da força da palavra-passe para o registo
   const getPasswordStrength = (pwd: string) => {
@@ -97,6 +132,24 @@ function UnifiedLoginForm() {
     if (score <= 50) return { label: 'Média', color: 'bg-amber-500', text: 'text-amber-600' }
     if (score <= 75) return { label: 'Boa', color: 'bg-blue-500', text: 'text-blue-600' }
     return { label: 'Excelente', color: 'bg-emerald-500', text: 'text-emerald-600' }
+  }
+
+  // Validações dinâmicas para a nova palavra-passe de recuperação
+  const recHasMinLength = recoveryNewPassword.length >= 8
+  const recHasUpper = /[A-Z]/.test(recoveryNewPassword)
+  const recHasLower = /[a-z]/.test(recoveryNewPassword)
+  const recHasNumber = /[0-9]/.test(recoveryNewPassword)
+  const recHasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)
+  const recPasswordsMatch = recoveryNewPassword.length > 0 && recoveryNewPassword === recoveryConfirmPassword
+
+  const getRecoveryStrength = () => {
+    let score = 0
+    if (recHasMinLength) score += 20
+    if (recHasUpper) score += 20
+    if (recHasLower) score += 20
+    if (recHasNumber) score += 20
+    if (recHasSpecial) score += 20
+    return score
   }
 
   // --- SUBMISSÃO ÚNICA DE LOGIN (Admin ou Cliente) ---
@@ -199,18 +252,87 @@ function UnifiedLoginForm() {
     setSuccessMessage('')
     setRecoveryPreviewUrl(null)
 
-    if (!recoveryEmail.trim()) {
-      setErrorMessage('Por favor, introduza o seu endereço de email.')
+    const cleanEmail = recoveryEmail.trim().toLowerCase()
+    if (!cleanEmail || !cleanEmail.includes('@')) {
+      setErrorMessage('Por favor, introduza um endereço de email válido.')
       return
     }
 
-    const res = await sendRecoveryCode(recoveryEmail.trim())
-    if (res.success) {
-      setSuccessMessage(res.message)
-      setRecoveryPreviewUrl(typeof res.previewUrl === 'string' ? res.previewUrl : null)
-      setRecoveryStep(2)
-    } else {
-      setErrorMessage(res.message || 'Não foi possível enviar o código de verificação.')
+    setIsSendingRecovery(true)
+
+    try {
+      const res = await sendRecoveryCode(cleanEmail)
+      if (res.success) {
+        setSuccessMessage(res.message)
+        setRecoveryPreviewUrl(typeof res.previewUrl === 'string' ? res.previewUrl : null)
+        setRecoveryStep(2)
+        setResendCooldown(60)
+      } else {
+        setErrorMessage(res.message || 'Não foi possível enviar o código de verificação.')
+      }
+    } catch (err) {
+      setErrorMessage('Ocorreu um erro ao comunicar com o servidor. Tente novamente.')
+    } finally {
+      setIsSendingRecovery(false)
+    }
+  }
+
+  const handleResendCode = async () => {
+    if (resendCooldown > 0 || isSendingRecovery) return
+    setErrorMessage('')
+    setSuccessMessage('')
+    setIsSendingRecovery(true)
+
+    const cleanEmail = recoveryEmail.trim().toLowerCase()
+    try {
+      const res = await sendRecoveryCode(cleanEmail)
+      if (res.success) {
+        setSuccessMessage('Novo código de verificação enviado! Verifique a sua caixa de entrada.')
+        if (typeof res.previewUrl === 'string') setRecoveryPreviewUrl(res.previewUrl)
+        setResendCooldown(60)
+      } else {
+        setErrorMessage(res.message || 'Não foi possível reenviar o código.')
+      }
+    } catch {
+      setErrorMessage('Erro ao reenviar o código de verificação.')
+    } finally {
+      setIsSendingRecovery(false)
+    }
+  }
+
+  const handleVerifyCodeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setErrorMessage('')
+    setSuccessMessage('')
+
+    const cleanEmail = recoveryEmail.trim().toLowerCase()
+    const cleanCode = recoveryCode.replace(/\D/g, '').trim()
+
+    if (!cleanEmail) {
+      setErrorMessage('Por favor, introduza o seu endereço de email.')
+      setRecoveryStep(1)
+      return
+    }
+
+    if (cleanCode.length !== 6) {
+      setErrorMessage('Por favor, introduza o código de verificação completo de 6 dígitos.')
+      return
+    }
+
+    setIsValidatingCode(true)
+
+    try {
+      const res = await verifyRecoveryCode(cleanEmail, cleanCode)
+      if (res.success) {
+        setSuccessMessage('✓ Código validado com sucesso! Defina a sua nova palavra-passe.')
+        setRecoveryStep(3)
+      } else {
+        setErrorMessage(res.message || 'Código de verificação incorreto ou expirado.')
+      }
+    } catch {
+      setErrorMessage('Erro ao comunicar com o servidor. Tente novamente.')
+    } finally {
+      setIsValidatingCode(false)
     }
   }
 
@@ -219,27 +341,53 @@ function UnifiedLoginForm() {
     setErrorMessage('')
     setSuccessMessage('')
 
-    if (!recoveryCode.trim()) {
-      setErrorMessage('Por favor, introduza o código de verificação de 6 dígitos.')
+    const cleanCode = recoveryCode.replace(/\D/g, '').trim()
+    if (cleanCode.length !== 6) {
+      setErrorMessage('Código de verificação não encontrado. Volte ao passo anterior.')
+      setRecoveryStep(2)
       return
     }
 
-    if (recoveryNewPassword.length < 8 || !/[A-Z]/.test(recoveryNewPassword) || !/[a-z]/.test(recoveryNewPassword) || !/[0-9]/.test(recoveryNewPassword) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)) {
-      setErrorMessage('Use pelo menos 8 caracteres, com maiúscula, minúscula, número e símbolo.')
+    if (recoveryNewPassword.length < 8) {
+      setErrorMessage('A nova palavra-passe deve conter pelo menos 8 caracteres.')
       return
     }
 
-    const res = await resetPasswordWithCode(recoveryEmail.trim(), recoveryCode.trim(), recoveryNewPassword)
-    if (res.success) {
-      setSuccessMessage('Palavra-passe alterada com sucesso! As suas novas credenciais foram preenchidas. Clique em "Iniciar Sessão".')
-      setRecoveryStep(1)
-      setRecoveryCode('')
-      setActiveTab('login')
-      setLoginEmail(recoveryEmail.trim())
-      setLoginPassword(recoveryNewPassword)
-      setRecoveryNewPassword('')
-    } else {
-      setErrorMessage(res.message)
+    if (
+      !/[A-Z]/.test(recoveryNewPassword) ||
+      !/[a-z]/.test(recoveryNewPassword) ||
+      !/[0-9]/.test(recoveryNewPassword) ||
+      !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)
+    ) {
+      setErrorMessage('A palavra-passe deve incluir maiúscula, minúscula, número e caractere especial.')
+      return
+    }
+
+    if (recoveryNewPassword !== recoveryConfirmPassword) {
+      setErrorMessage('A confirmação da palavra-passe não coincide.')
+      return
+    }
+
+    setIsResettingPassword(true)
+
+    try {
+      const res = await resetPasswordWithCode(recoveryEmail.trim().toLowerCase(), cleanCode, recoveryNewPassword)
+      if (res.success) {
+        setSuccessMessage('Palavra-passe alterada com sucesso! Inicie sessão com as suas novas credenciais.')
+        setRecoveryStep(1)
+        setRecoveryCode('')
+        setRecoveryNewPassword('')
+        setRecoveryConfirmPassword('')
+        setLoginEmail(recoveryEmail.trim().toLowerCase())
+        setLoginPassword(recoveryNewPassword)
+        setActiveTab('login')
+      } else {
+        setErrorMessage(res.message || 'Não foi possível redefinir a palavra-passe.')
+      }
+    } catch (err) {
+      setErrorMessage('Erro ao comunicar com o servidor para redefinir a palavra-passe.')
+    } finally {
+      setIsResettingPassword(false)
     }
   }
 
@@ -655,19 +803,44 @@ function UnifiedLoginForm() {
 
           {/* TAB 3: RECUPERAR PALAVRA-PASSE */}
           {activeTab === 'recuperar' && (
-            <div className="space-y-6">
-              {recoveryStep === 1 ? (
+            <div className="space-y-4">
+              {/* Indicador Visual de Passos */}
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <span className={`flex items-center gap-1.5 ${recoveryStep === 1 ? 'text-primary' : recoveryStep > 1 ? 'text-emerald-600' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 1 ? 'bg-primary text-white' : recoveryStep > 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
+                    {recoveryStep > 1 ? '✓' : '1'}
+                  </span>
+                  Email
+                </span>
+                <span className="text-slate-300">───</span>
+                <span className={`flex items-center gap-1.5 ${recoveryStep === 2 ? 'text-primary' : recoveryStep > 2 ? 'text-emerald-600' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 2 ? 'bg-primary text-white' : recoveryStep > 2 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
+                    {recoveryStep > 2 ? '✓' : '2'}
+                  </span>
+                  Código
+                </span>
+                <span className="text-slate-300">───</span>
+                <span className={`flex items-center gap-1.5 ${recoveryStep === 3 ? 'text-primary' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 3 ? 'bg-primary text-white' : 'bg-slate-100'}`}>
+                    3
+                  </span>
+                  Nova Senha
+                </span>
+              </div>
+
+              {/* PASSO 1: INTRODUZIR EMAIL */}
+              {recoveryStep === 1 && (
                 <form onSubmit={handleSendRecoveryCode} className="space-y-4 text-xs">
-                  <div className="p-4 bg-slate-50 border border-slate-200 text-slate-600 leading-relaxed">
-                    <p className="font-bold text-slate-800 mb-1">Recuperar Acesso</p>
+                  <div className="p-4 bg-slate-50 border border-slate-200 text-slate-600 rounded leading-relaxed">
+                    <p className="font-bold text-slate-800 mb-1">Recuperação de Palavra-passe</p>
                     <p>
-                      Indique o seu endereço de email para enviarmos um código de verificação seguro.
+                      Introduza o endereço de email associado à sua conta. Enviaremos um código de verificação de 6 dígitos para repor o seu acesso.
                     </p>
                   </div>
 
                   <div>
                     <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Endereço de Email *
+                      Endereço de Email
                     </label>
                     <div className="relative">
                       <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -676,67 +849,241 @@ function UnifiedLoginForm() {
                         required
                         value={recoveryEmail}
                         onChange={(e) => setRecoveryEmail(e.target.value)}
-                        placeholder="seu.email@empresa.co.ao"
-                        className="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                        placeholder="seu.email@exemplo.com"
+                        className="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
                       />
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-slate-900 hover:bg-primary text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 shadow-md"
+                    disabled={isSendingRecovery}
+                    className="w-full bg-slate-900 hover:bg-primary text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <Send className="h-4 w-4" />
-                    Enviar Código de Recuperação
+                    {isSendingRecovery ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                        <span>A Enviar Código...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        <span>Enviar Código de Verificação</span>
+                      </>
+                    )}
                   </button>
                 </form>
-              ) : (
-                <form onSubmit={handleResetPasswordSubmit} className="space-y-4 text-xs">
-                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded">
-                    Código de verificação enviado para <strong>{recoveryEmail}</strong>. Verifique a sua caixa de entrada ou introduza o código de 6 dígitos.
+              )}
+
+              {/* PASSO 2: VALIDAR CÓDIGO (APENAS O CÓDIGO) */}
+              {recoveryStep === 2 && (
+                <form onSubmit={handleVerifyCodeSubmit} className="space-y-4 text-xs">
+                  {/* Destinatário */}
+                  <div className="p-3 bg-slate-100 border border-slate-200 text-slate-800 text-xs rounded flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-slate-900">Código enviado para:</p>
+                      <p className="text-slate-600 truncate font-mono text-[11px]">{recoveryEmail}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRecoveryStep(1)
+                        setErrorMessage('')
+                        setSuccessMessage('')
+                      }}
+                      className="px-2.5 py-1 bg-white border border-slate-300 text-slate-700 text-[11px] font-bold rounded hover:bg-slate-50 shrink-0"
+                    >
+                      Alterar email
+                    </button>
                   </div>
 
+                  {/* Campo do Código */}
                   <div>
-                    <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Código de 6 Dígitos *
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="font-bold uppercase tracking-wider text-slate-700">
+                        Código de 6 Dígitos
+                      </label>
+                      <button
+                        type="button"
+                        onClick={handleResendCode}
+                        disabled={resendCooldown > 0 || isSendingRecovery}
+                        className="text-[11px] text-primary font-bold hover:underline disabled:text-slate-400 disabled:no-underline flex items-center gap-1"
+                      >
+                        <RefreshCw className={`h-3 w-3 ${isSendingRecovery ? 'animate-spin' : ''}`} />
+                        {resendCooldown > 0 ? `Reenviar em ${resendCooldown}s` : 'Reenviar código'}
+                      </button>
+                    </div>
                     <input
                       type="text"
                       required
+                      autoFocus
+                      maxLength={6}
                       value={recoveryCode}
-                      onChange={(e) => setRecoveryCode(e.target.value)}
-                      placeholder="ex: 123456"
-                      className="w-full px-4 py-2.5 text-center font-mono text-lg tracking-[0.25em] font-bold border border-slate-300 focus:border-primary focus:outline-none"
+                      onChange={(e) => setRecoveryCode(e.target.value.replace(/\D/g, ''))}
+                      placeholder="000000"
+                      className="w-full px-4 py-3 text-center font-mono text-2xl tracking-[0.4em] font-bold border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none rounded shadow-inner"
                     />
+                    <p className="text-[11px] text-slate-500 mt-1.5 text-center">
+                      Introduza os 6 números recebidos no seu correio eletrónico.
+                    </p>
                   </div>
 
-                  <div>
-                    <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Nova Palavra-passe *
-                    </label>
-                    <input
-                      type="password"
-                      required
-                      value={recoveryNewPassword}
-                      onChange={(e) => setRecoveryNewPassword(e.target.value)}
-                      placeholder="Mínimo 6 caracteres"
-                      className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none font-mono"
-                    />
+                  {/* Nota de Ajuda */}
+                  <div className="p-2.5 bg-amber-50 border border-amber-200 text-amber-800 rounded text-[11px] leading-relaxed">
+                    <strong>Não recebeu o código?</strong> Verifique a sua pasta de <strong>Spam</strong> ou <strong>Lixo Eletrónico</strong>.
                   </div>
 
-                  <div className="flex items-center gap-3 pt-2">
+                  {/* Botões de Ação */}
+                  <div className="flex items-center gap-3 pt-1">
                     <button
                       type="button"
-                      onClick={() => setRecoveryStep(1)}
-                      className="px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase"
+                      onClick={() => {
+                        setRecoveryStep(1)
+                        setErrorMessage('')
+                        setSuccessMessage('')
+                      }}
+                      className="px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded"
                     >
                       Voltar
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition"
+                      disabled={isValidatingCode || recoveryCode.replace(/\D/g, '').length !== 6}
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Redefinir Palavra-passe
+                      {isValidatingCode ? (
+                        <>
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                          <span>A Validar Código...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 className="h-4 w-4" />
+                          <span>Validar Código</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* PASSO 3: DEFINIR NOVA PALAVRA-PASSE (SÓ APARECE APÓS CÓDIGO VALIDADO) */}
+              {recoveryStep === 3 && (
+                <form onSubmit={handleResetPasswordSubmit} className="space-y-4 text-xs">
+                  {/* Status Validado */}
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                    <div className="min-w-0 text-[11px]">
+                      <p className="font-bold text-emerald-900">Código validado com sucesso</p>
+                      <p className="text-emerald-700 truncate">Conta: <span className="font-mono font-semibold">{recoveryEmail}</span></p>
+                    </div>
+                  </div>
+
+                  {/* Nova Palavra-passe */}
+                  <div>
+                    <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Nova Palavra-passe
+                    </label>
+                    <div className="relative">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type={showRecoveryPassword ? 'text' : 'password'}
+                        required
+                        autoFocus
+                        value={recoveryNewPassword}
+                        onChange={(e) => setRecoveryNewPassword(e.target.value)}
+                        placeholder="Mínimo 8 caracteres (A-Z, a-z, 0-9, !@#)"
+                        className="w-full pl-10 pr-10 py-2.5 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowRecoveryPassword(!showRecoveryPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      >
+                        {showRecoveryPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Medidor da força da nova palavra-passe */}
+                  {recoveryNewPassword && (
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded space-y-1.5">
+                      <div className="flex justify-between items-center text-[10px]">
+                        <span className="font-bold uppercase text-slate-500">Força da palavra-passe:</span>
+                        <span className={`font-bold ${getStrengthLabel(getRecoveryStrength()).text}`}>
+                          {getStrengthLabel(getRecoveryStrength()).label}
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-300 ${getStrengthLabel(getRecoveryStrength()).color}`}
+                          style={{ width: `${getRecoveryStrength()}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Confirmar Nova Palavra-passe */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="font-bold uppercase tracking-wider text-slate-700">
+                        Confirmar Nova Palavra-passe
+                      </label>
+                      {recoveryConfirmPassword.length > 0 && (
+                        <span className={`text-[10px] font-bold ${recPasswordsMatch ? 'text-emerald-600' : 'text-rose-600'}`}>
+                          {recPasswordsMatch ? '✓ Coincidem' : '✗ Não coincide'}
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type={showRecoveryConfirmPassword ? 'text' : 'password'}
+                        required
+                        value={recoveryConfirmPassword}
+                        onChange={(e) => setRecoveryConfirmPassword(e.target.value)}
+                        placeholder="Repita a nova palavra-passe"
+                        className="w-full pl-10 pr-10 py-2.5 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowRecoveryConfirmPassword(!showRecoveryConfirmPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      >
+                        {showRecoveryConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Botões de Ação */}
+                  <div className="flex items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRecoveryStep(2)
+                        setErrorMessage('')
+                        setSuccessMessage('')
+                      }}
+                      className="px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded"
+                    >
+                      Voltar
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isResettingPassword || !recPasswordsMatch || getRecoveryStrength() < 60}
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isResettingPassword ? (
+                        <>
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                          <span>A Guardar...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Check className="h-4 w-4" />
+                          <span>Guardar Nova Palavra-passe</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>

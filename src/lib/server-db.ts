@@ -357,6 +357,7 @@ function readServerDbFallback() {
       jobs: Array.isArray(parsed.jobs) ? parsed.jobs : INITIAL_DB.jobs || [],
       applications: Array.isArray(parsed.applications) ? parsed.applications : INITIAL_DB.applications || [],
       activities: Array.isArray(parsed.activities) ? parsed.activities : INITIAL_DB.activities || [],
+      recoveryTokens: Array.isArray(parsed.recoveryTokens) ? parsed.recoveryTokens : [],
     }
   } catch (error) {
     console.error('[Server DB] Error reading DB fallback:', error)
@@ -464,6 +465,9 @@ export function writeServerDb(data: any) {
       customers: data.customers && data.customers.length > 0
         ? mergeArrayById(existingData.customers || [], data.customers)
         : (existingData.customers || []),
+      recoveryTokens: data.recoveryTokens !== undefined
+        ? data.recoveryTokens
+        : (existingData.recoveryTokens || []),
       settings: {
         ...INITIAL_DB.settings,
         ...(existingData.settings || {}),
