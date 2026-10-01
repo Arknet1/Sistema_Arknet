@@ -75,9 +75,23 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
 
   // Carregar sessão validada pelo servidor
   useEffect(() => {
-    fetch('/api/auth/session', { cache: 'no-store', credentials: 'include' })
+    const token = typeof window !== 'undefined' ? localStorage.getItem('arknet_customer_token') : null
+    const headers: Record<string, string> = {}
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+    fetch('/api/auth/session', { cache: 'no-store', headers, credentials: 'include' })
       .then((response) => response.json())
-      .then((result) => setCustomer(result.authenticated && result.kind === 'customer' ? result.user as CustomerAccount : null))
+      .then((result) => {
+        if (result.authenticated && result.kind === 'customer') {
+          setCustomer(result.user as CustomerAccount)
+          if (result.token) {
+            localStorage.setItem('arknet_customer_token', result.token)
+          }
+        } else {
+          setCustomer(null)
+        }
+      })
       .catch(() => setCustomer(null))
       .finally(() => setIsLoading(false))
   }, [])
@@ -123,6 +137,9 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       })
       const result = await response.json()
       if (!response.ok || result.kind !== 'customer') return { success: false, message: result.message || 'Email ou palavra-passe inválidos.' }
+      if (result.token) {
+        localStorage.setItem('arknet_customer_token', result.token)
+      }
       setFailedAttempts(0)
       setCustomer(result.user as CustomerAccount)
       return { success: true, message: result.message, customer: result.user as CustomerAccount }
@@ -150,6 +167,9 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       })
       const result = await response.json()
       if (!response.ok) return { success: false, message: result.message || 'Não foi possível criar a conta.' }
+      if (result.token) {
+        localStorage.setItem('arknet_customer_token', result.token)
+      }
       setCustomer(result.user as CustomerAccount)
       return { success: true, message: result.message, customer: result.user as CustomerAccount }
     },
@@ -235,6 +255,9 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
 
   const logout = useCallback(async () => {
     await fetch('/api/auth/session', { method: 'DELETE', credentials: 'include' }).catch(() => undefined)
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('arknet_customer_token')
+    }
     setCustomer(null)
   }, [])
 

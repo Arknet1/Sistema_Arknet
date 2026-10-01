@@ -21,17 +21,20 @@ function getRateLimitKey(request: NextRequest, email: string) {
 export async function GET(request: NextRequest) {
   try {
     const db = readServerDb()
-    const adminToken = request.cookies.get(ADMIN_COOKIE)?.value
+    const authHeader = request.headers.get('authorization')
+    const headerToken = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : undefined
+    const adminToken = request.cookies.get(ADMIN_COOKIE)?.value || headerToken
     const customerToken = request.cookies.get(CUSTOMER_COOKIE)?.value
     const token = adminToken || customerToken
     if (!token) return NextResponse.json({ authenticated: false })
 
     const session = verifySessionToken(token)
     if (!session) return NextResponse.json({ authenticated: false })
-    const accounts = session.role === 'admin' || session.role === 'editor' ? db.users : db.customers
+    const isAdmin = session.role === 'admin' || session.role === 'editor'
+    const accounts = isAdmin ? db.users : db.customers
     const account = (accounts || []).find((item: any) => item.id === session.userId && item.status === 'active')
     if (!account) return NextResponse.json({ authenticated: false })
-    return NextResponse.json({ authenticated: true, kind: adminToken ? 'admin' : 'customer', user: safeAccount(account) })
+    return NextResponse.json({ authenticated: true, kind: isAdmin ? 'admin' : 'customer', token, user: safeAccount(account) })
   } catch {
     return NextResponse.json({ authenticated: false }, { status: 500 })
   }
@@ -39,7 +42,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    let body: any
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ success: false, message: 'Pedido inválido (JSON malformado).' }, { status: 400 })
+    }
     const action = body?.action
     const db = readServerDb()
 
@@ -68,31 +76,66 @@ export async function POST(request: NextRequest) {
       const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : ''
       const password = typeof body.password === 'string' ? body.password : ''
       const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
-      if (!name || !email.includes('@') || !phone) {
-        return NextResponse.json({ success: false, message: 'Preencha os dados obrigatórios.' }, { status: 400 })
+      if (!name || !email.includes('@')) {
+        return NextResponse.json({ success: false, message: 'Preencha o nome e um email válido.' }, { status: 400 })
       }
       const validation = validatePasswordStrength(password)
       if (!validation.isValid) return NextResponse.json({ success: false, message: validation.errors.join(' ') }, { status: 400 })
-      if ((db.customers || []).some((item: any) => item.email?.toLowerCase() === email) || (db.users || []).some((item: any) => item.email?.toLowerCase() === email)) {
+
+      let existingPrisma = null
+      try {
+        existingPrisma = await prisma.customer.findUnique({ where: { email } })
+      } catch {}
+
+      if (
+        existingPrisma ||
+        (db.customers || []).some((item: any) => item.email?.toLowerCase() === email) ||
+        (db.users || []).some((item: any) => item.email?.toLowerCase() === email)
+      ) {
         return NextResponse.json({ success: false, message: 'Já existe uma conta associada a este email.' }, { status: 409 })
       }
+
+      const customerId = `cli-${randomUUID()}`
+      const passHash = hashPassword(password)
+      const nowIso = new Date().toISOString()
+
       const customer = {
-        id: `cli-${randomUUID()}`,
+        id: customerId,
         name,
         email,
-        passwordHash: hashPassword(password),
-        phone,
+        passwordHash: passHash,
+        phone: phone || '+244 923 000 000',
         company: typeof body.company === 'string' ? body.company.trim() : undefined,
         nif: typeof body.nif === 'string' ? body.nif.trim() : undefined,
         address: typeof body.address === 'string' ? body.address.trim() : undefined,
         city: typeof body.city === 'string' ? body.city.trim() : 'Luanda',
         status: 'active',
-        createdAt: new Date().toISOString(),
-        lastLogin: new Date().toISOString(),
+        createdAt: nowIso,
+        lastLogin: nowIso,
       }
-      if (!writeServerDb({ customers: [...(db.customers || []), customer] })) {
-        return NextResponse.json({ success: false, message: 'Não foi possível criar a conta.' }, { status: 500 })
+
+      try {
+        await prisma.customer.create({
+          data: {
+            id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            passwordHash: customer.passwordHash,
+            phone: customer.phone,
+            company: customer.company || null,
+            nif: customer.nif || null,
+            address: customer.address || null,
+            city: customer.city || 'Luanda',
+            status: 'active',
+            createdAt: new Date(nowIso),
+            lastLogin: new Date(nowIso),
+          },
+        })
+      } catch (prismaErr) {
+        console.warn('[Session Register] Prisma create warning, continuing with JSON:', prismaErr)
       }
+
+      writeServerDb({ customers: [...(db.customers || []), customer] })
       return issueSession(customer, 'customer', body.rememberMe !== false)
     }
 
@@ -143,7 +186,7 @@ export async function POST(request: NextRequest) {
 function issueSession(account: any, kind: 'admin' | 'customer', rememberMe: boolean) {
   const role = kind === 'admin' ? account.role : 'customer'
   const token = createSessionToken({ userId: account.id, email: account.email, role }, rememberMe ? 60 * 60 * 24 * 7 : 60 * 60 * 12)
-  const response = NextResponse.json({ success: true, kind, user: safeAccount(account), message: `Bem-vindo, ${account.name}!` })
+  const response = NextResponse.json({ success: true, kind, token, user: safeAccount(account), message: `Bem-vindo, ${account.name}!` })
   response.cookies.set(kind === 'admin' ? ADMIN_COOKIE : CUSTOMER_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

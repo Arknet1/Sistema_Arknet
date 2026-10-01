@@ -7,6 +7,8 @@ import { AdminSidebar } from './admin-sidebar'
 import { AdminHeader } from './admin-header'
 import { Loader2, ShieldAlert } from 'lucide-react'
 
+import { dataStore } from '@/lib/data-store'
+
 interface AdminLayoutWrapperProps {
   children: React.ReactNode
   requireAdmin?: boolean
@@ -26,6 +28,8 @@ export function AdminLayoutWrapper({ children, requireAdmin = false }: AdminLayo
         router.push('/login')
       } else if (isAuthenticated && pathname === '/admin/login') {
         router.push('/admin')
+      } else if (isAuthenticated) {
+        dataStore.syncWithServer().catch(() => undefined)
       }
     }
   }, [isAuthenticated, isLoading, isLoginPage, pathname, router])

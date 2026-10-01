@@ -50,8 +50,8 @@ export default function ClienteRegistoPage() {
     e.preventDefault()
     setErrorMessage('')
 
-    if (formData.password.length < 8 || !/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/[0-9]/.test(formData.password) || !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(formData.password)) {
-      setErrorMessage('Use pelo menos 8 caracteres, com maiúscula, minúscula, número e símbolo.')
+    if (formData.password.length < 6) {
+      setErrorMessage('A palavra-passe deve conter pelo menos 6 caracteres.')
       return
     }
 

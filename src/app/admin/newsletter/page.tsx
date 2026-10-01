@@ -82,17 +82,22 @@ export default function AdminNewsletterPage() {
   const loadSubscribers = useCallback(async () => {
     setIsLoadingSubscribers(true)
     try {
-      const res = await fetch('/api/newsletter/subscribers')
+      await dataStore.syncWithServer().catch(() => undefined)
+      const token = typeof window !== 'undefined' ? localStorage.getItem('arknet_admin_token') : null
+      const headers: Record<string, string> = {}
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
+      const res = await fetch('/api/newsletter/subscribers', { headers, credentials: 'include' })
       const data = await res.json()
       if (data.success && Array.isArray(data.subscribers)) {
         setSubscribers(data.subscribers)
       } else {
         const db = dataStore.getSnapshot()
-        setSubscribers([...db.subscribers].sort((a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime()))
+        setSubscribers([...(db.subscribers || [])].sort((a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime()))
       }
     } catch {
       const db = dataStore.getSnapshot()
-      setSubscribers([...db.subscribers].sort((a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime()))
+      setSubscribers([...(db.subscribers || [])].sort((a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime()))
     } finally {
       setIsLoadingSubscribers(false)
     }

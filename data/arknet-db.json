@@ -4,8 +4,8 @@
       "id": "user-admin",
       "name": "Administrador ARKNET",
       "email": "admin@arknet.co.ao",
-      "password": "Admin123!",
-      "passwordHash": "arkhash_wd0n26_61",
+      "password": null,
+      "passwordHash": "$scrypt$3bc5709d95f2c66a379283c400e80ad1$47baa5b76924e0825f829080729930cefd5c045dd5d1bd4921d2d7d77b240f53619ff52600c6faf0f01e317c6ab859789b3ad93f7b4aa8bfc68aab636a333346",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
@@ -17,12 +17,12 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$f4ba45b397593f6a7d49f60004375af4$2b4eb60a8490275ee0c28431222b5c4a352516d4b011864702b5eb30677c17ede92adce8be7e5aa05da82279a1612e2215886d5375881d5dbf4bab51d61b7846",
+      "passwordHash": "$scrypt$a06d0f980bb786ca1c6d7f724f455c97$c867ac11f153d6d856d37107ab480c0249dc5718392f41f09e7ecedd5d38795c9168fd7d648c6fd366faf29a21f208921b779bf1f9c6796852374616f348cf70",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-29T15:06:38.827Z"
+      "lastLogin": "2026-09-09T08:24:15.212Z"
     },
     {
       "id": "user-editor",
@@ -40,8 +40,8 @@
       "id": "user-editor-ao",
       "name": "Gestor de Conteúdo",
       "email": "editor@arknet.ao",
-      "password": "Admin123!",
-      "passwordHash": "arkhash_wd0n26_61",
+      "password": null,
+      "passwordHash": "$scrypt$a8b1ac2627be32c513b12f71b681ffba$4ab5f60075250767462af07cc3585917c31b16c093352f7937da8ae57346480f6096a066ee4766f42456ee8552e136c21875d8ecc9815ac0a90043227bbcc942",
       "role": "editor",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
@@ -108,11 +108,11 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-09-29T14:59:53.882Z",
+      "lastLogin": "2026-09-30T11:38:31.552Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$ed90f6b05da222b00ea3a02fc18e41a5$015951d3dae0fa0edc078fda04be688572750bbca6a078e261f146564cec82d31a6dc94fc9c81de807549d681b93c74b43999c907ba3f3cd2e0a7de51f07bda9"
+      "passwordHash": "$scrypt$5163845b8ef1ebbea036baec3df68aca$ec1eff582abf0f213abfe797e361bb26e751a14e43ef0dcdf7911f1c12fd727c6b0757b868fe69c01be8a80f2e3d64bb12b74b9aa20e061c4db6822e94930d47"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
@@ -146,7 +146,7 @@
       "id": "cli-b87a714e-67ab-451b-91de-34342b044a42",
       "name": "Adaltino Paquete Bernardo Fernandes Lima",
       "email": "adaltinolima16@gmail.com",
-      "passwordHash": "$scrypt$c9f0c957c536a8792bd17d8374ca9297$6046b979b7579bedd09a56fc1862043f391c5bdd9844e08107b92ef35ebbdcc9e0fa52c74da18f1ed3456e14e6cf35521beb023bbdefc39027ddc1bf1417f0ea",
+      "passwordHash": "$scrypt$b75ab329c65b3e518ec4bfd799239089$3f1126afa74806f7cb1e7b1bb37c43c7de299461e054af6eef46da12cec9e1a6cc941ea29c3f22f1c9c67a222386c8e4e6764ba355936413471174269e701758",
       "phone": "+244947998506",
       "company": "JMATOS",
       "nif": "",
@@ -154,11 +154,999 @@
       "city": "Kilamba",
       "status": "active",
       "createdAt": "2026-09-29T14:55:51.325Z",
-      "lastLogin": "2026-09-29T15:06:18.590Z",
+      "lastLogin": "2026-09-29T15:32:46.202Z",
       "password": null
+    },
+    {
+      "id": "cli-64cd097f-8543-4ad6-9dc4-b20d0faae2fb",
+      "name": "Amélia Joaquim",
+      "email": "ameliajoaquim467@gmail.com",
+      "passwordHash": "$scrypt$60104ab0ff950e60ff1fc58e6333e3eb$14d6c829dca66a71d65fd84d1fff386c4788208b4492c587fa5f134e62592e6ec72e7da9a48a39616e620b1a8d49262e05301913d7883fd129ea40b0b6d11b5a",
+      "phone": "928483644",
+      "company": "Jmatos Tecnologias",
+      "nif": "",
+      "address": "",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:34:14.827Z",
+      "lastLogin": "2026-09-30T09:34:44.597Z",
+      "password": null
+    },
+    {
+      "id": "cli-e32dec97-4278-40d2-a5b6-b35cc749c3f9",
+      "name": "Eunice Bombo Manuel da Costa",
+      "email": "eunicebombo@gmail.com",
+      "passwordHash": "$scrypt$0314cf1fdb7a7cdfcce776c2e6b3e5eb$6eb93d333855299c2cf7f0c0eef8a07f0916867cac850bba73f4f21c0627122a23e42a82d4eb8b1f2906c08ad3a4996fe0ab85bb06dc1acd2d54efcccae60a2a",
+      "phone": "+244922560202",
+      "company": "J.Matostecnologias SU",
+      "nif": "",
+      "address": "",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:36:38.851Z",
+      "lastLogin": "2026-09-30T09:36:38.851Z"
+    },
+    {
+      "id": "cli-4b1256fb-a9fc-4835-9b6b-13d6ef2dfa4c",
+      "name": "Anderson de Azevedo",
+      "email": "andersondeazevedo07@gmail.com",
+      "passwordHash": "$scrypt$4ed5de11b58aa03145523e9b7a1b2bc8$f6fd65218374d7f21b9504815cb3b7cf96a7dbeeb30eb5b09b3a178d5248329b6dfe8a04232f07491b9aa085d1d8f5c38967c8c49f339b02d0c0f1b320bedb96",
+      "phone": "931471064",
+      "company": "Particular",
+      "nif": "",
+      "address": "",
+      "city": "LuandaLuanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:44:15.940Z",
+      "lastLogin": "2026-09-30T09:44:15.940Z"
+    },
+    {
+      "id": "cli-a057d234-7f3e-4d9d-9153-8f6ce5deeb21",
+      "name": "Testador Remoto",
+      "email": "testador.sucesso@arknet.ao",
+      "passwordHash": "$scrypt$948da206fb9e1dbe8a917364a808ccd6$2aadd1afce641f5ea50283eb804cc0a8109a5aa08a424e78f5b46d5338594c71493adca1ac8c5e8eedb112769b2cb6ee9ea4fa8a009884cda14a0293e49ec3e3",
+      "phone": "+244 923 111 222",
+      "company": "Empresa Teste",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:53:09.897Z",
+      "lastLogin": "2026-09-30T09:53:09.897Z",
+      "nif": null,
+      "address": null,
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-c05fdb1f-2866-4940-91f2-c4633aeced7f",
+      "name": "Cliente Remoto Cloudflare",
+      "email": "cliente.cf@empresa.ao",
+      "passwordHash": "$scrypt$a3b26ab641acffa731aeb97f8a5ce410$456ce296898cd690d7ba7f8b8cd40ac1d5ab0518040e41e101d94076141d2a160f0f1f587e78371321f4374afb194f31977a64e10fae2cd9ae40514f6274966e",
+      "phone": "+244 923 888 999",
+      "company": "Empresa Remota Lda",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:53:32.772Z",
+      "lastLogin": "2026-09-30T09:53:32.772Z",
+      "nif": null,
+      "address": null,
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-ffcafb22-e3e6-473c-b9ac-c0af69f9a98c",
+      "name": "Isabem suco",
+      "email": "isabemsuco25@gmail.com",
+      "passwordHash": "$scrypt$d4fc1d18beb53530ac58938040a4a828$10060eb34e63a140a8b4986c6465251e08c47d0562fdb20b2d9098b75be6c2918de7b67966518905255700bf20481d1f8e5e4ea7819fdb1cc01ae34d3d498c4d",
+      "phone": "932876545",
+      "company": null,
+      "nif": null,
+      "address": null,
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T09:56:53.378Z",
+      "lastLogin": "2026-09-30T09:56:53.378Z",
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-2ad42c9e-3551-471e-b7ec-c9f999f01e64",
+      "name": "Albertina",
+      "email": "albertinapaulo40@gmail.com",
+      "passwordHash": "$scrypt$b58e8755cba15407a900073efbc82917$9a5caf23ed0d34b7d6f529fd5f4fc84b537386db3390b39934d6f4d1ee8ed4449c36f450320a0ade4d4562062fac3deef58b227143e818add5a610886531c0ab",
+      "phone": "947097596",
+      "company": "Jmatos",
+      "nif": null,
+      "address": null,
+      "city": "Kuanda",
+      "status": "active",
+      "createdAt": "2026-09-30T10:07:33.135Z",
+      "lastLogin": "2026-09-30T10:07:33.135Z",
+      "password": null,
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-2255c1d6-1dfa-4f25-b107-1a0414ebbb56",
+      "name": "Amélia Joaquim",
+      "email": "milaa7049@gmail.com",
+      "passwordHash": "$scrypt$4fc0d3146995f2f11589cc1acd4dd9a5$c9d712d2e9a6f8ed0d86bb0d407418eee057c62a304b3d8912cbe822e6fcf51f40ecba7a609cdfb317916339fa465e29c8e09032a1d8b4cb1d81967714435931",
+      "phone": "928483644",
+      "company": "Jmatos",
+      "nif": "000000000",
+      "address": null,
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T10:19:43.735Z",
+      "lastLogin": "2026-09-30T10:19:43.735Z",
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-855ae925-b61b-4ef9-abc1-16dff618698d",
+      "name": "Teste Usuario",
+      "email": "teste_usuario_ext@arknet.co.ao",
+      "passwordHash": "$scrypt$3fe8226a10d0359b7486881b90ab0cf1$b89404d30cfe933e6599628f13e24678fa8f1040c0db9c2e5c9babd62f33f9f085c3fe6993d6e210130605aba5da674a65a7562bd28dd4a2504bb94f63d66d08",
+      "phone": "+244 923 000 000",
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T10:47:37.887Z",
+      "lastLogin": "2026-09-30T10:47:37.887Z",
+      "company": null,
+      "nif": null,
+      "address": null,
+      "avatar": null,
+      "notes": null
+    },
+    {
+      "id": "cli-61108b25-9db5-4af8-b76f-8c003ec8166d",
+      "name": "Eunice Bombo Manuel da Costa",
+      "email": "juridico@jmatostecnologias.net",
+      "passwordHash": "$scrypt$c95b13248fe646149402cfed8479c5d6$a9980f89f0dbee2d924b6e4ae3975f691e0c71fb90094cff5a2a7e79db42c75656b33b01876cd410c8bf981e726742b8cfbe6bcd043a3e042afbc38d50fdaf32",
+      "phone": "+244922560202",
+      "company": "MPT Advogados",
+      "nif": null,
+      "address": null,
+      "city": "Luanda",
+      "status": "active",
+      "createdAt": "2026-09-30T12:03:26.906Z",
+      "lastLogin": "2026-09-30T12:03:26.906Z",
+      "avatar": null,
+      "notes": null
     }
   ],
   "products": [
+    {
+      "id": "prod-1790868210459-81rw",
+      "name": "Disco Externo SSD",
+      "description": "Disco Externo SSD",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 270000,
+      "image": "/uploads/images_1_50_-1790868202716.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 20,
+      "featured": false,
+      "sku": "ARK-2612",
+      "createdAt": "2026-10-01T15:23:30.459Z",
+      "updatedAt": "2026-10-01T15:23:30.470Z"
+    },
+    {
+      "id": "prod-1790866364579-cemv",
+      "name": "Iluminador solar (solar, street , lamp)",
+      "description": "Iluminador solar (solar, street , lamp)",
+      "categoryId": "cat-19",
+      "category": "Produtos",
+      "price": 70000,
+      "image": "/uploads/images_1_49_-1790866710784.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-2770",
+      "createdAt": "2026-10-01T14:52:44.579Z",
+      "updatedAt": "2026-10-01T14:58:32.907Z"
+    },
+    {
+      "id": "prod-1790866214875-uiyo",
+      "name": "HP ELITEBOOK 840 G5 CPU-CORE I5 8TH GEN",
+      "description": "HP ELITEBOOK 840 G5 CPU-CORE I5 8TH GEN",
+      "categoryId": "cat-3",
+      "category": "Computadores e Portáteis",
+      "price": 395000,
+      "image": "/uploads/images_1_47_-1790866181582.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 10,
+      "featured": false,
+      "sku": "ARK-7755",
+      "createdAt": "2026-10-01T14:50:14.875Z",
+      "updatedAt": "2026-10-01T14:50:14.886Z"
+    },
+    {
+      "id": "prod-1790865910268-uk30",
+      "name": "HikVision switch 8p",
+      "description": "HikVision switch 8p",
+      "categoryId": "cat-6",
+      "category": "Redes e Internet",
+      "price": 70000,
+      "image": "/uploads/images_1_46_-1790865898893.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-6777",
+      "createdAt": "2026-10-01T14:45:10.268Z",
+      "updatedAt": "2026-10-01T14:45:10.280Z"
+    },
+    {
+      "id": "prod-1790864885646-7cxo",
+      "name": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
+      "description": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
+      "categoryId": "cat-6",
+      "category": "Redes e Internet",
+      "price": 90000,
+      "image": "/uploads/images_1_45_-1790864854553.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-6606",
+      "createdAt": "2026-10-01T14:28:05.646Z",
+      "updatedAt": "2026-10-01T14:28:05.656Z"
+    },
+    {
+      "id": "prod-1790864479107-q6ht",
+      "name": "HDMI SPLITTER ENTRADA USB HDMI",
+      "description": "HDMI SPLITTER ENTRADA USB HDMI",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 25000,
+      "image": "/uploads/images_1_43_-1790864472860.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3191",
+      "createdAt": "2026-10-01T14:21:19.107Z",
+      "updatedAt": "2026-10-01T14:21:19.117Z"
+    },
+    {
+      "id": "prod-1790864139945-eyvn",
+      "name": "HDMI  Splitter 1*4",
+      "description": "HDMI  Splitter  1*4 1xEntrada 4xSaidas 4k 30Hz",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 90000,
+      "image": "/uploads/images_1_42_-1790864131131.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-7772",
+      "createdAt": "2026-10-01T14:15:39.945Z",
+      "updatedAt": "2026-10-01T15:36:05.971Z"
+    },
+    {
+      "id": "prod-1790863974022-czcc",
+      "name": "HDMI Matrix 4*4",
+      "description": "HDMI Matrix 4*4",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 130000,
+      "image": "/uploads/images_1_41_-1790863969300.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-9184",
+      "createdAt": "2026-10-01T14:12:54.022Z",
+      "updatedAt": "2026-10-01T14:12:54.034Z"
+    },
+    {
+      "id": "prod-1790863628604-pwq4",
+      "name": "HDMI Extender by cat5 e 6",
+      "description": "HDMI Extender by cat5 e 6",
+      "categoryId": "cat-4",
+      "category": "Acessórios de Computador",
+      "price": 30000,
+      "image": "/uploads/images_1_40_-1790863611608.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-7821",
+      "createdAt": "2026-10-01T14:07:08.604Z",
+      "updatedAt": "2026-10-01T14:17:58.811Z"
+    },
+    {
+      "id": "prod-1790863313236-reez",
+      "name": "Fonte de alimentação de 8 canais",
+      "description": "Fonte de alimentação de 8 canais",
+      "categoryId": "cat-10",
+      "category": "Energia e Proteção",
+      "price": 19500,
+      "image": "/uploads/images_1_39_-1790863310822.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-2052",
+      "createdAt": "2026-10-01T14:01:53.236Z",
+      "updatedAt": "2026-10-01T14:01:53.245Z"
+    },
+    {
+      "id": "prod-1790863163396-179k",
+      "name": "Fonte de Alimentação de 12V2A",
+      "description": "Fonte de Alimentação de 12V2A",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 15600,
+      "image": "/uploads/images_1_38_-1790863141831.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 7,
+      "featured": false,
+      "sku": "ARK-1528",
+      "createdAt": "2026-10-01T13:59:23.396Z",
+      "updatedAt": "2026-10-01T13:59:23.408Z"
+    },
+    {
+      "id": "prod-1790862876076-248x",
+      "name": "Extensão USB C 30M Ewent",
+      "description": "Extensão USB C 30M Ewent",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 19000,
+      "image": "/uploads/images_1_37_-1790862870664.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-9588",
+      "createdAt": "2026-10-01T13:54:36.076Z",
+      "updatedAt": "2026-10-01T15:35:08.635Z"
+    },
+    {
+      "id": "prod-1790862534741-c5dv",
+      "name": "DVD-R 10 PK",
+      "description": "DVD-R 10 PK",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 190000,
+      "image": "/uploads/images_1_36_-1790862523589.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3345",
+      "createdAt": "2026-10-01T13:48:54.741Z",
+      "updatedAt": "2026-10-01T13:48:54.752Z"
+    },
+    {
+      "id": "prod-1790862379851-07vp",
+      "name": "Disco Duro 1TB",
+      "description": "Disco Duro 1TB",
+      "categoryId": "cat-11",
+      "category": "Acessórios de Computador",
+      "price": 130000,
+      "image": "/uploads/images_1_35_-1790866665053.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 6,
+      "featured": false,
+      "sku": "ARK-5952",
+      "createdAt": "2026-10-01T13:46:19.851Z",
+      "updatedAt": "2026-10-01T14:57:47.187Z"
+    },
+    {
+      "id": "prod-1790862051163-x94a",
+      "name": "Conversor de fibra ótica Netlink",
+      "description": "Conversor de fibra ótica Netlink",
+      "categoryId": "cat-6",
+      "category": "Redes e Internet",
+      "price": 75000,
+      "image": "/uploads/images_1_34_-1790862045372.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-1686",
+      "createdAt": "2026-10-01T13:40:51.163Z",
+      "updatedAt": "2026-10-01T15:30:57.603Z"
+    },
+    {
+      "id": "prod-1790855698575-l39k",
+      "name": "Conversor HDMI Macho VGA",
+      "description": "CONVERSOR HDMI MACHO VGA",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 9000,
+      "image": "/uploads/photoroom_20260831_151406-1790855643523.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 33,
+      "featured": false,
+      "sku": "ARK-2560",
+      "createdAt": "2026-10-01T11:54:58.575Z",
+      "updatedAt": "2026-10-01T11:54:58.586Z"
+    },
+    {
+      "id": "prod-1790855541368-bp3c",
+      "name": "Conector RJ45 UDA",
+      "description": "Conector RJ45 UDA",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 16000,
+      "image": "/uploads/images_1_33_-1790855532535.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 9,
+      "featured": false,
+      "sku": "ARK-7133",
+      "createdAt": "2026-10-01T11:52:21.368Z",
+      "updatedAt": "2026-10-01T11:52:21.379Z"
+    },
+    {
+      "id": "prod-1790855186841-eclf",
+      "name": "Conector RJ45 duas unidades",
+      "description": "Conector RJ45 duas unidades divisor 1 para 2 ethernet com saida",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 20000,
+      "image": "/uploads/images_1_32_-1790855176574.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-8519",
+      "createdAt": "2026-10-01T11:46:26.841Z",
+      "updatedAt": "2026-10-01T15:30:04.227Z"
+    },
+    {
+      "id": "prod-1790854914616-qqhn",
+      "name": "Coluna Portable Stereo BT Speakers",
+      "description": "Coluna Portable Stereo BT Speakers",
+      "categoryId": "cat-12",
+      "category": "Áudio",
+      "price": 19500,
+      "image": "/uploads/images_1_31_-1790854905577.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-7133",
+      "createdAt": "2026-10-01T11:41:54.616Z",
+      "updatedAt": "2026-10-01T11:41:54.626Z"
+    },
+    {
+      "id": "prod-1790854696457-2q6t",
+      "name": "Cola Térmica",
+      "description": "Cola Térmica",
+      "categoryId": "cat-19",
+      "category": "Produtos",
+      "price": 2000,
+      "image": "/uploads/images_1_30_-1790854691569.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 5,
+      "featured": false,
+      "sku": "ARK-6674",
+      "createdAt": "2026-10-01T11:38:16.457Z",
+      "updatedAt": "2026-10-01T15:28:45.955Z"
+    },
+    {
+      "id": "prod-1790854392649-ydtb",
+      "name": "CD-R",
+      "description": "CD-R 700MB 52X/80 MIN",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 25000,
+      "image": "/uploads/images_1_29_-1790854390615.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3470",
+      "createdAt": "2026-10-01T11:33:12.649Z",
+      "updatedAt": "2026-10-01T11:33:12.661Z"
+    },
+    {
+      "id": "prod-1790854095026-flxm",
+      "name": "Cassete de fita de etiquetar",
+      "description": "Cassete de fita de etiquetar",
+      "categoryId": "cat-19",
+      "category": "Produtos",
+      "price": 10000,
+      "image": "/uploads/images_1_28_-1790854083481.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 3,
+      "featured": false,
+      "sku": "ARK-5889",
+      "createdAt": "2026-10-01T11:28:15.026Z",
+      "updatedAt": "2026-10-01T15:28:24.995Z"
+    },
+    {
+      "id": "prod-1790853710321-vaky",
+      "name": "Cartão de Memoria 32GB",
+      "description": "Cartão de Memoria 32GB",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 6000,
+      "image": "/uploads/images_1_27_-1790853706016.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 6,
+      "featured": false,
+      "sku": "ARK-9106",
+      "createdAt": "2026-10-01T11:21:50.321Z",
+      "updatedAt": "2026-10-01T11:21:50.331Z"
+    },
+    {
+      "id": "prod-1790853572241-e4ur",
+      "name": "Carregador Tipo C 10cm",
+      "description": "Carregador Tipo C 10cm",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 2000,
+      "image": "/uploads/images_1_26_-1790853553671.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 22,
+      "featured": false,
+      "sku": "ARK-6246",
+      "createdAt": "2026-10-01T11:19:32.241Z",
+      "updatedAt": "2026-10-01T11:19:32.251Z"
+    },
+    {
+      "id": "prod-1790853355675-3mtk",
+      "name": "Carregador DELL Universal",
+      "description": "Carregador DELL Universal",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 20000,
+      "image": "/uploads/images_1_25_-1790854011445.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 5,
+      "featured": false,
+      "sku": "ARK-6970",
+      "createdAt": "2026-10-01T11:15:55.675Z",
+      "updatedAt": "2026-10-01T11:26:53.802Z"
+    },
+    {
+      "id": "prod-1790852668731-bbyh",
+      "name": "Carregador de Android norma",
+      "description": "Carregador de Android normal",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 1500,
+      "image": "/uploads/images_1_24_-1790852663273.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 35,
+      "featured": false,
+      "sku": "ARK-7181",
+      "createdAt": "2026-10-01T11:04:28.731Z",
+      "updatedAt": "2026-10-01T11:09:29.875Z"
+    },
+    {
+      "id": "prod-1790852525755-328w",
+      "name": "Carredor 20W USB-C",
+      "description": "Carredor 20W USB-C USB -C 20 W POWER",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 8200,
+      "image": "/uploads/images_1_23_-1790852519238.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-5846",
+      "createdAt": "2026-10-01T11:02:05.755Z",
+      "updatedAt": "2026-10-01T11:02:05.765Z"
+    },
+    {
+      "id": "prod-1790852177364-91d2",
+      "name": "Capas de telefone Samsung",
+      "description": "Capas de telefone Samsung",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 1500,
+      "image": "/uploads/images_1_22_-1790852170609.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 5,
+      "featured": false,
+      "sku": "ARK-9842",
+      "createdAt": "2026-10-01T10:56:17.364Z",
+      "updatedAt": "2026-10-01T10:56:17.374Z"
+    },
+    {
+      "id": "prod-1790852036349-i5pg",
+      "name": "Capas de iphones diversos",
+      "description": "Capas de iphones diversos 6 1500",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 1500,
+      "image": "/uploads/images_1_21_-1790852029111.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 6,
+      "featured": false,
+      "sku": "ARK-1607",
+      "createdAt": "2026-10-01T10:53:56.349Z",
+      "updatedAt": "2026-10-01T10:53:56.358Z"
+    },
+    {
+      "id": "prod-1790851696604-m46t",
+      "name": "Capa de tablete SAM A9",
+      "description": "Capa de tablete SAM A9",
+      "categoryId": "cat-18",
+      "category": "Smartphones e Telemóveis",
+      "price": 30000,
+      "image": "/uploads/images_1_20_-1790851686310.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3385",
+      "createdAt": "2026-10-01T10:48:16.604Z",
+      "updatedAt": "2026-10-01T10:57:22.068Z"
+    },
+    {
+      "id": "prod-1790851559949-lug5",
+      "name": "Capa de Tablete KAKU",
+      "description": "Capa de Tablete KAKU",
+      "categoryId": "cat-19",
+      "category": "Smartphones e Telemóveis",
+      "price": 10000,
+      "image": "/uploads/images_1_19_-1790851537916.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-5517",
+      "createdAt": "2026-10-01T10:45:59.949Z",
+      "updatedAt": "2026-10-01T10:57:32.019Z"
+    },
+    {
+      "id": "prod-1790851408132-zfze",
+      "name": "Câmera smarth",
+      "description": "Câmera smarth",
+      "categoryId": "cat-17",
+      "category": "Segurança Eletrónica",
+      "price": 18500,
+      "image": "/uploads/images_1_18_-1790851398247.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 3,
+      "featured": false,
+      "sku": "ARK-3763",
+      "createdAt": "2026-10-01T10:43:28.132Z",
+      "updatedAt": "2026-10-01T15:27:47.483Z"
+    },
+    {
+      "id": "prod-1790850109422-rsep",
+      "name": "CAIXA DE CABO UTP CAT 6",
+      "description": "CAIXA DE CABO UTP CAT 6 305M/boxX2PCS",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 85000,
+      "image": "/uploads/images_1_17_-1790850107434.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 17,
+      "featured": false,
+      "sku": "ARK-4049",
+      "createdAt": "2026-10-01T10:21:49.422Z",
+      "updatedAt": "2026-10-01T10:21:49.433Z"
+    },
+    {
+      "id": "prod-1790849885494-hu91",
+      "name": "Caixa de cabo FTP Blindado",
+      "description": "Caixa de cabo FTP Blindado",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 110000,
+      "image": "/uploads/images_1_16_-1790849883710.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-4768",
+      "createdAt": "2026-10-01T10:18:05.494Z",
+      "updatedAt": "2026-10-01T10:18:05.504Z"
+    },
+    {
+      "id": "prod-1790848807128-20cw",
+      "name": "Cabo Manhattan de UPS",
+      "description": "Cabo Manhattan de UPS",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 5000,
+      "image": "/uploads/images_1_14_-1790848799050.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 8,
+      "featured": false,
+      "sku": "ARK-3168",
+      "createdAt": "2026-10-01T10:00:07.128Z",
+      "updatedAt": "2026-10-01T10:00:07.141Z"
+    },
+    {
+      "id": "prod-1790848559288-zs5w",
+      "name": "Cabo HDTV 1.5",
+      "description": "Cabo HDTV 1.5",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 12740,
+      "image": "/uploads/images_1_13_-1790848553097.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 11,
+      "featured": false,
+      "sku": "ARK-3783",
+      "createdAt": "2026-10-01T09:55:59.288Z",
+      "updatedAt": "2026-10-01T09:55:59.300Z"
+    },
+    {
+      "id": "prod-1790848303191-nv21",
+      "name": "Cabo HDMI 10M",
+      "description": "Cabo HDMI 10M",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 14000,
+      "image": "/uploads/images_1_12_-1790848299858.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 11,
+      "featured": false,
+      "sku": "ARK-5987",
+      "createdAt": "2026-10-01T09:51:43.191Z",
+      "updatedAt": "2026-10-01T09:51:43.202Z"
+    },
+    {
+      "id": "prod-1790848093648-cyth",
+      "name": "Cabo Disco Duro Sata Medio",
+      "description": "Cabo Disco Duro Sata Medio",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 9000,
+      "image": "/uploads/images_1_11_-1790848072900.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 30,
+      "featured": false,
+      "sku": "ARK-6149",
+      "createdAt": "2026-10-01T09:48:13.648Z",
+      "updatedAt": "2026-10-01T09:48:13.655Z"
+    },
+    {
+      "id": "prod-1790847966304-nna5",
+      "name": "Cabo de Impressora HP DESKEJET",
+      "description": "Cabo de Impressora HP DESKEJET",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 4000,
+      "image": "/uploads/images_1_10_-1790847964091.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-6994",
+      "createdAt": "2026-10-01T09:46:06.305Z",
+      "updatedAt": "2026-10-01T15:26:24.587Z"
+    },
+    {
+      "id": "prod-1790847762896-z14m",
+      "name": "Cabo de Alimentação 2.5A-250V",
+      "description": "Cabo de Alimentação 2.5A-250V",
+      "categoryId": "cat-2",
+      "category": "Smartphones e Telemóveis",
+      "price": 10000,
+      "image": "/uploads/images_1_9_-1790847738737.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-6279",
+      "createdAt": "2026-10-01T09:42:42.896Z",
+      "updatedAt": "2026-10-01T09:42:42.909Z"
+    },
+    {
+      "id": "prod-1790847336713-fy85",
+      "name": "Cabo de Alimentação 16A-250V",
+      "description": "Cabo de Alimentação 16A-250V",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 15000,
+      "image": "/uploads/images_1_8_-1790847331370.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-6978",
+      "createdAt": "2026-10-01T09:35:36.713Z",
+      "updatedAt": "2026-10-01T09:35:36.724Z"
+    },
+    {
+      "id": "prod-1790847037769-mwh4",
+      "name": "Cabo de Alimentação 10A-250V",
+      "description": "Cabo de Alimentação 10A-250V",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 10000,
+      "image": "/uploads/images_1_7_-1790847025540.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 3,
+      "featured": false,
+      "sku": "ARK-6667",
+      "createdAt": "2026-10-01T09:30:37.769Z",
+      "updatedAt": "2026-10-01T15:25:45.259Z"
+    },
+    {
+      "id": "prod-1790846750098-uhj3",
+      "name": "Cabo Cat6",
+      "description": "Cabo Cat6 Networking UTP 3ft 1m Ethernet",
+      "categoryId": "cat-8",
+      "category": "Cabos e Conectividade",
+      "price": 1890,
+      "image": "/uploads/images_1_6_-1790846748468.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-7551",
+      "createdAt": "2026-10-01T09:25:50.098Z",
+      "updatedAt": "2026-10-01T09:25:50.108Z"
+    },
+    {
+      "id": "prod-1790846274467-waxv",
+      "name": "Bastidor de Rede",
+      "description": "Bastidor de Rede Interllinet 9U 600x450 19c porta de vidro",
+      "categoryId": "cat-6",
+      "category": "Redes e Internet",
+      "price": 180000,
+      "image": "/uploads/images_1_5_-1790846259588.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 5,
+      "featured": false,
+      "sku": "ARK-8593",
+      "createdAt": "2026-10-01T09:17:54.467Z",
+      "updatedAt": "2026-10-01T09:17:54.477Z"
+    },
+    {
+      "id": "prod-1790846010195-xb32",
+      "name": "Bastidor de rede interllinet 6U",
+      "description": "BASTIDOR de Rede interllinet 6U",
+      "categoryId": "cat-6",
+      "category": "Redes e Internet",
+      "price": 150000,
+      "image": "/uploads/photoroom_20260902_083427-1790845917418.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-3386",
+      "createdAt": "2026-10-01T09:13:30.195Z",
+      "updatedAt": "2026-10-01T15:25:19.226Z"
+    },
+    {
+      "id": "prod-1790845845187-z3xt",
+      "name": "Base de Mause EWENT",
+      "description": "Base de Mause EWENT",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 5000,
+      "image": "/uploads/images_1_4_-1790846431644.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-3350",
+      "createdAt": "2026-10-01T09:10:45.187Z",
+      "updatedAt": "2026-10-01T09:20:33.898Z"
+    },
+    {
+      "id": "prod-1790845500739-1jc5",
+      "name": "Auricular sem fio Redmi",
+      "description": "Auricular sem fio Redmi",
+      "categoryId": "cat-12",
+      "category": "Áudio",
+      "price": 18000,
+      "image": "/uploads/images_1_2_-1790845473637.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 11,
+      "featured": false,
+      "sku": "ARK-4296",
+      "createdAt": "2026-10-01T09:05:00.739Z",
+      "updatedAt": "2026-10-01T09:05:00.741Z"
+    },
+    {
+      "id": "prod-1790845328451-4otk",
+      "name": "Auricular com fio AEG",
+      "description": "Auricular com fio AEG",
+      "categoryId": "cat-12",
+      "category": "Áudio",
+      "price": 15000,
+      "image": "/uploads/images_1_1_-1790845326326.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 76,
+      "featured": false,
+      "sku": "ARK-9534",
+      "createdAt": "2026-10-01T09:02:08.451Z",
+      "updatedAt": "2026-10-01T15:26:39.450Z"
+    },
+    {
+      "id": "prod-1790844981196-4l6j",
+      "name": "Anti-vìrus Kaspersky",
+      "description": "Anti-vìrus Kaspersky Standard 5 dispositivos/1 ano",
+      "categoryId": "cat-17",
+      "category": "Segurança Eletrónica",
+      "price": 30000,
+      "image": "/uploads/images_1_-1790844956580.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 8,
+      "featured": false,
+      "sku": "ARK-4596",
+      "createdAt": "2026-10-01T08:56:21.196Z",
+      "updatedAt": "2026-10-01T08:56:21.196Z"
+    },
+    {
+      "id": "prod-1790844448844-te8k",
+      "name": "Adaptador de Vídeo USB-A 3.0 Para HDMI",
+      "description": "Adaptador de Vídeo USB-A 3.0 Para HDMI FHD 1080P 60Hz",
+      "categoryId": "cat-9",
+      "category": "Adaptadores e Conversores",
+      "price": 22500,
+      "image": "/uploads/adaptador_-1790844443552.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-5352",
+      "createdAt": "2026-10-01T08:47:28.844Z",
+      "updatedAt": "2026-10-01T08:47:28.854Z"
+    },
+    {
+      "id": "prod-1790843695397-rw71",
+      "name": "Adaptador 4K ultra HD",
+      "description": "Adaptador 4K ultra HD",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 19500,
+      "image": "/uploads/transparent_1_-1790843784568.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-8864",
+      "createdAt": "2026-10-01T08:34:55.397Z",
+      "updatedAt": "2026-10-01T15:26:59.779Z"
+    },
+    {
+      "id": "prod-1790842733598-dcyx",
+      "name": "Adaptador de PC Trasformador",
+      "description": "ADAPTADOR DE PC Trasformador",
+      "categoryId": "cat-4",
+      "category": "Periféricos de Computador",
+      "price": 20000,
+      "image": "/uploads/photoroom_20260902_083041-1790842689928.jpg",
+      "images": null,
+      "inStock": true,
+      "quantity": 10,
+      "featured": false,
+      "sku": "ARK-8595",
+      "createdAt": "2026-10-01T08:18:53.598Z",
+      "updatedAt": "2026-10-01T15:24:29.475Z"
+    },
     {
       "id": "prod-1790326545710-zrkh",
       "name": "Camera Dahua",
@@ -173,7 +1161,7 @@
       "featured": false,
       "sku": "ARK-4980",
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-09-25T08:55:45.919Z"
+      "updatedAt": "2026-09-30T11:20:50.182Z"
     },
     {
       "id": "prod-1790259462937-slpo",
@@ -189,7 +1177,7 @@
       "featured": false,
       "sku": "ARK-4679",
       "createdAt": "2026-09-24T14:17:42.937Z",
-      "updatedAt": "2026-09-24T14:47:51.226Z"
+      "updatedAt": "2026-09-30T11:20:50.183Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
@@ -205,7 +1193,7 @@
       "featured": false,
       "sku": "ARK-7797",
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-09-24T14:48:03.888Z"
+      "updatedAt": "2026-09-30T11:20:50.184Z"
     },
     {
       "id": "prod-1790259392674-og52",
@@ -221,7 +1209,7 @@
       "featured": false,
       "sku": "ARK-9853",
       "createdAt": "2026-09-24T14:16:32.674Z",
-      "updatedAt": "2026-09-24T14:48:13.505Z"
+      "updatedAt": "2026-09-30T11:20:50.184Z"
     },
     {
       "id": "prod-1790259368862-awwe",
@@ -237,7 +1225,7 @@
       "featured": false,
       "sku": "ARK-5223",
       "createdAt": "2026-09-24T14:16:08.862Z",
-      "updatedAt": "2026-09-24T14:48:26.175Z"
+      "updatedAt": "2026-09-30T11:20:50.185Z"
     },
     {
       "id": "prod-1790258779410-1prp",
@@ -253,7 +1241,7 @@
       "featured": false,
       "sku": "ARK-3899",
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-09-24T14:57:45.056Z"
+      "updatedAt": "2026-09-30T11:20:50.186Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
@@ -269,7 +1257,7 @@
       "featured": false,
       "sku": "ARK-8927",
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-09-24T14:50:40.847Z"
+      "updatedAt": "2026-09-30T11:20:50.186Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
@@ -285,7 +1273,7 @@
       "featured": false,
       "sku": "ARK-4254",
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-09-24T14:56:11.976Z"
+      "updatedAt": "2026-09-30T11:20:50.187Z"
     },
     {
       "id": "prod-1790258337491-jcru",
@@ -301,7 +1289,7 @@
       "featured": false,
       "sku": "ARK-3849",
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-09-25T09:13:40.031Z"
+      "updatedAt": "2026-09-30T11:20:50.188Z"
     },
     {
       "id": "prod-1790258295106-qfev",
@@ -317,7 +1305,7 @@
       "featured": false,
       "sku": "ARK-6095",
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-09-25T15:21:09.113Z"
+      "updatedAt": "2026-09-30T11:20:50.189Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
@@ -333,7 +1321,7 @@
       "featured": false,
       "sku": "ARK-4917",
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-09-25T15:27:38.783Z"
+      "updatedAt": "2026-09-30T11:20:50.189Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
@@ -349,7 +1337,7 @@
       "featured": false,
       "sku": "ARK-7527",
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-09-24T14:38:08.585Z"
+      "updatedAt": "2026-09-30T11:20:50.190Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
@@ -365,7 +1353,7 @@
       "featured": false,
       "sku": "ARK-9870",
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-09-24T13:53:53.639Z"
+      "updatedAt": "2026-09-30T11:20:50.191Z"
     },
     {
       "id": "prod-1790257993219-qti2",
@@ -381,7 +1369,7 @@
       "featured": false,
       "sku": "ARK-4664",
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-09-24T14:35:45.748Z"
+      "updatedAt": "2026-09-30T11:20:50.192Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
@@ -397,7 +1385,7 @@
       "featured": false,
       "sku": "ARK-5767",
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-09-25T10:53:50.943Z"
+      "updatedAt": "2026-09-30T11:20:50.192Z"
     },
     {
       "id": "prod-1790257884660-1119",
@@ -413,7 +1401,7 @@
       "featured": false,
       "sku": "ARK-6309",
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-09-25T15:31:02.350Z"
+      "updatedAt": "2026-09-30T11:20:50.193Z"
     },
     {
       "id": "prod-1790257837915-atjk",
@@ -429,7 +1417,7 @@
       "featured": false,
       "sku": "ARK-4664",
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-09-25T15:34:23.149Z"
+      "updatedAt": "2026-09-30T11:20:50.194Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
@@ -445,7 +1433,7 @@
       "featured": false,
       "sku": "ARK-3741",
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-09-25T15:30:09.750Z"
+      "updatedAt": "2026-09-30T11:20:50.195Z"
     },
     {
       "id": "prod-1790257678365-4btv",
@@ -461,7 +1449,7 @@
       "featured": false,
       "sku": "ARK-1448",
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-09-24T14:40:21.968Z"
+      "updatedAt": "2026-09-30T11:20:50.196Z"
     },
     {
       "id": "prod-1790257579719-dm04",
@@ -477,7 +1465,7 @@
       "featured": false,
       "sku": "ARK-6982",
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-09-24T13:46:19.918Z"
+      "updatedAt": "2026-09-30T11:20:50.196Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
@@ -493,7 +1481,7 @@
       "featured": false,
       "sku": "ARK-7362",
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-09-24T14:37:23.296Z"
+      "updatedAt": "2026-09-30T11:20:50.197Z"
     },
     {
       "id": "prod-1790257311982-er9y",
@@ -509,23 +1497,23 @@
       "featured": false,
       "sku": "ARK-4830",
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-09-25T15:31:50.502Z"
+      "updatedAt": "2026-09-30T11:20:50.198Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
-      "name": "Auscultador com fio AEG",
-      "description": "Auscultador com fio AEG",
+      "name": "Auscultadores com microfone",
+      "description": "Auscultadores com microfone",
       "categoryId": "cat-12",
       "category": "Áudio",
-      "price": null,
-      "image": "/uploads/photoroom_20260902_083018-1790257218481.jpg",
+      "price": 16000,
+      "image": "/uploads/images_1_3_-1790845683260.jpg",
       "images": null,
-      "inStock": false,
-      "quantity": 0,
+      "inStock": true,
+      "quantity": 13,
       "featured": false,
       "sku": "ARK-3116",
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-09-25T15:51:22.392Z"
+      "updatedAt": "2026-10-01T09:08:35.883Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
@@ -541,7 +1529,7 @@
       "featured": false,
       "sku": "ARK-2799",
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-09-25T08:41:40.293Z"
+      "updatedAt": "2026-09-30T11:20:50.199Z"
     },
     {
       "id": "prod-1790257007807-j71u",
@@ -557,7 +1545,7 @@
       "featured": false,
       "sku": "ARK-3935",
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-09-25T15:36:44.132Z"
+      "updatedAt": "2026-09-30T11:20:50.200Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
@@ -573,7 +1561,7 @@
       "featured": false,
       "sku": "ARK-1548",
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-09-24T14:51:46.407Z"
+      "updatedAt": "2026-09-30T11:20:50.201Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
@@ -589,7 +1577,7 @@
       "featured": false,
       "sku": "ARK-REC-045",
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-09-25T15:25:20.888Z"
+      "updatedAt": "2026-09-30T11:20:50.201Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
@@ -605,7 +1593,7 @@
       "featured": false,
       "sku": "ARK-REC-044",
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-09-25T15:53:32.385Z"
+      "updatedAt": "2026-09-30T11:20:50.202Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
@@ -621,14 +1609,14 @@
       "featured": false,
       "sku": "ARK-REC-042",
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-09-22T10:57:35.154Z"
+      "updatedAt": "2026-09-30T11:20:50.203Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
       "name": "Bateria Kaise standard VRLA 12V 7Ah",
       "description": "Bateria Kaise standard VRLA 12V 7Ah",
       "categoryId": "cat-19",
-      "category": "Produtos",
+      "category": "Energia e Proteção",
       "price": 17500,
       "image": "/uploads/photoroom_20260902_084152-1790000987563.jpg",
       "images": null,
@@ -637,7 +1625,7 @@
       "featured": false,
       "sku": "ARK-REC-041",
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-09-25T15:51:45.784Z"
+      "updatedAt": "2026-10-01T13:59:46.844Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
@@ -653,7 +1641,7 @@
       "featured": true,
       "sku": "ARK-REC-040",
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-09-25T08:01:30.515Z"
+      "updatedAt": "2026-09-30T11:20:50.205Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
@@ -669,7 +1657,7 @@
       "featured": false,
       "sku": "ARK-REC-037",
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-09-25T15:53:01.433Z"
+      "updatedAt": "2026-09-30T11:20:50.206Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
@@ -685,7 +1673,7 @@
       "featured": false,
       "sku": "ARK-REC-036",
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-09-25T15:51:57.097Z"
+      "updatedAt": "2026-09-30T11:20:50.206Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
@@ -701,7 +1689,7 @@
       "featured": false,
       "sku": "ARK-REC-035",
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-09-25T15:52:05.968Z"
+      "updatedAt": "2026-09-30T11:20:50.207Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
@@ -717,7 +1705,7 @@
       "featured": false,
       "sku": "ARK-REC-034",
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-09-25T15:52:36.690Z"
+      "updatedAt": "2026-09-30T11:20:50.208Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
@@ -733,7 +1721,7 @@
       "featured": false,
       "sku": "ARK-REC-033",
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-09-24T14:53:30.327Z"
+      "updatedAt": "2026-09-30T11:20:50.208Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
@@ -749,7 +1737,7 @@
       "featured": false,
       "sku": "ARK-REC-032",
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-09-25T08:53:21.791Z"
+      "updatedAt": "2026-09-30T11:20:50.209Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
@@ -765,7 +1753,7 @@
       "featured": false,
       "sku": "ARK-REC-031",
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-09-25T15:39:49.292Z"
+      "updatedAt": "2026-09-30T11:20:50.210Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
@@ -781,7 +1769,7 @@
       "featured": false,
       "sku": "ARK-REC-030",
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-09-25T15:26:07.391Z"
+      "updatedAt": "2026-09-30T11:20:50.210Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
@@ -797,7 +1785,7 @@
       "featured": false,
       "sku": "ARK-REC-029",
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-09-24T14:59:12.400Z"
+      "updatedAt": "2026-09-30T11:20:50.211Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
@@ -813,7 +1801,7 @@
       "featured": false,
       "sku": "ARK-REC-028",
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-09-22T10:20:07.941Z"
+      "updatedAt": "2026-09-30T11:20:50.212Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
@@ -829,7 +1817,7 @@
       "featured": false,
       "sku": "ARK-REC-027",
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-09-22T10:10:18.612Z"
+      "updatedAt": "2026-09-30T11:20:50.212Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
@@ -845,7 +1833,7 @@
       "featured": true,
       "sku": "ARK-REC-026",
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-09-25T08:01:10.427Z"
+      "updatedAt": "2026-09-30T11:20:50.213Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
@@ -861,7 +1849,7 @@
       "featured": false,
       "sku": "ARK-REC-025",
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-09-25T08:50:04.373Z"
+      "updatedAt": "2026-09-30T11:20:50.214Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
@@ -877,7 +1865,7 @@
       "featured": false,
       "sku": "ARK-REC-024",
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-09-24T14:57:03.200Z"
+      "updatedAt": "2026-09-30T11:20:50.215Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
@@ -893,7 +1881,7 @@
       "featured": true,
       "sku": "ARK-REC-023",
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-09-25T08:02:39.875Z"
+      "updatedAt": "2026-09-30T11:20:50.215Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
@@ -909,7 +1897,7 @@
       "featured": false,
       "sku": "ARK-REC-022",
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-09-25T10:57:40.751Z"
+      "updatedAt": "2026-09-30T11:20:50.216Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
@@ -925,7 +1913,7 @@
       "featured": false,
       "sku": "ARK-REC-020",
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-09-22T11:12:06.829Z"
+      "updatedAt": "2026-09-30T11:20:50.217Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
@@ -941,7 +1929,7 @@
       "featured": false,
       "sku": "ARK-REC-019",
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-09-25T15:53:47.624Z"
+      "updatedAt": "2026-09-30T11:20:50.218Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
@@ -957,7 +1945,7 @@
       "featured": false,
       "sku": "ARK-REC-018",
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-09-25T15:53:09.929Z"
+      "updatedAt": "2026-09-30T11:20:50.218Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
@@ -973,7 +1961,7 @@
       "featured": false,
       "sku": "ARK-REC-017",
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-09-22T10:21:54.756Z"
+      "updatedAt": "2026-09-30T11:20:50.219Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
@@ -989,7 +1977,7 @@
       "featured": false,
       "sku": "ARK-REC-016",
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-09-25T15:53:21.961Z"
+      "updatedAt": "2026-09-30T11:20:50.220Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
@@ -1005,7 +1993,7 @@
       "featured": false,
       "sku": "ARK-REC-011",
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-09-25T15:18:49.762Z"
+      "updatedAt": "2026-09-30T11:20:50.220Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
@@ -1021,7 +2009,7 @@
       "featured": true,
       "sku": "ARK-REC-009",
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-09-25T08:01:19.651Z"
+      "updatedAt": "2026-09-30T11:20:50.221Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
@@ -1037,7 +2025,7 @@
       "featured": false,
       "sku": "ARK-REC-008",
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-09-22T10:01:10.577Z"
+      "updatedAt": "2026-09-30T11:20:50.222Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
@@ -1046,14 +2034,14 @@
       "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
       "price": 7000,
-      "image": "/uploads/photoroom_20260901_112239-1790000700119.jpg",
+      "image": "/uploads/images_1_15_-1790849653782.jpg",
       "images": null,
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-REC-007",
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-09-25T08:01:29.627Z"
+      "updatedAt": "2026-10-01T10:14:43.655Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
@@ -1069,7 +2057,7 @@
       "featured": false,
       "sku": "ARK-REC-006",
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-09-25T08:38:42.360Z"
+      "updatedAt": "2026-09-30T11:20:50.224Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
@@ -1085,7 +2073,7 @@
       "featured": false,
       "sku": "ARK-REC-005",
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-09-25T15:52:25.961Z"
+      "updatedAt": "2026-09-30T11:20:50.224Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
@@ -1101,7 +2089,7 @@
       "featured": false,
       "sku": "ARK-REC-004",
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-09-25T08:30:26.454Z"
+      "updatedAt": "2026-09-30T11:20:50.225Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
@@ -1117,7 +2105,7 @@
       "featured": false,
       "sku": "ARK-REC-003",
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-09-25T15:24:13.193Z"
+      "updatedAt": "2026-09-30T11:20:50.226Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
@@ -1133,7 +2121,7 @@
       "featured": false,
       "sku": "ARK-REC-002",
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-09-22T10:53:16.591Z"
+      "updatedAt": "2026-09-30T11:20:50.227Z"
     },
     {
       "id": "prod-rec-1790066189556-1",
@@ -1149,7 +2137,7 @@
       "featured": false,
       "sku": "ARK-REC-001",
       "createdAt": "2026-09-22T08:36:29.569Z",
-      "updatedAt": "2026-09-24T14:48:39.016Z"
+      "updatedAt": "2026-09-30T11:20:50.228Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
@@ -1165,7 +2153,7 @@
       "featured": false,
       "sku": "ARK-7553",
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-09-24T14:41:27.368Z"
+      "updatedAt": "2026-09-30T11:20:50.229Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
@@ -1181,7 +2169,7 @@
       "featured": false,
       "sku": "ARK-6038",
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-09-21T12:51:54.752Z"
+      "updatedAt": "2026-09-30T11:20:50.230Z"
     },
     {
       "id": "prod-1788945524001-0f01",
@@ -1197,7 +2185,7 @@
       "featured": true,
       "sku": "ARK-4510",
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-09-25T08:02:02.931Z"
+      "updatedAt": "2026-09-30T11:20:50.231Z"
     }
   ],
   "categories": [
@@ -1354,27 +2342,38 @@
       "hideWhenEmpty": false
     },
     {
+      "id": "cat-1790340063608",
       "name": "Materiais Escolares",
       "icon": "Package",
-      "description": "",
+      "description": null,
       "order": 20,
-      "hideWhenEmpty": false,
-      "id": "cat-1790340063608"
+      "hideWhenEmpty": false
     }
   ],
   "orders": [
     {
+      "id": "order-1790768022848",
+      "orderNumber": "PED-2026-2133",
+      "customerId": null,
       "customerName": "Jedy Suco",
       "customerEmail": "jedyvandunem16@gmail.com",
       "customerPhone": "932847952",
-      "whatsappPhone": "932847952",
-      "botStatus": "bot_active",
-      "customerCompany": "",
-      "customerNif": "",
+      "customerCompany": null,
+      "customerNif": null,
       "customerCity": "Luanda",
       "customerAddress": "Zango, Luanda",
       "deliveryMethod": "entrega_luanda",
       "paymentMethod": "transferencia",
+      "total": 42740,
+      "status": "novo",
+      "notes": null,
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "receiptUrl": null,
+      "receiptFilename": null,
+      "conversationHistory": null,
+      "createdAt": "2026-09-30T11:33:42.848Z",
+      "updatedAt": "2026-09-30T11:33:42.928Z",
       "items": [
         {
           "productId": "prod-rec-1790066189556-26",
@@ -1389,15 +2388,15 @@
           "price": 18500,
           "quantity": 1,
           "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg"
+        },
+        {
+          "productId": "prod-rec-1790066189556-9",
+          "productName": "Cabo HDTV 2Kx4K",
+          "price": 12740,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260901_112352-1789995715945.jpg"
         }
-      ],
-      "total": 30000,
-      "status": "novo",
-      "notes": "",
-      "id": "order-1790352606566",
-      "orderNumber": "PED-2026-2866",
-      "createdAt": "2026-09-25T16:10:06.566Z",
-      "updatedAt": "2026-09-25T16:10:06.566Z"
+      ]
     },
     {
       "id": "order-1",
@@ -1432,7 +2431,7 @@
           "id": "msg-2",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Olá Afonso Mário Ribeiro! Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
+          "text": "Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
           "timestamp": "2026-09-08T13:29:28.787Z"
         },
         {
@@ -1451,7 +2450,7 @@
           "id": "msg-4",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": " *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
+          "text": "✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
           "timestamp": "2026-09-08T14:29:29.787Z"
         }
       ],
@@ -1506,7 +2505,7 @@
           "id": "msg-302",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Obrigado pela sua mensagem. ‍ Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
+          "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
           "timestamp": "2026-09-08T12:29:28.787Z"
         }
       ],
@@ -1554,14 +2553,14 @@
           "id": "msg-202",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": "Olá Beatriz Costa! Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
+          "text": "Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
           "timestamp": "2026-09-08T03:29:28.787Z"
         },
         {
           "id": "msg-203",
           "sender": "bot",
           "senderName": "ARKNET Bot",
-          "text": " *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
+          "text": "🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
           "timestamp": "2026-09-08T05:29:27.787Z"
         }
       ],
@@ -1577,20 +2576,88 @@
           "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg"
         }
       ]
+    },
+    {
+      "id": "order-test-1790765973557",
+      "customerPhone": "+244 923 111 222",
+      "items": [
+        {
+          "price": 45000,
+          "productName": "Router Wifi Pro",
+          "productId": "prod-1",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 45000,
+      "customerName": "Cliente Teste Externo",
+      "customerEmail": "cliente_ext@arknet.co.ao",
+      "orderNumber": "PED-2026-9999",
+      "status": "pendente",
+      "paymentMethod": "transferencia"
+    },
+    {
+      "customerName": "Jedy Suco",
+      "customerEmail": "jedyvandunem16@gmail.com",
+      "customerPhone": "932847952",
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "customerCompany": "",
+      "customerNif": "",
+      "customerCity": "Luanda",
+      "customerAddress": "Zango, Luanda",
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
+      "items": [
+        {
+          "productId": "prod-rec-1790066189556-26",
+          "productName": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+          "price": 11500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083540-1790003177971.jpg"
+        },
+        {
+          "productId": "prod-rec-1790066189556-23",
+          "productName": "Microfone de lapela sem fio K9",
+          "price": 18500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg"
+        }
+      ],
+      "total": 30000,
+      "status": "novo",
+      "notes": "",
+      "id": "order-1790352606566",
+      "orderNumber": "PED-2026-2866",
+      "createdAt": "2026-09-25T16:10:06.566Z",
+      "updatedAt": "2026-09-25T16:10:06.566Z"
     }
   ],
   "leads": [
     {
-      "name": "Jedy Suco",
-      "email": "jedyvandunem16@gmail",
-      "phone": "932847952",
-      "service": "Instalação e Manutenção",
-      "message": "Solicito a manutenção dos pc's da minha empresa",
-      "source": "Sítio: Formulário de Cotação",
-      "id": "lead-1790351957312",
+      "id": "lead-test-1790765992077",
+      "name": "Empresa Cliente Teste",
+      "email": "contacto@empresacliente.ao",
+      "phone": "+244 923 888 777",
+      "service": "Ciberseguran�a Empresarial",
+      "message": "Gostaria de solicitar uma proposta comercial para auditoria.",
       "status": "novo",
-      "createdAt": "2026-09-25T15:59:17.312Z",
-      "updatedAt": "2026-09-25T15:59:17.312Z"
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-30T10:59:52.249Z",
+      "updatedAt": "2026-09-30T10:59:52.249Z"
+    },
+    {
+      "id": "lead-audit-1790251647430",
+      "name": "Eng. Bento Gaspar",
+      "email": "bento.gaspar@consulting.ao",
+      "phone": "+244 912 345 678",
+      "service": "Consultoria & TI",
+      "message": "Necessitamos de auditoria de segurança perimetral.",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-25T10:30:42.128Z",
+      "updatedAt": "2026-09-25T10:30:42.128Z"
     },
     {
       "id": "lead-audit-1790243017632",
@@ -1598,7 +2665,12 @@
       "email": "bento.gaspar@consulting.ao",
       "phone": "+244 912 345 678",
       "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral."
+      "message": "Necessitamos de auditoria de segurança perimetral.",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-25T10:30:42.087Z",
+      "updatedAt": "2026-09-25T10:30:42.087Z"
     },
     {
       "id": "lead-audit-1790244140545",
@@ -1606,98 +2678,12 @@
       "email": "bento.gaspar@consulting.ao",
       "phone": "+244 912 345 678",
       "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral."
-    },
-    {
-      "id": "lead-4",
-      "name": "Joaquim Silva Santos",
-      "email": "jsilva@construtora-luanda.com",
-      "phone": "+244 945 678 901",
-      "service": "Cabeamento Estruturado",
-      "message": "Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.",
-      "status": "novo",
-      "notes": null,
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-05T15:29:27.787Z",
-      "updatedAt": "2026-09-05T15:29:27.787Z"
-    },
-    {
-      "id": "lead-3",
-      "name": "Carlos Alberto Ferreira",
-      "email": "carlos.ferreira@logistica-sul.ao",
-      "phone": "+244 934 567 890",
-      "service": "CFTV e Segurança",
-      "message": "Orçamento para sistema de vigilância IP com 32 câmaras e gravação em nuvem para centro de distribuição.",
-      "status": "convertido",
-      "notes": "Proposta adjudicada. Projecto em fase de planeamento e instalação.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-06T15:29:27.787Z",
-      "updatedAt": "2026-09-08T07:29:27.787Z"
-    },
-    {
-      "id": "lead-2",
-      "name": "Dra. Teresa Van-Dúnem",
-      "email": "teresa.vdunem@bancocomerce.co.ao",
-      "phone": "+244 912 345 678",
-      "service": "Cibersegurança",
-      "message": "Solicitamos auditoria de pentest e reforço de segurança perimetral para 3 agências bancárias.",
-      "status": "contactado",
-      "notes": "Reunião preliminar agendada para sexta-feira às 10h.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-07T15:29:27.787Z",
-      "updatedAt": "2026-09-08T03:29:27.787Z"
-    },
-    {
-      "id": "lead-1",
-      "name": "Eng. Manuel Domingos",
-      "email": "manuel.domingos@petroangola.ao",
-      "phone": "+244 923 456 789",
-      "service": "Internet Empresarial",
-      "message": "Precisamos de uma ligação dedicada simétrica de 100Mbps com redundância para os nossos escritórios em Talatona.",
-      "status": "novo",
-      "notes": "Prioridade alta. Cliente corporativo do sector petrolífero.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-08T11:29:27.787Z",
-      "updatedAt": "2026-09-08T11:29:27.787Z"
-    },
-    {
-      "id": "lead-test-1788948718546",
-      "name": "Cliente Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Infraestrutura de Redes",
-      "message": "Pedido de cotação de redes",
+      "message": "Necessitamos de auditoria de segurança perimetral.",
       "status": "novo",
       "notes": null,
       "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.913Z",
-      "updatedAt": "2026-09-15T07:30:20.913Z"
-    },
-    {
-      "id": "lead-test-1788948366063",
-      "name": "Lead Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Desenvolvimento Web",
-      "message": "Teste de segurança",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.920Z",
-      "updatedAt": "2026-09-15T07:30:20.920Z"
-    },
-    {
-      "id": "lead-test-1788948245799",
-      "name": "Lead Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Desenvolvimento Web",
-      "message": "Teste de segurança",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.931Z",
-      "updatedAt": "2026-09-15T07:30:20.931Z"
+      "createdAt": "2026-09-25T10:30:42.081Z",
+      "updatedAt": "2026-09-25T10:30:42.081Z"
     },
     {
       "id": "cmu2cqutm0000ute4s9j1u3jl",
@@ -1713,15 +2699,140 @@
       "updatedAt": "2026-09-15T07:30:20.937Z"
     },
     {
-      "id": "lead-audit-1790251647430",
-      "name": "Eng. Bento Gaspar",
-      "email": "bento.gaspar@consulting.ao",
+      "id": "lead-test-1788948245799",
+      "name": "Lead Teste",
+      "email": "lead@teste.ao",
+      "phone": "",
+      "service": "Desenvolvimento Web",
+      "message": "Teste de segurança",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.931Z",
+      "updatedAt": "2026-09-15T07:30:20.931Z"
+    },
+    {
+      "id": "lead-test-1788948366063",
+      "name": "Lead Teste",
+      "email": "lead@teste.ao",
+      "phone": "",
+      "service": "Desenvolvimento Web",
+      "message": "Teste de segurança",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.920Z",
+      "updatedAt": "2026-09-15T07:30:20.920Z"
+    },
+    {
+      "id": "lead-test-1788948718546",
+      "name": "Cliente Teste",
+      "email": "lead@teste.ao",
+      "phone": "",
+      "service": "Infraestrutura de Redes",
+      "message": "Pedido de cotação de redes",
+      "status": "novo",
+      "notes": null,
+      "source": "site_quote",
+      "createdAt": "2026-09-15T07:30:20.913Z",
+      "updatedAt": "2026-09-15T07:30:20.913Z"
+    },
+    {
+      "id": "lead-1",
+      "name": "Eng. Manuel Domingos",
+      "email": "manuel.domingos@petroangola.ao",
+      "phone": "+244 923 456 789",
+      "service": "Internet Empresarial",
+      "message": "Precisamos de uma ligação dedicada simétrica de 100Mbps com redundância para os nossos escritórios em Talatona.",
+      "status": "novo",
+      "notes": "Prioridade alta. Cliente corporativo do sector petrolífero.",
+      "source": "Website - Formulário de Cotação",
+      "createdAt": "2026-09-08T11:29:27.787Z",
+      "updatedAt": "2026-09-08T11:29:27.787Z"
+    },
+    {
+      "id": "lead-2",
+      "name": "Dra. Teresa Van-Dúnem",
+      "email": "teresa.vdunem@bancocomerce.co.ao",
       "phone": "+244 912 345 678",
-      "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral."
+      "service": "Cibersegurança",
+      "message": "Solicitamos auditoria de pentest e reforço de segurança perimetral para 3 agências bancárias.",
+      "status": "contactado",
+      "notes": "Reunião preliminar agendada para sexta-feira às 10h.",
+      "source": "Website - Formulário de Cotação",
+      "createdAt": "2026-09-07T15:29:27.787Z",
+      "updatedAt": "2026-09-08T03:29:27.787Z"
+    },
+    {
+      "id": "lead-3",
+      "name": "Carlos Alberto Ferreira",
+      "email": "carlos.ferreira@logistica-sul.ao",
+      "phone": "+244 934 567 890",
+      "service": "CFTV e Segurança",
+      "message": "Orçamento para sistema de vigilância IP com 32 câmaras e gravação em nuvem para centro de distribuição.",
+      "status": "convertido",
+      "notes": "Proposta adjudicada. Projecto em fase de planeamento e instalação.",
+      "source": "Website - Formulário de Cotação",
+      "createdAt": "2026-09-06T15:29:27.787Z",
+      "updatedAt": "2026-09-08T07:29:27.787Z"
+    },
+    {
+      "id": "lead-4",
+      "name": "Joaquim Silva Santos",
+      "email": "jsilva@construtora-luanda.com",
+      "phone": "+244 945 678 901",
+      "service": "Cabeamento Estruturado",
+      "message": "Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.",
+      "status": "novo",
+      "notes": null,
+      "source": "Website - Formulário de Cotação",
+      "createdAt": "2026-09-05T15:29:27.787Z",
+      "updatedAt": "2026-09-05T15:29:27.787Z"
+    },
+    {
+      "name": "Jedy Suco",
+      "email": "jedyvandunem16@gmail",
+      "phone": "932847952",
+      "service": "Instalação e Manutenção",
+      "message": "Solicito a manutenção dos pc's da minha empresa",
+      "source": "Sítio: Formulário de Cotação",
+      "id": "lead-1790351957312",
+      "status": "novo",
+      "createdAt": "2026-09-25T15:59:17.312Z",
+      "updatedAt": "2026-09-25T15:59:17.312Z"
     }
   ],
   "subscribers": [
+    {
+      "id": "sub-1790766001073",
+      "email": "newsletter_visitante@teste.ao",
+      "status": "active",
+      "subscribedAt": "2026-09-30T11:00:01.073Z"
+    },
+    {
+      "id": "cmunya1b70000uttg603ttkld",
+      "email": "lennamadalenagamboa@gmail.com",
+      "status": "active",
+      "subscribedAt": "2026-09-30T10:16:17.443Z"
+    },
+    {
+      "id": "cmumufxgw0000utfgnvzfjj3m",
+      "email": "adaltinolima16@gmail.com",
+      "status": "active",
+      "subscribedAt": "2026-09-29T15:41:07.758Z"
+    },
+    {
+      "id": "cmumkaaw70003utds2qmaxgaf",
+      "email": "jedyvandunem16@gmail.com",
+      "status": "active",
+      "subscribedAt": "2026-09-29T10:56:49.061Z"
+    },
+    {
+      "id": "cmumk8mhb0002utdshygimmy2",
+      "email": "arknet40@gmail.com",
+      "status": "active",
+      "subscribedAt": "2026-09-29T10:55:30.765Z"
+    },
     {
       "id": "sub-5",
       "email": "inovacao@startuangola.com",
@@ -1784,7 +2895,13 @@
       "icon": "Shield",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Shield",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "02",
@@ -1798,7 +2915,13 @@
       "icon": "Laptop",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Laptop",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "03",
@@ -1812,7 +2935,13 @@
       "icon": "Network",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Network",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "04",
@@ -1826,7 +2955,13 @@
       "icon": "Cpu",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Cpu",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "05",
@@ -1840,7 +2975,13 @@
       "icon": "Users",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Users",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
       "id": "06",
@@ -1854,7 +2995,13 @@
       "icon": "Calculator",
       "skills": [],
       "isPopular": false,
-      "createdAt": "2026-01-01T00:00:00.000Z"
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "modality": "Presencial",
+      "image": "Calculator",
+      "syllabus": [],
+      "status": "active",
+      "featured": false,
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     }
   ],
   "events": [
@@ -1880,6 +3027,42 @@
     }
   ],
   "eventRegistrations": [
+    {
+      "id": "reg-test-1790766001124",
+      "eventId": "evt-1",
+      "name": "Participante Teste",
+      "email": "participante@teste.ao",
+      "phone": "+244 912 345 678",
+      "company": "Inova��o SA",
+      "position": "Engenheiro de Redes",
+      "status": "pendente",
+      "ticketCode": null,
+      "registeredAt": "2026-09-30T11:00:01.224Z"
+    },
+    {
+      "id": "reg-2",
+      "eventId": "evt-1",
+      "name": "Dra. Isabel Mateus",
+      "email": "isabel.mateus@bancobai.ao",
+      "phone": "+244 912 333 444",
+      "company": "Banco BAI",
+      "position": null,
+      "status": "confirmada",
+      "ticketCode": null,
+      "registeredAt": "2026-09-15T07:30:20.996Z"
+    },
+    {
+      "id": "reg-1",
+      "eventId": "evt-1",
+      "name": "Eng. António Kiala",
+      "email": "antonio.kiala@sonangol.co.ao",
+      "phone": "+244 923 111 222",
+      "company": "Sonangol E.P.",
+      "position": null,
+      "status": "confirmada",
+      "ticketCode": null,
+      "registeredAt": "2026-09-15T07:30:20.992Z"
+    },
     {
       "eventId": "evt-1",
       "eventTitle": "Bootcamp Tecnológico",
@@ -1926,30 +3109,6 @@
       "registeredAt": "2026-09-15T07:30:21.000Z"
     },
     {
-      "id": "reg-2",
-      "eventId": "evt-1",
-      "name": "Dra. Isabel Mateus",
-      "email": "isabel.mateus@bancobai.ao",
-      "phone": "+244 912 333 444",
-      "company": "Banco BAI",
-      "position": null,
-      "status": "confirmada",
-      "ticketCode": null,
-      "registeredAt": "2026-09-15T07:30:20.996Z"
-    },
-    {
-      "id": "reg-1",
-      "eventId": "evt-1",
-      "name": "Eng. António Kiala",
-      "email": "antonio.kiala@sonangol.co.ao",
-      "phone": "+244 923 111 222",
-      "company": "Sonangol E.P.",
-      "position": null,
-      "status": "confirmada",
-      "ticketCode": null,
-      "registeredAt": "2026-09-15T07:30:20.992Z"
-    },
-    {
       "id": "reg-audit-1790251630136",
       "eventId": "evt-audit-1790251628182",
       "eventTitle": "Conferência ARKNET NextGen 2026",
@@ -1976,7 +3135,10 @@
       ],
       "responsibilities": [],
       "active": true,
-      "createdAt": "2026-02-10T00:00:00.000Z"
+      "createdAt": "2026-02-10T00:00:00.000Z",
+      "benefits": [],
+      "status": "aberta",
+      "updatedAt": "2026-02-10T00:00:00.000Z"
     },
     {
       "id": "job-2",
@@ -1993,7 +3155,10 @@
       ],
       "responsibilities": [],
       "active": true,
-      "createdAt": "2026-02-01T00:00:00.000Z"
+      "createdAt": "2026-02-01T00:00:00.000Z",
+      "benefits": [],
+      "status": "aberta",
+      "updatedAt": "2026-02-01T00:00:00.000Z"
     },
     {
       "id": "job-1",
@@ -2010,7 +3175,10 @@
       ],
       "responsibilities": [],
       "active": true,
-      "createdAt": "2026-01-20T00:00:00.000Z"
+      "createdAt": "2026-01-20T00:00:00.000Z",
+      "benefits": [],
+      "status": "aberta",
+      "updatedAt": "2026-01-20T00:00:00.000Z"
     }
   ],
   "applications": [
@@ -2042,58 +3210,68 @@
   "testimonials": [
     {
       "id": "1",
-      "name": "Banco Angolano de Investimento",
-      "role": "Instituição Financeira",
+      "clientName": "Banco Angolano de Investimento",
       "company": "Banco Angolano de Investimento",
-      "avatar": "https://picsum.photos/seed/bank/200/100",
-      "text": "A ARKNET transformou a nossa infraestrutura de rede. O suporte 24/7 e a qualidade da conexão superaram as nossas expectativas. Recomendamos sem hesitação.",
+      "role": "Instituição Financeira",
+      "testimonial": "A ARKNET transformou a nossa infraestrutura de rede. O suporte 24/7 e a qualidade da conexão superaram as nossas expectativas. Recomendamos sem hesitação.",
       "rating": 5,
+      "logo": "https://picsum.photos/seed/bank/200/100",
+      "order": 1,
       "active": true,
-      "order": 1
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "2",
-      "name": "AngoTelecom Serviços",
-      "role": "Telecomunicações",
+      "clientName": "AngoTelecom Serviços",
       "company": "AngoTelecom Serviços",
-      "avatar": "https://picsum.photos/seed/telecom/200/100",
-      "text": "Parceria estratégica que nos permitiu expandir o nosso alcance. A expertise técnica da ARKNET é incomparável no mercado angolano.",
+      "role": "Telecomunicações",
+      "testimonial": "Parceria estratégica que nos permitiu expandir o nosso alcance. A expertise técnica da ARKNET é incomparável no mercado angolano.",
       "rating": 5,
+      "logo": "https://picsum.photos/seed/telecom/200/100",
+      "order": 2,
       "active": true,
-      "order": 2
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "3",
-      "name": "TechSolutions Luanda",
-      "role": "Tecnologia",
+      "clientName": "TechSolutions Luanda",
       "company": "TechSolutions Luanda",
-      "avatar": "https://picsum.photos/seed/tech/200/100",
-      "text": "Implementaram a nossa infraestrutura de cloud com excelência. O tempo de resposta e a qualidade do serviço são excecionais.",
+      "role": "Tecnologia",
+      "testimonial": "Implementaram a nossa infraestrutura de cloud com excelência. O tempo de resposta e a qualidade do serviço são excecionais.",
       "rating": 5,
+      "logo": "https://picsum.photos/seed/tech/200/100",
+      "order": 3,
       "active": true,
-      "order": 3
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "4",
-      "name": "Construtora África Nova",
-      "role": "Construção Civil",
+      "clientName": "Construtora África Nova",
       "company": "Construtora África Nova",
-      "avatar": "https://picsum.photos/seed/construction/200/100",
-      "text": "A solução de videovigilância instalada pela ARKNET melhorou significativamente a segurança dos nossos canteiros de obra. Excelente serviço.",
+      "role": "Construção Civil",
+      "testimonial": "A solução de videovigilância instalada pela ARKNET melhorou significativamente a segurança dos nossos canteiros de obra. Excelente serviço.",
       "rating": 5,
+      "logo": "https://picsum.photos/seed/construction/200/100",
+      "order": 4,
       "active": true,
-      "order": 4
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "5",
-      "name": "Hospital Central Luanda",
-      "role": "Saúde",
+      "clientName": "Hospital Central Luanda",
       "company": "Hospital Central Luanda",
-      "avatar": "https://picsum.photos/seed/hospital/200/100",
-      "text": "A rede estruturada instalada permite o funcionamento crítico dos nossos sistemas hospitalares com 100% de disponibilidade.",
+      "role": "Saúde",
+      "testimonial": "A rede estruturada instalada permite o funcionamento crítico dos nossos sistemas hospitalares com 100% de disponibilidade.",
       "rating": 5,
+      "logo": "https://picsum.photos/seed/hospital/200/100",
+      "order": 5,
       "active": true,
-      "order": 5
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     }
   ],
   "partners": [
@@ -2101,127 +3279,155 @@
       "id": "partner-1",
       "name": "AnyConnect",
       "logo": "/uploads/vendor-1.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Tecnologia & Redes",
+      "website": "https://arknet.co.ao",
       "order": 1,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-2",
       "name": "Tecnimed",
       "logo": "/uploads/vendor-2.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Saúde & Equipamento Hospitalar",
+      "website": "https://arknet.co.ao",
       "order": 2,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-3",
       "name": "Igreja Universal",
       "logo": "/uploads/vendor-3.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Institucional & Mídia",
+      "website": "https://arknet.co.ao",
       "order": 3,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-4",
       "name": "Macon",
       "logo": "/uploads/vendor-4.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Transportes & Logística",
+      "website": "https://arknet.co.ao",
       "order": 4,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-5",
       "name": "Tribunal Supremo",
       "logo": "/uploads/vendor-5.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Governo & Justiça",
+      "website": "https://arknet.co.ao",
       "order": 5,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-6",
       "name": "Mota-Engil",
       "logo": "/uploads/vendor-6.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Construção & Engenharia",
+      "website": "https://arknet.co.ao",
       "order": 6,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-7",
       "name": "Record TV Africa",
       "logo": "/uploads/vendor-7.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Comunicação & Mídia",
+      "website": "https://arknet.co.ao",
       "order": 7,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-8",
       "name": "ANPG",
       "logo": "/uploads/vendor-8.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Petróleo, Gás & Energia",
+      "website": "https://arknet.co.ao",
       "order": 8,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-9",
       "name": "Huambo Expresso",
       "logo": "/uploads/vendor-9.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Transportes & Logística",
+      "website": "https://arknet.co.ao",
       "order": 9,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-10",
       "name": "Vernon",
       "logo": "/uploads/vendor-10.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Consultoria & Gestão",
+      "website": "https://arknet.co.ao",
       "order": 10,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-11",
       "name": "Neptec",
       "logo": "/uploads/vendor-11.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Soluções Tecnológicas",
+      "website": "https://arknet.co.ao",
       "order": 11,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-12",
       "name": "Comando MGA",
       "logo": "/uploads/vendor-12.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Defesa & Segurança",
+      "website": "https://arknet.co.ao",
       "order": 12,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-13",
       "name": "Power House",
       "logo": "/uploads/vendor-13.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Energia & Infraestruturas",
+      "website": "https://arknet.co.ao",
       "order": 13,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     },
     {
       "id": "partner-14",
       "name": "A Mundial Seguros",
       "logo": "/uploads/vendor-14.jpg",
-      "website": "https://arknet.co.ao",
       "category": "Banca & Seguros",
+      "website": "https://arknet.co.ao",
       "order": 14,
-      "active": true
+      "active": true,
+      "createdAt": "2026-10-01T15:22:12.310Z",
+      "updatedAt": "2026-10-01T15:22:12.310Z"
     }
   ],
   "projects": [
@@ -2229,12 +3435,12 @@
       "id": "proj-1",
       "title": "Parceria ARKNET × CFTIC -Bootcamp Tecnológico",
       "slug": "infraestrutura-rede-tribunal-supremo",
-      "client": "Tribunal Supremo de Angola",
+      "client": "Arknet",
       "category": "Cabeamento Estruturado",
-      "sector": "Projeto para Cliente",
-      "year": 2025,
+      "sector": "Projeto para Evento",
+      "year": 2026,
       "description": "Promover o desenvolvimento de competências tecnológicas e criar mais oportunidades de capacitação e crescimento para mulheres no sector das Tecnologias de Informação e Comunicação.",
-      "fullDescription": "Infraestrutura de rede estruturada Cat6A de alta densidade e interligação de salas de audiência.",
+      "fullDescription": "O Grupo ARKNET estabeleceu uma parceria com a Comunidade Feminina de Tecnologia de Informação e Comunicação (CFTIC) para a realização de um Bootcamp Tecnológico, previsto para Fevereiro de 2027.",
       "metrics": "[{\"partnerId\":\"partner-5\",\"partnerName\":\"Tribunal Supremo\",\"role\":\"Instituição Beneficiária / Cliente\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-11\",\"partnerName\":\"Neptec\",\"role\":\"Fornecimento de Bastidores & Equipamentos de Rede\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-13\",\"partnerName\":\"Power House\",\"role\":\"Sistemas de Energia Ininterrupta (UPS)\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "A crescente evolução tecnológica exige profissionais cada vez mais preparados e com competências alinhadas às novas necessidades do mercado. Neste contexto, torna-se importante criar espaços de aprendizagem prática, partilha de conhecimento e desenvolvimento de talentos.",
       "solution": "O Grupo ARKNET estabeleceu uma parceria com a Comunidade Feminina de Tecnologia de Informação e Comunicação (CFTIC) para a realização de um Bootcamp Tecnológico, previsto para Fevereiro de 2027.\n\nA iniciativa pretende unir conhecimento, tecnologia e formação, proporcionando às participantes uma experiência de aprendizagem e desenvolvimento de competências, reforçando o compromisso de ambas as organizações com a inovação, capacitação e inclusão no sector tecnológico.",
@@ -2288,18 +3494,18 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T11:55:18.091Z"
+      "updatedAt": "2026-09-23T14:30:47.337Z"
     },
     {
       "id": "proj-2",
       "title": "Parceria com a DHL",
       "slug": "ciberseguranca-mota-engil",
-      "client": "Mota-Engil Angola",
+      "client": "DHL",
       "category": "Cibersegurança",
       "sector": "Colaboração Técnica",
-      "year": 2025,
+      "year": 2026,
       "description": "Construir uma relação de parceria orientada para a inovação, eficiência e criação de soluções que respondam às necessidades do mercado",
-      "fullDescription": "Implementação de Firewalls de Próxima Geração (NGFW), VPNs corporativas e monitorização 24/7.",
+      "fullDescription": "O Grupo ARKNET estabeleceu uma parceria com a DHL, criando uma oportunidade para aproximar competências, explorar novas soluções e fortalecer a capacidade de resposta às necessidades dos seus clientes e parceiros.",
       "metrics": "[{\"partnerId\":\"partner-6\",\"partnerName\":\"Mota-Engil\",\"role\":\"Cliente Principal / Empreitada\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-10\",\"partnerName\":\"Vernon\",\"role\":\"Consultoria de Políticas de Acesso e Auditoria\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "Num contexto empresarial cada vez mais dinâmico, a procura por soluções tecnológicas e operacionais eficientes exige colaboração entre organizações e a integração de diferentes competências.",
       "solution": "O Grupo ARKNET estabeleceu uma parceria com a DHL, criando uma oportunidade para aproximar competências, explorar novas soluções e fortalecer a capacidade de resposta às necessidades dos seus clientes e parceiros.\n\nA parceria representa mais um passo no compromisso do Grupo ARKNET com a inovação, excelência e desenvolvimento de soluções estratégicas.",
@@ -2346,18 +3552,18 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T10:18:03.450Z"
+      "updatedAt": "2026-01-10T00:00:00.000Z"
     },
     {
       "id": "proj-3",
       "title": "Visita Técnica à Anjani Food & Beverages",
       "slug": "internet-dedicada-record-tv",
-      "client": "Record TV Africa",
+      "client": "Anjani Food & Beverages",
       "category": "Internet Empresarial",
       "sector": "Projeto para Cliente",
       "year": 2026,
       "description": "Promover a aproximação entre tecnologia e indústria, conhecendo na prática os processos e as necessidades de uma empresa dedicada à produção e distribuição de bebidas.",
-      "fullDescription": "Internet 100% simétrica de ultra-baixa latência para transmissão de sinal televisivo e streaming.",
+      "fullDescription": "O Grupo ARKNET realizou uma visita técnica à Anjani Food & Beverages, proporcionando um momento de conhecimento e troca de experiências sobre os seus processos, infraestrutura e soluções tecnológicas.",
       "metrics": "[{\"partnerId\":\"partner-7\",\"partnerName\":\"Record TV Africa\",\"role\":\"Emissora de Televisão / Cliente\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-13\",\"partnerName\":\"Power House\",\"role\":\"Infraestrutura de Energia e Nobreaks\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "As operações industriais e de distribuição exigem processos cada vez mais eficientes, integrados e orientados por tecnologia, desde o controlo da produção até à gestão e distribuição dos produtos.",
       "solution": "O Grupo ARKNET realizou uma visita técnica à Anjani Food & Beverages, proporcionando um momento de conhecimento e troca de experiências sobre os seus processos, infraestrutura e soluções tecnológicas.\n\nA visita permitiu identificar oportunidades de aprendizagem e compreender como a tecnologia pode contribuir para a eficiência operacional, inovação e transformação digital no sector industrial.",
@@ -2403,18 +3609,18 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T11:49:05.797Z"
+      "updatedAt": "2026-01-15T00:00:00.000Z"
     },
     {
       "id": "proj-4",
       "title": "Visita Estratégica à Fé TV",
       "slug": "cftv-vigilancia-macon",
-      "client": "Macon Transportes",
+      "client": "Fé TV",
       "category": "CFTV e Segurança",
       "sector": "Projeto para Cliente",
       "year": 2025,
       "description": "Fortalecer relações estratégicas e explorar novas oportunidades de colaboração no sector da comunicação e tecnologia.",
-      "fullDescription": "Vigilância eletrónica de alta definição com mais de 120 câmaras IP e gravação centralizada.",
+      "fullDescription": "O Grupo ARKNET realizou uma visita estratégica à Fé TV, promovendo um momento de aproximação institucional, partilha de experiências e identificação de oportunidades de colaboração.",
       "metrics": "[{\"partnerId\":\"partner-4\",\"partnerName\":\"Macon\",\"role\":\"Operador Rodoviário / Cliente\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-14\",\"partnerName\":\"A Mundial Seguros\",\"role\":\"Consultoria de Salvaguarda de Risco\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "A transformação digital tem criado novas possibilidades para os meios de comunicação, exigindo soluções tecnológicas capazes de melhorar a produção, distribuição e experiência dos conteúdos.",
       "solution": "O Grupo ARKNET realizou uma visita estratégica à Fé TV, promovendo um momento de aproximação institucional, partilha de experiências e identificação de oportunidades de colaboração.\n\nA visita permitiu conhecer melhor a realidade da Fé TV e explorar possibilidades de integração entre tecnologia, comunicação e inovação, reforçando a visão do Grupo ARKNET de construir parcerias estratégicas com impacto.",
@@ -2460,18 +3666,18 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T10:34:19.967Z"
+      "updatedAt": "2026-01-20T00:00:00.000Z"
     },
     {
       "id": "proj-5",
       "title": "Alinhamento Estratégico para o Bootcamp",
       "slug": "cloud-disaster-recovery-anpg",
-      "client": "Agência Nacional de Petróleo, Gás e Biocombustíveis (ANPG)",
+      "client": "Arknet",
       "category": "Computação em Nuvem",
       "sector": "Colaboração Técnica",
       "year": 2026,
       "description": "Criar uma iniciativa de capacitação tecnológica com impacto, reunindo diferentes entidades em torno da formação, inovação e desenvolvimento de talentos.",
-      "fullDescription": "Arquitetura híbrida na nuvem com planos de Disaster Recovery (DRP) e replicação de dados.",
+      "fullDescription": "O Grupo ARKNET promoveu momentos de alinhamento estratégico com diferentes entidades, com o objectivo de preparar e estruturar o próximo Bootcamp Tecnológico.",
       "metrics": "[{\"partnerId\":\"partner-8\",\"partnerName\":\"ANPG\",\"role\":\"Entidade Reguladora / Cliente\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-11\",\"partnerName\":\"Neptec\",\"role\":\"Infraestrutura de Virtualização & Servidores\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "A concretização de um Bootcamp exige coordenação entre diferentes parceiros, definição de objectivos comuns e alinhamento das necessidades de formação com as oportunidades do sector tecnológico.",
       "solution": "O Grupo ARKNET promoveu momentos de alinhamento estratégico com diferentes entidades, com o objectivo de preparar e estruturar o próximo Bootcamp Tecnológico.\n\nOs encontros permitiram discutir temas, responsabilidades, oportunidades de colaboração e estratégias para garantir uma iniciativa relevante e capaz de proporcionar uma experiência de aprendizagem de qualidade aos participantes.",
@@ -2517,18 +3723,18 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T10:38:12.053Z"
+      "updatedAt": "2026-02-01T00:00:00.000Z"
     },
     {
       "id": "proj-6",
       "title": "Capacitação Interna",
       "slug": "conectividade-huambo-expresso",
-      "client": "Huambo Expresso",
+      "client": "Arknet",
       "category": "Consultoria & TI",
-      "sector": "Colaboração Técnica",
+      "sector": "Arknet",
       "year": 2026,
       "description": "Fortalecer continuamente as competências dos colaboradores, promovendo uma cultura de aprendizagem, evolução e melhoria dentro da organização.",
-      "fullDescription": "Rede WAN corporativa interligando agências de Luanda, Huambo e Benguela.",
+      "fullDescription": "O Grupo ARKNET promove sessões de capacitação interna, criando momentos de aprendizagem e partilha de conhecimentos entre os seus profissionais.",
       "metrics": "[{\"partnerId\":\"partner-9\",\"partnerName\":\"Huambo Expresso\",\"role\":\"Empresa de Transporte / Cliente\",\"partnerWebsite\":\"https://arknet.co.ao\"},{\"partnerId\":\"partner-10\",\"partnerName\":\"Vernon\",\"role\":\"Integração de Software de Bilhética\",\"partnerWebsite\":\"https://arknet.co.ao\"}]",
       "challenge": "A constante evolução do mercado e das tecnologias exige profissionais preparados para novos desafios, com conhecimentos actualizados e capacidade de adaptação.",
       "solution": "O Grupo ARKNET promove sessões de capacitação interna, criando momentos de aprendizagem e partilha de conhecimentos entre os seus profissionais.\n\nAs iniciativas procuram desenvolver competências técnicas e comportamentais, melhorar processos e reforçar a qualidade do trabalho, contribuindo para o crescimento dos colaboradores e da organização.",
@@ -2574,7 +3780,7 @@
         }
       ],
       "quote": null,
-      "updatedAt": "2026-09-24T10:48:50.422Z"
+      "updatedAt": "2026-02-10T00:00:00.000Z"
     }
   ],
   "dailyActivities": [
@@ -2599,6 +3805,9 @@
       "views": 0,
       "createdAt": "2026-03-08T09:30:00.000Z",
       "description": "Em Abril de 2026, a província de Benguela foi afectada por fortes chuvas e inundações que deixaram várias famílias em situação de vulnerabilidade.\n.",
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
       "updatedAt": "2026-03-08T09:30:00.000Z"
     },
     {
@@ -2621,6 +3830,9 @@
       "views": 0,
       "createdAt": "2026-03-06T14:00:00.000Z",
       "description": "A Tarde de um CEO é uma iniciativa quinzenal da JMATOS dedicada ao desenvolvimento profissional e pessoal dos seus colaboradores.",
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
       "updatedAt": "2026-03-06T14:00:00.000Z"
     },
     {
@@ -2644,6 +3856,9 @@
       "views": 0,
       "createdAt": "2026-03-04T11:15:00.000Z",
       "description": "A Reunião de Alinhamento é um momento dedicado à comunicação e coordenação entre as equipas da JMATOS.",
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
       "updatedAt": "2026-03-04T11:15:00.000Z"
     },
     {
@@ -2652,7 +3867,7 @@
       "slug": "treinamento-avancado-em-roteamento-bgp-e-engenharia-de-trafego-autonomo",
       "date": "2026-03-02",
       "category": "Eventos & Palestras",
-      "summary": "Sessão interna imersiva de nivelamento técnico com simulação de contingências, failover automático e balanceamento dinâmico de tráfego IP internacional.",
+      "summary": "O Grupo ARKNET e a Fé Tv realizaram uma visita institucional ao Data Center da Angola Cables, com o objectivo de conhecer de perto a sua infraestrutura tecnológica e explorar novas oportunidades de colaboração.",
       "content": "O Grupo ARKNET e a Fé Tv realizaram uma visita institucional ao Data Center da Angola Cables, com o objectivo de conhecer de perto a sua infraestrutura tecnológica e explorar novas oportunidades de colaboração.\nDurante a visita, foram apresentadas soluções e tecnologias relacionadas com data centers, conectividade, cloud e infraestrutura digital, proporcionando um importante momento de partilha de conhecimento e troca de experiências.\nA iniciativa reforça o compromisso das organizações com a inovação, transformação digital e desenvolvimento de novas soluções tecnológicas.",
       "author": "ARKNET",
       "image": "/uploads/829a64f3-eebb-44c6-818c-42846b7623d9_l0_001-12_08_2026_17_12_15.jpg_1_-1790244394854.jpeg",
@@ -2666,10 +3881,10 @@
       "views": 0,
       "createdAt": "2026-03-02T16:00:00.000Z",
       "description": "O Grupo ARKNET e a Fé Tv realizaram uma visita institucional ao Data Center da Angola Cables, com o objectivo de conhecer de perto a sua infraestrutura tecnológica e explorar novas oportunidades de colaboração.",
-      "updatedAt": "2026-09-24T10:06:36.224Z",
-      "clientOrLocation": "Luanda",
-      "time": "09:30",
-      "status": "concluida"
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
+      "updatedAt": "2026-03-02T16:00:00.000Z"
     },
     {
       "id": "d-act-5",
@@ -2677,7 +3892,7 @@
       "slug": "jornada-portas-abertas-estudantes-universitarios-conhecem-os-bastidores-da-arknet",
       "date": "2026-04-25",
       "category": "Eventos & Palestras",
-      "summary": "Recebemos mais de 30 finalistas universitários para uma visita técnica guiada aos nossos bastidores centrais, estações de fusão e simuladores de cibersegurança.",
+      "summary": "O Grupo ARKNET participou na IV Conferência Angolana de Compliance, um importante espaço de reflexão e partilha de conhecimentos sobre boas práticas de conformidade, ética e governação no contexto empresarial.",
       "content": "O Grupo ARKNET participou na IV Conferência Angolana de Compliance, um importante espaço de reflexão e partilha de conhecimentos sobre boas práticas de conformidade, ética e governação no contexto empresarial.\nA participação permitiu acompanhar tendências, trocar experiências com diferentes profissionais e reforçar a importância de uma cultura organizacional baseada na integridade, transparência e responsabilidade.\nA iniciativa reafirma o compromisso do Grupo ARKNET com a melhoria contínua das suas práticas e com o fortalecimento de uma gestão responsável e alinhada com os padrões de conformidade.",
       "author": "ARKNET",
       "image": "/uploads/a2ce82d2-4689-431a-9200-bd7bcc23affb_l0_001-16_07_2026_21_15_17.jpg-1790244583866.jpeg",
@@ -2691,10 +3906,10 @@
       "views": 0,
       "createdAt": "2026-02-28T10:00:00.000Z",
       "description": "O Grupo ARKNET participou na IV Conferência Angolana de Compliance, um importante espaço de reflexão e partilha de conhecimentos sobre boas práticas de conformidade, ética e governação no contexto empresarial.",
-      "updatedAt": "2026-09-24T10:09:46.324Z",
-      "clientOrLocation": "Luanda",
-      "time": "10:30",
-      "status": "concluida"
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
+      "updatedAt": "2026-02-28T10:00:00.000Z"
     },
     {
       "id": "d-act-6",
@@ -2702,7 +3917,7 @@
       "slug": "instalacao-e-alinhamento-de-radioenlace-de-contingencia-no-polo-de-viana",
       "date": "2026-02-02",
       "category": "Formações & Academia",
-      "summary": "Equipa de operações concluiu a fixação e calibração de antenas micro-ondas com link simétrico de alta imunidade a ruídos para cliente industrial.",
+      "summary": "A JMATOS promoveu uma sessão de formação com um neurocientista, proporcionando aos seus colaboradores um momento de aprendizagem e reflexão sobre o funcionamento do cérebro e a sua influência no comportamento, na aprendizagem e no desempenho profissional.",
       "content": "A JMATOS promoveu uma sessão de formação com um neurocientista, proporcionando aos seus colaboradores um momento de aprendizagem e reflexão sobre o funcionamento do cérebro e a sua influência no comportamento, na aprendizagem e no desempenho profissional.\nA iniciativa teve como objectivo contribuir para o desenvolvimento pessoal e profissional dos colaboradores, através de conhecimentos que podem ser aplicados no dia a dia e no ambiente de trabalho.\nJMATOS - Conhecimento que impulsiona pessoas.",
       "author": "Arknet",
       "image": "/uploads/55102edb-a61a-4e66-94c0-e120db80b738_l0_001-20_06_2026_18_49_39.heic-1790244747800.jpeg",
@@ -2716,31 +3931,13 @@
       "views": 0,
       "createdAt": "2026-02-25T15:30:00.000Z",
       "description": "A JMATOS promoveu uma sessão de formação com um neurocientista, proporcionando aos seus colaboradores um momento de aprendizagem e reflexão sobre o funcionamento do cérebro e a sua influência no comportamento, na aprendizagem e no desempenho profissional.",
-      "updatedAt": "2026-09-24T10:12:29.789Z",
-      "clientOrLocation": "Arknet Cede",
-      "time": "09:30",
-      "status": "concluida"
+      "status": "concluida",
+      "clientOrLocation": "Luanda, Angola",
+      "time": "12:00",
+      "updatedAt": "2026-02-25T15:30:00.000Z"
     }
   ],
   "reservations": [
-    {
-      "id": "res-2",
-      "reservationNumber": "RES-2026-0002",
-      "productId": null,
-      "customerId": null,
-      "productName": "HDTV Splitter Ver 1x4",
-      "productImage": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
-      "productPrice": 38000,
-      "customerName": "Dra. Beatriz Santos",
-      "customerEmail": "beatriz.santos@unitel.ao",
-      "customerPhone": "+244 912 889 900",
-      "customerCompany": "Infranet Soluções Lda",
-      "quantity": 2,
-      "notes": "Favor notificar por WhatsApp assim que desembarcar no armazém central.",
-      "status": "em_contacto",
-      "createdAt": "2026-09-07T11:29:27.787Z",
-      "updatedAt": "2026-09-23T15:12:34.701Z"
-    },
     {
       "id": "res-1",
       "reservationNumber": "RES-2026-0001",
@@ -2758,6 +3955,24 @@
       "status": "pendente",
       "createdAt": "2026-09-08T09:29:27.787Z",
       "updatedAt": "2026-09-23T15:15:44.962Z"
+    },
+    {
+      "id": "res-2",
+      "reservationNumber": "RES-2026-0002",
+      "productId": null,
+      "customerId": null,
+      "productName": "HDTV Splitter Ver 1x4",
+      "productImage": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
+      "productPrice": 38000,
+      "customerName": "Dra. Beatriz Santos",
+      "customerEmail": "beatriz.santos@unitel.ao",
+      "customerPhone": "+244 912 889 900",
+      "customerCompany": "Infranet Soluções Lda",
+      "quantity": 2,
+      "notes": "Favor notificar por WhatsApp assim que desembarcar no armazém central.",
+      "status": "em_contacto",
+      "createdAt": "2026-09-07T11:29:27.787Z",
+      "updatedAt": "2026-09-23T15:12:34.701Z"
     },
     {
       "id": "res-3",
@@ -2895,446 +4110,478 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-09-29T15:14:56.747Z"
+    "updatedAt": "2026-10-01T15:17:25.259Z"
   },
   "activities": [
     {
-      "id": "act-1790694896747-mvx3",
+      "id": "act-1790868965971-notv",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"HDMI  Splitter 1*4\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:36:05.971Z"
+    },
+    {
+      "id": "act-1790868908635-r7a6",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Extensão USB C 30M Ewent\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:35:08.635Z"
+    },
+    {
+      "id": "act-1790868657603-i831",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conversor de fibra ótica Netlink\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:30:57.603Z"
+    },
+    {
+      "id": "act-1790868604227-zm9z",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conector RJ45 duas unidades\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:30:04.227Z"
+    },
+    {
+      "id": "act-1790868525955-n3l7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cola Térmica\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:28:45.955Z"
+    },
+    {
+      "id": "act-1790868504995-q9nv",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cassete de fita de etiquetar\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:28:24.995Z"
+    },
+    {
+      "id": "act-1790868467483-w29j",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Câmera smarth\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:27:47.483Z"
+    },
+    {
+      "id": "act-1790868419779-tm4y",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador 4K ultra HD\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:26:59.779Z"
+    },
+    {
+      "id": "act-1790868399450-ke2i",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Auricular com fio AEG\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:26:39.450Z"
+    },
+    {
+      "id": "act-1790868384587-kvky",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cabo de Impressora HP DESKEJET\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:26:24.587Z"
+    },
+    {
+      "id": "act-1790868345259-tmcb",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cabo de Alimentação 10A-250V\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:25:45.259Z"
+    },
+    {
+      "id": "act-1790868319226-6eg0",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Bastidor de rede interllinet 6U\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:25:19.226Z"
+    },
+    {
+      "id": "act-1790868294819-l9ym",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Auricular com fio AEG\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:24:54.819Z"
+    },
+    {
+      "id": "act-1790868269475-f6mw",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador de PC Trasformador\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:24:29.475Z"
+    },
+    {
+      "id": "act-1790868248955-y61k",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador 4K ultra HD\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:24:08.955Z"
+    },
+    {
+      "id": "act-1790868210459-cbio",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Disco Externo SSD\"",
+      "module": "produtos",
+      "timestamp": "2026-10-01T15:23:30.459Z"
+    },
+    {
+      "id": "cmumjxiil0001utds2zw488t9",
+      "userId": "user-admin-ao",
+      "userName": "admin@arknet.ao",
+      "action": "newsletter_enviada",
+      "target": "NewsletterCampaign",
+      "targetId": "cmumjwoht0000utdsg3u43yqr",
+      "timestamp": "2026-09-29T10:46:52.413Z",
+      "details": "{\"subject\":\"Novidades\",\"recipientCount\":8,\"successCount\":8,\"failCount\":0}"
+    },
+    {
+      "id": "act-1790331780912-urgf",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Eliminou utilizador \"Administrador Principal\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T10:23:00.912Z",
+      "details": null
+    },
+    {
+      "id": "act-1790331719529-6nhq",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou utilizador \"Administrador ARKNET\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T10:21:59.529Z",
+      "details": null
+    },
+    {
+      "id": "act-1790327613047-qj8p",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Medidor de potencia óptica portátil\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T09:13:33.047Z",
+      "details": null
+    },
+    {
+      "id": "act-1790326545710-s64o",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Camera Dahua\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:55:45.710Z",
+      "details": null
+    },
+    {
+      "id": "act-1790326401791-ycjq",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Altifalante portátil Bluetooth T&G TG116C\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:53:21.791Z",
+      "details": null
+    },
+    {
+      "id": "act-1790326204373-a973",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cabo HDMI 1.8\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:50:04.373Z",
+      "details": null
+    },
+    {
+      "id": "act-1790325700293-muul",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador Wi-fi Alfa\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:41:40.293Z",
+      "details": null
+    },
+    {
+      "id": "act-1790325522360-j2s4",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador UGREEN Active HDMI Femea para VGA\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:38:42.360Z",
+      "details": null
+    },
+    {
+      "id": "act-1790325026454-7wv8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:30:26.454Z",
+      "details": null
+    },
+    {
+      "id": "act-1790324215696-7530",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T15:14:56.747Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:16:55.696Z",
+      "details": null
     },
     {
-      "id": "act-1790694823564-m4ur",
+      "id": "act-1790323359875-skv6",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-23\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:02:39.875Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323322931-f448",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-1788945524001-0f01\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:02:02.931Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323290515-cgl8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-40\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:01:30.515Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323289627-a485",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-7\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:01:29.627Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323284619-a5h8",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-7\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:01:24.619Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323279651-ak3v",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-9\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:01:19.651Z",
+      "details": null
+    },
+    {
+      "id": "act-1790323270427-sq5m",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-rec-1790066189556-26\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T08:01:10.427Z",
+      "details": null
+    },
+    {
+      "id": "act-1790322534878-n00f",
       "userId": "system",
       "userName": "Administrador",
       "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T15:13:43.564Z"
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-25T07:48:54.878Z",
+      "details": null
     },
     {
-      "id": "act-1790688725899-fai8",
+      "id": "act-1790261952400-kkno",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T13:32:05.899Z"
+      "action": "Atualizou produto \"Tinteiro HP GT53 e GT52\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:59:12.400Z",
+      "details": null
     },
     {
-      "id": "act-1790687213965-sjbw",
+      "id": "act-1790261865056-d09n",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T13:06:53.965Z"
+      "action": "Atualizou produto \"Teclado numérico com fio exbom preto\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:57:45.056Z",
+      "details": null
     },
     {
-      "id": "act-1790686752866-o2ca",
+      "id": "act-1790261823200-qcwl",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T12:59:12.866Z"
+      "action": "Atualizou produto \"Switch de rede 5 portas\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:57:03.200Z",
+      "details": null
     },
     {
-      "id": "act-1790686666755-k188",
+      "id": "act-1790261771976-60q9",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T12:57:46.755Z"
+      "action": "Atualizou produto \"Smart TV 50P\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:56:11.976Z",
+      "details": null
     },
     {
-      "id": "act-1790686627746-ckv7",
+      "id": "act-1790261714760-192p",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou as definições de contacto e institucionais da ARKNET",
-      "module": "definicoes",
-      "timestamp": "2026-09-29T12:57:07.746Z"
+      "action": "Eliminou produto \"Smart TV 50P\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:55:14.760Z",
+      "details": null
     },
     {
-      "id": "act-1790685189705-4dx6",
+      "id": "act-1790261610327-l8r3",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Eliminou produto \"roter\"",
-      "module": "produtos",
-      "timestamp": "2026-09-29T12:33:09.705Z"
+      "action": "Atualizou produto \"Resma de papel\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:53:30.327Z",
+      "details": null
     },
     {
-      "id": "act-1790685021483-je8w",
+      "id": "act-1790261506407-lbgp",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Adicionou produto \"roter\"",
-      "module": "produtos",
-      "timestamp": "2026-09-29T12:30:21.483Z"
+      "action": "Atualizou produto \"Monitor curvo wintech 27 FHD HDMI/VGA         75Hz\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:51:46.407Z",
+      "details": null
     },
     {
-      "id": "act-1790684662937-8s20",
+      "id": "act-1790261440847-vsdd",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-4",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:24:22.937Z"
+      "action": "Atualizou produto \"Mini impressora térmica portátil de 58mm\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:50:40.847Z",
+      "details": null
     },
     {
-      "id": "act-1790684658567-pwdy",
+      "id": "act-1790261417696-zrfc",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-3",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:24:18.567Z"
+      "action": "Atualizou produto \"Mini impressora térmica portátil de 58mm\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:50:17.696Z",
+      "details": null
     },
     {
-      "id": "act-1790684652610-khbx",
+      "id": "act-1790261319016-1u2f",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-2",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:24:12.610Z"
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:48:39.017Z",
+      "details": null
     },
     {
-      "id": "act-1790684646406-vyqg",
+      "id": "act-1790261306175-1s6c",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:24:06.406Z"
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:48:26.175Z",
+      "details": null
     },
     {
-      "id": "act-1790684638689-rsjr",
+      "id": "act-1790261293505-cfzp",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1790243017688",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:23:58.689Z"
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:48:13.505Z",
+      "details": null
     },
     {
-      "id": "act-1790684634554-0p4d",
+      "id": "act-1790261283888-2en6",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1790244140592",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:23:54.554Z"
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:48:03.888Z",
+      "details": null
     },
     {
-      "id": "act-1790684631483-zgq2",
+      "id": "act-1790261271227-0yh2",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1790251647582",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T12:23:51.483Z"
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:47:51.228Z",
+      "details": null
     },
     {
-      "id": "act-1790679479915-ysh8",
+      "id": "act-1790260887368-l761",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1790244140592",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T10:57:59.915Z"
-    },
-    {
-      "id": "act-1790679477443-qk06",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Removeu subscritor da newsletter #sub-1790251647582",
-      "module": "newsletter",
-      "timestamp": "2026-09-29T10:57:57.443Z"
-    },
-    {
-      "id": "act-1790352606566-3qmt",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Novo pedido recebido #PED-2026-2866 (Jedy Suco)",
-      "module": "pedidos",
-      "timestamp": "2026-09-25T16:10:06.566Z"
-    },
-    {
-      "id": "act-1790352514527-og81",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Início de sessão de cliente \"Jedy Suco\" (jedyvandunem16@gmail.com)",
-      "module": "clientes",
-      "timestamp": "2026-09-25T16:08:34.527Z"
-    },
-    {
-      "id": "act-1790352514526-tsab",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou perfil do cliente \"cli-1790351808657\"",
-      "module": "clientes",
-      "timestamp": "2026-09-25T16:08:34.526Z"
-    },
-    {
-      "id": "act-1790352226759-jz6q",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou estado da inscrição #reg-1790352014967-aa7a para \"confirmada\"",
-      "module": "eventos",
-      "timestamp": "2026-09-25T16:03:46.759Z"
-    },
-    {
-      "id": "act-1790352192886-t8wr",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-4",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:03:12.886Z"
-    },
-    {
-      "id": "act-1790352190470-5bh0",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-3",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:03:10.470Z"
-    },
-    {
-      "id": "act-1790352185918-c1fl",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-2",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:03:05.918Z"
-    },
-    {
-      "id": "act-1790352183006-z8u9",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-1",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:03:03.007Z"
-    },
-    {
-      "id": "act-1790352171454-sk8u",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-test-1788948718546",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:02:51.454Z"
-    },
-    {
-      "id": "act-1790352168750-ultz",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-test-1788948366063",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:02:48.750Z"
-    },
-    {
-      "id": "act-1790352165886-29ck",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-test-1788948245799",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:02:45.886Z"
-    },
-    {
-      "id": "act-1790352162719-g7gx",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #cmu2cqutm0000ute4s9j1u3jl",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:02:42.719Z"
-    },
-    {
-      "id": "act-1790352158511-xj4p",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou lead #lead-audit-1790251647430",
-      "module": "leads",
-      "timestamp": "2026-09-25T16:02:38.511Z"
-    },
-    {
-      "id": "act-1790352104263-674n",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou conta de cliente \"Carlos Alberto Ferreira\"",
-      "module": "clientes",
-      "timestamp": "2026-09-25T16:01:44.263Z"
-    },
-    {
-      "id": "act-1790352101327-iu88",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou conta de cliente \"Dra. Teresa Van-Dúnem\"",
-      "module": "clientes",
-      "timestamp": "2026-09-25T16:01:41.327Z"
-    },
-    {
-      "id": "act-1790352097487-t1bt",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Eliminou conta de cliente \"Eng. Manuel Domingos\"",
-      "module": "clientes",
-      "timestamp": "2026-09-25T16:01:37.487Z"
-    },
-    {
-      "id": "act-1790352076625-trs4",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou utilizador \"user-admin-ao\"",
-      "module": "utilizadores",
-      "timestamp": "2026-09-25T16:01:16.625Z"
-    },
-    {
-      "id": "act-1790352014967-54a1",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Inscrição efetuada: \"Jedy Suco\" no evento \"Bootcamp Tecnológico\"",
-      "module": "eventos",
-      "timestamp": "2026-09-25T16:00:14.967Z"
-    },
-    {
-      "id": "act-1790351957312-5qxw",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Novo pedido de serviço de \"Jedy Suco\" (Instalação e Manutenção)",
-      "module": "leads",
-      "timestamp": "2026-09-25T15:59:17.312Z"
-    },
-    {
-      "id": "act-1790351808657-9qs5",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Criou novo cliente \"Jedy Suco\" (jedyvandunem16@gmail.com)",
-      "module": "clientes",
-      "timestamp": "2026-09-25T15:56:48.657Z"
-    },
-    {
-      "id": "act-1790351627624-k3pt",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-19\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:47.624Z"
-    },
-    {
-      "id": "act-1790351626968-xc0e",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-19\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:46.968Z"
-    },
-    {
-      "id": "act-1790351626560-6ax7",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-19\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:46.560Z"
-    },
-    {
-      "id": "act-1790351626272-c9l4",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-19\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:46.272Z"
-    },
-    {
-      "id": "act-1790351612385-eyes",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Controladora wi-fi Tp-link OC 200 Omada\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:32.385Z"
-    },
-    {
-      "id": "act-1790351601961-sbir",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Coluna de som portátil JBL Charge 6\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:21.961Z"
-    },
-    {
-      "id": "act-1790351589929-9m3a",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:09.929Z"
-    },
-    {
-      "id": "act-1790351581433-hz0r",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Câmera EZVIZ\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:53:01.433Z"
-    },
-    {
-      "id": "act-1790351556690-8o83",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cabo adaptador USB para Sata\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:36.690Z"
-    },
-    {
-      "id": "act-1790351545961-rgou",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cabo multi-carregador USB 3 em 1\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:25.961Z"
-    },
-    {
-      "id": "act-1790351525968-souc",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:05.968Z"
-    },
-    {
-      "id": "act-1790351525416-bvrw",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"prod-rec-1790066189556-35\"",
-      "module": "produtos",
-      "timestamp": "2026-09-25T15:52:05.416Z"
+      "action": "Atualizou produto \"Impressora Konica Minolta Bizhub 36A\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:41:27.368Z",
+      "details": null
     }
   ],
   "version": 3,
-  "recoveryTokens": [
-    {
-      "email": "jedysucosuco@gmail.com",
-      "accountId": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
-      "accountType": "customer",
-      "codeHash": "e2b70cbf8ac7a9aa662179fd11026ba58f3669ac4209845ba50879c192383435",
-      "sentAt": 1790608984182,
-      "windowStartedAt": 1790608977019,
-      "sendCount": 3,
-      "expiresAt": 1790609884182,
-      "attempts": 0
-    },
-    {
-      "email": "jedy.suco@arknet.co.ao",
-      "accountId": "cli-66dc98b1-8d63-47c9-bd86-4d5e6e664782",
-      "accountType": "customer",
-      "userName": "Arknet",
-      "codeHash": "84d9fe147f56c2589c0970b42f2f1b98ed5c5f6f08754fb3e0c48a6f58456d33",
-      "sentAt": 1790671122826,
-      "windowStartedAt": 1790671122826,
-      "sendCount": 1,
-      "expiresAt": 1790672022826,
-      "attempts": 0
-    },
-    {
-      "email": "jedyvandunem16@gmail.com",
-      "accountId": "cli-1790351808657",
-      "accountType": "customer",
-      "userName": "Jedy Suco",
-      "codeHash": "7cc7327a3c6a308a51e42f9d8182d8be46d7801690d341a36e3882e644cd64cc",
-      "sentAt": 1790675170415,
-      "windowStartedAt": 1790675170415,
-      "sendCount": 1,
-      "expiresAt": 1790676070415,
-      "attempts": 0
-    }
-  ]
+  "recoveryTokens": []
 }

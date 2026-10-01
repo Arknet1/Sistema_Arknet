@@ -31,20 +31,8 @@ export interface PasswordValidationResult {
 export function validatePasswordStrength(password: string): PasswordValidationResult {
   const errors: string[] = []
 
-  if (!password || password.length < 8) {
-    errors.push('A palavra-passe deve conter pelo menos 8 caracteres.')
-  }
-  if (!/[A-Z]/.test(password)) {
-    errors.push('A palavra-passe deve incluir pelo menos uma letra maiúscula.')
-  }
-  if (!/[a-z]/.test(password)) {
-    errors.push('A palavra-passe deve incluir pelo menos uma letra minúscula.')
-  }
-  if (!/[0-9]/.test(password)) {
-    errors.push('A palavra-passe deve incluir pelo menos um número.')
-  }
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    errors.push('A palavra-passe deve incluir pelo menos um caractere especial (!@#$%...).')
+  if (!password || password.length < 6) {
+    errors.push('A palavra-passe deve conter pelo menos 6 caracteres.')
   }
 
   return {

@@ -10,6 +10,7 @@ import {
   appendServerLeadAsync,
   appendServerSubscriberAsync,
   appendServerEventRegistrationAsync,
+  appendServerApplicationAsync,
 } from '@/lib/server-db'
 import { prisma } from '@/lib/prisma'
 import { verifySessionToken } from '@/lib/server-auth'
@@ -39,9 +40,15 @@ export async function GET(request: NextRequest) {
     const admin = getAdminPayload(request)
 
     if (admin) {
-      // Para administradores: lê os dados completos de arknet-db.json
-      // NUNCA executa escritas destrutivas durante a leitura (GET).
-      const fullDb = readServerDb()
+      // Para administradores: lê os dados completos do Prisma (fonte primária)
+      // Com fallback para o JSON em caso de erro de base de dados
+      let fullDb: any
+      try {
+        fullDb = await readServerDbFromPrisma()
+      } catch (prismaErr) {
+        console.warn('[API /api/db GET] Prisma falhou, a usar fallback JSON:', prismaErr)
+        fullDb = readServerDb()
+      }
       const { recoveryTokens: _recoveryTokens, ...safeDb } = fullDb
       safeDb.users = (safeDb.users || []).map((user: any) => {
         const { password: _password, passwordHash: _passwordHash, ...safeUser } = user
@@ -54,8 +61,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: true, db: safeDb }, { status: 200 })
     }
 
-    // Visitante público: apenas dados do site e da loja
-    const fullDb = readServerDb()
+    // Visitante público: lê do Prisma com fallback para JSON
+    let fullDb: any
+    try {
+      fullDb = await readServerDbFromPrisma()
+    } catch {
+      fullDb = readServerDb()
+    }
     const publicDb = getSanitizedPublicDb(fullDb)
     return NextResponse.json({ success: true, db: publicDb }, { status: 200 })
   } catch (error) {
@@ -72,7 +84,12 @@ export async function GET(request: NextRequest) {
 // 2. Ações administrativas (requerem token): reset, substituição completa da BD, sincronização do painel
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    let body: any
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ success: false, message: 'Dados inválidos (JSON malformado)' }, { status: 400 })
+    }
     if (!body || typeof body !== 'object') {
       return NextResponse.json({ success: false, message: 'Dados inválidos' }, { status: 400 })
     }
@@ -203,6 +220,18 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json({ success: true, message: 'Conta de cliente criada com sucesso' }, { status: 201 })
+    }
+
+    if (action === 'create_application') {
+      const application = body.application
+      if (!application || (!application.candidateName && !application.name) || !application.email) {
+        return NextResponse.json({ success: false, message: 'Dados da candidatura incompletos' }, { status: 400 })
+      }
+      const success = await appendServerApplicationAsync(application)
+      if (!success) {
+        return NextResponse.json({ success: false, message: 'Falha ao registar candidatura no servidor' }, { status: 500 })
+      }
+      return NextResponse.json({ success: true, message: 'Candidatura registada com sucesso' }, { status: 201 })
     }
 
     // ── Ações Administrativas (requerem autenticação) ──────────────────

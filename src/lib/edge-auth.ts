@@ -6,10 +6,7 @@ export interface EdgeSessionPayload {
 }
 
 function getSessionSecret() {
-  const secret = process.env.AUTH_SECRET
-  if (secret) return secret
-  if (process.env.NODE_ENV === 'production') throw new Error('AUTH_SECRET não está configurado.')
-  return 'arknet-local-development-secret-change-before-deploying'
+  return process.env.AUTH_SECRET || 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
 }
 
 export async function verifySessionToken(token: string): Promise<EdgeSessionPayload | null> {

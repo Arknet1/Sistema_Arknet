@@ -527,8 +527,24 @@ export function getSanitizedPublicDb(fullData?: any) {
  * Adiciona uma nova encomenda de forma atómica no Prisma e backup JSON
  */
 export async function appendServerOrderAsync(order: any) {
+  // 1. Backup no JSON (sempre funciona)
+  appendServerOrder(order)
+
   try {
-    // 1. Gravação no Prisma ORM
+    // 2. Verificar que os productIds referenciam produtos existentes no Prisma
+    const validProductIds = new Set<string>()
+    const rawProductIds = (order.items || []).map((it: any) => it.productId).filter(Boolean)
+    if (rawProductIds.length > 0) {
+      try {
+        const existingProducts = await prisma.product.findMany({
+          where: { id: { in: rawProductIds } },
+          select: { id: true },
+        })
+        for (const p of existingProducts) validProductIds.add(p.id)
+      } catch { /* ignora erros de consulta */ }
+    }
+
+    // 3. Gravação no Prisma ORM com productId seguro
     const created = await prisma.storeOrder.create({
       data: {
         id: order.id,
@@ -555,7 +571,7 @@ export async function appendServerOrderAsync(order: any) {
         items: {
           create: (order.items || []).map((it: any, idx: number) => ({
             id: `item-${order.id}-${idx}-${Date.now()}`,
-            productId: it.productId || null,
+            productId: (it.productId && validProductIds.has(it.productId)) ? it.productId : null,
             productName: it.productName || 'Produto',
             price: typeof it.price === 'number' ? it.price : null,
             quantity: typeof it.quantity === 'number' ? it.quantity : 1,
@@ -565,12 +581,10 @@ export async function appendServerOrderAsync(order: any) {
       },
     })
 
-    // 2. Backup no JSON
-    appendServerOrder(order)
     return !!created
   } catch (err) {
-    console.error('[Prisma appendServerOrderAsync] Erro ao gravar encomenda:', err)
-    return appendServerOrder(order)
+    console.error('[Prisma appendServerOrderAsync] Erro ao gravar encomenda (JSON backup já feito):', err)
+    return true // JSON backup já foi salvo acima
   }
 }
 
@@ -584,12 +598,23 @@ export function appendServerOrder(order: any) {
  * Adiciona uma nova reserva de produto no Prisma e backup JSON
  */
 export async function appendServerReservationAsync(reservation: any) {
+  appendServerReservation(reservation)
+
   try {
+    // Verificar que productId existe no Prisma
+    let safeProductId: string | null = null
+    if (reservation.productId) {
+      try {
+        const prod = await prisma.product.findUnique({ where: { id: reservation.productId }, select: { id: true } })
+        if (prod) safeProductId = prod.id
+      } catch { /* ignora */ }
+    }
+
     const created = await prisma.productReservation.create({
       data: {
         id: reservation.id,
         reservationNumber: reservation.reservationNumber,
-        productId: reservation.productId || null,
+        productId: safeProductId,
         productName: reservation.productName,
         productImage: reservation.productImage || null,
         productPrice: typeof reservation.productPrice === 'number' ? reservation.productPrice : null,
@@ -604,11 +629,10 @@ export async function appendServerReservationAsync(reservation: any) {
         updatedAt: new Date(),
       },
     })
-    appendServerReservation(reservation)
     return !!created
   } catch (err) {
-    console.error('[Prisma appendServerReservationAsync] Erro ao gravar reserva:', err)
-    return appendServerReservation(reservation)
+    console.error('[Prisma appendServerReservationAsync] Erro (JSON backup já feito):', err)
+    return true
   }
 }
 
@@ -853,5 +877,38 @@ export async function deleteProductServerAsync(id: string) {
   const updatedProds = (current.products || []).filter((p: any) => p.id !== id)
   writeServerDb({ products: updatedProds })
   return true
+}
+
+/**
+ * Adiciona uma nova candidatura a vaga no Prisma e backup JSON
+ */
+export async function appendServerApplicationAsync(application: any) {
+  try {
+    const created = await prisma.jobApplication.create({
+      data: {
+        id: application.id,
+        jobId: application.jobId || null,
+        jobTitle: application.jobTitle || null,
+        name: application.candidateName || application.name,
+        email: application.email,
+        phone: application.phone || '',
+        resumeUrl: application.resumeUrl || null,
+        message: application.notes || application.message || '',
+        status: application.status || 'recebida',
+        appliedAt: application.createdAt ? new Date(application.createdAt) : new Date(),
+      },
+    })
+    appendServerApplication(application)
+    return !!created
+  } catch (err) {
+    console.error('[Prisma appendServerApplicationAsync] Erro:', err)
+    return appendServerApplication(application)
+  }
+}
+
+export function appendServerApplication(application: any) {
+  const current = readServerDbFallback()
+  const applications = [application, ...(current.applications || [])]
+  return writeServerDb({ applications })
 }
 

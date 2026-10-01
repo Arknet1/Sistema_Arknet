@@ -32,9 +32,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   useEffect(() => {
-    fetch('/api/auth/session', { cache: 'no-store', credentials: 'include' })
+    const token = typeof window !== 'undefined' ? localStorage.getItem('arknet_admin_token') : null
+    const headers: Record<string, string> = {}
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+    fetch('/api/auth/session', { cache: 'no-store', headers, credentials: 'include' })
       .then((response) => response.json())
-      .then((result) => setUser(result.authenticated && result.kind === 'admin' ? result.user as AdminUser : null))
+      .then((result) => {
+        if (result.authenticated && result.kind === 'admin') {
+          setUser(result.user as AdminUser)
+          if (result.token) {
+            localStorage.setItem('arknet_admin_token', result.token)
+          }
+        } else {
+          setUser(null)
+        }
+      })
       .catch(() => setUser(null))
       .finally(() => setIsLoading(false))
   }, [])
@@ -50,6 +64,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
       const result = await response.json()
       if (!response.ok || result.kind !== 'admin') return { success: false, message: result.message || 'Email ou palavra-passe inválidos.' }
+      if (result.token) {
+        localStorage.setItem('arknet_admin_token', result.token)
+      }
       setFailedAttempts(0)
       setUser(result.user as AdminUser)
       return { success: true, message: result.message }
@@ -62,6 +79,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     await fetch('/api/auth/session', { method: 'DELETE', credentials: 'include' }).catch(() => undefined)
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('arknet_admin_token')
+    }
     setUser(null)
     router.push('/login')
   }

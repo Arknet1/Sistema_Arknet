@@ -74,6 +74,22 @@ export default function AdminReservasPage() {
   const [products, setProducts] = useState<StoreProduct[]>([])
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true)
+    try {
+      await dataStore.syncWithServer()
+      const db = dataStore.getSnapshot()
+      setReservations(db.reservations || [])
+      setProducts(db.products || [])
+      info('Reservas atualizadas com o servidor.')
+    } catch {
+      info('Erro ao atualizar reservas.')
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
 
   useEffect(() => {
     const sync = () => {
@@ -82,6 +98,7 @@ export default function AdminReservasPage() {
       setProducts(db.products || [])
     }
     sync()
+    dataStore.syncWithServer().then(() => sync()).catch(() => undefined)
     const unsub = dataStore.subscribe(sync)
     return () => unsub()
   }, [])
@@ -180,15 +197,26 @@ export default function AdminReservasPage() {
           </p>
         </div>
 
-        <Link
-          href="/loja"
-          target="_blank"
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg transition self-start sm:self-auto shadow-xs"
-        >
-          <ShoppingBag className="h-4 w-4" />
-          <span>Ver Loja Online</span>
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider rounded-lg transition border border-slate-300 shadow-xs"
+          >
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin text-primary' : ''}`} />
+            <span>{isRefreshing ? 'A sincronizar...' : 'Atualizar'}</span>
+          </button>
+          <Link
+            href="/loja"
+            target="_blank"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg transition self-start sm:self-auto shadow-xs"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            <span>Ver Loja Online</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
       </div>
 
       {/* Metric Cards Grid */}

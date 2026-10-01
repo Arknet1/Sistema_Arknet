@@ -64,11 +64,36 @@ export default function AdminPedidosPage() {
   // Delete Modal
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const getAuthHeaders = () => {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    const token = typeof window !== 'undefined' ? localStorage.getItem('arknet_admin_token') : null
+    if (token) headers['Authorization'] = `Bearer ${token}`
+    return headers
+  }
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true)
+    try {
+      await dataStore.syncWithServer()
+      const db = dataStore.getSnapshot()
+      const sorted = [...(db.orders || [])].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      setOrders(sorted)
+      info('Lista de pedidos atualizada com o servidor.')
+    } catch {
+      toastError('Erro ao atualizar pedidos com o servidor.')
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
 
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      const sorted = [...db.orders].sort(
+      const sorted = [...(db.orders || [])].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       )
       setOrders(sorted)
@@ -80,6 +105,7 @@ export default function AdminPedidosPage() {
       }
     }
     sync()
+    dataStore.syncWithServer().then(() => sync()).catch(() => undefined)
     const unsub = dataStore.subscribe(sync)
     return () => unsub()
   }, [selectedOrder?.id])
@@ -126,7 +152,8 @@ export default function AdminPedidosPage() {
     try {
       const response = await fetch('/api/whatsapp/send', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
+        credentials: 'include',
         body: JSON.stringify({
           orderId,
           isConfirmation: true,
@@ -167,7 +194,8 @@ export default function AdminPedidosPage() {
     try {
       const response = await fetch('/api/whatsapp/send', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
+        credentials: 'include',
         body: JSON.stringify({
           orderId: selectedOrder.id,
           text: operatorMessage.trim(),
@@ -376,6 +404,15 @@ export default function AdminPedidosPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-lg transition flex items-center gap-2 border border-slate-300"
+          >
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin text-primary' : ''}`} />
+            <span>{isRefreshing ? 'A sincronizar...' : 'Atualizar Pedidos'}</span>
+          </button>
           <ExportButton onExport={handleExportCSV} label="Exportar Pedidos (CSV)" />
         </div>
       </div>

@@ -2165,6 +2165,14 @@ class DataStoreManager {
       (db) => ({ ...db, orders: [newOrder, ...db.orders] }),
       { action: `Novo pedido recebido #${newOrder.orderNumber} (${newOrder.customerName})`, module: 'pedidos' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_order', order: newOrder }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addOrder sync]:', e))
+    }
     return newOrder
   }
 
@@ -2424,6 +2432,14 @@ class DataStoreManager {
         module: 'loja',
       }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_reservation', reservation: newReservation }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addReservation sync]:', e))
+    }
     return newReservation
   }
 
@@ -2483,6 +2499,14 @@ class DataStoreManager {
       (db) => ({ ...db, leads: [newLead, ...db.leads] }),
       { action: `Novo pedido de serviço de "${newLead.name}" (${newLead.service})`, module: 'leads' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_lead', lead: newLead }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addLead sync]:', e))
+    }
     return newLead
   }
 
@@ -2544,6 +2568,14 @@ class DataStoreManager {
       (db) => ({ ...db, subscribers: [newSub, ...db.subscribers] }),
       { action: `Nova subscrição na newsletter: ${cleanEmail}`, module: 'newsletter' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'subscribe_newsletter', email: cleanEmail }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addSubscriber sync]:', e))
+    }
     return { success: true, message: 'Obrigado por subscrever a nossa newsletter!', subscriber: newSub }
   }
 
@@ -2697,6 +2729,14 @@ class DataStoreManager {
       }),
       { action: `Inscrição efetuada: "${newReg.name}" no evento "${newReg.eventTitle}"`, module: 'eventos' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'register_event', registration: newReg }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addEventRegistration sync]:', e))
+    }
     return newReg
   }
 
@@ -2802,6 +2842,14 @@ class DataStoreManager {
       (db) => ({ ...db, applications: [newApp, ...db.applications] }),
       { action: `Nova candidatura recebida de "${newApp.candidateName}" para "${newApp.jobTitle}"`, module: 'carreiras' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_application', application: newApp }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addApplication sync]:', e))
+    }
     return newApp
   }
 
@@ -2953,6 +3001,14 @@ class DataStoreManager {
       (db) => ({ ...db, customers: [newCustomer, ...(db.customers || [])] }),
       { action: `Criou novo cliente "${newCustomer.name}" (${newCustomer.email})`, module: 'clientes' }
     )
+    if (this.isBrowser) {
+      fetch('/api/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'register_customer', customer: newCustomer }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addCustomer sync]:', e))
+    }
     return newCustomer
   }
 

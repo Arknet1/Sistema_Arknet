@@ -57,9 +57,10 @@ export default function AdminUtilizadoresPage() {
   useEffect(() => {
     const sync = () => {
       const db = dataStore.getSnapshot()
-      setUsers([...db.users])
+      setUsers([...(db.users || [])])
     }
     sync()
+    dataStore.syncWithServer().then(() => sync()).catch(() => undefined)
     const unsub = dataStore.subscribe(sync)
     return () => unsub()
   }, [])
