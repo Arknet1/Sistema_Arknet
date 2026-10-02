@@ -11,15 +11,12 @@ import {
   Phone,
   ShieldCheck,
   Truck,
-  Building2,
   FileText,
   Share2,
   ChevronRight,
   Sparkles,
-  HelpCircle,
-  Clock,
-  Plus,
   Minus,
+  Plus,
   MessageCircle,
   ExternalLink,
   Layers,
@@ -30,39 +27,60 @@ import {
   CheckCircle2,
   Box,
   Headphones,
-  RotateCcw,
-  Printer,
-  Download,
   X,
   ChevronDown,
 } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 import { useWishlist } from '@/lib/wishlist-store'
-import { dataStore, StoreProduct } from '@/lib/data-store'
+import { dataStore, StoreProduct, ProductVariant } from '@/lib/data-store'
 import { formatProdutoPrice } from '@/lib/format-produto-price'
 import ProductCard from '@/components/product-card'
 import { useToast } from '@/lib/toast-context'
 import ReserveProductModal from '@/components/reserve-product-modal'
-
-const monthlyCategories = ['Internet', 'Hosting', 'Cloud', 'Comunicações']
+import { guessColorHex, isColorOption } from '@/lib/color-utils'
 
 // Gerador Inteligente de Ficha Técnica Detalhada por Categoria
-function getCategorySpecs(product: StoreProduct) {
+function getCategorySpecs(product: StoreProduct, selectedVariant?: ProductVariant) {
   const cat = (product.category || '').toLowerCase()
   const name = (product.name || '').toLowerCase()
 
   const commonSpecs = [
     { label: 'Modelo / Referência', value: product.name },
-    { label: 'Código SKU ARKNET', value: product.sku || `ARK-${product.id.toUpperCase()}` },
+    { label: 'Código SKU ARKNET', value: selectedVariant?.sku || product.sku || `ARK-${product.id.toUpperCase()}` },
     { label: 'Categoria Comercial', value: product.category },
-    { label: 'Condição do Equipamento', value: '100% Novo em Caixa Selada' },
+    ...(product.brand ? [{ label: 'Marca / Fabricante', value: product.brand }] : []),
+    { label: 'Condição do Equipamento', value: '100% Novo em Caixa Selada com Selo de Autenticidade' },
     {
       label: 'Disponibilidade de Stock',
-      value: product.inStock !== false ? 'Disponível para Entrega Imediata (Sede Luanda)' : 'Em Trânsito / Reposição Prevista para Angola',
+      value:
+        selectedVariant
+          ? selectedVariant.stock > 0
+            ? 'Disponível para Entrega Imediata (Sede Luanda)'
+            : 'Esgotado nesta configuração / Reposição em Trânsito'
+          : product.inStock !== false
+          ? 'Disponível para Entrega Imediata (Sede Luanda)'
+          : 'Em Trânsito / Reposição Prevista para Angola',
     },
     { label: 'Homologação e Normas', value: 'Conformidade INACOM / CE / FCC / ISO 9001' },
     { label: 'Garantia Oficial', value: '12 a 24 Meses com Assistência Técnica ARKNET' },
   ]
+
+  // Adicionar opções selecionadas da variante na ficha técnica
+  if (selectedVariant && selectedVariant.options) {
+    selectedVariant.options.forEach((opt) => {
+      commonSpecs.push({
+        label: `Configuração: ${opt.optionName}`,
+        value: opt.value,
+      })
+    })
+  }
+
+  // Adicionar especificações customizadas da variante se existirem
+  if (selectedVariant && selectedVariant.specs) {
+    Object.entries(selectedVariant.specs).forEach(([k, v]) => {
+      if (v) commonSpecs.push({ label: k, value: String(v) })
+    })
+  }
 
   if (cat.includes('smartphone') || name.includes('iphone') || name.includes('android')) {
     return [
@@ -72,70 +90,45 @@ function getCategorySpecs(product: StoreProduct) {
       { label: 'Sistema de Câmaras', value: 'Sensor Principal de 48 MP + Ultra Grande Angular + Teleobjetiva' },
       { label: 'Conectividade Móvel', value: '5G Dual SIM (Nano-SIM + eSIM) / Wi-Fi 7 / Bluetooth 5.4' },
       { label: 'Segurança & Biometria', value: name.includes('iphone') ? 'Face ID com Sensor TrueDepth' : 'Leitor de Impressão Digital Sob o Ecrã' },
-      { label: 'Carregamento & Bateria', value: 'Carregamento Rápido USB-C / Carregamento Sem Fios MagSafe' },
     ]
   }
 
-  if (cat.includes('rede') || name.includes('roteador') || name.includes('switch') || name.includes('wi-fi') || name.includes('repetidor') || name.includes('tp-link')) {
+  if (cat.includes('rede') || name.includes('roteador') || name.includes('switch') || name.includes('wi-fi') || name.includes('router') || name.includes('tp-link')) {
     return [
       ...commonSpecs,
       { label: 'Interface de Rede', value: 'Portas Gigabit Ethernet RJ45 10/100/1000 Mbps + Slots SFP' },
       { label: 'Normas Sem Fios', value: 'IEEE 802.11ax/ac/n/g/b (Wi-Fi 6 Dual Band 2.4/5GHz)' },
       { label: 'Velocidade Wireless', value: 'Até 3000 Mbps agregados com tecnologia MU-MIMO e Beamforming' },
-      { label: 'Alimentação & PoE', value: 'Suporte a PoE 802.3af/at (Power over Ethernet) ou Transformador 12V/24V' },
-      { label: 'Protocolos e Segurança', value: 'WPA3-Enterprise, VLAN 802.1Q, QoS, VPN WireGuard/IPSec, Firewall Integrado' },
-      { label: 'Gestão de Rede', value: 'Interface Web, Telnet, SSH, SNMP v2/v3 e Cloud Management' },
+      { label: 'Segurança & Firewall', value: 'WPA3-Enterprise, VLAN 802.1Q, QoS, VPN WireGuard/IPSec' },
     ]
   }
 
-  if (cat.includes('cabo') || cat.includes('conectividade') || name.includes('cabo') || name.includes('conector') || name.includes('alicate')) {
-    return [
-      ...commonSpecs,
-      { label: 'Especificação do Cabo', value: 'Cat6 / Cat6A UTP/FTP 4 Pares Trançados' },
-      { label: 'Condutor Interno', value: '100% Cobre Puro Eletrolítico 23AWG / 24AWG' },
-      { label: 'Revestimento Exterior', value: 'Capa LSZH (Baixa Emissão de Fumo e Sem Halogéneos) Anti-chama' },
-      { label: 'Largura de Banda', value: 'Frequência de teste até 250 MHz / 500 MHz (Gigabit & 10G)' },
-      { label: 'Certificação de Teste', value: 'Pass Fluke DTX/DSX Channel & Permanent Link Test' },
-    ]
-  }
-
-  if (cat.includes('energia') || name.includes('ups') || name.includes('filtro') || name.includes('extensão') || name.includes('pilha')) {
-    return [
-      ...commonSpecs,
-      { label: 'Tensão de Entrada/Saída', value: '220 V a 240 V AC, 50/60 Hz' },
-      { label: 'Proteção Elétrica', value: 'Filtro contra Picos, Sobretensões, Curto-circuitos e Ruído de Linha' },
-      { label: 'Tomadas de Ligação', value: 'Tomadas Schuko padrão europeu / angolano com proteção infantil' },
-      { label: 'Material da Carcaça', value: 'Polímero ABS Ignífugo resistente a altas temperaturas' },
-    ]
-  }
-
-  if (cat.includes('computador') || cat.includes('portáteis') || name.includes('notebook') || name.includes('computador') || name.includes('ram')) {
+  if (cat.includes('computador') || cat.includes('portáteis') || name.includes('notebook') || name.includes('portátil') || name.includes('hp')) {
     return [
       ...commonSpecs,
       { label: 'Processador / Arquitetura', value: 'Intel Core / AMD Ryzen Multi-Core de Alta Eficiência' },
-      { label: 'Memória e Barramento', value: 'DDR4 / DDR5 High Speed com suporte a expansão' },
-      { label: 'Armazenamento', value: 'SSD NVMe M.2 PCIe Gen4 de Ultra Velocidade' },
-      { label: 'Conexões & Portas', value: 'USB-C Thunderbolt, USB 3.2, HDMI 2.1, Jack 3.5mm e Leitor SD' },
-      { label: 'Sistema Operativo', value: 'Windows 11 Pro Corporativo / Suporte a Linux' },
+      { label: 'Memória RAM', value: selectedVariant?.options?.find(o => o.optionName.toLowerCase().includes('ram'))?.value || 'DDR4 / DDR5 High Speed' },
+      { label: 'Armazenamento', value: selectedVariant?.options?.find(o => o.optionName.toLowerCase().includes('armazenamento') || o.optionName.toLowerCase().includes('ssd'))?.value || 'SSD NVMe M.2 PCIe Gen4' },
+      { label: 'Sistema Operativo', value: 'Windows 11 Pro Corporativo Pré-instalado' },
     ]
   }
 
   return [
     ...commonSpecs,
     { label: 'Ambiente de Aplicação', value: 'Empresarial, Corporativo e Residencial de Alto Desempenho' },
-    { label: 'Alimentação', value: '100-240V AC / Bivolt Automático ou USB' },
+    { label: 'Alimentação & Voltagem', value: '100-240V AC / Bivolt Automático ou USB' },
     { label: 'Compatibilidade', value: 'Universal com sistemas informáticos e redes existentes em Angola' },
   ]
 }
 
-// O que vem na caixa por categoria
-function getPackageContents(product: StoreProduct): string[] {
+function getPackageContents(product: StoreProduct, selectedVariant?: ProductVariant): string[] {
   const cat = (product.category || '').toLowerCase()
   const name = (product.name || '').toLowerCase()
+  const variantLabel = selectedVariant?.options?.map(o => o.value).join(', ')
 
   if (cat.includes('smartphone') || name.includes('iphone')) {
     return [
-      `1x ${product.name}`,
+      `1x ${product.name} ${variantLabel ? `(${variantLabel})` : ''}`,
       '1x Cabo USB-C de Carregamento Rápido em Tecido Trançado',
       '1x Chave Extratora de Bandeja SIM',
       '1x Guia de Iniciação Rápida e Documentação Oficial',
@@ -143,22 +136,21 @@ function getPackageContents(product: StoreProduct): string[] {
     ]
   }
 
-  if (cat.includes('rede') || name.includes('roteador') || name.includes('switch') || name.includes('wi-fi')) {
+  if (cat.includes('rede') || name.includes('roteador') || name.includes('switch') || name.includes('router')) {
     return [
-      `1x ${product.name}`,
-      '1x Adaptador de Alimentação AC / Fonte de Energia',
+      `1x ${product.name} ${variantLabel ? `(${variantLabel})` : ''}`,
+      '1x Adaptador de Alimentação AC / Fonte de Energia 220V',
       '1x Cabo de Rede Ethernet RJ45 Cat6 de Alta Velocidade',
-      '1x Kit de Parafusos / Suportes para Fixação em Rack ou Parede',
       '1x Manual de Configuração Rápida em Português',
       '1x Certificado de Conformidade e Garantia Técnica',
     ]
   }
 
   return [
-    `1x ${product.name}`,
+    `1x ${product.name} ${variantLabel ? `(${variantLabel})` : ''}`,
     '1x Acessórios Oficiais e Cabos de Ligação',
     '1x Manual de Instruções do Utilizador',
-    '1x Certificado de Garantia ARKNET Angola',
+    '1x Certificado de Garantia Oficial ARKNET Angola',
   ]
 }
 
@@ -179,6 +171,9 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   const [proformaClientName, setProformaClientName] = useState('')
   const [proformaClientNif, setProformaClientNif] = useState('')
 
+  // Selected Option Values: { "Cor": "Azul", "RAM": "16GB", ... }
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({})
+
   // FAQ Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
@@ -188,30 +183,148 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
       const list = dataStore.getProducts()
       setProduct(p)
       setAllProducts(list)
+
+      // Initialize selectedOptions with first variant or available options
+      if (p && p.variants && p.variants.length > 0) {
+        const defaultVar = p.variants.find((v) => v.active && v.stock > 0) || p.variants[0]
+        if (defaultVar && defaultVar.options) {
+          const initialOpts: Record<string, string> = {}
+          defaultVar.options.forEach((opt) => {
+            if (opt.optionName && opt.value) {
+              initialOpts[opt.optionName] = opt.value
+            }
+          })
+          setSelectedOptions(initialOpts)
+        }
+      } else if (p && p.options && p.options.length > 0) {
+        const initialOpts: Record<string, string> = {}
+        p.options.forEach((opt) => {
+          if (opt.values && opt.values[0]) {
+            initialOpts[opt.name] = opt.values[0].value
+          }
+        })
+        setSelectedOptions(initialOpts)
+      }
     }
+
     sync()
     const unsub = dataStore.subscribe(sync)
     return () => unsub()
   }, [id])
 
-  // Lista de imagens do produto (galeria)
+  // Identificar variante atualmente selecionada com base em selectedOptions
+  const currentVariant = useMemo<ProductVariant | undefined>(() => {
+    if (!product || !product.variants || product.variants.length === 0) return undefined
+
+    const entries = Object.entries(selectedOptions)
+    if (entries.length === 0) return product.variants[0]
+
+    // Procurar variante exata
+    const exactMatch = product.variants.find((v) => {
+      if (!v.options || v.options.length === 0) return false
+      return entries.every(([optName, optVal]) =>
+        v.options.some(
+          (vo) => vo.optionName.toLowerCase() === optName.toLowerCase() && vo.value.toLowerCase() === optVal.toLowerCase()
+        )
+      )
+    })
+
+    return exactMatch || product.variants[0]
+  }, [product, selectedOptions])
+
+  // Alternar opção selecionada
+  const handleSelectOption = (optionName: string, value: string) => {
+    const nextSelected = { ...selectedOptions, [optionName]: value }
+    setSelectedOptions(nextSelected)
+    setSelectedImageIndex(0) // Resetar para foto principal da nova variante
+  }
+
+  // Lista de imagens do produto (galeria da variante selecionada ou do produto pai)
   const galleryImages = useMemo(() => {
     if (!product) return []
     const list: string[] = []
-    if (product.image) list.push(product.image)
+
+    // Se a variante selecionada tem fotos próprias, prioriza-as!
+    if (currentVariant && currentVariant.images && currentVariant.images.length > 0) {
+      currentVariant.images.forEach((img) => {
+        if (img && !list.includes(img)) list.push(img)
+      })
+    }
+
+    if (product.image && !list.includes(product.image)) list.push(product.image)
     if (product.images && Array.isArray(product.images)) {
       product.images.forEach((img) => {
         if (img && !list.includes(img)) list.push(img)
       })
     }
     return list
+  }, [product, currentVariant])
+
+  // Preço, SKU e Stock da configuração atual
+  const effectivePrice = currentVariant && currentVariant.price !== null ? currentVariant.price : product?.price ?? null
+  const effectiveSku = currentVariant?.sku || product?.sku || `ARK-${product?.id.toUpperCase()}`
+  const effectiveStock = currentVariant ? currentVariant.stock : (product?.quantity ?? (product?.inStock ? 10 : 0))
+  const isOutOfStock = currentVariant
+    ? currentVariant.stock <= 0 || !currentVariant.active
+    : (product ? product.inStock === false || (product.quantity ?? 0) === 0 : false)
+
+  // Opções disponíveis para seleção: de product.options ou sintetizadas das variantes
+  const displayOptions = useMemo(() => {
+    if (!product) return []
+    if (product.options && product.options.length > 0) {
+      return product.options.map((opt) => ({
+        ...opt,
+        values: opt.values.map((v: any) => {
+          const valStr = typeof v === 'string' ? v : v.value
+          const hex = (typeof v === 'object' && v.hex) ? v.hex : guessColorHex(valStr)
+          return {
+            id: (typeof v === 'object' && v.id) || `optval-${opt.name}-${valStr}`,
+            value: valStr,
+            hex,
+          }
+        }),
+      }))
+    }
+    // Sintetizar a partir de variants se product.options estiver vazio
+    if (product.variants && product.variants.length > 0) {
+      const optMap = new Map<string, Set<string>>()
+      product.variants.forEach((v) => {
+        v.options?.forEach((vo) => {
+          if (vo.optionName && vo.value) {
+            if (!optMap.has(vo.optionName)) {
+              optMap.set(vo.optionName, new Set())
+            }
+            optMap.get(vo.optionName)!.add(vo.value)
+          }
+        })
+      })
+
+      return Array.from(optMap.entries()).map(([name, valSet]) => ({
+        id: `opt-${name}`,
+        name,
+        values: Array.from(valSet).map((val) => ({
+          id: `optval-${name}-${val}`,
+          value: val,
+          hex: guessColorHex(val),
+        })),
+      }))
+    }
+    return []
   }, [product])
 
-  const isInCart = product ? items.some((item) => item.product.id === product.id) : false
-  const cartItem = product ? items.find((item) => item.product.id === product.id) : null
-  const isOutOfStock = product ? product.inStock === false || (product.quantity ?? 0) === 0 : false
+  const variantLabel = useMemo(() => {
+    if (!currentVariant || !currentVariant.options || currentVariant.options.length === 0) {
+      const opts = Object.values(selectedOptions)
+      return opts.length > 0 ? opts.join(' / ') : undefined
+    }
+    return currentVariant.options.map((o) => o.value).join(' / ')
+  }, [currentVariant, selectedOptions])
 
-  // Produtos relacionados da mesma categoria
+  const cartItemId = product ? (currentVariant?.id ? `${product.id}_${currentVariant.id}` : product.id) : ''
+  const isInCart = Boolean(product && items.some((item) => item.id === cartItemId || (!item.id && item.product.id === cartItemId)))
+  const cartItem = product ? items.find((item) => item.id === cartItemId || (!item.id && item.product.id === cartItemId)) : null
+
+  // Produtos relacionados
   const relatedProducts = useMemo(() => {
     if (!product) return []
     return allProducts
@@ -223,15 +336,23 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
     if (!product || isAdding || isOutOfStock) return
     setIsAdding(true)
 
-    for (let i = 0; i < quantity; i++) {
-      addItem(product as any)
-    }
+    addItem(product as any, {
+      variant: currentVariant,
+      variantLabel,
+      variantSku: effectiveSku,
+      selectedOptions,
+      price: effectivePrice,
+      quantity,
+    })
 
     setIsAdding(false)
     if (goToCheckout) {
       router.push('/loja/checkout')
     } else {
-      success(`"${product.name}" (${quantity} un.) adicionado ao carrinho!`, 'Carrinho Atualizado')
+      success(
+        `"${product.name}" ${variantLabel ? `(${variantLabel})` : ''} (${quantity} un.) adicionado ao carrinho!`,
+        'Carrinho Atualizado'
+      )
     }
   }
 
@@ -266,12 +387,14 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   }
 
   const whatsappMessage = encodeURIComponent(
-    `Olá ARKNET! Gostaria de obter cotação e especificações para o equipamento: *"${product.name}"* (Ref: ${product.sku || product.id}). Podem informar disponibilidade e condições comerciais?`
+    `Olá ARKNET! Gostaria de encomendar o seguinte equipamento:\n\n*${product.name}*\n${
+      variantLabel ? `⚙️ *Configuração:* ${variantLabel}\n` : ''
+    }🏷️ *SKU:* ${effectiveSku}\n💰 *Valor:* ${formatProdutoPrice(effectivePrice)}\n📦 *Quantidade:* ${quantity} un.\n\nPodem confirmar a disponibilidade em Luanda e os dados de pagamento?`
   )
 
   const activeImage = galleryImages[selectedImageIndex] || product.image
-  const technicalSpecs = getCategorySpecs(product)
-  const packageContents = getPackageContents(product)
+  const technicalSpecs = getCategorySpecs(product, currentVariant)
+  const packageContents = getPackageContents(product, currentVariant)
 
   return (
     <main className="min-h-screen pt-28 pb-20 bg-slate-50">
@@ -325,7 +448,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   {!isOutOfStock ? (
                     <span className="px-3 py-1 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
                       <Check className="h-3 w-3" />
-                      Stock Imediato Luanda
+                      Disponível em Stock
                     </span>
                   ) : (
                     <span className="px-3 py-1 bg-amber-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
@@ -360,7 +483,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="p-2.5 bg-white/90 hover:bg-white text-slate-600 hover:text-primary rounded-full shadow-xs border border-slate-200 transition"
+                    className="p-2.5 bg-white/90 hover:bg-white text-slate-600 hover:text-primary rounded-full shadow-xs border border-slate-200 transition cursor-pointer"
                     title="Copiar link do produto"
                   >
                     <Share2 className="h-4 w-4" />
@@ -376,7 +499,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       key={idx}
                       type="button"
                       onClick={() => setSelectedImageIndex(idx)}
-                      className={`relative h-20 w-20 rounded-xl overflow-hidden shrink-0 border-2 transition ${
+                      className={`relative h-20 w-20 rounded-xl overflow-hidden shrink-0 border-2 transition cursor-pointer ${
                         selectedImageIndex === idx
                           ? 'border-primary shadow-xs ring-2 ring-primary/20'
                           : 'border-slate-200 hover:border-slate-400 opacity-70 hover:opacity-100'
@@ -385,7 +508,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={img}
-                        alt={`Ângulo ${idx + 1}`}
+                        alt={`Vista ${idx + 1}`}
                         className="h-full w-full object-contain p-1"
                       />
                     </button>
@@ -393,7 +516,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 </div>
               )}
 
-              {/* Selos de Confiança ARKNET (Trust Badges) */}
+              {/* Trust Badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
                 <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
                   <ShieldCheck className="h-5 w-5 text-emerald-600 mx-auto mb-1" />
@@ -422,20 +545,27 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
             </div>
 
-            {/* Right: Product Details, Price & Actions (6 cols) */}
+            {/* Right: Product Details, Variant Selectors, Price & Actions (6 cols) */}
             <div className="lg:col-span-6 space-y-6">
               
               <div>
-                <span className="inline-block text-xs font-black uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full mb-2">
-                  {product.category}
-                </span>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-block text-xs font-black uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+                    {product.category}
+                  </span>
+                  {product.brand && (
+                    <span className="inline-block text-xs font-black uppercase tracking-wider text-slate-700 bg-slate-100 px-3 py-1 rounded-full">
+                      {product.brand}
+                    </span>
+                  )}
+                </div>
 
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
                   {product.name}
                 </h1>
 
                 <p className="text-xs font-mono text-slate-400 mt-1">
-                  SKU: <strong className="text-slate-700">{product.sku || `ARK-${product.id.toUpperCase()}`}</strong>
+                  SKU: <strong className="text-slate-700">{effectiveSku}</strong>
                 </p>
               </div>
 
@@ -446,10 +576,10 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     Preço de Venda em Angola:
                   </span>
                   <p className="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums">
-                    {formatProdutoPrice(product.price)}
+                    {formatProdutoPrice(effectivePrice)}
                   </p>
                   <span className="text-[11px] text-slate-500">
-                    {product.price ? 'Impostos aplicáveis e faturação comercial incluídos.' : 'Preço sob consulta conforme quantidade pretendida.'}
+                    {effectivePrice ? 'Impostos e faturação comercial incluídos.' : 'Preço sob consulta conforme configuração pretendida.'}
                   </span>
                 </div>
 
@@ -462,7 +592,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     {!isOutOfStock ? (
                       <>
                         <Check className="h-3.5 w-3.5" />
-                        Disponível em Loja
+                        Disponível em Stock
                       </>
                     ) : (
                       <>
@@ -474,6 +604,95 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 </div>
               </div>
 
+              {/* INTERACTIVE VARIANT SELECTORS (CORES, RAM, ARMAZENAMENTO, ETC.) */}
+              {displayOptions && displayOptions.length > 0 && (
+                <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-5 shadow-xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                      <Layers className="h-4 w-4 text-primary" />
+                      Escolha a sua Configuração
+                    </h3>
+                    {variantLabel && (
+                      <span className="text-xs font-bold text-primary bg-primary/5 px-2.5 py-0.5 rounded border border-primary/20">
+                        {variantLabel}
+                      </span>
+                    )}
+                  </div>
+
+                  {displayOptions.map((option) => {
+                    const isColor = isColorOption(option.name)
+                    const currentSelectedVal = selectedOptions[option.name]
+
+                    return (
+                      <div key={option.id || option.name} className="space-y-2.5">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-bold text-slate-800 uppercase tracking-wider text-[11px]">
+                            {option.name}: <span className="text-primary font-black ml-1">{currentSelectedVal || 'Selecione'}</span>
+                          </span>
+                        </div>
+
+                        {/* Cores com Bolinhas Hex e Nomes */}
+                        {isColor ? (
+                          <div className="flex flex-wrap items-center gap-2.5">
+                            {option.values.map((val: any) => {
+                              const isSelected = currentSelectedVal?.toLowerCase() === val.value.toLowerCase()
+                              const hex = val.hex || guessColorHex(val.value)
+                              const isLight = hex.toUpperCase() === '#FFFFFF' || hex.toUpperCase() === '#FFF' || hex.toUpperCase() === '#F8FAFC' || hex.toUpperCase() === '#E2E8F0'
+
+                              return (
+                                <button
+                                  key={val.id || val.value}
+                                  type="button"
+                                  onClick={() => handleSelectOption(option.name, val.value)}
+                                  className={`group flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                                    isSelected
+                                      ? 'border-primary ring-2 ring-primary/20 bg-primary/5 text-primary shadow-xs'
+                                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                                  }`}
+                                  title={`Selecionar cor: ${val.value}`}
+                                >
+                                  <span
+                                    className="w-4 h-4 rounded-full border border-slate-300 shadow-xs shrink-0 flex items-center justify-center"
+                                    style={{ backgroundColor: hex }}
+                                  >
+                                    {isSelected && (
+                                      <Check className={`h-2.5 w-2.5 ${isLight ? 'text-slate-900' : 'text-white'}`} />
+                                    )}
+                                  </span>
+                                  <span>{val.value}</span>
+                                </button>
+                              )
+                            })}
+                          </div>
+                        ) : (
+                          /* Outros Atributos (RAM, SSD, Versão) com Chips Modernos */
+                          <div className="flex flex-wrap items-center gap-2">
+                            {option.values.map((val: any) => {
+                              const isSelected = currentSelectedVal?.toLowerCase() === val.value.toLowerCase()
+
+                              return (
+                                <button
+                                  key={val.id || val.value}
+                                  type="button"
+                                  onClick={() => handleSelectOption(option.name, val.value)}
+                                  className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                                    isSelected
+                                      ? 'border-slate-900 bg-slate-900 text-white shadow-md'
+                                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                                  }`}
+                                >
+                                  {val.value}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+
               {/* Description Snippet */}
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {product.description}
@@ -482,7 +701,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               {/* Quantity & CTA Buttons */}
               <div className="pt-4 border-t border-slate-200 space-y-4">
                 
-                {!isOutOfStock && product.price != null && (
+                {!isOutOfStock && effectivePrice != null && (
                   <div className="flex items-center gap-4">
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Quantidade:
@@ -492,7 +711,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                         type="button"
                         onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                         disabled={quantity <= 1}
-                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition"
+                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer"
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
@@ -502,7 +721,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => q + 1)}
-                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 transition"
+                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 transition cursor-pointer"
                       >
                         <Plus className="h-3.5 w-3.5" />
                       </button>
@@ -514,7 +733,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 <div className="flex flex-col sm:flex-row gap-3">
                   {!isOutOfStock ? (
                     <>
-                      {product.price != null ? (
+                      {effectivePrice != null ? (
                         <>
                           <button
                             type="button"
@@ -553,7 +772,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       className="flex-1 px-6 py-4 bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <PackagePlus className="h-4 w-4" />
-                      <span>Fazer Reserva do Produto (Garantir Prioridade)</span>
+                      <span>Fazer Reserva Desta Configuração (Prioridade)</span>
                     </button>
                   )}
                 </div>
@@ -565,7 +784,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     <div>
                       <p className="font-bold">Equipamento em Trânsito para Angola</p>
                       <p className="text-slate-600 text-[11px] mt-0.5 leading-relaxed">
-                        Este produto está em processo de reposição com chegada prevista ao nosso armazém em Luanda. Efetue a sua reserva sem custos para garantir a prioridade na entrega assim que o lote der entrada.
+                        Esta configuração está em processo de reposição com chegada prevista ao nosso armazém em Luanda. Efetue a sua reserva sem custos para garantir a prioridade na entrega assim que o lote der entrada.
                       </p>
                     </div>
                   </div>
@@ -580,7 +799,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     className="p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-xl text-xs font-bold uppercase flex items-center justify-center gap-2 transition"
                   >
                     <MessageCircle className="h-4 w-4 text-emerald-600" />
-                    <span>Dúvidas? Falar no WhatsApp</span>
+                    <span>Encomendar via WhatsApp</span>
                   </a>
 
                   <button
@@ -597,12 +816,12 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 {isInCart && cartItem && (
                   <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between text-xs text-emerald-950">
                     <span className="font-medium">
-                      ✓ Já tem <strong>{cartItem.quantity} {cartItem.quantity === 1 ? 'unidade' : 'unidades'}</strong> deste produto no carrinho.
+                      ✓ Configuração <strong>{variantLabel || product.name}</strong> ({cartItem.quantity} un.) no carrinho.
                     </span>
                     <button
                       type="button"
-                      onClick={() => removeItem(product.id)}
-                      className="text-rose-600 hover:underline font-bold text-[11px] flex items-center gap-1"
+                      onClick={() => removeItem(cartItemId)}
+                      className="text-rose-600 hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                       <span>Remover</span>
@@ -644,7 +863,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              Ficha Técnica Completa
+              Ficha Técnica Completa ({technicalSpecs.length})
             </button>
 
             <button
@@ -725,9 +944,16 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
           {activeTab === 'especificacoes' && (
             <div className="p-6 sm:p-10 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-black text-slate-900">
-                  Especificações Técnicas de Hardware &amp; Normas
-                </h3>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900">
+                    Especificações Técnicas de Hardware &amp; Normas
+                  </h3>
+                  {variantLabel && (
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Parâmetros ajustados para a configuração: <strong>{variantLabel}</strong>
+                    </p>
+                  )}
+                </div>
                 <span className="text-xs font-mono text-slate-400">
                   {technicalSpecs.length} parâmetros técnicos
                 </span>
@@ -947,7 +1173,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               <button
                 type="button"
                 onClick={() => setIsProformaModalOpen(false)}
-                className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white"
+                className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -960,18 +1186,28 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   <span>Equipamento:</span>
                   <span className="text-right max-w-[220px] truncate">{product.name}</span>
                 </div>
+                {variantLabel && (
+                  <div className="flex justify-between text-slate-600">
+                    <span>Configuração:</span>
+                    <span className="font-semibold text-primary">{variantLabel}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-slate-500 font-mono">
+                  <span>Ref. SKU:</span>
+                  <span>{effectiveSku}</span>
+                </div>
                 <div className="flex justify-between">
                   <span>Quantidade:</span>
                   <span className="font-mono font-bold">{quantity} un.</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Preço Unitário:</span>
-                  <span className="font-mono font-bold text-primary">{formatProdutoPrice(product.price)}</span>
+                  <span className="font-mono font-bold text-primary">{formatProdutoPrice(effectivePrice)}</span>
                 </div>
-                {product.price && (
+                {effectivePrice && (
                   <div className="flex justify-between border-t border-slate-200 pt-2 font-black text-sm text-slate-900">
                     <span>Subtotal Estimado:</span>
-                    <span className="text-primary">{formatProdutoPrice(product.price * quantity)}</span>
+                    <span className="text-primary">{formatProdutoPrice(effectivePrice * quantity)}</span>
                   </div>
                 )}
               </div>
@@ -1015,7 +1251,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               <div className="pt-2 flex gap-3">
                 <a
                   href={`https://wa.me/244935208449?text=${encodeURIComponent(
-                    `Olá ARKNET! Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* (${quantity} un.). Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
+                    `Olá ARKNET! Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* ${variantLabel ? `(Configuração: ${variantLabel})` : ''} (${quantity} un.) - Ref: ${effectiveSku}. Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

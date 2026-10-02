@@ -316,1876 +316,3167 @@
   ],
   "products": [
     {
+      "id": "prod-1790954436881-qol4",
+      "name": "Wireless Mouse S9000",
+      "slug": "wireless-mouse-s9000",
+      "description": "Wireless Mouse S9000",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
+      "price": 9800,
+      "image": "/uploads/images_1_73_-1790954430512.jpg",
+      "images": [
+        "/uploads/images_1_73_-1790954430512.jpg"
+      ],
+      "inStock": true,
+      "quantity": 10,
+      "featured": false,
+      "sku": "ARK-7757",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T15:20:36.881Z",
+      "updatedAt": "2026-10-02T15:55:35.858Z"
+    },
+    {
+      "id": "prod-1790948580905-glgp",
+      "name": "VIDEO BALUN Hikvision DS 1H18S/",
+      "slug": "video-balun-hikvision-ds-1h18s",
+      "description": "VIDEO BALUN Hikvision DS 1H18S/",
+      "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
+      "price": null,
+      "image": "/uploads/images_1_71_-1790948539536.jpg",
+      "images": [
+        "/uploads/images_1_71_-1790948539536.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-6295",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T13:43:00.905Z",
+      "updatedAt": "2026-10-02T15:55:35.862Z"
+    },
+    {
+      "id": "prod-1790943432150-c3gp",
+      "name": "TONER JET INTELLIGENCE 201A",
+      "slug": "toner-jet-intelligence-201a",
+      "description": "TONER JET INTELLIGENCE 201A",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
+      "price": 107000,
+      "image": "/uploads/images_1_70_-1790943421383.jpg",
+      "images": [
+        "/uploads/images_1_70_-1790943421383.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-2181",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T12:17:12.150Z",
+      "updatedAt": "2026-10-02T15:55:35.864Z"
+    },
+    {
+      "id": "prod-1790943062119-kp6y",
+      "name": "TONER AMARELO Konica Minolta",
+      "slug": "toner-amarelo-konica-minolta",
+      "description": "TONER AMARELO Konica Minolta",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
+      "price": 100000,
+      "image": "/uploads/images_1_69_-1790943057738.jpg",
+      "images": [
+        "/uploads/images_1_69_-1790943057738.jpg",
+        "/uploads/images_1_72_-1790953067277.jpg"
+      ],
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-4315",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T12:11:02.119Z",
+      "updatedAt": "2026-10-02T15:55:35.866Z"
+    },
+    {
+      "id": "prod-1790942824239-8cv4",
+      "name": "TONER 312A PRETO",
+      "slug": "toner-312a-preto",
+      "description": "TONER 312A PRETO",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
+      "price": 165000,
+      "image": "/uploads/images_1_68_-1790942822646.jpg",
+      "images": [
+        "/uploads/images_1_68_-1790942822646.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-2960",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T12:07:04.239Z",
+      "updatedAt": "2026-10-02T15:55:35.867Z"
+    },
+    {
+      "id": "prod-1790942265849-w2g8",
+      "name": "TONER 305 HP CYAN",
+      "slug": "toner-305-hp-cyan",
+      "description": "TONER 305 HP CYAN",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
+      "price": 162000,
+      "image": "/uploads/images_1_67_-1790942216885.jpg",
+      "images": [
+        "/uploads/images_1_67_-1790942216885.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3506",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T11:57:45.849Z",
+      "updatedAt": "2026-10-02T15:55:35.869Z"
+    },
+    {
+      "id": "prod-1790942032128-89f7",
+      "name": "Tomada de HJT",
+      "slug": "tomada-de-hjt",
+      "description": "Tomada de HJT",
+      "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
+      "price": 6000,
+      "image": "/uploads/images_1_66_-1790942028341.jpg",
+      "images": [
+        "/uploads/images_1_66_-1790942028341.jpg"
+      ],
+      "inStock": true,
+      "quantity": 6,
+      "featured": false,
+      "sku": "ARK-7215",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T11:53:52.128Z",
+      "updatedAt": "2026-10-02T15:55:35.871Z"
+    },
+    {
+      "id": "prod-1790941665536-fkmm",
+      "name": "Tomada de 2 entradas",
+      "slug": "tomada-de-2-entradas",
+      "description": "Tomada de 2 entradas",
+      "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
+      "price": null,
+      "image": "/uploads/images_1_65_-1790941664357.jpg",
+      "images": [
+        "/uploads/images_1_65_-1790941664357.jpg"
+      ],
+      "inStock": true,
+      "quantity": 6,
+      "featured": false,
+      "sku": "ARK-2994",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T11:47:45.536Z",
+      "updatedAt": "2026-10-02T15:55:35.872Z"
+    },
+    {
+      "id": "prod-1790940725601-p66p",
+      "name": "TECLADO NGS COCOA KIT",
+      "slug": "teclado-ngs-cocoa-kit",
+      "description": "TECLADO NGS COCOA KIT",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
+      "price": 16000,
+      "image": "/uploads/images_1_64_-1790941217006.jpg",
+      "images": [
+        "/uploads/images_1_64_-1790941217006.jpg"
+      ],
+      "inStock": true,
+      "quantity": 26,
+      "featured": false,
+      "sku": "ARK-9920",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T11:32:05.601Z",
+      "updatedAt": "2026-10-02T15:55:35.874Z"
+    },
+    {
+      "id": "prod-1790940371658-px8g",
+      "name": "TECLADO HP HALLEY USB DIB",
+      "slug": "teclado-hp-halley-usb-dib",
+      "description": "TECLADO HP HALLEY USB DIB",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
+      "price": 11000,
+      "image": "/uploads/images_1_63_-1790940367027.jpg",
+      "images": [
+        "/uploads/images_1_63_-1790940367027.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-7084",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T11:26:11.658Z",
+      "updatedAt": "2026-10-02T15:55:35.875Z"
+    },
+    {
+      "id": "prod-1790937167653-iigi",
+      "name": "Teclado Genius KM-170",
+      "slug": "teclado-genius-km-170",
+      "description": "Teclado Genius KM-170",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
+      "price": 16000,
+      "image": "/uploads/images_1_62_-1790937165475.jpg",
+      "images": [
+        "/uploads/images_1_62_-1790937165475.jpg"
+      ],
+      "inStock": true,
+      "quantity": 14,
+      "featured": false,
+      "sku": "ARK-3686",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T10:32:47.653Z",
+      "updatedAt": "2026-10-02T15:55:35.877Z"
+    },
+    {
+      "id": "prod-1790936182415-msck",
+      "name": "Switch de16+2+1 P0E",
+      "slug": "switch-de16-2-1-p0e",
+      "description": "Switch de16+2+1 P0E",
+      "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
+      "price": 180000,
+      "image": "/uploads/images_1_61_-1790936161210.jpg",
+      "images": [
+        "/uploads/images_1_61_-1790936161210.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-1965",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T10:16:22.415Z",
+      "updatedAt": "2026-10-02T15:55:35.878Z"
+    },
+    {
+      "id": "prod-1790935912543-46vi",
+      "name": "Suporte TV LED,LCD PDP",
+      "slug": "suporte-tv-led-lcd-pdp",
+      "description": "Suporte TV LED,LCD PDP",
+      "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
+      "price": 150000,
+      "image": "/uploads/images_1_60_-1790935876163.jpg",
+      "images": [
+        "/uploads/images_1_60_-1790935876163.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-3648",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T10:11:52.543Z",
+      "updatedAt": "2026-10-02T15:55:35.879Z"
+    },
+    {
+      "id": "prod-1790934108385-ln23",
+      "name": "Rolo de Impressora termica",
+      "slug": "rolo-de-impressora-termica",
+      "description": "Rolo de Impressora termica",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
+      "price": 1000,
+      "image": "/uploads/images_1_59_-1790935322075.jpg",
+      "images": [
+        "/uploads/images_1_59_-1790935322075.jpg"
+      ],
+      "inStock": true,
+      "quantity": 20,
+      "featured": false,
+      "sku": "ARK-1485",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T09:41:48.385Z",
+      "updatedAt": "2026-10-02T15:55:35.880Z"
+    },
+    {
+      "id": "prod-1790933627323-uymp",
+      "name": "PILHA MAXELL 3V",
+      "slug": "pilha-maxell-3v",
+      "description": "PILHA MAXELL 3V",
+      "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
+      "price": 600,
+      "image": "/uploads/images_1_57_-1790933626047.jpg",
+      "images": [
+        "/uploads/images_1_57_-1790933626047.jpg"
+      ],
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-3406",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T09:33:47.323Z",
+      "updatedAt": "2026-10-02T15:55:35.880Z"
+    },
+    {
+      "id": "prod-1790932992211-y8t5",
+      "name": "NVR 8 CANAIS UHD 4K ATÉ 8MP",
+      "slug": "nvr-8-canais-uhd-4k-ate-8mp",
+      "description": "NVR 8 CANAIS UHD 4K ATÉ 8MP",
+      "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
+      "price": 150000,
+      "image": "/uploads/images_1_56_-1790932972422.jpg",
+      "images": [
+        "/uploads/images_1_56_-1790932972422.jpg"
+      ],
+      "inStock": true,
+      "quantity": 1,
+      "featured": false,
+      "sku": "ARK-1437",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T09:23:12.211Z",
+      "updatedAt": "2026-10-02T15:55:35.881Z"
+    },
+    {
+      "id": "prod-1790932847819-2s46",
+      "name": "Mouse APPLE",
+      "slug": "mouse-apple",
+      "description": "Mouse APPLE",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
+      "price": 9800,
+      "image": "/uploads/images_1_55_-1790932844491.jpg",
+      "images": [
+        "/uploads/images_1_55_-1790932844491.jpg"
+      ],
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-6746",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T09:20:47.819Z",
+      "updatedAt": "2026-10-02T15:55:35.882Z"
+    },
+    {
+      "id": "prod-1790929531231-hgkk",
+      "name": "Monitores DELL",
+      "slug": "monitores-dell",
+      "description": "Monitores DELL",
+      "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
+      "price": null,
+      "image": "/uploads/images_1_54_-1790929525635.jpg",
+      "images": [
+        "/uploads/images_1_54_-1790929525635.jpg"
+      ],
+      "inStock": true,
+      "quantity": 90000,
+      "featured": false,
+      "sku": "ARK-4286",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T08:25:31.231Z",
+      "updatedAt": "2026-10-02T15:55:35.883Z"
+    },
+    {
+      "id": "prod-1790928671920-en03",
+      "name": "MONITOR HYKVISION 24inch",
+      "slug": "monitor-hykvision-24inch",
+      "description": "MONITOR HYKVISION 24inch",
+      "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
+      "price": 190000,
+      "image": "/uploads/images_1_52_-1790928670126.jpg",
+      "images": [
+        "/uploads/images_1_52_-1790928670126.jpg"
+      ],
+      "inStock": true,
+      "quantity": 2,
+      "featured": false,
+      "sku": "ARK-7491",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T08:11:11.920Z",
+      "updatedAt": "2026-10-02T15:55:35.884Z"
+    },
+    {
+      "id": "prod-1790928333040-3u9w",
+      "name": "Módulo RJ45 CAT6",
+      "slug": "modulo-rj45-cat6",
+      "description": "Módulo RJ45 CAT6 Keystone Fêmea Intellinet",
+      "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
+      "price": 3000,
+      "image": "/uploads/images_1_51_-1790928322092.jpg",
+      "images": [
+        "/uploads/images_1_51_-1790928322092.jpg"
+      ],
+      "inStock": true,
+      "quantity": 4,
+      "featured": false,
+      "sku": "ARK-5062",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
+      "createdAt": "2026-10-02T08:05:33.040Z",
+      "updatedAt": "2026-10-02T15:55:35.885Z"
+    },
+    {
       "id": "prod-1790868210459-81rw",
       "name": "Disco Externo SSD",
+      "slug": "disco-externo-ssd",
       "description": "Disco Externo SSD",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 270000,
       "image": "/uploads/images_1_50_-1790868202716.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_50_-1790868202716.jpg"
+      ],
       "inStock": true,
       "quantity": 20,
       "featured": false,
       "sku": "ARK-2612",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-01T15:23:30.470Z"
+      "updatedAt": "2026-10-02T15:55:35.886Z"
     },
     {
       "id": "prod-1790866364579-cemv",
       "name": "Iluminador solar (solar, street , lamp)",
+      "slug": "iluminador-solar-solar-street-lamp",
       "description": "Iluminador solar (solar, street , lamp)",
-      "categoryId": "cat-19",
       "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
       "price": 70000,
       "image": "/uploads/images_1_49_-1790866710784.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_49_-1790866710784.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-2770",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-01T14:58:32.907Z"
+      "updatedAt": "2026-10-02T15:55:35.888Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
       "name": "HP ELITEBOOK 840 G5 CPU-CORE I5 8TH GEN",
+      "slug": "hp-elitebook-840-g5-cpu-core-i5-8th-gen",
       "description": "HP ELITEBOOK 840 G5 CPU-CORE I5 8TH GEN",
-      "categoryId": "cat-3",
       "category": "Computadores e Portáteis",
+      "categoryId": "cat-3",
+      "brand": null,
       "price": 395000,
       "image": "/uploads/images_1_47_-1790866181582.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_47_-1790866181582.jpg"
+      ],
       "inStock": true,
       "quantity": 10,
       "featured": false,
       "sku": "ARK-7755",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-01T14:50:14.886Z"
+      "updatedAt": "2026-10-02T15:55:35.890Z"
     },
     {
       "id": "prod-1790865910268-uk30",
       "name": "HikVision switch 8p",
+      "slug": "hikvision-switch-8p",
       "description": "HikVision switch 8p",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 70000,
       "image": "/uploads/images_1_46_-1790865898893.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_46_-1790865898893.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-6777",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-01T14:45:10.280Z"
+      "updatedAt": "2026-10-02T15:55:35.891Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
       "name": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
+      "slug": "hikvision-dvr-ds-7216hghi-m1-t-16-canais-hd",
       "description": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 90000,
       "image": "/uploads/images_1_45_-1790864854553.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_45_-1790864854553.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-6606",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-01T14:28:05.656Z"
+      "updatedAt": "2026-10-02T15:55:35.892Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
       "name": "HDMI SPLITTER ENTRADA USB HDMI",
+      "slug": "hdmi-splitter-entrada-usb-hdmi",
       "description": "HDMI SPLITTER ENTRADA USB HDMI",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 25000,
       "image": "/uploads/images_1_43_-1790864472860.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_43_-1790864472860.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-3191",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-01T14:21:19.117Z"
+      "updatedAt": "2026-10-02T15:55:35.893Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
       "name": "HDMI  Splitter 1*4",
+      "slug": "hdmi-splitter-1-4",
       "description": "HDMI  Splitter  1*4 1xEntrada 4xSaidas 4k 30Hz",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 90000,
       "image": "/uploads/images_1_42_-1790864131131.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_42_-1790864131131.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-7772",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-01T15:36:05.971Z"
+      "updatedAt": "2026-10-02T15:55:35.893Z"
     },
     {
       "id": "prod-1790863974022-czcc",
       "name": "HDMI Matrix 4*4",
+      "slug": "hdmi-matrix-4-4",
       "description": "HDMI Matrix 4*4",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 130000,
       "image": "/uploads/images_1_41_-1790863969300.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_41_-1790863969300.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-9184",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-01T14:12:54.034Z"
+      "updatedAt": "2026-10-02T15:55:35.894Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
       "name": "HDMI Extender by cat5 e 6",
+      "slug": "hdmi-extender-by-cat5-e-6",
       "description": "HDMI Extender by cat5 e 6",
-      "categoryId": "cat-4",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 30000,
       "image": "/uploads/images_1_40_-1790863611608.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_40_-1790863611608.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-7821",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-01T14:17:58.811Z"
+      "updatedAt": "2026-10-02T15:55:35.895Z"
     },
     {
       "id": "prod-1790863313236-reez",
       "name": "Fonte de alimentação de 8 canais",
+      "slug": "fonte-de-alimentacao-de-8-canais",
       "description": "Fonte de alimentação de 8 canais",
-      "categoryId": "cat-10",
       "category": "Energia e Proteção",
+      "categoryId": "cat-10",
+      "brand": null,
       "price": 19500,
       "image": "/uploads/images_1_39_-1790863310822.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_39_-1790863310822.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-2052",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-01T14:01:53.245Z"
+      "updatedAt": "2026-10-02T15:55:35.896Z"
     },
     {
       "id": "prod-1790863163396-179k",
       "name": "Fonte de Alimentação de 12V2A",
+      "slug": "fonte-de-alimentacao-de-12v2a",
       "description": "Fonte de Alimentação de 12V2A",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 15600,
       "image": "/uploads/images_1_38_-1790863141831.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_38_-1790863141831.jpg"
+      ],
       "inStock": true,
       "quantity": 7,
       "featured": false,
       "sku": "ARK-1528",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-01T13:59:23.408Z"
+      "updatedAt": "2026-10-02T15:55:35.897Z"
     },
     {
       "id": "prod-1790862876076-248x",
       "name": "Extensão USB C 30M Ewent",
+      "slug": "extensao-usb-c-30m-ewent",
       "description": "Extensão USB C 30M Ewent",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 19000,
       "image": "/uploads/images_1_37_-1790862870664.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_37_-1790862870664.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-9588",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-01T15:35:08.635Z"
+      "updatedAt": "2026-10-02T15:55:35.898Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
       "name": "DVD-R 10 PK",
+      "slug": "dvd-r-10-pk",
       "description": "DVD-R 10 PK",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 190000,
       "image": "/uploads/images_1_36_-1790862523589.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_36_-1790862523589.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-3345",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-01T13:48:54.752Z"
+      "updatedAt": "2026-10-02T15:55:35.899Z"
     },
     {
       "id": "prod-1790862379851-07vp",
       "name": "Disco Duro 1TB",
+      "slug": "disco-duro-1tb",
       "description": "Disco Duro 1TB",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 130000,
       "image": "/uploads/images_1_35_-1790866665053.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_35_-1790866665053.jpg"
+      ],
       "inStock": true,
       "quantity": 6,
       "featured": false,
       "sku": "ARK-5952",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-01T14:57:47.187Z"
+      "updatedAt": "2026-10-02T15:55:35.901Z"
     },
     {
       "id": "prod-1790862051163-x94a",
       "name": "Conversor de fibra ótica Netlink",
+      "slug": "conversor-de-fibra-otica-netlink",
       "description": "Conversor de fibra ótica Netlink",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 75000,
       "image": "/uploads/images_1_34_-1790862045372.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_34_-1790862045372.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-1686",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-01T15:30:57.603Z"
+      "updatedAt": "2026-10-02T15:55:35.902Z"
     },
     {
       "id": "prod-1790855698575-l39k",
       "name": "Conversor HDMI Macho VGA",
+      "slug": "conversor-hdmi-macho-vga",
       "description": "CONVERSOR HDMI MACHO VGA",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 9000,
       "image": "/uploads/photoroom_20260831_151406-1790855643523.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151406-1790855643523.jpg"
+      ],
       "inStock": true,
       "quantity": 33,
       "featured": false,
       "sku": "ARK-2560",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-01T11:54:58.586Z"
+      "updatedAt": "2026-10-02T15:55:35.903Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
       "name": "Conector RJ45 UDA",
+      "slug": "conector-rj45-uda",
       "description": "Conector RJ45 UDA",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 16000,
       "image": "/uploads/images_1_33_-1790855532535.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_33_-1790855532535.jpg"
+      ],
       "inStock": true,
       "quantity": 9,
       "featured": false,
       "sku": "ARK-7133",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-01T11:52:21.379Z"
+      "updatedAt": "2026-10-02T15:55:35.904Z"
     },
     {
       "id": "prod-1790855186841-eclf",
       "name": "Conector RJ45 duas unidades",
+      "slug": "conector-rj45-duas-unidades",
       "description": "Conector RJ45 duas unidades divisor 1 para 2 ethernet com saida",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 20000,
       "image": "/uploads/images_1_32_-1790855176574.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_32_-1790855176574.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-8519",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-01T15:30:04.227Z"
+      "updatedAt": "2026-10-02T15:55:35.905Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
       "name": "Coluna Portable Stereo BT Speakers",
+      "slug": "coluna-portable-stereo-bt-speakers",
       "description": "Coluna Portable Stereo BT Speakers",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 19500,
       "image": "/uploads/images_1_31_-1790854905577.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_31_-1790854905577.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-7133",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-01T11:41:54.626Z"
+      "updatedAt": "2026-10-02T15:55:35.906Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
       "name": "Cola Térmica",
+      "slug": "cola-termica",
       "description": "Cola Térmica",
-      "categoryId": "cat-19",
       "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
       "price": 2000,
       "image": "/uploads/images_1_30_-1790854691569.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_30_-1790854691569.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-6674",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-01T15:28:45.955Z"
+      "updatedAt": "2026-10-02T15:55:35.906Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
       "name": "CD-R",
+      "slug": "cd-r",
       "description": "CD-R 700MB 52X/80 MIN",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 25000,
       "image": "/uploads/images_1_29_-1790854390615.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_29_-1790854390615.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-3470",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-01T11:33:12.661Z"
+      "updatedAt": "2026-10-02T15:55:35.907Z"
     },
     {
       "id": "prod-1790854095026-flxm",
       "name": "Cassete de fita de etiquetar",
+      "slug": "cassete-de-fita-de-etiquetar",
       "description": "Cassete de fita de etiquetar",
-      "categoryId": "cat-19",
       "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/images_1_28_-1790854083481.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_28_-1790854083481.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-5889",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-01T15:28:24.995Z"
+      "updatedAt": "2026-10-02T15:55:35.909Z"
     },
     {
       "id": "prod-1790853710321-vaky",
       "name": "Cartão de Memoria 32GB",
+      "slug": "cartao-de-memoria-32gb",
       "description": "Cartão de Memoria 32GB",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 6000,
       "image": "/uploads/images_1_27_-1790853706016.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_27_-1790853706016.jpg"
+      ],
       "inStock": true,
       "quantity": 6,
       "featured": false,
       "sku": "ARK-9106",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-01T11:21:50.331Z"
+      "updatedAt": "2026-10-02T15:55:35.910Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
       "name": "Carregador Tipo C 10cm",
+      "slug": "carregador-tipo-c-10cm",
       "description": "Carregador Tipo C 10cm",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 2000,
       "image": "/uploads/images_1_26_-1790853553671.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_26_-1790853553671.jpg"
+      ],
       "inStock": true,
       "quantity": 22,
       "featured": false,
       "sku": "ARK-6246",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-01T11:19:32.251Z"
+      "updatedAt": "2026-10-02T15:55:35.911Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
       "name": "Carregador DELL Universal",
+      "slug": "carregador-dell-universal",
       "description": "Carregador DELL Universal",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 20000,
       "image": "/uploads/images_1_25_-1790854011445.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_25_-1790854011445.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-6970",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-01T11:26:53.802Z"
+      "updatedAt": "2026-10-02T15:55:35.912Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
       "name": "Carregador de Android norma",
+      "slug": "carregador-de-android-norma",
       "description": "Carregador de Android normal",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 1500,
       "image": "/uploads/images_1_24_-1790852663273.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_24_-1790852663273.jpg"
+      ],
       "inStock": true,
       "quantity": 35,
       "featured": false,
       "sku": "ARK-7181",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-01T11:09:29.875Z"
+      "updatedAt": "2026-10-02T15:55:35.914Z"
     },
     {
       "id": "prod-1790852525755-328w",
       "name": "Carredor 20W USB-C",
+      "slug": "carredor-20w-usb-c",
       "description": "Carredor 20W USB-C USB -C 20 W POWER",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 8200,
       "image": "/uploads/images_1_23_-1790852519238.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_23_-1790852519238.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-5846",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-01T11:02:05.765Z"
+      "updatedAt": "2026-10-02T15:55:35.916Z"
     },
     {
       "id": "prod-1790852177364-91d2",
       "name": "Capas de telefone Samsung",
+      "slug": "capas-de-telefone-samsung",
       "description": "Capas de telefone Samsung",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 1500,
       "image": "/uploads/images_1_22_-1790852170609.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_22_-1790852170609.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-9842",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-01T10:56:17.374Z"
+      "updatedAt": "2026-10-02T15:55:35.917Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
       "name": "Capas de iphones diversos",
+      "slug": "capas-de-iphones-diversos",
       "description": "Capas de iphones diversos 6 1500",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 1500,
       "image": "/uploads/images_1_21_-1790852029111.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_21_-1790852029111.jpg"
+      ],
       "inStock": true,
       "quantity": 6,
       "featured": false,
       "sku": "ARK-1607",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-01T10:53:56.358Z"
+      "updatedAt": "2026-10-02T15:55:35.919Z"
     },
     {
       "id": "prod-1790851696604-m46t",
       "name": "Capa de tablete SAM A9",
+      "slug": "capa-de-tablete-sam-a9",
       "description": "Capa de tablete SAM A9",
-      "categoryId": "cat-18",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 30000,
       "image": "/uploads/images_1_20_-1790851686310.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_20_-1790851686310.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-3385",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-01T10:57:22.068Z"
+      "updatedAt": "2026-10-02T15:55:35.920Z"
     },
     {
       "id": "prod-1790851559949-lug5",
       "name": "Capa de Tablete KAKU",
+      "slug": "capa-de-tablete-kaku",
       "description": "Capa de Tablete KAKU",
-      "categoryId": "cat-19",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/images_1_19_-1790851537916.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_19_-1790851537916.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-5517",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-01T10:57:32.019Z"
+      "updatedAt": "2026-10-02T15:55:35.921Z"
     },
     {
       "id": "prod-1790851408132-zfze",
       "name": "Câmera smarth",
+      "slug": "camera-smarth",
       "description": "Câmera smarth",
-      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
+      "brand": null,
       "price": 18500,
       "image": "/uploads/images_1_18_-1790851398247.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_18_-1790851398247.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-3763",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-01T15:27:47.483Z"
+      "updatedAt": "2026-10-02T15:55:35.922Z"
     },
     {
       "id": "prod-1790850109422-rsep",
       "name": "CAIXA DE CABO UTP CAT 6",
+      "slug": "caixa-de-cabo-utp-cat-6",
       "description": "CAIXA DE CABO UTP CAT 6 305M/boxX2PCS",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 85000,
       "image": "/uploads/images_1_17_-1790850107434.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_17_-1790850107434.jpg"
+      ],
       "inStock": true,
       "quantity": 17,
       "featured": false,
       "sku": "ARK-4049",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-01T10:21:49.433Z"
+      "updatedAt": "2026-10-02T15:55:35.923Z"
     },
     {
       "id": "prod-1790849885494-hu91",
       "name": "Caixa de cabo FTP Blindado",
+      "slug": "caixa-de-cabo-ftp-blindado",
       "description": "Caixa de cabo FTP Blindado",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 110000,
       "image": "/uploads/images_1_16_-1790849883710.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_16_-1790849883710.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-4768",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-01T10:18:05.504Z"
+      "updatedAt": "2026-10-02T15:55:35.924Z"
     },
     {
       "id": "prod-1790848807128-20cw",
       "name": "Cabo Manhattan de UPS",
+      "slug": "cabo-manhattan-de-ups",
       "description": "Cabo Manhattan de UPS",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 5000,
       "image": "/uploads/images_1_14_-1790848799050.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_14_-1790848799050.jpg"
+      ],
       "inStock": true,
       "quantity": 8,
       "featured": false,
       "sku": "ARK-3168",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-01T10:00:07.141Z"
+      "updatedAt": "2026-10-02T15:55:35.925Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
       "name": "Cabo HDTV 1.5",
+      "slug": "cabo-hdtv-1-5",
       "description": "Cabo HDTV 1.5",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 12740,
       "image": "/uploads/images_1_13_-1790848553097.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_13_-1790848553097.jpg"
+      ],
       "inStock": true,
       "quantity": 11,
       "featured": false,
       "sku": "ARK-3783",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-01T09:55:59.300Z"
+      "updatedAt": "2026-10-02T15:55:35.926Z"
     },
     {
       "id": "prod-1790848303191-nv21",
       "name": "Cabo HDMI 10M",
+      "slug": "cabo-hdmi-10m",
       "description": "Cabo HDMI 10M",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 14000,
       "image": "/uploads/images_1_12_-1790848299858.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_12_-1790848299858.jpg"
+      ],
       "inStock": true,
       "quantity": 11,
       "featured": false,
       "sku": "ARK-5987",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-01T09:51:43.202Z"
+      "updatedAt": "2026-10-02T15:55:35.927Z"
     },
     {
       "id": "prod-1790848093648-cyth",
       "name": "Cabo Disco Duro Sata Medio",
+      "slug": "cabo-disco-duro-sata-medio",
       "description": "Cabo Disco Duro Sata Medio",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 9000,
       "image": "/uploads/images_1_11_-1790848072900.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_11_-1790848072900.jpg"
+      ],
       "inStock": true,
       "quantity": 30,
       "featured": false,
       "sku": "ARK-6149",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-01T09:48:13.655Z"
+      "updatedAt": "2026-10-02T15:55:35.929Z"
     },
     {
       "id": "prod-1790847966304-nna5",
       "name": "Cabo de Impressora HP DESKEJET",
+      "slug": "cabo-de-impressora-hp-deskejet",
       "description": "Cabo de Impressora HP DESKEJET",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 4000,
       "image": "/uploads/images_1_10_-1790847964091.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_10_-1790847964091.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-6994",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-01T15:26:24.587Z"
+      "updatedAt": "2026-10-02T15:55:35.930Z"
     },
     {
       "id": "prod-1790847762896-z14m",
       "name": "Cabo de Alimentação 2.5A-250V",
+      "slug": "cabo-de-alimentacao-2-5a-250v",
       "description": "Cabo de Alimentação 2.5A-250V",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/images_1_9_-1790847738737.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_9_-1790847738737.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-6279",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-01T09:42:42.909Z"
+      "updatedAt": "2026-10-02T15:55:35.931Z"
     },
     {
       "id": "prod-1790847336713-fy85",
       "name": "Cabo de Alimentação 16A-250V",
+      "slug": "cabo-de-alimentacao-16a-250v",
       "description": "Cabo de Alimentação 16A-250V",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 15000,
       "image": "/uploads/images_1_8_-1790847331370.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_8_-1790847331370.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-6978",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-01T09:35:36.724Z"
+      "updatedAt": "2026-10-02T15:55:35.932Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
       "name": "Cabo de Alimentação 10A-250V",
+      "slug": "cabo-de-alimentacao-10a-250v",
       "description": "Cabo de Alimentação 10A-250V",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/images_1_7_-1790847025540.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_7_-1790847025540.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-6667",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-01T15:25:45.259Z"
+      "updatedAt": "2026-10-02T15:55:35.933Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
       "name": "Cabo Cat6",
+      "slug": "cabo-cat6",
       "description": "Cabo Cat6 Networking UTP 3ft 1m Ethernet",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 1890,
       "image": "/uploads/images_1_6_-1790846748468.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_6_-1790846748468.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-7551",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-01T09:25:50.108Z"
+      "updatedAt": "2026-10-02T15:55:35.934Z"
     },
     {
       "id": "prod-1790846274467-waxv",
       "name": "Bastidor de Rede",
+      "slug": "bastidor-de-rede",
       "description": "Bastidor de Rede Interllinet 9U 600x450 19c porta de vidro",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 180000,
       "image": "/uploads/images_1_5_-1790846259588.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_5_-1790846259588.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-8593",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-01T09:17:54.477Z"
+      "updatedAt": "2026-10-02T15:55:35.935Z"
     },
     {
       "id": "prod-1790846010195-xb32",
       "name": "Bastidor de rede interllinet 6U",
+      "slug": "bastidor-de-rede-interllinet-6u",
       "description": "BASTIDOR de Rede interllinet 6U",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 150000,
       "image": "/uploads/photoroom_20260902_083427-1790845917418.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083427-1790845917418.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-3386",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-01T15:25:19.226Z"
+      "updatedAt": "2026-10-02T15:55:35.936Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
       "name": "Base de Mause EWENT",
+      "slug": "base-de-mause-ewent",
       "description": "Base de Mause EWENT",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 5000,
       "image": "/uploads/images_1_4_-1790846431644.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_4_-1790846431644.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-3350",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-01T09:20:33.898Z"
+      "updatedAt": "2026-10-02T15:55:35.937Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
       "name": "Auricular sem fio Redmi",
+      "slug": "auricular-sem-fio-redmi",
       "description": "Auricular sem fio Redmi",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 18000,
       "image": "/uploads/images_1_2_-1790845473637.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_2_-1790845473637.jpg"
+      ],
       "inStock": true,
       "quantity": 11,
       "featured": false,
       "sku": "ARK-4296",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-01T09:05:00.741Z"
+      "updatedAt": "2026-10-02T15:55:35.939Z"
     },
     {
       "id": "prod-1790845328451-4otk",
       "name": "Auricular com fio AEG",
+      "slug": "auricular-com-fio-aeg",
       "description": "Auricular com fio AEG",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 15000,
       "image": "/uploads/images_1_1_-1790845326326.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_1_-1790845326326.jpg"
+      ],
       "inStock": true,
       "quantity": 76,
       "featured": false,
       "sku": "ARK-9534",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-01T15:26:39.450Z"
+      "updatedAt": "2026-10-02T15:55:35.939Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
       "name": "Anti-vìrus Kaspersky",
+      "slug": "anti-virus-kaspersky",
       "description": "Anti-vìrus Kaspersky Standard 5 dispositivos/1 ano",
-      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
+      "brand": null,
       "price": 30000,
       "image": "/uploads/images_1_-1790844956580.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_-1790844956580.jpg"
+      ],
       "inStock": true,
       "quantity": 8,
       "featured": false,
       "sku": "ARK-4596",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-01T08:56:21.196Z"
+      "updatedAt": "2026-10-02T15:55:35.941Z"
     },
     {
       "id": "prod-1790844448844-te8k",
       "name": "Adaptador de Vídeo USB-A 3.0 Para HDMI",
+      "slug": "adaptador-de-video-usb-a-3-0-para-hdmi",
       "description": "Adaptador de Vídeo USB-A 3.0 Para HDMI FHD 1080P 60Hz",
-      "categoryId": "cat-9",
       "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
+      "brand": null,
       "price": 22500,
       "image": "/uploads/adaptador_-1790844443552.jpg",
-      "images": null,
+      "images": [
+        "/uploads/adaptador_-1790844443552.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-5352",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-01T08:47:28.854Z"
+      "updatedAt": "2026-10-02T15:55:35.942Z"
     },
     {
       "id": "prod-1790843695397-rw71",
       "name": "Adaptador 4K ultra HD",
+      "slug": "adaptador-4k-ultra-hd",
       "description": "Adaptador 4K ultra HD",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 19500,
       "image": "/uploads/transparent_1_-1790843784568.jpg",
-      "images": null,
+      "images": [
+        "/uploads/transparent_1_-1790843784568.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-8864",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-01T15:26:59.779Z"
+      "updatedAt": "2026-10-02T15:55:35.943Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
       "name": "Adaptador de PC Trasformador",
+      "slug": "adaptador-de-pc-trasformador",
       "description": "ADAPTADOR DE PC Trasformador",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 20000,
       "image": "/uploads/photoroom_20260902_083041-1790842689928.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083041-1790842689928.jpg"
+      ],
       "inStock": true,
       "quantity": 10,
       "featured": false,
       "sku": "ARK-8595",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-01T15:24:29.475Z"
+      "updatedAt": "2026-10-02T15:55:35.944Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
       "name": "Camera Dahua",
+      "slug": "camera-dahua",
       "description": "Camera Dahua DH-HAC-HFW12000 SLP",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 45000,
       "image": "/uploads/photoroom_20260902_084124-1790326501854.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084124-1790326501854.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-4980",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-09-30T11:20:50.182Z"
-    },
-    {
-      "id": "prod-1790259462937-slpo",
-      "name": "Mochila Wenjié",
-      "description": "Mochila Wenjié",
-      "categoryId": "cat-19",
-      "category": "Produtos",
-      "price": 54889,
-      "image": "/uploads/photoroom_20260902_084523_-_c_pia-1790259461290.jpg",
-      "images": null,
-      "inStock": true,
-      "quantity": 21,
-      "featured": false,
-      "sku": "ARK-4679",
-      "createdAt": "2026-09-24T14:17:42.937Z",
-      "updatedAt": "2026-09-30T11:20:50.183Z"
+      "updatedAt": "2026-10-02T15:55:35.945Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
       "name": "Mochila Wenjié",
+      "slug": "mochila-wenjie",
       "description": "Mochila Wenjié",
-      "categoryId": "cat-2",
       "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
+      "brand": null,
       "price": 54889,
       "image": "/uploads/photoroom_20260902_084609-1790259415767.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084609-1790259415767.jpg",
+        "/uploads/photoroom_20260831_145701-1790952568307.jpg",
+        "/uploads/photoroom_20260902_084554-1790952580286.jpg",
+        "/uploads/photoroom_20260902_084540-1790952586806.jpg",
+        "/uploads/photoroom_20260902_084523-1790952596706.jpg"
+      ],
       "inStock": true,
       "quantity": 21,
       "featured": false,
       "sku": "ARK-7797",
+      "baseSpecs": null,
+      "options": [
+        {
+          "id": "opt-cor-hp",
+          "name": "Cor",
+          "order": 0,
+          "values": [
+            {
+              "id": "val-hp-preto",
+              "value": "Preto",
+              "hex": "#111827",
+              "order": 0
+            },
+            {
+              "id": "val-epson-branco",
+              "value": "Branco",
+              "hex": "#FFFFFF",
+              "order": 0
+            },
+            {
+              "id": "val-1790956533791-x9g",
+              "value": "cinza",
+              "hex": "#6B7280",
+              "order": 0
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "var-prod-1790259428500-zdbb-1-n8h",
+          "productId": "prod-1790259428500-zdbb",
+          "sku": "ARK-7797-PRET",
+          "price": 54889,
+          "stock": 7,
+          "active": true,
+          "order": 0,
+          "images": [
+            "/uploads/photoroom_20260902_084609-1790259415767.jpg"
+          ],
+          "specs": {},
+          "options": [
+            {
+              "optionId": "opt-cor-hp",
+              "optionName": "Cor",
+              "optionValueId": "val-hp-preto",
+              "value": "Preto",
+              "hex": "#111827"
+            }
+          ],
+          "createdAt": "2026-10-02T15:55:36.118Z",
+          "updatedAt": "2026-10-02T15:55:36.118Z"
+        },
+        {
+          "id": "var-prod-1790259428500-zdbb-2-y3q",
+          "productId": "prod-1790259428500-zdbb",
+          "sku": "ARK-7797-BRAN",
+          "price": 54889,
+          "stock": 7,
+          "active": true,
+          "order": 1,
+          "images": [
+            "/uploads/photoroom_20260902_084609-1790259415767.jpg"
+          ],
+          "specs": {},
+          "options": [
+            {
+              "optionId": "opt-cor-hp",
+              "optionName": "Cor",
+              "optionValueId": "val-epson-branco",
+              "value": "Branco",
+              "hex": "#FFFFFF"
+            }
+          ],
+          "createdAt": "2026-10-02T15:55:36.129Z",
+          "updatedAt": "2026-10-02T15:55:36.129Z"
+        },
+        {
+          "id": "var-prod-1790259428500-zdbb-3-lgi",
+          "productId": "prod-1790259428500-zdbb",
+          "sku": "ARK-7797-CINZ",
+          "price": 54889,
+          "stock": 7,
+          "active": true,
+          "order": 2,
+          "images": [
+            "/uploads/photoroom_20260902_084609-1790259415767.jpg"
+          ],
+          "specs": {},
+          "options": [
+            {
+              "optionId": "opt-cor-hp",
+              "optionName": "Cor",
+              "optionValueId": "val-1790956533791-x9g",
+              "value": "cinza",
+              "hex": "#6B7280"
+            }
+          ],
+          "createdAt": "2026-10-02T15:55:36.138Z",
+          "updatedAt": "2026-10-02T15:55:36.138Z"
+        }
+      ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-09-30T11:20:50.184Z"
-    },
-    {
-      "id": "prod-1790259392674-og52",
-      "name": "Mochila Wenjié",
-      "description": "Mochila Wenjié",
-      "categoryId": "cat-19",
-      "category": "Produtos",
-      "price": 54889,
-      "image": "/uploads/photoroom_20260902_084554-1790259386897.jpg",
-      "images": null,
-      "inStock": true,
-      "quantity": 21,
-      "featured": false,
-      "sku": "ARK-9853",
-      "createdAt": "2026-09-24T14:16:32.674Z",
-      "updatedAt": "2026-09-30T11:20:50.184Z"
-    },
-    {
-      "id": "prod-1790259368862-awwe",
-      "name": "Mochila Wenjié",
-      "description": "Mochila Wenjié",
-      "categoryId": "cat-19",
-      "category": "Produtos",
-      "price": 54889,
-      "image": "/uploads/photoroom_20260902_084540-1790259365706.jpg",
-      "images": null,
-      "inStock": true,
-      "quantity": 21,
-      "featured": false,
-      "sku": "ARK-5223",
-      "createdAt": "2026-09-24T14:16:08.862Z",
-      "updatedAt": "2026-09-30T11:20:50.185Z"
+      "updatedAt": "2026-10-02T15:55:35.946Z"
     },
     {
       "id": "prod-1790258779410-1prp",
       "name": "Teclado numérico com fio exbom preto",
+      "slug": "teclado-numerico-com-fio-exbom-preto",
       "description": "Teclado numérico com fio exbom preto",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 11000,
       "image": "/uploads/photoroom_20260902_084333-1790258746089.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084333-1790258746089.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-3899",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-09-30T11:20:50.186Z"
+      "updatedAt": "2026-10-02T15:55:35.947Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
       "name": "Mini impressora térmica portátil de 58mm",
+      "slug": "mini-impressora-termica-portatil-de-58mm",
       "description": "Mini impressora térmica portátil de 58mm com conexão Bluetooth e USB",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 45000,
       "image": "/uploads/photoroom_20260902_084109-1790258695380.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084109-1790258695380.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-8927",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-09-30T11:20:50.186Z"
+      "updatedAt": "2026-10-02T15:55:35.948Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
       "name": "Smart TV 50P",
+      "slug": "smart-tv-50p",
       "description": "Smart TV 50P",
-      "categoryId": "cat-13",
       "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
       "price": 350000,
       "image": "/uploads/photoroom_20260902_083324-1790258386450.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083324-1790258386450.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-4254",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-09-30T11:20:50.187Z"
+      "updatedAt": "2026-10-02T15:55:35.949Z"
     },
     {
       "id": "prod-1790258337491-jcru",
       "name": "Medidor de potencia óptica portátil",
+      "slug": "medidor-de-potencia-optica-portatil",
       "description": "Medidor de potencia óptica portátil",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 55000,
       "image": "/uploads/photoroom_20260902_083355-1790258312932.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083355-1790258312932.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-3849",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-09-30T11:20:50.188Z"
+      "updatedAt": "2026-10-02T15:55:35.950Z"
     },
     {
       "id": "prod-1790258295106-qfev",
       "name": "TP-LINK 300mbps wireless N router",
+      "slug": "tp-link-300mbps-wireless-n-router",
       "description": "TP-Link TL-WR840N",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 24910,
       "image": "/uploads/photoroom_20260902_084413-1790258287469.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084413-1790258287469.jpg"
+      ],
       "inStock": true,
       "quantity": 13,
       "featured": false,
       "sku": "ARK-6095",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-09-30T11:20:50.189Z"
+      "updatedAt": "2026-10-02T15:55:35.951Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
       "name": "UPS Pulstar Line Interactive UPS",
+      "slug": "ups-pulstar-line-interactive-ups",
       "description": "UPS Pulstar Line Interactive UPS",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 78000,
       "image": "/uploads/photoroom_20260902_084017-1790258181486.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084017-1790258181486.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-4917",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-09-30T11:20:50.189Z"
+      "updatedAt": "2026-10-02T15:55:35.952Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
       "name": "Conector Rj 45 cat6",
+      "slug": "conector-rj-45-cat6",
       "description": "Conector Rj 45 cat6",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 18000,
       "image": "/uploads/photoroom_20260902_084033-1790258133791.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084033-1790258133791.jpg"
+      ],
       "inStock": true,
       "quantity": 17,
       "featured": false,
       "sku": "ARK-7527",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-09-30T11:20:50.190Z"
+      "updatedAt": "2026-10-02T15:55:35.954Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
       "name": "Extensão UPS Ewent de 6 entradas",
+      "slug": "extensao-ups-ewent-de-6-entradas",
       "description": "Extensão UPS Ewent de 6 entradas",
-      "categoryId": "cat-10",
       "category": "Energia e Proteção",
+      "categoryId": "cat-10",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260831_150659-1790258027351.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_150659-1790258027351.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-9870",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-09-30T11:20:50.191Z"
+      "updatedAt": "2026-10-02T15:55:35.955Z"
     },
     {
       "id": "prod-1790257993219-qti2",
       "name": "Cartão de memória Micro SD 32 GB K",
+      "slug": "cartao-de-memoria-micro-sd-32-gb-k",
       "description": "Cartão de memória Micro SD 32 GB K",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 6000,
       "image": "/uploads/photoroom_20260831_151301-1790257989443.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151301-1790257989443.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-4664",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-09-30T11:20:50.192Z"
+      "updatedAt": "2026-10-02T15:55:35.957Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
       "name": "Alicate de crimpar Rj45",
+      "slug": "alicate-de-crimpar-rj45",
       "description": "Alicate de crimpar Rj45",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 18000,
       "image": "/uploads/photoroom_20260831_150608-1790257925464.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_150608-1790257925464.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-5767",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-09-30T11:20:50.192Z"
+      "updatedAt": "2026-10-02T15:55:35.958Z"
     },
     {
       "id": "prod-1790257884660-1119",
       "name": "Relógio Biometrico ZKTeco K20",
+      "slug": "relogio-biometrico-zkteco-k20",
       "description": "Relógio Biometrico ZKTeco K20",
-      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
+      "brand": null,
       "price": 260000,
       "image": "/uploads/photoroom_20260831_151112-1790257880915.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151112-1790257880915.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-6309",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-09-30T11:20:50.193Z"
+      "updatedAt": "2026-10-02T15:55:35.959Z"
     },
     {
       "id": "prod-1790257837915-atjk",
       "name": "POS GAVETA METALICA CD-4141",
+      "slug": "pos-gaveta-metalica-cd-4141",
       "description": "POS GAVETA METALICA CD-4141",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 57000,
       "image": "/uploads/photoroom_20260831_150421-1790257832760.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_150421-1790257832760.jpg"
+      ],
       "inStock": true,
       "quantity": 10,
       "featured": false,
       "sku": "ARK-4664",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-09-30T11:20:50.194Z"
+      "updatedAt": "2026-10-02T15:55:35.960Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
       "name": "ROUTER Wireless-N Wi-fi",
+      "slug": "router-wireless-n-wi-fi",
       "description": "ROUTER Wireless-N Wi-fi",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 20000,
       "image": "/uploads/photoroom_20260831_145838-1790257726166.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_145838-1790257726166.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-3741",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-09-30T11:20:50.195Z"
+      "updatedAt": "2026-10-02T15:55:35.962Z"
     },
     {
       "id": "prod-1790257678365-4btv",
       "name": "HDTV Splitter VER 1x4",
+      "slug": "hdtv-splitter-ver-1x4",
       "description": "HDTV Splitter VER 1x4",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 38000,
       "image": "/uploads/photoroom_20260831_150517-1790257673430.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_150517-1790257673430.jpg"
+      ],
       "inStock": true,
       "quantity": 9,
       "featured": false,
       "sku": "ARK-1448",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-09-30T11:20:50.196Z"
+      "updatedAt": "2026-10-02T15:55:35.963Z"
     },
     {
       "id": "prod-1790257579719-dm04",
       "name": "Pen drive maxell 32GB",
+      "slug": "pen-drive-maxell-32gb",
       "description": "Pen drive maxell 32GB",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260831_151131-1790257575157.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151131-1790257575157.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-6982",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-09-30T11:20:50.196Z"
+      "updatedAt": "2026-10-02T15:55:35.964Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
       "name": "Coluna Manhattan",
+      "slug": "coluna-manhattan",
       "description": "Coluna Manhattan",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 6000,
       "image": "/uploads/photoroom_20260902_083118-1790257356939.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083118-1790257356939.jpg"
+      ],
       "inStock": true,
       "quantity": 7,
       "featured": false,
       "sku": "ARK-7362",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-09-30T11:20:50.197Z"
+      "updatedAt": "2026-10-02T15:55:35.965Z"
     },
     {
       "id": "prod-1790257311982-er9y",
       "name": "Testador Finder de cabo UTP, coaxial RJ11, RJ45",
+      "slug": "testador-finder-de-cabo-utp-coaxial-rj11-rj45",
       "description": "Testador Finder de cabo UTP, coaxial RJ11, RJ45",
-      "categoryId": "cat-10",
       "category": "Energia e Proteção",
+      "categoryId": "cat-10",
+      "brand": null,
       "price": 70000,
       "image": "/uploads/photoroom_20260902_084358-1790257300526.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084358-1790257300526.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-4830",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-09-30T11:20:50.198Z"
+      "updatedAt": "2026-10-02T15:55:35.967Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
       "name": "Auscultadores com microfone",
+      "slug": "auscultadores-com-microfone",
       "description": "Auscultadores com microfone",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 16000,
       "image": "/uploads/images_1_3_-1790845683260.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_3_-1790845683260.jpg"
+      ],
       "inStock": true,
       "quantity": 13,
       "featured": false,
       "sku": "ARK-3116",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-01T09:08:35.883Z"
+      "updatedAt": "2026-10-02T15:55:35.968Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
       "name": "Adaptador Wi-fi Alfa",
+      "slug": "adaptador-wi-fi-alfa",
       "description": "Adaptador Wi-fi Alfa",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 9000,
       "image": "/uploads/photoroom_20260901_112409-1790257110916.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260901_112409-1790257110916.jpg"
+      ],
       "inStock": true,
       "quantity": 16,
       "featured": false,
       "sku": "ARK-2799",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-09-30T11:20:50.199Z"
+      "updatedAt": "2026-10-02T15:55:35.970Z"
     },
     {
       "id": "prod-1790257007807-j71u",
       "name": "Mause sem fio HP preto",
+      "slug": "mause-sem-fio-hp-preto",
       "description": "Mause sem fio HP preto",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/photoroom_20260831_150340-1790257002721.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_150340-1790257002721.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-3935",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-09-30T11:20:50.200Z"
+      "updatedAt": "2026-10-02T15:55:35.971Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
       "name": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
+      "slug": "monitor-curvo-wintech-27-fhd-hdmi-vga-75hz",
       "description": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
-      "categoryId": "cat-13",
       "category": "Monitores",
+      "categoryId": "cat-13",
+      "brand": null,
       "price": 180000,
       "image": "/uploads/photoroom_20260902_082947-1790256874494.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_082947-1790256874494.jpg"
+      ],
       "inStock": true,
       "quantity": 9,
       "featured": false,
       "sku": "ARK-1548",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-09-30T11:20:50.201Z"
+      "updatedAt": "2026-10-02T15:55:35.972Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
       "name": "TP-LINK Omada EAP245",
+      "slug": "tp-link-omada-eap245",
       "description": "TP-LINK Omada EAP245",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 102000,
       "image": "/uploads/photoroom_20260902_084443-1790001259711.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084443-1790001259711.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-REC-045",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-09-30T11:20:50.201Z"
+      "updatedAt": "2026-10-02T15:55:35.974Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
       "name": "Controladora wi-fi Tp-link OC 200 Omada",
+      "slug": "controladora-wi-fi-tp-link-oc-200-omada",
       "description": "Controladora wi-fi Tp-link OC 200 Omada gestão centralizada de rede wifi acesso cloud.",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_084428-1789996842286.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084428-1789996842286.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-044",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-09-30T11:20:50.202Z"
+      "updatedAt": "2026-10-02T15:55:35.975Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
       "name": "Impressora térmica X-printer",
+      "slug": "impressora-termica-x-printer",
       "description": "Impressora térmica X-printer",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 80000,
       "image": "/uploads/photoroom_20260902_084207-1789996572492.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084207-1789996572492.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-REC-042",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-09-30T11:20:50.203Z"
+      "updatedAt": "2026-10-02T15:55:35.977Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
       "name": "Bateria Kaise standard VRLA 12V 7Ah",
+      "slug": "bateria-kaise-standard-vrla-12v-7ah",
       "description": "Bateria Kaise standard VRLA 12V 7Ah",
-      "categoryId": "cat-19",
       "category": "Energia e Proteção",
+      "categoryId": "cat-10",
+      "brand": null,
       "price": 17500,
       "image": "/uploads/photoroom_20260902_084152-1790000987563.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084152-1790000987563.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-REC-041",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-01T13:59:46.844Z"
+      "updatedAt": "2026-10-02T15:55:35.978Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
       "name": "Câmera de segurança bullet de rede IP da marca Dahua",
+      "slug": "camera-de-seguranca-bullet-de-rede-ip-da-marca-dahua",
       "description": "Câmera de segurança bullet de rede IP da marca Dahua",
-      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
+      "brand": null,
       "price": 45000,
       "image": "/uploads/photoroom_20260902_084124-1790004812458.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_084124-1790004812458.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": true,
       "sku": "ARK-REC-040",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-09-30T11:20:50.205Z"
+      "updatedAt": "2026-10-02T15:55:35.980Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
       "name": "Câmera EZVIZ",
+      "slug": "camera-ezviz",
       "description": "Câmera EZVIZ",
-      "categoryId": "cat-17",
       "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083959-1789998186535.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083959-1789998186535.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-037",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-09-30T11:20:50.206Z"
+      "updatedAt": "2026-10-02T15:55:35.981Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
       "name": "Adaptador PoE passivo",
+      "slug": "adaptador-poe-passivo",
       "description": "Adaptador PoE passivo ou injetor de energia da TP-Link/ TL-POE4824G",
-      "categoryId": "cat-9",
       "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083855-1790004161805.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083855-1790004161805.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-036",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-09-30T11:20:50.206Z"
+      "updatedAt": "2026-10-02T15:55:35.982Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
       "name": "Adaptador de base para dois discos",
+      "slug": "adaptador-de-base-para-dois-discos",
       "description": "Adaptador de base para dois discos- Dual-Bay HDD/SSD Docking Station genérica.",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083842-1790004640033.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083842-1790004640033.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-035",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-09-30T11:20:50.207Z"
+      "updatedAt": "2026-10-02T15:55:35.984Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
       "name": "Cabo adaptador USB para Sata",
+      "slug": "cabo-adaptador-usb-para-sata",
       "description": "Cabo adaptador USB para Sata preto projetado para ligar disco rígidos (HDD) ou SSDs de 2,5 polegadas a portas USB de computadores.",
-      "categoryId": "cat-19",
       "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083828-1790004566020.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083828-1790004566020.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-034",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-09-30T11:20:50.208Z"
+      "updatedAt": "2026-10-02T15:55:35.984Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
       "name": "Resma de papel",
+      "slug": "resma-de-papel",
       "description": "Resma de papel",
-      "categoryId": "cat-15",
       "category": "Material de Escritório",
+      "categoryId": "cat-15",
+      "brand": null,
       "price": 4800,
       "image": "/uploads/photoroom_20260902_083812-1789996020014.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083812-1789996020014.jpg"
+      ],
       "inStock": true,
       "quantity": 199,
       "featured": false,
       "sku": "ARK-REC-033",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-09-30T11:20:50.208Z"
+      "updatedAt": "2026-10-02T15:55:35.985Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
       "name": "Altifalante portátil Bluetooth T&G TG116C",
+      "slug": "altifalante-portatil-bluetooth-t-g-tg116c",
       "description": "Altifalante portátil Bluetooth T&G TG116C",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 19500,
       "image": "/uploads/photoroom_20260902_083756-1790004069446.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083756-1790004069446.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-REC-032",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-09-30T11:20:50.209Z"
+      "updatedAt": "2026-10-02T15:55:35.987Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
       "name": "Coluna bluetooth",
+      "slug": "coluna-bluetooth",
       "description": "Coluna bluetooth",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 20000,
       "image": "/uploads/photoroom_20260902_083738-1790001064905.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083738-1790001064905.jpg"
+      ],
       "inStock": true,
       "quantity": 10,
       "featured": false,
       "sku": "ARK-REC-031",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-09-30T11:20:50.210Z"
+      "updatedAt": "2026-10-02T15:55:35.988Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
       "name": "Western Digital Caviar Blue modelo WD5000AAKX",
+      "slug": "western-digital-caviar-blue-modelo-wd5000aakx",
       "description": "Western Digital Caviar Blue modelo WD5000AAKX",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083722-1790004105182.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083722-1790004105182.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-030",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-09-30T11:20:50.210Z"
+      "updatedAt": "2026-10-02T15:55:35.989Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
       "name": "Tinteiro HP GT53 e GT52",
+      "slug": "tinteiro-hp-gt53-e-gt52",
       "description": "Tinteiro HP GT53 e GT52",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 13000,
       "image": "/uploads/photoroom_20260902_083652-1790004139132.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083652-1790004139132.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-REC-029",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-09-30T11:20:50.211Z"
+      "updatedAt": "2026-10-02T15:55:35.990Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
       "name": "Cabo de força",
-      "description": "Cabo de força",
-      "categoryId": "cat-8",
+      "slug": "cabo-de-forca",
+      "description": "Cabo de força 10A-250V",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/photoroom_20260902_083627-1789997285285.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083627-1789997285285.jpg"
+      ],
       "inStock": true,
-      "quantity": 16,
+      "quantity": 26,
       "featured": false,
       "sku": "ARK-REC-028",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-09-30T11:20:50.212Z"
+      "updatedAt": "2026-10-02T15:55:35.991Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
       "name": "Cabo USB impressora",
+      "slug": "cabo-usb-impressora",
       "description": "Cabo USB impressora",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 3000,
       "image": "/uploads/photoroom_20260902_083611-1790001412431.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083611-1790001412431.jpg"
+      ],
       "inStock": true,
       "quantity": 13,
       "featured": false,
       "sku": "ARK-REC-027",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-09-30T11:20:50.212Z"
+      "updatedAt": "2026-10-02T15:55:35.992Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
       "name": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+      "slug": "cabo-adaptador-de-energia-molex-de-4-pinos-para-dois-conectores-sata-de-15-pinos",
       "description": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 11500,
       "image": "/uploads/photoroom_20260902_083540-1790003177971.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083540-1790003177971.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": true,
       "sku": "ARK-REC-026",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-09-30T11:20:50.213Z"
+      "updatedAt": "2026-10-02T15:55:35.994Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
       "name": "Cabo HDMI 1.8",
+      "slug": "cabo-hdmi-1-8",
       "description": "Cabo HDMI",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 3750,
       "image": "/uploads/photoroom_20260902_083523-1790001370351.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083523-1790001370351.jpg"
+      ],
       "inStock": true,
       "quantity": 2,
       "featured": false,
       "sku": "ARK-REC-025",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-09-30T11:20:50.214Z"
+      "updatedAt": "2026-10-02T15:55:35.995Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
       "name": "Switch de rede 5 portas",
+      "slug": "switch-de-rede-5-portas",
       "description": "Switch de rede 5 portas",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 12000,
       "image": "/uploads/photoroom_20260902_083504-1790002931269.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083504-1790002931269.jpg"
+      ],
       "inStock": true,
       "quantity": 5,
       "featured": false,
       "sku": "ARK-REC-024",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-09-30T11:20:50.215Z"
+      "updatedAt": "2026-10-02T15:55:35.996Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
       "name": "Microfone de lapela sem fio K9",
+      "slug": "microfone-de-lapela-sem-fio-k9",
       "description": "Microfone de lapela sem fio K9",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": 18500,
       "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083444-1790001318841.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": true,
       "sku": "ARK-REC-023",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-09-30T11:20:50.215Z"
+      "updatedAt": "2026-10-02T15:55:35.997Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
       "name": "Cabo de rede UTP Cat6",
+      "slug": "cabo-de-rede-utp-cat6",
       "description": "Cabo de rede UTP Cat6",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 3750,
       "image": "/uploads/photoroom_20260902_083410-1790001466593.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083410-1790001466593.jpg"
+      ],
       "inStock": true,
       "quantity": 7,
       "featured": false,
       "sku": "ARK-REC-022",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-09-30T11:20:50.216Z"
+      "updatedAt": "2026-10-02T15:55:35.999Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
       "name": "Router TP-LINK Deco S7 AC1900 Dual-Band",
+      "slug": "router-tp-link-deco-s7-ac1900-dual-band",
       "description": "Router TP-LINK Deco S7 AC1900 Dual-Band Wifi 5 Gigabit Mesh Pack-2",
-      "categoryId": "cat-19",
       "category": "Produtos",
+      "categoryId": "cat-19",
+      "brand": null,
       "price": 120000,
       "image": "/uploads/photoroom_20260902_083249-1789997438996.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083249-1789997438996.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-REC-020",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-09-30T11:20:50.217Z"
+      "updatedAt": "2026-10-02T15:55:36.000Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
       "name": "Memoria KR M471A1K43EB1-CWE2239",
+      "slug": "memoria-kr-m471a1k43eb1-cwe2239",
       "description": "Memoria KR M471A1K43EB1-CWE2239",
-      "categoryId": "cat-4",
       "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083230-1790003007444.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083230-1790003007444.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-019",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-09-30T11:20:50.218Z"
+      "updatedAt": "2026-10-02T15:55:36.001Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
       "name": "Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8",
+      "slug": "carregador-de-tomada-bivolt-com-cabo-integrado-de-conector-micro-usb-padrao-v8",
       "description": "Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083215-1790004511505.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083215-1790004511505.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-018",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-09-30T11:20:50.218Z"
+      "updatedAt": "2026-10-02T15:55:36.002Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
       "name": "Organização de cabos",
+      "slug": "organizacao-de-cabos",
       "description": "Organização de cabos",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 18000,
       "image": "/uploads/photoroom_20260902_083153-1789997070125.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083153-1789997070125.jpg"
+      ],
       "inStock": true,
       "quantity": 6,
       "featured": false,
       "sku": "ARK-REC-017",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-09-30T11:20:50.219Z"
+      "updatedAt": "2026-10-02T15:55:36.003Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
       "name": "Coluna de som portátil JBL Charge 6",
+      "slug": "coluna-de-som-portatil-jbl-charge-6",
       "description": "Coluna de som portátil JBL Charge 6",
-      "categoryId": "cat-12",
       "category": "Áudio",
+      "categoryId": "cat-12",
+      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083138-1790004399116.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083138-1790004399116.jpg"
+      ],
       "inStock": false,
       "quantity": 0,
       "featured": false,
       "sku": "ARK-REC-016",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-09-30T11:20:50.220Z"
+      "updatedAt": "2026-10-02T15:55:36.004Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
       "name": "Roteador sem fio LB-LINK N300",
+      "slug": "roteador-sem-fio-lb-link-n300",
       "description": "Roteador sem fio LB-LINK N300- Velocidade wi-fi de 300 Mbps-4 antenas de alto ganho",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 40000,
       "image": "/uploads/photoroom_20260902_083002-1789994556044.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083002-1789994556044.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-REC-011",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-09-30T11:20:50.220Z"
+      "updatedAt": "2026-10-02T15:55:36.005Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
       "name": "Cabo HDTV 2Kx4K",
+      "slug": "cabo-hdtv-2kx4k",
       "description": "Cabo HDTV 2Kx4K",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 12740,
       "image": "/uploads/photoroom_20260901_112352-1789995715945.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260901_112352-1789995715945.jpg"
+      ],
       "inStock": true,
       "quantity": 19,
       "featured": true,
       "sku": "ARK-REC-009",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-09-30T11:20:50.221Z"
+      "updatedAt": "2026-10-02T15:55:36.006Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
       "name": "Adaptador HDTV para VGA",
+      "slug": "adaptador-hdtv-para-vga",
       "description": "Adaptador HDTV para VGA",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 12000,
       "image": "/uploads/photoroom_20260901_112255-1790000193635.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260901_112255-1790000193635.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-REC-008",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-09-30T11:20:50.222Z"
+      "updatedAt": "2026-10-02T15:55:36.008Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
       "name": "Cabo VGA macho para macho",
+      "slug": "cabo-vga-macho-para-macho",
       "description": "Cabo VGA macho para macho",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 7000,
       "image": "/uploads/images_1_15_-1790849653782.jpg",
-      "images": null,
+      "images": [
+        "/uploads/images_1_15_-1790849653782.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-REC-007",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-01T10:14:43.655Z"
+      "updatedAt": "2026-10-02T15:55:36.009Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
       "name": "Adaptador UGREEN Active HDMI Femea para VGA",
+      "slug": "adaptador-ugreen-active-hdmi-femea-para-vga",
       "description": "Adaptador UGREEN Active HDMI Femea para VGA Macho com cabo curto e conector preto.",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
+      "brand": null,
       "price": 12000,
       "image": "/uploads/photoroom_20260831_151406-1789999422058.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151406-1789999422058.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-REC-006",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-09-30T11:20:50.224Z"
+      "updatedAt": "2026-10-02T15:55:36.010Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
       "name": "Cabo multi-carregador USB 3 em 1",
+      "slug": "cabo-multi-carregador-usb-3-em-1",
       "description": "Cabo multi-carregador USB 3 em 1 .Com revestimento em Nylon trançado na cor preta, apresentado um conector USB-A padrão em uma ponta e três saídas deferentes",
-      "categoryId": "cat-8",
       "category": "Cabos e Conectividade",
-      "price": null,
+      "categoryId": "cat-8",
+      "brand": null,
+      "price": 5000,
       "image": "/uploads/photoroom_20260831_151238-1789997600127.jpg",
-      "images": null,
-      "inStock": false,
-      "quantity": 0,
+      "images": [
+        "/uploads/photoroom_20260831_151238-1789997600127.jpg"
+      ],
+      "inStock": true,
+      "quantity": 10,
       "featured": false,
       "sku": "ARK-REC-005",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-09-30T11:20:50.224Z"
+      "updatedAt": "2026-10-02T15:55:36.011Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
       "name": "Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.",
+      "slug": "adaptador-micro-usb-v8-femea-para-usb-c-tipo-c-macho",
       "description": "Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.",
-      "categoryId": "cat-9",
       "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
+      "brand": null,
       "price": 3000,
       "image": "/uploads/photoroom_20260831_151216-1789998280700.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151216-1789998280700.jpg"
+      ],
       "inStock": true,
       "quantity": 4,
       "featured": false,
       "sku": "ARK-REC-004",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-09-30T11:20:50.225Z"
+      "updatedAt": "2026-10-02T15:55:36.012Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
       "name": "Tinteiro",
+      "slug": "tinteiro",
       "description": "Tinteiro",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 18000,
       "image": "/uploads/photoroom_20260831_151151-1790001107655.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_151151-1790001107655.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-REC-003",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-09-30T11:20:50.226Z"
+      "updatedAt": "2026-10-02T15:55:36.013Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
       "name": "Cassete de etiquetar Dy MOD1 de 9mm",
+      "slug": "cassete-de-etiquetar-dy-mod1-de-9mm",
       "description": "Cassete de etiquetar Dy MOD1 de 9mm",
-      "categoryId": "cat-11",
       "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
+      "brand": null,
       "price": 10000,
       "image": "/uploads/photoroom_20260831_145749-1790000796524.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_145749-1790000796524.jpg"
+      ],
       "inStock": true,
       "quantity": 3,
       "featured": false,
       "sku": "ARK-REC-002",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-09-30T11:20:50.227Z"
-    },
-    {
-      "id": "prod-rec-1790066189556-1",
-      "name": "Mochila Wenjié",
-      "description": "Mochila Wenjié",
-      "categoryId": "cat-19",
-      "category": "Produtos",
-      "price": 54889,
-      "image": "/uploads/photoroom_20260831_145701-1789996443901.jpg",
-      "images": null,
-      "inStock": true,
-      "quantity": 21,
-      "featured": false,
-      "sku": "ARK-REC-001",
-      "createdAt": "2026-09-22T08:36:29.569Z",
-      "updatedAt": "2026-09-30T11:20:50.228Z"
+      "updatedAt": "2026-10-02T15:55:36.013Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
       "name": "Impressora Konica Minolta Bizhub 36A",
+      "slug": "impressora-konica-minolta-bizhub-36a",
       "description": "Impressora Konica Minolta Bizhub 36A",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 790000,
       "image": "/uploads/photoroom_20260831_145717-1789558928616.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260831_145717-1789558928616.jpg"
+      ],
       "inStock": true,
       "quantity": 1,
       "featured": false,
       "sku": "ARK-7553",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-09-30T11:20:50.229Z"
+      "updatedAt": "2026-10-02T15:55:36.014Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
       "name": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "slug": "impressora-hp-deskjet-aio-2323-7-5-ppmc-fio",
       "description": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
-      "categoryId": "cat-14",
       "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
+      "brand": null,
       "price": 68000,
       "image": "/uploads/photoroom_20260902_083058-1789558146522.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083058-1789558146522.jpg"
+      ],
       "inStock": true,
       "quantity": 7,
       "featured": false,
       "sku": "ARK-6038",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-09-30T11:20:50.230Z"
+      "updatedAt": "2026-10-02T15:55:36.015Z"
     },
     {
       "id": "prod-1788945524001-0f01",
       "name": "Hostpot Router Wifi 4G LTE",
+      "slug": "hostpot-router-wifi-4g-lte",
       "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
-      "categoryId": "cat-6",
       "category": "Redes e Internet",
+      "categoryId": "cat-6",
+      "brand": null,
       "price": 37000,
       "image": "/uploads/photoroom_20260902_083909-1788945167310.jpg",
-      "images": null,
+      "images": [
+        "/uploads/photoroom_20260902_083909-1788945167310.jpg"
+      ],
       "inStock": true,
       "quantity": 17,
       "featured": true,
       "sku": "ARK-4510",
+      "baseSpecs": null,
+      "options": [],
+      "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-09-30T11:20:50.231Z"
+      "updatedAt": "2026-10-02T15:55:36.016Z"
     }
   ],
   "categories": [
@@ -3218,8 +4509,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "2",
@@ -3231,8 +4522,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "3",
@@ -3244,8 +4535,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "4",
@@ -3257,8 +4548,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "5",
@@ -3270,8 +4561,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     }
   ],
   "partners": [
@@ -3283,8 +4574,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-2",
@@ -3294,8 +4585,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-3",
@@ -3305,8 +4596,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-4",
@@ -3316,8 +4607,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-5",
@@ -3327,8 +4618,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-6",
@@ -3338,8 +4629,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-7",
@@ -3349,8 +4640,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-8",
@@ -3360,8 +4651,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-9",
@@ -3371,8 +4662,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-10",
@@ -3382,8 +4673,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-11",
@@ -3393,8 +4684,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-12",
@@ -3404,8 +4695,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-13",
@@ -3415,8 +4706,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     },
     {
       "id": "partner-14",
@@ -3426,8 +4717,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-01T15:22:12.310Z",
-      "updatedAt": "2026-10-01T15:22:12.310Z"
+      "createdAt": "2026-10-02T15:48:02.915Z",
+      "updatedAt": "2026-10-02T15:48:02.915Z"
     }
   ],
   "projects": [
@@ -4110,136 +5401,16 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-01T15:17:25.259Z"
+    "updatedAt": "2026-10-02T15:20:37.600Z"
   },
   "activities": [
     {
-      "id": "act-1790868965971-notv",
+      "id": "act-1790956535655-w3k7",
       "userId": "system",
       "userName": "Administrador",
-      "action": "Atualizou produto \"HDMI  Splitter 1*4\"",
+      "action": "Atualizou produto \"Mochila Wenjié\"",
       "module": "produtos",
-      "timestamp": "2026-10-01T15:36:05.971Z"
-    },
-    {
-      "id": "act-1790868908635-r7a6",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Extensão USB C 30M Ewent\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:35:08.635Z"
-    },
-    {
-      "id": "act-1790868657603-i831",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Conversor de fibra ótica Netlink\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:30:57.603Z"
-    },
-    {
-      "id": "act-1790868604227-zm9z",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Conector RJ45 duas unidades\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:30:04.227Z"
-    },
-    {
-      "id": "act-1790868525955-n3l7",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cola Térmica\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:28:45.955Z"
-    },
-    {
-      "id": "act-1790868504995-q9nv",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cassete de fita de etiquetar\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:28:24.995Z"
-    },
-    {
-      "id": "act-1790868467483-w29j",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Câmera smarth\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:27:47.483Z"
-    },
-    {
-      "id": "act-1790868419779-tm4y",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Adaptador 4K ultra HD\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:26:59.779Z"
-    },
-    {
-      "id": "act-1790868399450-ke2i",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Auricular com fio AEG\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:26:39.450Z"
-    },
-    {
-      "id": "act-1790868384587-kvky",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cabo de Impressora HP DESKEJET\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:26:24.587Z"
-    },
-    {
-      "id": "act-1790868345259-tmcb",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Cabo de Alimentação 10A-250V\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:25:45.259Z"
-    },
-    {
-      "id": "act-1790868319226-6eg0",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Bastidor de rede interllinet 6U\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:25:19.226Z"
-    },
-    {
-      "id": "act-1790868294819-l9ym",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Auricular com fio AEG\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:24:54.819Z"
-    },
-    {
-      "id": "act-1790868269475-f6mw",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Adaptador de PC Trasformador\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:24:29.475Z"
-    },
-    {
-      "id": "act-1790868248955-y61k",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Atualizou produto \"Adaptador 4K ultra HD\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:24:08.955Z"
-    },
-    {
-      "id": "act-1790868210459-cbio",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Disco Externo SSD\"",
-      "module": "produtos",
-      "timestamp": "2026-10-01T15:23:30.459Z"
+      "timestamp": "2026-10-02T15:55:35.655Z"
     },
     {
       "id": "cmumjxiil0001utds2zw488t9",
@@ -4579,6 +5750,156 @@
       "target": "",
       "targetId": null,
       "timestamp": "2026-09-24T14:41:27.368Z",
+      "details": null
+    },
+    {
+      "id": "act-1790260821968-56gs",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"HDTV Splitter VER 1x4\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:40:21.968Z",
+      "details": null
+    },
+    {
+      "id": "act-1790260688585-ycli",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Conector Rj 45 cat6\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:38:08.585Z",
+      "details": null
+    },
+    {
+      "id": "act-1790260643297-0810",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Coluna Manhattan\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:37:23.297Z",
+      "details": null
+    },
+    {
+      "id": "act-1790260545748-tkm7",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cartão de memória Micro SD 32 GB K\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:35:45.748Z",
+      "details": null
+    },
+    {
+      "id": "act-1790260332064-aavm",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Cabo HDTV 2Kx4K\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:32:12.065Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259731778-izwi",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Alicate de crimpar Rj45\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:22:11.779Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259506130-uajy",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:18:26.130Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259462937-07qe",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:17:42.937Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259428504-a7we",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:17:08.504Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259392674-lg8n",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:16:32.674Z",
+      "details": null
+    },
+    {
+      "id": "act-1790259368867-3e5t",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mochila Wenjié\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:16:08.867Z",
+      "details": null
+    },
+    {
+      "id": "act-1790258779410-cbh4",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Teclado numérico com fio exbom preto\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:06:19.410Z",
+      "details": null
+    },
+    {
+      "id": "act-1790258717179-8onh",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Mini impressora térmica portátil de 58mm\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:05:17.179Z",
+      "details": null
+    },
+    {
+      "id": "act-1790258525419-418j",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Smart TV 50P\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T14:02:05.419Z",
+      "details": null
+    },
+    {
+      "id": "act-1790258391445-8e7z",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou produto \"Smart TV 50P\"",
+      "target": "",
+      "targetId": null,
+      "timestamp": "2026-09-24T13:59:51.445Z",
       "details": null
     }
   ],

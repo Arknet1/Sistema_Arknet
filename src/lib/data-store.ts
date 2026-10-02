@@ -26,18 +26,62 @@ export interface AdminUser {
   lastLogin?: string
 }
 
+export interface ProductOptionValue {
+  id: string
+  optionId?: string
+  value: string
+  hex?: string | null
+  order?: number
+}
+
+export interface ProductOption {
+  id: string
+  name: string // "Cor", "RAM", "Armazenamento", "Conectividade", etc.
+  order?: number
+  values: ProductOptionValue[]
+}
+
+export interface ProductVariantOptionSelection {
+  optionId?: string
+  optionName: string
+  optionValueId?: string
+  value: string
+  hex?: string | null
+}
+
+export interface ProductVariant {
+  id: string
+  productId?: string
+  sku: string
+  price: number | null // null = herda preço base do produto pai
+  stock: number
+  images?: string[] // Imagens específicas desta variante (ex: fotos da cor azul)
+  specs?: Record<string, string> // Especificações específicas desta variante
+  active: boolean
+  order?: number
+  options: ProductVariantOptionSelection[] // Valores selecionados para esta variante
+  createdAt?: string
+  updatedAt?: string
+}
+
 export interface StoreProduct {
   id: string
   name: string
+  slug?: string
   description: string
   category: string
-  price: number | null // null = Sob consulta
+  categoryId?: string
+  brand?: string
+  price: number | null // null = Sob consulta (ou preço base/mínimo)
   image: string
   images?: string[]
   inStock: boolean
-  quantity?: number // Visível apenas no painel administrativo
+  quantity?: number // Visível apenas no painel administrativo / stock total
   featured?: boolean
   sku?: string
+  baseSpecs?: Record<string, string> | string
+  options?: ProductOption[]
+  variants?: ProductVariant[]
   createdAt: string
   updatedAt: string
 }

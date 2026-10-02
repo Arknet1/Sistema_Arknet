@@ -93,70 +93,91 @@ export default function CarrinhoPage() {
           
           {/* Product Items List */}
           <div className="lg:col-span-8 space-y-3">
-            {items.map((item) => (
-              <div
-                key={item.product.id}
-                className="bg-white border border-slate-200 p-5 flex flex-col sm:flex-row sm:items-center gap-5 transition hover:border-slate-300"
-              >
-                <div className="h-20 w-20 bg-slate-50 shrink-0 overflow-hidden border border-slate-100">
-                  {item.product.image ? (
-                    <img
-                      src={item.product.image}
-                      alt={item.product.name}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center">
-                      <ShoppingCart className="h-6 w-6 text-slate-300" />
-                    </div>
-                  )}
-                </div>
+            {items.map((item) => {
+              const itemKey = item.id || (item.variant ? `${item.product.id}_${item.variant.id}` : item.product.id)
+              const effectivePrice = item.price ?? item.variant?.price ?? item.product.price
+              const itemImg = item.variant?.images?.[0] || item.product.image
 
-                <div className="flex-1 min-w-0">
-                  <Link
-                    href={`/loja/${item.product.id}`}
-                    className="text-sm font-bold text-slate-900 hover:text-primary transition line-clamp-1"
-                  >
-                    {item.product.name}
-                  </Link>
-                  {item.product.category && (
-                    <p className="text-xs text-slate-500 mt-0.5">{item.product.category}</p>
-                  )}
-                  <p className="text-base font-bold text-primary mt-1.5 font-mono">
-                    {formatLinhaPreco(item.product.price, item.quantity)}
-                  </p>
-                </div>
-
-                {/* Quantity Controls */}
-                <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
-                  <div className="flex items-center gap-2 border border-slate-200 bg-slate-50 p-1">
-                    <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                      className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700"
-                      title="Diminuir"
-                    >
-                      <Minus className="h-3 w-3" />
-                    </button>
-                    <span className="w-8 text-center text-xs font-bold font-mono">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                      className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700"
-                      title="Aumentar"
-                    >
-                      <Plus className="h-3 w-3" />
-                    </button>
+              return (
+                <div
+                  key={itemKey}
+                  className="bg-white border border-slate-200 p-5 flex flex-col sm:flex-row sm:items-center gap-5 transition hover:border-slate-300"
+                >
+                  <div className="h-20 w-20 bg-slate-50 shrink-0 overflow-hidden border border-slate-100">
+                    {itemImg ? (
+                      <img
+                        src={itemImg}
+                        alt={item.product.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center">
+                        <ShoppingCart className="h-6 w-6 text-slate-300" />
+                      </div>
+                    )}
                   </div>
 
-                  <button
-                    onClick={() => removeItem(item.product.id)}
-                    className="text-slate-400 hover:text-rose-600 transition p-2"
-                    title="Remover produto"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
+                  <div className="flex-1 min-w-0">
+                    <Link
+                      href={`/loja/${item.product.id}`}
+                      className="text-sm font-bold text-slate-900 hover:text-primary transition line-clamp-1"
+                    >
+                      {item.product.name}
+                    </Link>
+
+                    {item.variantLabel && (
+                      <p className="text-xs font-semibold text-primary mt-0.5 flex items-center gap-1.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary" />
+                        {item.variantLabel}
+                      </p>
+                    )}
+
+                    <div className="flex items-center gap-2 mt-0.5 text-[11px] text-slate-400">
+                      {item.product.category && <span>{item.product.category}</span>}
+                      {(item.variantSku || item.variant?.sku || item.product.sku) && (
+                        <>
+                          <span>•</span>
+                          <span className="font-mono">SKU: {item.variantSku || item.variant?.sku || item.product.sku}</span>
+                        </>
+                      )}
+                    </div>
+
+                    <p className="text-base font-bold text-primary mt-1.5 font-mono">
+                      {formatLinhaPreco(effectivePrice, item.quantity)}
+                    </p>
+                  </div>
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
+                    <div className="flex items-center gap-2 border border-slate-200 bg-slate-50 p-1">
+                      <button
+                        onClick={() => updateQuantity(itemKey, item.quantity - 1)}
+                        className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
+                        title="Diminuir"
+                      >
+                        <Minus className="h-3 w-3" />
+                      </button>
+                      <span className="w-8 text-center text-xs font-bold font-mono">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(itemKey, item.quantity + 1)}
+                        className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
+                        title="Aumentar"
+                      >
+                        <Plus className="h-3 w-3" />
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => removeItem(itemKey)}
+                      className="text-slate-400 hover:text-rose-600 transition p-2 cursor-pointer"
+                      title="Remover produto"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
 
             {/* Aviso de Política de Compra */}
             <div className="p-4 bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-600">

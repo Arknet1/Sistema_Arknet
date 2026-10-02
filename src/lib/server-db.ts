@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { INITIAL_DB } from './data-store'
 import { prisma } from './prisma'
+import { guessColorHex, isColorOption } from './color-utils'
 
 const DATA_DIR = path.join(process.cwd(), 'data')
 const DB_FILE = path.join(DATA_DIR, 'arknet-db.json')
@@ -17,6 +18,141 @@ function safeJsonParse(val: any, fallback: any = null) {
     return JSON.parse(val)
   } catch {
     return fallback
+  }
+}
+
+export function generateProductSlug(name: string): string {
+  if (!name) return `prod-${Date.now()}`
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || `prod-${Date.now()}`
+}
+
+export function formatPrismaProduct(p: any) {
+  if (!p) return null
+  const variants = Array.isArray(p.variants)
+    ? p.variants.map((v: any) => ({
+        id: v.id,
+        productId: v.productId || p.id,
+        sku: v.sku || `ARK-${v.id}`,
+        price: typeof v.price === 'number' ? v.price : null,
+        stock: typeof v.stock === 'number' ? v.stock : 0,
+        active: v.active !== false,
+        order: typeof v.order === 'number' ? v.order : 0,
+        images: safeJsonParse(v.images, Array.isArray(v.images) ? v.images : []),
+        specs: safeJsonParse(v.specs, typeof v.specs === 'object' && v.specs !== null ? v.specs : {}),
+        options: Array.isArray(v.options)
+          ? v.options.map((optRel: any) => {
+              if (optRel.optionValueRef) {
+                const optName = optRel.optionValueRef.optionRef?.name || ''
+                const val = optRel.optionValueRef.value || ''
+                const isCol = isColorOption(optName)
+                return {
+                  optionId: optRel.optionValueRef.optionRef?.id || optRel.optionValueRef.optionId || '',
+                  optionName: optName,
+                  optionValueId: optRel.optionValueRef.id || '',
+                  value: val,
+                  hex: optRel.optionValueRef.hex || (isCol ? guessColorHex(val) : null),
+                }
+              }
+              const optName = optRel.optionName || ''
+              const val = optRel.value || ''
+              const isCol = isColorOption(optName)
+              return {
+                optionId: optRel.optionId || '',
+                optionName: optName,
+                optionValueId: optRel.optionValueId || '',
+                value: val,
+                hex: optRel.hex || (isCol ? guessColorHex(val) : null),
+              }
+            })
+          : (Array.isArray(v.options) ? v.options : []),
+        createdAt: typeof v.createdAt === 'string' ? v.createdAt : (v.createdAt?.toISOString?.() || undefined),
+        updatedAt: typeof v.updatedAt === 'string' ? v.updatedAt : (v.updatedAt?.toISOString?.() || undefined),
+      }))
+    : (Array.isArray(p.variants) ? p.variants : [])
+
+  // Reconstruir ou normalizar lista de opções disponíveis para o produto
+  let options = Array.isArray(p.options) && p.options.length > 0 ? p.options : undefined
+
+  if (options) {
+    // Normalizar hex de opções existentes
+    options = options.map((opt: any) => {
+      const isCol = isColorOption(opt.name)
+      return {
+        id: opt.id || `opt-${opt.name.trim().toLowerCase().replace(/\s+/g, '-')}`,
+        name: opt.name,
+        order: typeof opt.order === 'number' ? opt.order : 0,
+        values: Array.isArray(opt.values)
+          ? opt.values.map((v: any) => ({
+              id: v.id || `val-${opt.name}-${v.value}`,
+              value: v.value,
+              hex: v.hex || (isCol ? guessColorHex(v.value) : null),
+              order: typeof v.order === 'number' ? v.order : 0,
+            }))
+          : [],
+      }
+    })
+  } else if (variants.length > 0) {
+    const optMap = new Map<string, { id: string; name: string; order: number; values: Map<string, { id: string; value: string; hex?: string | null; order: number }> }>()
+    for (const v of variants) {
+      for (const opt of v.options || []) {
+        if (!opt.optionName || !opt.value) continue
+        const optKey = opt.optionName.trim().toLowerCase()
+        if (!optMap.has(optKey)) {
+          optMap.set(optKey, {
+            id: opt.optionId || `opt-${optKey}`,
+            name: opt.optionName.trim(),
+            order: 0,
+            values: new Map(),
+          })
+        }
+        const valMap = optMap.get(optKey)!.values
+        const valKey = opt.value.trim().toLowerCase()
+        const isCol = isColorOption(opt.optionName)
+        if (!valMap.has(valKey)) {
+          valMap.set(valKey, {
+            id: opt.optionValueId || `val-${valKey}`,
+            value: opt.value.trim(),
+            hex: opt.hex || (isCol ? guessColorHex(opt.value) : null),
+            order: 0,
+          })
+        }
+      }
+    }
+    options = Array.from(optMap.values()).map(o => ({
+      id: o.id,
+      name: o.name,
+      order: o.order,
+      values: Array.from(o.values.values()),
+    }))
+  }
+
+  const imagesParsed = safeJsonParse(p.images, Array.isArray(p.images) ? p.images : (p.image ? [p.image] : []))
+
+  return {
+    id: p.id,
+    name: p.name,
+    slug: p.slug || generateProductSlug(p.name),
+    description: p.description || '',
+    category: p.category || 'Produtos',
+    categoryId: p.categoryId || null,
+    brand: p.brand || null,
+    price: typeof p.price === 'number' ? p.price : null,
+    image: p.image || (Array.isArray(imagesParsed) && imagesParsed[0]) || '',
+    images: Array.isArray(imagesParsed) ? imagesParsed : [],
+    inStock: p.inStock !== false,
+    quantity: typeof p.quantity === 'number' ? p.quantity : 0,
+    featured: Boolean(p.featured),
+    sku: p.sku || `ARK-${p.id}`,
+    baseSpecs: safeJsonParse(p.baseSpecs, typeof p.baseSpecs === 'object' ? p.baseSpecs : null),
+    options: options || [],
+    variants: variants || [],
+    createdAt: typeof p.createdAt === 'string' ? p.createdAt : (p.createdAt?.toISOString?.() || new Date().toISOString()),
+    updatedAt: typeof p.updatedAt === 'string' ? p.updatedAt : (p.updatedAt?.toISOString?.() || new Date().toISOString()),
   }
 }
 
@@ -50,7 +186,25 @@ export async function readServerDbFromPrisma() {
       prisma.adminUser.findMany({ orderBy: { createdAt: 'asc' } }),
       prisma.customer.findMany({ orderBy: { createdAt: 'desc' } }),
       prisma.productCategory.findMany({ orderBy: { order: 'asc' } }),
-      prisma.product.findMany({ orderBy: { createdAt: 'desc' } }),
+      prisma.product.findMany({
+        include: {
+          variants: {
+            include: {
+              options: {
+                include: {
+                  optionValueRef: {
+                    include: {
+                      optionRef: true,
+                    },
+                  },
+                },
+              },
+            },
+            orderBy: { order: 'asc' },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
       prisma.storeOrder.findMany({
         include: { items: true },
         orderBy: { createdAt: 'desc' },
@@ -72,22 +226,20 @@ export async function readServerDbFromPrisma() {
     ])
 
     // Formatar produtos
-    const formattedProducts = products.map((p) => ({
-      ...p,
-      images: safeJsonParse(p.images, undefined),
-      createdAt: p.createdAt.toISOString(),
-      updatedAt: p.updatedAt.toISOString(),
-    }))
+    const formattedProducts = products.map((p) => formatPrismaProduct(p))
 
     // Formatar encomendas com itens e histórico
     const formattedOrders = orders.map((o) => ({
       ...o,
       items: o.items.map((it) => ({
         productId: it.productId || '',
+        variantId: (it as any).variantId || undefined,
+        variantSku: (it as any).variantSku || undefined,
+        variantLabel: (it as any).variantLabel || undefined,
         productName: it.productName,
         price: it.price,
         quantity: it.quantity,
-        image: it.image || undefined,
+        image: (it as any).image || undefined,
       })),
       conversationHistory: safeJsonParse(o.conversationHistory, undefined),
       receiptReceivedAt: o.receiptReceivedAt ? o.receiptReceivedAt.toISOString() : undefined,
@@ -572,6 +724,9 @@ export async function appendServerOrderAsync(order: any) {
           create: (order.items || []).map((it: any, idx: number) => ({
             id: `item-${order.id}-${idx}-${Date.now()}`,
             productId: (it.productId && validProductIds.has(it.productId)) ? it.productId : null,
+            variantId: it.variantId || (it.variant && it.variant.id) || null,
+            variantSku: it.variantSku || (it.variant && it.variant.sku) || null,
+            variantLabel: it.variantLabel || null,
             productName: it.productName || 'Produto',
             price: typeof it.price === 'number' ? it.price : null,
             quantity: typeof it.quantity === 'number' ? it.quantity : 1,
@@ -741,40 +896,51 @@ export function appendServerEventRegistration(registration: any) {
 }
 
 /**
- * Retorna todos os produtos do arquivo JSON com fallback para Prisma
+ * Retorna todos os produtos formatados a partir do Prisma ou fallback JSON
  */
 export async function getProductsServerAsync() {
-  const fallbackDb = readServerDbFallback()
-  if (Array.isArray(fallbackDb.products) && fallbackDb.products.length > 0) {
-    return fallbackDb.products
-  }
-
   try {
     const products = await prisma.product.findMany({
+      include: {
+        variants: {
+          include: {
+            options: {
+              include: {
+                optionValueRef: {
+                  include: {
+                    optionRef: true,
+                  },
+                },
+              },
+            },
+          },
+          orderBy: { order: 'asc' },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     })
     if (products && products.length > 0) {
-      return products.map((p) => ({
-        ...p,
-        images: safeJsonParse(p.images, undefined),
-        createdAt: p.createdAt.toISOString(),
-        updatedAt: p.updatedAt.toISOString(),
-      }))
+      return products.map((p) => formatPrismaProduct(p))
     }
   } catch (err) {
     console.error('[getProductsServerAsync] Erro no Prisma:', err)
   }
-  return fallbackDb.products || []
+
+  const fallbackDb = readServerDbFallback()
+  if (Array.isArray(fallbackDb.products) && fallbackDb.products.length > 0) {
+    return fallbackDb.products.map((p: any) => formatPrismaProduct(p))
+  }
+  return []
 }
 
 /**
- * Cria ou atualiza um produto no Prisma e no arknet-db.json de forma atómica e segura
+ * Cria ou atualiza um produto no Prisma e no arknet-db.json com suporte a variantes
  */
 export async function saveProductServerAsync(productData: any) {
   const id = productData.id || `prod-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`
   const now = new Date()
 
-  // Buscar produto existente para nunca apagar imagens ou campos em atualizações parciais
+  // Buscar produto existente para nunca apagar campos em atualizações parciais
   const current = readServerDbFallback()
   const existingProds = current.products || []
   const existingProduct = existingProds.find((p: any) => p.id === id) || {}
@@ -796,8 +962,16 @@ export async function saveProductServerAsync(productData: any) {
     } catch {}
   }
 
+  const slug = (merged.slug || generateProductSlug(merged.name || 'produto')).trim()
+  const brand = merged.brand ? String(merged.brand).trim() : null
+  const baseSpecsStr = merged.baseSpecs
+    ? (typeof merged.baseSpecs === 'string' ? merged.baseSpecs : JSON.stringify(merged.baseSpecs))
+    : null
+
   const payload = {
     name: (merged.name || 'Produto').trim(),
+    slug,
+    brand,
     description: merged.description || '',
     categoryId,
     category: merged.category || 'Produtos',
@@ -805,17 +979,105 @@ export async function saveProductServerAsync(productData: any) {
     image: merged.image || '',
     images: Array.isArray(merged.images)
       ? JSON.stringify(merged.images)
-      : (typeof merged.images === 'string' ? merged.images : null),
+      : (typeof merged.images === 'string' ? merged.images : (merged.image ? JSON.stringify([merged.image]) : null)),
     inStock: merged.inStock !== undefined ? Boolean(merged.inStock) : true,
     quantity: typeof merged.quantity === 'number' ? merged.quantity : 10,
     featured: Boolean(merged.featured),
     sku: merged.sku || `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
+    baseSpecs: baseSpecsStr,
   }
+
+  // Normalizar opções do produto (garantindo códigos de cor hex)
+  const rawOptions: any[] = Array.isArray(merged.options) ? merged.options : []
+  const normalizedOptions = rawOptions.map((opt: any, optIdx: number) => {
+    const isCol = isColorOption(opt.name)
+    const optId = opt.id || `opt-${opt.name.trim().toLowerCase().replace(/\s+/g, '-')}`
+    const values = Array.isArray(opt.values)
+      ? opt.values.map((v: any, vIdx: number) => ({
+          id: v.id || `val-${optId}-${v.value.trim().toLowerCase().replace(/\s+/g, '-')}`,
+          value: v.value,
+          hex: v.hex || (isCol ? guessColorHex(v.value) : null),
+          order: typeof v.order === 'number' ? v.order : vIdx,
+        }))
+      : []
+    return {
+      id: optId,
+      name: opt.name,
+      order: typeof opt.order === 'number' ? opt.order : optIdx,
+      values,
+    }
+  })
+
+  // Se o utilizador configurou opções (ex: Cor) mas não clicou "Gerar Combinações", gerar automaticamente!
+  let rawVariants: any[] = Array.isArray(merged.variants) ? merged.variants : []
+  if (rawVariants.length === 0 && normalizedOptions.length > 0) {
+    const validOpts = normalizedOptions.filter((o) => o.values.length > 0)
+    if (validOpts.length > 0) {
+      function cartesian(arrays: any[][]): any[][] {
+        return arrays.reduce((acc, curr) => acc.flatMap((d) => curr.map((e) => [...d, e])), [[]])
+      }
+      const valArrays = validOpts.map((opt) =>
+        opt.values.map((val: any) => ({
+          optionId: opt.id,
+          optionName: opt.name,
+          optionValueId: val.id,
+          value: val.value,
+          hex: val.hex || (isColorOption(opt.name) ? guessColorHex(val.value) : null),
+        }))
+      )
+      const combos = cartesian(valArrays)
+      rawVariants = combos.map((combo: any, index: number) => {
+        const skuSuffix = combo.map((c: any) => c.value.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 4)).join('-')
+        return {
+          id: `var-${id}-${index + 1}-${Math.random().toString(36).substring(2, 5)}`,
+          sku: `${payload.sku}-${skuSuffix || index + 1}`,
+          price: payload.price,
+          stock: payload.quantity > 0 ? Math.ceil(payload.quantity / combos.length) : 10,
+          images: payload.image ? [payload.image] : [],
+          active: true,
+          order: index,
+          options: combo,
+        }
+      })
+    }
+  }
+
+  // Formatar variantes para resposta e backup JSON
+  const formattedVariants = rawVariants.map((v: any, index: number) => {
+    const vId = v.id || `var-${id}-${index + 1}-${Math.random().toString(36).substring(2, 5)}`
+    const vOptions = Array.isArray(v.options)
+      ? v.options.map((o: any) => ({
+          optionId: o.optionId || '',
+          optionName: o.optionName || '',
+          optionValueId: o.optionValueId || '',
+          value: o.value || '',
+          hex: o.hex || (isColorOption(o.optionName) ? guessColorHex(o.value) : null),
+        }))
+      : []
+
+    return {
+      id: vId,
+      productId: id,
+      sku: v.sku || `${payload.sku}-V${index + 1}`,
+      price: typeof v.price === 'number' ? v.price : null,
+      stock: typeof v.stock === 'number' ? v.stock : 0,
+      images: Array.isArray(v.images) ? v.images : (v.image ? [v.image] : []),
+      specs: typeof v.specs === 'object' && v.specs !== null ? v.specs : safeJsonParse(v.specs, {}),
+      active: v.active !== false,
+      order: typeof v.order === 'number' ? v.order : index,
+      options: vOptions,
+      createdAt: v.createdAt || now.toISOString(),
+      updatedAt: now.toISOString(),
+    }
+  })
 
   const formattedProduct = {
     id,
     ...payload,
-    images: safeJsonParse(payload.images, undefined),
+    baseSpecs: safeJsonParse(payload.baseSpecs, null),
+    images: safeJsonParse(payload.images, payload.image ? [payload.image] : []),
+    options: normalizedOptions,
+    variants: formattedVariants,
     createdAt: merged.createdAt || now.toISOString(),
     updatedAt: now.toISOString(),
   }
@@ -846,6 +1108,144 @@ export async function saveProductServerAsync(productData: any) {
         updatedAt: now,
       },
     })
+
+    // Sincronizar opções no Prisma
+    const optionValueIdMap = new Map<string, string>()
+
+    for (const opt of normalizedOptions) {
+      if (!opt.name) continue
+      try {
+        const optRecord = await prisma.productOption.upsert({
+          where: { name: opt.name.trim() },
+          create: {
+            id: opt.id || `opt-${opt.name.trim().toLowerCase().replace(/\s+/g, '-')}`,
+            name: opt.name.trim(),
+            order: opt.order || 0,
+          },
+          update: {},
+        })
+
+        for (const val of opt.values || []) {
+          if (!val.value) continue
+          const key = `${opt.name.trim().toLowerCase()}::${val.value.trim().toLowerCase()}`
+          const isCol = isColorOption(opt.name)
+          const hex = val.hex || (isCol ? guessColorHex(val.value) : null)
+
+          const valRecord = await prisma.productOptionValue.upsert({
+            where: {
+              optionId_value: {
+                optionId: optRecord.id,
+                value: val.value.trim(),
+              },
+            },
+            create: {
+              id: val.id || `val-${optRecord.id}-${val.value.trim().toLowerCase().replace(/\s+/g, '-')}`,
+              optionId: optRecord.id,
+              value: val.value.trim(),
+              hex,
+            },
+            update: {
+              hex: hex || undefined,
+            },
+          })
+
+          optionValueIdMap.set(key, valRecord.id)
+        }
+      } catch (e) {
+        console.warn('[saveProductServerAsync] Erro ao sincronizar option/value:', e)
+      }
+    }
+
+    // Sincronizar variantes no Prisma
+    if (formattedVariants.length > 0) {
+      for (const variant of formattedVariants) {
+        const vImagesStr = variant.images && variant.images.length > 0 ? JSON.stringify(variant.images) : null
+        const vSpecsStr = variant.specs ? JSON.stringify(variant.specs) : null
+
+        try {
+          const createdVariant = await prisma.productVariant.upsert({
+            where: { sku: variant.sku },
+            create: {
+              id: variant.id,
+              productId: id,
+              sku: variant.sku,
+              price: variant.price,
+              stock: variant.stock,
+              images: vImagesStr,
+              specs: vSpecsStr,
+              active: variant.active,
+              order: variant.order,
+            },
+            update: {
+              productId: id,
+              price: variant.price,
+              stock: variant.stock,
+              images: vImagesStr,
+              specs: vSpecsStr,
+              active: variant.active,
+              order: variant.order,
+            },
+          })
+
+          for (const opt of variant.options || []) {
+            const key = `${opt.optionName?.trim().toLowerCase()}::${opt.value?.trim().toLowerCase()}`
+            let valId = optionValueIdMap.get(key)
+            if (!valId && opt.optionName && opt.value) {
+              try {
+                const optRecord = await prisma.productOption.upsert({
+                  where: { name: opt.optionName.trim() },
+                  create: {
+                    id: opt.optionId || `opt-${opt.optionName.trim().toLowerCase().replace(/\s+/g, '-')}`,
+                    name: opt.optionName.trim(),
+                    order: 0,
+                  },
+                  update: {},
+                })
+                const isCol = isColorOption(opt.optionName)
+                const valRecord = await prisma.productOptionValue.upsert({
+                  where: {
+                    optionId_value: {
+                      optionId: optRecord.id,
+                      value: opt.value.trim(),
+                    },
+                  },
+                  create: {
+                    id: opt.optionValueId || `val-${optRecord.id}-${opt.value.trim().toLowerCase().replace(/\s+/g, '-')}`,
+                    optionId: optRecord.id,
+                    value: opt.value.trim(),
+                    hex: opt.hex || (isCol ? guessColorHex(opt.value) : null),
+                  },
+                  update: {},
+                })
+                valId = valRecord.id
+                optionValueIdMap.set(key, valId)
+              } catch {}
+            }
+
+            if (valId) {
+              try {
+                await prisma.productVariantOption.upsert({
+                  where: {
+                    variantId_optionValueId: {
+                      variantId: createdVariant.id,
+                      optionValueId: valId,
+                    },
+                  },
+                  create: {
+                    id: `pvo-${createdVariant.id}-${valId}`,
+                    variantId: createdVariant.id,
+                    optionValueId: valId,
+                  },
+                  update: {},
+                })
+              } catch {}
+            }
+          }
+        } catch (e) {
+          console.warn('[saveProductServerAsync] Erro ao gravar variante:', e)
+        }
+      }
+    }
   } catch (err) {
     console.error('[saveProductServerAsync] Erro Prisma:', err)
   }

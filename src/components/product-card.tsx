@@ -10,6 +10,8 @@ import { formatProdutoPrice } from "@/lib/format-produto-price"
 import { useToast } from "@/lib/toast-context"
 import ReserveProductModal from "@/components/reserve-product-modal"
 
+import { guessColorHex, isColorOption } from "@/lib/color-utils"
+
 type ProductCardProps = {
   product: Product
 }
@@ -20,6 +22,64 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { success, info } = useToast()
   const [isAdding, setIsAdding] = useState(false)
   const [isReserveModalOpen, setIsReserveModalOpen] = useState(false)
+
+  const hasVariants = (product.variants?.length ?? 0) > 0
+
+  // Extrair opções de cor de product.options ou sintetizar a partir das variantes
+  const colorOptions: Array<{ value: string; hex: string }> = (() => {
+    const directColorOpt = (product as any).options?.find((o: any) => isColorOption(o.name))
+    if (directColorOpt && Array.isArray(directColorOpt.values) && directColorOpt.values.length > 0) {
+      return directColorOpt.values.map((v: any) => {
+        const valStr = typeof v === 'string' ? v : v.value
+        const hex = (typeof v === 'object' && v.hex) ? v.hex : guessColorHex(valStr)
+        return { value: valStr, hex }
+      })
+    }
+    if (product.variants && product.variants.length > 0) {
+      const seen = new Set<string>()
+      const list: Array<{ value: string; hex: string }> = []
+      product.variants.forEach((v) => {
+        v.options?.forEach((vo) => {
+          if (isColorOption(vo.optionName) && vo.value && !seen.has(vo.value.toLowerCase())) {
+            seen.add(vo.value.toLowerCase())
+            list.push({ value: vo.value, hex: guessColorHex(vo.value) })
+          }
+        })
+      })
+      return list
+    }
+    return []
+  })()
+
+  // Extrair opções de RAM
+  const ramOptions: Array<{ value: string }> = (() => {
+    const directRamOpt = (product as any).options?.find((o: any) => o.name.toLowerCase().includes('ram'))
+    if (directRamOpt && Array.isArray(directRamOpt.values) && directRamOpt.values.length > 0) {
+      return directRamOpt.values.map((v: any) => ({
+        value: typeof v === 'string' ? v : v.value,
+      }))
+    }
+    if (product.variants && product.variants.length > 0) {
+      const seen = new Set<string>()
+      const list: Array<{ value: string }> = []
+      product.variants.forEach((v) => {
+        v.options?.forEach((vo) => {
+          if (vo.optionName.toLowerCase().includes('ram') && vo.value && !seen.has(vo.value.toLowerCase())) {
+            seen.add(vo.value.toLowerCase())
+            list.push({ value: vo.value })
+          }
+        })
+      })
+      return list
+    }
+    return []
+  })()
+
+  // Calcular preço mínimo entre as variantes
+  const variantPrices = product.variants?.map((v) => v.price).filter((p): p is number => typeof p === 'number') || []
+  const minVariantPrice = variantPrices.length > 0 ? Math.min(...variantPrices) : null
+  const effectiveBasePrice = minVariantPrice !== null ? minVariantPrice : product.price
+  const hasPriceRange = variantPrices.length > 1 && Math.min(...variantPrices) !== Math.max(...variantPrices)
 
   const isFavorite = isInWishlist(product.id)
   const isInCart = items.some(item => item.product.id === product.id)
@@ -77,6 +137,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
 
+          {hasVariants && !isOutOfStock && (
+            <span className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 bg-slate-900/80 backdrop-blur-sm text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-xs pointer-events-none flex items-center gap-1">
+              ⚡ {product.variants!.length} Opções
+            </span>
+          )}
+
           {isOutOfStock && (
             <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-600 text-white text-[10px] sm:text-xs font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded shadow-xs pointer-events-none flex items-center gap-1">
               <Truck className="h-3 w-3" />
@@ -101,28 +167,77 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Content */}
         <div className="p-3 sm:p-4 flex flex-col flex-1 min-h-0">
-          {product.category && (
-            <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide font-medium mb-1 line-clamp-1">
-              {product.category}
-            </p>
-          )}
+          <div className="flex items-center justify-between gap-1 mb-1">
+            {product.category && (
+              <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide font-medium line-clamp-1">
+                {product.category}
+              </p>
+            )}
+            {(product as any).brand && (
+              <span className="text-[10px] font-bold text-slate-400 uppercase">
+                {(product as any).brand}
+              </span>
+            )}
+          </div>
 
-          <Link href={`/loja/${product.id}`} className="flex-1 min-h-0">
+          <Link href={`/loja/${product.id}`} className="min-h-0">
             <h3 className="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
               {product.name}
             </h3>
           </Link>
 
-          <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-slate-500 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+          {/* Color & Spec Swatches Preview */}
+          {(colorOptions.length > 0 || ramOptions.length > 0) && (
+            <div className="mt-2 flex items-center gap-1.5 flex-wrap">
+              {colorOptions.length > 0 && (
+                <div className="flex items-center gap-1">
+                  {colorOptions.slice(0, 4).map((c: any, i: number) => (
+                    <span
+                      key={i}
+                      className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border border-slate-300 shadow-xs shrink-0"
+                      style={{ backgroundColor: c.hex || '#64748b' }}
+                      title={c.value}
+                    />
+                  ))}
+                  {colorOptions.length > 4 && (
+                    <span className="text-[9px] text-slate-400 font-bold">
+                      +{colorOptions.length - 4}
+                    </span>
+                  )}
+                </div>
+              )}
+              {ramOptions.length > 0 && (
+                <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.2 rounded font-mono">
+                  {ramOptions.map((r: any) => r.value).join(' / ')}
+                </span>
+              )}
+            </div>
+          )}
+
+          <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-slate-500 line-clamp-2 leading-relaxed">
             {product.description}
           </p>
 
           <div className="mt-auto pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-            <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none">
-              {formatProdutoPrice(product.price)}
-            </p>
+            <div>
+              {hasPriceRange && (
+                <span className="text-[10px] text-slate-400 block font-normal leading-none mb-0.5">
+                  A partir de
+                </span>
+              )}
+              <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none">
+                {formatProdutoPrice(effectiveBasePrice)}
+              </p>
+            </div>
 
-            {isInCart ? (
+            {hasVariants ? (
+              <Link
+                href={`/loja/${product.id}`}
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-2 sm:py-2 text-[11px] sm:text-xs font-semibold hover:bg-primary transition-colors min-h-9 sm:min-h-0"
+              >
+                <span>Ver Opções</span>
+              </Link>
+            ) : isInCart ? (
               <button
                 onClick={() => removeItem(product.id)}
                 className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 transition shrink-0 self-end sm:self-auto"

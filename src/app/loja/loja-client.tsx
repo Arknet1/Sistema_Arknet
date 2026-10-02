@@ -80,22 +80,37 @@ export default function LojaClient() {
 
   const filteredProducts = products.filter(p => {
     const matchesCategory = isCategoryMatch(p.category, selectedCategory)
-    const matchesSearch = !searchTerm ||
-                          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          p.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const query = searchTerm.toLowerCase().trim()
+    const matchesSearch = !query ||
+                          p.name.toLowerCase().includes(query) ||
+                          p.description.toLowerCase().includes(query) ||
+                          (p.brand && p.brand.toLowerCase().includes(query)) ||
+                          (p.sku && p.sku.toLowerCase().includes(query)) ||
+                          p.variants?.some(v => v.sku.toLowerCase().includes(query) || v.options?.some(o => o.value.toLowerCase().includes(query)))
 
     return matchesCategory && matchesSearch
   })
 
+  const getEffectiveProductPrice = (p: StoreProduct): number | null => {
+    if (p.variants && p.variants.length > 0) {
+      const vPrices = p.variants.map(v => v.price).filter((pr): pr is number => typeof pr === 'number')
+      if (vPrices.length > 0) return Math.min(...vPrices)
+    }
+    return p.price
+  }
+
   const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = getEffectiveProductPrice(a)
+    const priceB = getEffectiveProductPrice(b)
+
     if (sortBy === 'price-asc') {
-      const pa = a.price ?? Number.POSITIVE_INFINITY
-      const pb = b.price ?? Number.POSITIVE_INFINITY
+      const pa = priceA ?? Number.POSITIVE_INFINITY
+      const pb = priceB ?? Number.POSITIVE_INFINITY
       return pa - pb
     }
     if (sortBy === 'price-desc') {
-      const pa = a.price ?? Number.NEGATIVE_INFINITY
-      const pb = b.price ?? Number.NEGATIVE_INFINITY
+      const pa = priceA ?? Number.NEGATIVE_INFINITY
+      const pb = priceB ?? Number.NEGATIVE_INFINITY
       return pb - pa
     }
     return 0

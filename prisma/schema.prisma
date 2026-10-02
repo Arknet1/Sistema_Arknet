@@ -62,21 +62,75 @@ model ProductCategory {
 model Product {
   id           String             @id @default(cuid())
   name         String
+  slug         String?            @unique  // URL-friendly identifier (gerado a partir do nome)
   description  String
   categoryId   String?
   categoryRef  ProductCategory?   @relation(fields: [categoryId], references: [id])
   category     String             // Nome da categoria desnormalizado para consultas rápidas
-  price        Float?             // null = Sob consulta
+  brand        String?            // Marca do produto (HP, Epson, TP-Link, etc.)
+  price        Float?             // Preço base; null = Sob consulta
   image        String
   images       String?            // JSON array serializado de strings
   inStock      Boolean            @default(true)
   quantity     Int                @default(0)
   featured     Boolean            @default(false)
   sku          String?
+  baseSpecs    String?            // JSON de especificações técnicas gerais do produto pai
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+  variants     ProductVariant[]
   orderItems   StoreOrderItem[]
   reservations ProductReservation[]
+}
+
+// Atributos flexíveis por tipo de produto (Cor, RAM, Armazenamento, Conectividade...)
+model ProductOption {
+  id     String               @id @default(cuid())
+  name   String               @unique  // "Cor", "RAM", "Armazenamento", "Conectividade"
+  order  Int                  @default(0)
+  values ProductOptionValue[]
+}
+
+// Valores de cada atributo ("Azul", "16GB", "512GB SSD", "Wi-Fi")
+model ProductOptionValue {
+  id       String                  @id @default(cuid())
+  optionId String
+  optionRef ProductOption          @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  value    String                  // Texto visível ao utilizador
+  hex      String?                 // Código hex da cor (ex: "#1E40AF"); null para atributos não-cor
+  order    Int                     @default(0)
+  variants ProductVariantOption[]
+
+  @@unique([optionId, value])
+}
+
+// Variante concreta de um produto (combinação específica de opções)
+model ProductVariant {
+  id        String                  @id @default(cuid())
+  productId String
+  productRef Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku       String                  @unique
+  price     Float?                  // null = usa preço base do produto pai
+  stock     Int                     @default(0)
+  images    String?                 // JSON array de URLs de imagens desta variante
+  specs     String?                 // JSON de especificações técnicas específicas desta variante
+  active    Boolean                 @default(true)
+  order     Int                     @default(0)
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  options   ProductVariantOption[]
+  orderItems StoreOrderItem[]
+}
+
+// Tabela pivot: liga uma variante aos seus valores de opção
+model ProductVariantOption {
+  id             String             @id @default(cuid())
+  variantId      String
+  variantRef     ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  optionValueId  String
+  optionValueRef ProductOptionValue @relation(fields: [optionValueId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, optionValueId])
 }
 
 // -------------------------------------------------------------
@@ -112,15 +166,19 @@ model StoreOrder {
 }
 
 model StoreOrderItem {
-  id          String      @id @default(cuid())
-  orderId     String
-  orderRef    StoreOrder  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId   String?
-  productRef  Product?    @relation(fields: [productId], references: [id], onDelete: SetNull)
-  productName String
-  price       Float?
-  quantity    Int         @default(1)
-  image       String?
+  id           String          @id @default(cuid())
+  orderId      String
+  orderRef     StoreOrder      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String?
+  productRef   Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId    String?
+  variantRef   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  productName  String
+  variantSku   String?         // SKU da variante no momento da compra
+  variantLabel String?         // Rótulo legível (ex: "16GB RAM / 512GB SSD / Prata")
+  price        Float?
+  quantity     Int             @default(1)
+  image        String?
 }
 
 // -------------------------------------------------------------

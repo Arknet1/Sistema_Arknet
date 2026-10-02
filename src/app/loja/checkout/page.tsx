@@ -134,10 +134,14 @@ function CheckoutContent() {
       submittedOrder.total === null ? 'Sob consulta' : formatProdutoPrice(submittedOrder.total)
 
     const itemsSummaryText = (submittedOrder.items || [])
-      .map((it: StoreOrderItem) => `• ${it.quantity}x ${it.productName}`)
+      .map((it: any) => {
+        const variantPart = it.variantLabel ? ` (${it.variantLabel})` : ''
+        const skuPart = it.variantSku ? ` [SKU: ${it.variantSku}]` : ''
+        return `• ${it.quantity}x ${it.productName}${variantPart}${skuPart}`
+      })
       .join('%0A')
 
-    const whatsappMessage = `Ol%C3%A1%20ARKNET!%20Acabei%20de%20registar%20o%20pedido%20*${submittedOrder.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*%20na%20loja%20online.%0A%0A*Cliente:*%20${encodeURIComponent(submittedOrder.customerName)}%0A*Telefone:*%20${encodeURIComponent(submittedOrder.customerPhone || '')}%0A*M%C3%A9todo:*%20${encodeURIComponent(submittedOrder.paymentMethod || 'Transferência')}%0A%0A*Equipamentos:*%0A${itemsSummaryText}%0A%0AGostaria%20de%20finalizar%20o%20pagamento%20e%20enviar%20o%20comprovativo%20para%20valida%C3%A7%C3%A3o.`
+    const whatsappMessage = `Ol%C3%A1%20ARKNET!%20Acabei%20de%20registar%20o%20pedido%20*${submittedOrder.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*%20na%20loja%20online.%0A%0A*Cliente:*%20${encodeURIComponent(submittedOrder.customerName)}%0A*Telefone:*%20${encodeURIComponent(submittedOrder.customerPhone || '')}%0A*M%C3%A9todo:*%20${encodeURIComponent(submittedOrder.paymentMethod || 'Transferência')}%0A%0A*Equipamentos%20e%20Variantes:*%0A${itemsSummaryText}%0A%0AGostaria%20de%20finalizar%20o%20pagamento%20e%20enviar%20o%20comprovativo%20para%20valida%C3%A7%C3%A3o.`
 
     return (
       <main className="min-h-screen pt-24 pb-20 bg-slate-900">
@@ -328,11 +332,16 @@ function CheckoutContent() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
-                  {submittedOrder.items.map((item: StoreOrderItem, idx: number) => (
+                  {submittedOrder.items.map((item: any, idx: number) => (
                     <tr key={idx} className="hover:bg-slate-50">
                       <td className="py-3.5 px-3">
                         <p className="font-bold text-slate-900">{item.productName}</p>
-                        <p className="text-[10px] text-slate-400 font-mono">ID: {item.productId}</p>
+                        {item.variantLabel && (
+                          <p className="text-[11px] font-semibold text-primary">{item.variantLabel}</p>
+                        )}
+                        <p className="text-[10px] text-slate-400 font-mono">
+                          {item.variantSku ? `SKU: ${item.variantSku}` : `ID: ${item.productId}`}
+                        </p>
                       </td>
                       <td className="py-3.5 px-3 text-center font-bold">{item.quantity}</td>
                       <td className="py-3.5 px-3 text-right font-mono">
@@ -451,9 +460,12 @@ function CheckoutContent() {
         items: items.map((item) => ({
           productId: item.product.id,
           productName: item.product.name,
-          price: item.product.price,
+          variantId: item.variant?.id,
+          variantSku: item.variantSku || item.variant?.sku,
+          variantLabel: item.variantLabel,
+          price: item.price !== undefined ? item.price : (item.variant?.price ?? item.product.price),
           quantity: item.quantity,
-          image: item.product.image,
+          image: item.variant?.images?.[0] || item.product.image,
         })),
         total: total,
         status: 'novo',
@@ -859,17 +871,25 @@ function CheckoutContent() {
                 </h2>
 
                 <div className="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1 divide-y divide-slate-100">
-                  {items.map((item) => (
-                    <div key={item.product.id} className="pt-2 first:pt-0 flex items-center justify-between text-xs">
-                      <div className="pr-3">
-                        <p className="font-bold text-slate-800 line-clamp-1">{item.product.name}</p>
-                        <p className="text-slate-500 text-[11px]">Qtd: <strong>{item.quantity}</strong></p>
+                  {items.map((item) => {
+                    const itemKey = item.id || (item.variant ? `${item.product.id}_${item.variant.id}` : item.product.id)
+                    const effectivePrice = item.price ?? item.variant?.price ?? item.product.price
+
+                    return (
+                      <div key={itemKey} className="pt-2 first:pt-0 flex items-center justify-between text-xs">
+                        <div className="pr-3 min-w-0">
+                          <p className="font-bold text-slate-800 truncate">{item.product.name}</p>
+                          {item.variantLabel && (
+                            <p className="text-[10px] font-semibold text-primary truncate">{item.variantLabel}</p>
+                          )}
+                          <p className="text-slate-500 text-[11px]">Qtd: <strong>{item.quantity}</strong></p>
+                        </div>
+                        <span className="font-mono font-bold text-slate-900 shrink-0">
+                          {formatLinhaPreco(effectivePrice, item.quantity)}
+                        </span>
                       </div>
-                      <span className="font-mono font-bold text-slate-900 shrink-0">
-                        {formatLinhaPreco(item.product.price, item.quantity)}
-                      </span>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
 
                 <div className="pt-4 border-t border-slate-200 space-y-2 text-xs">
