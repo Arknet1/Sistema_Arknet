@@ -33,7 +33,18 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { subject, htmlBody, testEmail } = body
+    const {
+      subject,
+      editionLabel,
+      htmlBody,
+      coverImage,
+      coverImageAlt,
+      offerBannerImage,
+      offerBannerAlt,
+      offerBannerLink,
+      featuredProducts,
+      testEmail,
+    } = body
 
     if (!subject || !subject.trim()) {
       return NextResponse.json(
@@ -54,7 +65,14 @@ export async function POST(request: NextRequest) {
       const result = await sendNewsletterEmail({
         to: testEmail,
         subject: subject.trim(),
+        editionLabel: editionLabel ? String(editionLabel).trim() : undefined,
         htmlBody: htmlBody.trim(),
+        coverImage: coverImage ? String(coverImage).trim() : null,
+        coverImageAlt: coverImageAlt ? String(coverImageAlt).trim() : null,
+        offerBannerImage: offerBannerImage ? String(offerBannerImage).trim() : null,
+        offerBannerAlt: offerBannerAlt ? String(offerBannerAlt).trim() : null,
+        offerBannerLink: offerBannerLink ? String(offerBannerLink).trim() : null,
+        featuredProducts: Array.isArray(featuredProducts) ? featuredProducts : null,
       })
 
       return NextResponse.json({
@@ -79,11 +97,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Criar registo da campanha
+    // Criar registo da campanha com todas as URLs e Alt texts das imagens
     const campaign = await prisma.newsletterCampaign.create({
       data: {
         subject: subject.trim(),
         body: htmlBody.trim(),
+        coverImage: coverImage ? String(coverImage).trim() : null,
+        coverImageAlt: coverImageAlt ? String(coverImageAlt).trim() : null,
+        offerBannerImage: offerBannerImage ? String(offerBannerImage).trim() : null,
+        offerBannerAlt: offerBannerAlt ? String(offerBannerAlt).trim() : null,
+        offerBannerLink: offerBannerLink ? String(offerBannerLink).trim() : null,
+        featuredProducts: Array.isArray(featuredProducts) ? JSON.stringify(featuredProducts) : null,
         recipientCount: subscribers.length,
         status: 'a_enviar',
         sentBy: admin.email || 'Admin',
@@ -101,7 +125,14 @@ export async function POST(request: NextRequest) {
         const result = await sendNewsletterEmail({
           to: sub.email,
           subject: subject.trim(),
+          editionLabel: editionLabel ? String(editionLabel).trim() : undefined,
           htmlBody: htmlBody.trim(),
+          coverImage: coverImage ? String(coverImage).trim() : null,
+          coverImageAlt: coverImageAlt ? String(coverImageAlt).trim() : null,
+          offerBannerImage: offerBannerImage ? String(offerBannerImage).trim() : null,
+          offerBannerAlt: offerBannerAlt ? String(offerBannerAlt).trim() : null,
+          offerBannerLink: offerBannerLink ? String(offerBannerLink).trim() : null,
+          featuredProducts: Array.isArray(featuredProducts) ? featuredProducts : null,
         })
 
         if (result.success) {
@@ -120,6 +151,7 @@ export async function POST(request: NextRequest) {
         errors.push(`${sub.email}: ${err.message}`)
       }
     }
+
 
     // Atualizar campanha com resultados
     await prisma.newsletterCampaign.update({

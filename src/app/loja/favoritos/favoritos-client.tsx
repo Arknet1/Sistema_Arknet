@@ -95,7 +95,7 @@ export default function FavoritosClient() {
             </div>
             <h2 className="text-xl font-black text-slate-900">A sua lista de favoritos está vazia</h2>
             <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-              Explore o nosso catálogo de equipamentos de rede, servidores e telecomunicações e clique no ícone ❤️ para guardar os seus artigos preferidos.
+              Explore o nosso catálogo de equipamentos de rede, servidores e telecomunicações e clique no ícone de favorito para guardar os seus artigos preferidos.
             </p>
             <div className="mt-6 flex justify-center gap-3">
               <Link

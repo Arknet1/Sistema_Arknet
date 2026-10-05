@@ -639,7 +639,7 @@ export default function AdminProdutosPage() {
               className="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 text-xs text-slate-700 focus:bg-white focus:border-primary focus:outline-none"
             >
               <option value="all">Todos os Produtos</option>
-              <option value="hasVariants">⚡ Apenas Com Variantes (Cores/Config)</option>
+              <option value="hasVariants">Apenas Com Variantes (Cores/Config)</option>
               <option value="inStock">Apenas Em Stock</option>
               <option value="outOfStock">Apenas Esgotados / Indisponíveis</option>
             </select>

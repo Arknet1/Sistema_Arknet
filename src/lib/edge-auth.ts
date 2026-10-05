@@ -5,8 +5,18 @@ export interface EdgeSessionPayload {
   exp: number
 }
 
+let _authSecretWarned = false
+
 function getSessionSecret() {
-  return process.env.AUTH_SECRET || 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
+  const secret = process.env.AUTH_SECRET
+  if (!secret) {
+    if (!_authSecretWarned) {
+      _authSecretWarned = true
+      console.warn('[ARKNET SEGURANÇA] AUTH_SECRET não definido! A usar chave de fallback (inseguro em produção).')
+    }
+    return 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
+  }
+  return secret
 }
 
 export async function verifySessionToken(token: string): Promise<EdgeSessionPayload | null> {

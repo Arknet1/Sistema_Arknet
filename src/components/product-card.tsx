@@ -139,7 +139,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {hasVariants && !isOutOfStock && (
             <span className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 bg-slate-900/80 backdrop-blur-sm text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-xs pointer-events-none flex items-center gap-1">
-              ⚡ {product.variants!.length} Opções
+              {product.variants!.length} Opções
             </span>
           )}
 

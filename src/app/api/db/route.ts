@@ -14,6 +14,8 @@ import {
 } from '@/lib/server-db'
 import { prisma } from '@/lib/prisma'
 import { verifySessionToken } from '@/lib/server-auth'
+import { checkRateLimit, createRateLimitResponse } from '@/lib/rate-limit'
+import { notifyNewOrder, notifyNewLead } from '@/lib/notifications'
 
 // ==========================================
 // UTILITÁRIO: Verificar token de administrador
@@ -99,6 +101,9 @@ export async function POST(request: NextRequest) {
     // ── Ações Públicas Seguras (sem autenticação) ──────────────────────
 
     if (action === 'create_order') {
+      const rateLimit = checkRateLimit(request, { limit: 10, windowSeconds: 60, prefix: 'order' })
+      if (!rateLimit.success) return createRateLimitResponse(rateLimit)
+
       const order = body.order
       if (!order || !order.id || !order.customerName || !order.customerEmail || !order.items) {
         return NextResponse.json({ success: false, message: 'Dados da encomenda incompletos' }, { status: 400 })
@@ -107,10 +112,17 @@ export async function POST(request: NextRequest) {
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao gravar encomenda no servidor' }, { status: 500 })
       }
+
+      // Notificação automática assíncrona por email
+      notifyNewOrder(order).catch((err) => console.warn('[Notificação Encomenda] Erro:', err))
+
       return NextResponse.json({ success: true, message: 'Encomenda registada com sucesso' }, { status: 201 })
     }
 
     if (action === 'create_lead') {
+      const rateLimit = checkRateLimit(request, { limit: 5, windowSeconds: 60, prefix: 'lead' })
+      if (!rateLimit.success) return createRateLimitResponse(rateLimit)
+
       const lead = body.lead
       if (!lead || !lead.name || !lead.email || !lead.service) {
         return NextResponse.json({ success: false, message: 'Dados do lead incompletos' }, { status: 400 })
@@ -119,6 +131,10 @@ export async function POST(request: NextRequest) {
       if (!success) {
         return NextResponse.json({ success: false, message: 'Falha ao gravar lead no servidor' }, { status: 500 })
       }
+
+      // Notificação comercial assíncrona por email
+      notifyNewLead(lead).catch((err) => console.warn('[Notificação Lead] Erro:', err))
+
       return NextResponse.json({ success: true, message: 'Pedido de contacto registado com sucesso' }, { status: 201 })
     }
 

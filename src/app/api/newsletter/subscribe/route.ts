@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { sendNewsletterWelcomeEmail } from '@/lib/email-service'
+import { checkRateLimit, createRateLimitResponse } from '@/lib/rate-limit'
 
 /**
  * POST /api/newsletter/subscribe
  * Regista um novo subscritor e envia email de confirmação/boas-vindas
  */
 export async function POST(request: NextRequest) {
+  // Proteção contra spam de subscrições: máx 5 pedidos por 60 segundos por IP
+  const rateLimit = checkRateLimit(request, { limit: 5, windowSeconds: 60, prefix: 'nl-sub' })
+  if (!rateLimit.success) {
+    return createRateLimitResponse(rateLimit)
+  }
   try {
     let body: any = {}
     try {

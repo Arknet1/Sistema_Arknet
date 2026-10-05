@@ -1569,6 +1569,8 @@ class DataStoreManager {
   private syncTimer: any = null
   private persistenceQueue: Promise<boolean> = Promise.resolve(true)
   private localRevision = 0
+  private isSyncing = false
+  private lastSyncTime = 0
 
   constructor() {
     this.db = this.loadFromStorage()
@@ -1620,6 +1622,13 @@ class DataStoreManager {
    */
   public async syncWithServer(): Promise<boolean> {
     if (!this.isBrowser) return false
+    const now = Date.now()
+    if (this.isSyncing || (now - this.lastSyncTime < 4000)) {
+      return false
+    }
+    this.isSyncing = true
+    this.lastSyncTime = now
+
     try {
       const syncRevision = this.localRevision
       const headers: Record<string, string> = {}
@@ -1707,6 +1716,8 @@ class DataStoreManager {
     } catch (err) {
       console.warn('[DataStore] Erro ao sincronizar com servidor:', err)
       return false
+    } finally {
+      this.isSyncing = false
     }
   }
 

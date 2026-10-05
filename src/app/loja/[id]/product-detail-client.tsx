@@ -388,8 +388,8 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
   const whatsappMessage = encodeURIComponent(
     `Olá ARKNET! Gostaria de encomendar o seguinte equipamento:\n\n*${product.name}*\n${
-      variantLabel ? `⚙️ *Configuração:* ${variantLabel}\n` : ''
-    }🏷️ *SKU:* ${effectiveSku}\n💰 *Valor:* ${formatProdutoPrice(effectivePrice)}\n📦 *Quantidade:* ${quantity} un.\n\nPodem confirmar a disponibilidade em Luanda e os dados de pagamento?`
+      variantLabel ? `*Configuração:* ${variantLabel}\n` : ''
+    }*SKU:* ${effectiveSku}\n*Valor:* ${formatProdutoPrice(effectivePrice)}\n*Quantidade:* ${quantity} un.\n\nPodem confirmar a disponibilidade em Luanda e os dados de pagamento?`
   )
 
   const activeImage = galleryImages[selectedImageIndex] || product.image

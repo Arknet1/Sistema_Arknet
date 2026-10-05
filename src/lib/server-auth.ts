@@ -8,8 +8,22 @@ export interface ServerSessionPayload {
   exp: number
 }
 
+let _authSecretWarned = false
+
 function getSessionSecret() {
-  return process.env.AUTH_SECRET || 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
+  const secret = process.env.AUTH_SECRET
+  if (!secret) {
+    if (!_authSecretWarned) {
+      _authSecretWarned = true
+      console.warn(
+        '\n[AVISO] [ARKNET SEGURANCA] AUTH_SECRET não está definido nas variáveis de ambiente!\n' +
+        '   A usar chave de fallback. Isto NÃO é seguro em produção.\n' +
+        '   Gere uma chave: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"\n'
+      )
+    }
+    return 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
+  }
+  return secret
 }
 
 export function hashPassword(password: string) {

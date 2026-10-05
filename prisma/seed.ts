@@ -17,11 +17,11 @@ function parseOptionalDate(val: any): Date | undefined {
 }
 
 async function main() {
-  console.log('🚀 Iniciando Seed da Base de Dados ARKNET a partir de data/arknet-db.json...')
+  console.log('[SEED] Iniciando Seed da Base de Dados ARKNET a partir de data/arknet-db.json...')
 
   const dbPath = path.join(process.cwd(), 'data', 'arknet-db.json')
   if (!fs.existsSync(dbPath)) {
-    console.warn('⚠️ Ficheiro data/arknet-db.json não encontrado. Seed cancelado.')
+    console.warn('[AVISO] Ficheiro data/arknet-db.json nao encontrado. Seed cancelado.')
     return
   }
 
@@ -29,7 +29,7 @@ async function main() {
   const data = JSON.parse(raw)
 
   // 1. Limpar tabelas existentes (Ordem respeitando chaves estrangeiras)
-  console.log('🧹 Limpando dados antigos...')
+  console.log('[SEED] Limpando dados antigos...')
   await prisma.auditActivity.deleteMany()
   await prisma.jobApplication.deleteMany()
   await prisma.job.deleteMany()
@@ -52,7 +52,7 @@ async function main() {
   await prisma.companySetting.deleteMany()
 
   // 2. Utilizadores Administrativos
-  console.log('👥 Inserindo Administradores...')
+  console.log('[SEED] Inserindo Administradores...')
   if (Array.isArray(data.users)) {
     for (const u of data.users) {
       await prisma.adminUser.create({
@@ -73,7 +73,7 @@ async function main() {
   }
 
   // 3. Clientes
-  console.log('👤 Inserindo Clientes...')
+  console.log('[SEED] Inserindo Clientes...')
   if (Array.isArray(data.customers)) {
     for (const c of data.customers) {
       await prisma.customer.create({
@@ -99,7 +99,7 @@ async function main() {
   }
 
   // 4. Categorias de Produtos
-  console.log('🏷️ Inserindo Categorias...')
+  console.log('[SEED] Inserindo Categorias...')
   if (Array.isArray(data.categories)) {
     for (const cat of data.categories) {
       await prisma.productCategory.create({
@@ -116,7 +116,7 @@ async function main() {
   }
 
   // 5. Produtos
-  console.log('📦 Inserindo Produtos...')
+  console.log('[SEED] Inserindo Produtos...')
   if (Array.isArray(data.products)) {
     for (const p of data.products) {
       // Tentar associar à categoria existente se coincidir o nome
@@ -146,7 +146,7 @@ async function main() {
   }
 
   // 6. Encomendas & Itens
-  console.log('🛒 Inserindo Encomendas...')
+  console.log('[SEED] Inserindo Encomendas...')
   if (Array.isArray(data.orders)) {
     for (const o of data.orders) {
       const createdOrder = await prisma.storeOrder.create({
@@ -203,7 +203,7 @@ async function main() {
   }
 
   // 7. Reservas
-  console.log('📌 Inserindo Reservas...')
+  console.log('[SEED] Inserindo Reservas...')
   if (Array.isArray(data.reservations)) {
     for (const r of data.reservations) {
       // Verificar se o produto referenciado existe
@@ -235,7 +235,7 @@ async function main() {
   }
 
   // 8. Leads Comerciais
-  console.log('💼 Inserindo Leads...')
+  console.log('[SEED] Inserindo Leads...')
   if (Array.isArray(data.leads)) {
     for (const l of data.leads) {
       await prisma.serviceLead.create({
@@ -257,7 +257,7 @@ async function main() {
   }
 
   // 9. Subscritores da Newsletter
-  console.log('✉️ Inserindo Newsletter...')
+  console.log('[SEED] Inserindo Newsletter...')
   if (Array.isArray(data.subscribers)) {
     for (const s of data.subscribers) {
       await prisma.newsletterSubscriber.create({
@@ -272,7 +272,7 @@ async function main() {
   }
 
   // 10. Eventos & Inscrições
-  console.log('📅 Inserindo Eventos & Inscrições...')
+  console.log('[SEED] Inserindo Eventos & Inscricoes...')
   if (Array.isArray(data.events)) {
     for (const ev of data.events) {
       await prisma.event.create({
@@ -303,7 +303,7 @@ async function main() {
       // Verificar se o evento referenciado existe
       const eventExists = await prisma.event.findUnique({ where: { id: reg.eventId } })
       if (!eventExists) {
-        console.warn(`  ⚠️ Inscrição ${reg.id} ignorada: evento ${reg.eventId} não encontrado`)
+        console.warn(`  [AVISO] Inscricao ${reg.id} ignorada: evento ${reg.eventId} nao encontrado`)
         continue
       }
       await prisma.eventRegistration.create({
@@ -324,7 +324,7 @@ async function main() {
   }
 
   // 11. Cursos
-  console.log('🎓 Inserindo Cursos...')
+  console.log('[SEED] Inserindo Cursos...')
   if (Array.isArray(data.courses)) {
     for (const c of data.courses) {
       await prisma.course.create({
@@ -347,7 +347,7 @@ async function main() {
   }
 
   // 12. Projetos & Atividades Diárias
-  console.log('🚀 Inserindo Projetos e Blog...')
+  console.log('[SEED] Inserindo Projetos e Blog...')
   if (Array.isArray(data.projects)) {
     for (const p of data.projects) {
       await prisma.project.create({
@@ -400,7 +400,7 @@ async function main() {
   }
 
   // 13. Parceiros & Testemunhos
-  console.log('🤝 Inserindo Parceiros & Testemunhos...')
+  console.log('[SEED] Inserindo Parceiros & Testemunhos...')
   if (Array.isArray(data.partners)) {
     for (const pa of data.partners) {
       await prisma.partner.create({
@@ -436,7 +436,7 @@ async function main() {
   }
 
   // 14. Vagas de Emprego & Candidaturas
-  console.log('💼 Inserindo Vagas...')
+  console.log('[SEED] Inserindo Vagas...')
   if (Array.isArray(data.jobs)) {
     for (const j of data.jobs) {
       await prisma.job.create({
@@ -465,7 +465,7 @@ async function main() {
         if (jobExists) {
           validJobId = app.jobId
         } else {
-          console.warn(`  ⚠️ Candidatura ${app.id}: vaga ${app.jobId} não encontrada, FK será null`)
+          console.warn(`  [AVISO] Candidatura ${app.id}: vaga ${app.jobId} nao encontrada, FK sera null`)
         }
       }
       await prisma.jobApplication.create({
@@ -486,7 +486,7 @@ async function main() {
   }
 
   // 15. Configurações Globais
-  console.log('⚙️ Inserindo Configurações Institucionais...')
+  console.log('[SEED] Inserindo Configuracoes Institucionais...')
   if (data.settings) {
     const s = data.settings
     await prisma.companySetting.create({
@@ -510,7 +510,7 @@ async function main() {
   }
 
   // 16. Atividades de Auditoria
-  console.log('📝 Inserindo Atividades de Auditoria...')
+  console.log('[SEED] Inserindo Atividades de Auditoria...')
   if (Array.isArray(data.activities)) {
     for (const a of data.activities) {
       await prisma.auditActivity.create({
@@ -528,12 +528,12 @@ async function main() {
     }
   }
 
-  console.log('✅ Seed da Base de Dados ARKNET concluído com sucesso!')
+  console.log('[OK] Seed da Base de Dados ARKNET concluido com sucesso!')
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Erro durante o seed do Prisma:', e)
+    console.error('[ERRO] Erro durante o seed do Prisma:', e)
     process.exit(1)
   })
   .finally(async () => {

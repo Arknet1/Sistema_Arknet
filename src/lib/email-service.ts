@@ -1,4 +1,14 @@
 import nodemailer from 'nodemailer'
+import fs from 'fs'
+import path from 'path'
+import {
+  generateFullNewsletterHtml,
+  generateNewsletterPlainText,
+  getBaseSiteUrl,
+  toAbsoluteUrl,
+  ProductBlockData,
+  EditorialPromoData,
+} from './newsletter-template'
 
 export interface SendEventEmailParams {
   to: string
@@ -432,102 +442,178 @@ export interface SendNewsletterParams {
   to: string
   subject: string
   htmlBody: string
+  templateType?: 'editorial' | 'classic'
+  editionLabel?: string
+  coverImage?: string | null
+  coverImageAlt?: string | null
+  coverTitle?: string
+  coverSubtitle?: string
+  offerBannerImage?: string | null
+  offerBannerAlt?: string | null
+  offerBannerLink?: string | null
+  promo?: EditorialPromoData | null
+  featuredProducts?: ProductBlockData[] | null
   unsubscribeEmail?: string
+}
+
+export interface NodemailerAttachment {
+  filename: string
+  path?: string
+  content?: Buffer | string
+  cid: string
+  contentType?: string
+}
+
+/**
+ * Processa o HTML e as Imagens dos blocos para transformar imagens locais (/uploads/...) em Inline Attachments (CID).
+ */
+export function processEmailAttachments(
+  params: {
+    rawHtml: string
+    coverImage?: string | null
+    offerBannerImage?: string | null
+    featuredProducts?: ProductBlockData[] | null
+  },
+  baseUrl: string = getBaseSiteUrl()
+): {
+  processedHtml: string
+  processedCover: string | null
+  processedBanner: string | null
+  processedProducts: ProductBlockData[] | null
+  attachments: NodemailerAttachment[]
+} {
+  const attachments: NodemailerAttachment[] = []
+  const publicDir = path.join(process.cwd(), 'public')
+  let cidCounter = 1
+
+  const registerLocalImage = (imgSrc: string | null | undefined): string => {
+    if (!imgSrc) return ''
+    const trimmed = imgSrc.trim()
+    if (!trimmed) return ''
+
+    let localRelative = ''
+    if (trimmed.startsWith('/')) {
+      localRelative = trimmed.replace(/^\//, '')
+    } else if (trimmed.includes('uploads/')) {
+      const idx = trimmed.indexOf('uploads/')
+      if (idx !== -1) localRelative = trimmed.substring(idx)
+    } else if (trimmed.includes('images/')) {
+      const idx = trimmed.indexOf('images/')
+      if (idx !== -1) localRelative = trimmed.substring(idx)
+    }
+
+    if (localRelative) {
+      const cleanRel = localRelative.split('?')[0].split('#')[0]
+      const fullPath = path.join(publicDir, cleanRel)
+
+      if (fs.existsSync(fullPath)) {
+        const cid = `arknet_img_${cidCounter++}_${Date.now()}`
+        attachments.push({
+          filename: path.basename(cleanRel),
+          path: fullPath,
+          cid: cid,
+        })
+        return `cid:${cid}`
+      }
+    }
+
+    return toAbsoluteUrl(trimmed, baseUrl)
+  }
+
+  // 1. Processar Imagem de Capa
+  const processedCover = params.coverImage ? registerLocalImage(params.coverImage) : null
+
+  // 2. Processar Banner de Oferta
+  const processedBanner = params.offerBannerImage ? registerLocalImage(params.offerBannerImage) : null
+
+  // 3. Processar Imagens dos 3 Produtos Mais Pedidos
+  let processedProducts: ProductBlockData[] | null = null
+  if (params.featuredProducts && Array.isArray(params.featuredProducts)) {
+    processedProducts = params.featuredProducts.map((p) => ({
+      ...p,
+      image: registerLocalImage(p.image),
+    }))
+  }
+
+  // 4. Processar todas as tags <img src="..." /> no corpo HTML
+  let processedHtml = params.rawHtml || ''
+  processedHtml = processedHtml.replace(/<img([^>]+)src=(["'])(.*?)\2([^>]*)>/gi, (match, before, quote, src, after) => {
+    const newSrc = registerLocalImage(src)
+    return `<img${before}src=${quote}${newSrc}${quote}${after}>`
+  })
+
+  return {
+    processedHtml,
+    processedCover,
+    processedBanner,
+    processedProducts,
+    attachments,
+  }
 }
 
 /**
  * Envia um email de newsletter para um subscritor individual
  */
 export async function sendNewsletterEmail(params: SendNewsletterParams): Promise<SendEmailResult> {
-  const { to, subject, htmlBody, unsubscribeEmail } = params
+  const {
+    to,
+    subject,
+    htmlBody,
+    coverImage,
+    coverImageAlt,
+    offerBannerImage,
+    offerBannerAlt,
+    offerBannerLink,
+    promo,
+    featuredProducts,
+    unsubscribeEmail,
+    templateType,
+    editionLabel,
+    coverTitle,
+    coverSubtitle,
+  } = params
+
   const { transporter, from, mode } = await createTransporter()
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'https://arknet.co.ao'
+  const siteUrl = getBaseSiteUrl()
 
-  const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${subject}</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; -webkit-font-smoothing: antialiased; line-height: 1.6;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f1f5f9; padding: 32px 16px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-          
-          <!-- Header com Gradiente -->
-          <tr>
-            <td style="padding: 28px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); text-align: center;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td align="center">
-                    <span style="font-size: 24px; font-weight: 800; letter-spacing: 1px; color: #ffffff;">
-                      ARKNET<span style="color: #38bdf8;">.</span>
-                    </span>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px;">
-                      Newsletter
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+  // Processar imagens locais para embutir como inline attachments (CID) garantindo exibição no Gmail/Outlook
+  const {
+    processedHtml,
+    processedCover,
+    processedBanner,
+    processedProducts,
+    attachments,
+  } = processEmailAttachments(
+    {
+      rawHtml: htmlBody,
+      coverImage,
+      offerBannerImage,
+      featuredProducts,
+    },
+    siteUrl
+  )
 
-          <!-- Assunto como Banner -->
-          <tr>
-            <td style="padding: 20px 32px 12px 32px; border-bottom: 1px solid #f1f5f9;">
-              <h1 style="font-size: 20px; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.4;">
-                ${subject}
-              </h1>
-            </td>
-          </tr>
+  // Montar HTML com template editorial por defeito (ou clássico se solicitado)
+  const html = generateFullNewsletterHtml({
+    subject,
+    htmlBody: processedHtml,
+    templateType,
+    editionLabel,
+    coverImage: processedCover,
+    coverImageAlt,
+    coverTitle,
+    coverSubtitle,
+    offerBannerImage: processedBanner,
+    offerBannerAlt,
+    offerBannerLink,
+    promo,
+    featuredProducts: processedProducts,
+    siteUrl,
+    unsubscribeEmail,
+    isPreview: false,
+  })
 
-          <!-- Corpo da Newsletter -->
-          <tr>
-            <td style="padding: 24px 32px 32px 32px;">
-              <div style="font-size: 14px; color: #334155; line-height: 1.7;">
-                ${htmlBody}
-              </div>
-            </td>
-          </tr>
-
-          <!-- CTA para o site -->
-          <tr>
-            <td style="padding: 0 32px 28px 32px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td align="center">
-                    <a href="${siteUrl}" style="display: inline-block; background-color: #0284c7; color: #ffffff; font-size: 13px; font-weight: 600; text-decoration: none; padding: 12px 28px; border-radius: 6px;">
-                      Visite o nosso site
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Rodape -->
-          <tr>
-            <td style="padding: 16px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
-              <p style="font-size: 11px; color: #94a3b8; margin: 0 0 6px 0;">
-                ARKNET Angola · Luanda · Solucoes de Telecomunicacoes e Tecnologia
-              </p>
-              <p style="font-size: 10px; color: #cbd5e1; margin: 0;">
-                Recebeu este email por estar subscrito na newsletter ARKNET.
-                <a href="mailto:${unsubscribeEmail || process.env.SMTP_USER || 'arknet40@gmail.com'}?subject=Cancelar%20Subscricao%20Newsletter&body=Pretendo%20cancelar%20a%20minha%20subscricao%20da%20newsletter%20ARKNET.%20Email:%20${encodeURIComponent(to)}" style="color: #64748b; text-decoration: underline;">Cancelar subscricao</a>
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`
-
-  const text = `ARKNET Newsletter\n\n${subject}\n\n${htmlBody.replace(/<[^>]*>/g, '')}\n\nVisite: ${siteUrl}\n\n---\nPara cancelar a subscricao, responda a este email.`
+  const text = generateNewsletterPlainText(subject, htmlBody, siteUrl, featuredProducts, templateType, promo)
 
   if (!transporter) {
     console.log(`[ARKNET Mailer] (Simulado) Newsletter para ${to} | Assunto: ${subject}`)
@@ -545,6 +631,7 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
       subject: `ARKNET Newsletter: ${subject}`,
       text,
       html,
+      attachments: attachments.length > 0 ? attachments : undefined,
       headers: {
         'X-Priority': '3',
         'List-Unsubscribe': `<mailto:${unsubscribeEmail || process.env.SMTP_USER || 'arknet40@gmail.com'}?subject=Cancelar%20Newsletter>`,
@@ -571,6 +658,7 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
     }
   }
 }
+
 
 /**
  * Envia um email de boas-vindas / confirmação de subscrição na newsletter
