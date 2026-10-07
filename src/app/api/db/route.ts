@@ -652,10 +652,91 @@ export async function POST(request: NextRequest) {
             where: { id: job.id },
             create: { id: job.id, ...jobData },
             update: { ...jobData, createdAt: undefined },
-          })
+          }).catch((err) => console.warn('[Prisma Job Upsert Fallback]:', err))
         }
       } catch (jobsError) {
         console.error('[API /api/db POST] Falha ao sincronizar vagas no Prisma:', jobsError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.reservations)) {
+      try {
+        const reservationIds = dataToSave.reservations
+          .filter((res: any) => res?.id)
+          .map((res: any) => res.id)
+
+        // Eliminar reservas que foram removidas pelo administrador
+        await prisma.productReservation.deleteMany({
+          where: { id: { notIn: reservationIds } },
+        })
+
+        // Upsert / atualizar reservas existentes
+        for (const res of dataToSave.reservations) {
+          if (!res?.id || !res?.customerName) continue
+          let safeProductId: string | null = null
+          if (res.productId) {
+            try {
+              const prod = await prisma.product.findUnique({ where: { id: res.productId }, select: { id: true } })
+              if (prod) safeProductId = prod.id
+            } catch { /* ignora */ }
+          }
+
+          const resData = {
+            reservationNumber: res.reservationNumber || `RES-${Date.now()}`,
+            productId: safeProductId,
+            productName: res.productName || 'Produto',
+            productImage: res.productImage || null,
+            productPrice: typeof res.productPrice === 'number' ? res.productPrice : null,
+            customerName: res.customerName,
+            customerEmail: res.customerEmail || '',
+            customerPhone: res.customerPhone || '',
+            customerCompany: res.customerCompany || null,
+            quantity: typeof res.quantity === 'number' ? res.quantity : 1,
+            notes: res.notes || null,
+            status: res.status || 'pendente',
+            createdAt: res.createdAt ? new Date(res.createdAt) : new Date(),
+            updatedAt: res.updatedAt ? new Date(res.updatedAt) : new Date(),
+          }
+
+          await prisma.productReservation.upsert({
+            where: { id: res.id },
+            create: { id: res.id, ...resData },
+            update: { ...resData, createdAt: undefined },
+          }).catch((err) => console.warn('[Prisma Reservation Upsert Fallback]:', err))
+        }
+      } catch (resError) {
+        console.error('[API /api/db POST] Falha ao sincronizar reservas no Prisma:', resError)
+      }
+    }
+
+    if (Array.isArray(dataToSave.leads)) {
+      try {
+        const leadIds = dataToSave.leads.filter((l: any) => l?.id).map((l: any) => l.id)
+        await prisma.serviceLead.deleteMany({
+          where: { id: { notIn: leadIds } },
+        })
+        for (const l of dataToSave.leads) {
+          if (!l?.id || !l?.name) continue
+          const leadData = {
+            name: l.name,
+            email: l.email || '',
+            phone: l.phone || '',
+            service: l.service || 'Geral',
+            message: l.message || '',
+            status: l.status || 'novo',
+            notes: l.notes || null,
+            source: l.source || 'site_quote',
+            createdAt: l.createdAt ? new Date(l.createdAt) : new Date(),
+            updatedAt: l.updatedAt ? new Date(l.updatedAt) : new Date(),
+          }
+          await prisma.serviceLead.upsert({
+            where: { id: l.id },
+            create: { id: l.id, ...leadData },
+            update: { ...leadData, createdAt: undefined },
+          }).catch((err) => console.warn('[Prisma Lead Upsert Fallback]:', err))
+        }
+      } catch (leadsError) {
+        console.error('[API /api/db POST] Falha ao sincronizar leads no Prisma:', leadsError)
       }
     }
 

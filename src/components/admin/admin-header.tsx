@@ -17,6 +17,8 @@ import {
   ShoppingCart,
   UserCheck,
   X,
+  AlertTriangle,
+  Package,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore, ServiceLead, StoreOrder, JobApplication } from '@/lib/data-store'
@@ -37,7 +39,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
     description: string
     time: string
     link: string
-    type: 'lead' | 'order' | 'application'
+    type: 'lead' | 'order' | 'application' | 'stock'
   }[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
 
@@ -62,10 +64,29 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
       const db = dataStore.getSnapshot()
       const list: typeof recentNotifications = []
 
+      // Alertas de Stock Crítico / Baixo
+      const lowStockProducts = (db.products || []).filter((p) => {
+        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        const minAlert = p.minStockAlert ?? 5
+        return qty <= minAlert || !p.inStock
+      })
+
+      lowStockProducts.slice(0, 3).forEach((p) => {
+        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        list.push({
+          id: `stock-${p.id}`,
+          title: qty <= 0 ? `Stock Esgotado: ${p.name}` : `Alerta Stock Baixo: ${p.name}`,
+          description: qty <= 0 ? 'Produto em rutura de stock' : `Apenas ${qty} unidade(s) restantes`,
+          time: 'Inventário',
+          link: '/admin/produtos',
+          type: 'stock',
+        })
+      })
+
       // Leads não lidos
       db.leads
         .filter((l) => l.status === 'novo')
-        .slice(0, 4)
+        .slice(0, 3)
         .forEach((l) => {
           list.push({
             id: l.id,
@@ -222,13 +243,16 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
                       <div className="flex items-start gap-3">
                         <div
                           className={`p-2 rounded-lg shrink-0 ${
-                            n.type === 'lead'
+                            n.type === 'stock'
+                              ? 'bg-amber-50 text-amber-600'
+                              : n.type === 'lead'
                               ? 'bg-rose-50 text-secondary'
                               : n.type === 'order'
                               ? 'bg-blue-50 text-primary'
                               : 'bg-emerald-50 text-emerald-600'
                           }`}
                         >
+                          {n.type === 'stock' && <AlertTriangle className="h-4 w-4" />}
                           {n.type === 'lead' && <Inbox className="h-4 w-4" />}
                           {n.type === 'order' && <ShoppingCart className="h-4 w-4" />}
                           {n.type === 'application' && <UserCheck className="h-4 w-4" />}

@@ -145,7 +145,8 @@ export function formatPrismaProduct(p: any) {
     image: p.image || (Array.isArray(imagesParsed) && imagesParsed[0]) || '',
     images: Array.isArray(imagesParsed) ? imagesParsed : [],
     inStock: p.inStock !== false,
-    quantity: typeof p.quantity === 'number' ? p.quantity : 0,
+    quantity: typeof p.quantity === 'number' ? p.quantity : (typeof p.quantity === 'string' && !isNaN(parseInt(p.quantity, 10)) ? parseInt(p.quantity, 10) : (p.inStock !== false ? 10 : 0)),
+    minStockAlert: typeof p.minStockAlert === 'number' ? p.minStockAlert : (typeof p.minStockAlert === 'string' && !isNaN(parseInt(p.minStockAlert, 10)) ? parseInt(p.minStockAlert, 10) : 5),
     featured: Boolean(p.featured),
     sku: p.sku || `ARK-${p.id}`,
     baseSpecs: safeJsonParse(p.baseSpecs, typeof p.baseSpecs === 'object' ? p.baseSpecs : null),
@@ -603,13 +604,13 @@ export function writeServerDb(data: any) {
       jobs: data.jobs !== undefined ? data.jobs : (existingData.jobs || []),
       products: data.products !== undefined ? data.products : (existingData.products || INITIAL_DB.products),
       categories: data.categories !== undefined ? data.categories : (existingData.categories || INITIAL_DB.categories),
-      // Arrays transacionais: aditivos (nunca eliminam encomendas/leads existentes)
-      orders: mergeAdditiveArray(existingData.orders || [], data.orders || []),
-      leads: mergeAdditiveArray(existingData.leads || [], data.leads || []),
-      subscribers: mergeAdditiveArray(existingData.subscribers || [], data.subscribers || []),
-      reservations: mergeAdditiveArray(existingData.reservations || [], data.reservations || []),
-      eventRegistrations: mergeAdditiveArray(existingData.eventRegistrations || [], data.eventRegistrations || []),
-      applications: mergeAdditiveArray(existingData.applications || [], data.applications || []),
+      // Arrays transacionais e editoriais: quando explicitamente enviados, assume a lista exata (respeitando exclusões e edições)
+      orders: data.orders !== undefined ? (Array.isArray(data.orders) ? data.orders : []) : (existingData.orders || []),
+      leads: data.leads !== undefined ? (Array.isArray(data.leads) ? data.leads : []) : (existingData.leads || []),
+      subscribers: data.subscribers !== undefined ? (Array.isArray(data.subscribers) ? data.subscribers : []) : (existingData.subscribers || []),
+      reservations: data.reservations !== undefined ? (Array.isArray(data.reservations) ? data.reservations : []) : (existingData.reservations || []),
+      eventRegistrations: data.eventRegistrations !== undefined ? (Array.isArray(data.eventRegistrations) ? data.eventRegistrations : []) : (existingData.eventRegistrations || []),
+      applications: data.applications !== undefined ? (Array.isArray(data.applications) ? data.applications : []) : (existingData.applications || []),
       // Users e customers: merge por ID
       users: data.users && data.users.length > 0
         ? mergeArrayById(existingData.users || [], data.users)
@@ -1311,4 +1312,70 @@ export function appendServerApplication(application: any) {
   const applications = [application, ...(current.applications || [])]
   return writeServerDb({ applications })
 }
+
+/**
+ * Elimina uma reserva de produto no Prisma e no arknet-db.json de forma atómica
+ */
+export async function deleteReservationServerAsync(id: string) {
+  try {
+    await prisma.productReservation.deleteMany({
+      where: { id },
+    })
+  } catch (err) {
+    console.error('[deleteReservationServerAsync] Erro Prisma:', err)
+  }
+
+  const current = readServerDbFallback()
+  const updatedReservations = (current.reservations || []).filter((r: any) => r.id !== id)
+  writeServerDb({ reservations: updatedReservations })
+  return true
+}
+
+/**
+ * Atualiza os dados ou estado de uma reserva no Prisma e no arknet-db.json
+ */
+export async function updateReservationServerAsync(id: string, updates: any) {
+  try {
+    const updateData: any = { ...updates }
+    delete updateData.id
+    delete updateData.createdAt
+    if (updateData.updatedAt) {
+      updateData.updatedAt = new Date(updateData.updatedAt)
+    } else {
+      updateData.updatedAt = new Date()
+    }
+    await prisma.productReservation.updateMany({
+      where: { id },
+      data: updateData,
+    })
+  } catch (err) {
+    console.error('[updateReservationServerAsync] Erro Prisma:', err)
+  }
+
+  const current = readServerDbFallback()
+  let updatedItem: any = null
+  const updatedReservations = (current.reservations || []).map((r: any) => {
+    if (r.id === id) {
+      updatedItem = { ...r, ...updates, updatedAt: new Date().toISOString() }
+      return updatedItem
+    }
+    return r
+  })
+  writeServerDb({ reservations: updatedReservations })
+  return updatedItem
+}
+
+/**
+ * Retorna a lista de reservas sincronizada do servidor
+ */
+export async function getReservationsServerAsync() {
+  try {
+    const fullDb = await readServerDbFromPrisma()
+    return fullDb.reservations || []
+  } catch {
+    const fallback = readServerDbFallback()
+    return fallback.reservations || []
+  }
+}
+
 

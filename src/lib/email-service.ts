@@ -187,7 +187,7 @@ export async function sendPasswordRecoveryEmail(to: string, code: string, userNa
 /**
  * Cria o transportador Nodemailer com base nas variáveis de ambiente ou fallback de teste.
  */
-async function createTransporter() {
+export async function createTransporter() {
   const host = process.env.SMTP_HOST
   const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587
   const secure = process.env.SMTP_SECURE === 'true' || port === 465

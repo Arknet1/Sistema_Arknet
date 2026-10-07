@@ -77,6 +77,7 @@ export interface StoreProduct {
   images?: string[]
   inStock: boolean
   quantity?: number // Visível apenas no painel administrativo / stock total
+  minStockAlert?: number // Limiar mínimo de alerta de stock (ex: 5)
   featured?: boolean
   sku?: string
   baseSpecs?: Record<string, string> | string
@@ -2107,6 +2108,60 @@ class DataStoreManager {
     return updatedItem
   }
 
+  public async updateProductStock(id: string, quantity: number): Promise<StoreProduct | null> {
+    const qty = Math.max(0, quantity)
+    const inStock = qty > 0
+    return this.updateProductAsync(id, { quantity: qty, inStock })
+  }
+
+  public async adjustProductStock(id: string, delta: number): Promise<StoreProduct | null> {
+    const p = this.getProductById(id)
+    if (!p) return null
+    const currentQty = typeof p.quantity === 'number' ? p.quantity : 0
+    const newQty = Math.max(0, currentQty + delta)
+    return this.updateProductStock(id, newQty)
+  }
+
+  public getInventoryMetrics() {
+    const products = this.getProducts()
+    let totalUnits = 0
+    let inStockCount = 0
+    let lowStockCount = 0
+    let outOfStockCount = 0
+    let totalValueKz = 0
+
+    for (const p of products) {
+      const rawQty = p.quantity
+      const parsedQty = typeof rawQty === 'number' ? rawQty : (typeof rawQty === 'string' ? parseInt(rawQty, 10) : NaN)
+      const qty = !isNaN(parsedQty) ? Math.max(0, parsedQty) : (p.inStock ? 10 : 0)
+      const rawMin = p.minStockAlert
+      const parsedMin = typeof rawMin === 'number' ? rawMin : (typeof rawMin === 'string' ? parseInt(rawMin, 10) : NaN)
+      const minAlert = !isNaN(parsedMin) ? Math.max(1, parsedMin) : 5
+      totalUnits += qty
+
+      if (qty <= 0 || !p.inStock) {
+        outOfStockCount++
+      } else if (qty <= minAlert) {
+        lowStockCount++
+      } else {
+        inStockCount++
+      }
+
+      if (typeof p.price === 'number' && p.price > 0) {
+        totalValueKz += p.price * qty
+      }
+    }
+
+    return {
+      totalProducts: products.length,
+      totalUnits,
+      inStockCount,
+      lowStockCount,
+      outOfStockCount,
+      totalValueKz,
+    }
+  }
+
   public async deleteProductAsync(id: string): Promise<boolean> {
     const currentProducts = this.getProducts()
     const product = currentProducts.find((p) => p.id === id)
@@ -2498,6 +2553,26 @@ class DataStoreManager {
     return newReservation
   }
 
+  public async updateReservationAsync(id: string, updates: Partial<ProductReservation>): Promise<ProductReservation | null> {
+    const updated = this.updateReservation(id, updates)
+    if (this.isBrowser && updated) {
+      try {
+        await fetch(`/api/reservations/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            ...this.getAuthHeaders(),
+          },
+          body: JSON.stringify(updates),
+          credentials: 'include',
+        })
+      } catch (err) {
+        console.warn('[DataStore updateReservationAsync error]:', err)
+      }
+    }
+    return updated
+  }
+
   public updateReservation(id: string, updates: Partial<ProductReservation>): ProductReservation | null {
     let updatedItem: ProductReservation | null = null
     this.mutate(
@@ -2516,7 +2591,50 @@ class DataStoreManager {
         module: 'loja',
       }
     )
+
+    if (this.isBrowser && updatedItem) {
+      fetch(`/api/reservations/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          ...this.getAuthHeaders(),
+        },
+        body: JSON.stringify(updates),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore updateReservation sync]:', e))
+    }
+
     return updatedItem
+  }
+
+  public async deleteReservationAsync(id: string): Promise<boolean> {
+    const res = (this.db.reservations || []).find((r) => r.id === id)
+    if (!res) return false
+    this.mutate(
+      (db) => ({
+        ...db,
+        reservations: (db.reservations || []).filter((r) => r.id !== id),
+      }),
+      {
+        action: `Eliminou reserva #${res.reservationNumber}`,
+        module: 'loja',
+      }
+    )
+
+    if (this.isBrowser) {
+      try {
+        const response = await fetch(`/api/reservations/${id}`, {
+          method: 'DELETE',
+          headers: this.getAuthHeaders(),
+          credentials: 'include',
+        })
+        return response.ok
+      } catch (err) {
+        console.error('[DataStore] Erro ao eliminar reserva no servidor:', err)
+        return false
+      }
+    }
+    return true
   }
 
   public deleteReservation(id: string): boolean {
@@ -2532,6 +2650,15 @@ class DataStoreManager {
         module: 'loja',
       }
     )
+
+    if (this.isBrowser) {
+      fetch(`/api/reservations/${id}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders(),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore deleteReservation background sync]:', e))
+    }
+
     return true
   }
 

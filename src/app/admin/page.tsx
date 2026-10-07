@@ -80,7 +80,7 @@ export default function AdminOverviewPage() {
       }
     }
     acc[r.productId].count += 1
-    acc[r.productId].units += r.quantity || 1
+    acc[r.productId].units += (Number(r.quantity) || 1)
     return acc
   }, {} as Record<string, { id: string; name: string; image?: string; price: number | null; count: number; units: number }>)
 
@@ -247,12 +247,18 @@ export default function AdminOverviewPage() {
             <div className="flex items-center gap-4 text-xs">
               <div className="flex items-center gap-1.5 font-semibold text-slate-700">
                 <span className="h-3 w-3 rounded-full bg-primary" />
-                Leads de Serviço
+                Leads
               </div>
               <div className="flex items-center gap-1.5 font-semibold text-slate-700">
                 <span className="h-3 w-3 rounded-full bg-secondary" />
-                Pedidos da Loja
+                Pedidos
               </div>
+              <Link
+                href="/admin/relatorios"
+                className="ml-2 font-bold text-primary hover:text-secondary inline-flex items-center gap-1 border border-primary/20 bg-primary/5 px-2.5 py-1 rounded-md transition"
+              >
+                Analytics Completo <ArrowRight className="h-3 w-3" />
+              </Link>
             </div>
           </div>
 

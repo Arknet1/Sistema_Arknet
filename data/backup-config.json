@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "frequency": "daily",
+  "maxBackups": 15,
+  "lastBackupAt": "2026-10-07T11:02:22.264Z",
+  "nextBackupAt": "2026-10-08T11:02:22.264Z",
+  "autoClean": true
+}

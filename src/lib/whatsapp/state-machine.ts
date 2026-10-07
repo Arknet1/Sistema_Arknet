@@ -1,5 +1,6 @@
 /**
  * Motor de Fluxo e Máquina de Estados do Bot WhatsApp ARKNET
+ * Com memória de sessão para manter contexto entre mensagens
  */
 
 import { dataStore, StoreOrder, WhatsAppChatMessage, WhatsAppMessageMedia } from '../data-store'
@@ -13,6 +14,8 @@ import {
 } from './templates'
 import { sendWhatsAppTextMessage } from './meta-api'
 import { ProcessedBotResult } from './types'
+import { generateDomingasResponse } from './domingas-engine'
+import { sessionStore } from './session-store'
 
 /**
  * Regex para extração de identificador de pedido nas mensagens
@@ -44,6 +47,7 @@ export interface InboundMessageParams {
 
 /**
  * Processador principal de mensagens recebidas pelo Bot de WhatsApp
+ * Agora com contexto de sessão persistente por número de telefone
  */
 export async function processIncomingWhatsAppMessage(
   params: InboundMessageParams
@@ -51,7 +55,15 @@ export async function processIncomingWhatsAppMessage(
   const { senderPhone, senderName = 'Cliente', text = '', media, messageId } = params
   const cleanPhone = senderPhone.replace(/\D/g, '')
 
-  // 1. Identificar se a mensagem faz referência a um pedido específico
+  // 1. Obter/criar sessão do cliente para manter contexto
+  const session = sessionStore.getSession(cleanPhone)
+
+  // 2. Se o nome foi fornecido externamente (ex.: do simulador) e ainda não há nome na sessão
+  if (senderName && senderName !== 'Cliente' && senderName !== 'Cliente Teste' && !session.clientName) {
+    sessionStore.updateClient(cleanPhone, { name: senderName })
+  }
+
+  // 3. Identificar se a mensagem faz referência a um pedido específico
   const extractedOrderId = extractOrderIdentifier(text)
   let order: StoreOrder | null = null
 
@@ -64,21 +76,44 @@ export async function processIncomingWhatsAppMessage(
     order = dataStore.findOrderByNumberOrPhone(cleanPhone)
   }
 
+  // Se a sessão tem um pedido ativo, tentar usar
+  if (!order && session.activeOrderNumber) {
+    order = dataStore.findOrderByNumberOrPhone(session.activeOrderNumber)
+  }
+
   const responsesToSend: string[] = []
 
   // =========================================================================
-  // CASO 1: PEDIDO NÃO IDENTIFICADO
+  // CASO 1: PEDIDO NÃO IDENTIFICADO OU CONSULTA GERAL COM DOMINGAS MANUEL
   // =========================================================================
   if (!order) {
-    const notFoundMsg = getOrderNotFoundMessage()
-    responsesToSend.push(notFoundMsg)
+    // Usar o nome da sessão se disponível para contexto
+    const contextName = session.clientName || senderName
+    const contextTitle = session.clientTitle || 'Sr.'
 
-    // Enviar mensagem de orientação via WhatsApp
-    await sendWhatsAppTextMessage(senderPhone, notFoundMsg)
+    const domingasReply = generateDomingasResponse(text, {
+      senderPhone: cleanPhone,
+      senderName: contextName,
+      customerTitle: contextTitle,
+    })
+
+    responsesToSend.push(domingasReply.text)
+
+    // Se o motor de Domingas extraiu um nome, persistir na sessão
+    if (domingasReply.extractedCustomerName) {
+      sessionStore.updateClient(cleanPhone, {
+        name: domingasReply.extractedCustomerName,
+        title: domingasReply.extractedCustomerTitle,
+      })
+    }
+
+    // Enviar mensagem via WhatsApp Cloud API
+    await sendWhatsAppTextMessage(senderPhone, domingasReply.text)
 
     return {
       responseMessages: responsesToSend,
-      error: 'Pedido não identificado.',
+      botStatus: domingasReply.escalateToHuman ? 'needs_human' : 'bot_active',
+      escalatedToHuman: domingasReply.escalateToHuman,
     }
   }
 
@@ -86,6 +121,9 @@ export async function processIncomingWhatsAppMessage(
   if (!order.whatsappPhone && cleanPhone) {
     order.whatsappPhone = cleanPhone
   }
+
+  // Registar pedido ativo na sessão
+  sessionStore.setActiveOrder(cleanPhone, order.orderNumber)
 
   // =========================================================================
   // CASO 2: RECEÇÃO DE COMPROVATIVO (IMAGEM OU DOCUMENTO PDF)
@@ -101,7 +139,7 @@ export async function processIncomingWhatsAppMessage(
     // Registar mensagem do cliente no histórico
     dataStore.addWhatsAppMessage(order.id, {
       sender: 'customer',
-      senderName,
+      senderName: session.clientName || senderName,
       text: text || '[Comprovativo de Pagamento anexado]',
       media: mediaPayload,
     })
@@ -121,6 +159,9 @@ export async function processIncomingWhatsAppMessage(
       senderName: 'ARKNET Bot',
       text: receiptAckMsg,
     })
+
+    sessionStore.setBotState(cleanPhone, 'waiting_receipt')
+    sessionStore.addMessage(cleanPhone, 'bot', receiptAckMsg)
 
     await sendWhatsAppTextMessage(senderPhone, receiptAckMsg)
 
@@ -147,7 +188,7 @@ export async function processIncomingWhatsAppMessage(
     // Registar mensagem inicial do cliente
     dataStore.addWhatsAppMessage(order.id, {
       sender: 'customer',
-      senderName,
+      senderName: session.clientName || senderName,
       text: text || `Início de finalização do pedido #${order.orderNumber}`,
     })
 
@@ -177,6 +218,8 @@ export async function processIncomingWhatsAppMessage(
 
     // Atualizar estado do bot para aguardar comprovativo
     dataStore.updateOrderBotStatus(order.id, 'waiting_receipt')
+    sessionStore.setBotState(cleanPhone, 'waiting_receipt')
+    sessionStore.setLastTopic(cleanPhone, 'pagamento')
 
     return {
       orderId: order.id,
@@ -192,7 +235,7 @@ export async function processIncomingWhatsAppMessage(
   // Registar mensagem do cliente
   dataStore.addWhatsAppMessage(order.id, {
     sender: 'customer',
-    senderName,
+    senderName: session.clientName || senderName,
     text,
   })
 
@@ -207,6 +250,8 @@ export async function processIncomingWhatsAppMessage(
       text: confirmedMsg,
     })
 
+    sessionStore.addMessage(cleanPhone, 'bot', confirmedMsg)
+
     await sendWhatsAppTextMessage(senderPhone, confirmedMsg)
 
     return {
@@ -220,7 +265,8 @@ export async function processIncomingWhatsAppMessage(
   // Mensagens simples de saudação ou confirmação verbal
   const lower = text.toLowerCase().trim()
   if (['ok', 'obrigado', 'obrigada', 'valeu', 'certo', 'combinado', 'bom dia', 'boa tarde', 'boa noite'].includes(lower)) {
-    const politeAck = `Perfeito, *${order.customerName}*! Ficamos a aguardar o envio do comprovativo de pagamento para validarmos a sua encomenda.`
+    const customerName = session.clientName || order.customerName
+    const politeAck = `Perfeito, *${customerName}*! Ficamos a aguardar o envio do comprovativo de pagamento para validarmos a sua encomenda.`
     responsesToSend.push(politeAck)
 
     dataStore.addWhatsAppMessage(order.id, {
@@ -228,6 +274,8 @@ export async function processIncomingWhatsAppMessage(
       senderName: 'ARKNET Bot',
       text: politeAck,
     })
+
+    sessionStore.addMessage(cleanPhone, 'bot', politeAck)
 
     await sendWhatsAppTextMessage(senderPhone, politeAck)
 
@@ -251,6 +299,8 @@ export async function processIncomingWhatsAppMessage(
 
   // Atualizar estado para atenção humana necessária
   dataStore.updateOrderBotStatus(order.id, 'needs_human', `Mensagem do cliente: "${text}"`)
+  sessionStore.setBotState(cleanPhone, 'needs_human')
+  sessionStore.addMessage(cleanPhone, 'bot', escalateMsg)
 
   await sendWhatsAppTextMessage(senderPhone, escalateMsg)
 

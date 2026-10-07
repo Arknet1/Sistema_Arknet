@@ -6,6 +6,7 @@ import Sobre from '@/components/sobre'
 import PorQueNosEscolher from '@/components/porque-nos-escolher'
 import Testimonials from '@/components/testimonials'
 import QuoteRequest from '@/components/quote-request'
+import TicketsSection from '@/components/tickets-section'
 import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function HomePage() {
       <PorQueNosEscolher />
       <Testimonials />
       <QuoteRequest />
+      <TicketsSection />
       <Footer />
     </main>
   )

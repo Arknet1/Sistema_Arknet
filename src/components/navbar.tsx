@@ -20,6 +20,7 @@ import {
   Layers,
   Calendar,
   Heart,
+  MessageSquare,
 } from 'lucide-react'
 import icon from '@/assets/icon18.png'
 import {
@@ -271,6 +272,14 @@ export default function Navbar() {
                       <span>Cotações &amp; Serviços</span>
                     </Link>
                     <Link
+                      href="/reclamacoes"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition text-slate-700"
+                    >
+                      <MessageSquare className="h-4 w-4 text-slate-400" />
+                      <span>Reclamações &amp; Informações</span>
+                    </Link>
+                    <Link
                       href="/cliente/perfil?tab=seguranca"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2.5 px-3 py-2 font-semibold hover:bg-slate-100 rounded-lg transition"
@@ -370,6 +379,15 @@ export default function Navbar() {
                   className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-primary transition"
                 >
                   Carrinho ({itemCount})
+                </Link>
+
+                <Link
+                  href="/reclamacoes"
+                  onClick={() => setOpen(false)}
+                  className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-primary transition"
+                >
+                  <MessageSquare className="h-5 w-5 text-primary" />
+                  <span>Reclamações &amp; Apoio</span>
                 </Link>
 
                 {/* Admin Link in Mobile Menu */}

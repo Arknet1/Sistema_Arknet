@@ -25,6 +25,9 @@ import {
   Layers,
   Truck,
   ImageIcon,
+  Bot,
+  BarChart3,
+  LifeBuoy,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore } from '@/lib/data-store'
@@ -56,20 +59,47 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
   const [unreadLeads, setUnreadLeads] = useState(0)
   const [newOrders, setNewOrders] = useState(0)
   const [activeProductsCount, setActiveProductsCount] = useState(0)
+  const [lowStockCount, setLowStockCount] = useState(0)
   const [pendingReservations, setPendingReservations] = useState(0)
+  const [newTicketsCount, setNewTicketsCount] = useState(0)
 
   useEffect(() => {
+    const fetchTicketsCount = async () => {
+      try {
+        const res = await fetch('/api/admin/tickets?status=NOVO&limit=1')
+        if (res.ok) {
+          const data = await res.json()
+          if (data.success && data.stats) {
+            setNewTicketsCount(data.stats.novos || 0)
+          }
+        }
+      } catch {}
+    }
+
     const updateCounts = () => {
       const db = dataStore.getSnapshot()
       setUnreadLeads(db.leads.filter((l) => l.status === 'novo').length)
       setNewOrders(db.orders.filter((o) => o.status === 'novo').length)
       setActiveProductsCount(db.products.length)
+      
+      const lowStock = (db.products || []).filter((p) => {
+        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        const minAlert = p.minStockAlert ?? 5
+        return qty <= minAlert || !p.inStock
+      }).length
+      setLowStockCount(lowStock)
+
       setPendingReservations((db.reservations || []).filter((r) => r.status === 'pendente').length)
+      fetchTicketsCount()
     }
 
     updateCounts()
+    const interval = setInterval(fetchTicketsCount, 25000)
     const unsubscribe = dataStore.subscribe(updateCounts)
-    return () => unsubscribe()
+    return () => {
+      unsubscribe()
+      clearInterval(interval)
+    }
   }, [])
 
   const navSections: NavSection[] = [
@@ -81,6 +111,11 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           href: '/admin',
           icon: LayoutDashboard,
         },
+        {
+          label: 'Relatórios & Analytics',
+          href: '/admin/relatorios',
+          icon: BarChart3,
+        },
       ],
     },
     {
@@ -90,8 +125,8 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           label: 'Produtos',
           href: '/admin/produtos',
           icon: Package,
-          badge: activeProductsCount > 0 ? `${activeProductsCount}` : undefined,
-          badgeColor: 'bg-slate-800 text-slate-300',
+          badge: lowStockCount > 0 ? `⚠️ ${lowStockCount} alerta` : activeProductsCount > 0 ? `${activeProductsCount}` : undefined,
+          badgeColor: lowStockCount > 0 ? 'bg-amber-600 text-white font-bold animate-pulse' : 'bg-slate-800 text-slate-300',
         },
         {
           label: 'Categorias',
@@ -135,9 +170,21 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           badgeColor: 'bg-secondary text-white font-bold animate-pulse',
         },
         {
+          label: 'Reclamações & Apoio',
+          href: '/admin/reclamacoes',
+          icon: LifeBuoy,
+          badge: newTicketsCount > 0 ? `${newTicketsCount} novo` : undefined,
+          badgeColor: 'bg-rose-600 text-white font-bold animate-pulse',
+        },
+        {
           label: 'Newsletter',
           href: '/admin/newsletter',
           icon: Mail,
+        },
+        {
+          label: 'Bot WhatsApp (Domingas)',
+          href: '/admin/whatsapp',
+          icon: Bot,
         },
       ],
     },

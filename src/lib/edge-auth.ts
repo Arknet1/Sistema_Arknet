@@ -19,6 +19,19 @@ function getSessionSecret() {
   return secret
 }
 
+function base64UrlToBytes(str: string): Uint8Array {
+  let base64 = str.replace(/-/g, '+').replace(/_/g, '/')
+  while (base64.length % 4) {
+    base64 += '='
+  }
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i)
+  }
+  return bytes
+}
+
 export async function verifySessionToken(token: string): Promise<EdgeSessionPayload | null> {
   try {
     const [body, encodedSignature] = token.split('.')
@@ -30,10 +43,10 @@ export async function verifySessionToken(token: string): Promise<EdgeSessionPayl
       false,
       ['verify']
     )
-    const signatureBytes = Uint8Array.from(atob(encodedSignature.replace(/-/g, '+').replace(/_/g, '/')), (char) => char.charCodeAt(0))
-    const valid = await crypto.subtle.verify('HMAC', key, signatureBytes, new TextEncoder().encode(body))
+    const signatureBytes = base64UrlToBytes(encodedSignature)
+    const valid = await crypto.subtle.verify('HMAC', key, signatureBytes as BufferSource, new TextEncoder().encode(body))
     if (!valid) return null
-    const payload = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(body.replace(/-/g, '+').replace(/_/g, '/')), (char) => char.charCodeAt(0)))) as EdgeSessionPayload
+    const payload = JSON.parse(new TextDecoder().decode(base64UrlToBytes(body))) as EdgeSessionPayload
     if (!payload.userId || !payload.email || !payload.role || !Number.isFinite(payload.exp) || Date.now() >= payload.exp) return null
     return payload
   } catch {

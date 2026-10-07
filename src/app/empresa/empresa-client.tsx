@@ -27,6 +27,7 @@ import executiveCommercial from '@/assets/office.jpeg'
 import { mockAboutUs, mockWhyChooseUs } from '@/lib/mock-data'
 import { dataStore, ExecutiveMember } from '@/lib/data-store'
 import { CountUp } from '@/components/count-up'
+import TicketsSection from '@/components/tickets-section'
 import Footer from '@/components/footer'
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
@@ -509,6 +510,9 @@ export default function EmpresaClient() {
           </motion.div>
         </div>
       </section>
+
+      {/* 6. Ouvidoria & Reclamações Section */}
+      <TicketsSection id="ouvidoria-empresa" />
 
       {/* Footer */}
       <Footer />

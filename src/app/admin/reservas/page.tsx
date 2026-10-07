@@ -106,7 +106,7 @@ export default function AdminReservasPage() {
   // Métricas
   const totalReservations = reservations.length
   const pendingReservations = reservations.filter((r) => r.status === 'pendente').length
-  const totalUnitsReserved = reservations.reduce((acc, r) => acc + (r.quantity || 1), 0)
+  const totalUnitsReserved = reservations.reduce((acc, r) => acc + (Number(r.quantity) || 1), 0)
 
   // Mapeamento dinâmico de produtos para garantir imagens e nomes sempre atualizados
   const productMap = new Map(products.map((p) => [p.id, p]))
@@ -136,7 +136,7 @@ export default function AdminReservasPage() {
       }
     }
     acc[r.productId].count += 1
-    acc[r.productId].units += r.quantity || 1
+    acc[r.productId].units += (Number(r.quantity) || 1)
     return acc
   }, {} as Record<string, { productId: string; productName: string; productImage?: string; productPrice: number | null; count: number; units: number }>)
 
@@ -159,15 +159,19 @@ export default function AdminReservasPage() {
     return matchesStatus && matchesSearch
   })
 
-  const handleStatusChange = (id: string, newStatus: ReservationStatus) => {
-    dataStore.updateReservation(id, { status: newStatus })
+  const handleStatusChange = async (id: string, newStatus: ReservationStatus) => {
+    await dataStore.updateReservationAsync(id, { status: newStatus })
     success(`Estado da reserva #${id} atualizado para "${STATUS_CONFIG[newStatus].label}".`)
   }
 
-  const handleDelete = (id: string) => {
-    if (confirm('Tem a certeza que pretende eliminar esta reserva?')) {
-      dataStore.deleteReservation(id)
-      info('Reserva eliminada com sucesso.')
+  const handleDelete = async (id: string) => {
+    if (confirm('Tem a certeza que pretende eliminar esta reserva permanentemente?')) {
+      const ok = await dataStore.deleteReservationAsync(id)
+      if (ok) {
+        info('Reserva eliminada com sucesso.')
+      } else {
+        info('Reserva removida localmente e enviada para o servidor.')
+      }
     }
   }
 

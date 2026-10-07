@@ -263,6 +263,17 @@ export default function Footer() {
                   Solicitar Cotação
                 </Link>
               </li>
+              <li>
+                <Link href="/reclamacoes" className="hover:text-white transition text-secondary font-medium flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />
+                  Reclamações & Informações
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacidade" className="hover:text-white transition text-xs text-slate-500">
+                  Política de Privacidade
+                </Link>
+              </li>
             </ul>
           </motion.div>
 

@@ -17,12 +17,12 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$5225b908e8ee5a38440559a1e5bb0129$ad3d4f8c69b32e4bbbd9b4122d7588a067665b1a7757cb4abe239d4e42b83a118a14ed212a58782caf2ce4589159df3478c0af57c96dacb717fbfc640fb87f27",
+      "passwordHash": "$scrypt$916491c054ec059f3aa9402bfa407705$d357db435e7e437bc27bbb761ed0348199d2f4df8b75d8319048dfe7971fa16a018601dbef863b02a00420cbcf7752fa9f5173f8cfdb01171c1f049bc7c86ed6",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-09T08:24:15.212Z"
+      "lastLogin": "2026-10-07T14:27:29.386Z"
     },
     {
       "id": "user-editor",
@@ -108,11 +108,11 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-10-05T15:28:53.902Z",
+      "lastLogin": "2026-10-07T14:33:36.016Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$34c47bff6e5ef322599718de887d1532$601e3de29569c9698b89eecb43ac31b15f1231a61841a3ef02861e66a36c133af90c0219676146b666c52c64260de43ef6675a0284fa7bed221d79c4c1fd0a01"
+      "passwordHash": "$scrypt$d2212b5b548f9cfb89caf9a3dc7bc802$58b1c4f337a560b795e8084cd31eb8375da2f201f186bb6bf212b6eaa306dba08bf234ae78592ebcc2a787b68c5b9d1cb8c007d14344b0adc3efacefdd9a4e44"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
@@ -330,13 +330,14 @@
       ],
       "inStock": true,
       "quantity": 7,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2670",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-05T14:14:41.545Z",
-      "updatedAt": "2026-10-05T15:42:20.331Z"
+      "updatedAt": "2026-10-07T14:24:25.244Z"
     },
     {
       "id": "prod-1790954436881-qol4",
@@ -353,13 +354,14 @@
       ],
       "inStock": true,
       "quantity": 10,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7757",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T15:20:36.881Z",
-      "updatedAt": "2026-10-05T15:42:20.332Z"
+      "updatedAt": "2026-10-07T14:24:25.245Z"
     },
     {
       "id": "prod-1790948580905-glgp",
@@ -376,13 +378,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6295",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T13:43:00.905Z",
-      "updatedAt": "2026-10-05T15:42:20.334Z"
+      "updatedAt": "2026-10-07T14:24:25.246Z"
     },
     {
       "id": "prod-1790943432150-c3gp",
@@ -399,13 +402,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2181",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:17:12.150Z",
-      "updatedAt": "2026-10-05T15:42:20.336Z"
+      "updatedAt": "2026-10-07T14:24:25.247Z"
     },
     {
       "id": "prod-1790943062119-kp6y",
@@ -423,6 +427,7 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4315",
       "baseSpecs": null,
@@ -528,7 +533,7 @@
         }
       ],
       "createdAt": "2026-10-02T12:11:02.119Z",
-      "updatedAt": "2026-10-05T15:42:20.337Z"
+      "updatedAt": "2026-10-07T14:24:25.248Z"
     },
     {
       "id": "prod-1790942824239-8cv4",
@@ -545,13 +550,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2960",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:07:04.239Z",
-      "updatedAt": "2026-10-05T15:42:20.338Z"
+      "updatedAt": "2026-10-07T14:24:25.249Z"
     },
     {
       "id": "prod-1790942265849-w2g8",
@@ -568,13 +574,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3506",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:57:45.849Z",
-      "updatedAt": "2026-10-05T15:42:20.338Z"
+      "updatedAt": "2026-10-07T14:24:25.250Z"
     },
     {
       "id": "prod-1790942032128-89f7",
@@ -591,13 +598,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7215",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:53:52.128Z",
-      "updatedAt": "2026-10-05T15:42:20.339Z"
+      "updatedAt": "2026-10-07T14:24:25.251Z"
     },
     {
       "id": "prod-1790941665536-fkmm",
@@ -614,13 +622,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2994",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:47:45.536Z",
-      "updatedAt": "2026-10-05T15:42:20.340Z"
+      "updatedAt": "2026-10-07T14:24:25.252Z"
     },
     {
       "id": "prod-1790940725601-p66p",
@@ -636,14 +645,15 @@
         "/uploads/images_1_64_-1790941217006.jpg"
       ],
       "inStock": true,
-      "quantity": 26,
+      "quantity": 14,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9920",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:32:05.601Z",
-      "updatedAt": "2026-10-05T15:42:20.341Z"
+      "updatedAt": "2026-10-07T14:24:25.253Z"
     },
     {
       "id": "prod-1790940371658-px8g",
@@ -660,13 +670,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7084",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:26:11.658Z",
-      "updatedAt": "2026-10-05T15:42:20.342Z"
+      "updatedAt": "2026-10-07T14:24:25.254Z"
     },
     {
       "id": "prod-1790937167653-iigi",
@@ -682,14 +693,15 @@
         "/uploads/images_1_62_-1790937165475.jpg"
       ],
       "inStock": true,
-      "quantity": 14,
+      "quantity": 8,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3686",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:32:47.653Z",
-      "updatedAt": "2026-10-05T15:42:20.343Z"
+      "updatedAt": "2026-10-07T14:24:25.255Z"
     },
     {
       "id": "prod-1790936182415-msck",
@@ -706,13 +718,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1965",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:16:22.415Z",
-      "updatedAt": "2026-10-05T15:42:20.344Z"
+      "updatedAt": "2026-10-07T14:24:25.256Z"
     },
     {
       "id": "prod-1790935912543-46vi",
@@ -729,13 +742,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3648",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:11:52.543Z",
-      "updatedAt": "2026-10-05T15:42:20.345Z"
+      "updatedAt": "2026-10-07T14:24:25.258Z"
     },
     {
       "id": "prod-1790934108385-ln23",
@@ -752,13 +766,14 @@
       ],
       "inStock": true,
       "quantity": 20,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1485",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:41:48.385Z",
-      "updatedAt": "2026-10-05T15:42:20.345Z"
+      "updatedAt": "2026-10-07T14:24:25.259Z"
     },
     {
       "id": "prod-1790933627323-uymp",
@@ -775,13 +790,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3406",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:33:47.323Z",
-      "updatedAt": "2026-10-05T15:42:20.346Z"
+      "updatedAt": "2026-10-07T14:24:25.260Z"
     },
     {
       "id": "prod-1790932992211-y8t5",
@@ -798,13 +814,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1437",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:23:12.211Z",
-      "updatedAt": "2026-10-05T15:42:20.348Z"
+      "updatedAt": "2026-10-07T14:24:25.261Z"
     },
     {
       "id": "prod-1790932847819-2s46",
@@ -821,13 +838,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6746",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:20:47.819Z",
-      "updatedAt": "2026-10-05T15:42:20.350Z"
+      "updatedAt": "2026-10-07T14:24:25.262Z"
     },
     {
       "id": "prod-1790929531231-hgkk",
@@ -844,13 +862,14 @@
       ],
       "inStock": true,
       "quantity": 90000,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4286",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:25:31.231Z",
-      "updatedAt": "2026-10-05T15:42:20.351Z"
+      "updatedAt": "2026-10-07T14:24:25.263Z"
     },
     {
       "id": "prod-1790928671920-en03",
@@ -867,13 +886,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7491",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:11:11.920Z",
-      "updatedAt": "2026-10-05T15:42:20.352Z"
+      "updatedAt": "2026-10-07T14:24:25.264Z"
     },
     {
       "id": "prod-1790928333040-3u9w",
@@ -890,13 +910,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5062",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:05:33.040Z",
-      "updatedAt": "2026-10-05T15:42:20.353Z"
+      "updatedAt": "2026-10-07T14:24:25.265Z"
     },
     {
       "id": "prod-1790868210459-81rw",
@@ -913,13 +934,14 @@
       ],
       "inStock": true,
       "quantity": 20,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2612",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-05T15:42:20.354Z"
+      "updatedAt": "2026-10-07T14:24:25.267Z"
     },
     {
       "id": "prod-1790866364579-cemv",
@@ -936,13 +958,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2770",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-05T15:42:20.355Z"
+      "updatedAt": "2026-10-07T14:24:25.268Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
@@ -958,14 +981,15 @@
         "/uploads/images_1_47_-1790866181582.jpg"
       ],
       "inStock": true,
-      "quantity": 10,
+      "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7755",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-05T15:42:20.356Z"
+      "updatedAt": "2026-10-07T14:24:25.268Z"
     },
     {
       "id": "prod-1790865910268-uk30",
@@ -982,13 +1006,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6777",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-05T15:42:20.357Z"
+      "updatedAt": "2026-10-07T14:24:25.269Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
@@ -1005,13 +1030,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6606",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-05T15:42:20.358Z"
+      "updatedAt": "2026-10-07T14:24:25.270Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
@@ -1028,13 +1054,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3191",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-05T15:42:20.359Z"
+      "updatedAt": "2026-10-07T14:24:25.272Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
@@ -1051,13 +1078,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7772",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-05T15:42:20.361Z"
+      "updatedAt": "2026-10-07T14:24:25.273Z"
     },
     {
       "id": "prod-1790863974022-czcc",
@@ -1074,13 +1102,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9184",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-05T15:42:20.363Z"
+      "updatedAt": "2026-10-07T14:24:25.274Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
@@ -1097,13 +1126,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7821",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-05T15:42:20.364Z"
+      "updatedAt": "2026-10-07T14:24:25.275Z"
     },
     {
       "id": "prod-1790863313236-reez",
@@ -1120,13 +1150,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2052",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-05T15:42:20.365Z"
+      "updatedAt": "2026-10-07T14:24:25.276Z"
     },
     {
       "id": "prod-1790863163396-179k",
@@ -1143,13 +1174,14 @@
       ],
       "inStock": true,
       "quantity": 7,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1528",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-05T15:42:20.366Z"
+      "updatedAt": "2026-10-07T14:24:25.277Z"
     },
     {
       "id": "prod-1790862876076-248x",
@@ -1166,13 +1198,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9588",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-05T15:42:20.367Z"
+      "updatedAt": "2026-10-07T14:24:25.279Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
@@ -1189,13 +1222,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3345",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-05T15:42:20.368Z"
+      "updatedAt": "2026-10-07T14:24:25.281Z"
     },
     {
       "id": "prod-1790862379851-07vp",
@@ -1212,13 +1246,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5952",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-05T15:42:20.369Z"
+      "updatedAt": "2026-10-07T14:24:25.282Z"
     },
     {
       "id": "prod-1790862051163-x94a",
@@ -1235,13 +1270,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1686",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-05T15:42:20.370Z"
+      "updatedAt": "2026-10-07T14:24:25.283Z"
     },
     {
       "id": "prod-1790855698575-l39k",
@@ -1258,13 +1294,14 @@
       ],
       "inStock": true,
       "quantity": 33,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2560",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-05T15:42:20.371Z"
+      "updatedAt": "2026-10-07T14:24:25.284Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
@@ -1281,13 +1318,14 @@
       ],
       "inStock": true,
       "quantity": 9,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7133",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-05T15:42:20.372Z"
+      "updatedAt": "2026-10-07T14:24:25.285Z"
     },
     {
       "id": "prod-1790855186841-eclf",
@@ -1304,13 +1342,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-8519",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-05T15:42:20.373Z"
+      "updatedAt": "2026-10-07T14:24:25.287Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
@@ -1327,13 +1366,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7133",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-05T15:42:20.374Z"
+      "updatedAt": "2026-10-07T14:24:25.288Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
@@ -1350,13 +1390,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6674",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-05T15:42:20.375Z"
+      "updatedAt": "2026-10-07T14:24:25.288Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
@@ -1373,13 +1414,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3470",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-05T15:42:20.376Z"
+      "updatedAt": "2026-10-07T14:24:25.289Z"
     },
     {
       "id": "prod-1790854095026-flxm",
@@ -1396,13 +1438,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5889",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-05T15:42:20.377Z"
+      "updatedAt": "2026-10-07T14:24:25.291Z"
     },
     {
       "id": "prod-1790853710321-vaky",
@@ -1419,13 +1462,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9106",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-05T15:42:20.378Z"
+      "updatedAt": "2026-10-07T14:24:25.292Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
@@ -1442,13 +1486,14 @@
       ],
       "inStock": true,
       "quantity": 22,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6246",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-05T15:42:20.379Z"
+      "updatedAt": "2026-10-07T14:24:25.294Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
@@ -1465,13 +1510,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6970",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-05T15:42:20.380Z"
+      "updatedAt": "2026-10-07T14:24:25.295Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
@@ -1488,13 +1534,14 @@
       ],
       "inStock": true,
       "quantity": 35,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7181",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-05T15:42:20.381Z"
+      "updatedAt": "2026-10-07T14:24:25.295Z"
     },
     {
       "id": "prod-1790852525755-328w",
@@ -1511,13 +1558,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5846",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-05T15:42:20.382Z"
+      "updatedAt": "2026-10-07T14:24:25.296Z"
     },
     {
       "id": "prod-1790852177364-91d2",
@@ -1534,13 +1582,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9842",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-05T15:42:20.384Z"
+      "updatedAt": "2026-10-07T14:24:25.297Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
@@ -1557,13 +1606,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1607",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-05T15:42:20.385Z"
+      "updatedAt": "2026-10-07T14:24:25.298Z"
     },
     {
       "id": "prod-1790851696604-m46t",
@@ -1580,13 +1630,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3385",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-05T15:42:20.386Z"
+      "updatedAt": "2026-10-07T14:24:25.299Z"
     },
     {
       "id": "prod-1790851559949-lug5",
@@ -1603,13 +1654,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5517",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-05T15:42:20.389Z"
+      "updatedAt": "2026-10-07T14:24:25.300Z"
     },
     {
       "id": "prod-1790851408132-zfze",
@@ -1626,13 +1678,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3763",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-05T15:42:20.390Z"
+      "updatedAt": "2026-10-07T14:24:25.301Z"
     },
     {
       "id": "prod-1790850109422-rsep",
@@ -1649,13 +1702,14 @@
       ],
       "inStock": true,
       "quantity": 17,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4049",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-05T15:42:20.392Z"
+      "updatedAt": "2026-10-07T14:24:25.302Z"
     },
     {
       "id": "prod-1790849885494-hu91",
@@ -1672,13 +1726,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4768",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-05T15:42:20.393Z"
+      "updatedAt": "2026-10-07T14:24:25.303Z"
     },
     {
       "id": "prod-1790848807128-20cw",
@@ -1695,13 +1750,14 @@
       ],
       "inStock": true,
       "quantity": 8,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3168",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-05T15:42:20.394Z"
+      "updatedAt": "2026-10-07T14:24:25.304Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
@@ -1718,13 +1774,14 @@
       ],
       "inStock": true,
       "quantity": 11,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3783",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-05T15:42:20.395Z"
+      "updatedAt": "2026-10-07T14:24:25.306Z"
     },
     {
       "id": "prod-1790848303191-nv21",
@@ -1741,13 +1798,14 @@
       ],
       "inStock": true,
       "quantity": 11,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5987",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-05T15:42:20.396Z"
+      "updatedAt": "2026-10-07T14:24:25.307Z"
     },
     {
       "id": "prod-1790848093648-cyth",
@@ -1764,13 +1822,14 @@
       ],
       "inStock": true,
       "quantity": 30,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6149",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-05T15:42:20.397Z"
+      "updatedAt": "2026-10-07T14:24:25.308Z"
     },
     {
       "id": "prod-1790847966304-nna5",
@@ -1787,13 +1846,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6994",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-05T15:42:20.398Z"
+      "updatedAt": "2026-10-07T14:24:25.310Z"
     },
     {
       "id": "prod-1790847762896-z14m",
@@ -1810,13 +1870,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6279",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-05T15:42:20.399Z"
+      "updatedAt": "2026-10-07T14:24:25.311Z"
     },
     {
       "id": "prod-1790847336713-fy85",
@@ -1833,13 +1894,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6978",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-05T15:42:20.401Z"
+      "updatedAt": "2026-10-07T14:24:25.312Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
@@ -1856,13 +1918,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6667",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-05T15:42:20.402Z"
+      "updatedAt": "2026-10-07T14:24:25.313Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
@@ -1879,13 +1942,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7551",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-05T15:42:20.403Z"
+      "updatedAt": "2026-10-07T14:24:25.314Z"
     },
     {
       "id": "prod-1790846274467-waxv",
@@ -1902,13 +1966,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-8593",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-05T15:42:20.404Z"
+      "updatedAt": "2026-10-07T14:24:25.315Z"
     },
     {
       "id": "prod-1790846010195-xb32",
@@ -1925,13 +1990,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3386",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-05T15:42:20.404Z"
+      "updatedAt": "2026-10-07T14:24:25.315Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
@@ -1948,13 +2014,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3350",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-05T15:42:20.405Z"
+      "updatedAt": "2026-10-07T14:24:25.316Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
@@ -1971,13 +2038,14 @@
       ],
       "inStock": true,
       "quantity": 11,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4296",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-05T15:42:20.406Z"
+      "updatedAt": "2026-10-07T14:24:25.317Z"
     },
     {
       "id": "prod-1790845328451-4otk",
@@ -1994,13 +2062,14 @@
       ],
       "inStock": true,
       "quantity": 76,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9534",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-05T15:42:20.407Z"
+      "updatedAt": "2026-10-07T14:24:25.319Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
@@ -2017,13 +2086,14 @@
       ],
       "inStock": true,
       "quantity": 8,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4596",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-05T15:42:20.408Z"
+      "updatedAt": "2026-10-07T14:24:25.320Z"
     },
     {
       "id": "prod-1790844448844-te8k",
@@ -2040,13 +2110,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5352",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-05T15:42:20.408Z"
+      "updatedAt": "2026-10-07T14:24:25.321Z"
     },
     {
       "id": "prod-1790843695397-rw71",
@@ -2063,13 +2134,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-8864",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-05T15:42:20.409Z"
+      "updatedAt": "2026-10-07T14:24:25.322Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
@@ -2086,13 +2158,14 @@
       ],
       "inStock": true,
       "quantity": 10,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-8595",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-05T15:42:20.410Z"
+      "updatedAt": "2026-10-07T14:24:25.322Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
@@ -2109,13 +2182,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4980",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-10-05T15:42:20.411Z"
+      "updatedAt": "2026-10-07T14:24:25.323Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
@@ -2136,6 +2210,7 @@
       ],
       "inStock": true,
       "quantity": 21,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7797",
       "baseSpecs": null,
@@ -2241,7 +2316,7 @@
         }
       ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-10-05T15:42:20.412Z"
+      "updatedAt": "2026-10-07T14:24:25.325Z"
     },
     {
       "id": "prod-1790258779410-1prp",
@@ -2258,13 +2333,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3899",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-10-05T15:42:20.414Z"
+      "updatedAt": "2026-10-07T14:24:25.325Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
@@ -2281,13 +2357,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-8927",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-10-05T15:42:20.416Z"
+      "updatedAt": "2026-10-07T14:24:25.326Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
@@ -2304,13 +2381,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4254",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-10-05T15:42:20.417Z"
+      "updatedAt": "2026-10-07T14:24:25.327Z"
     },
     {
       "id": "prod-1790258337491-jcru",
@@ -2327,13 +2405,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3849",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-10-05T15:42:20.418Z"
+      "updatedAt": "2026-10-07T14:24:25.328Z"
     },
     {
       "id": "prod-1790258295106-qfev",
@@ -2350,13 +2429,14 @@
       ],
       "inStock": true,
       "quantity": 13,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6095",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-10-05T15:42:20.419Z"
+      "updatedAt": "2026-10-07T14:24:25.329Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
@@ -2373,13 +2453,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4917",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-10-05T15:42:20.420Z"
+      "updatedAt": "2026-10-07T14:24:25.330Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
@@ -2396,13 +2477,14 @@
       ],
       "inStock": true,
       "quantity": 17,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7527",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-10-05T15:42:20.420Z"
+      "updatedAt": "2026-10-07T14:24:25.332Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
@@ -2419,13 +2501,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-9870",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-10-05T15:42:20.421Z"
+      "updatedAt": "2026-10-07T14:24:25.333Z"
     },
     {
       "id": "prod-1790257993219-qti2",
@@ -2442,13 +2525,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4664",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-10-05T15:42:20.422Z"
+      "updatedAt": "2026-10-07T14:24:25.335Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
@@ -2465,13 +2549,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-5767",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-10-05T15:42:20.423Z"
+      "updatedAt": "2026-10-07T14:24:25.335Z"
     },
     {
       "id": "prod-1790257884660-1119",
@@ -2488,13 +2573,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6309",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-10-05T15:42:20.424Z"
+      "updatedAt": "2026-10-07T14:24:25.336Z"
     },
     {
       "id": "prod-1790257837915-atjk",
@@ -2511,13 +2597,14 @@
       ],
       "inStock": true,
       "quantity": 10,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4664",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-10-05T15:42:20.425Z"
+      "updatedAt": "2026-10-07T14:24:25.337Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
@@ -2534,13 +2621,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3741",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-10-05T15:42:20.426Z"
+      "updatedAt": "2026-10-07T14:24:25.338Z"
     },
     {
       "id": "prod-1790257678365-4btv",
@@ -2557,13 +2645,14 @@
       ],
       "inStock": true,
       "quantity": 9,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1448",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-10-05T15:42:20.427Z"
+      "updatedAt": "2026-10-07T14:24:25.339Z"
     },
     {
       "id": "prod-1790257579719-dm04",
@@ -2580,13 +2669,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6982",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-10-05T15:42:20.429Z"
+      "updatedAt": "2026-10-07T14:24:25.340Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
@@ -2603,13 +2693,14 @@
       ],
       "inStock": true,
       "quantity": 7,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7362",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-10-05T15:42:20.430Z"
+      "updatedAt": "2026-10-07T14:24:25.341Z"
     },
     {
       "id": "prod-1790257311982-er9y",
@@ -2626,13 +2717,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4830",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-10-05T15:42:20.431Z"
+      "updatedAt": "2026-10-07T14:24:25.341Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
@@ -2649,13 +2741,14 @@
       ],
       "inStock": true,
       "quantity": 13,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3116",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-05T15:42:20.432Z"
+      "updatedAt": "2026-10-07T14:24:25.342Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
@@ -2672,13 +2765,14 @@
       ],
       "inStock": true,
       "quantity": 16,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-2799",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-10-05T15:42:20.433Z"
+      "updatedAt": "2026-10-07T14:24:25.343Z"
     },
     {
       "id": "prod-1790257007807-j71u",
@@ -2695,13 +2789,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-3935",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-10-05T15:42:20.434Z"
+      "updatedAt": "2026-10-07T14:24:25.344Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
@@ -2718,13 +2813,14 @@
       ],
       "inStock": true,
       "quantity": 9,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-1548",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-10-05T15:42:20.434Z"
+      "updatedAt": "2026-10-07T14:24:25.346Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
@@ -2741,13 +2837,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-045",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-10-05T15:42:20.435Z"
+      "updatedAt": "2026-10-07T14:24:25.347Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
@@ -2764,13 +2861,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-044",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-10-05T15:42:20.436Z"
+      "updatedAt": "2026-10-07T14:24:25.349Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
@@ -2787,13 +2885,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-042",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-10-05T15:42:20.437Z"
+      "updatedAt": "2026-10-07T14:24:25.350Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
@@ -2810,13 +2909,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-041",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-05T15:42:20.438Z"
+      "updatedAt": "2026-10-07T14:24:25.351Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
@@ -2833,13 +2933,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": true,
       "sku": "ARK-REC-040",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-10-05T15:42:20.439Z"
+      "updatedAt": "2026-10-07T14:24:25.352Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
@@ -2856,13 +2957,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-037",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-10-05T15:42:20.439Z"
+      "updatedAt": "2026-10-07T14:24:25.354Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
@@ -2879,13 +2981,14 @@
       ],
       "inStock": false,
       "quantity": 8,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-036",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-10-05T15:42:20.441Z"
+      "updatedAt": "2026-10-07T14:24:25.355Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
@@ -2902,13 +3005,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-035",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-10-05T15:42:20.442Z"
+      "updatedAt": "2026-10-07T14:24:25.356Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
@@ -2925,13 +3029,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-034",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-10-05T15:42:20.443Z"
+      "updatedAt": "2026-10-07T14:24:25.357Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
@@ -2948,13 +3053,14 @@
       ],
       "inStock": true,
       "quantity": 199,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-033",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-10-05T15:42:20.444Z"
+      "updatedAt": "2026-10-07T14:24:25.358Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
@@ -2971,13 +3077,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-032",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-10-05T15:42:20.445Z"
+      "updatedAt": "2026-10-07T14:24:25.359Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
@@ -2994,13 +3101,14 @@
       ],
       "inStock": true,
       "quantity": 10,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-031",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-10-05T15:42:20.445Z"
+      "updatedAt": "2026-10-07T14:24:25.360Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
@@ -3017,13 +3125,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-030",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-10-05T15:42:20.446Z"
+      "updatedAt": "2026-10-07T14:24:25.361Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
@@ -3040,13 +3149,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-029",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-10-05T15:42:20.447Z"
+      "updatedAt": "2026-10-07T14:24:25.362Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
@@ -3063,13 +3173,14 @@
       ],
       "inStock": true,
       "quantity": 26,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-028",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-10-05T15:42:20.448Z"
+      "updatedAt": "2026-10-07T14:24:25.362Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
@@ -3086,13 +3197,14 @@
       ],
       "inStock": true,
       "quantity": 13,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-027",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-10-05T15:42:20.449Z"
+      "updatedAt": "2026-10-07T14:24:25.363Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
@@ -3109,13 +3221,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": true,
       "sku": "ARK-REC-026",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-10-05T15:42:20.451Z"
+      "updatedAt": "2026-10-07T14:24:25.364Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
@@ -3132,13 +3245,14 @@
       ],
       "inStock": true,
       "quantity": 2,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-025",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-10-05T15:42:20.452Z"
+      "updatedAt": "2026-10-07T14:24:25.366Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
@@ -3155,13 +3269,14 @@
       ],
       "inStock": true,
       "quantity": 5,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-024",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-10-05T15:42:20.453Z"
+      "updatedAt": "2026-10-07T14:24:25.366Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
@@ -3178,13 +3293,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": true,
       "sku": "ARK-REC-023",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-10-05T15:42:20.454Z"
+      "updatedAt": "2026-10-07T14:24:25.367Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
@@ -3201,13 +3317,14 @@
       ],
       "inStock": true,
       "quantity": 7,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-022",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-10-05T15:42:20.456Z"
+      "updatedAt": "2026-10-07T14:24:25.368Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
@@ -3224,13 +3341,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-020",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-10-05T15:42:20.457Z"
+      "updatedAt": "2026-10-07T14:24:25.369Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
@@ -3247,13 +3365,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-019",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-10-05T15:42:20.458Z"
+      "updatedAt": "2026-10-07T14:24:25.370Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
@@ -3270,13 +3389,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-018",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-10-05T15:42:20.459Z"
+      "updatedAt": "2026-10-07T14:24:25.371Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
@@ -3293,13 +3413,14 @@
       ],
       "inStock": true,
       "quantity": 6,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-017",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-10-05T15:42:20.461Z"
+      "updatedAt": "2026-10-07T14:24:25.372Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
@@ -3316,13 +3437,14 @@
       ],
       "inStock": false,
       "quantity": 0,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-016",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-10-05T15:42:20.462Z"
+      "updatedAt": "2026-10-07T14:24:25.373Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
@@ -3339,13 +3461,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-011",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-10-05T15:42:20.463Z"
+      "updatedAt": "2026-10-07T14:24:25.374Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
@@ -3362,13 +3485,14 @@
       ],
       "inStock": true,
       "quantity": 19,
+      "minStockAlert": 5,
       "featured": true,
       "sku": "ARK-REC-009",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-10-05T15:42:20.464Z"
+      "updatedAt": "2026-10-07T14:24:25.374Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
@@ -3385,13 +3509,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-008",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-10-05T15:42:20.464Z"
+      "updatedAt": "2026-10-07T14:24:25.375Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
@@ -3408,13 +3533,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-007",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-05T15:42:20.465Z"
+      "updatedAt": "2026-10-07T14:24:25.376Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
@@ -3431,13 +3557,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-006",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-10-05T15:42:20.466Z"
+      "updatedAt": "2026-10-07T14:24:25.377Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
@@ -3454,13 +3581,14 @@
       ],
       "inStock": true,
       "quantity": 10,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-005",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-10-05T15:42:20.467Z"
+      "updatedAt": "2026-10-07T14:24:25.378Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
@@ -3477,13 +3605,14 @@
       ],
       "inStock": true,
       "quantity": 4,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-004",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-10-05T15:42:20.469Z"
+      "updatedAt": "2026-10-07T14:24:25.379Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
@@ -3500,13 +3629,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-003",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-10-05T15:42:20.470Z"
+      "updatedAt": "2026-10-07T14:24:25.380Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
@@ -3523,13 +3653,14 @@
       ],
       "inStock": true,
       "quantity": 3,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-REC-002",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-10-05T15:42:20.470Z"
+      "updatedAt": "2026-10-07T14:24:25.381Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
@@ -3546,13 +3677,14 @@
       ],
       "inStock": true,
       "quantity": 1,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-7553",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-10-05T15:42:20.471Z"
+      "updatedAt": "2026-10-07T14:24:25.381Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
@@ -3569,13 +3701,14 @@
       ],
       "inStock": true,
       "quantity": 7,
+      "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-6038",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-10-05T15:42:20.472Z"
+      "updatedAt": "2026-10-07T14:24:25.382Z"
     },
     {
       "id": "prod-1788945524001-0f01",
@@ -3592,13 +3725,14 @@
       ],
       "inStock": true,
       "quantity": 17,
+      "minStockAlert": 5,
       "featured": true,
       "sku": "ARK-4510",
       "baseSpecs": null,
       "options": [],
       "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-10-05T15:42:20.473Z"
+      "updatedAt": "2026-10-07T14:24:25.383Z"
     }
   ],
   "categories": [
@@ -3989,60 +4123,6 @@
           "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg"
         }
       ]
-    },
-    {
-      "id": "order-test-1790765973557",
-      "customerPhone": "+244 923 111 222",
-      "items": [
-        {
-          "price": 45000,
-          "productName": "Router Wifi Pro",
-          "productId": "prod-1",
-          "quantity": 1
-        }
-      ],
-      "totalAmount": 45000,
-      "customerName": "Cliente Teste Externo",
-      "customerEmail": "cliente_ext@arknet.co.ao",
-      "orderNumber": "PED-2026-9999",
-      "status": "pendente",
-      "paymentMethod": "transferencia"
-    },
-    {
-      "customerName": "Jedy Suco",
-      "customerEmail": "jedyvandunem16@gmail.com",
-      "customerPhone": "932847952",
-      "whatsappPhone": "932847952",
-      "botStatus": "bot_active",
-      "customerCompany": "",
-      "customerNif": "",
-      "customerCity": "Luanda",
-      "customerAddress": "Zango, Luanda",
-      "deliveryMethod": "entrega_luanda",
-      "paymentMethod": "transferencia",
-      "items": [
-        {
-          "productId": "prod-rec-1790066189556-26",
-          "productName": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
-          "price": 11500,
-          "quantity": 1,
-          "image": "/uploads/photoroom_20260902_083540-1790003177971.jpg"
-        },
-        {
-          "productId": "prod-rec-1790066189556-23",
-          "productName": "Microfone de lapela sem fio K9",
-          "price": 18500,
-          "quantity": 1,
-          "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg"
-        }
-      ],
-      "total": 30000,
-      "status": "novo",
-      "notes": "",
-      "id": "order-1790352606566",
-      "orderNumber": "PED-2026-2866",
-      "createdAt": "2026-09-25T16:10:06.566Z",
-      "updatedAt": "2026-09-25T16:10:06.566Z"
     }
   ],
   "leads": [
@@ -4201,18 +4281,6 @@
       "source": "Website - Formulário de Cotação",
       "createdAt": "2026-09-05T15:29:27.787Z",
       "updatedAt": "2026-09-05T15:29:27.787Z"
-    },
-    {
-      "name": "Jedy Suco",
-      "email": "jedyvandunem16@gmail",
-      "phone": "932847952",
-      "service": "Instalação e Manutenção",
-      "message": "Solicito a manutenção dos pc's da minha empresa",
-      "source": "Sítio: Formulário de Cotação",
-      "id": "lead-1790351957312",
-      "status": "novo",
-      "createdAt": "2026-09-25T15:59:17.312Z",
-      "updatedAt": "2026-09-25T15:59:17.312Z"
     }
   ],
   "subscribers": [
@@ -4287,48 +4355,6 @@
       "email": "inovacao@startuangola.com",
       "status": "active",
       "subscribedAt": "2026-02-18T10:00:00.000Z"
-    },
-    {
-      "id": "sub-4",
-      "email": "redes@universidade-luanda.ao",
-      "status": "active",
-      "subscribedAt": "2026-02-02T14:30:00.000Z"
-    },
-    {
-      "id": "sub-3",
-      "email": "compras@hospitalcentral.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-20T16:15:00.000Z"
-    },
-    {
-      "id": "sub-2",
-      "email": "geral@infrasul.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-14T09:45:00.000Z"
-    },
-    {
-      "id": "sub-1",
-      "email": "director.ti@sonangol.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-01-10T11:20:00.000Z"
-    },
-    {
-      "id": "sub-1790243017688",
-      "email": "audit-subscriber-1790243017670@arknet.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-09-24T09:43:37.688Z"
-    },
-    {
-      "id": "sub-1790244140592",
-      "email": "audit-subscriber-1790244140574@arknet.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-09-24T10:02:20.592Z"
-    },
-    {
-      "id": "sub-1790251647582",
-      "email": "audit-subscriber-1790251647557@arknet.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-09-24T12:07:27.582Z"
     }
   ],
   "courses": [
@@ -4511,62 +4537,6 @@
       "status": "confirmada",
       "ticketCode": null,
       "registeredAt": "2026-09-15T07:30:20.992Z"
-    },
-    {
-      "eventId": "evt-1",
-      "eventTitle": "Bootcamp Tecnológico",
-      "customerId": "cli-1790351808657",
-      "name": "Jedy Suco",
-      "email": "jedyvandunem16@gmail.com",
-      "phone": "932847952",
-      "status": "confirmada",
-      "id": "reg-1790352014967-aa7a",
-      "createdAt": "2026-09-25T16:00:14.967Z"
-    },
-    {
-      "id": "reg-audit-1790244133747",
-      "eventId": "evt-audit-1790244132778",
-      "eventTitle": "Conferência ARKNET NextGen 2026",
-      "name": "Carlos Manuel Engenheiro",
-      "email": "carlos.engenheiro@empresa.ao",
-      "phone": "+244 923 111 222",
-      "company": "Empresa Teste SA",
-      "status": "pendente",
-      "registeredAt": "2026-09-24T10:02:13.747Z"
-    },
-    {
-      "id": "reg-audit-1790242988061",
-      "eventId": "evt-audit-1790242977846",
-      "eventTitle": "Conferência ARKNET NextGen 2026",
-      "name": "Carlos Manuel Engenheiro",
-      "email": "carlos.engenheiro@empresa.ao",
-      "phone": "+244 923 111 222",
-      "company": "Empresa Teste SA",
-      "status": "pendente",
-      "registeredAt": "2026-09-24T09:43:08.061Z"
-    },
-    {
-      "id": "reg-3",
-      "eventId": "evt-2",
-      "name": "Mário Lucas Bento",
-      "email": "mario.bento@techangola.com",
-      "phone": "+244 934 555 666",
-      "company": "TechAngola Lda",
-      "position": null,
-      "status": "confirmada",
-      "ticketCode": null,
-      "registeredAt": "2026-09-15T07:30:21.000Z"
-    },
-    {
-      "id": "reg-audit-1790251630136",
-      "eventId": "evt-audit-1790251628182",
-      "eventTitle": "Conferência ARKNET NextGen 2026",
-      "name": "Carlos Manuel Engenheiro",
-      "email": "carlos.engenheiro@empresa.ao",
-      "phone": "+244 923 111 222",
-      "company": "Empresa Teste SA",
-      "status": "pendente",
-      "registeredAt": "2026-09-24T12:07:10.136Z"
     }
   ],
   "jobs": [
@@ -4667,8 +4637,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "2",
@@ -4680,8 +4650,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "3",
@@ -4693,8 +4663,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "4",
@@ -4706,8 +4676,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "5",
@@ -4719,8 +4689,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     }
   ],
   "partners": [
@@ -4732,8 +4702,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-2",
@@ -4743,8 +4713,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-3",
@@ -4754,8 +4724,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-4",
@@ -4765,8 +4735,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-5",
@@ -4776,8 +4746,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-6",
@@ -4787,8 +4757,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-7",
@@ -4798,8 +4768,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-8",
@@ -4809,8 +4779,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-9",
@@ -4820,8 +4790,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-10",
@@ -4831,8 +4801,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-11",
@@ -4842,8 +4812,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-12",
@@ -4853,8 +4823,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-13",
@@ -4864,8 +4834,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     },
     {
       "id": "partner-14",
@@ -4875,8 +4845,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-05T15:46:19.289Z",
-      "updatedAt": "2026-10-05T15:46:19.289Z"
+      "createdAt": "2026-10-07T14:24:38.975Z",
+      "updatedAt": "2026-10-07T14:24:38.975Z"
     }
   ],
   "projects": [
@@ -5404,60 +5374,6 @@
       "status": "pendente",
       "createdAt": "2026-10-05T15:29:19.533Z",
       "updatedAt": "2026-10-05T15:29:19.556Z"
-    },
-    {
-      "id": "res-1",
-      "reservationNumber": "RES-2026-0001",
-      "productId": null,
-      "customerId": null,
-      "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
-      "productImage": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
-      "productPrice": 20000,
-      "customerName": "Eng. David Kassoma",
-      "customerEmail": "david.kassoma@sonangol.co.ao",
-      "customerPhone": "+244 923 112 233",
-      "customerCompany": "Sonangol E.P.",
-      "quantity": 4,
-      "notes": "Necessitamos com urgência para expansão da rede do bloco administrativo em Luanda.",
-      "status": "pendente",
-      "createdAt": "2026-09-08T09:29:27.787Z",
-      "updatedAt": "2026-09-23T15:15:44.962Z"
-    },
-    {
-      "id": "res-2",
-      "reservationNumber": "RES-2026-0002",
-      "productId": null,
-      "customerId": null,
-      "productName": "HDTV Splitter Ver 1x4",
-      "productImage": "/_next/static/media/hdtv.0rstvbeyo8rb1.jpeg",
-      "productPrice": 38000,
-      "customerName": "Dra. Beatriz Santos",
-      "customerEmail": "beatriz.santos@unitel.ao",
-      "customerPhone": "+244 912 889 900",
-      "customerCompany": "Infranet Soluções Lda",
-      "quantity": 2,
-      "notes": "Favor notificar por WhatsApp assim que desembarcar no armazém central.",
-      "status": "em_contacto",
-      "createdAt": "2026-09-07T11:29:27.787Z",
-      "updatedAt": "2026-09-23T15:12:34.701Z"
-    },
-    {
-      "id": "res-3",
-      "reservationNumber": "RES-2026-0003",
-      "productId": null,
-      "customerId": null,
-      "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
-      "productImage": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg",
-      "productPrice": 20000,
-      "customerName": "Carlos Mendonça",
-      "customerEmail": "carlos.mendonca@gmail.com",
-      "customerPhone": "+244 935 440 120",
-      "customerCompany": "TechAngola Serviços",
-      "quantity": 1,
-      "notes": "Previsão de recolha na sede da ARKNET Kilamba.",
-      "status": "pendente",
-      "createdAt": "2026-09-06T15:29:27.787Z",
-      "updatedAt": "2026-09-23T15:15:44.962Z"
     }
   ],
   "settings": {
@@ -5577,7 +5493,7 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-05T15:42:20.534Z"
+    "updatedAt": "2026-10-07T14:24:25.449Z"
   },
   "activities": [
     {

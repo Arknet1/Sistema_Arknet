@@ -585,7 +585,7 @@ export default function AdminPedidosPage() {
                       <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
                         {order.total !== null ? formatProdutoPrice(order.total) : 'Sob Consulta'}
                         <span className="block text-[10px] text-slate-400 font-normal">
-                          {order.items.reduce((acc, it) => acc + it.quantity, 0)} itens
+                          {order.items.reduce((acc, it) => acc + (Number(it.quantity) || 1), 0)} itens
                         </span>
                       </td>
 

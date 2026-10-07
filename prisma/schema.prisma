@@ -44,6 +44,7 @@ model Customer {
   lastLogin    DateTime?
   orders       StoreOrder[]
   reservations ProductReservation[]
+  tickets      Ticket[]
 }
 
 // -------------------------------------------------------------
@@ -437,4 +438,62 @@ model AuditActivity {
   targetId  String?
   timestamp DateTime @default(now())
   details   String?
+}
+
+// -------------------------------------------------------------
+// 14. RECLAMAÇÕES & PEDIDOS DE INFORMAÇÃO (TICKETS)
+// -------------------------------------------------------------
+model Ticket {
+  id              String        @id @default(cuid())
+  protocol        String        @unique // ex.: "ARK-2026-000123"
+  type            String        // "RECLAMACAO" | "INFORMACAO"
+  category        String        // "PRODUTO" | "ENTREGA" | "PAGAMENTO" | "ATENDIMENTO" | "SERVICO_TECNICO" | "OUTRO"
+  name            String
+  email           String
+  phone           String?
+  subject         String
+  message         String        // Text
+  orderNumber     String?
+  customerId      String?
+  customerRef     Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  status          String        @default("NOVO") // "NOVO" | "EM_ANALISE" | "RESPONDIDO" | "RESOLVIDO" | "ARQUIVADO"
+  priority        String        @default("NORMAL") // "BAIXA" | "NORMAL" | "ALTA"
+  consentAccepted Boolean       @default(true)
+  consentAt       DateTime      @default(now())
+  ipHash          String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  resolvedAt      DateTime?
+  notes           TicketNote[]
+  replies         TicketReply[]
+
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+  @@index([protocol])
+}
+
+model TicketNote {
+  id        String   @id @default(cuid())
+  ticketId  String
+  ticketRef Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  adminId   String
+  adminName String?
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([ticketId])
+}
+
+model TicketReply {
+  id        String   @id @default(cuid())
+  ticketId  String
+  ticketRef Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  adminId   String
+  adminName String?
+  content   String
+  sentAt    DateTime @default(now())
+  channel   String   // "EMAIL" | "WHATSAPP"
+
+  @@index([ticketId])
 }
