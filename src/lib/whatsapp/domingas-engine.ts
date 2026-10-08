@@ -80,6 +80,8 @@ function normalizeText(text: string): string {
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim()
 }
 
@@ -87,7 +89,10 @@ function normalizeText(text: string): string {
  * Verifica se o texto contém QUALQUER uma das palavras-chave (correspondência flexível)
  */
 function matchesAny(norm: string, keywords: string[]): boolean {
-  return keywords.some(kw => norm.includes(kw))
+  return keywords.some((keyword) => {
+    const phrase = normalizeText(keyword)
+    return phrase.length > 0 && ` ${norm} `.includes(` ${phrase} `)
+  })
 }
 
 /**
@@ -252,8 +257,8 @@ const INTENT_PATTERNS: IntentPattern[] = [
   {
     id: 'quote_request',
     keywords: [
-      'orcamento', 'proposta', 'proposta corporativa', 'para empresa',
-      'para a minha empresa', 'para escola', 'para o colegio',
+      'orcamento', 'proposta', 'cotacao', 'orcamento empresarial', 'orcamento corporativo', 'proposta comercial',
+      'proposta corporativa', 'cotacao empresarial', 'cotacao para empresa',
       'grandes quantidades', 'revenda', 'atacado', 'por grosso',
       'contrato', 'projeto empresarial', 'licitacao', 'fornecimento',
     ],
@@ -386,6 +391,15 @@ const INTENT_PATTERNS: IntentPattern[] = [
 function detectIntent(norm: string): IntentId | null {
   for (const pattern of INTENT_PATTERNS) {
     if (pattern.id === 'product_search') continue // Tratar separadamente
+    if (pattern.id === 'confirmation') {
+      const simpleConfirmations = new Set([
+        'sim', 'sim por favor', 'claro', 'certo', 'combinado', 'entendi', 'percebi',
+        'perfeito', 'exato', 'exacto', 'correto', 'isso mesmo', 'concordo',
+        'de acordo', 'afirmativo', 'pode ser', 'tudo bem', 'esta bem', 'ta bem', 'positivo',
+      ])
+      if (simpleConfirmations.has(norm)) return pattern.id
+      continue
+    }
     if (matchesAny(norm, pattern.keywords)) {
       return pattern.id
     }
@@ -480,7 +494,7 @@ export function generateDomingasResponse(
   // -------------------------------------------------------------------------
   if (intent === 'identity_question') {
     return makeReply({
-      text: `Sou a Domingas Manuel, assistente virtual da ARKNET. Estou aqui para lhe prestar todo o apoio com rigor e rapidez, ${salutation}. Se preferir falar diretamente com um dos nossos colaboradores, posso transferir a conversa de imediato.`,
+      text: `Sou a Domingas Manuel, assistente virtual da ARKNET. Posso ajudar com produtos, encomendas e serviços. Se preferir atendimento humano, diga-me e encaminho o pedido.`,
       escalateToHuman: false,
     })
   }
@@ -504,7 +518,7 @@ export function generateDomingasResponse(
     sessionStore.setBotState(phone, 'needs_human')
     sessionStore.setLastTopic(phone, 'reclamação')
     return makeReply({
-      text: `Lamento sinceramente o transtorno, ${salutation}, e agradeço que nos tenha informado. Vou encaminhar o seu caso de imediato ao departamento responsável para que seja resolvido com a máxima brevidade. Será contactado(a) em breve pela nossa equipa.`,
+      text: `Lamento o transtorno. Vou encaminhar esta conversa para a equipa responsável. Para localizar o caso, envie o número da encomenda ou descreva o serviço e a data do ocorrido.`,
       escalateToHuman: true,
       suggestedAction: 'escalate_human',
     })
@@ -515,8 +529,10 @@ export function generateDomingasResponse(
   // -------------------------------------------------------------------------
   if (intent === 'quote_request') {
     sessionStore.setLastTopic(phone, 'orçamento')
+    sessionStore.setBotState(phone, 'needs_human')
     return makeReply({
-      text: `Agradecemos o interesse em trabalhar com a ARKNET, ${salutation}. Para este tipo de solução preparamos uma proposta personalizada. Pode indicar-me o nome da sua instituição, os equipamentos pretendidos e as quantidades estimadas?`,
+      text: `Posso encaminhar o pedido de orçamento à equipa comercial. Para preparar a solicitação, indique a instituição, os equipamentos ou serviços pretendidos e as quantidades.`,
+      escalateToHuman: true,
       suggestedAction: 'escalate_human',
     })
   }
@@ -577,7 +593,7 @@ export function generateDomingasResponse(
   if (intent === 'delivery_info') {
     sessionStore.setLastTopic(phone, 'entrega')
     return makeReply({
-      text: `Realizamos entregas em toda a província de Luanda no prazo de 24h a 48h úteis e enviamos para as restantes províncias, ${salutation}. Dispomos também de ponto de levantamento em Luanda, no Kilamba KK5000. Deseja receber no seu endereço ou prefere efetuar o levantamento presencial?`,
+      text: `O prazo e a cobertura dependem do produto e da localização. Diga-me o artigo e a província ou município para eu encaminhar a confirmação correta à equipa.`,
     })
   }
 
@@ -586,7 +602,7 @@ export function generateDomingasResponse(
   // -------------------------------------------------------------------------
   if (intent === 'schedule_info') {
     return makeReply({
-      text: `O nosso horário de atendimento comercial é de segunda a sexta-feira, das 08h às 17h, ${salutation}. Estamos à sua disposição para o apoiar na escolha e aquisição dos seus equipamentos.`,
+      text: `Não tenho um horário atualizado disponível nesta conversa. Posso encaminhar a sua pergunta para a equipa confirmar; prefere contacto por aqui ou por telefone?`,
     })
   }
 
@@ -606,7 +622,7 @@ export function generateDomingasResponse(
   if (intent === 'warranty_support') {
     sessionStore.setLastTopic(phone, 'suporte')
     return makeReply({
-      text: `A ARKNET oferece garantia nos equipamentos comercializados e dispomos de uma equipa técnica para instalação, configuração e suporte, ${salutation}. Para agilizar o seu pedido de assistência, pode indicar-me o equipamento em questão e o tipo de apoio necessário?`,
+      text: `As condições de garantia dependem do equipamento e da compra. Diga-me o modelo e, se tiver, o número da encomenda para encaminhar a verificação à equipa técnica.`,
     })
   }
 
@@ -626,23 +642,28 @@ export function generateDomingasResponse(
   const matchingProduct = findRelevantProduct(effectiveNorm, products)
 
   if (matchingProduct) {
-    const formattedPrice = matchingProduct.price !== null && matchingProduct.price !== undefined
+    const priceDescription = matchingProduct.price !== null && matchingProduct.price !== undefined
       ? `${matchingProduct.price.toLocaleString('pt-AO')} Kz`
-      : 'sob consulta'
+      : 'preço sob consulta'
+    const stockDescription = typeof matchingProduct.quantity === 'number'
+      ? matchingProduct.quantity > 0
+        ? `Há ${matchingProduct.quantity} unidade(s) registada(s) em stock.`
+        : 'O catálogo indica que não há unidades em stock neste momento.'
+      : matchingProduct.inStock
+        ? 'O catálogo indica disponibilidade, mas não apresenta uma quantidade atualizada.'
+        : 'O catálogo indica que o produto está sem stock; posso pedir confirmação à equipa.'
 
     sessionStore.setLastTopic(phone, `produto: ${matchingProduct.name}`)
 
-    // Se perguntou explicitamente pelo preço
-    if (effectiveNorm.includes('preco') || effectiveNorm.includes('quanto custa') || effectiveNorm.includes('valor') || effectiveNorm.includes('quanto e')) {
+    if (matchesAny(effectiveNorm, ['preco', 'quanto custa', 'valor', 'quanto e', 'quanto vale'])) {
       return makeReply({
-        text: `O produto "${matchingProduct.name}" tem o valor de ${formattedPrice}, ${salutation}. Se desejar, posso enviar-lhe a ligação com as fotografias, especificações técnicas completas e cores disponíveis.`,
+        text: `${matchingProduct.name}: ${priceDescription}. ${stockDescription} Se precisar, posso encaminhar o pedido para confirmação da equipa.`,
         suggestedAction: 'show_catalog',
       })
     }
 
-    // Se perguntou por disponibilidade / características
     return makeReply({
-      text: `${salutation}, temos o "${matchingProduct.name}" disponível na nossa loja por ${formattedPrice}. Para lhe sugerir a configuração mais adequada, o equipamento destina-se a uso pessoal, profissional ou empresarial?`,
+      text: `${matchingProduct.name}: ${priceDescription}. ${stockDescription} Que característica ou utilização pretende confirmar?`,
       suggestedAction: 'show_catalog',
     })
   }
@@ -741,12 +762,19 @@ export function generateDomingasResponse(
       // Tentar encontrar um novo produto mencionado
       const newProduct = findRelevantProduct(effectiveNorm, products)
       if (newProduct) {
-        const formattedPrice = newProduct.price !== null && newProduct.price !== undefined
+        const priceDescription = newProduct.price !== null && newProduct.price !== undefined
           ? `${newProduct.price.toLocaleString('pt-AO')} Kz`
-          : 'sob consulta'
+          : 'preço sob consulta'
+        const stockDescription = typeof newProduct.quantity === 'number'
+          ? newProduct.quantity > 0
+            ? `Há ${newProduct.quantity} unidade(s) registada(s) em stock.`
+            : 'O catálogo indica que não há unidades em stock neste momento.'
+          : newProduct.inStock
+            ? 'O catálogo indica disponibilidade, mas não apresenta uma quantidade atualizada.'
+            : 'O catálogo indica que o produto está sem stock; posso pedir confirmação à equipa.'
         sessionStore.setLastTopic(phone, `produto: ${newProduct.name}`)
         return makeReply({
-          text: `Temos o "${newProduct.name}" disponível por ${formattedPrice}, ${salutation}. Deseja saber mais detalhes técnicos ou avançar com a encomenda?`,
+          text: `${newProduct.name}: ${priceDescription}. ${stockDescription} Que detalhe pretende confirmar?`,
           suggestedAction: 'show_catalog',
         })
       }
@@ -771,13 +799,7 @@ export function generateDomingasResponse(
   // -------------------------------------------------------------------------
   // Resposta mais inteligente que oferece opções concretas
   return makeReply({
-    text: `${salutation}, agradeço a sua mensagem. Posso ajudá-lo(a) com:\n\n` +
-      `📦 *Produtos e Preços* — Consultar o nosso catálogo de equipamentos\n` +
-      `📋 *Estado de Pedido* — Verificar o andamento da sua encomenda\n` +
-      `💳 *Pagamento* — Dados bancários e formas de pagamento\n` +
-      `🚚 *Entrega* — Zonas e prazos de entrega\n` +
-      `🛠️ *Suporte Técnico* — Assistência e garantia\n\n` +
-      `Indique o assunto pretendido e terei todo o gosto em apoiar!`,
+    text: `Ainda não consegui perceber o que precisa. Pode explicar com outras palavras? Posso ajudar com um produto, uma encomenda, uma entrega, pagamento ou suporte técnico. Se preferir, encaminho a conversa para um colaborador.`,
   })
 }
 
@@ -787,54 +809,41 @@ export function generateDomingasResponse(
 function findRelevantProduct(norm: string, products: StoreProduct[]): StoreProduct | null {
   if (!products || products.length === 0) return null
 
-  // Palavras muito comuns que não devem ser usadas para match de produto
-  const tooCommon = new Set(['para', 'com', 'mais', 'portas', 'rede', 'tipo', 'este', 'esse', 'aquele', 'algum', 'outro'])
+  const tooCommon = new Set(['para', 'com', 'mais', 'portas', 'rede', 'tipo', 'este', 'esse', 'aquele', 'algum', 'outro', 'produto', 'equipamento', 'quero', 'preco', 'valor'])
 
   let bestMatch: StoreProduct | null = null
   let bestScore = 0
+  let secondBestScore = 0
 
   for (const p of products) {
     const pNorm = normalizeText(p.name)
 
-    // 1. Nome exato contido na mensagem
-    if (norm.includes(pNorm)) {
-      return p // Match perfeito
+    if (pNorm && matchesAny(norm, [pNorm])) {
+      return p
     }
 
-    // 2. Pontuação por palavras-chave do produto presentes na mensagem
     const words = pNorm.split(/\s+/).filter((w) => w.length > 3 && !tooCommon.has(w))
     let score = 0
     for (const w of words) {
-      if (norm.includes(w)) {
-        score += w.length // Palavras maiores valem mais
-      }
+      if (matchesAny(norm, [w])) score += w.length
     }
 
-    // 3. Verificar modelo/código (ex: "ccr2004", "hap ac3", "usw-24")
     const modelWords = pNorm.split(/\s+/).filter((w) => /\d/.test(w) && w.length > 2)
     for (const m of modelWords) {
-      if (norm.includes(m)) {
-        score += 20 // Modelos específicos têm peso alto
-      }
+      if (matchesAny(norm, [m])) score += 20
     }
 
     if (score > bestScore) {
+      secondBestScore = bestScore
       bestScore = score
       bestMatch = p
+    } else if (score > secondBestScore) {
+      secondBestScore = score
     }
   }
 
-  // Requerer pontuação mínima para evitar falsos positivos
-  if (bestScore >= 4) {
+  if (bestScore >= 8 && bestScore > secondBestScore) {
     return bestMatch
-  }
-
-  // 3. Procura por categoria como fallback
-  for (const p of products) {
-    const catNorm = normalizeText(p.category)
-    if (catNorm.length > 3 && norm.includes(catNorm)) {
-      return p
-    }
   }
 
   return null

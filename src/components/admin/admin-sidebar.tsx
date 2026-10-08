@@ -9,6 +9,7 @@ import {
   Package,
   Tags,
   ShoppingCart,
+  Bot,
   Inbox,
   Mail,
   Calendar,
@@ -25,7 +26,6 @@ import {
   Layers,
   Truck,
   ImageIcon,
-  Bot,
   BarChart3,
   LifeBuoy,
 } from 'lucide-react'
@@ -83,7 +83,8 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
       setActiveProductsCount(db.products.length)
       
       const lowStock = (db.products || []).filter((p) => {
-        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        if (typeof p.quantity !== 'number') return false
+        const qty = p.quantity
         const minAlert = p.minStockAlert ?? 5
         return qty <= minAlert || !p.inStock
       }).length
@@ -125,8 +126,8 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           label: 'Produtos',
           href: '/admin/produtos',
           icon: Package,
-          badge: lowStockCount > 0 ? `⚠️ ${lowStockCount} alerta` : activeProductsCount > 0 ? `${activeProductsCount}` : undefined,
-          badgeColor: lowStockCount > 0 ? 'bg-amber-600 text-white font-bold animate-pulse' : 'bg-slate-800 text-slate-300',
+          badge: lowStockCount > 0 ? `${lowStockCount} alerta${lowStockCount === 1 ? '' : 's'}` : activeProductsCount > 0 ? `${activeProductsCount}` : undefined,
+          badgeColor: lowStockCount > 0 ? 'bg-amber-600 text-white font-bold' : 'bg-slate-800 text-slate-300',
         },
         {
           label: 'Categorias',
@@ -167,14 +168,14 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
           href: '/admin/leads',
           icon: Inbox,
           badge: unreadLeads > 0 ? `${unreadLeads} novos` : undefined,
-          badgeColor: 'bg-secondary text-white font-bold animate-pulse',
+          badgeColor: 'bg-secondary text-white font-bold',
         },
         {
           label: 'Reclamações & Apoio',
           href: '/admin/reclamacoes',
           icon: LifeBuoy,
           badge: newTicketsCount > 0 ? `${newTicketsCount} novo` : undefined,
-          badgeColor: 'bg-rose-600 text-white font-bold animate-pulse',
+          badgeColor: 'bg-rose-600 text-white font-bold',
         },
         {
           label: 'Newsletter',

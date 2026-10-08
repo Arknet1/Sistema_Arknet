@@ -230,7 +230,6 @@ export default function AdminReservasPage() {
           value={totalReservations}
           subtitle="Pedidos de reserva registados"
           icon={Truck}
-          colorScheme="amber"
           linkHref="#lista-reservas"
           linkText="Ver Lista"
         />
@@ -240,7 +239,6 @@ export default function AdminReservasPage() {
           value={pendingReservations}
           subtitle="Aguardando chegada do produto"
           icon={Clock}
-          colorScheme="blue"
           linkHref="#lista-reservas"
           linkText="Filtrar Pendentes"
         />
@@ -250,7 +248,6 @@ export default function AdminReservasPage() {
           value={totalUnitsReserved}
           subtitle="Equipamentos requisitados"
           icon={Package}
-          colorScheme="purple"
         />
 
         <StatCard
@@ -258,7 +255,6 @@ export default function AdminReservasPage() {
           value={sortedProductDemand.length}
           subtitle="Itens com interesse ativo"
           icon={TrendingUp}
-          colorScheme="emerald"
         />
       </div>
 

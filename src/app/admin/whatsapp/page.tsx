@@ -76,7 +76,7 @@ export default function AdminWhatsAppBotPage() {
     {
       id: 'msg-1',
       sender: 'bot',
-      text: `${getAngolaGreeting()}! Chamo-me Domingas Manuel e sou Assistente Comercial da ARKNET. Será um prazer ajudá-lo(a). Pode indicar-me o seu nome e em que o posso apoiar hoje? 😊`,
+      text: `${getAngolaGreeting()}! Sou a Domingas Manuel, assistente virtual da ARKNET. Em que posso ajudar?`,
       time: '10:00',
     },
   ])
@@ -100,7 +100,7 @@ export default function AdminWhatsAppBotPage() {
         whatsappNumber: companyPhone,
       })
       setIsSaving(false)
-      success('Configurações do Bot Domingas Manuel guardadas com sucesso!')
+      success('Configurações da Assistente Virtual Domingas guardadas com sucesso!')
     }, 400)
   }
 
@@ -209,7 +209,7 @@ export default function AdminWhatsAppBotPage() {
       {
         id: 'msg-1',
         sender: 'bot',
-        text: `${getAngolaGreeting()}! Chamo-me Domingas Manuel e sou Assistente Comercial da ARKNET. Será um prazer ajudá-lo(a). Pode indicar-me o seu nome e em que o posso apoiar hoje? 😊`,
+        text: `${getAngolaGreeting()}! Sou a Domingas Manuel, assistente virtual da ARKNET. Em que posso ajudar?`,
         time: new Date().toLocaleTimeString('pt-AO', { hour: '2-digit', minute: '2-digit' }),
       },
     ])
@@ -227,7 +227,7 @@ export default function AdminWhatsAppBotPage() {
             <span>Assistente Comercial Oficial no WhatsApp</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
-            <span>Bot de WhatsApp: Domingas Manuel</span>
+            <span>Assistente Virtual: Domingas Manuel</span>
             <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300">
               Operacional
             </span>
@@ -463,7 +463,7 @@ export default function AdminWhatsAppBotPage() {
                     <span className="h-2 w-2 bg-emerald-500 rounded-full animate-bounce"></span>
                     <span className="h-2 w-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
                     <span className="h-2 w-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                    <span className="text-[11px] text-slate-500 ml-1">Domingas Manuel a escrever...</span>
+                    <span className="text-[11px] text-slate-500 ml-1">Assistente virtual a responder...</span>
                   </div>
                 </div>
               )}
@@ -663,10 +663,10 @@ export default function AdminWhatsAppBotPage() {
           <div className="pb-4 border-b border-slate-100">
             <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
               <Shield className="h-5 w-5 text-amber-600" />
-              <span>Directrizes de Conduta da Domingas Manuel</span>
+              <span>Orientações da Assistente Virtual</span>
             </h2>
             <p className="text-xs text-slate-500 mt-1">
-              Manual de boas práticas e tom de comunicação rigorosamente seguido pelo motor do WhatsApp Bot da ARKNET.
+              As respostas usam dados do catálogo e regras de atendimento. Quando falta informação, a conversa deve seguir para a equipa.
             </p>
           </div>
 

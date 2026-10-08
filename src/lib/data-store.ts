@@ -509,303 +509,27 @@ const DEFAULT_CATEGORIES: ProductCategory[] = mockCategories.map((c, i) => ({
   hideWhenEmpty: false,
 }))
 
-const DEFAULT_PRODUCTS: StoreProduct[] = mockProducts.map((p, i) => {
-  // Alguns produtos sem stock / em trânsito para simulação da loja e dashboard de procura
-  const isOutOfStock = i === 2 || i === 5 || i === 9 || i === 14 || (p.price === null && i % 4 === 0)
-  const inStock = !isOutOfStock
-  const qty = inStock ? 12 + ((i * 7) % 25) : 0
-  return {
+const DEFAULT_PRODUCTS: StoreProduct[] = mockProducts.map((p, i) => ({
     id: p.id,
     name: p.name,
     description: p.description,
     category: p.category,
     price: p.price,
     image: p.image,
-    inStock,
-    quantity: qty,
+    inStock: p.inStock,
     featured: i < 8,
     sku: `ARK-${String(i + 1).padStart(4, '0')}`,
     createdAt: '2026-01-15T00:00:00Z',
     updatedAt: '2026-01-15T00:00:00Z',
-  }
-})
+  }))
 
-const DEFAULT_RESERVATIONS: ProductReservation[] = [
-  {
-    id: 'res-1',
-    reservationNumber: 'RES-2026-0001',
-    productId: DEFAULT_PRODUCTS[2]?.id || 'prod-3',
-    productName: DEFAULT_PRODUCTS[2]?.name || 'Switch Gerenciável 24 Portas PoE+',
-    productImage: DEFAULT_PRODUCTS[2]?.image,
-    productPrice: DEFAULT_PRODUCTS[2]?.price ?? 245000,
-    customerName: 'Eng. David Kassoma',
-    customerEmail: 'david.kassoma@sonangol.co.ao',
-    customerPhone: '+244 923 112 233',
-    customerCompany: 'Sonangol E.P.',
-    quantity: 4,
-    notes: 'Necessitamos com urgência para expansão da rede do bloco administrativo em Luanda.',
-    status: 'pendente',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-  },
-  {
-    id: 'res-2',
-    reservationNumber: 'RES-2026-0002',
-    productId: DEFAULT_PRODUCTS[5]?.id || 'prod-6',
-    productName: DEFAULT_PRODUCTS[5]?.name || 'Roteador Mikrotik CCR2004 16G 2S+',
-    productImage: DEFAULT_PRODUCTS[5]?.image,
-    productPrice: DEFAULT_PRODUCTS[5]?.price ?? 380000,
-    customerName: 'Dra. Beatriz Santos',
-    customerEmail: 'beatriz.santos@unitel.ao',
-    customerPhone: '+244 912 889 900',
-    customerCompany: 'Infranet Soluções Lda',
-    quantity: 2,
-    notes: 'Favor notificar por WhatsApp assim que desembarcar no armazém central.',
-    status: 'em_contacto',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 28).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 14).toISOString(),
-  },
-  {
-    id: 'res-3',
-    reservationNumber: 'RES-2026-0003',
-    productId: DEFAULT_PRODUCTS[2]?.id || 'prod-3',
-    productName: DEFAULT_PRODUCTS[2]?.name || 'Switch Gerenciável 24 Portas PoE+',
-    productImage: DEFAULT_PRODUCTS[2]?.image,
-    productPrice: DEFAULT_PRODUCTS[2]?.price ?? 245000,
-    customerName: 'Carlos Mendonça',
-    customerEmail: 'carlos.mendonca@gmail.com',
-    customerPhone: '+244 935 440 120',
-    customerCompany: 'TechAngola Serviços',
-    quantity: 1,
-    notes: 'Previsão de recolha na sede da ARKNET Kilamba.',
-    status: 'pendente',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
-  }
-]
+const DEFAULT_RESERVATIONS: ProductReservation[] = []
 
-const DEFAULT_LEADS: ServiceLead[] = [
-  {
-    id: 'lead-1',
-    name: 'Eng. Manuel Domingos',
-    email: 'manuel.domingos@petroangola.ao',
-    phone: '+244 923 456 789',
-    service: 'Internet Empresarial',
-    message: 'Precisamos de uma ligação dedicada simétrica de 100Mbps com redundância para os nossos escritórios em Talatona.',
-    status: 'novo',
-    notes: 'Prioridade alta. Cliente corporativo do sector petrolífero.',
-    source: 'Sítio: Formulário de Cotação',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 4).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 4).toISOString(),
-  },
-  {
-    id: 'lead-2',
-    name: 'Dra. Teresa Van-Dúnem',
-    email: 'teresa.vdunem@bancocomerce.co.ao',
-    phone: '+244 912 345 678',
-    service: 'Cibersegurança',
-    message: 'Solicitamos auditoria de pentest e reforço de segurança perimetral para 3 agências bancárias.',
-    status: 'contactado',
-    notes: 'Reunião preliminar agendada para sexta-feira às 10h.',
-    source: 'Sítio: Formulário de Cotação',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
-  },
-  {
-    id: 'lead-3',
-    name: 'Carlos Alberto Ferreira',
-    email: 'carlos.ferreira@logistica-sul.ao',
-    phone: '+244 934 567 890',
-    service: 'CFTV e Segurança',
-    message: 'Orçamento para sistema de vigilância IP com 32 câmaras e gravação em nuvem para centro de distribuição.',
-    status: 'convertido',
-    notes: 'Proposta adjudicada. Projecto em fase de planeamento e instalação.',
-    source: 'Sítio: Formulário de Cotação',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 48).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 8).toISOString(),
-  },
-  {
-    id: 'lead-4',
-    name: 'Joaquim Silva Santos',
-    email: 'jsilva@construtora-luanda.com',
-    phone: '+244 945 678 901',
-    service: 'Cabeamento Estruturado',
-    message: 'Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.',
-    status: 'novo',
-    notes: '',
-    source: 'Sítio: Formulário de Cotação',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 72).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 72).toISOString(),
-  },
-]
+const DEFAULT_LEADS: ServiceLead[] = []
 
-const DEFAULT_ORDERS: StoreOrder[] = [
-  {
-    id: 'order-1',
-    orderNumber: 'PED-2026-0042',
-    customerName: 'Afonso Mário Ribeiro',
-    customerEmail: 'afonso.mario@empresa.ao',
-    customerPhone: '+244 923 111 222',
-    whatsappPhone: '244923111222',
-    customerAddress: 'Av. 4 de Fevereiro, Luanda',
-    items: [
-      {
-        productId: DEFAULT_PRODUCTS[0]?.id || 'p-1',
-        productName: DEFAULT_PRODUCTS[0]?.name || 'Equipamento de Rede',
-        price: DEFAULT_PRODUCTS[0]?.price ?? 45000,
-        quantity: 2,
-        image: DEFAULT_PRODUCTS[0]?.image,
-      },
-      {
-        productId: DEFAULT_PRODUCTS[1]?.id || 'p-2',
-        productName: DEFAULT_PRODUCTS[1]?.name || 'Switch Gigabit',
-        price: DEFAULT_PRODUCTS[1]?.price ?? 120000,
-        quantity: 1,
-        image: DEFAULT_PRODUCTS[1]?.image,
-      },
-    ],
-    total: 210000,
-    status: 'em_contacto',
-    botStatus: 'receipt_received',
-    receiptUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80',
-    receiptFilename: 'comprovativo_mcx_afonso.jpg',
-    receiptReceivedAt: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
-    notes: 'Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.',
-    conversationHistory: [
-      {
-        id: 'msg-1',
-        sender: 'customer',
-        senderName: 'Afonso Mário',
-        text: 'Olá ARKNET! Acabei de registar o pedido *PED-2026-0042* no valor de *210.000,00 Kz* na loja online.',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
-      },
-      {
-        id: 'msg-2',
-        sender: 'bot',
-        senderName: 'ARKNET Bot',
-        text: 'Olá Afonso Mário Ribeiro! Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n*Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n*Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\nPor favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 2 + 1000).toISOString(),
-      },
-      {
-        id: 'msg-3',
-        sender: 'customer',
-        senderName: 'Afonso Mário',
-        text: 'Segue o comprovativo da transferência via Multicaixa Express.',
-        media: {
-          url: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80',
-          type: 'image',
-          filename: 'comprovativo_mcx_afonso.jpg',
-        },
-        timestamp: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
-      },
-      {
-        id: 'msg-4',
-        sender: 'bot',
-        senderName: 'ARKNET Bot',
-        text: '*Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 1 + 2000).toISOString(),
-      },
-    ],
-    createdAt: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 1).toISOString(),
-  },
-  {
-    id: 'order-2',
-    orderNumber: 'PED-2026-0041',
-    customerName: 'Beatriz Costa',
-    customerEmail: 'beatriz.costa@techhub.ao',
-    customerPhone: '+244 917 888 999',
-    whatsappPhone: '244917888999',
-    customerAddress: 'Vila Alice, Luanda',
-    items: [
-      {
-        productId: DEFAULT_PRODUCTS[2]?.id || 'p-3',
-        productName: DEFAULT_PRODUCTS[2]?.name || 'Roteador Wi-Fi 6',
-        price: DEFAULT_PRODUCTS[2]?.price ?? 85000,
-        quantity: 1,
-        image: DEFAULT_PRODUCTS[2]?.image,
-      },
-    ],
-    total: 85000,
-    status: 'fechado',
-    botStatus: 'confirmed',
-    notes: 'Pagamento confirmado e fatura emitida via WhatsApp.',
-    confirmedAt: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
-    conversationHistory: [
-      {
-        id: 'msg-201',
-        sender: 'customer',
-        senderName: 'Beatriz Costa',
-        text: 'Olá ARKNET! Pedido #PED-2026-0041',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
-      },
-      {
-        id: 'msg-202',
-        sender: 'bot',
-        senderName: 'ARKNET Bot',
-        text: 'Olá Beatriz Costa! Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 12 + 1000).toISOString(),
-      },
-      {
-        id: 'msg-203',
-        sender: 'bot',
-        senderName: 'ARKNET Bot',
-        text: '*Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
-      },
-    ],
-    createdAt: new Date(Date.now() - 3600 * 1000 * 30).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
-  },
-  {
-    id: 'order-3',
-    orderNumber: 'PED-2026-0040',
-    customerName: 'Dr. Valdemar Pascoal',
-    customerEmail: 'v.pascoal@clinicasaude.co.ao',
-    customerPhone: '+244 944 555 666',
-    whatsappPhone: '244944555666',
-    customerAddress: 'Talatona, Luanda',
-    items: [
-      {
-        productId: DEFAULT_PRODUCTS[0]?.id || 'p-1',
-        productName: DEFAULT_PRODUCTS[0]?.name || 'Equipamento de Rede',
-        price: DEFAULT_PRODUCTS[0]?.price ?? 45000,
-        quantity: 3,
-        image: DEFAULT_PRODUCTS[0]?.image,
-      },
-    ],
-    total: 135000,
-    status: 'em_contacto',
-    botStatus: 'needs_human',
-    notes: 'Cliente perguntou se há desconto para faturamento a 30 dias. Requer atendimento humano.',
-    conversationHistory: [
-      {
-        id: 'msg-301',
-        sender: 'customer',
-        senderName: 'Dr. Valdemar Pascoal',
-        text: 'Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 3).toISOString(),
-      },
-      {
-        id: 'msg-302',
-        sender: 'bot',
-        senderName: 'ARKNET Bot',
-        text: 'Obrigado pela sua mensagem. Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.',
-        timestamp: new Date(Date.now() - 3600 * 1000 * 3 + 1000).toISOString(),
-      },
-    ],
-    createdAt: new Date(Date.now() - 3600 * 1000 * 15).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 3).toISOString(),
-  },
-]
+const DEFAULT_ORDERS: StoreOrder[] = []
 
-const DEFAULT_SUBSCRIBERS: NewsletterSubscriber[] = [
-  { id: 'sub-1', email: 'director.ti@sonangol.co.ao', status: 'active', subscribedAt: '2026-01-10T11:20:00Z' },
-  { id: 'sub-2', email: 'geral@infrasul.ao', status: 'active', subscribedAt: '2026-01-14T09:45:00Z' },
-  { id: 'sub-3', email: 'compras@hospitalcentral.ao', status: 'active', subscribedAt: '2026-01-20T16:15:00Z' },
-  { id: 'sub-4', email: 'redes@universidade-luanda.ao', status: 'active', subscribedAt: '2026-02-02T14:30:00Z' },
-  { id: 'sub-5', email: 'inovacao@startuangola.com', status: 'active', subscribedAt: '2026-02-18T10:00:00Z' },
-]
+const DEFAULT_SUBSCRIBERS: NewsletterSubscriber[] = []
 
 const DEFAULT_COURSES: CourseItem[] = mockTrainingCourses.map((c, i) => ({
   id: c.id,
@@ -926,35 +650,7 @@ const DEFAULT_JOBS: JobPosition[] = [
   },
 ]
 
-const DEFAULT_APPLICATIONS: JobApplication[] = [
-  {
-    id: 'app-1',
-    jobId: 'job-1',
-    jobTitle: 'Engenheiro de Redes & Telecomunicações Sénior',
-    candidateName: 'Eduardo Ndala',
-    candidateEmail: 'eduardo.ndala@gmail.com',
-    candidatePhone: '+244 923 888 111',
-    message: 'Tenho 6 anos de experiência em redes IP e certificação CCNP Enterprise ativa. Gostaria de integrar a equipa ARKNET.',
-    cvFileName: 'CV_Eduardo_Ndala_2026.pdf',
-    status: 'em_analise',
-    notes: 'Perfil muito alinhado. Convidar para entrevista técnica.',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 20).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 20).toISOString(),
-  },
-  {
-    id: 'app-2',
-    jobTitle: 'Candidatura Espontânea: Gestão Comercial',
-    candidateName: 'Mariana Kiala',
-    candidateEmail: 'mariana.kiala@hotmail.com',
-    candidatePhone: '+244 912 777 333',
-    message: 'Experiência de 4 anos em prospeção e fecho de negócios B2B em soluções de TI.',
-    cvFileName: 'Curriculo_Mariana_Kiala.pdf',
-    status: 'recebida',
-    notes: '',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 45).toISOString(),
-    updatedAt: new Date(Date.now() - 3600 * 1000 * 45).toISOString(),
-  },
-]
+const DEFAULT_APPLICATIONS: JobApplication[] = []
 
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = mockTestimonials.map((t, i) => ({
   id: t.id,
@@ -1270,71 +966,9 @@ const DEFAULT_SETTINGS: CompanySettings = {
   updatedAt: new Date().toISOString(),
 }
 
-const DEFAULT_ACTIVITIES: ActivityLog[] = [
-  {
-    id: 'act-1',
-    userId: 'user-admin',
-    userName: 'Administrador ARKNET',
-    action: 'Criou novo produto "Roteador Wi-Fi 6"',
-    module: 'produtos',
-    timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
-  },
-  {
-    id: 'act-2',
-    userId: 'user-editor',
-    userName: 'Editor de Conteúdo',
-    action: 'Atualizou estado do lead "Dra. Teresa Van-Dúnem" para "Contactado"',
-    module: 'leads',
-    timestamp: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
-  },
-  {
-    id: 'act-3',
-    userId: 'user-admin',
-    userName: 'Administrador ARKNET',
-    action: 'Publicou vaga "Engenheiro de Redes & Telecomunicações Sénior"',
-    module: 'carreiras',
-    timestamp: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
-  },
-]
+const DEFAULT_ACTIVITIES: ActivityLog[] = []
 
-const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = [
-  {
-    id: 'reg-1',
-    eventId: 'evt-1',
-    eventTitle: 'Arknet Tech Summit 2026: Transformação Digital em Angola',
-    name: 'Eng. António Kiala',
-    email: 'antonio.kiala@sonangol.co.ao',
-    phone: '+244 923 111 222',
-    company: 'Sonangol E.P.',
-    notes: 'Interesse em painel de cibersegurança e cloud híbrida.',
-    status: 'confirmada',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
-  },
-  {
-    id: 'reg-2',
-    eventId: 'evt-1',
-    eventTitle: 'Arknet Tech Summit 2026: Transformação Digital em Angola',
-    name: 'Dra. Isabel Mateus',
-    email: 'isabel.mateus@bancobai.ao',
-    phone: '+244 912 333 444',
-    company: 'Banco BAI',
-    notes: 'Vaga VIP reservada.',
-    status: 'confirmada',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
-  },
-  {
-    id: 'reg-3',
-    eventId: 'evt-2',
-    eventTitle: 'Workshop Prático: Defesa Perimetral e Resposta a Incidentes',
-    name: 'Mário Lucas Bento',
-    email: 'mario.bento@techangola.com',
-    phone: '+244 934 555 666',
-    company: 'TechAngola Lda',
-    notes: 'Inscrição para workshop técnico.',
-    status: 'confirmada',
-    createdAt: new Date(Date.now() - 3600 * 1000 * 5).toISOString(),
-  },
-]
+const DEFAULT_EVENT_REGISTRATIONS: EventRegistration[] = []
 
 const DEFAULT_DAILY_ACTIVITIES: DailyActivityItem[] = [
   {

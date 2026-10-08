@@ -101,7 +101,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="inline-flex items-center" aria-label="ARKNET Angola, Página Inicial">
-          <Image src={icon} alt="ARKNET, Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" priority />
+          <Image src={icon} alt="ARKNET, Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" />
         </Link>
 
         <div className="hidden lg:flex items-center gap-6">

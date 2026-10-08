@@ -11,22 +11,15 @@ import {
   MessageSquareQuote,
   Handshake,
   Tags,
-  TrendingUp,
   ArrowRight,
   PlusCircle,
   Clock,
-  Sparkles,
-  ExternalLink,
-  ShieldCheck,
-  CheckCircle2,
   Truck,
 } from 'lucide-react'
-import { useAuth } from '@/lib/auth-context'
 import { dataStore, ArknetDatabase } from '@/lib/data-store'
 import { StatCard } from '@/components/admin/stat-card'
 
 export default function AdminOverviewPage() {
-  const { user, isAdmin } = useAuth()
   const [db, setDb] = useState<ArknetDatabase>(dataStore.getSnapshot())
 
   useEffect(() => {
@@ -41,7 +34,7 @@ export default function AdminOverviewPage() {
 
   // Métricas calculadas
   const totalProducts = db.products.length
-  const inStockProducts = db.products.filter((p) => p.inStock).length
+  const inStockProducts = db.products.filter((p) => typeof p.quantity === 'number' && p.quantity > 0).length
   const totalOrders = db.orders.length
   const newOrders = db.orders.filter((o) => o.status === 'novo').length
   const totalLeads = db.leads.length
@@ -86,52 +79,48 @@ export default function AdminOverviewPage() {
 
   const topDemandProducts = Object.values(productDemand).sort((a, b) => b.units - a.units).slice(0, 3)
 
-  // Histórico simplificado dos últimos 6 meses para o gráfico
-  const monthlyData = [
-    { month: 'Março', leads: 8, orders: 4 },
-    { month: 'Abril', leads: 12, orders: 7 },
-    { month: 'Maio', leads: 15, orders: 11 },
-    { month: 'Junho', leads: 19, orders: 14 },
-    { month: 'Julho', leads: 22, orders: 18 },
-    { month: 'Agosto', leads: totalLeads + 6, orders: totalOrders + 4 },
-  ]
+  const currentDate = new Date()
+  const monthlyData = Array.from({ length: 6 }, (_, index) => {
+    const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 5 + index, 1)
+    const nextMonthDate = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 1)
+    const isInMonth = (createdAt: string) => {
+      const timestamp = new Date(createdAt).getTime()
+      return Number.isFinite(timestamp) && timestamp >= monthDate.getTime() && timestamp < nextMonthDate.getTime()
+    }
 
-  const maxVal = Math.max(...monthlyData.map((d) => Math.max(d.leads, d.orders)), 25)
+    return {
+      month: monthDate.toLocaleDateString('pt-PT', { month: 'short' }).replace('.', ''),
+      year: monthDate.getFullYear(),
+      leads: db.leads.filter((lead) => isInMonth(lead.createdAt)).length,
+      orders: db.orders.filter((order) => isInMonth(order.createdAt)).length,
+    }
+  })
+
+  const maxVal = Math.max(...monthlyData.map((item) => Math.max(item.leads, item.orders)), 1)
+  const hasMonthlyActivity = monthlyData.some((item) => item.leads > 0 || item.orders > 0)
 
   return (
     <div className="space-y-8">
-      {/* Welcome Banner */}
-      <div className="relative bg-gradient-to-r from-[#0d2149] via-[#10316b] to-[#1e60b6] p-6 sm:p-8 text-white shadow-md overflow-hidden border border-primary/20">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-semibold uppercase tracking-wider mb-3">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-              Painel Central Operacional
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-              Olá, {user?.name || 'Administrador'}!
-            </h1>
-            <p className="text-slate-200 text-xs sm:text-sm max-w-2xl mt-2 leading-relaxed">
-              Bem-vindo ao centro de gestão da ARKNET. Aqui pode acompanhar novos pedidos, pedidos de serviço, produtos da loja e conteúdos do sítio em tempo real.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+      <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Visão geral</h1>
+          <p className="mt-1 text-sm text-slate-600">Resumo de produtos, vendas e atividade comercial.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
             <Link
               href="/admin/produtos"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-slate-900 text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition shadow-sm"
+              className="inline-flex items-center gap-2 border border-slate-300 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
             >
               <PlusCircle className="h-4 w-4 text-primary" />
               Novo Produto
             </Link>
             <Link
               href="/admin/leads"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary text-white text-xs font-bold uppercase tracking-wider hover:bg-secondary/90 transition shadow-sm"
+              className="inline-flex items-center gap-2 bg-primary px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover"
             >
               <Inbox className="h-4 w-4" />
-              Ver pedidos de serviço ({newLeads})
+              Pedidos de serviço ({newLeads})
             </Link>
-          </div>
         </div>
       </div>
 
@@ -140,10 +129,8 @@ export default function AdminOverviewPage() {
         <StatCard
           title="Produtos na Loja"
           value={totalProducts}
-          subtitle={`${inStockProducts} produtos disponíveis em stock`}
+          subtitle={`${inStockProducts} produtos com stock registado`}
           icon={Package}
-          colorScheme="blue"
-          trend={{ value: '+12%', isPositive: true }}
           linkHref="/admin/produtos"
           linkText="Gerir Catálogo"
         />
@@ -153,8 +140,6 @@ export default function AdminOverviewPage() {
           value={totalOrders}
           subtitle={`${newOrders} novos pedidos pendentes`}
           icon={ShoppingCart}
-          colorScheme="red"
-          trend={{ value: '+8%', isPositive: true }}
           linkHref="/admin/pedidos"
           linkText="Ver Pedidos"
         />
@@ -164,8 +149,6 @@ export default function AdminOverviewPage() {
           value={totalLeads}
           subtitle={`${newLeads} novos pedidos de contacto`}
           icon={Inbox}
-          colorScheme="purple"
-          trend={{ value: '+24%', isPositive: true }}
           linkHref="/admin/leads"
           linkText="Gerir Leads"
         />
@@ -175,8 +158,6 @@ export default function AdminOverviewPage() {
           value={totalSubscribers}
           subtitle="Audiência ativa no site"
           icon={Mail}
-          colorScheme="emerald"
-          trend={{ value: '+15%', isPositive: true }}
           linkHref="/admin/newsletter"
           linkText="Lista de Emails"
         />
@@ -185,7 +166,7 @@ export default function AdminOverviewPage() {
       {/* Secondary Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 bg-white border border-slate-200 p-4 sm:p-6 shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+          <div className="p-3 bg-primary/10 text-primary shrink-0">
             <Truck className="h-5 w-5" />
           </div>
           <div>
@@ -205,7 +186,7 @@ export default function AdminOverviewPage() {
         </div>
 
         <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
-          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+          <div className="p-3 bg-primary/10 text-primary shrink-0">
             <MessageSquareQuote className="h-5 w-5" />
           </div>
           <div>
@@ -215,7 +196,7 @@ export default function AdminOverviewPage() {
         </div>
 
         <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
-          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-lg shrink-0">
+          <div className="p-3 bg-primary/10 text-primary shrink-0">
             <Handshake className="h-5 w-5" />
           </div>
           <div>
@@ -225,7 +206,7 @@ export default function AdminOverviewPage() {
         </div>
 
         <div className="flex items-center gap-3 border-l border-slate-100 pl-4">
-          <div className="p-3 bg-purple-50 text-purple-600 rounded-lg shrink-0">
+          <div className="p-3 bg-primary/10 text-primary shrink-0">
             <Tags className="h-5 w-5" />
           </div>
           <div>
@@ -265,7 +246,7 @@ export default function AdminOverviewPage() {
           {/* Responsive SVG Chart */}
           <div className="w-full pt-4 pb-2">
             <div className="h-64 flex items-end justify-between gap-3 sm:gap-6 border-b border-slate-200 pb-2 px-2">
-              {monthlyData.map((item, idx) => {
+              {hasMonthlyActivity ? monthlyData.map((item, idx) => {
                 const leadHeight = (item.leads / maxVal) * 100
                 const orderHeight = (item.orders / maxVal) * 100
 
@@ -294,13 +275,15 @@ export default function AdminOverviewPage() {
                     </span>
                   </div>
                 )
-              })}
+              }) : (
+                <p className="w-full self-center text-center text-sm text-slate-500">Sem registos nos últimos seis meses.</p>
+              )}
             </div>
           </div>
 
           <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Período: Últimos 6 meses</span>
-            <span className="font-semibold text-primary">Crescimento de +38% no último trimestre</span>
+            <span>Registos por data de criação</span>
+            <span>{monthlyData[0].month} {monthlyData[0].year} – {monthlyData[5].month} {monthlyData[5].year}</span>
           </div>
         </div>
 
@@ -312,8 +295,8 @@ export default function AdminOverviewPage() {
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Auditoria & Sistema</p>
                 <h3 className="text-lg font-bold text-slate-900">Atividade Recente</h3>
               </div>
-              <span className="text-xs px-2.5 py-1 bg-slate-100 text-slate-700 font-bold rounded-full">
-                Em Direto
+              <span className="text-xs text-slate-500">
+                Registos recentes
               </span>
             </div>
 
@@ -357,7 +340,7 @@ export default function AdminOverviewPage() {
         <div className="bg-white border border-slate-200 p-6 shadow-xs rounded-xl space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-amber-50 text-amber-600 rounded-lg">
+              <div className="p-2.5 bg-primary/10 text-primary">
                 <Truck className="h-5 w-5" />
               </div>
               <div>
@@ -372,7 +355,7 @@ export default function AdminOverviewPage() {
 
             <Link
               href="/admin/reservas"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shadow-xs self-start sm:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-semibold transition self-start sm:self-auto"
             >
               <span>Gerir Todas as Reservas ({totalReservations})</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -386,8 +369,8 @@ export default function AdminOverviewPage() {
                 className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3"
               >
                 <div className="min-w-0 flex-1">
-                  <span className="text-[10px] font-extrabold uppercase text-amber-700 block">
-                    Top #{idx + 1} em Procura
+                  <span className="text-[10px] font-semibold text-primary block">
+                    Posição {idx + 1} por procura
                   </span>
                   <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">
                     {p.name}
@@ -397,7 +380,7 @@ export default function AdminOverviewPage() {
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className="inline-block px-2.5 py-1 bg-amber-600 text-white rounded-md text-xs font-black font-mono">
+                  <span className="inline-block bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary font-mono">
                     {p.units} un.
                   </span>
                 </div>
@@ -479,6 +462,7 @@ export default function AdminOverviewPage() {
           </table>
         </div>
       </div>
+
     </div>
   )
 }

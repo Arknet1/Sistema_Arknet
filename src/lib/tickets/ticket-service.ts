@@ -136,6 +136,13 @@ export async function createTicket(
   const cleanMessage = sanitizeText(input.message)
   const cleanOrderNumber = input.orderNumber ? sanitizeText(input.orderNumber) : null
 
+  const linkedCustomer = customerId
+    ? await (prisma as any).customer.findUnique({
+        where: { id: customerId },
+        select: { id: true },
+      })
+    : null
+
   // 5. Geração de protocolo único
   let protocol = await generateTicketProtocol()
   let isUnique = false
@@ -163,7 +170,7 @@ export async function createTicket(
       subject: cleanSubject,
       message: cleanMessage,
       orderNumber: cleanOrderNumber,
-      customerId: customerId || null,
+      customerId: linkedCustomer?.id || null,
       status: 'NOVO',
       priority: 'NORMAL',
       consentAccepted: true,

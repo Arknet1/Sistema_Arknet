@@ -42,6 +42,14 @@ import arknetLogo from '@/assets/icon18.png'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 import { dataStore, StoreOrder, ServiceLead, EventRegistration, EventItem } from '@/lib/data-store'
 import { formatProdutoPrice, formatLinhaPreco } from '@/lib/format-produto-price'
+import { TicketItem, TicketReplyItem, TICKET_STATUS_CONFIG, TICKET_TYPE_CONFIG } from '@/lib/tickets/types'
+
+type CustomerSupportTicket = Pick<
+  TicketItem,
+  'id' | 'protocol' | 'type' | 'category' | 'subject' | 'message' | 'status' | 'createdAt'
+> & {
+  replies: Array<Pick<TicketReplyItem, 'id' | 'adminName' | 'content' | 'sentAt' | 'channel'>>
+}
 
 function ClientePerfilContent() {
   const router = useRouter()
@@ -56,7 +64,7 @@ function ClientePerfilContent() {
     terminateOtherSessions,
   } = useCustomerAuth()
 
-  const [activeTab, setActiveTab] = useState<'perfil' | 'pedidos' | 'servicos' | 'eventos' | 'seguranca'>('perfil')
+  const [activeTab, setActiveTab] = useState<'perfil' | 'pedidos' | 'reclamacoes' | 'servicos' | 'eventos' | 'seguranca'>('perfil')
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   // Edit Profile Form State
@@ -83,14 +91,19 @@ function ClientePerfilContent() {
   const [leads, setLeads] = useState<ServiceLead[]>([])
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([])
   const [allEvents, setAllEvents] = useState<EventItem[]>([])
+  const [customerTickets, setCustomerTickets] = useState<CustomerSupportTicket[]>([])
+  const [isLoadingCustomerTickets, setIsLoadingCustomerTickets] = useState(false)
+  const [customerTicketsError, setCustomerTicketsError] = useState<string | null>(null)
+  const [ticketRefreshTrigger, setTicketRefreshTrigger] = useState(0)
 
   // Modal de Credencial Digital
   const [selectedTicket, setSelectedTicket] = useState<{ registration: EventRegistration; event?: EventItem } | null>(null)
+  const [viewInvoiceOrder, setViewInvoiceOrder] = useState<StoreOrder | null>(null)
 
   // Sincronizar parâmetro tab da URL
   useEffect(() => {
     const tabParam = searchParams.get('tab')
-    if (tabParam === 'eventos' || tabParam === 'pedidos' || tabParam === 'servicos' || tabParam === 'seguranca' || tabParam === 'perfil') {
+    if (tabParam === 'eventos' || tabParam === 'pedidos' || tabParam === 'reclamacoes' || tabParam === 'servicos' || tabParam === 'seguranca' || tabParam === 'perfil') {
       setActiveTab(tabParam)
     }
   }, [searchParams])
@@ -133,11 +146,41 @@ function ClientePerfilContent() {
     }
   }, [customer, isLoading, isLoggingOut, router])
 
+  useEffect(() => {
+    if (!customer) return
+
+    let isCurrent = true
+    setIsLoadingCustomerTickets(true)
+    setCustomerTicketsError(null)
+
+    fetch('/api/customer/tickets', { cache: 'no-store' })
+      .then(async (response) => {
+        const data = await response.json()
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'Não foi possível carregar as suas reclamações.')
+        }
+        return data.tickets as CustomerSupportTicket[]
+      })
+      .then((tickets) => {
+        if (isCurrent) setCustomerTickets(tickets)
+      })
+      .catch((error) => {
+        if (isCurrent) setCustomerTicketsError(error instanceof Error ? error.message : 'Erro ao carregar reclamações.')
+      })
+      .finally(() => {
+        if (isCurrent) setIsLoadingCustomerTickets(false)
+      })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [customer, ticketRefreshTrigger, activeTab])
+
   if (isLoggingOut) {
     return (
       <main className="min-h-screen pt-32 pb-20 bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-rose-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-sm font-bold text-slate-800">A terminar sessão...</p>
           <p className="text-xs text-slate-500 mt-1">A redirecionar com segurança...</p>
         </div>
@@ -214,9 +257,6 @@ function ClientePerfilContent() {
     }, 200)
   }
 
-  // Invoice Modal State
-  const [viewInvoiceOrder, setViewInvoiceOrder] = useState<StoreOrder | null>(null)
-
   // Password strength helper
   const getPasswordStrength = (pwd: string) => {
     let score = 0
@@ -240,8 +280,8 @@ function ClientePerfilContent() {
     switch (status) {
       case 'novo':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-flex items-center gap-1">
-            <Clock className="h-3 w-3 text-amber-700" />
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 text-blue-700" />
             Aguardando Confirmação Admin
           </span>
         )
@@ -254,8 +294,8 @@ function ClientePerfilContent() {
         )
       case 'fechado':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full inline-flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3 text-emerald-700" />
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-blue-700" />
             Aprovado / Fatura Emitida
           </span>
         )
@@ -272,21 +312,21 @@ function ClientePerfilContent() {
     switch (status) {
       case 'confirmada':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full inline-flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3 text-emerald-700" />
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-blue-700" />
             Vaga Confirmada &amp; Aprovada
           </span>
         )
       case 'pendente':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-flex items-center gap-1">
-            <Clock className="h-3 w-3 text-amber-700 animate-pulse" />
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-900 border border-blue-300 rounded-full inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 text-blue-700 animate-pulse" />
             Pendente de Validação
           </span>
         )
       case 'cancelada':
         return (
-          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-rose-50 text-rose-700 rounded-full">
+          <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-50 text-blue-700 rounded-full">
             Inscrição Cancelada
           </span>
         )
@@ -298,9 +338,9 @@ function ClientePerfilContent() {
       case 'novo':
         return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-50 text-primary rounded-full">Recebido</span>
       case 'contactado':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-indigo-100 text-indigo-800 rounded-full">Proposta Enviada</span>
+        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-800 rounded-full">Proposta Enviada</span>
       case 'convertido':
-        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 rounded-full">Ativo / Aprovado</span>
+        return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-blue-100 text-blue-800 rounded-full">Ativo / Aprovado</span>
       case 'arquivado':
         return <span className="px-2.5 py-1 text-[10px] font-bold uppercase bg-slate-100 text-slate-500 rounded-full">Arquivado</span>
     }
@@ -319,7 +359,7 @@ function ClientePerfilContent() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-black text-white">{customer.name}</h1>
-                <span className="px-2.5 py-0.5 bg-emerald-950 border border-emerald-700 text-emerald-400 text-[10px] font-bold uppercase rounded-full">
+                <span className="px-2.5 py-0.5 bg-blue-950 border border-blue-700 text-blue-400 text-[10px] font-bold uppercase rounded-full">
                   Conta Ativa
                 </span>
               </div>
@@ -347,7 +387,7 @@ function ClientePerfilContent() {
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-rose-900/40 hover:bg-rose-900 border border-rose-700 text-rose-200 text-xs font-bold uppercase transition"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-blue-900/40 hover:bg-blue-900 border border-blue-700 text-blue-200 text-xs font-bold uppercase transition"
             >
               <LogOut className="h-4 w-4" />
               Terminar Sessão
@@ -369,7 +409,7 @@ function ClientePerfilContent() {
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-400 text-xs font-bold uppercase">Total Faturado</span>
-              <Package className="h-5 w-5 text-emerald-600" />
+              <Package className="h-5 w-5 text-blue-600" />
             </div>
             <p className="text-2xl font-black text-slate-900 font-mono">
               {totalSpent > 0 ? formatProdutoPrice(totalSpent) : '0 Kz'}
@@ -380,7 +420,7 @@ function ClientePerfilContent() {
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-400 text-xs font-bold uppercase">Meus Eventos</span>
-              <Calendar className="h-5 w-5 text-indigo-600" />
+              <Calendar className="h-5 w-5 text-blue-600" />
             </div>
             <p className="text-2xl font-black text-slate-900 font-mono">{eventRegistrations.length}</p>
             <p className="text-[11px] text-slate-500 mt-1">
@@ -391,7 +431,7 @@ function ClientePerfilContent() {
           <div className="bg-white p-5 border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-400 text-xs font-bold uppercase">Cotações Técnicas</span>
-              <Headset className="h-5 w-5 text-secondary" />
+              <Headset className="h-5 w-5 text-primary" />
             </div>
             <p className="text-2xl font-black text-slate-900 font-mono">{leads.length}</p>
             <p className="text-[11px] text-slate-500 mt-1">Propostas solicitadas</p>
@@ -411,7 +451,7 @@ function ClientePerfilContent() {
 
         {/* Notificação de Eventos Aprovados */}
         {confirmedEventsCount > 0 && (
-          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-100/70 border-2 border-primary/50 text-slate-900 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-blue-50 via-blue-50 to-blue-100/70 border-2 border-primary/50 text-slate-900 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
             <div className="flex items-start sm:items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shrink-0 shadow-xs">
                 <Ticket className="h-5 w-5" />
@@ -443,14 +483,14 @@ function ClientePerfilContent() {
 
         {/* Notificação de Encomendas Aprovadas / Novidades */}
         {approvedOrdersCount > 0 && (
-          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100/70 border-2 border-emerald-500/50 text-emerald-950 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-blue-50 via-blue-50 to-blue-100/70 border-2 border-blue-500/50 text-blue-950 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
             <div className="flex items-start sm:items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-200/90 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-blue-800 bg-blue-200/90 px-2 py-0.5 rounded">
                     Notificação de Faturação
                   </span>
                 </div>
@@ -465,7 +505,7 @@ function ClientePerfilContent() {
             <button
               type="button"
               onClick={() => setActiveTab('pedidos')}
-              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded transition shrink-0 shadow-sm flex items-center justify-center gap-1.5"
+              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded transition shrink-0 shadow-sm flex items-center justify-center gap-1.5"
             >
               <FileText className="h-4 w-4" />
               <span>Ver Minhas Faturas</span>
@@ -516,6 +556,19 @@ function ClientePerfilContent() {
 
           <button
             type="button"
+            onClick={() => setActiveTab('reclamacoes')}
+            className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
+              activeTab === 'reclamacoes'
+                ? 'border-primary text-primary bg-primary/5'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <MessageCircle className="h-4 w-4" />
+            Reclamações ({customerTickets.length})
+          </button>
+
+          <button
+            type="button"
             onClick={() => setActiveTab('servicos')}
             className={`flex items-center gap-2 px-6 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
               activeTab === 'servicos'
@@ -546,15 +599,15 @@ function ClientePerfilContent() {
           <div
             className={`mb-6 p-4 text-xs font-semibold rounded flex items-center justify-between ${
               feedback.type === 'success'
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                : 'bg-rose-50 text-rose-800 border border-rose-200'
+                ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                : 'bg-blue-50 text-blue-800 border border-blue-200'
             }`}
           >
             <div className="flex items-center gap-2">
               {feedback.type === 'success' ? (
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <CheckCircle2 className="h-4 w-4 text-blue-600" />
               ) : (
-                <AlertCircle className="h-4 w-4 text-rose-600" />
+                <AlertCircle className="h-4 w-4 text-blue-600" />
               )}
               <span>{feedback.message}</span>
             </div>
@@ -698,7 +751,7 @@ function ClientePerfilContent() {
 
             {/* Aviso Informativo sobre o fluxo WhatsApp & Fatura */}
             <div className="bg-slate-50 border-b border-slate-200 p-4 text-xs text-slate-600 flex items-start gap-3">
-              <MessageCircle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+              <MessageCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
               <div>
                 <p className="font-bold text-slate-800">
                   Como funciona o pagamento e a faturação na ARKNET:
@@ -778,7 +831,7 @@ function ClientePerfilContent() {
                               onClick={() => setViewInvoiceOrder(order)}
                               className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
                             >
-                              <FileText className="h-4 w-4 text-emerald-400" />
+                              <FileText className="h-4 w-4 text-blue-400" />
                               <span>Visualizar / Imprimir Fatura Oficial</span>
                             </button>
                           ) : order.status === 'cancelado' ? (
@@ -789,13 +842,13 @@ function ClientePerfilContent() {
                                 href={`https://wa.me/244975669357?text=${whatsappText}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
                               >
                                 <MessageCircle className="h-4 w-4" />
                                 <span>Falar no WhatsApp</span>
                               </a>
-                              <span className="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded flex items-center gap-1 font-medium">
-                                <Lock className="h-3 w-3 text-amber-600" />
+                              <span className="text-[11px] text-blue-800 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded flex items-center gap-1 font-medium">
+                                <Lock className="h-3 w-3 text-blue-600" />
                                 Fatura disponível após aprovação do admin
                               </span>
                             </>
@@ -803,6 +856,80 @@ function ClientePerfilContent() {
                         </div>
                       </div>
                     </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'reclamacoes' && (
+          <div className="bg-white border border-slate-200 shadow-xs overflow-hidden">
+            <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-base font-extrabold text-slate-900">Reclamações e pedidos de informação</h3>
+                <p className="text-xs text-slate-500 mt-1">Consulte o estado dos seus pedidos e as respostas da equipa ARKNET.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setTicketRefreshTrigger((current) => current + 1)}
+                disabled={isLoadingCustomerTickets}
+                className="px-3 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold disabled:opacity-50"
+              >
+                Atualizar
+              </button>
+            </div>
+
+            {isLoadingCustomerTickets ? (
+              <p className="p-6 text-sm text-slate-500">A carregar os seus pedidos...</p>
+            ) : customerTicketsError ? (
+              <div className="p-6 text-sm text-blue-700" role="alert">
+                {customerTicketsError}
+              </div>
+            ) : customerTickets.length === 0 ? (
+              <div className="p-8 text-center">
+                <p className="text-sm font-semibold text-slate-700">Ainda não tem reclamações ou pedidos de informação.</p>
+                <Link href="/reclamacoes" className="inline-flex mt-4 px-4 py-2 bg-primary text-white text-xs font-bold hover:bg-primary/90">
+                  Enviar solicitação
+                </Link>
+              </div>
+            ) : (
+              <div className="divide-y divide-slate-200">
+                {customerTickets.map((ticket) => {
+                  return (
+                    <article key={ticket.id} className="p-5 sm:p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                        <div>
+                          <p className="text-[11px] text-slate-500 font-mono">{ticket.protocol}</p>
+                          <h4 className="mt-1 font-bold text-slate-900">{ticket.subject}</h4>
+                        </div>
+                        <span className="inline-flex self-start px-2 py-1 border border-blue-200 bg-blue-50 text-primary text-[11px] font-semibold">
+                          {TICKET_STATUS_CONFIG[ticket.status].label}
+                        </span>
+                      </div>
+
+                      <p className="mt-2 text-xs text-slate-500">
+                        {TICKET_TYPE_CONFIG[ticket.type].label} · {new Date(ticket.createdAt).toLocaleDateString('pt-PT')}
+                      </p>
+                      <p className="mt-4 text-sm text-slate-700 whitespace-pre-wrap">{ticket.message}</p>
+
+                      {ticket.replies.length > 0 ? (
+                        <div className="mt-5 border-t border-slate-100 pt-4 space-y-4">
+                          <h5 className="text-xs font-bold text-slate-800">Respostas da equipa</h5>
+                          {ticket.replies.map((reply) => (
+                            <div key={reply.id} className="border-l-2 border-primary pl-3">
+                              <div className="flex flex-col sm:flex-row sm:justify-between gap-1 text-xs">
+                                <span className="font-semibold text-slate-800">{reply.adminName || 'Equipa ARKNET'}</span>
+                                <time className="text-slate-500">{new Date(reply.sentAt).toLocaleString('pt-PT')}</time>
+                              </div>
+                              <p className="mt-2 text-sm text-slate-700 whitespace-pre-wrap">{reply.content}</p>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="mt-4 text-xs text-slate-500">A equipa ainda não respondeu a este pedido.</p>
+                      )}
+                    </article>
                   )
                 })}
               </div>
@@ -901,7 +1028,7 @@ function ClientePerfilContent() {
                               </span>
                             )}
                             <span className="flex items-center gap-1 text-slate-600">
-                              <MapPin className="h-3.5 w-3.5 text-red-600" />
+                              <MapPin className="h-3.5 w-3.5 text-blue-600" />
                               {evt?.location || 'Luanda, Angola'}
                             </span>
                           </div>
@@ -927,12 +1054,12 @@ function ClientePerfilContent() {
                             <span>Emitir Credencial</span>
                           </button>
                         ) : isPending ? (
-                          <div className="p-2.5 bg-amber-50 border border-amber-200 rounded text-center sm:text-left">
-                            <p className="text-[11px] font-bold text-amber-900 flex items-center gap-1">
-                              <Clock className="h-3.5 w-3.5 text-amber-700" />
+                          <div className="p-2.5 bg-blue-50 border border-blue-200 rounded text-center sm:text-left">
+                            <p className="text-[11px] font-bold text-blue-900 flex items-center gap-1">
+                              <Clock className="h-3.5 w-3.5 text-blue-700" />
                               Aguardando Validação
                             </p>
-                            <p className="text-[10px] text-amber-700 mt-0.5">
+                            <p className="text-[10px] text-blue-700 mt-0.5">
                               Credencial emitida após aprovação da vaga.
                             </p>
                           </div>
@@ -1085,7 +1212,7 @@ function ClientePerfilContent() {
                     <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                       <div
                         className={`h-full transition-all ${
-                          pwdScore <= 50 ? 'bg-amber-500' : pwdScore <= 75 ? 'bg-blue-500' : 'bg-emerald-500'
+                          pwdScore <= 50 ? 'bg-blue-500' : pwdScore <= 75 ? 'bg-blue-500' : 'bg-blue-500'
                         }`}
                         style={{ width: `${pwdScore}%` }}
                       />
@@ -1109,7 +1236,7 @@ function ClientePerfilContent() {
             <div className="bg-white border border-slate-200 p-8 shadow-xs max-w-2xl">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                  <ShieldCheck className="h-5 w-5 text-blue-600" />
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900">Sessões Ativas & Dispositivos</h3>
                     <p className="text-xs text-slate-500">Controlo de acessos recentes à sua conta.</p>
@@ -1120,7 +1247,7 @@ function ClientePerfilContent() {
                   <button
                     type="button"
                     onClick={handleTerminateSessions}
-                    className="px-3 py-1.5 text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200 hover:bg-rose-100 uppercase transition"
+                    className="px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 uppercase transition"
                   >
                     Terminar Outras Sessões
                   </button>
@@ -1154,7 +1281,7 @@ function ClientePerfilContent() {
                     </div>
 
                     {sess.isCurrent && (
-                      <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold uppercase text-[9px] rounded-full">
+                      <span className="px-2.5 py-0.5 bg-blue-100 text-blue-800 font-bold uppercase text-[9px] rounded-full">
                         Esta Sessão
                       </span>
                     )}
@@ -1173,7 +1300,7 @@ function ClientePerfilContent() {
               {/* Modal Top Bar (Hidden on print) */}
               <div className="p-4 bg-slate-900 text-white flex items-center justify-between print:hidden">
                 <div className="flex items-center gap-2">
-                  <Receipt className="h-5 w-5 text-emerald-400" />
+                  <Receipt className="h-5 w-5 text-blue-400" />
                   <span className="font-bold text-xs uppercase tracking-wider">
                     Fatura Oficial ARKNET, n.º {viewInvoiceOrder.orderNumber}
                   </span>
@@ -1182,7 +1309,7 @@ function ClientePerfilContent() {
                   <button
                     type="button"
                     onClick={() => window.print()}
-                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center gap-1.5 transition"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center gap-1.5 transition"
                   >
                     <Printer className="h-4 w-4" />
                     <span>Imprimir / PDF</span>
@@ -1218,8 +1345,8 @@ function ClientePerfilContent() {
                   </div>
 
                   <div className="sm:text-right bg-slate-50 p-4 border border-slate-200 rounded sm:min-w-[260px]">
-                    <div className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded mb-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" />
+                    <div className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-blue-800 bg-blue-100 border border-blue-300 px-2.5 py-0.5 rounded mb-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-700" />
                       <span>Fatura Aprovada & Emitida</span>
                     </div>
                     <h2 className="text-xl font-black text-slate-900 font-mono">
@@ -1233,27 +1360,27 @@ function ClientePerfilContent() {
                       })}
                     </p>
                     <p className="text-slate-700 font-semibold mt-0.5">
-                      Estado: <span className="text-emerald-700 uppercase font-bold">Liquidado / Aprovado</span>
+                      Estado: <span className="text-blue-700 uppercase font-bold">Liquidado / Aprovado</span>
                     </p>
                   </div>
                 </div>
 
                 {/* Selo / Carimbo de Aprovação do Administrador */}
-                <div className="my-6 p-4 bg-emerald-50/70 border-2 border-dashed border-emerald-400 rounded flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="my-6 p-4 bg-blue-50/70 border-2 border-dashed border-blue-400 rounded flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black">
+                    <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-black">
                       ✓
                     </div>
                     <div>
-                      <p className="font-black text-emerald-950 uppercase text-[11px] tracking-wider">
+                      <p className="font-black text-blue-950 uppercase text-[11px] tracking-wider">
                         Documento Validado & Autorizado pelo Administrador
                       </p>
-                      <p className="text-[11px] text-emerald-800">
+                      <p className="text-[11px] text-blue-800">
                         Pagamento conferido com sucesso. Equipamentos prontos para levantamento / entrega.
                       </p>
                     </div>
                   </div>
-                  <span className="font-mono text-[11px] font-bold text-emerald-900 bg-white px-3 py-1 border border-emerald-200 rounded">
+                  <span className="font-mono text-[11px] font-bold text-blue-900 bg-white px-3 py-1 border border-blue-200 rounded">
                     AUTORIZAÇÃO: {viewInvoiceOrder.orderNumber}-AUTH
                   </span>
                 </div>
@@ -1336,7 +1463,7 @@ function ClientePerfilContent() {
                     </div>
                     <div className="flex justify-between text-slate-600">
                       <span>Custo de Envio:</span>
-                      <span className="text-emerald-700 font-bold">Grátis</span>
+                      <span className="text-blue-700 font-bold">Grátis</span>
                     </div>
                     <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
                       <span>Total Liquidado:</span>
@@ -1374,7 +1501,7 @@ function ClientePerfilContent() {
               {/* Modal Top Bar (Hidden on print) */}
               <div className="p-4 bg-slate-900 text-white flex items-center justify-between print:hidden">
                 <div className="flex items-center gap-2">
-                  <Ticket className="h-5 w-5 text-emerald-400" />
+                  <Ticket className="h-5 w-5 text-blue-400" />
                   <span className="font-bold text-xs uppercase tracking-wider">
                     Credencial Oficial de Acesso, n.º {selectedTicket.registration.id.slice(-6).toUpperCase()}
                   </span>
@@ -1402,7 +1529,7 @@ function ClientePerfilContent() {
               <div className="p-8 sm:p-10 text-slate-800">
                 
                 {/* Badge Header with Hologram effect */}
-                <div className="bg-gradient-to-r from-[#020817] via-[#10316b] to-[#020817] text-white p-6 rounded-t-xl relative overflow-hidden border-b-4 border-emerald-500">
+                <div className="bg-gradient-to-r from-[#020817] via-[#10316b] to-[#020817] text-white p-6 rounded-t-xl relative overflow-hidden border-b-4 border-blue-500">
                   <div className="flex items-start justify-between gap-4 relative z-10">
                     <div>
                       <Image
@@ -1418,7 +1545,7 @@ function ClientePerfilContent() {
                     </div>
 
                     <div className="text-right">
-                      <span className="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-black uppercase tracking-wider rounded-full">
+                      <span className="inline-block px-3 py-1 bg-blue-500/20 border border-blue-400 text-blue-300 text-[10px] font-black uppercase tracking-wider rounded-full">
                         ✓ Vaga Confirmada &amp; Aprovada
                       </span>
                       <p className="font-mono text-[11px] text-slate-300 mt-1">
@@ -1428,7 +1555,7 @@ function ClientePerfilContent() {
                   </div>
 
                   <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
-                    <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-bold uppercase rounded inline-block mb-1.5">
+                    <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-bold uppercase rounded inline-block mb-1.5">
                       {selectedTicket.event?.format || 'Presencial'}
                     </span>
                     <h2 className="text-lg sm:text-xl font-black text-white leading-snug">
@@ -1506,7 +1633,7 @@ function ClientePerfilContent() {
                     </div>
 
                     <div className="space-y-1 sm:border-l sm:border-slate-100 sm:pl-4">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 flex items-center gap-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1">
                         <MapPin className="h-3.5 w-3.5" />
                         Localização / Sala:
                       </span>

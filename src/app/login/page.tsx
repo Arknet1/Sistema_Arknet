@@ -168,7 +168,6 @@ function UnifiedLoginForm() {
       if (isAdminAccount) {
         const adminRes = await adminLogin(cleanEmail, loginPassword)
         if (adminRes.success) {
-          setSuccessMessage('Autenticação de gestão confirmada. A aceder ao painel de administração...')
           setTimeout(() => {
             router.push('/admin')
           }, 400)
@@ -183,7 +182,6 @@ function UnifiedLoginForm() {
       // 2. Caso contrário, autenticar como Conta de Cliente
       const clientRes = await customerLogin(cleanEmail, loginPassword, rememberMe)
       if (clientRes.success) {
-        setSuccessMessage(clientRes.message)
         setTimeout(() => {
           router.push(redirectUrl || '/cliente/perfil')
         }, 400)

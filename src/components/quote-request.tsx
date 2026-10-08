@@ -16,7 +16,7 @@ type QuoteRequestFormState = {
   message: string
 }
 
-function QuoteRequestInner() {
+function QuoteRequestInner({ serviceName }: { serviceName?: string }) {
   const searchParams = useSearchParams()
   const [formState, setFormState] = useState<QuoteRequestFormState>({
     name: "",
@@ -39,19 +39,14 @@ function QuoteRequestInner() {
 
   const serviceOptions = useMemo(() => mockServices.map((item) => item.name), [])
 
-  // Auto-select service from URL param ?servico=...
+  // Preselect service from the detail page or the homepage URL.
   useEffect(() => {
-    const servicoParam = searchParams.get('servico')
-    if (servicoParam) {
-      const decoded = decodeURIComponent(servicoParam)
-      const match = serviceOptions.find(
-        (s) => s.toLowerCase() === decoded.toLowerCase()
-      )
-      if (match) {
-        setFormState((prev) => ({ ...prev, service: match }))
-      }
-    }
-  }, [searchParams, serviceOptions])
+    const requestedService = serviceName || searchParams.get('servico')
+    if (!requestedService) return
+
+    const match = serviceOptions.find((service) => service.toLowerCase() === requestedService.toLowerCase())
+    if (match) setFormState((prev) => ({ ...prev, service: match }))
+  }, [searchParams, serviceOptions, serviceName])
 
   const primaryPhone = settings.phones?.[0] || "+244 935 208 449"
   const secondaryPhone = settings.phones?.[1] || ""
@@ -370,10 +365,10 @@ function QuoteRequestInner() {
   )
 }
 
-export default function QuoteRequest() {
+export default function QuoteRequest({ serviceName }: { serviceName?: string } = {}) {
   return (
     <Suspense fallback={null}>
-      <QuoteRequestInner />
+      <QuoteRequestInner serviceName={serviceName} />
     </Suspense>
   )
 }

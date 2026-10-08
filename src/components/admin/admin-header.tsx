@@ -66,13 +66,14 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
 
       // Alertas de Stock Crítico / Baixo
       const lowStockProducts = (db.products || []).filter((p) => {
-        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        if (typeof p.quantity !== 'number') return false
+        const qty = p.quantity
         const minAlert = p.minStockAlert ?? 5
         return qty <= minAlert || !p.inStock
       })
 
       lowStockProducts.slice(0, 3).forEach((p) => {
-        const qty = p.quantity ?? (p.inStock ? 10 : 0)
+        const qty = p.quantity as number
         list.push({
           id: `stock-${p.id}`,
           title: qty <= 0 ? `Stock Esgotado: ${p.name}` : `Alerta Stock Baixo: ${p.name}`,
@@ -199,7 +200,7 @@ export function AdminHeader({ onOpenMobileMenu }: AdminHeaderProps) {
           >
             <Bell className="h-5 w-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-white shadow-sm ring-2 ring-white animate-pulse">
+              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-white ring-2 ring-white">
                 {unreadCount}
               </span>
             )}

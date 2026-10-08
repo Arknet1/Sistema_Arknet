@@ -164,7 +164,7 @@ export default function AdminPedidosPage() {
       const data = await response.json()
       if (data.success) {
         success(
-          `Pagamento do pedido #${orderId} validado! Mensagem de confirmação enviada com sucesso pelo Bot de WhatsApp.`
+          `Pagamento do pedido #${orderId} validado! Mensagem de confirmação enviada pela Assistente Virtual.`
         )
         if (selectedOrder && selectedOrder.id === orderId) {
           setSelectedOrder(data.order)
@@ -351,7 +351,7 @@ export default function AdminPedidosPage() {
   return (
     <div className="space-y-6">
       
-      {/* Banner Principal de Destaque do Bot WhatsApp */}
+      {/* Banner Principal da Assistente Virtual */}
       <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 border-2 border-emerald-500/50 p-5 sm:p-6 rounded-xl shadow-lg text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-xl shadow-md shrink-0">
@@ -367,7 +367,7 @@ export default function AdminPedidosPage() {
               </span>
             </div>
             <h2 className="text-lg sm:text-xl font-black mt-1 text-white">
-              Bot de WhatsApp & Validação de Pagamentos
+              Assistente Virtual & Validação de Pagamentos
             </h2>
             <p className="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
               O bot assume automaticamente o resumo do pedido, instruções de pagamento e receção de comprovativos. Clique no botão ao lado para abrir o testador interativo.
@@ -384,7 +384,7 @@ export default function AdminPedidosPage() {
           className="w-full md:w-auto px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-lg transition transform hover:-translate-y-0.5 shadow-lg flex items-center justify-center gap-2.5 shrink-0"
         >
           <Bot className="h-5 w-5 text-slate-950" />
-          <span>Abrir Testador do Bot WhatsApp</span>
+          <span>Testar Assistente Virtual</span>
           <Sparkles className="h-4 w-4 text-amber-800" />
         </button>
       </div>

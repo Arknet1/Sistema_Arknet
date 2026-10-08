@@ -264,8 +264,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/reclamacoes" className="hover:text-white transition text-secondary font-medium flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />
+                <Link href="/reclamacoes" className="hover:text-white transition">
                   Reclamações & Informações
                 </Link>
               </li>

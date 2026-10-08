@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Copy,
   Check,
+  Trash2,
   Package,
   Truck,
   CreditCard,
@@ -41,6 +42,7 @@ import {
   TICKET_STATUS_CONFIG,
   TICKET_PRIORITY_CONFIG,
 } from '@/lib/tickets/types'
+import { ConfirmModal } from '@/components/admin/confirm-modal'
 
 export default function AdminReclamacoesPage() {
   const [tickets, setTickets] = useState<TicketItem[]>([])
@@ -59,6 +61,9 @@ export default function AdminReclamacoesPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [copiedProtocol, setCopiedProtocol] = useState<string | null>(null)
+  const [ticketToDelete, setTicketToDelete] = useState<TicketItem | null>(null)
+  const [isDeletingTicket, setIsDeletingTicket] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   // Filters state
   const [searchTerm, setSearchTerm] = useState('')
@@ -142,6 +147,27 @@ export default function AdminReclamacoesPage() {
     setTimeout(() => setCopiedProtocol(null), 2500)
   }
 
+  const handleDeleteTicket = async () => {
+    if (!ticketToDelete) return
+
+    setIsDeletingTicket(true)
+    setDeleteError(null)
+    try {
+      const response = await fetch(`/api/admin/tickets/${ticketToDelete.id}`, { method: 'DELETE' })
+      const data = await response.json()
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Não foi possível eliminar a reclamação.')
+      }
+
+      setTicketToDelete(null)
+      await fetchTickets(true)
+    } catch (error) {
+      setDeleteError(error instanceof Error ? error.message : 'Erro ao eliminar a reclamação.')
+    } finally {
+      setIsDeletingTicket(false)
+    }
+  }
+
   const handleExportCsv = () => {
     const queryParams = new URLSearchParams()
     if (searchTerm.trim()) queryParams.set('q', searchTerm.trim())
@@ -171,7 +197,7 @@ export default function AdminReclamacoesPage() {
             Reclamações & Informações
           </h1>
           <p className="text-sm text-slate-600 mt-1 max-w-2xl">
-            Acompanhamento em tempo real de pedidos submetidos por clientes e visitantes, atribuição de prioridades, notas internas e envio de respostas oficiais.
+            Gestão dos pedidos enviados por clientes e visitantes, com prioridades, notas internas e respostas oficiais.
           </p>
         </div>
 
@@ -592,13 +618,27 @@ export default function AdminReclamacoesPage() {
 
                       {/* Actions */}
                       <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                        <Link
-                          href={`/admin/reclamacoes/${t.id}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-primary hover:text-white text-slate-700 text-xs font-bold transition shadow-2xs"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Ver / Responder</span>
-                        </Link>
+                        <div className="inline-flex items-center gap-1">
+                          <Link
+                            href={`/admin/reclamacoes/${t.id}`}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-primary hover:text-white text-slate-700 text-xs font-bold transition shadow-2xs"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Ver / Responder</span>
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDeleteError(null)
+                              setTicketToDelete(t)
+                            }}
+                            aria-label={`Eliminar reclamação ${t.protocol}`}
+                            title="Eliminar reclamação"
+                            className="inline-flex items-center justify-center p-2 text-slate-500 transition hover:bg-rose-50 hover:text-rose-700"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   )
@@ -637,6 +677,22 @@ export default function AdminReclamacoesPage() {
           </div>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={ticketToDelete !== null}
+        onClose={() => {
+          if (!isDeletingTicket) {
+            setTicketToDelete(null)
+            setDeleteError(null)
+          }
+        }}
+        onConfirm={handleDeleteTicket}
+        title="Eliminar reclamação"
+        message={deleteError || `Eliminar permanentemente o protocolo ${ticketToDelete?.protocol || ''}? Esta ação não pode ser anulada.`}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        isLoading={isDeletingTicket}
+      />
     </div>
   )
 }

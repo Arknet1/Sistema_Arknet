@@ -17,12 +17,12 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$916491c054ec059f3aa9402bfa407705$d357db435e7e437bc27bbb761ed0348199d2f4df8b75d8319048dfe7971fa16a018601dbef863b02a00420cbcf7752fa9f5173f8cfdb01171c1f049bc7c86ed6",
+      "passwordHash": "$scrypt$12678e6201ad03b7c39cac3375766ff1$4883b9039efeddf0535c0d8041136660df7c71cc0d71cac2b72db0d0340ca7f87742f591d1f563681ceceb651e993a0206aaabca4d2d07a58dfb49d29f0e5f4a",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-10-07T14:27:29.386Z"
+      "lastLogin": "2026-10-08T15:15:28.758Z"
     },
     {
       "id": "user-editor",
@@ -108,17 +108,17 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-10-07T14:33:36.016Z",
+      "lastLogin": "2026-10-08T15:15:01.728Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$d2212b5b548f9cfb89caf9a3dc7bc802$58b1c4f337a560b795e8084cd31eb8375da2f201f186bb6bf212b6eaa306dba08bf234ae78592ebcc2a787b68c5b9d1cb8c007d14344b0adc3efacefdd9a4e44"
+      "passwordHash": "$scrypt$18098d88dbd5c1e55b91b5fff1bd1e5c$1c63479394bccbb08587fe32c9e14ca996fc1ec9515c08f994d5b9fdba420b8f44b9b2ac16c7f881442461c48716b18bdb7c9c655e035f575afc119249e969ad"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
       "name": "Jey Suco",
       "email": "jedysucosuco@gmail.com",
-      "passwordHash": "$scrypt$5f9ce7f394109aa20b98c2bbb6161656$f4eed5c441312e206a5673c7697c3a5988b47cc3f70402fa8af6c66c53679af3091ec1edbd16cc7948827eafa0e249332386307a58743801980698d31fffaa24",
+      "passwordHash": "$scrypt$e9fc775d290d32d93313c6dda5185d39$6dbd988db1f8d2b8a76cd8f509184e1516c9294643bc9cb163149f17cea85606810f4cc110477d7f10ed9db3ef88c12fd6c39db2e5715b8922a92703e410df95",
       "phone": "932847952",
       "company": "",
       "nif": "",
@@ -126,7 +126,8 @@
       "city": "Luanda",
       "status": "active",
       "createdAt": "2026-09-28T10:39:18.701Z",
-      "lastLogin": "2026-09-28T10:39:18.701Z"
+      "lastLogin": "2026-10-08T14:56:57.526Z",
+      "password": null
     },
     {
       "id": "cli-66dc98b1-8d63-47c9-bd86-4d5e6e664782",
@@ -337,7 +338,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-05T14:14:41.545Z",
-      "updatedAt": "2026-10-07T14:24:25.244Z"
+      "updatedAt": "2026-10-08T13:33:09.969Z"
     },
     {
       "id": "prod-1790954436881-qol4",
@@ -361,7 +362,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T15:20:36.881Z",
-      "updatedAt": "2026-10-07T14:24:25.245Z"
+      "updatedAt": "2026-10-08T13:33:09.970Z"
     },
     {
       "id": "prod-1790948580905-glgp",
@@ -385,7 +386,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T13:43:00.905Z",
-      "updatedAt": "2026-10-07T14:24:25.246Z"
+      "updatedAt": "2026-10-08T13:33:09.973Z"
     },
     {
       "id": "prod-1790943432150-c3gp",
@@ -409,7 +410,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:17:12.150Z",
-      "updatedAt": "2026-10-07T14:24:25.247Z"
+      "updatedAt": "2026-10-08T13:33:09.976Z"
     },
     {
       "id": "prod-1790943062119-kp6y",
@@ -533,7 +534,7 @@
         }
       ],
       "createdAt": "2026-10-02T12:11:02.119Z",
-      "updatedAt": "2026-10-07T14:24:25.248Z"
+      "updatedAt": "2026-10-08T13:33:09.977Z"
     },
     {
       "id": "prod-1790942824239-8cv4",
@@ -557,7 +558,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:07:04.239Z",
-      "updatedAt": "2026-10-07T14:24:25.249Z"
+      "updatedAt": "2026-10-08T13:33:09.979Z"
     },
     {
       "id": "prod-1790942265849-w2g8",
@@ -581,7 +582,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:57:45.849Z",
-      "updatedAt": "2026-10-07T14:24:25.250Z"
+      "updatedAt": "2026-10-08T13:33:09.980Z"
     },
     {
       "id": "prod-1790942032128-89f7",
@@ -605,7 +606,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:53:52.128Z",
-      "updatedAt": "2026-10-07T14:24:25.251Z"
+      "updatedAt": "2026-10-08T13:33:09.981Z"
     },
     {
       "id": "prod-1790941665536-fkmm",
@@ -629,7 +630,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:47:45.536Z",
-      "updatedAt": "2026-10-07T14:24:25.252Z"
+      "updatedAt": "2026-10-08T13:33:09.983Z"
     },
     {
       "id": "prod-1790940725601-p66p",
@@ -653,7 +654,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:32:05.601Z",
-      "updatedAt": "2026-10-07T14:24:25.253Z"
+      "updatedAt": "2026-10-08T13:33:09.984Z"
     },
     {
       "id": "prod-1790940371658-px8g",
@@ -677,7 +678,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:26:11.658Z",
-      "updatedAt": "2026-10-07T14:24:25.254Z"
+      "updatedAt": "2026-10-08T13:33:09.987Z"
     },
     {
       "id": "prod-1790937167653-iigi",
@@ -701,7 +702,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:32:47.653Z",
-      "updatedAt": "2026-10-07T14:24:25.255Z"
+      "updatedAt": "2026-10-08T13:33:09.989Z"
     },
     {
       "id": "prod-1790936182415-msck",
@@ -725,7 +726,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:16:22.415Z",
-      "updatedAt": "2026-10-07T14:24:25.256Z"
+      "updatedAt": "2026-10-08T13:33:09.990Z"
     },
     {
       "id": "prod-1790935912543-46vi",
@@ -749,7 +750,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:11:52.543Z",
-      "updatedAt": "2026-10-07T14:24:25.258Z"
+      "updatedAt": "2026-10-08T13:33:09.992Z"
     },
     {
       "id": "prod-1790934108385-ln23",
@@ -773,7 +774,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:41:48.385Z",
-      "updatedAt": "2026-10-07T14:24:25.259Z"
+      "updatedAt": "2026-10-08T13:33:09.993Z"
     },
     {
       "id": "prod-1790933627323-uymp",
@@ -797,7 +798,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:33:47.323Z",
-      "updatedAt": "2026-10-07T14:24:25.260Z"
+      "updatedAt": "2026-10-08T13:33:09.994Z"
     },
     {
       "id": "prod-1790932992211-y8t5",
@@ -821,7 +822,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:23:12.211Z",
-      "updatedAt": "2026-10-07T14:24:25.261Z"
+      "updatedAt": "2026-10-08T13:33:09.995Z"
     },
     {
       "id": "prod-1790932847819-2s46",
@@ -845,7 +846,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:20:47.819Z",
-      "updatedAt": "2026-10-07T14:24:25.262Z"
+      "updatedAt": "2026-10-08T13:33:09.996Z"
     },
     {
       "id": "prod-1790929531231-hgkk",
@@ -869,7 +870,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:25:31.231Z",
-      "updatedAt": "2026-10-07T14:24:25.263Z"
+      "updatedAt": "2026-10-08T13:33:09.997Z"
     },
     {
       "id": "prod-1790928671920-en03",
@@ -893,7 +894,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:11:11.920Z",
-      "updatedAt": "2026-10-07T14:24:25.264Z"
+      "updatedAt": "2026-10-08T13:33:09.999Z"
     },
     {
       "id": "prod-1790928333040-3u9w",
@@ -917,7 +918,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:05:33.040Z",
-      "updatedAt": "2026-10-07T14:24:25.265Z"
+      "updatedAt": "2026-10-08T13:33:10.001Z"
     },
     {
       "id": "prod-1790868210459-81rw",
@@ -941,7 +942,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-07T14:24:25.267Z"
+      "updatedAt": "2026-10-08T13:33:10.002Z"
     },
     {
       "id": "prod-1790866364579-cemv",
@@ -965,7 +966,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-07T14:24:25.268Z"
+      "updatedAt": "2026-10-08T13:33:10.003Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
@@ -989,7 +990,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-07T14:24:25.268Z"
+      "updatedAt": "2026-10-08T13:33:10.004Z"
     },
     {
       "id": "prod-1790865910268-uk30",
@@ -1013,7 +1014,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-07T14:24:25.269Z"
+      "updatedAt": "2026-10-08T13:33:10.005Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
@@ -1037,7 +1038,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-07T14:24:25.270Z"
+      "updatedAt": "2026-10-08T13:33:10.006Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
@@ -1061,7 +1062,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-07T14:24:25.272Z"
+      "updatedAt": "2026-10-08T13:33:10.007Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
@@ -1085,7 +1086,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-07T14:24:25.273Z"
+      "updatedAt": "2026-10-08T13:33:10.009Z"
     },
     {
       "id": "prod-1790863974022-czcc",
@@ -1109,7 +1110,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-07T14:24:25.274Z"
+      "updatedAt": "2026-10-08T13:33:10.010Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
@@ -1133,7 +1134,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-07T14:24:25.275Z"
+      "updatedAt": "2026-10-08T13:33:10.012Z"
     },
     {
       "id": "prod-1790863313236-reez",
@@ -1157,7 +1158,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-07T14:24:25.276Z"
+      "updatedAt": "2026-10-08T13:33:10.014Z"
     },
     {
       "id": "prod-1790863163396-179k",
@@ -1181,7 +1182,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-07T14:24:25.277Z"
+      "updatedAt": "2026-10-08T13:33:10.016Z"
     },
     {
       "id": "prod-1790862876076-248x",
@@ -1205,7 +1206,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-07T14:24:25.279Z"
+      "updatedAt": "2026-10-08T13:33:10.017Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
@@ -1229,7 +1230,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-07T14:24:25.281Z"
+      "updatedAt": "2026-10-08T13:33:10.018Z"
     },
     {
       "id": "prod-1790862379851-07vp",
@@ -1253,7 +1254,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-07T14:24:25.282Z"
+      "updatedAt": "2026-10-08T13:33:10.019Z"
     },
     {
       "id": "prod-1790862051163-x94a",
@@ -1277,7 +1278,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-07T14:24:25.283Z"
+      "updatedAt": "2026-10-08T13:33:10.020Z"
     },
     {
       "id": "prod-1790855698575-l39k",
@@ -1301,7 +1302,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-07T14:24:25.284Z"
+      "updatedAt": "2026-10-08T13:33:10.022Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
@@ -1325,7 +1326,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-07T14:24:25.285Z"
+      "updatedAt": "2026-10-08T13:33:10.023Z"
     },
     {
       "id": "prod-1790855186841-eclf",
@@ -1349,7 +1350,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-07T14:24:25.287Z"
+      "updatedAt": "2026-10-08T13:33:10.026Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
@@ -1373,7 +1374,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-07T14:24:25.288Z"
+      "updatedAt": "2026-10-08T13:33:10.029Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
@@ -1397,7 +1398,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-07T14:24:25.288Z"
+      "updatedAt": "2026-10-08T13:33:10.031Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
@@ -1421,7 +1422,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-07T14:24:25.289Z"
+      "updatedAt": "2026-10-08T13:33:10.032Z"
     },
     {
       "id": "prod-1790854095026-flxm",
@@ -1445,7 +1446,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-07T14:24:25.291Z"
+      "updatedAt": "2026-10-08T13:33:10.033Z"
     },
     {
       "id": "prod-1790853710321-vaky",
@@ -1469,7 +1470,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-07T14:24:25.292Z"
+      "updatedAt": "2026-10-08T13:33:10.034Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
@@ -1493,7 +1494,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-07T14:24:25.294Z"
+      "updatedAt": "2026-10-08T13:33:10.036Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
@@ -1517,7 +1518,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-07T14:24:25.295Z"
+      "updatedAt": "2026-10-08T13:33:10.037Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
@@ -1541,7 +1542,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-07T14:24:25.295Z"
+      "updatedAt": "2026-10-08T13:33:10.039Z"
     },
     {
       "id": "prod-1790852525755-328w",
@@ -1565,7 +1566,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-07T14:24:25.296Z"
+      "updatedAt": "2026-10-08T13:33:10.041Z"
     },
     {
       "id": "prod-1790852177364-91d2",
@@ -1589,7 +1590,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-07T14:24:25.297Z"
+      "updatedAt": "2026-10-08T13:33:10.042Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
@@ -1613,7 +1614,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-07T14:24:25.298Z"
+      "updatedAt": "2026-10-08T13:33:10.044Z"
     },
     {
       "id": "prod-1790851696604-m46t",
@@ -1637,7 +1638,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-07T14:24:25.299Z"
+      "updatedAt": "2026-10-08T13:33:10.045Z"
     },
     {
       "id": "prod-1790851559949-lug5",
@@ -1661,7 +1662,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-07T14:24:25.300Z"
+      "updatedAt": "2026-10-08T13:33:10.046Z"
     },
     {
       "id": "prod-1790851408132-zfze",
@@ -1685,7 +1686,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-07T14:24:25.301Z"
+      "updatedAt": "2026-10-08T13:33:10.047Z"
     },
     {
       "id": "prod-1790850109422-rsep",
@@ -1709,7 +1710,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-07T14:24:25.302Z"
+      "updatedAt": "2026-10-08T13:33:10.048Z"
     },
     {
       "id": "prod-1790849885494-hu91",
@@ -1733,7 +1734,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-07T14:24:25.303Z"
+      "updatedAt": "2026-10-08T13:33:10.063Z"
     },
     {
       "id": "prod-1790848807128-20cw",
@@ -1757,7 +1758,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-07T14:24:25.304Z"
+      "updatedAt": "2026-10-08T13:33:10.064Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
@@ -1781,7 +1782,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-07T14:24:25.306Z"
+      "updatedAt": "2026-10-08T13:33:10.066Z"
     },
     {
       "id": "prod-1790848303191-nv21",
@@ -1805,7 +1806,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-07T14:24:25.307Z"
+      "updatedAt": "2026-10-08T13:33:10.068Z"
     },
     {
       "id": "prod-1790848093648-cyth",
@@ -1829,7 +1830,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-07T14:24:25.308Z"
+      "updatedAt": "2026-10-08T13:33:10.069Z"
     },
     {
       "id": "prod-1790847966304-nna5",
@@ -1853,7 +1854,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-07T14:24:25.310Z"
+      "updatedAt": "2026-10-08T13:33:10.071Z"
     },
     {
       "id": "prod-1790847762896-z14m",
@@ -1877,7 +1878,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-07T14:24:25.311Z"
+      "updatedAt": "2026-10-08T13:33:10.072Z"
     },
     {
       "id": "prod-1790847336713-fy85",
@@ -1901,7 +1902,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-07T14:24:25.312Z"
+      "updatedAt": "2026-10-08T13:33:10.073Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
@@ -1925,7 +1926,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-07T14:24:25.313Z"
+      "updatedAt": "2026-10-08T13:33:10.074Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
@@ -1949,7 +1950,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-07T14:24:25.314Z"
+      "updatedAt": "2026-10-08T13:33:10.075Z"
     },
     {
       "id": "prod-1790846274467-waxv",
@@ -1973,7 +1974,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-07T14:24:25.315Z"
+      "updatedAt": "2026-10-08T13:33:10.076Z"
     },
     {
       "id": "prod-1790846010195-xb32",
@@ -1997,7 +1998,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-07T14:24:25.315Z"
+      "updatedAt": "2026-10-08T13:33:10.077Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
@@ -2021,7 +2022,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-07T14:24:25.316Z"
+      "updatedAt": "2026-10-08T13:33:10.079Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
@@ -2045,7 +2046,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-07T14:24:25.317Z"
+      "updatedAt": "2026-10-08T13:33:10.081Z"
     },
     {
       "id": "prod-1790845328451-4otk",
@@ -2069,7 +2070,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-07T14:24:25.319Z"
+      "updatedAt": "2026-10-08T13:33:10.082Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
@@ -2093,7 +2094,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-07T14:24:25.320Z"
+      "updatedAt": "2026-10-08T13:33:10.083Z"
     },
     {
       "id": "prod-1790844448844-te8k",
@@ -2117,7 +2118,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-07T14:24:25.321Z"
+      "updatedAt": "2026-10-08T13:33:10.084Z"
     },
     {
       "id": "prod-1790843695397-rw71",
@@ -2141,7 +2142,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-07T14:24:25.322Z"
+      "updatedAt": "2026-10-08T13:33:10.084Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
@@ -2165,7 +2166,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-07T14:24:25.322Z"
+      "updatedAt": "2026-10-08T13:33:10.085Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
@@ -2189,15 +2190,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-10-07T14:24:25.323Z"
+      "updatedAt": "2026-10-08T13:33:10.086Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
       "name": "Mochila Wenjié",
       "slug": "mochila-wenjie",
       "description": "Mochila Wenjié",
-      "category": "Smartphones e Telemóveis",
-      "categoryId": "cat-2",
+      "category": "Materiais Escolares",
+      "categoryId": "cat-1790340063608",
       "brand": null,
       "price": 54889,
       "image": "/uploads/photoroom_20260902_084609-1790259415767.jpg",
@@ -2264,7 +2265,7 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.118Z",
-          "updatedAt": "2026-10-02T15:55:36.118Z"
+          "updatedAt": "2026-10-08T13:31:11.659Z"
         },
         {
           "id": "var-prod-1790259428500-zdbb-2-y3q",
@@ -2288,7 +2289,7 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.129Z",
-          "updatedAt": "2026-10-02T15:55:36.129Z"
+          "updatedAt": "2026-10-08T13:31:11.669Z"
         },
         {
           "id": "var-prod-1790259428500-zdbb-3-lgi",
@@ -2312,11 +2313,11 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.138Z",
-          "updatedAt": "2026-10-02T15:55:36.138Z"
+          "updatedAt": "2026-10-08T13:31:11.676Z"
         }
       ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-10-07T14:24:25.325Z"
+      "updatedAt": "2026-10-08T13:33:10.087Z"
     },
     {
       "id": "prod-1790258779410-1prp",
@@ -2340,7 +2341,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-10-07T14:24:25.325Z"
+      "updatedAt": "2026-10-08T13:33:10.087Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
@@ -2364,7 +2365,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-10-07T14:24:25.326Z"
+      "updatedAt": "2026-10-08T13:33:10.088Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
@@ -2388,7 +2389,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-10-07T14:24:25.327Z"
+      "updatedAt": "2026-10-08T13:33:10.089Z"
     },
     {
       "id": "prod-1790258337491-jcru",
@@ -2412,7 +2413,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-10-07T14:24:25.328Z"
+      "updatedAt": "2026-10-08T13:33:10.090Z"
     },
     {
       "id": "prod-1790258295106-qfev",
@@ -2436,7 +2437,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-10-07T14:24:25.329Z"
+      "updatedAt": "2026-10-08T13:33:10.091Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
@@ -2460,7 +2461,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-10-07T14:24:25.330Z"
+      "updatedAt": "2026-10-08T13:33:10.093Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
@@ -2484,7 +2485,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-10-07T14:24:25.332Z"
+      "updatedAt": "2026-10-08T13:33:10.095Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
@@ -2508,7 +2509,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-10-07T14:24:25.333Z"
+      "updatedAt": "2026-10-08T13:33:10.096Z"
     },
     {
       "id": "prod-1790257993219-qti2",
@@ -2532,7 +2533,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-10-07T14:24:25.335Z"
+      "updatedAt": "2026-10-08T13:33:10.097Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
@@ -2556,7 +2557,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-10-07T14:24:25.335Z"
+      "updatedAt": "2026-10-08T13:33:10.097Z"
     },
     {
       "id": "prod-1790257884660-1119",
@@ -2580,7 +2581,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-10-07T14:24:25.336Z"
+      "updatedAt": "2026-10-08T13:33:10.098Z"
     },
     {
       "id": "prod-1790257837915-atjk",
@@ -2604,7 +2605,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-10-07T14:24:25.337Z"
+      "updatedAt": "2026-10-08T13:33:10.099Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
@@ -2628,7 +2629,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-10-07T14:24:25.338Z"
+      "updatedAt": "2026-10-08T13:33:10.100Z"
     },
     {
       "id": "prod-1790257678365-4btv",
@@ -2652,7 +2653,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-10-07T14:24:25.339Z"
+      "updatedAt": "2026-10-08T13:33:10.101Z"
     },
     {
       "id": "prod-1790257579719-dm04",
@@ -2676,7 +2677,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-10-07T14:24:25.340Z"
+      "updatedAt": "2026-10-08T13:33:10.102Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
@@ -2700,7 +2701,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-10-07T14:24:25.341Z"
+      "updatedAt": "2026-10-08T13:33:10.102Z"
     },
     {
       "id": "prod-1790257311982-er9y",
@@ -2724,7 +2725,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-10-07T14:24:25.341Z"
+      "updatedAt": "2026-10-08T13:33:10.103Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
@@ -2748,7 +2749,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-07T14:24:25.342Z"
+      "updatedAt": "2026-10-08T13:33:10.104Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
@@ -2772,7 +2773,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-10-07T14:24:25.343Z"
+      "updatedAt": "2026-10-08T13:33:10.106Z"
     },
     {
       "id": "prod-1790257007807-j71u",
@@ -2796,7 +2797,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-10-07T14:24:25.344Z"
+      "updatedAt": "2026-10-08T13:33:10.108Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
@@ -2820,7 +2821,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-10-07T14:24:25.346Z"
+      "updatedAt": "2026-10-08T13:33:10.109Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
@@ -2844,7 +2845,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-10-07T14:24:25.347Z"
+      "updatedAt": "2026-10-08T13:33:10.110Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
@@ -2868,7 +2869,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-10-07T14:24:25.349Z"
+      "updatedAt": "2026-10-08T13:33:10.111Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
@@ -2892,7 +2893,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-10-07T14:24:25.350Z"
+      "updatedAt": "2026-10-08T13:33:10.112Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
@@ -2916,7 +2917,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-07T14:24:25.351Z"
+      "updatedAt": "2026-10-08T13:33:10.114Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
@@ -2940,7 +2941,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-10-07T14:24:25.352Z"
+      "updatedAt": "2026-10-08T13:33:10.115Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
@@ -2964,7 +2965,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-10-07T14:24:25.354Z"
+      "updatedAt": "2026-10-08T13:33:10.116Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
@@ -2988,7 +2989,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-10-07T14:24:25.355Z"
+      "updatedAt": "2026-10-08T13:33:10.116Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
@@ -3012,7 +3013,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-10-07T14:24:25.356Z"
+      "updatedAt": "2026-10-08T13:33:10.117Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
@@ -3036,7 +3037,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-10-07T14:24:25.357Z"
+      "updatedAt": "2026-10-08T13:33:10.118Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
@@ -3060,7 +3061,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-10-07T14:24:25.358Z"
+      "updatedAt": "2026-10-08T13:33:10.120Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
@@ -3084,7 +3085,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-10-07T14:24:25.359Z"
+      "updatedAt": "2026-10-08T13:33:10.121Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
@@ -3108,7 +3109,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-10-07T14:24:25.360Z"
+      "updatedAt": "2026-10-08T13:33:10.122Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
@@ -3132,7 +3133,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-10-07T14:24:25.361Z"
+      "updatedAt": "2026-10-08T13:33:10.123Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
@@ -3156,7 +3157,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-10-07T14:24:25.362Z"
+      "updatedAt": "2026-10-08T13:33:10.123Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
@@ -3180,7 +3181,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-10-07T14:24:25.362Z"
+      "updatedAt": "2026-10-08T13:33:10.124Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
@@ -3204,7 +3205,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-10-07T14:24:25.363Z"
+      "updatedAt": "2026-10-08T13:33:10.125Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
@@ -3228,7 +3229,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-10-07T14:24:25.364Z"
+      "updatedAt": "2026-10-08T13:33:10.126Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
@@ -3252,7 +3253,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-10-07T14:24:25.366Z"
+      "updatedAt": "2026-10-08T13:33:10.126Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
@@ -3276,7 +3277,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-10-07T14:24:25.366Z"
+      "updatedAt": "2026-10-08T13:33:10.127Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
@@ -3300,7 +3301,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-10-07T14:24:25.367Z"
+      "updatedAt": "2026-10-08T13:33:10.128Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
@@ -3324,7 +3325,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-10-07T14:24:25.368Z"
+      "updatedAt": "2026-10-08T13:33:10.129Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
@@ -3348,7 +3349,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-10-07T14:24:25.369Z"
+      "updatedAt": "2026-10-08T13:33:10.129Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
@@ -3372,7 +3373,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-10-07T14:24:25.370Z"
+      "updatedAt": "2026-10-08T13:33:10.130Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
@@ -3396,7 +3397,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-10-07T14:24:25.371Z"
+      "updatedAt": "2026-10-08T13:33:10.132Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
@@ -3420,7 +3421,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-10-07T14:24:25.372Z"
+      "updatedAt": "2026-10-08T13:33:10.133Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
@@ -3444,7 +3445,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-10-07T14:24:25.373Z"
+      "updatedAt": "2026-10-08T13:33:10.134Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
@@ -3468,7 +3469,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-10-07T14:24:25.374Z"
+      "updatedAt": "2026-10-08T13:33:10.135Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
@@ -3492,7 +3493,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-10-07T14:24:25.374Z"
+      "updatedAt": "2026-10-08T13:33:10.136Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
@@ -3516,7 +3517,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-10-07T14:24:25.375Z"
+      "updatedAt": "2026-10-08T13:33:10.136Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
@@ -3540,7 +3541,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-07T14:24:25.376Z"
+      "updatedAt": "2026-10-08T13:33:10.137Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
@@ -3564,7 +3565,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-10-07T14:24:25.377Z"
+      "updatedAt": "2026-10-08T13:33:10.139Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
@@ -3588,7 +3589,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-10-07T14:24:25.378Z"
+      "updatedAt": "2026-10-08T13:33:10.140Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
@@ -3612,7 +3613,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-10-07T14:24:25.379Z"
+      "updatedAt": "2026-10-08T13:33:10.141Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
@@ -3636,7 +3637,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-10-07T14:24:25.380Z"
+      "updatedAt": "2026-10-08T13:33:10.141Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
@@ -3660,7 +3661,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-10-07T14:24:25.381Z"
+      "updatedAt": "2026-10-08T13:33:10.142Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
@@ -3684,7 +3685,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-10-07T14:24:25.381Z"
+      "updatedAt": "2026-10-08T13:33:10.144Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
@@ -3708,7 +3709,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-10-07T14:24:25.382Z"
+      "updatedAt": "2026-10-08T13:33:10.145Z"
     },
     {
       "id": "prod-1788945524001-0f01",
@@ -3732,7 +3733,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-10-07T14:24:25.383Z"
+      "updatedAt": "2026-10-08T13:33:10.146Z"
     }
   ],
   "categories": [
@@ -3899,6 +3900,63 @@
   ],
   "orders": [
     {
+      "customerName": "Jey Suco",
+      "customerEmail": "jedysucosuco@gmail.com",
+      "customerPhone": "932847952",
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "customerCompany": "Javisis",
+      "customerNif": "",
+      "customerCity": "Luanda",
+      "customerAddress": "Vila de Viana, Luanda",
+      "deliveryMethod": "levantamento_sede",
+      "paymentMethod": "transferencia",
+      "items": [
+        {
+          "productId": "prod-rec-1790066189556-26",
+          "productName": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+          "price": 11500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083540-1790003177971.jpg"
+        },
+        {
+          "productId": "prod-rec-1790066189556-40",
+          "productName": "Câmera de segurança bullet de rede IP da marca Dahua",
+          "price": 45000,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_084124-1790004812458.jpg"
+        },
+        {
+          "productId": "prod-rec-1790066189556-23",
+          "productName": "Microfone de lapela sem fio K9",
+          "price": 18500,
+          "quantity": 1,
+          "image": "/uploads/photoroom_20260902_083444-1790001318841.jpg"
+        },
+        {
+          "productId": "prod-1790954436881-qol4",
+          "productName": "Wireless Mouse S9000",
+          "price": 9800,
+          "quantity": 2,
+          "image": "/uploads/images_1_73_-1790954430512.jpg"
+        },
+        {
+          "productId": "prod-1791209681545-5xnw",
+          "productName": "TP-LINK Omada AC1200 Wireless MU-MIMO GIGABIT",
+          "price": 200000,
+          "quantity": 1,
+          "image": "/uploads/images_1_76_-1791209662302.jpg"
+        }
+      ],
+      "total": 294600,
+      "status": "novo",
+      "notes": "",
+      "id": "order-1791471699426",
+      "orderNumber": "PED-2026-7824",
+      "createdAt": "2026-10-08T15:01:39.426Z",
+      "updatedAt": "2026-10-08T15:01:39.426Z"
+    },
+    {
       "id": "order-1790768022848",
       "orderNumber": "PED-2026-2133",
       "customerId": null,
@@ -3944,388 +4002,36 @@
           "image": "/uploads/photoroom_20260901_112352-1789995715945.jpg"
         }
       ]
-    },
-    {
-      "id": "order-1",
-      "orderNumber": "PED-2026-0042",
-      "customerId": null,
-      "customerName": "Afonso Mário Ribeiro",
-      "customerEmail": "afonso.mario@empresa.ao",
-      "customerPhone": "+244 923 111 222",
-      "customerCompany": null,
-      "customerNif": null,
-      "customerCity": "Luanda",
-      "customerAddress": "Av. 4 de Fevereiro, Luanda",
-      "deliveryMethod": "entrega_luanda",
-      "paymentMethod": "transferencia",
-      "total": 210000,
-      "status": "em_contacto",
-      "notes": "Comprovativo de Multicaixa Express recebido via bot. Aguarda confirmação de 1 clique.",
-      "whatsappPhone": "244923111222",
-      "botStatus": "receipt_received",
-      "receiptUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
-      "receiptFilename": "comprovativo_mcx_afonso.jpg",
-      "receiptReceivedAt": "2026-09-08T14:29:27.787Z",
-      "conversationHistory": [
-        {
-          "id": "msg-1",
-          "sender": "customer",
-          "senderName": "Afonso Mário",
-          "text": "Olá ARKNET! Acabei de registar o pedido *PED-2026-0042* no valor de *210.000,00 Kz* na loja online.",
-          "timestamp": "2026-09-08T13:29:27.787Z"
-        },
-        {
-          "id": "msg-2",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "Olá Afonso Mário Ribeiro! 👋 Recebemos o seu pedido *#PED-2026-0042* no valor total de *210.000,00 Kz*.\n\n📦 *Resumo da Encomenda:*\n• 2x Equipamento de Rede\n• 1x Switch Gigabit\n\n🔹 *Opções de Pagamento:*\n• *Multicaixa Express:* 935 208 449\n• *BAI:* AO06 0040 0000 1234 5678 9012 3\n• *Titular:* ARKNET TECNOLOGIA LDA\n\n📎 Por favor, envie a foto ou PDF do comprovativo aqui nesta conversa para validação.",
-          "timestamp": "2026-09-08T13:29:28.787Z"
-        },
-        {
-          "id": "msg-3",
-          "sender": "customer",
-          "senderName": "Afonso Mário",
-          "text": "Segue o comprovativo da transferência via Multicaixa Express.",
-          "media": {
-            "url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
-            "type": "image",
-            "filename": "comprovativo_mcx_afonso.jpg"
-          },
-          "timestamp": "2026-09-08T14:29:27.787Z"
-        },
-        {
-          "id": "msg-4",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "✅ *Comprovativo recebido com sucesso!*\n\nO seu documento foi encaminhado para a fila de validação da nossa equipa financeira. Assim que conferido, enviaremos a confirmação oficial por aqui.",
-          "timestamp": "2026-09-08T14:29:29.787Z"
-        }
-      ],
-      "createdAt": "2026-09-08T09:29:27.787Z",
-      "updatedAt": "2026-09-08T14:29:27.787Z",
-      "items": [
-        {
-          "productId": "",
-          "productName": "Apple iPhone 16 Pro 256 GB",
-          "price": 45000,
-          "quantity": 2,
-          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
-        },
-        {
-          "productId": "",
-          "productName": "Adaptador Wi-Fi Alfa",
-          "price": 15000,
-          "quantity": 1,
-          "image": "/_next/static/media/Adaptadorwi-fiAlfa.080qd_4jyj8u-.jpeg"
-        }
-      ]
-    },
-    {
-      "id": "order-3",
-      "orderNumber": "PED-2026-0040",
-      "customerId": null,
-      "customerName": "Dr. Valdemar Pascoal",
-      "customerEmail": "v.pascoal@clinicasaude.co.ao",
-      "customerPhone": "+244 944 555 666",
-      "customerCompany": null,
-      "customerNif": null,
-      "customerCity": "Luanda",
-      "customerAddress": "Talatona, Luanda",
-      "deliveryMethod": "entrega_luanda",
-      "paymentMethod": "transferencia",
-      "total": 135000,
-      "status": "em_contacto",
-      "notes": "Cliente perguntou se há desconto para faturamento a 30 dias. Requer atendimento humano.",
-      "whatsappPhone": "244944555666",
-      "botStatus": "needs_human",
-      "receiptUrl": null,
-      "receiptFilename": null,
-      "conversationHistory": [
-        {
-          "id": "msg-301",
-          "sender": "customer",
-          "senderName": "Dr. Valdemar Pascoal",
-          "text": "Boa tarde, consigo emitir fatura proforma para pagar a 30 dias com desconto institucional para a clínica?",
-          "timestamp": "2026-09-08T12:29:27.787Z"
-        },
-        {
-          "id": "msg-302",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "Obrigado pela sua mensagem. 👨‍💼 Transferi o seu atendimento para um consultor comercial da nossa equipa, que responderá em breve por esta conversa.",
-          "timestamp": "2026-09-08T12:29:28.787Z"
-        }
-      ],
-      "createdAt": "2026-09-08T00:29:27.787Z",
-      "updatedAt": "2026-09-08T12:29:27.787Z",
-      "items": [
-        {
-          "productId": "",
-          "productName": "Apple iPhone 16 Pro 256 GB",
-          "price": 45000,
-          "quantity": 3,
-          "image": "/_next/static/media/apple-iphone-16-pro-tres-cores.05ctwsdwf08qb.jpeg"
-        }
-      ]
-    },
-    {
-      "id": "order-2",
-      "orderNumber": "PED-2026-0041",
-      "customerId": null,
-      "customerName": "Beatriz Costa",
-      "customerEmail": "beatriz.costa@techhub.ao",
-      "customerPhone": "+244 917 888 999",
-      "customerCompany": null,
-      "customerNif": null,
-      "customerCity": "Luanda",
-      "customerAddress": "Vila Alice, Luanda",
-      "deliveryMethod": "entrega_luanda",
-      "paymentMethod": "transferencia",
-      "total": 85000,
-      "status": "fechado",
-      "notes": "Pagamento confirmado e fatura emitida via WhatsApp.",
-      "whatsappPhone": "244917888999",
-      "botStatus": "confirmed",
-      "receiptUrl": null,
-      "receiptFilename": null,
-      "conversationHistory": [
-        {
-          "id": "msg-201",
-          "sender": "customer",
-          "senderName": "Beatriz Costa",
-          "text": "Olá ARKNET! Pedido #PED-2026-0041",
-          "timestamp": "2026-09-08T03:29:27.787Z"
-        },
-        {
-          "id": "msg-202",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "Olá Beatriz Costa! 👋 Recebemos o seu pedido *#PED-2026-0041* no valor de *85.000,00 Kz*.",
-          "timestamp": "2026-09-08T03:29:28.787Z"
-        },
-        {
-          "id": "msg-203",
-          "sender": "bot",
-          "senderName": "ARKNET Bot",
-          "text": "🎉 *Pagamento Confirmado!*\n\nO seu pedido *#PED-2026-0041* foi aprovado com sucesso. Prazo de entrega: 24h a 48h úteis. A fatura oficial está disponível no seu Perfil de Cliente. Obrigado!",
-          "timestamp": "2026-09-08T05:29:27.787Z"
-        }
-      ],
-      "confirmedAt": "2026-09-08T05:29:27.787Z",
-      "createdAt": "2026-09-07T09:29:27.787Z",
-      "updatedAt": "2026-09-08T05:29:27.787Z",
-      "items": [
-        {
-          "productId": "",
-          "productName": "Repetidor de Sinal Wi-Fi com 2 Antenas Externas",
-          "price": 20000,
-          "quantity": 1,
-          "image": "/_next/static/media/repetidordesinal.16tqxc5na~4k_.jpeg"
-        }
-      ]
     }
   ],
   "leads": [
     {
-      "id": "lead-test-1790765992077",
-      "name": "Empresa Cliente Teste",
-      "email": "contacto@empresacliente.ao",
-      "phone": "+244 923 888 777",
-      "service": "Ciberseguran�a Empresarial",
-      "message": "Gostaria de solicitar uma proposta comercial para auditoria.",
+      "name": "Javisi",
+      "email": "jedysucosuco@gmail.com",
+      "phone": "987654536",
+      "service": "Instalação e Manutenção",
+      "message": "Preciso de instalação de sistemas operacionais nos computadores da minha empresa",
+      "source": "Sítio: Formulário de Cotação",
+      "id": "lead-1791471551490",
+      "status": "novo",
+      "createdAt": "2026-10-08T14:59:11.490Z",
+      "updatedAt": "2026-10-08T14:59:11.490Z"
+    },
+    {
+      "id": "lead-1791458375122",
+      "name": "Jedy S",
+      "email": "jedyvandunem16@gmail",
+      "phone": "987650988",
+      "service": "Instalação e Manutenção",
+      "message": "Preciso de manuntenção de computadores",
       "status": "novo",
       "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-30T10:59:52.249Z",
-      "updatedAt": "2026-09-30T10:59:52.249Z"
-    },
-    {
-      "id": "lead-audit-1790251647430",
-      "name": "Eng. Bento Gaspar",
-      "email": "bento.gaspar@consulting.ao",
-      "phone": "+244 912 345 678",
-      "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral.",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-25T10:30:42.128Z",
-      "updatedAt": "2026-09-25T10:30:42.128Z"
-    },
-    {
-      "id": "lead-audit-1790243017632",
-      "name": "Eng. Bento Gaspar",
-      "email": "bento.gaspar@consulting.ao",
-      "phone": "+244 912 345 678",
-      "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral.",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-25T10:30:42.087Z",
-      "updatedAt": "2026-09-25T10:30:42.087Z"
-    },
-    {
-      "id": "lead-audit-1790244140545",
-      "name": "Eng. Bento Gaspar",
-      "email": "bento.gaspar@consulting.ao",
-      "phone": "+244 912 345 678",
-      "service": "Consultoria & TI",
-      "message": "Necessitamos de auditoria de segurança perimetral.",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-25T10:30:42.081Z",
-      "updatedAt": "2026-09-25T10:30:42.081Z"
-    },
-    {
-      "id": "cmu2cqutm0000ute4s9j1u3jl",
-      "name": "Teste Segurança",
-      "email": "teste@exemplo.com",
-      "phone": "+244900000000",
-      "service": "Software à Medida",
-      "message": "Mensagem de teste automatizado de segurança",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.937Z",
-      "updatedAt": "2026-09-15T07:30:20.937Z"
-    },
-    {
-      "id": "lead-test-1788948245799",
-      "name": "Lead Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Desenvolvimento Web",
-      "message": "Teste de segurança",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.931Z",
-      "updatedAt": "2026-09-15T07:30:20.931Z"
-    },
-    {
-      "id": "lead-test-1788948366063",
-      "name": "Lead Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Desenvolvimento Web",
-      "message": "Teste de segurança",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.920Z",
-      "updatedAt": "2026-09-15T07:30:20.920Z"
-    },
-    {
-      "id": "lead-test-1788948718546",
-      "name": "Cliente Teste",
-      "email": "lead@teste.ao",
-      "phone": "",
-      "service": "Infraestrutura de Redes",
-      "message": "Pedido de cotação de redes",
-      "status": "novo",
-      "notes": null,
-      "source": "site_quote",
-      "createdAt": "2026-09-15T07:30:20.913Z",
-      "updatedAt": "2026-09-15T07:30:20.913Z"
-    },
-    {
-      "id": "lead-1",
-      "name": "Eng. Manuel Domingos",
-      "email": "manuel.domingos@petroangola.ao",
-      "phone": "+244 923 456 789",
-      "service": "Internet Empresarial",
-      "message": "Precisamos de uma ligação dedicada simétrica de 100Mbps com redundância para os nossos escritórios em Talatona.",
-      "status": "novo",
-      "notes": "Prioridade alta. Cliente corporativo do sector petrolífero.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-08T11:29:27.787Z",
-      "updatedAt": "2026-09-08T11:29:27.787Z"
-    },
-    {
-      "id": "lead-2",
-      "name": "Dra. Teresa Van-Dúnem",
-      "email": "teresa.vdunem@bancocomerce.co.ao",
-      "phone": "+244 912 345 678",
-      "service": "Cibersegurança",
-      "message": "Solicitamos auditoria de pentest e reforço de segurança perimetral para 3 agências bancárias.",
-      "status": "contactado",
-      "notes": "Reunião preliminar agendada para sexta-feira às 10h.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-07T15:29:27.787Z",
-      "updatedAt": "2026-09-08T03:29:27.787Z"
-    },
-    {
-      "id": "lead-3",
-      "name": "Carlos Alberto Ferreira",
-      "email": "carlos.ferreira@logistica-sul.ao",
-      "phone": "+244 934 567 890",
-      "service": "CFTV e Segurança",
-      "message": "Orçamento para sistema de vigilância IP com 32 câmaras e gravação em nuvem para centro de distribuição.",
-      "status": "convertido",
-      "notes": "Proposta adjudicada. Projecto em fase de planeamento e instalação.",
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-06T15:29:27.787Z",
-      "updatedAt": "2026-09-08T07:29:27.787Z"
-    },
-    {
-      "id": "lead-4",
-      "name": "Joaquim Silva Santos",
-      "email": "jsilva@construtora-luanda.com",
-      "phone": "+244 945 678 901",
-      "service": "Cabeamento Estruturado",
-      "message": "Instalação de rede Cat6A para edifício comercial de 4 pisos em Luanda Sul.",
-      "status": "novo",
-      "notes": null,
-      "source": "Website - Formulário de Cotação",
-      "createdAt": "2026-09-05T15:29:27.787Z",
-      "updatedAt": "2026-09-05T15:29:27.787Z"
+      "source": "Sítio: Formulário de Cotação",
+      "createdAt": "2026-10-08T11:19:35.122Z",
+      "updatedAt": "2026-10-08T11:19:35.134Z"
     }
   ],
   "subscribers": [
-    {
-      "id": "cmuv39crf0005utw0v50f4let",
-      "email": "spam4@teste.com",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:10:06.936Z"
-    },
-    {
-      "id": "cmuv39crf0004utw0q4ery41u",
-      "email": "spam3@teste.com",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:10:06.935Z"
-    },
-    {
-      "id": "cmuv39cr70002utw0indrt7q0",
-      "email": "spam0@teste.com",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:10:06.928Z"
-    },
-    {
-      "id": "cmuv39cr70003utw02ad6eg75",
-      "email": "spam2@teste.com",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:10:06.928Z"
-    },
-    {
-      "id": "cmuv39cr70001utw00wq646p7",
-      "email": "spam1@teste.com",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:10:06.927Z"
-    },
-    {
-      "id": "cmuv35n7e0000utw0b8j3uink",
-      "email": "teste-limit@arknet.co.ao",
-      "status": "active",
-      "subscribedAt": "2026-10-05T10:07:13.850Z"
-    },
-    {
-      "id": "sub-1790766001073",
-      "email": "newsletter_visitante@teste.ao",
-      "status": "active",
-      "subscribedAt": "2026-09-30T11:00:01.073Z"
-    },
     {
       "id": "cmunya1b70000uttg603ttkld",
       "email": "lennamadalenagamboa@gmail.com",
@@ -4349,12 +4055,6 @@
       "email": "arknet40@gmail.com",
       "status": "active",
       "subscribedAt": "2026-09-29T10:55:30.765Z"
-    },
-    {
-      "id": "sub-5",
-      "email": "inovacao@startuangola.com",
-      "status": "active",
-      "subscribedAt": "2026-02-18T10:00:00.000Z"
     }
   ],
   "courses": [
@@ -4503,40 +4203,15 @@
   ],
   "eventRegistrations": [
     {
-      "id": "reg-test-1790766001124",
       "eventId": "evt-1",
-      "name": "Participante Teste",
-      "email": "participante@teste.ao",
-      "phone": "+244 912 345 678",
-      "company": "Inova��o SA",
-      "position": "Engenheiro de Redes",
+      "eventTitle": "Bootcamp Tecnológico",
+      "customerId": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
+      "name": "Jey Suco",
+      "email": "jedysucosuco@gmail.com",
+      "phone": "932847952",
       "status": "pendente",
-      "ticketCode": null,
-      "registeredAt": "2026-09-30T11:00:01.224Z"
-    },
-    {
-      "id": "reg-2",
-      "eventId": "evt-1",
-      "name": "Dra. Isabel Mateus",
-      "email": "isabel.mateus@bancobai.ao",
-      "phone": "+244 912 333 444",
-      "company": "Banco BAI",
-      "position": null,
-      "status": "confirmada",
-      "ticketCode": null,
-      "registeredAt": "2026-09-15T07:30:20.996Z"
-    },
-    {
-      "id": "reg-1",
-      "eventId": "evt-1",
-      "name": "Eng. António Kiala",
-      "email": "antonio.kiala@sonangol.co.ao",
-      "phone": "+244 923 111 222",
-      "company": "Sonangol E.P.",
-      "position": null,
-      "status": "confirmada",
-      "ticketCode": null,
-      "registeredAt": "2026-09-15T07:30:20.992Z"
+      "id": "reg-1791471590043-04od",
+      "createdAt": "2026-10-08T14:59:50.043Z"
     }
   ],
   "jobs": [
@@ -4600,32 +4275,7 @@
       "updatedAt": "2026-01-20T00:00:00.000Z"
     }
   ],
-  "applications": [
-    {
-      "id": "app-1",
-      "jobId": "job-1",
-      "jobTitle": "Engenheiro de Redes & Telecomunicações Sénior",
-      "name": "Eduardo Ndala",
-      "email": "eduardo.ndala@gmail.com",
-      "phone": "+244 923 888 111",
-      "resumeUrl": "CV_Eduardo_Ndala_2026.pdf",
-      "message": "Tenho 6 anos de experiência em redes IP e certificação CCNP Enterprise ativa. Gostaria de integrar a equipa ARKNET.",
-      "status": "em_analise",
-      "appliedAt": "2026-09-07T19:29:27.787Z"
-    },
-    {
-      "id": "app-2",
-      "jobId": null,
-      "jobTitle": "Candidatura Espontânea — Gestão Comercial",
-      "name": "Mariana Kiala",
-      "email": "mariana.kiala@hotmail.com",
-      "phone": "+244 912 777 333",
-      "resumeUrl": "Curriculo_Mariana_Kiala.pdf",
-      "message": "Experiência de 4 anos em prospeção e fecho de negócios B2B em soluções de TI.",
-      "status": "recebida",
-      "appliedAt": "2026-09-06T18:29:27.787Z"
-    }
-  ],
+  "applications": [],
   "testimonials": [
     {
       "id": "1",
@@ -4637,8 +4287,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "2",
@@ -4650,8 +4300,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "3",
@@ -4663,8 +4313,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "4",
@@ -4676,8 +4326,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "5",
@@ -4689,8 +4339,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     }
   ],
   "partners": [
@@ -4702,8 +4352,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-2",
@@ -4713,8 +4363,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-3",
@@ -4724,8 +4374,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-4",
@@ -4735,8 +4385,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-5",
@@ -4746,8 +4396,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-6",
@@ -4757,8 +4407,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-7",
@@ -4768,8 +4418,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-8",
@@ -4779,8 +4429,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-9",
@@ -4790,8 +4440,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-10",
@@ -4801,8 +4451,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-11",
@@ -4812,8 +4462,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-12",
@@ -4823,8 +4473,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-13",
@@ -4834,8 +4484,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     },
     {
       "id": "partner-14",
@@ -4845,8 +4495,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-07T14:24:38.975Z",
-      "updatedAt": "2026-10-07T14:24:38.975Z"
+      "createdAt": "2026-10-08T14:17:08.327Z",
+      "updatedAt": "2026-10-08T14:17:08.327Z"
     }
   ],
   "projects": [
@@ -5493,7 +5143,7 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-07T14:24:25.449Z"
+    "updatedAt": "2026-10-08T13:33:10.206Z"
   },
   "activities": [
     {

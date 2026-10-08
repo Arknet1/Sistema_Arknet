@@ -28,6 +28,7 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'
 import { mockServices } from '@/lib/mock-data'
 import Footer from '@/components/footer'
+import QuoteRequest from '@/components/quote-request'
 
 const serviceIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu: Cpu,
@@ -132,7 +133,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
               {/* Botões do Hero Topo */}
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
-                  href={`/?servico=${encodeURIComponent(service.name)}#contacto`}
+                  href="#contacto"
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-secondary hover:bg-secondary/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-secondary/20 transition"
                 >
                   <span>Solicitar este serviço</span>
@@ -171,8 +172,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
       {/* Conteúdo Principal do Serviço */}
       <section className="py-20 max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12">
-          {/* Coluna Principal (8 Colunas) */}
-          <div className="lg:col-span-8 space-y-16">
+          <div className="lg:col-span-12 space-y-16">
 
             {/* 2. O que inclui */}
             <div className="bg-white p-8 sm:p-10 border border-slate-200 shadow-xs rounded-2xl">
@@ -340,56 +340,10 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
 
           </div>
 
-          {/* 7. Coluna Lateral Fixo / Sticky CTA Sidebar */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-slate-900 text-white p-8 border border-slate-800 rounded-2xl shadow-xl sticky top-28">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-secondary block mb-2">
-                Solicitação Direta
-              </span>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                Interessado em {service.name}?
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-6">
-                Clique abaixo para abrir o formulário comercial. O serviço virá automaticamente pré-selecionado para agilizar o atendimento.
-              </p>
-
-              <Link
-                href={`/?servico=${encodeURIComponent(service.name)}#contacto`}
-                className="w-full flex items-center justify-center gap-2 py-4 bg-secondary hover:bg-secondary/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-secondary/20 transition mb-4 rounded-lg"
-              >
-                <span>Solicitar este serviço</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-
-              <a
-                href="https://wa.me/244975669357"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold text-xs uppercase tracking-wider transition rounded-lg"
-              >
-                <FaWhatsapp className="h-4 w-4" />
-                <span>Atendimento via WhatsApp</span>
-              </a>
-
-              {/* Guarantees List */}
-              <div className="mt-6 pt-6 border-t border-slate-800 space-y-3">
-                <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-                  <Check className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Proposta comercial em menos de 24h</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-                  <Check className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>SLA contratual garantido</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-                  <Check className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Técnicos certificados no terreno</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
+
+      <QuoteRequest serviceName={service.name} />
 
       {/* 8. Serviços Relacionados */}
       <section className="py-16 bg-slate-100 border-t border-slate-200">
