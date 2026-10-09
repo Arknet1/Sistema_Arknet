@@ -17,12 +17,12 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$12678e6201ad03b7c39cac3375766ff1$4883b9039efeddf0535c0d8041136660df7c71cc0d71cac2b72db0d0340ca7f87742f591d1f563681ceceb651e993a0206aaabca4d2d07a58dfb49d29f0e5f4a",
+      "passwordHash": "$scrypt$f581f59a873d1d022e71ac9d1a8a1f3d$360fae8f3f3c0157d24d1a02fe6da6965bc48205fbd0aefceb2a5a8993af39f9c21cba8fc01b3fed23ed6827b458e12297ff66854677a11dc0b6ab51b8eee1b4",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-10-08T15:15:28.758Z"
+      "lastLogin": "2026-09-09T08:24:15.212Z"
     },
     {
       "id": "user-editor",
@@ -108,11 +108,11 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-10-08T15:15:01.728Z",
+      "lastLogin": "2026-10-09T07:33:44.040Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$18098d88dbd5c1e55b91b5fff1bd1e5c$1c63479394bccbb08587fe32c9e14ca996fc1ec9515c08f994d5b9fdba420b8f44b9b2ac16c7f881442461c48716b18bdb7c9c655e035f575afc119249e969ad"
+      "passwordHash": "$scrypt$4c6e2856bae73548638ac58edf418ad1$c213f026cfaf01ed1666f206ff0332080f2ed587f53375e06aff79d7611856e778e858752d12648bd72392f7f4e2950f385e065f5b1ab75fdd0cdb446de5e68e"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
@@ -318,12 +318,11 @@
   "products": [
     {
       "id": "prod-1791209681545-5xnw",
-      "name": "TP-LINK Omada AC1200 Wireless MU-MIMO GIGABIT",
+      "name": "TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT",
       "slug": "tp-link-omada-ac1200-wireless-mu-mimo-gigabit",
-      "description": "TP-LINK Omada AC1200 Wireless MU-MIMO GIGABIT",
-      "category": "Smartphones e Telemóveis",
+      "description": "TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT",
+      "category": "Redes e Internet",
       "categoryId": "cat-2",
-      "brand": null,
       "price": 200000,
       "image": "/uploads/images_1_76_-1791209662302.jpg",
       "images": [
@@ -338,13 +337,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-05T14:14:41.545Z",
-      "updatedAt": "2026-10-08T13:33:09.969Z"
+      "updatedAt": "2026-10-09T15:32:27.003Z"
     },
     {
       "id": "prod-1790954436881-qol4",
-      "name": "Wireless Mouse S9000",
+      "name": "WIRELESS MOUSE S9000",
       "slug": "wireless-mouse-s9000",
-      "description": "Wireless Mouse S9000",
+      "description": "WIRELESS MOUSE S9000",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -362,16 +361,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T15:20:36.881Z",
-      "updatedAt": "2026-10-08T13:33:09.970Z"
+      "updatedAt": "2026-10-09T15:30:53.892Z"
     },
     {
       "id": "prod-1790948580905-glgp",
-      "name": "VIDEO BALUN Hikvision DS 1H18S/",
+      "name": "VIDEO BALUN HIKVISION DS 1H18S",
       "slug": "video-balun-hikvision-ds-1h18s",
-      "description": "VIDEO BALUN Hikvision DS 1H18S/",
-      "category": "Monitores",
+      "description": "VIDEO BALUN HIKVISION DS 1H18S",
+      "category": "Cabos e Conectividade",
       "categoryId": "cat-13",
-      "brand": null,
       "price": null,
       "image": "/uploads/images_1_71_-1790948539536.jpg",
       "images": [
@@ -386,7 +384,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T13:43:00.905Z",
-      "updatedAt": "2026-10-08T13:33:09.973Z"
+      "updatedAt": "2026-10-09T15:34:08.659Z"
     },
     {
       "id": "prod-1790943432150-c3gp",
@@ -410,13 +408,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:17:12.150Z",
-      "updatedAt": "2026-10-08T13:33:09.976Z"
+      "updatedAt": "2026-10-09T15:30:53.894Z"
     },
     {
       "id": "prod-1790943062119-kp6y",
-      "name": "TONER AMARELO Konica Minolta",
+      "name": "TONER AMARELO KONICA MINOLTA",
       "slug": "toner-amarelo-konica-minolta",
-      "description": "TONER AMARELO Konica Minolta",
+      "description": "TONER AMARELO KONICA MINOLTA",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -427,7 +425,7 @@
         "/uploads/images_1_72_-1790953067277.jpg"
       ],
       "inStock": true,
-      "quantity": 4,
+      "quantity": 6,
       "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4315",
@@ -482,7 +480,7 @@
             }
           ],
           "createdAt": "2026-10-05T09:06:01.437Z",
-          "updatedAt": "2026-10-05T09:06:01.437Z"
+          "updatedAt": "2026-10-09T13:43:59.793Z"
         },
         {
           "id": "var-prod-1790943062119-kp6y-2-gxo",
@@ -506,7 +504,7 @@
             }
           ],
           "createdAt": "2026-10-05T09:06:01.447Z",
-          "updatedAt": "2026-10-05T09:06:01.447Z"
+          "updatedAt": "2026-10-09T13:43:59.810Z"
         },
         {
           "id": "var-prod-1790943062119-kp6y-3-s20",
@@ -530,11 +528,11 @@
             }
           ],
           "createdAt": "2026-10-05T09:06:01.458Z",
-          "updatedAt": "2026-10-05T09:06:01.458Z"
+          "updatedAt": "2026-10-09T13:44:00.097Z"
         }
       ],
       "createdAt": "2026-10-02T12:11:02.119Z",
-      "updatedAt": "2026-10-08T13:33:09.977Z"
+      "updatedAt": "2026-10-09T15:30:53.895Z"
     },
     {
       "id": "prod-1790942824239-8cv4",
@@ -558,7 +556,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:07:04.239Z",
-      "updatedAt": "2026-10-08T13:33:09.979Z"
+      "updatedAt": "2026-10-09T15:30:53.896Z"
     },
     {
       "id": "prod-1790942265849-w2g8",
@@ -582,16 +580,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:57:45.849Z",
-      "updatedAt": "2026-10-08T13:33:09.980Z"
+      "updatedAt": "2026-10-09T15:30:53.898Z"
     },
     {
       "id": "prod-1790942032128-89f7",
-      "name": "Tomada de HJT",
+      "name": "TOMADA DE HJT",
       "slug": "tomada-de-hjt",
-      "description": "Tomada de HJT",
-      "category": "Smartphones e Telemóveis",
+      "description": "TOMADA DE HJT",
+      "category": "Materiais Elétricos",
       "categoryId": "cat-2",
-      "brand": null,
       "price": 6000,
       "image": "/uploads/images_1_66_-1790942028341.jpg",
       "images": [
@@ -606,16 +603,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:53:52.128Z",
-      "updatedAt": "2026-10-08T13:33:09.981Z"
+      "updatedAt": "2026-10-09T15:31:26.539Z"
     },
     {
       "id": "prod-1790941665536-fkmm",
-      "name": "Tomada de 2 entradas",
+      "name": "TOMADA DE DUAS ENTRADAS",
       "slug": "tomada-de-2-entradas",
-      "description": "Tomada de 2 entradas",
-      "category": "Produtos",
+      "description": "TOMADA DE DUAS ENTRADAS",
+      "category": "Materiais Elétricos",
       "categoryId": "cat-19",
-      "brand": null,
       "price": null,
       "image": "/uploads/images_1_65_-1790941664357.jpg",
       "images": [
@@ -630,7 +626,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:47:45.536Z",
-      "updatedAt": "2026-10-08T13:33:09.983Z"
+      "updatedAt": "2026-10-09T15:31:17.356Z"
     },
     {
       "id": "prod-1790940725601-p66p",
@@ -654,7 +650,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:32:05.601Z",
-      "updatedAt": "2026-10-08T13:33:09.984Z"
+      "updatedAt": "2026-10-09T15:30:53.901Z"
     },
     {
       "id": "prod-1790940371658-px8g",
@@ -678,13 +674,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:26:11.658Z",
-      "updatedAt": "2026-10-08T13:33:09.987Z"
+      "updatedAt": "2026-10-09T15:30:53.902Z"
     },
     {
       "id": "prod-1790937167653-iigi",
-      "name": "Teclado Genius KM-170",
+      "name": "TECLADO GENIUS KM-170",
       "slug": "teclado-genius-km-170",
-      "description": "Teclado Genius KM-170",
+      "description": "TECLADO GENIUS KM-170",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -702,13 +698,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:32:47.653Z",
-      "updatedAt": "2026-10-08T13:33:09.989Z"
+      "updatedAt": "2026-10-09T15:30:53.904Z"
     },
     {
       "id": "prod-1790936182415-msck",
-      "name": "Switch de16+2+1 P0E",
+      "name": "SWITCH DE 16+2+1 P0E",
       "slug": "switch-de16-2-1-p0e",
-      "description": "Switch de16+2+1 P0E",
+      "description": "SWITCH DE 16+2+1 P0E",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -726,13 +722,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:16:22.415Z",
-      "updatedAt": "2026-10-08T13:33:09.990Z"
+      "updatedAt": "2026-10-09T15:30:53.905Z"
     },
     {
       "id": "prod-1790935912543-46vi",
-      "name": "Suporte TV LED,LCD PDP",
+      "name": "SUPORTE TV LED,LCD PDP",
       "slug": "suporte-tv-led-lcd-pdp",
-      "description": "Suporte TV LED,LCD PDP",
+      "description": "SUPORTE TV LED,LCD PDP",
       "category": "Monitores",
       "categoryId": "cat-13",
       "brand": null,
@@ -750,15 +746,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:11:52.543Z",
-      "updatedAt": "2026-10-08T13:33:09.992Z"
+      "updatedAt": "2026-10-09T15:30:53.907Z"
     },
     {
       "id": "prod-1790934108385-ln23",
-      "name": "Rolo de Impressora termica",
+      "name": "ROLO DE IMPRESSORA TÉRMICA",
       "slug": "rolo-de-impressora-termica",
-      "description": "Rolo de Impressora termica",
-      "category": "Impressoras e Consumíveis",
-      "categoryId": "cat-14",
+      "description": "ROLO DE IMPRESSORA TÉRMICA",
+      "category": "Material de Escritório",
+      "categoryId": "cat-15",
       "brand": null,
       "price": 1000,
       "image": "/uploads/images_1_59_-1790935322075.jpg",
@@ -774,15 +770,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:41:48.385Z",
-      "updatedAt": "2026-10-08T13:33:09.993Z"
+      "updatedAt": "2026-10-09T15:30:53.908Z"
     },
     {
       "id": "prod-1790933627323-uymp",
       "name": "PILHA MAXELL 3V",
       "slug": "pilha-maxell-3v",
       "description": "PILHA MAXELL 3V",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "category": "Baterias e Pilhas",
+      "categoryId": "cat-1791557620440",
       "brand": null,
       "price": 600,
       "image": "/uploads/images_1_57_-1790933626047.jpg",
@@ -798,15 +794,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:33:47.323Z",
-      "updatedAt": "2026-10-08T13:33:09.994Z"
+      "updatedAt": "2026-10-09T15:30:53.909Z"
     },
     {
       "id": "prod-1790932992211-y8t5",
       "name": "NVR 8 CANAIS UHD 4K ATÉ 8MP",
       "slug": "nvr-8-canais-uhd-4k-ate-8mp",
       "description": "NVR 8 CANAIS UHD 4K ATÉ 8MP",
-      "category": "Redes e Internet",
-      "categoryId": "cat-6",
+      "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
       "brand": null,
       "price": 150000,
       "image": "/uploads/images_1_56_-1790932972422.jpg",
@@ -822,13 +818,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:23:12.211Z",
-      "updatedAt": "2026-10-08T13:33:09.995Z"
+      "updatedAt": "2026-10-09T15:30:53.910Z"
     },
     {
       "id": "prod-1790932847819-2s46",
-      "name": "Mouse APPLE",
+      "name": "MOUSE APPLE",
       "slug": "mouse-apple",
-      "description": "Mouse APPLE",
+      "description": "MOUSE APPLE",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -846,13 +842,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:20:47.819Z",
-      "updatedAt": "2026-10-08T13:33:09.996Z"
+      "updatedAt": "2026-10-09T15:30:53.911Z"
     },
     {
       "id": "prod-1790929531231-hgkk",
-      "name": "Monitores DELL",
+      "name": "MONITOR DELL",
       "slug": "monitores-dell",
-      "description": "Monitores DELL",
+      "description": "MONITOR DELL",
       "category": "Monitores",
       "categoryId": "cat-13",
       "brand": null,
@@ -870,13 +866,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:25:31.231Z",
-      "updatedAt": "2026-10-08T13:33:09.997Z"
+      "updatedAt": "2026-10-09T15:30:53.912Z"
     },
     {
       "id": "prod-1790928671920-en03",
-      "name": "MONITOR HYKVISION 24inch",
+      "name": "MONITOR HYKVISION 24IMCH",
       "slug": "monitor-hykvision-24inch",
-      "description": "MONITOR HYKVISION 24inch",
+      "description": "MONITOR HYKVISION 24IMCH",
       "category": "Monitores",
       "categoryId": "cat-13",
       "brand": null,
@@ -894,13 +890,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:11:11.920Z",
-      "updatedAt": "2026-10-08T13:33:09.999Z"
+      "updatedAt": "2026-10-09T15:30:53.913Z"
     },
     {
       "id": "prod-1790928333040-3u9w",
-      "name": "Módulo RJ45 CAT6",
+      "name": "MÓDULO RJ45 CAT6",
       "slug": "modulo-rj45-cat6",
-      "description": "Módulo RJ45 CAT6 Keystone Fêmea Intellinet",
+      "description": "MÓDULO RJ45 CAT6 KEYSTONE FÊMEA INTELLINET",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -918,15 +914,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:05:33.040Z",
-      "updatedAt": "2026-10-08T13:33:10.001Z"
+      "updatedAt": "2026-10-09T15:30:53.914Z"
     },
     {
       "id": "prod-1790868210459-81rw",
-      "name": "Disco Externo SSD",
+      "name": "DISCO EXTERNO SSD",
       "slug": "disco-externo-ssd",
-      "description": "Disco Externo SSD",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "DISCO EXTERNO SSD",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": 270000,
       "image": "/uploads/images_1_50_-1790868202716.jpg",
@@ -942,15 +938,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-08T13:33:10.002Z"
+      "updatedAt": "2026-10-09T15:30:53.915Z"
     },
     {
       "id": "prod-1790866364579-cemv",
-      "name": "Iluminador solar (solar, street , lamp)",
+      "name": "ILUMINADOR SOLAR (STREET E LAMP)",
       "slug": "iluminador-solar-solar-street-lamp",
-      "description": "Iluminador solar (solar, street , lamp)",
-      "category": "Produtos",
-      "categoryId": "cat-19",
+      "description": "ILUMINADOR SOLAR (STREET E LAMP)",
+      "category": "Energia e Proteção",
+      "categoryId": "cat-10",
       "brand": null,
       "price": 70000,
       "image": "/uploads/images_1_49_-1790866710784.jpg",
@@ -966,7 +962,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-08T13:33:10.003Z"
+      "updatedAt": "2026-10-09T15:30:53.916Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
@@ -990,13 +986,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-08T13:33:10.004Z"
+      "updatedAt": "2026-10-09T15:30:53.917Z"
     },
     {
       "id": "prod-1790865910268-uk30",
-      "name": "HikVision switch 8p",
+      "name": "HIKVISION SWITCH 8P",
       "slug": "hikvision-switch-8p",
-      "description": "HikVision switch 8p",
+      "description": "HIKVISION SWITCH 8P",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -1014,15 +1010,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-08T13:33:10.005Z"
+      "updatedAt": "2026-10-09T15:30:53.919Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
-      "name": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
+      "name": "HIKVISION DVR DS-7216HGHI-M1/T 16 CANAIS HD",
       "slug": "hikvision-dvr-ds-7216hghi-m1-t-16-canais-hd",
-      "description": "HIKVISION DVR DS-7216HGHI-M1/T 16 Canais HD",
-      "category": "Redes e Internet",
-      "categoryId": "cat-6",
+      "description": "HIKVISION DVR DS-7216HGHI-M1/T 16 CANAIS HD",
+      "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
       "brand": null,
       "price": 90000,
       "image": "/uploads/images_1_45_-1790864854553.jpg",
@@ -1038,15 +1034,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-08T13:33:10.006Z"
+      "updatedAt": "2026-10-09T15:30:53.920Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
       "name": "HDMI SPLITTER ENTRADA USB HDMI",
       "slug": "hdmi-splitter-entrada-usb-hdmi",
       "description": "HDMI SPLITTER ENTRADA USB HDMI",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 25000,
       "image": "/uploads/images_1_43_-1790864472860.jpg",
@@ -1062,15 +1058,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-08T13:33:10.007Z"
+      "updatedAt": "2026-10-09T15:30:53.921Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
-      "name": "HDMI  Splitter 1*4",
+      "name": "HDMI  SPLITTER 1*4",
       "slug": "hdmi-splitter-1-4",
-      "description": "HDMI  Splitter  1*4 1xEntrada 4xSaidas 4k 30Hz",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "HDMI  SPLITTER  1*4 1xENTRADA 4xSAIDAS 4K 30HZ",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 90000,
       "image": "/uploads/images_1_42_-1790864131131.jpg",
@@ -1086,15 +1082,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-08T13:33:10.009Z"
+      "updatedAt": "2026-10-09T15:30:53.922Z"
     },
     {
       "id": "prod-1790863974022-czcc",
-      "name": "HDMI Matrix 4*4",
+      "name": "HDMI MATRIX 4*4",
       "slug": "hdmi-matrix-4-4",
-      "description": "HDMI Matrix 4*4",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "HDMI MATRIX 4*4",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 130000,
       "image": "/uploads/images_1_41_-1790863969300.jpg",
@@ -1110,15 +1106,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-08T13:33:10.010Z"
+      "updatedAt": "2026-10-09T15:30:53.923Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
-      "name": "HDMI Extender by cat5 e 6",
+      "name": "HDMI EXTENDER BY CAT5 E 6",
       "slug": "hdmi-extender-by-cat5-e-6",
-      "description": "HDMI Extender by cat5 e 6",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "HDMI EXTENDER BY CAT5 E 6",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 30000,
       "image": "/uploads/images_1_40_-1790863611608.jpg",
@@ -1134,13 +1130,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-08T13:33:10.012Z"
+      "updatedAt": "2026-10-09T15:30:53.924Z"
     },
     {
       "id": "prod-1790863313236-reez",
-      "name": "Fonte de alimentação de 8 canais",
+      "name": "FONTE DE ALIMENTAÇÃO DE 8 CANAIS",
       "slug": "fonte-de-alimentacao-de-8-canais",
-      "description": "Fonte de alimentação de 8 canais",
+      "description": "FONTE DE ALIMENTAÇÃO DE 8 CANAIS",
       "category": "Energia e Proteção",
       "categoryId": "cat-10",
       "brand": null,
@@ -1158,15 +1154,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-08T13:33:10.014Z"
+      "updatedAt": "2026-10-09T15:30:53.925Z"
     },
     {
       "id": "prod-1790863163396-179k",
-      "name": "Fonte de Alimentação de 12V2A",
+      "name": "FONTE DE ALIMENTAÇÃO 12V2A",
       "slug": "fonte-de-alimentacao-de-12v2a",
-      "description": "Fonte de Alimentação de 12V2A",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "FONTE DE ALIMENTAÇÃO 12V2A",
+      "category": "Energia e Proteção",
+      "categoryId": "cat-10",
       "brand": null,
       "price": 15600,
       "image": "/uploads/images_1_38_-1790863141831.jpg",
@@ -1182,13 +1178,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-08T13:33:10.016Z"
+      "updatedAt": "2026-10-09T15:30:53.926Z"
     },
     {
       "id": "prod-1790862876076-248x",
-      "name": "Extensão USB C 30M Ewent",
+      "name": "CABO DE EXTENSÃO USB EWENT C 30M",
       "slug": "extensao-usb-c-30m-ewent",
-      "description": "Extensão USB C 30M Ewent",
+      "description": "CABO DE EXTENSÃO USB EWENT C 30M",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1206,15 +1202,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-08T13:33:10.017Z"
+      "updatedAt": "2026-10-09T15:30:53.928Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
       "name": "DVD-R 10 PK",
       "slug": "dvd-r-10-pk",
       "description": "DVD-R 10 PK",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": 190000,
       "image": "/uploads/images_1_36_-1790862523589.jpg",
@@ -1230,15 +1226,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-08T13:33:10.018Z"
+      "updatedAt": "2026-10-09T15:30:53.929Z"
     },
     {
       "id": "prod-1790862379851-07vp",
-      "name": "Disco Duro 1TB",
+      "name": "DISCO DURO 1TB",
       "slug": "disco-duro-1tb",
-      "description": "Disco Duro 1TB",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "DISCO DURO 1TB",
+      "category": "Periféricos de Computador",
+      "categoryId": "cat-4",
       "brand": null,
       "price": 130000,
       "image": "/uploads/images_1_35_-1790866665053.jpg",
@@ -1254,13 +1250,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-08T13:33:10.019Z"
+      "updatedAt": "2026-10-09T15:30:53.931Z"
     },
     {
       "id": "prod-1790862051163-x94a",
-      "name": "Conversor de fibra ótica Netlink",
+      "name": "CONVERSOR DE FIBRE ÓPTICA NETLINK",
       "slug": "conversor-de-fibra-otica-netlink",
-      "description": "Conversor de fibra ótica Netlink",
+      "description": "CONVERSOR DE FIBRE ÓPTICA NETLINK",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -1278,13 +1274,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-08T13:33:10.020Z"
+      "updatedAt": "2026-10-09T15:30:53.933Z"
     },
     {
       "id": "prod-1790855698575-l39k",
-      "name": "Conversor HDMI Macho VGA",
+      "name": "CABO CONVERSOR HDMI MACHO VGA",
       "slug": "conversor-hdmi-macho-vga",
-      "description": "CONVERSOR HDMI MACHO VGA",
+      "description": "CABO CONVERSOR HDMI MACHO VGA",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1302,15 +1298,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-08T13:33:10.022Z"
+      "updatedAt": "2026-10-09T15:30:53.934Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
-      "name": "Conector RJ45 UDA",
+      "name": "CONECTOR RJ45 UDA",
       "slug": "conector-rj45-uda",
-      "description": "Conector RJ45 UDA",
-      "category": "Cabos e Conectividade",
-      "categoryId": "cat-8",
+      "description": "CONECTOR RJ45 UDA",
+      "category": "Redes e Internet",
+      "categoryId": "cat-6",
       "brand": null,
       "price": 16000,
       "image": "/uploads/images_1_33_-1790855532535.jpg",
@@ -1326,15 +1322,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-08T13:33:10.023Z"
+      "updatedAt": "2026-10-09T15:30:53.936Z"
     },
     {
       "id": "prod-1790855186841-eclf",
-      "name": "Conector RJ45 duas unidades",
+      "name": "ADAPTADOR RJ45 1 PARA 2",
       "slug": "conector-rj45-duas-unidades",
-      "description": "Conector RJ45 duas unidades divisor 1 para 2 ethernet com saida",
-      "category": "Cabos e Conectividade",
-      "categoryId": "cat-8",
+      "description": "ADAPTADOR RJ45 1 PARA 2",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 20000,
       "image": "/uploads/images_1_32_-1790855176574.jpg",
@@ -1350,13 +1346,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-08T13:33:10.026Z"
+      "updatedAt": "2026-10-09T15:30:53.937Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
-      "name": "Coluna Portable Stereo BT Speakers",
+      "name": "COLUNA PORTABLE STEREO BT SPEAKERS",
       "slug": "coluna-portable-stereo-bt-speakers",
-      "description": "Coluna Portable Stereo BT Speakers",
+      "description": "COLUNA PORTABLE STEREO BT SPEAKERS",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -1374,13 +1370,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-08T13:33:10.029Z"
+      "updatedAt": "2026-10-09T15:30:53.938Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
-      "name": "Cola Térmica",
+      "name": "COLA TÉRMICA",
       "slug": "cola-termica",
-      "description": "Cola Térmica",
+      "description": "COLA TÉRMICA",
       "category": "Produtos",
       "categoryId": "cat-19",
       "brand": null,
@@ -1398,15 +1394,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-08T13:33:10.031Z"
+      "updatedAt": "2026-10-09T15:30:53.939Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
-      "name": "CD-R",
+      "name": "CD-R 700MB 52X/80 MIN",
       "slug": "cd-r",
       "description": "CD-R 700MB 52X/80 MIN",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": 25000,
       "image": "/uploads/images_1_29_-1790854390615.jpg",
@@ -1422,15 +1418,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-08T13:33:10.032Z"
+      "updatedAt": "2026-10-09T15:30:53.940Z"
     },
     {
       "id": "prod-1790854095026-flxm",
-      "name": "Cassete de fita de etiquetar",
+      "name": "CASSETE DE FITA DE ETIQUETAR",
       "slug": "cassete-de-fita-de-etiquetar",
-      "description": "Cassete de fita de etiquetar",
-      "category": "Produtos",
-      "categoryId": "cat-19",
+      "description": "CASSETE DE FITA DE ETIQUETAR",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
       "brand": null,
       "price": 10000,
       "image": "/uploads/images_1_28_-1790854083481.jpg",
@@ -1446,15 +1442,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-08T13:33:10.033Z"
+      "updatedAt": "2026-10-09T15:30:53.941Z"
     },
     {
       "id": "prod-1790853710321-vaky",
-      "name": "Cartão de Memoria 32GB",
+      "name": "CARTÃO DE MEMÓRIA 32GB",
       "slug": "cartao-de-memoria-32gb",
-      "description": "Cartão de Memoria 32GB",
-      "category": "Smartphones e Telemóveis",
-      "categoryId": "cat-2",
+      "description": "CARTÃO DE MEMÓRIA 32GB",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": 6000,
       "image": "/uploads/images_1_27_-1790853706016.jpg",
@@ -1470,15 +1466,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-08T13:33:10.034Z"
+      "updatedAt": "2026-10-09T15:30:53.943Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
-      "name": "Carregador Tipo C 10cm",
+      "name": "CARREGADOR TIPO C 10CM",
       "slug": "carregador-tipo-c-10cm",
-      "description": "Carregador Tipo C 10cm",
-      "category": "Smartphones e Telemóveis",
-      "categoryId": "cat-2",
+      "description": "CARREGADOR TIPO C 10CM",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 2000,
       "image": "/uploads/images_1_26_-1790853553671.jpg",
@@ -1494,13 +1490,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-08T13:33:10.036Z"
+      "updatedAt": "2026-10-09T15:30:53.944Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
-      "name": "Carregador DELL Universal",
+      "name": "CARREGADOR DELL UNIVERSAL",
       "slug": "carregador-dell-universal",
-      "description": "Carregador DELL Universal",
+      "description": "CARREGADOR DELL UNIVERSAL",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -1518,13 +1514,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-08T13:33:10.037Z"
+      "updatedAt": "2026-10-09T15:30:53.946Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
-      "name": "Carregador de Android norma",
+      "name": "CARREGADOR DE ANDROID V8",
       "slug": "carregador-de-android-norma",
-      "description": "Carregador de Android normal",
+      "description": "CARREGADOR DE ANDROID V8",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1542,13 +1538,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-08T13:33:10.039Z"
+      "updatedAt": "2026-10-09T15:30:53.947Z"
     },
     {
       "id": "prod-1790852525755-328w",
-      "name": "Carredor 20W USB-C",
+      "name": "CARREGADOR 20W USB-C",
       "slug": "carredor-20w-usb-c",
-      "description": "Carredor 20W USB-C USB -C 20 W POWER",
+      "description": "CARREGADOR 20W USB-C USB -C 20 W POWER",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1566,13 +1562,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-08T13:33:10.041Z"
+      "updatedAt": "2026-10-09T15:30:53.948Z"
     },
     {
       "id": "prod-1790852177364-91d2",
-      "name": "Capas de telefone Samsung",
+      "name": "CAPAS DE SAMSUNG´S",
       "slug": "capas-de-telefone-samsung",
-      "description": "Capas de telefone Samsung",
+      "description": "CAPAS DE SAMSUNG´S",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1590,13 +1586,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-08T13:33:10.042Z"
+      "updatedAt": "2026-10-09T15:30:53.949Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
-      "name": "Capas de iphones diversos",
+      "name": "CAPAS DE IPHONES DIVERSOS",
       "slug": "capas-de-iphones-diversos",
-      "description": "Capas de iphones diversos 6 1500",
+      "description": "CAPAS DE IPHONES DIVERSOS",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1614,13 +1610,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-08T13:33:10.044Z"
+      "updatedAt": "2026-10-09T15:30:53.950Z"
     },
     {
       "id": "prod-1790851696604-m46t",
-      "name": "Capa de tablete SAM A9",
+      "name": "CAPA DE TABLETE SAM A9",
       "slug": "capa-de-tablete-sam-a9",
-      "description": "Capa de tablete SAM A9",
+      "description": "CAPA DE TABLETE SAM A9",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1638,13 +1634,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-08T13:33:10.045Z"
+      "updatedAt": "2026-10-09T15:30:53.951Z"
     },
     {
       "id": "prod-1790851559949-lug5",
-      "name": "Capa de Tablete KAKU",
+      "name": "CAPA DE TABLETE KAKU",
       "slug": "capa-de-tablete-kaku",
-      "description": "Capa de Tablete KAKU",
+      "description": "CAPA DE TABLETE KAKU",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1662,13 +1658,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-08T13:33:10.046Z"
+      "updatedAt": "2026-10-09T15:30:53.953Z"
     },
     {
       "id": "prod-1790851408132-zfze",
-      "name": "Câmera smarth",
+      "name": "CÂMARA SMARTH",
       "slug": "camera-smarth",
-      "description": "Câmera smarth",
+      "description": "CÂMARA SMARTH",
       "category": "Segurança Eletrónica",
       "categoryId": "cat-17",
       "brand": null,
@@ -1686,7 +1682,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-08T13:33:10.047Z"
+      "updatedAt": "2026-10-09T15:30:53.954Z"
     },
     {
       "id": "prod-1790850109422-rsep",
@@ -1710,13 +1706,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-08T13:33:10.048Z"
+      "updatedAt": "2026-10-09T15:30:53.955Z"
     },
     {
       "id": "prod-1790849885494-hu91",
-      "name": "Caixa de cabo FTP Blindado",
+      "name": "CAIXA DE CABO FTP BLINDADO",
       "slug": "caixa-de-cabo-ftp-blindado",
-      "description": "Caixa de cabo FTP Blindado",
+      "description": "CAIXA DE CABO FTP BLINDADO",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1734,13 +1730,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-08T13:33:10.063Z"
+      "updatedAt": "2026-10-09T15:30:53.956Z"
     },
     {
       "id": "prod-1790848807128-20cw",
-      "name": "Cabo Manhattan de UPS",
+      "name": "CABO MANHATTAN DE UPS",
       "slug": "cabo-manhattan-de-ups",
-      "description": "Cabo Manhattan de UPS",
+      "description": "CABO MANHATTAN DE UPS",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1758,13 +1754,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-08T13:33:10.064Z"
+      "updatedAt": "2026-10-09T15:30:53.957Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
-      "name": "Cabo HDTV 1.5",
+      "name": "CABO HDTV 1.5",
       "slug": "cabo-hdtv-1-5",
-      "description": "Cabo HDTV 1.5",
+      "description": "CABO HDTV 1.5",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1782,13 +1778,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-08T13:33:10.066Z"
+      "updatedAt": "2026-10-09T15:30:53.959Z"
     },
     {
       "id": "prod-1790848303191-nv21",
-      "name": "Cabo HDMI 10M",
+      "name": "CABO HDMI 10M",
       "slug": "cabo-hdmi-10m",
-      "description": "Cabo HDMI 10M",
+      "description": "CABO HDMI 10M",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1806,15 +1802,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-08T13:33:10.068Z"
+      "updatedAt": "2026-10-09T15:30:53.974Z"
     },
     {
       "id": "prod-1790848093648-cyth",
-      "name": "Cabo Disco Duro Sata Medio",
+      "name": "CABO DE DISCO DURO SATA MÉDIO",
       "slug": "cabo-disco-duro-sata-medio",
-      "description": "Cabo Disco Duro Sata Medio",
-      "category": "Smartphones e Telemóveis",
-      "categoryId": "cat-2",
+      "description": "CABO DE DISCO DURO SATA MÉDIO",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 9000,
       "image": "/uploads/images_1_11_-1790848072900.jpg",
@@ -1830,13 +1826,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-08T13:33:10.069Z"
+      "updatedAt": "2026-10-09T15:30:53.975Z"
     },
     {
       "id": "prod-1790847966304-nna5",
-      "name": "Cabo de Impressora HP DESKEJET",
+      "name": "CABO DE IMPRESSORA HP DESKEJET",
       "slug": "cabo-de-impressora-hp-deskejet",
-      "description": "Cabo de Impressora HP DESKEJET",
+      "description": "CABO DE IMPRESSORA HP DESKEJET",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1854,13 +1850,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-08T13:33:10.071Z"
+      "updatedAt": "2026-10-09T15:30:53.976Z"
     },
     {
       "id": "prod-1790847762896-z14m",
-      "name": "Cabo de Alimentação 2.5A-250V",
+      "name": "CABO DE ALIMENTAÇÃO 16A-250V",
       "slug": "cabo-de-alimentacao-2-5a-250v",
-      "description": "Cabo de Alimentação 2.5A-250V",
+      "description": "CABO DE ALIMENTAÇÃO 16A-250V",
       "category": "Smartphones e Telemóveis",
       "categoryId": "cat-2",
       "brand": null,
@@ -1878,13 +1874,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-08T13:33:10.072Z"
+      "updatedAt": "2026-10-09T15:30:53.977Z"
     },
     {
       "id": "prod-1790847336713-fy85",
-      "name": "Cabo de Alimentação 16A-250V",
+      "name": "CABO DE ALIMENTAÇÃO 16A-250V",
       "slug": "cabo-de-alimentacao-16a-250v",
-      "description": "Cabo de Alimentação 16A-250V",
+      "description": "CABO DE ALIMENTAÇÃO 16A-250V",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1902,13 +1898,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-08T13:33:10.073Z"
+      "updatedAt": "2026-10-09T15:30:53.978Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
-      "name": "Cabo de Alimentação 10A-250V",
+      "name": "CABO DE ALIMENTAÇÃO 10A-250V",
       "slug": "cabo-de-alimentacao-10a-250v",
-      "description": "Cabo de Alimentação 10A-250V",
+      "description": "CABO DE ALIMENTAÇÃO 10A-250V",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1926,13 +1922,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-08T13:33:10.074Z"
+      "updatedAt": "2026-10-09T15:30:53.978Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
-      "name": "Cabo Cat6",
+      "name": "CABO CAT6",
       "slug": "cabo-cat6",
-      "description": "Cabo Cat6 Networking UTP 3ft 1m Ethernet",
+      "description": "CABO CAT6 NETWORKING UTP 3FT 1M ETHERNET",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -1950,13 +1946,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-08T13:33:10.075Z"
+      "updatedAt": "2026-10-09T15:30:53.979Z"
     },
     {
       "id": "prod-1790846274467-waxv",
-      "name": "Bastidor de Rede",
+      "name": "BASTIDOR DE REDE",
       "slug": "bastidor-de-rede",
-      "description": "Bastidor de Rede Interllinet 9U 600x450 19c porta de vidro",
+      "description": "BASTIDOR DE REDE INTERLLINET 9U 600x450 19C PORTA DE VIDRO",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -1974,13 +1970,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-08T13:33:10.076Z"
+      "updatedAt": "2026-10-09T15:30:53.980Z"
     },
     {
       "id": "prod-1790846010195-xb32",
-      "name": "Bastidor de rede interllinet 6U",
+      "name": "BASTIDOR DE REDE INTERLLINET 6U",
       "slug": "bastidor-de-rede-interllinet-6u",
-      "description": "BASTIDOR de Rede interllinet 6U",
+      "description": "BASTIDOR DE REDE INTERLLINET 6U",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -1998,15 +1994,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-08T13:33:10.077Z"
+      "updatedAt": "2026-10-09T15:30:53.981Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
-      "name": "Base de Mause EWENT",
+      "name": "BASE DE MOUSE EWENT",
       "slug": "base-de-mause-ewent",
-      "description": "Base de Mause EWENT",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "BASE DE MOUSE EWENT",
+      "category": "Acessórios de Computador",
+      "categoryId": "cat-11",
       "brand": null,
       "price": 5000,
       "image": "/uploads/images_1_4_-1790846431644.jpg",
@@ -2022,13 +2018,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-08T13:33:10.079Z"
+      "updatedAt": "2026-10-09T15:30:53.981Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
-      "name": "Auricular sem fio Redmi",
+      "name": "AURICULAR SEM FIO REDMI",
       "slug": "auricular-sem-fio-redmi",
-      "description": "Auricular sem fio Redmi",
+      "description": "AURICULAR SEM FIO REDMI",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -2046,13 +2042,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-08T13:33:10.081Z"
+      "updatedAt": "2026-10-09T15:30:53.982Z"
     },
     {
       "id": "prod-1790845328451-4otk",
-      "name": "Auricular com fio AEG",
+      "name": "AURICULAR COM FIO AEG",
       "slug": "auricular-com-fio-aeg",
-      "description": "Auricular com fio AEG",
+      "description": "AURICULAR COM FIO AEG",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -2070,13 +2066,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-08T13:33:10.082Z"
+      "updatedAt": "2026-10-09T15:30:53.983Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
-      "name": "Anti-vìrus Kaspersky",
+      "name": "ANTI-VÍRUS KASPERSKY",
       "slug": "anti-virus-kaspersky",
-      "description": "Anti-vìrus Kaspersky Standard 5 dispositivos/1 ano",
+      "description": "ANTI-VÍRUS KASPERSKY STANDARD 5 DISPOSITIVOS/1 ANO",
       "category": "Segurança Eletrónica",
       "categoryId": "cat-17",
       "brand": null,
@@ -2094,13 +2090,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-08T13:33:10.083Z"
+      "updatedAt": "2026-10-09T15:30:53.984Z"
     },
     {
       "id": "prod-1790844448844-te8k",
-      "name": "Adaptador de Vídeo USB-A 3.0 Para HDMI",
+      "name": "ADAPTADOR DE VÍDEO USB-A 3.0 PARA HDMI",
       "slug": "adaptador-de-video-usb-a-3-0-para-hdmi",
-      "description": "Adaptador de Vídeo USB-A 3.0 Para HDMI FHD 1080P 60Hz",
+      "description": "ADAPTADOR DE VÍDEO USB-A 3.0 PARA HDMI FHD 1080P 60HZ",
       "category": "Adaptadores e Conversores",
       "categoryId": "cat-9",
       "brand": null,
@@ -2118,15 +2114,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-08T13:33:10.084Z"
+      "updatedAt": "2026-10-09T15:30:53.985Z"
     },
     {
       "id": "prod-1790843695397-rw71",
-      "name": "Adaptador 4K ultra HD",
+      "name": "ADAPTADOR 4K ULTRA HD",
       "slug": "adaptador-4k-ultra-hd",
-      "description": "Adaptador 4K ultra HD",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "ADAPTADOR 4K ULTRA HD",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 19500,
       "image": "/uploads/transparent_1_-1790843784568.jpg",
@@ -2142,15 +2138,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-08T13:33:10.084Z"
+      "updatedAt": "2026-10-09T15:30:53.985Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
-      "name": "Adaptador de PC Trasformador",
+      "name": "ADAPTADOR DE PC TRANSFORMADOR",
       "slug": "adaptador-de-pc-trasformador",
-      "description": "ADAPTADOR DE PC Trasformador",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "ADAPTADOR DE PC TRANSFORMADOR",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 20000,
       "image": "/uploads/photoroom_20260902_083041-1790842689928.jpg",
@@ -2166,15 +2162,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-08T13:33:10.085Z"
+      "updatedAt": "2026-10-09T15:30:53.986Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
-      "name": "Camera Dahua",
+      "name": "CÂMARA DAHUA DH-HAC-HFW12000 SLP",
       "slug": "camera-dahua",
-      "description": "Camera Dahua DH-HAC-HFW12000 SLP",
-      "category": "Smartphones e Telemóveis",
-      "categoryId": "cat-2",
+      "description": "CÂMARA DAHUA DH-HAC-HFW12000 SLP",
+      "category": "Segurança Eletrónica",
+      "categoryId": "cat-17",
       "brand": null,
       "price": 45000,
       "image": "/uploads/photoroom_20260902_084124-1790326501854.jpg",
@@ -2190,13 +2186,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-10-08T13:33:10.086Z"
+      "updatedAt": "2026-10-09T15:30:53.987Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
-      "name": "Mochila Wenjié",
+      "name": "MOCHILA WENJIÉ",
       "slug": "mochila-wenjie",
-      "description": "Mochila Wenjié",
+      "description": "MOCHILA WENJIÉ",
       "category": "Materiais Escolares",
       "categoryId": "cat-1790340063608",
       "brand": null,
@@ -2265,7 +2261,7 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.118Z",
-          "updatedAt": "2026-10-08T13:31:11.659Z"
+          "updatedAt": "2026-10-09T11:44:28.164Z"
         },
         {
           "id": "var-prod-1790259428500-zdbb-2-y3q",
@@ -2289,7 +2285,7 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.129Z",
-          "updatedAt": "2026-10-08T13:31:11.669Z"
+          "updatedAt": "2026-10-09T11:44:28.450Z"
         },
         {
           "id": "var-prod-1790259428500-zdbb-3-lgi",
@@ -2313,17 +2309,17 @@
             }
           ],
           "createdAt": "2026-10-02T15:55:36.138Z",
-          "updatedAt": "2026-10-08T13:31:11.676Z"
+          "updatedAt": "2026-10-09T11:44:28.457Z"
         }
       ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-10-08T13:33:10.087Z"
+      "updatedAt": "2026-10-09T15:30:53.988Z"
     },
     {
       "id": "prod-1790258779410-1prp",
-      "name": "Teclado numérico com fio exbom preto",
+      "name": "TECLADO NUMÉRICO COM FIO EXBOM PRETO",
       "slug": "teclado-numerico-com-fio-exbom-preto",
-      "description": "Teclado numérico com fio exbom preto",
+      "description": "TECLADO NUMÉRICO COM FIO EXBOM PRETO",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -2341,13 +2337,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-10-08T13:33:10.087Z"
+      "updatedAt": "2026-10-09T15:30:53.988Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
-      "name": "Mini impressora térmica portátil de 58mm",
+      "name": "MINI IMPRESSORA TÉRMICA PORTÁTIL DE 58MM",
       "slug": "mini-impressora-termica-portatil-de-58mm",
-      "description": "Mini impressora térmica portátil de 58mm com conexão Bluetooth e USB",
+      "description": "MINI IMPRESSORA TÉRMICA PORTÁTIL DE 58MM COM CONEXÃO BLUETOOTH E USB",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -2365,13 +2361,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-10-08T13:33:10.088Z"
+      "updatedAt": "2026-10-09T15:30:53.989Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
-      "name": "Smart TV 50P",
+      "name": "SMART TV 50P",
       "slug": "smart-tv-50p",
-      "description": "Smart TV 50P",
+      "description": "SMART TV 50P",
       "category": "Monitores",
       "categoryId": "cat-13",
       "brand": null,
@@ -2389,15 +2385,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-10-08T13:33:10.089Z"
+      "updatedAt": "2026-10-09T15:30:53.990Z"
     },
     {
       "id": "prod-1790258337491-jcru",
-      "name": "Medidor de potencia óptica portátil",
+      "name": "MEDIDOR DE POTÊNCIA ÓPTICA PORTÁTIL",
       "slug": "medidor-de-potencia-optica-portatil",
-      "description": "Medidor de potencia óptica portátil",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "MEDIDOR DE POTÊNCIA ÓPTICA PORTÁTIL",
+      "category": "Energia e Proteção",
+      "categoryId": "cat-10",
       "brand": null,
       "price": 55000,
       "image": "/uploads/photoroom_20260902_083355-1790258312932.jpg",
@@ -2413,13 +2409,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-10-08T13:33:10.090Z"
+      "updatedAt": "2026-10-09T15:30:53.991Z"
     },
     {
       "id": "prod-1790258295106-qfev",
-      "name": "TP-LINK 300mbps wireless N router",
+      "name": "TP-LINK 300MBPS WIRELESS N ROUTER",
       "slug": "tp-link-300mbps-wireless-n-router",
-      "description": "TP-Link TL-WR840N",
+      "description": "TP-LINK 300MBPS WIRELESS N ROUTER",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2437,16 +2433,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-10-08T13:33:10.091Z"
+      "updatedAt": "2026-10-09T15:30:53.991Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
-      "name": "UPS Pulstar Line Interactive UPS",
+      "name": "UPS PULSTAR LINE INTERACTIVE UPS",
       "slug": "ups-pulstar-line-interactive-ups",
-      "description": "UPS Pulstar Line Interactive UPS",
-      "category": "Acessórios de Computador",
+      "description": "UPS PULSTAR LINE INTERACTIVE UPS",
+      "category": "Energia e Proteção",
       "categoryId": "cat-11",
-      "brand": null,
       "price": 78000,
       "image": "/uploads/photoroom_20260902_084017-1790258181486.jpg",
       "images": [
@@ -2461,13 +2456,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-10-08T13:33:10.093Z"
+      "updatedAt": "2026-10-09T15:33:52.355Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
-      "name": "Conector Rj 45 cat6",
+      "name": "CONECTOR RJ45 CAT6",
       "slug": "conector-rj-45-cat6",
-      "description": "Conector Rj 45 cat6",
+      "description": "CONECTOR RJ45 CAT6",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2485,13 +2480,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-10-08T13:33:10.095Z"
+      "updatedAt": "2026-10-09T15:30:53.993Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
-      "name": "Extensão UPS Ewent de 6 entradas",
+      "name": "EXTENSÃO UPS EWENT DE 6 ENTRADAS",
       "slug": "extensao-ups-ewent-de-6-entradas",
-      "description": "Extensão UPS Ewent de 6 entradas",
+      "description": "EXTENSÃO UPS EWENT DE 6 ENTRADAS",
       "category": "Energia e Proteção",
       "categoryId": "cat-10",
       "brand": null,
@@ -2509,15 +2504,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-10-08T13:33:10.096Z"
+      "updatedAt": "2026-10-09T15:30:53.994Z"
     },
     {
       "id": "prod-1790257993219-qti2",
-      "name": "Cartão de memória Micro SD 32 GB K",
+      "name": "CARTÃO DE MEMÓRIA MICRO SD 32GB K",
       "slug": "cartao-de-memoria-micro-sd-32-gb-k",
-      "description": "Cartão de memória Micro SD 32 GB K",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "CARTÃO DE MEMÓRIA MICRO SD 32GB K",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": 6000,
       "image": "/uploads/photoroom_20260831_151301-1790257989443.jpg",
@@ -2533,13 +2528,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-10-08T13:33:10.097Z"
+      "updatedAt": "2026-10-09T15:30:53.994Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
-      "name": "Alicate de crimpar Rj45",
+      "name": "ALICATE DE CRIMPAR RJ45",
       "slug": "alicate-de-crimpar-rj45",
-      "description": "Alicate de crimpar Rj45",
+      "description": "ALICATE DE CRIMPAR RJ45",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2557,13 +2552,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-10-08T13:33:10.097Z"
+      "updatedAt": "2026-10-09T15:30:53.995Z"
     },
     {
       "id": "prod-1790257884660-1119",
-      "name": "Relógio Biometrico ZKTeco K20",
+      "name": "RELÓGIO BIOMÉTRICO ZKTECO K20",
       "slug": "relogio-biometrico-zkteco-k20",
-      "description": "Relógio Biometrico ZKTeco K20",
+      "description": "RELÓGIO BIOMÉTRICO ZKTECO K20",
       "category": "Segurança Eletrónica",
       "categoryId": "cat-17",
       "brand": null,
@@ -2581,15 +2576,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-10-08T13:33:10.098Z"
+      "updatedAt": "2026-10-09T15:30:53.996Z"
     },
     {
       "id": "prod-1790257837915-atjk",
       "name": "POS GAVETA METALICA CD-4141",
       "slug": "pos-gaveta-metalica-cd-4141",
       "description": "POS GAVETA METALICA CD-4141",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "category": "Material de Escritório",
+      "categoryId": "cat-15",
       "brand": null,
       "price": 57000,
       "image": "/uploads/photoroom_20260831_150421-1790257832760.jpg",
@@ -2605,13 +2600,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-10-08T13:33:10.099Z"
+      "updatedAt": "2026-10-09T15:30:53.997Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
-      "name": "ROUTER Wireless-N Wi-fi",
+      "name": "ROUTER WIRELESS-N WI-FI",
       "slug": "router-wireless-n-wi-fi",
-      "description": "ROUTER Wireless-N Wi-fi",
+      "description": "ROUTER WIRELESS-N WI-FI",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2629,15 +2624,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-10-08T13:33:10.100Z"
+      "updatedAt": "2026-10-09T15:30:53.998Z"
     },
     {
       "id": "prod-1790257678365-4btv",
-      "name": "HDTV Splitter VER 1x4",
+      "name": "HDTV SPLITTER VER 1x4",
       "slug": "hdtv-splitter-ver-1x4",
-      "description": "HDTV Splitter VER 1x4",
-      "category": "Redes e Internet",
-      "categoryId": "cat-6",
+      "description": "HDTV SPLITTER VER 1x4",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": 38000,
       "image": "/uploads/photoroom_20260831_150517-1790257673430.jpg",
@@ -2653,13 +2648,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-10-08T13:33:10.101Z"
+      "updatedAt": "2026-10-09T15:30:53.999Z"
     },
     {
       "id": "prod-1790257579719-dm04",
-      "name": "Pen drive maxell 32GB",
+      "name": "PENDRIVE MAXELL 32GB",
       "slug": "pen-drive-maxell-32gb",
-      "description": "Pen drive maxell 32GB",
+      "description": "PENDRIVE MAXELL 32GB",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -2677,13 +2672,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-10-08T13:33:10.102Z"
+      "updatedAt": "2026-10-09T15:30:53.999Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
-      "name": "Coluna Manhattan",
+      "name": "COLUNA MANHATTAN",
       "slug": "coluna-manhattan",
-      "description": "Coluna Manhattan",
+      "description": "COLUNA MANHATTAN",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -2701,13 +2696,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-10-08T13:33:10.102Z"
+      "updatedAt": "2026-10-09T15:30:54.000Z"
     },
     {
       "id": "prod-1790257311982-er9y",
-      "name": "Testador Finder de cabo UTP, coaxial RJ11, RJ45",
+      "name": "TESTADOR FINDER DE CABO UTP, COAXIAL RJ11, RJ45",
       "slug": "testador-finder-de-cabo-utp-coaxial-rj11-rj45",
-      "description": "Testador Finder de cabo UTP, coaxial RJ11, RJ45",
+      "description": "TESTADOR FINDER DE CABO UTP, COAXIAL RJ11, RJ45",
       "category": "Energia e Proteção",
       "categoryId": "cat-10",
       "brand": null,
@@ -2725,13 +2720,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-10-08T13:33:10.103Z"
+      "updatedAt": "2026-10-09T15:30:54.001Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
-      "name": "Auscultadores com microfone",
+      "name": "AUSCUTADORES COM MICROFONE",
       "slug": "auscultadores-com-microfone",
-      "description": "Auscultadores com microfone",
+      "description": "AUSCUTADORES COM MICROFONE",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -2749,15 +2744,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-08T13:33:10.104Z"
+      "updatedAt": "2026-10-09T15:30:54.002Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
-      "name": "Adaptador Wi-fi Alfa",
+      "name": "ADAPTADOR WI-FE ALFA",
       "slug": "adaptador-wi-fi-alfa",
-      "description": "Adaptador Wi-fi Alfa",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "ADAPTADOR WI-FE ALFA",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 9000,
       "image": "/uploads/photoroom_20260901_112409-1790257110916.jpg",
@@ -2773,13 +2768,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-10-08T13:33:10.106Z"
+      "updatedAt": "2026-10-09T15:30:54.002Z"
     },
     {
       "id": "prod-1790257007807-j71u",
-      "name": "Mause sem fio HP preto",
+      "name": "MOUSE HP SEM FIO PRETO",
       "slug": "mause-sem-fio-hp-preto",
-      "description": "Mause sem fio HP preto",
+      "description": "MOUSE HP SEM FIO PRETO",
       "category": "Periféricos de Computador",
       "categoryId": "cat-4",
       "brand": null,
@@ -2797,13 +2792,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-10-08T13:33:10.108Z"
+      "updatedAt": "2026-10-09T15:30:54.003Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
-      "name": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
+      "name": "MONITOR CURVO WINTECH 27 FHD HDMI/VGA 75HZ",
       "slug": "monitor-curvo-wintech-27-fhd-hdmi-vga-75hz",
-      "description": "Monitor curvo wintech 27 FHD HDMI/VGA 75Hz",
+      "description": "MONITOR CURVO WINTECH 27 FHD HDMI/VGA 75HZ",
       "category": "Monitores",
       "categoryId": "cat-13",
       "brand": null,
@@ -2821,13 +2816,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-10-08T13:33:10.109Z"
+      "updatedAt": "2026-10-09T15:30:54.004Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
-      "name": "TP-LINK Omada EAP245",
+      "name": "TP-LINK OMADA EAP245",
       "slug": "tp-link-omada-eap245",
-      "description": "TP-LINK Omada EAP245",
+      "description": "TP-LINK OMADA EAP245",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2845,13 +2840,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-10-08T13:33:10.110Z"
+      "updatedAt": "2026-10-09T15:30:54.005Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
-      "name": "Controladora wi-fi Tp-link OC 200 Omada",
+      "name": "CONTROLADORA WI-FI TP-LINK OC 200 OMADA",
       "slug": "controladora-wi-fi-tp-link-oc-200-omada",
-      "description": "Controladora wi-fi Tp-link OC 200 Omada gestão centralizada de rede wifi acesso cloud.",
+      "description": "CONTROLADORA WI-FI TP-LINK OC 200 OMADA DE GESTÃO CENTRALIZADA DE ACESSO A CLOUD",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -2869,13 +2864,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-10-08T13:33:10.111Z"
+      "updatedAt": "2026-10-09T15:30:54.005Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
-      "name": "Impressora térmica X-printer",
+      "name": "IMPRESSORA TÉRMICA X-PRINTER",
       "slug": "impressora-termica-x-printer",
-      "description": "Impressora térmica X-printer",
+      "description": "IMPRESSORA TÉRMICA X-PRINTER",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -2893,15 +2888,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-10-08T13:33:10.112Z"
+      "updatedAt": "2026-10-09T15:30:54.006Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
-      "name": "Bateria Kaise standard VRLA 12V 7Ah",
+      "name": "BATERIA KAISE STANDARD VRLA 12V 7AH",
       "slug": "bateria-kaise-standard-vrla-12v-7ah",
-      "description": "Bateria Kaise standard VRLA 12V 7Ah",
-      "category": "Energia e Proteção",
-      "categoryId": "cat-10",
+      "description": "BATERIA KAISE STANDARD VRLA 12V 7AH",
+      "category": "Baterias e Pilhas",
+      "categoryId": "cat-1791557620440",
       "brand": null,
       "price": 17500,
       "image": "/uploads/photoroom_20260902_084152-1790000987563.jpg",
@@ -2917,13 +2912,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-08T13:33:10.114Z"
+      "updatedAt": "2026-10-09T15:30:54.007Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
-      "name": "Câmera de segurança bullet de rede IP da marca Dahua",
+      "name": "CÂMARA DAHUA-BULLET DE REDE IP",
       "slug": "camera-de-seguranca-bullet-de-rede-ip-da-marca-dahua",
-      "description": "Câmera de segurança bullet de rede IP da marca Dahua",
+      "description": "CÂMARA DAHUA-BULLET DE REDE IP",
       "category": "Segurança Eletrónica",
       "categoryId": "cat-17",
       "brand": null,
@@ -2941,13 +2936,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-10-08T13:33:10.115Z"
+      "updatedAt": "2026-10-09T15:30:54.008Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
-      "name": "Câmera EZVIZ",
+      "name": "CÂMARA EZVIZ",
       "slug": "camera-ezviz",
-      "description": "Câmera EZVIZ",
+      "description": "CÂMARA EZVIZ",
       "category": "Segurança Eletrónica",
       "categoryId": "cat-17",
       "brand": null,
@@ -2965,16 +2960,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-10-08T13:33:10.116Z"
+      "updatedAt": "2026-10-09T15:30:54.009Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
       "name": "TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT",
       "slug": "adaptador-poe-passivo",
       "description": "TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT",
-      "category": "Adaptadores e Conversores",
+      "category": "Redes e Internet",
       "categoryId": "cat-9",
-      "brand": null,
       "price": 200000,
       "image": "/uploads/images_1_74_-1791208880176.jpg",
       "images": [
@@ -2989,15 +2983,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-10-08T13:33:10.116Z"
+      "updatedAt": "2026-10-09T15:32:38.372Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
-      "name": "Adaptador de base para dois discos",
+      "name": "ADAPTADOR DE BASE PARA DOIS",
       "slug": "adaptador-de-base-para-dois-discos",
-      "description": "Adaptador de base para dois discos- Dual-Bay HDD/SSD Docking Station genérica.",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "ADAPTADOR DE BASE PARA DOIS- DUAL-BAY HDD/SSD DOCKING STATION GENÉRICA",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083842-1790004640033.jpg",
@@ -3013,15 +3007,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-10-08T13:33:10.117Z"
+      "updatedAt": "2026-10-09T15:30:54.010Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
-      "name": "Cabo adaptador USB para Sata",
+      "name": "CABO ADAPTADOR USB PARA SATA",
       "slug": "cabo-adaptador-usb-para-sata",
-      "description": "Cabo adaptador USB para Sata preto projetado para ligar disco rígidos (HDD) ou SSDs de 2,5 polegadas a portas USB de computadores.",
-      "category": "Produtos",
-      "categoryId": "cat-19",
+      "description": "CABO ADAPTADOR USB PARA SATA PRETO PROJETADO PARA LIGAR DISCO RÍGIDOS (HDD) OU SSDS DE 2,5 POLEGADAS A PORTAS USB DE COMPUTADORES.",
+      "category": "Cabos e Conectividade",
+      "categoryId": "cat-8",
       "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083828-1790004566020.jpg",
@@ -3037,13 +3031,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-10-08T13:33:10.118Z"
+      "updatedAt": "2026-10-09T15:30:54.011Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
-      "name": "Resma de papel",
+      "name": "RESMA DE PAPEL A4",
       "slug": "resma-de-papel",
-      "description": "Resma de papel",
+      "description": "RESMA DE PAPEL A4",
       "category": "Material de Escritório",
       "categoryId": "cat-15",
       "brand": null,
@@ -3061,13 +3055,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-10-08T13:33:10.120Z"
+      "updatedAt": "2026-10-09T15:30:54.012Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
-      "name": "Altifalante portátil Bluetooth T&G TG116C",
+      "name": "ALTIFALANTE PORTATIL BLUETOOTH T&G TG116C",
       "slug": "altifalante-portatil-bluetooth-t-g-tg116c",
-      "description": "Altifalante portátil Bluetooth T&G TG116C",
+      "description": "ALTIFALANTE PORTATIL BLUETOOTH T&G TG116C",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -3085,13 +3079,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-10-08T13:33:10.121Z"
+      "updatedAt": "2026-10-09T15:30:54.013Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
-      "name": "Coluna bluetooth",
+      "name": "COLUNA BLUETOOTH",
       "slug": "coluna-bluetooth",
-      "description": "Coluna bluetooth",
+      "description": "COLUNA BLUETOOTH",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -3109,16 +3103,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-10-08T13:33:10.122Z"
+      "updatedAt": "2026-10-09T15:30:54.013Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
-      "name": "Western Digital Caviar Blue modelo WD5000AAKX",
+      "name": "WESTERN DIGITAL CAVIAR BLUE MODELO WD5000AAKX",
       "slug": "western-digital-caviar-blue-modelo-wd5000aakx",
-      "description": "Western Digital Caviar Blue modelo WD5000AAKX",
-      "category": "Periféricos de Computador",
+      "description": "WESTERN DIGITAL CAVIAR BLUE MODELO WD5000AAKX",
+      "category": "Armazenamento",
       "categoryId": "cat-4",
-      "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083722-1790004105182.jpg",
       "images": [
@@ -3133,13 +3126,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-10-08T13:33:10.123Z"
+      "updatedAt": "2026-10-09T15:34:42.675Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
-      "name": "Tinteiro HP GT53 e GT52",
+      "name": "TINTERO HP GT53 e GT52",
       "slug": "tinteiro-hp-gt53-e-gt52",
-      "description": "Tinteiro HP GT53 e GT52",
+      "description": "TINTERO HP GT53 e GT52",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -3157,13 +3150,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-10-08T13:33:10.123Z"
+      "updatedAt": "2026-10-09T15:30:54.015Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
-      "name": "Cabo de força",
+      "name": "CABO DE FORÇA 10A-250V",
       "slug": "cabo-de-forca",
-      "description": "Cabo de força 10A-250V",
+      "description": "CABO DE FORÇA 10A-250V",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3181,13 +3174,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-10-08T13:33:10.124Z"
+      "updatedAt": "2026-10-09T15:30:54.016Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
-      "name": "Cabo USB impressora",
+      "name": "CABO USB PARA IMPRESSORA",
       "slug": "cabo-usb-impressora",
-      "description": "Cabo USB impressora",
+      "description": "CABO USB PARA IMPRESSORA",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3205,13 +3198,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-10-08T13:33:10.125Z"
+      "updatedAt": "2026-10-09T15:30:54.016Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
-      "name": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+      "name": "CABO DE ENERGIA MOLEX DE 4 PINOS PARA 2 CONECTORES SATA DE 15 PINOS",
       "slug": "cabo-adaptador-de-energia-molex-de-4-pinos-para-dois-conectores-sata-de-15-pinos",
-      "description": "Cabo adaptador de energia Molex de 4 pinos para dois conectores SATA de 15 pinos",
+      "description": "CABO DE ENERGIA MOLEX DE 4 PINOS PARA 2 CONECTORES SATA DE 15 PINOS",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3229,13 +3222,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-10-08T13:33:10.126Z"
+      "updatedAt": "2026-10-09T15:30:54.017Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
-      "name": "Cabo HDMI 1.8",
+      "name": "CABO HDMI 1.8",
       "slug": "cabo-hdmi-1-8",
-      "description": "Cabo HDMI",
+      "description": "CABO HDMI 1.8",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3253,13 +3246,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-10-08T13:33:10.126Z"
+      "updatedAt": "2026-10-09T15:30:54.018Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
-      "name": "Switch de rede 5 portas",
+      "name": "SWITCH DE REDE 5 PORTAS",
       "slug": "switch-de-rede-5-portas",
-      "description": "Switch de rede 5 portas",
+      "description": "SWITCH DE REDE 5 PORTAS",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -3277,13 +3270,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-10-08T13:33:10.127Z"
+      "updatedAt": "2026-10-09T15:30:54.019Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
-      "name": "Microfone de lapela sem fio K9",
+      "name": "MICROFONE DE LAPELA SEM FIO K9",
       "slug": "microfone-de-lapela-sem-fio-k9",
-      "description": "Microfone de lapela sem fio K9",
+      "description": "MICROFONE DE LAPELA SEM FIO K9",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -3301,13 +3294,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-10-08T13:33:10.128Z"
+      "updatedAt": "2026-10-09T15:30:54.019Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
-      "name": "Cabo de rede UTP Cat6",
+      "name": "CABO DE RESE UTP CAT6",
       "slug": "cabo-de-rede-utp-cat6",
-      "description": "Cabo de rede UTP Cat6",
+      "description": "CABO DE RESE UTP CAT6",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3325,15 +3318,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-10-08T13:33:10.129Z"
+      "updatedAt": "2026-10-09T15:30:54.020Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
-      "name": "Router TP-LINK Deco S7 AC1900 Dual-Band",
+      "name": "ROUTER TP-LINK DECO S7 AC1900 DUAL-BAND",
       "slug": "router-tp-link-deco-s7-ac1900-dual-band",
-      "description": "Router TP-LINK Deco S7 AC1900 Dual-Band Wifi 5 Gigabit Mesh Pack-2",
-      "category": "Produtos",
-      "categoryId": "cat-19",
+      "description": "ROUTER TP-LINK DECO S7 AC1900 DUAL-BAND WI-FI 5 GIGABIT MESH PACK-2",
+      "category": "Redes e Internet",
+      "categoryId": "cat-6",
       "brand": null,
       "price": 120000,
       "image": "/uploads/photoroom_20260902_083249-1789997438996.jpg",
@@ -3349,15 +3342,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-10-08T13:33:10.129Z"
+      "updatedAt": "2026-10-09T15:30:54.021Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
-      "name": "Memoria KR M471A1K43EB1-CWE2239",
+      "name": "MEMÓRIA KR M471A1K43EB1-CWE2239",
       "slug": "memoria-kr-m471a1k43eb1-cwe2239",
-      "description": "Memoria KR M471A1K43EB1-CWE2239",
-      "category": "Periféricos de Computador",
-      "categoryId": "cat-4",
+      "description": "MEMÓRIA KR M471A1K43EB1-CWE2239",
+      "category": "Armazenamento",
+      "categoryId": "cat-5",
       "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083230-1790003007444.jpg",
@@ -3373,15 +3366,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-10-08T13:33:10.130Z"
+      "updatedAt": "2026-10-09T15:30:54.022Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
-      "name": "Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8",
+      "name": "CARREGADOR DE TOMADA BIVOLT",
       "slug": "carregador-de-tomada-bivolt-com-cabo-integrado-de-conector-micro-usb-padrao-v8",
-      "description": "Carregador de tomada bivolt com cabo integrado de conector Micro-USB padrão V8",
-      "category": "Cabos e Conectividade",
-      "categoryId": "cat-8",
+      "description": "CARREGADOR DE TOMADA BIVOLT COM CABO INTEGRADO DE CONECTOR MICRO-USB PADRÃO V8",
+      "category": "Smartphones e Telemóveis",
+      "categoryId": "cat-2",
       "brand": null,
       "price": null,
       "image": "/uploads/photoroom_20260902_083215-1790004511505.jpg",
@@ -3397,13 +3390,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-10-08T13:33:10.132Z"
+      "updatedAt": "2026-10-09T15:30:54.023Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
-      "name": "Organização de cabos",
+      "name": "MANGA FLEXÍVE EWENT EW1557 / ORGANIZADOR DE CABOS",
       "slug": "organizacao-de-cabos",
-      "description": "Organização de cabos",
+      "description": "MANGA FLEXÍVE EWENT EW1557 / ORGANIZADOR DE CABOS COM FECHO 1000x85MM",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3421,13 +3414,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-10-08T13:33:10.133Z"
+      "updatedAt": "2026-10-09T15:30:54.024Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
-      "name": "Coluna de som portátil JBL Charge 6",
+      "name": "COLUNA DE SOM PORTÁTIL JBL CHARGE 6",
       "slug": "coluna-de-som-portatil-jbl-charge-6",
-      "description": "Coluna de som portátil JBL Charge 6",
+      "description": "COLUNA DE SOM PORTÁTIL JBL CHARGE 6",
       "category": "Áudio",
       "categoryId": "cat-12",
       "brand": null,
@@ -3445,13 +3438,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-10-08T13:33:10.134Z"
+      "updatedAt": "2026-10-09T15:30:54.024Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
-      "name": "Roteador sem fio LB-LINK N300",
+      "name": "ROTEADOR SEM FIO LB-LINK N300",
       "slug": "roteador-sem-fio-lb-link-n300",
-      "description": "Roteador sem fio LB-LINK N300- Velocidade wi-fi de 300 Mbps-4 antenas de alto ganho",
+      "description": "ROTEADOR SEM FIO LB-LINK N300 - VELOCIDADE WI-FE DE 300MBPS-4 ANTENAS DE ALTO GANHO",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -3469,13 +3462,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-10-08T13:33:10.135Z"
+      "updatedAt": "2026-10-09T15:30:54.025Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
-      "name": "Cabo HDTV 2Kx4K",
+      "name": "CABO HDTV 2Kx4K",
       "slug": "cabo-hdtv-2kx4k",
-      "description": "Cabo HDTV 2Kx4K",
+      "description": "CABO HDTV 2Kx4K",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3493,15 +3486,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-10-08T13:33:10.136Z"
+      "updatedAt": "2026-10-09T15:30:54.026Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
-      "name": "Adaptador HDTV para VGA",
+      "name": "ADAPTADOR HDTV PARA VGA",
       "slug": "adaptador-hdtv-para-vga",
-      "description": "Adaptador HDTV para VGA",
-      "category": "Cabos e Conectividade",
-      "categoryId": "cat-8",
+      "description": "ADAPTADOR HDTV PARA VGA",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 12000,
       "image": "/uploads/photoroom_20260901_112255-1790000193635.jpg",
@@ -3517,13 +3510,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-10-08T13:33:10.136Z"
+      "updatedAt": "2026-10-09T15:30:54.027Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
-      "name": "Cabo VGA macho para macho",
+      "name": "CABO VGA MACHO PARA MACHO",
       "slug": "cabo-vga-macho-para-macho",
-      "description": "Cabo VGA macho para macho",
+      "description": "CABO VGA MACHO PARA MACHO",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3541,15 +3534,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-08T13:33:10.137Z"
+      "updatedAt": "2026-10-09T15:30:54.028Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
-      "name": "Adaptador UGREEN Active HDMI Femea para VGA",
+      "name": "ADAPTADOR UGREEN ACTIVE HDMI FÊMEA PARA VGA",
       "slug": "adaptador-ugreen-active-hdmi-femea-para-vga",
-      "description": "Adaptador UGREEN Active HDMI Femea para VGA Macho com cabo curto e conector preto.",
-      "category": "Cabos e Conectividade",
-      "categoryId": "cat-8",
+      "description": "ADAPTADOR UGREEN ACTIVE HDMI FÊMEA PARA VGA MACHO COM CABO CURTO E CONECTOR PRETO",
+      "category": "Adaptadores e Conversores",
+      "categoryId": "cat-9",
       "brand": null,
       "price": 12000,
       "image": "/uploads/photoroom_20260831_151406-1789999422058.jpg",
@@ -3565,13 +3558,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-10-08T13:33:10.139Z"
+      "updatedAt": "2026-10-09T15:30:54.028Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
-      "name": "Cabo multi-carregador USB 3 em 1",
+      "name": "CABO MULTI-CARREGADOR USB 3 EM 1",
       "slug": "cabo-multi-carregador-usb-3-em-1",
-      "description": "Cabo multi-carregador USB 3 em 1 .Com revestimento em Nylon trançado na cor preta, apresentado um conector USB-A padrão em uma ponta e três saídas deferentes",
+      "description": "CABO MULTI-CARREGADOR USB 3 EM 1. COM REVESTIMENTO EM NYLON TRANÇADO NA COR PRETA, APRESENTADO UM CONECTOR USB-A PADRÃO EM UMA PONTA E TRÊS SAIDAS DIFERENTES.",
       "category": "Cabos e Conectividade",
       "categoryId": "cat-8",
       "brand": null,
@@ -3589,13 +3582,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-10-08T13:33:10.140Z"
+      "updatedAt": "2026-10-09T15:30:54.029Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
-      "name": "Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.",
+      "name": "ADAPTADOR MICRO USB V8 FÊMEA PARA USB-C TIPO C MACHO",
       "slug": "adaptador-micro-usb-v8-femea-para-usb-c-tipo-c-macho",
-      "description": "Adaptador Micro USB V8 Fêmea para USB-C Tipo C macho.",
+      "description": "ADAPTADOR MICRO USB V8 FÊMEA PARA USB-C TIPO C MACHO",
       "category": "Adaptadores e Conversores",
       "categoryId": "cat-9",
       "brand": null,
@@ -3613,13 +3606,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-10-08T13:33:10.141Z"
+      "updatedAt": "2026-10-09T15:30:54.030Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
-      "name": "Tinteiro",
+      "name": "TINTEIRO",
       "slug": "tinteiro",
-      "description": "Tinteiro",
+      "description": "TINTEIRO",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -3637,15 +3630,15 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-10-08T13:33:10.141Z"
+      "updatedAt": "2026-10-09T15:30:54.031Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
-      "name": "Cassete de etiquetar Dy MOD1 de 9mm",
+      "name": "CASSETE DE ETIQUETAR DY MOD1 DE 9MM",
       "slug": "cassete-de-etiquetar-dy-mod1-de-9mm",
-      "description": "Cassete de etiquetar Dy MOD1 de 9mm",
-      "category": "Acessórios de Computador",
-      "categoryId": "cat-11",
+      "description": "CASSETE DE ETIQUETAR DY MOD1 DE 9MM",
+      "category": "Impressoras e Consumíveis",
+      "categoryId": "cat-14",
       "brand": null,
       "price": 10000,
       "image": "/uploads/photoroom_20260831_145749-1790000796524.jpg",
@@ -3661,13 +3654,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-10-08T13:33:10.142Z"
+      "updatedAt": "2026-10-09T15:30:54.032Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
-      "name": "Impressora Konica Minolta Bizhub 36A",
+      "name": "IMPRESSORA KONICA MINOLTA BIZHUB 36A",
       "slug": "impressora-konica-minolta-bizhub-36a",
-      "description": "Impressora Konica Minolta Bizhub 36A",
+      "description": "IMPRESSORA KONICA MINOLTA BIZHUB 36A",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -3685,13 +3678,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-10-08T13:33:10.144Z"
+      "updatedAt": "2026-10-09T15:30:54.032Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
-      "name": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "name": "IMPRESSORA HP DESKJET AIO 2323 7.5 PPMC/FIO",
       "slug": "impressora-hp-deskjet-aio-2323-7-5-ppmc-fio",
-      "description": "Impressora HP Deskjet AIO 2323 7.5 PPMC/Fio",
+      "description": "IMPRESSORA HP DESKJET AIO 2323 7.5 PPMC/FIO",
       "category": "Impressoras e Consumíveis",
       "categoryId": "cat-14",
       "brand": null,
@@ -3709,13 +3702,13 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-10-08T13:33:10.145Z"
+      "updatedAt": "2026-10-09T15:30:54.033Z"
     },
     {
       "id": "prod-1788945524001-0f01",
-      "name": "Hostpot Router Wifi 4G LTE",
+      "name": "HOSTPOT ROUTER WI-FI 4G LTE",
       "slug": "hostpot-router-wifi-4g-lte",
-      "description": "Hostpot Router Wifi 4G LTE 3000mAh 150Mbps 10 User",
+      "description": "HOSTPOT ROUTER WI-FI 4G LTE 3000MAH 150MBPS 10 USER",
       "category": "Redes e Internet",
       "categoryId": "cat-6",
       "brand": null,
@@ -3733,7 +3726,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-10-08T13:33:10.146Z"
+      "updatedAt": "2026-10-09T15:30:54.034Z"
     }
   ],
   "categories": [
@@ -3896,21 +3889,48 @@
       "description": null,
       "order": 20,
       "hideWhenEmpty": false
+    },
+    {
+      "id": "cat-1791557620440",
+      "name": "Baterias e Pilhas",
+      "icon": "Package",
+      "description": null,
+      "order": 21,
+      "hideWhenEmpty": false
+    },
+    {
+      "name": "Materiais Elétricos",
+      "icon": "Package",
+      "description": "",
+      "order": 22,
+      "hideWhenEmpty": false,
+      "id": "cat-1791559853755"
     }
   ],
   "orders": [
     {
+      "id": "order-1791471699426",
+      "orderNumber": "PED-2026-7824",
+      "customerId": null,
       "customerName": "Jey Suco",
       "customerEmail": "jedysucosuco@gmail.com",
       "customerPhone": "932847952",
-      "whatsappPhone": "932847952",
-      "botStatus": "bot_active",
       "customerCompany": "Javisis",
-      "customerNif": "",
+      "customerNif": null,
       "customerCity": "Luanda",
       "customerAddress": "Vila de Viana, Luanda",
       "deliveryMethod": "levantamento_sede",
       "paymentMethod": "transferencia",
+      "total": 294600,
+      "status": "novo",
+      "notes": null,
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "receiptUrl": null,
+      "receiptFilename": null,
+      "conversationHistory": null,
+      "createdAt": "2026-10-08T15:01:39.426Z",
+      "updatedAt": "2026-10-08T15:01:39.441Z",
       "items": [
         {
           "productId": "prod-rec-1790066189556-26",
@@ -3947,14 +3967,7 @@
           "quantity": 1,
           "image": "/uploads/images_1_76_-1791209662302.jpg"
         }
-      ],
-      "total": 294600,
-      "status": "novo",
-      "notes": "",
-      "id": "order-1791471699426",
-      "orderNumber": "PED-2026-7824",
-      "createdAt": "2026-10-08T15:01:39.426Z",
-      "updatedAt": "2026-10-08T15:01:39.426Z"
+      ]
     },
     {
       "id": "order-1790768022848",
@@ -4006,16 +4019,17 @@
   ],
   "leads": [
     {
+      "id": "lead-1791471551490",
       "name": "Javisi",
       "email": "jedysucosuco@gmail.com",
       "phone": "987654536",
       "service": "Instalação e Manutenção",
       "message": "Preciso de instalação de sistemas operacionais nos computadores da minha empresa",
-      "source": "Sítio: Formulário de Cotação",
-      "id": "lead-1791471551490",
       "status": "novo",
+      "notes": null,
+      "source": "Sítio: Formulário de Cotação",
       "createdAt": "2026-10-08T14:59:11.490Z",
-      "updatedAt": "2026-10-08T14:59:11.490Z"
+      "updatedAt": "2026-10-08T14:59:11.502Z"
     },
     {
       "id": "lead-1791458375122",
@@ -4203,15 +4217,16 @@
   ],
   "eventRegistrations": [
     {
+      "id": "reg-1791471590043-04od",
       "eventId": "evt-1",
-      "eventTitle": "Bootcamp Tecnológico",
-      "customerId": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
       "name": "Jey Suco",
       "email": "jedysucosuco@gmail.com",
       "phone": "932847952",
+      "company": null,
+      "position": null,
       "status": "pendente",
-      "id": "reg-1791471590043-04od",
-      "createdAt": "2026-10-08T14:59:50.043Z"
+      "ticketCode": null,
+      "registeredAt": "2026-10-08T14:59:50.067Z"
     }
   ],
   "jobs": [
@@ -4287,8 +4302,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "2",
@@ -4300,8 +4315,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "3",
@@ -4313,8 +4328,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "4",
@@ -4326,8 +4341,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "5",
@@ -4339,8 +4354,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     }
   ],
   "partners": [
@@ -4352,8 +4367,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-2",
@@ -4363,8 +4378,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-3",
@@ -4374,8 +4389,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-4",
@@ -4385,8 +4400,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-5",
@@ -4396,8 +4411,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-6",
@@ -4407,8 +4422,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-7",
@@ -4418,8 +4433,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-8",
@@ -4429,8 +4444,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-9",
@@ -4440,8 +4455,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-10",
@@ -4451,8 +4466,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-11",
@@ -4462,8 +4477,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-12",
@@ -4473,8 +4488,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-13",
@@ -4484,8 +4499,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     },
     {
       "id": "partner-14",
@@ -4495,8 +4510,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-08T14:17:08.327Z",
-      "updatedAt": "2026-10-08T14:17:08.327Z"
+      "createdAt": "2026-10-09T15:30:23.019Z",
+      "updatedAt": "2026-10-09T15:30:23.019Z"
     }
   ],
   "projects": [
@@ -5012,7 +5027,7 @@
       "reservationNumber": "RES-2026-6347",
       "productId": "prod-1790258033587-3dxx",
       "customerId": null,
-      "productName": "Extensão UPS Ewent de 6 entradas",
+      "productName": "EXTENSÃO UPS EWENT DE 6 ENTRADAS",
       "productImage": "/uploads/photoroom_20260831_150659-1790258027351.jpg",
       "productPrice": null,
       "customerName": "Jedy Suco",
@@ -5143,9 +5158,73 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-08T13:33:10.206Z"
+    "updatedAt": "2026-10-09T14:58:23.334Z"
   },
   "activities": [
+    {
+      "id": "act-1791560082675-lij1",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"WESTERN DIGITAL CAVIAR BLUE MODELO WD5000AAKX\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:34:42.675Z"
+    },
+    {
+      "id": "act-1791560048659-qq0c",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"VIDEO BALUN HIKVISION DS 1H18S\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:34:08.659Z"
+    },
+    {
+      "id": "act-1791560032355-cuan",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"UPS PULSTAR LINE INTERACTIVE UPS\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:33:52.355Z"
+    },
+    {
+      "id": "act-1791559958372-ynz1",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:32:38.372Z"
+    },
+    {
+      "id": "act-1791559947003-voui",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:32:27.003Z"
+    },
+    {
+      "id": "act-1791559886540-22fr",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TOMADA DE HJT\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:31:26.540Z"
+    },
+    {
+      "id": "act-1791559877356-kef1",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TOMADA DE DUAS ENTRADAS\"",
+      "module": "produtos",
+      "timestamp": "2026-10-09T15:31:17.356Z"
+    },
+    {
+      "id": "act-1791559853755-ufxk",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Adicionou categoria \"Materiais Elétricos\"",
+      "module": "categorias",
+      "timestamp": "2026-10-09T15:30:53.755Z"
+    },
     {
       "id": "cmumjxiil0001utds2zw488t9",
       "userId": "user-admin-ao",
@@ -5564,96 +5643,6 @@
       "target": "",
       "targetId": null,
       "timestamp": "2026-09-24T14:17:42.937Z",
-      "details": null
-    },
-    {
-      "id": "act-1790259428504-a7we",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Mochila Wenjié\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:17:08.504Z",
-      "details": null
-    },
-    {
-      "id": "act-1790259392674-lg8n",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Mochila Wenjié\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:16:32.674Z",
-      "details": null
-    },
-    {
-      "id": "act-1790259368867-3e5t",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Mochila Wenjié\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:16:08.867Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258779410-cbh4",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Teclado numérico com fio exbom preto\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:06:19.410Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258717179-8onh",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Mini impressora térmica portátil de 58mm\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:05:17.179Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258525419-418j",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Smart TV 50P\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T14:02:05.419Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258391445-8e7z",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Smart TV 50P\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:59:51.445Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258337491-kqxm",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Medidor de potencia óptica portátil\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:58:57.491Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258295107-i33p",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"TP-Link TL-WR840N\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:58:15.107Z",
       "details": null
     }
   ],
