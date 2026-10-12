@@ -368,8 +368,8 @@ function CheckoutContent() {
                   <span>Regime Geral</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
-                  <span>Custo de Envio:</span>
-                  <span className="text-emerald-700 font-bold">Grátis</span>
+                  <span>Custo de Envio (Empresas):</span>
+                  <span className="text-slate-900 font-bold">Com taxa adicional</span>
                 </div>
                 <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
                   <span>Total do Pedido:</span>
@@ -658,10 +658,10 @@ function CheckoutContent() {
                       </div>
                       <p className="font-bold text-sm text-slate-900">Entrega em Luanda</p>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Talatona, Kilamba, Maianga, Viana, Belas (24 a 48 horas).
+                        Talatona, Kilamba, Maianga, Viana, Belas (24 a 48h). Com taxa adicional para empresas.
                       </p>
                     </div>
-                    <span className="mt-3 font-bold text-emerald-600 text-xs">Grátis</span>
+                    <span className="mt-3 font-bold text-slate-900 text-xs">Com taxa adicional</span>
                   </label>
 
                   <label
@@ -904,8 +904,8 @@ function CheckoutContent() {
                     <span>Incluso</span>
                   </div>
                   <div className="flex justify-between text-slate-600">
-                    <span>Envio / Entrega:</span>
-                    <span className="font-bold text-emerald-600">Grátis</span>
+                    <span>Envio / Entrega (Empresas):</span>
+                    <span className="font-bold text-slate-900">Com taxa adicional</span>
                   </div>
                 </div>
 

@@ -1462,8 +1462,8 @@ function ClientePerfilContent() {
                       <span>Regime Geral</span>
                     </div>
                     <div className="flex justify-between text-slate-600">
-                      <span>Custo de Envio:</span>
-                      <span className="text-blue-700 font-bold">Grátis</span>
+                      <span>Custo de Envio (Empresas):</span>
+                      <span className="text-slate-900 font-bold">Com taxa adicional</span>
                     </div>
                     <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
                       <span>Total Liquidado:</span>

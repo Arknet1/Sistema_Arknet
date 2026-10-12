@@ -23,7 +23,6 @@ import {
   Wrench as WrenchIcon,
   ChevronDown,
   HelpCircle,
-  Zap,
 } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { mockServices } from '@/lib/mock-data'
@@ -232,7 +231,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <div key={bIdx} className="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
                     <div>
                       <div className="p-2 w-fit bg-primary/10 text-primary rounded-md mb-3">
-                        <Zap className="h-4 w-4" />
+                        <CheckCircle2 className="h-4 w-4" />
                       </div>
                       <h3 className="font-bold text-slate-900 text-sm mb-2">
                         {bItem.title}

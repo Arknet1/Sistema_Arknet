@@ -593,7 +593,7 @@ export function generateDomingasResponse(
   if (intent === 'delivery_info') {
     sessionStore.setLastTopic(phone, 'entrega')
     return makeReply({
-      text: `O prazo e a cobertura dependem do produto e da localização. Diga-me o artigo e a província ou município para eu encaminhar a confirmação correta à equipa.`,
+      text: `Para empresas e clientes em Luanda ou províncias, as entregas são coordenadas com taxa adicional de transporte conforme a localização, ou com levantamento na nossa sede. Diga-me o artigo e o município da sua empresa para eu encaminhar os detalhes à equipa.`,
     })
   }
 

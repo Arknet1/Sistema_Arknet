@@ -13,7 +13,7 @@ import {
   Target,
   Eye,
   Award,
-  Zap,
+  Cpu,
   Headphones,
   Building2,
   Sparkles,
@@ -52,7 +52,7 @@ const itemVariants = {
 }
 
 const whyIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-  Zap: Zap,
+  Cpu: Cpu,
   ShieldCheck: ShieldCheck,
   Headphones: Headphones,
   TrendingUp: TrendingUp,
@@ -335,22 +335,22 @@ export default function EmpresaClient() {
                   title: 'Excelência Técnica',
                   desc: 'Compromisso intransigente com as melhores práticas de engenharia e padrões internacionais.',
                   icon: Award,
-                  badgeColor: 'text-blue-600 bg-blue-50 border-blue-200',
-                  accentColor: 'bg-blue-500',
+                  badgeColor: 'text-primary bg-primary/10 border-primary/20',
+                  accentColor: 'bg-primary',
                 },
                 {
                   title: 'Inovação & Futuro',
                   desc: 'Tecnologias de ponta preparadas para escalar e responder aos desafios digitais modernos.',
-                  icon: Zap,
-                  badgeColor: 'text-amber-600 bg-amber-50 border-amber-200',
-                  accentColor: 'bg-amber-500',
+                  icon: Cpu,
+                  badgeColor: 'text-secondary bg-secondary/10 border-secondary/20',
+                  accentColor: 'bg-secondary',
                 },
                 {
                   title: 'Segurança & Fiabilidade',
                   desc: 'Proteção máxima de dados, estabilidade operacional e arquiteturas redundantes.',
                   icon: ShieldCheck,
-                  badgeColor: 'text-emerald-600 bg-emerald-50 border-emerald-200',
-                  accentColor: 'bg-emerald-500',
+                  badgeColor: 'text-primary bg-primary/10 border-primary/20',
+                  accentColor: 'bg-primary',
                 },
               ].map((val, idx) => {
                 const ValIcon = val.icon
@@ -418,7 +418,7 @@ export default function EmpresaClient() {
             {executiveTeam.map((executive, index) => {
               const fallbackImages = [executiveGeneral, executiveTechnical, executiveCommercial, executiveGeneral]
               const executiveIcons = [Building2, ShieldCheck, Handshake, Briefcase]
-              const executiveAccents = ['bg-primary', 'bg-secondary', 'bg-amber-500', 'bg-sky-500']
+              const executiveAccents = ['bg-primary', 'bg-secondary', 'bg-primary', 'bg-secondary']
               const ExecutiveIcon = executiveIcons[index] || Building2
               const executiveImage = executive.image || fallbackImages[index] || executiveGeneral
               return (
@@ -478,7 +478,7 @@ export default function EmpresaClient() {
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {mockWhyChooseUs.map((item, index) => {
-              const Icon = whyIcons[item.icon] || Zap
+              const Icon = whyIcons[item.icon] || Cpu
               const number = String(index + 1).padStart(2, '0')
 
               return (

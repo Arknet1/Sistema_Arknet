@@ -32,36 +32,21 @@ export default function Services() {
           {servicos.map((item, index) => {
             const Icon = item.icon
             return (
-              <div
+              <motion.div
                 key={item.title}
-                onMouseMove={(e) => {
-                  const el = e.currentTarget
-                  const rect = el.getBoundingClientRect()
-                  const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14
-                  const y = ((e.clientY - rect.top) / rect.height - 0.5) * -14
-                  el.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg) scale(1.02)`
-                  el.style.transition = 'transform 0.08s ease'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)'
-                  e.currentTarget.style.transition = 'transform 0.55s ease'
-                }}
-                style={{ transformStyle: 'preserve-3d' }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="group p-8 bg-white border border-slate-200 hover:border-primary/60 hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full hover:-translate-y-1"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className="group p-8 bg-white border border-slate-200 hover:border-primary/40 hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full"
-                >
-                  {/* Top accent bar on hover */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                {/* Top accent bar on hover */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
-                  <div>
-                    <div className="mb-6 p-3 w-fit bg-slate-900 text-white group-hover:bg-primary transition-colors duration-300 rounded-lg">
-                      <Icon className="h-6 w-6" />
-                    </div>
+                <div>
+                  <div className="mb-6 p-3 w-fit bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-colors duration-300 rounded-lg">
+                    <Icon className="h-6 w-6" />
+                  </div>
 
                     <h3 className="text-lg font-bold text-slate-900 mb-3">
                       {item.title}
@@ -82,9 +67,8 @@ export default function Services() {
                     </Link>
                   </div>
                 </motion.div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
 
         {/* Ver todos os serviços */}

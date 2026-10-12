@@ -30,7 +30,7 @@ import {
   TrendingDown,
   Boxes,
   Warehouse,
-  Zap,
+  PackagePlus,
   RefreshCw,
   Copy,
 } from 'lucide-react'
@@ -1143,7 +1143,7 @@ export default function AdminProdutosPage() {
                             className="text-[10px] font-bold text-primary hover:underline flex items-center gap-0.5 cursor-pointer"
                             title="Entrada rápida de stock em armazém"
                           >
-                            <Zap className="h-3 w-3" />
+                            <PackagePlus className="h-3 w-3" />
                             Repor Stock
                           </button>
 
@@ -2045,7 +2045,7 @@ export default function AdminProdutosPage() {
             <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="p-2 bg-primary/10 text-primary rounded">
-                  <Zap className="h-5 w-5" />
+                  <PackagePlus className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-extrabold text-slate-900">Entrada Rápida de Stock</h3>

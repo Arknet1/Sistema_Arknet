@@ -223,8 +223,8 @@ export default function CarrinhoPage() {
                   <span className="font-semibold text-slate-800">Incluso / Regime Geral</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
-                  <span>Entrega em Luanda:</span>
-                  <span className="font-bold text-emerald-600">Grátis / A combinar</span>
+                  <span>Entrega para Empresas / Luanda:</span>
+                  <span className="font-bold text-slate-900">Com taxa adicional</span>
                 </div>
               </div>
 

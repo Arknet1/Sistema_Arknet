@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   ArrowLeft,
+  ArrowRight,
   ShoppingCart,
   Trash2,
   Check,
@@ -14,14 +15,11 @@ import {
   FileText,
   Share2,
   ChevronRight,
-  Sparkles,
   Minus,
   Plus,
   MessageCircle,
   ExternalLink,
   Layers,
-  Cpu,
-  Zap,
   Heart,
   PackagePlus,
   CheckCircle2,
@@ -440,19 +438,18 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 {/* Badges Flutuantes */}
                 <div className="absolute top-4 left-4 flex flex-col gap-1.5">
                   {product.featured && (
-                    <span className="px-3 py-1 bg-amber-500 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
-                      <Sparkles className="h-3 w-3" />
+                    <span className="px-3 py-1 bg-secondary text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm">
                       Destaque ARKNET
                     </span>
                   )}
                   {!isOutOfStock ? (
-                    <span className="px-3 py-1 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
-                      <Check className="h-3 w-3" />
+                    <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1 border border-slate-800">
+                      <Check className="h-3 w-3 text-primary" />
                       Disponível em Stock
                     </span>
                   ) : (
-                    <span className="px-3 py-1 bg-amber-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1">
-                      <Truck className="h-3 w-3" />
+                    <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm flex items-center gap-1 border border-slate-800">
+                      <Truck className="h-3 w-3 text-secondary" />
                       Em Trânsito / Reserva Aberta
                     </span>
                   )}
@@ -748,9 +745,9 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                           <button
                             type="button"
                             onClick={() => handleAddToCart(true)}
-                            className="flex-1 px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                            className="flex-1 px-6 py-4 bg-secondary hover:bg-secondary/90 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                           >
-                            <Zap className="h-4 w-4" />
+                            <ArrowRight className="h-4 w-4" />
                             <span>Comprar Já / Checkout</span>
                           </button>
                         </>
@@ -769,7 +766,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     <button
                       type="button"
                       onClick={() => setIsReserveModalOpen(true)}
-                      className="flex-1 px-6 py-4 bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                      className="flex-1 px-6 py-4 bg-primary hover:bg-primary/90 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <PackagePlus className="h-4 w-4" />
                       <span>Fazer Reserva Desta Configuração (Prioridade)</span>
@@ -779,8 +776,8 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
                 {/* Banner Informativo para Produtos em Trânsito */}
                 {isOutOfStock && (
-                  <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 flex items-start gap-3">
-                    <Truck className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 flex items-start gap-3">
+                    <Truck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                     <div>
                       <p className="font-bold">Equipamento em Trânsito para Angola</p>
                       <p className="text-slate-600 text-[11px] mt-0.5 leading-relaxed">
@@ -918,8 +915,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
               <div className="grid sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-                  <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5 flex items-center gap-1.5">
-                    <Cpu className="h-4 w-4 text-primary" />
+                  <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5">
                     Cenários &amp; Aplicações Recomendadas
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed">
@@ -928,8 +924,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 </div>
 
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-                  <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5 flex items-center gap-1.5">
-                    <Zap className="h-4 w-4 text-amber-600" />
+                  <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5">
                     Integração com o Ecossistema ARKNET
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed">
@@ -1005,11 +1000,11 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
           {/* Tab 4: Garantia & Assistência */}
           {activeTab === 'garantia' && (
             <div className="p-6 sm:p-10 text-slate-700 text-xs leading-relaxed space-y-6">
-              <div className="flex items-center gap-4 p-5 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-950">
-                <ShieldCheck className="h-10 w-10 text-emerald-600 shrink-0" />
+              <div className="flex items-center gap-4 p-5 bg-primary/5 border border-primary/20 rounded-2xl text-slate-900">
+                <ShieldCheck className="h-10 w-10 text-primary shrink-0" />
                 <div>
-                  <h4 className="font-black text-sm uppercase">Garantia Oficial ARKNET em Angola</h4>
-                  <p className="text-xs text-emerald-800 mt-1">
+                  <h4 className="font-black text-sm uppercase text-slate-900">Garantia Oficial ARKNET em Angola</h4>
+                  <p className="text-xs text-slate-600 mt-1">
                     Todos os equipamentos comercializados contam com garantia oficial contra defeitos de fabrico e suporte local a partir da nossa sede em Luanda.
                   </p>
                 </div>
@@ -1040,11 +1035,11 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 
                 <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
                   <h4 className="font-black text-xs uppercase text-slate-900 flex items-center gap-1.5">
-                    <Truck className="h-4 w-4 text-emerald-600" />
+                    <Truck className="h-4 w-4 text-primary" />
                     Entrega em Luanda
                   </h4>
                   <p className="text-slate-600">
-                    Entrega rápida em 24h a 48h na província de Luanda (Talatona, Viana, Cazenga, Kilamba, etc.) ou levantamento direto nas nossas instalações.
+                    Despacho em 24h a 48h na província de Luanda (Talatona, Viana, Cazenga, Kilamba, etc.). Para empresas e clientes corporativos, a entrega é efetuada com taxa adicional, ou com levantamento na nossa sede.
                   </p>
                 </div>
 
@@ -1060,7 +1055,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
                 <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
                   <h4 className="font-black text-xs uppercase text-slate-900 flex items-center gap-1.5">
-                    <FileText className="h-4 w-4 text-indigo-600" />
+                    <FileText className="h-4 w-4 text-primary" />
                     Métodos de Pagamento
                   </h4>
                   <p className="text-slate-600">

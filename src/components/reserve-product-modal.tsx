@@ -129,8 +129,8 @@ export default function ReserveProductModal({
             <X className="h-5 w-5" />
           </button>
 
-          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded-full w-fit mb-2">
-            <Truck className="h-3.5 w-3.5" />
+          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-white/90 bg-white/10 border border-white/20 px-3 py-1 rounded-full w-fit mb-2">
+            <Truck className="h-3.5 w-3.5 text-secondary" />
             <span>Produto em trânsito ou em reposição</span>
           </div>
 
@@ -172,7 +172,7 @@ export default function ReserveProductModal({
                 <span className="text-xs font-black text-primary">
                   {formatProdutoPrice(product.price)}
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">
                   <Clock className="h-2.5 w-2.5" /> Em Trânsito
                 </span>
               </div>

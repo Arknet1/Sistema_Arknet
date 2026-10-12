@@ -147,7 +147,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => !customer ? setUserDropdownOpen(!userDropdownOpen) : null}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-500 hover:text-white text-xs font-bold uppercase tracking-wider rounded transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-white text-xs font-bold uppercase tracking-wider rounded transition"
               >
                 <ShieldCheck className="h-3.5 w-3.5" />
                 <span>Administração</span>
@@ -159,7 +159,7 @@ export default function Navbar() {
                   <div className="p-4 bg-gradient-to-r from-slate-900 to-slate-800 text-white">
                     <p className="text-xs font-bold text-white truncate">{adminUser.name}</p>
                     <p className="text-[11px] text-slate-400 font-mono truncate mt-0.5">{adminUser.email}</p>
-                    <span className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 bg-amber-950 border border-amber-700 text-amber-400 text-[9px] font-bold uppercase rounded-full">
+                    <span className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 bg-primary/30 border border-primary/50 text-white text-[9px] font-bold uppercase rounded-full">
                       <ShieldCheck className="h-2.5 w-2.5" />
                       Administrador
                     </span>
@@ -392,11 +392,11 @@ export default function Navbar() {
 
                 {/* Admin Link in Mobile Menu */}
                 {adminUser && (
-                  <div className="space-y-2 pt-2 border-t border-amber-200">
+                  <div className="space-y-2 pt-2 border-t border-slate-200">
                     <Link
                       href="/admin"
                       onClick={() => setOpen(false)}
-                      className="p-3 bg-amber-500/10 border border-amber-500/30 text-amber-700 text-sm font-bold uppercase flex items-center justify-between rounded"
+                      className="p-3 bg-primary/10 border border-primary/20 text-primary text-sm font-bold uppercase flex items-center justify-between rounded"
                     >
                       <div className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4" />

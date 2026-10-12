@@ -1,11 +1,11 @@
 'use client'
 
 import { motion } from "framer-motion"
-import { Zap, ShieldCheck, Headphones, TrendingUp, Clock, Award, ArrowRight } from "lucide-react"
+import { Cpu, ShieldCheck, Headphones, TrendingUp, Clock, Award, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { mockWhyChooseUs } from "@/lib/mock-data"
 
-const icons = [Zap, ShieldCheck, Headphones, TrendingUp, Clock, Award]
+const icons = [Cpu, ShieldCheck, Headphones, TrendingUp, Clock, Award]
 
 const headerVariants = {
   hidden: {},
@@ -83,13 +83,11 @@ export default function PorqueNosEscolher() {
                 </motion.span>
 
                 <div className="relative z-10">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="mb-6 p-3 w-fit bg-primary/20 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300"
+                  <div
+                    className="mb-6 p-3.5 w-fit bg-primary/10 border border-primary/20 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 rounded"
                   >
                     <Icon className="h-6 w-6" />
-                  </motion.div>
+                  </div>
 
                   <h3 className="text-lg font-bold text-white mb-3">
                     {item.title}

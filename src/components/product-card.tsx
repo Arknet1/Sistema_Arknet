@@ -132,7 +132,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </Link>
 
           {product.featured && !isOutOfStock && (
-            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
+            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-secondary text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 shadow-xs pointer-events-none">
               Destaque
             </span>
           )}
@@ -144,8 +144,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
 
           {isOutOfStock && (
-            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-amber-600 text-white text-[10px] sm:text-xs font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded shadow-xs pointer-events-none flex items-center gap-1">
-              <Truck className="h-3 w-3" />
+            <span className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-slate-900/90 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded shadow-xs pointer-events-none flex items-center gap-1 border border-slate-700">
+              <Truck className="h-3 w-3 text-secondary" />
               Em Trânsito
             </span>
           )}
@@ -156,8 +156,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             onClick={handleToggleFavorite}
             className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
               isFavorite
-                ? 'bg-rose-600 text-white shadow-rose-500/30 scale-110'
-                : 'bg-white/80 hover:bg-white text-slate-500 hover:text-rose-600 border border-slate-200'
+                ? 'bg-secondary text-white shadow-secondary/30 scale-110'
+                : 'bg-white/80 hover:bg-white text-slate-500 hover:text-secondary border border-slate-200'
             }`}
             title={isFavorite ? 'Remover dos favoritos' : 'Guardar nos favoritos'}
           >
@@ -249,7 +249,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 type="button"
                 onClick={() => setIsReserveModalOpen(true)}
-                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-xs cursor-pointer min-h-9 sm:min-h-0"
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-white px-3 py-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-xs cursor-pointer min-h-9 sm:min-h-0"
               >
                 <PackagePlus className="h-3.5 w-3.5 shrink-0" />
                 <span className="truncate">Reservar</span>
