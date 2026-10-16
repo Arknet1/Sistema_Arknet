@@ -111,10 +111,6 @@ export default function AdminNewsletterPage() {
   const [nlCoverImage, setNlCoverImage] = useState('')
   const [nlCoverImageAlt, setNlCoverImageAlt] = useState('')
 
-  // Compor Newsletter - 3. Banner de Oferta (Opcional)
-  const [nlOfferBannerImage, setNlOfferBannerImage] = useState('')
-  const [nlOfferBannerAlt, setNlOfferBannerAlt] = useState('')
-  const [nlOfferBannerLink, setNlOfferBannerLink] = useState('')
 
   // Compor Newsletter - 4. Os 3 Produtos Mais Pedidos
   const [featuredProducts, setFeaturedProducts] = useState<FeaturedProductSlotState[]>([
@@ -525,9 +521,6 @@ export default function AdminNewsletterPage() {
           htmlBody: nlBody.trim(),
           coverImage: nlCoverImage.trim() || null,
           coverImageAlt: nlCoverImageAlt.trim() || null,
-          offerBannerImage: nlOfferBannerImage.trim() || null,
-          offerBannerAlt: nlOfferBannerAlt.trim() || null,
-          offerBannerLink: nlOfferBannerLink.trim() || null,
           featuredProducts: validFeaturedProducts.length > 0 ? validFeaturedProducts : null,
           testEmail: testEmail.trim(),
         }),
@@ -568,9 +561,6 @@ export default function AdminNewsletterPage() {
           htmlBody: nlBody.trim(),
           coverImage: nlCoverImage.trim() || null,
           coverImageAlt: nlCoverImageAlt.trim() || null,
-          offerBannerImage: nlOfferBannerImage.trim() || null,
-          offerBannerAlt: nlOfferBannerAlt.trim() || null,
-          offerBannerLink: nlOfferBannerLink.trim() || null,
           featuredProducts: validFeaturedProducts.length > 0 ? validFeaturedProducts : null,
         }),
       })
@@ -583,9 +573,6 @@ export default function AdminNewsletterPage() {
         setNlBody('')
         setNlCoverImage('')
         setNlCoverImageAlt('')
-        setNlOfferBannerImage('')
-        setNlOfferBannerAlt('')
-        setNlOfferBannerLink('')
         setFeaturedProducts([
           { name: '', price: '', image: '', imageAlt: '', slug: '', description: '' },
           { name: '', price: '', image: '', imageAlt: '', slug: '', description: '' },
@@ -648,11 +635,11 @@ export default function AdminNewsletterPage() {
 
   // --- Carregar Conteúdo de Exemplo Editorial da Loja ---
   const loadSampleStoreContent = () => {
-    setNlSubject('Novidades ARKNET: Equipamentos de Rede e Conectividade para a sua Empresa')
+    setNlSubject('Novidades J.Matos: Equipamentos de Rede e Conectividade para a sua Empresa')
     setNlEditionLabel('Edição Especial de Outubro')
     setNlBody(
       `<h2>Equipamentos de Alto Desempenho e Conectividade</h2>
-<p>Descubra a gama completa de soluções tecnológicas da <strong>ARKNET</strong> para otimizar a velocidade, cobertura e segurança da sua infraestrutura.</p>
+<p>Descubra a gama completa de soluções tecnológicas da <strong>J.Matos Tecnologia</strong> para otimizar a velocidade, cobertura e segurança da sua infraestrutura.</p>
 
 <p>Contamos com stock imediato de routers Wi-Fi 6 de alta densidade, switches geridos gigabit, cabos de fibra óptica e acessórios de conectividade com garantia e suporte técnico especializado em Luanda.</p>
 
@@ -663,9 +650,7 @@ export default function AdminNewsletterPage() {
   <li>Encomendas simplificadas com suporte direto via WhatsApp</li>
 </ul>`
     )
-    setNlCoverImageAlt('Equipamentos e Conectividade Profissional ARKNET')
-    setNlOfferBannerAlt('Campanha Especial em Equipamentos de Rede')
-    setNlOfferBannerLink('https://arknet.co.ao/loja')
+    setNlCoverImageAlt('Equipamentos e Conectividade Profissional J.Matos Tecnologia')
 
     if (productsList.length >= 3) {
       setFeaturedProducts([
@@ -700,17 +685,14 @@ export default function AdminNewsletterPage() {
 
   const previewHtml = useMemo(() => {
     return generateFullNewsletterHtml({
-      subject: nlSubject || 'Novidades e Equipamentos ARKNET',
+      subject: nlSubject || 'Novidades e Equipamentos J.Matos Tecnologia',
       editionLabel: nlEditionLabel.trim() || undefined,
       htmlBody:
         nlBody ||
-        `<p>Seja bem-vindo à nossa edição de novidades da loja <strong>ARKNET</strong>. Selecionámos os equipamentos de telecomunicações e TI mais procurados para elevar a performance da sua rede.</p>
+        `<p>Seja bem-vindo à nossa edição de novidades da loja oficial <strong>J.Matos Tecnologia</strong>. Selecionámos os equipamentos de telecomunicações e TI mais procurados para elevar a performance da sua rede.</p>
 <p>Explore as nossas ofertas em routers Wi-Fi 6, switches gigabit e cabos de fibra óptica com entrega rápida em Luanda.</p>`,
       coverImage: nlCoverImage || null,
-      coverImageAlt: nlCoverImageAlt || 'Equipamentos ARKNET',
-      offerBannerImage: nlOfferBannerImage || null,
-      offerBannerAlt: nlOfferBannerAlt || 'Banner de Oferta ARKNET',
-      offerBannerLink: nlOfferBannerLink || null,
+      coverImageAlt: nlCoverImageAlt || 'Equipamentos J.Matos Tecnologia',
       featuredProducts: validFeaturedProducts.length > 0 ? validFeaturedProducts : null,
       isPreview: true,
     })
@@ -720,15 +702,12 @@ export default function AdminNewsletterPage() {
     nlBody,
     nlCoverImage,
     nlCoverImageAlt,
-    nlOfferBannerImage,
-    nlOfferBannerAlt,
-    nlOfferBannerLink,
     validFeaturedProducts,
   ])
 
   const previewPlainText = useMemo(() => {
     return generateNewsletterPlainText(
-      nlSubject || 'Assunto da Newsletter ARKNET',
+      nlSubject || 'Assunto da Newsletter J.Matos Tecnologia',
       nlBody || 'Conteúdo da newsletter...',
       undefined,
       validFeaturedProducts.length > 0 ? validFeaturedProducts : null
@@ -759,7 +738,7 @@ export default function AdminNewsletterPage() {
             <div className="p-2 bg-primary/10 text-primary rounded-lg">
               <Mail className="h-6 w-6" />
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Newsletter ARKNET</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Newsletter J.Matos Tecnologia</h1>
             <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-sky-100 text-sky-800 rounded-full">
               Design Pro
             </span>
@@ -988,7 +967,7 @@ export default function AdminNewsletterPage() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-sky-950 uppercase tracking-wide">
-                    Editor de Newsletter ARKNET · {activeCount} destinatário{activeCount !== 1 ? 's' : ''} ativo{activeCount !== 1 ? 's' : ''}
+                    Editor de Newsletter J.Matos Tecnologia · {activeCount} destinatário{activeCount !== 1 ? 's' : ''} ativo{activeCount !== 1 ? 's' : ''}
                   </p>
                   <p className="text-[11px] text-sky-800 mt-1 leading-relaxed">
                     Componha e-mails corporativos elegantes com imagens de capa, fotografias no corpo e produtos com botão WhatsApp direto. As imagens e links são otimizados para total compatibilidade com Gmail, Outlook e smartphones.
@@ -1052,10 +1031,10 @@ export default function AdminNewsletterPage() {
                     <div className="flex items-center justify-between mb-1.5">
                       <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
                         <Sparkles className="h-3.5 w-3.5 text-primary" />
-                        Rótulo da Edição / Subtítulo Decorativo
+                        Subtítulo / Rótulo da Edição
                       </label>
                       <span className="text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                        Texto Manuscrito Allura
+                        Tipografia Corporativa
                       </span>
                     </div>
                     <input
@@ -1067,7 +1046,7 @@ export default function AdminNewsletterPage() {
                       maxLength={100}
                     />
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                      Aparece em letra manuscrita com elegância logo abaixo do título <strong>NEWSLETTER</strong>. Pode personalizar para qualquer mês ou campanha (ex.: &ldquo;Edição Especial de Outubro&rdquo;, &ldquo;Novidades da Semana&rdquo;, &ldquo;Especial Black Friday&rdquo;).
+                      Aparece logo abaixo do cabeçalho da newsletter (ex.: &ldquo;Edição Especial de Outubro&rdquo;, &ldquo;Novidades da Semana&rdquo;, &ldquo;Equipamentos e Redes&rdquo;).
                     </p>
                   </div>
                 </div>
@@ -1323,50 +1302,6 @@ export default function AdminNewsletterPage() {
                   </div>
                 </div>
 
-                {/* 5. Banner de Oferta (Opcional) */}
-                <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                        <ImageIcon className="h-4 w-4 text-sky-600" />
-                        4. Banner de Oferta Especial
-                        <span className="text-[10px] font-normal text-slate-400 lowercase">(opcional)</span>
-                      </h4>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        Banner de promoção ou desconto exibido antes da secção de produtos (redimensionado até 600 px).
-                      </p>
-                    </div>
-                  </div>
-
-                  <NewsletterImageSlot
-                    label="Ficheiro do Banner de Oferta"
-                    slot="banner"
-                    value={nlOfferBannerImage}
-                    altValue={nlOfferBannerAlt}
-                    onChange={(url, alt) => {
-                      setNlOfferBannerImage(url)
-                      setNlOfferBannerAlt(alt)
-                    }}
-                    aspectRatio="banner"
-                    helperText="JPG, PNG ou WebP (máx. 2 MB). Redimensionado e comprimido automaticamente."
-                    altPlaceholder="Ex: Campanha de Oferta Especial em Equipamentos ARKNET"
-                  />
-
-                  {nlOfferBannerImage && (
-                    <div className="pt-2">
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1">
-                        Link de Destino do Banner ao Clicar:
-                      </label>
-                      <input
-                        type="url"
-                        value={nlOfferBannerLink}
-                        onChange={(e) => setNlOfferBannerLink(e.target.value)}
-                        placeholder="https://arknet.co.ao/loja"
-                        className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-primary font-medium"
-                      />
-                    </div>
-                  )}
-                </div>
               </div>
             ) : (
               /* Pré-visualização Responsiva Completa */
@@ -1785,7 +1720,7 @@ export default function AdminNewsletterPage() {
                     : 'border-transparent text-slate-500 hover:text-slate-700'
                 }`}
               >
-                Produtos da Loja ARKNET ({productsList.length})
+                Produtos da Loja J.Matos ({productsList.length})
               </button>
               <button
                 type="button"

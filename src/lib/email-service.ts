@@ -465,51 +465,79 @@ export interface NodemailerAttachment {
 }
 
 /**
- * Processa o HTML e as Imagens dos blocos para transformar imagens locais (/uploads/...) em Inline Attachments (CID).
+ * Processa todo o HTML gerado para transformar TODAS as imagens locais (/images/..., /uploads/...)
+ * em Inline Attachments com CID (Content-ID).
+ * Garante que logotipo, ícones sociais, produtos e fotos de capa abrem sempre no Gmail, Outlook e smartphones
+ * sem depender de servidores web externos.
  */
-export function processEmailAttachments(
-  params: {
-    rawHtml: string
-    coverImage?: string | null
-    offerBannerImage?: string | null
-    featuredProducts?: ProductBlockData[] | null
-  },
+export function processAllHtmlAttachments(
+  fullHtml: string,
   baseUrl: string = getBaseSiteUrl()
 ): {
   processedHtml: string
-  processedCover: string | null
-  processedBanner: string | null
-  processedProducts: ProductBlockData[] | null
   attachments: NodemailerAttachment[]
 } {
   const attachments: NodemailerAttachment[] = []
+  const fileToCidMap = new Map<string, string>()
   const publicDir = path.join(process.cwd(), 'public')
   let cidCounter = 1
 
-  const registerLocalImage = (imgSrc: string | null | undefined): string => {
+  const resolveAndRegister = (imgSrc: string): string => {
     if (!imgSrc) return ''
     const trimmed = imgSrc.trim()
-    if (!trimmed) return ''
+    if (!trimmed || trimmed.startsWith('cid:') || trimmed.startsWith('data:')) {
+      return trimmed
+    }
 
+    // Identificar caminho relativo em public/
     let localRelative = ''
-    if (trimmed.startsWith('/')) {
+    // Primeiro: se o URL começa com o baseUrl do site, extrair o caminho relativo
+    const cleanBase = baseUrl.replace(/\/$/, '')
+    if (trimmed.startsWith(cleanBase + '/')) {
+      localRelative = trimmed.substring(cleanBase.length + 1)
+    } else if (trimmed.startsWith('/')) {
       localRelative = trimmed.replace(/^\//, '')
     } else if (trimmed.includes('uploads/')) {
       const idx = trimmed.indexOf('uploads/')
       if (idx !== -1) localRelative = trimmed.substring(idx)
-    } else if (trimmed.includes('images/')) {
-      const idx = trimmed.indexOf('images/')
-      if (idx !== -1) localRelative = trimmed.substring(idx)
+    } else if (trimmed.includes('/images/social/')) {
+      const idx = trimmed.indexOf('/images/social/')
+      if (idx !== -1) localRelative = trimmed.substring(idx + 1)
+    } else if (trimmed.includes('jmatos.png') || trimmed.includes('jmatos')) {
+      localRelative = 'images/jmatos.png'
+    } else if (trimmed.includes('arknet-logo.png')) {
+      localRelative = 'arknet-logo.png'
     }
 
     if (localRelative) {
-      const cleanRel = localRelative.split('?')[0].split('#')[0]
-      const fullPath = path.join(publicDir, cleanRel)
+      let cleanRel = localRelative.split('?')[0].split('#')[0]
+      try {
+        cleanRel = decodeURIComponent(cleanRel)
+      } catch (_) {}
+      let fullPath = path.join(publicDir, cleanRel)
+
+      // Fallback inteligente para variações de caminho do logotipo J.Matos e ARKNET
+      if (!fs.existsSync(fullPath) && (cleanRel.includes('jmatos.png') || cleanRel.includes('jmatos'))) {
+        const alt1 = path.join(publicDir, 'images', 'jmatos.png')
+        const alt2 = path.join(publicDir, 'jmatos.png')
+        if (fs.existsSync(alt1)) fullPath = alt1
+        else if (fs.existsSync(alt2)) fullPath = alt2
+      } else if (!fs.existsSync(fullPath) && cleanRel.includes('arknet-logo.png')) {
+        const alt1 = path.join(publicDir, 'arknet-logo.png')
+        const alt2 = path.join(publicDir, 'images', 'arknet-logo.png')
+        if (fs.existsSync(alt1)) fullPath = alt1
+        else if (fs.existsSync(alt2)) fullPath = alt2
+      }
 
       if (fs.existsSync(fullPath)) {
-        const cid = `arknet_img_${cidCounter++}_${Date.now()}`
+        if (fileToCidMap.has(fullPath)) {
+          return `cid:${fileToCidMap.get(fullPath)}`
+        }
+        const baseNameNoExt = path.basename(cleanRel, path.extname(cleanRel)).replace(/[^a-zA-Z0-9]/g, '_')
+        const cid = `jmatos_${baseNameNoExt}_${cidCounter++}`
+        fileToCidMap.set(fullPath, cid)
         attachments.push({
-          filename: path.basename(cleanRel),
+          filename: path.basename(fullPath),
           path: fullPath,
           cid: cid,
         })
@@ -520,35 +548,16 @@ export function processEmailAttachments(
     return toAbsoluteUrl(trimmed, baseUrl)
   }
 
-  // 1. Processar Imagem de Capa
-  const processedCover = params.coverImage ? registerLocalImage(params.coverImage) : null
+  // Substituir todos os src="..." em tags <img> no HTML completo
+  const processedHtml = fullHtml.replace(
+    /(<img[^>]+src=)(["'])(.*?)\2([^>]*>)/gi,
+    (match, before, quote, src, after) => {
+      const newSrc = resolveAndRegister(src)
+      return `${before}${quote}${newSrc}${quote}${after}`
+    }
+  )
 
-  // 2. Processar Banner de Oferta
-  const processedBanner = params.offerBannerImage ? registerLocalImage(params.offerBannerImage) : null
-
-  // 3. Processar Imagens dos 3 Produtos Mais Pedidos
-  let processedProducts: ProductBlockData[] | null = null
-  if (params.featuredProducts && Array.isArray(params.featuredProducts)) {
-    processedProducts = params.featuredProducts.map((p) => ({
-      ...p,
-      image: registerLocalImage(p.image),
-    }))
-  }
-
-  // 4. Processar todas as tags <img src="..." /> no corpo HTML
-  let processedHtml = params.rawHtml || ''
-  processedHtml = processedHtml.replace(/<img([^>]+)src=(["'])(.*?)\2([^>]*)>/gi, (match, before, quote, src, after) => {
-    const newSrc = registerLocalImage(src)
-    return `<img${before}src=${quote}${newSrc}${quote}${after}>`
-  })
-
-  return {
-    processedHtml,
-    processedCover,
-    processedBanner,
-    processedProducts,
-    attachments,
-  }
+  return { processedHtml, attachments }
 }
 
 /**
@@ -561,10 +570,6 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
     htmlBody,
     coverImage,
     coverImageAlt,
-    offerBannerImage,
-    offerBannerAlt,
-    offerBannerLink,
-    promo,
     featuredProducts,
     unsubscribeEmail,
     templateType,
@@ -576,44 +581,31 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
   const { transporter, from, mode } = await createTransporter()
   const siteUrl = getBaseSiteUrl()
 
-  // Processar imagens locais para embutir como inline attachments (CID) garantindo exibição no Gmail/Outlook
-  const {
-    processedHtml,
-    processedCover,
-    processedBanner,
-    processedProducts,
-    attachments,
-  } = processEmailAttachments(
-    {
-      rawHtml: htmlBody,
-      coverImage,
-      offerBannerImage,
-      featuredProducts,
-    },
-    siteUrl
-  )
-
-  // Montar HTML com template editorial por defeito (ou clássico se solicitado)
-  const html = generateFullNewsletterHtml({
+  // 1. Gerar HTML completo da newsletter (com cabeçalho, corpo, produtos em destaque e rodapé corporativo)
+  const rawHtml = generateFullNewsletterHtml({
     subject,
-    htmlBody: processedHtml,
+    htmlBody,
     templateType,
     editionLabel,
-    coverImage: processedCover,
+    coverImage,
     coverImageAlt,
     coverTitle,
     coverSubtitle,
-    offerBannerImage: processedBanner,
-    offerBannerAlt,
-    offerBannerLink,
-    promo,
-    featuredProducts: processedProducts,
+    offerBannerImage: null, // Banner de oferta removido conforme solicitado
+    offerBannerAlt: null,
+    offerBannerLink: null,
+    promo: null,
+    featuredProducts,
     siteUrl,
     unsubscribeEmail,
     isPreview: false,
   })
 
-  const text = generateNewsletterPlainText(subject, htmlBody, siteUrl, featuredProducts, templateType, promo)
+  // 2. Processar TODAS as imagens do HTML (logotipo, rodapé, redes sociais, produtos e capa)
+  // transformando em inline attachments (CID) garantindo abertura garantida em qualquer email client
+  const { processedHtml, attachments } = processAllHtmlAttachments(rawHtml, siteUrl)
+
+  const text = generateNewsletterPlainText(subject, htmlBody, siteUrl, featuredProducts, templateType, null)
 
   if (!transporter) {
     console.log(`[ARKNET Mailer] (Simulado) Newsletter para ${to} | Assunto: ${subject}`)
@@ -628,9 +620,9 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
     const info = await transporter.sendMail({
       from,
       to,
-      subject: `ARKNET Newsletter: ${subject}`,
+      subject: `J.Matos Tecnologia: ${subject}`,
       text,
-      html,
+      html: processedHtml,
       attachments: attachments.length > 0 ? attachments : undefined,
       headers: {
         'X-Priority': '3',
@@ -639,7 +631,7 @@ export async function sendNewsletterEmail(params: SendNewsletterParams): Promise
       },
     })
 
-    console.log(`[ARKNET Mailer] Newsletter enviada para ${to} (MessageID: ${info.messageId}) [Modo: ${mode}]`)
+    console.log(`[ARKNET Mailer] Newsletter enviada para ${to} (MessageID: ${info.messageId}) [Modo: ${mode}] [Anexos CID: ${attachments.length}]`)
 
     return {
       success: true,

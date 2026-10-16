@@ -26,14 +26,14 @@ export default function CarrinhoPage() {
 
   if (itemCount === 0) {
     return (
-      <main className="min-h-screen pt-32 pb-20 bg-background">
+      <main className="min-h-screen py-16 bg-background">
         <div className="max-w-lg mx-auto px-6 text-center">
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center bg-slate-100 mx-auto">
             <ShoppingCart className="h-9 w-9 text-slate-400" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">O carrinho está vazio</h1>
           <p className="mt-3 text-slate-500 text-sm">
-            Adicione equipamentos ou produtos do catálogo ARKNET para continuar.
+            Adicione equipamentos ou produtos do catálogo da loja J.Matos Tecnologia para continuar.
           </p>
           <Link
             href="/loja"
@@ -56,7 +56,7 @@ export default function CarrinhoPage() {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-20 bg-background">
+    <main className="min-h-screen py-8 sm:py-10 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}

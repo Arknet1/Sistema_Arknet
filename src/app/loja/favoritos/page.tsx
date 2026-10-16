@@ -3,9 +3,9 @@ import FavoritosClient from './favoritos-client'
 import { BreadcrumbJsonLd } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Lista de Desejos e Favoritos | Loja em Linha ARKNET Angola',
+  title: 'Lista de Desejos e Favoritos | Loja Oficial J.Matos Tecnologia',
   description:
-    'Consulte e gira a sua lista de equipamentos de telecomunicações, redes e tecnologia guardados nos favoritos da Loja Online ARKNET.',
+    'Consulte e gira a sua lista de equipamentos de telecomunicações, redes e tecnologia guardados nos favoritos da Loja Oficial J.Matos Tecnologia.',
   alternates: {
     canonical: 'https://www.arknet.co.ao/loja/favoritos',
   },

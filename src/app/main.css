@@ -2,12 +2,19 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+:root {
+  --cor-primaria: #1F62B8;
+  --cor-destaque: #E30613;
+  --cor-destaque-hover: #b80510;
+  --cor-destaque-texto: #ffffff;
+}
+
 @theme {
-  --color-primary: #1e60b6;
-  --color-secondary: #e30613;
+  --color-primary: var(--cor-primaria);
+  --color-secondary: var(--cor-destaque);
   --color-background: #f5f7fa;
   --color-foreground: #0f172a;
-  --color-secondary-foreground: #ffffff;
+  --color-secondary-foreground: var(--cor-destaque-texto);
   --radius: 0.75rem;
 
   --animate-marquee: marquee-scroll 35s linear infinite;
@@ -15,6 +22,35 @@
   --animate-float: float 5s ease-in-out infinite;
   --animate-text-glow: text-glow 3s ease-in-out infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
+}
+
+/* ==========================================================================
+   TEMA J.MATOS TECNOLOGIA (Soluções Tecnológicas · Área /loja)
+   Identidade: Azul #1E78C2 + Laranja #F7941D
+   Acessibilidade: WCAG AA (texto escuro #0f172a sobre botões/badges laranja)
+   ========================================================================== */
+.tema-jmatos {
+  --cor-primaria: #1E78C2;
+  --cor-destaque: #F7941D;
+  --cor-destaque-hover: #e07f0f;
+  --cor-destaque-texto: #0f172a;
+  --color-primary: #1E78C2;
+  --color-secondary: #F7941D;
+  --color-secondary-foreground: #0f172a;
+}
+
+/* Regra WCAG AA: texto sobre fundo laranja no tema J.Matos deve ser escuro */
+.tema-jmatos .bg-secondary.text-white,
+.tema-jmatos .bg-secondary > .text-white,
+.tema-jmatos [class*="bg-secondary"].text-white,
+.tema-jmatos span.bg-secondary.text-white {
+  color: #0f172a !important;
+  font-weight: 800;
+}
+
+/* Texto de ícone SVG ou detalhes dentro de badge laranja no tema J.Matos */
+.tema-jmatos .bg-secondary svg {
+  color: #0f172a !important;
 }
 
 @keyframes marquee-scroll {

@@ -20,21 +20,21 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: 'Produto | Loja ARKNET Angola',
-      description: 'Equipamento de tecnologia e telecomunicações disponível na loja online da ARKNET em Angola.',
+      title: 'Produto | Loja J.Matos Tecnologia',
+      description: 'Equipamento disponível na loja online J.Matos Tecnologia em Angola.',
     }
   }
 
   const canonicalUrl = `https://www.arknet.co.ao/loja/${id}`
 
   return {
-    title: `${product.name} | Loja Online ARKNET Angola`,
-    description: `${product.description?.substring(0, 150) || product.name}. Equipamento disponível na ARKNET, Luanda. Entrega em Angola.`,
+    title: `${product.name} | Loja J.Matos Tecnologia`,
+    description: `${product.description?.substring(0, 150) || product.name}. Equipamento disponível na J.Matos Tecnologia, Luanda. Entrega em Angola.`,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${product.name} | Loja ARKNET`,
+      title: `${product.name} | J.Matos Tecnologia`,
       description: product.description || product.name,
       url: canonicalUrl,
       type: 'website',
@@ -42,7 +42,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.name} | Loja ARKNET`,
+      title: `${product.name} | J.Matos Tecnologia`,
       description: product.description || product.name,
     },
   }

@@ -1,0 +1,61 @@
+import React from 'react'
+import {
+  Globe,
+  Wifi,
+  Cloud,
+  Cpu,
+  MessageSquare,
+  Shield,
+  Wrench,
+  Store,
+  Printer,
+  HardDrive,
+  ShieldCheck,
+  Zap,
+  Cable,
+  Droplets,
+  Package,
+  Layers,
+  Monitor,
+  Headphones,
+  Smartphone,
+  Tv,
+  Camera,
+  Server,
+  Laptop,
+  Usb,
+  Boxes,
+} from 'lucide-react'
+
+export const categoryIconMap: Record<string, React.ElementType> = {
+  Globe,
+  Wifi,
+  Cloud,
+  Cpu,
+  MessageSquare,
+  Shield,
+  Wrench,
+  Store,
+  Printer,
+  HardDrive,
+  ShieldCheck,
+  Zap,
+  Cable,
+  Droplets,
+  Package,
+  Layers,
+  Monitor,
+  Headphones,
+  Smartphone,
+  Tv,
+  Camera,
+  Server,
+  Laptop,
+  Usb,
+  Boxes,
+}
+
+export function getCategoryIcon(iconName?: string): React.ElementType {
+  if (!iconName) return Layers
+  return categoryIconMap[iconName] || Layers
+}

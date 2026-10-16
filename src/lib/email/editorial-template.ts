@@ -1,17 +1,15 @@
 /**
  * Template Editorial de Newsletter ARKNET
  *
- * Design minimalista com foco em produtos da loja:
- * - Cabeçalho com letras espaçadas e mini-menu
- * - Bloco editorial com título grande e frase manuscrita
- * - Foto de capa escura com overlay
- * - Banner de oferta na cor secundária
- * - 3 produtos em círculos ("Mais pedidos")
- * - Botão único de contacto WhatsApp
- * - Rodapé com redes sociais e cancelar subscrição
+ * Design profissional, moderno e tecnológico alinhado com a identidade da ARKNET:
+ * - Cabeçalho corporativo com logotipo e mini-menu
+ * - Título moderno com tipografia limpa (sem caligrafia frágil)
+ * - Foto de capa (hero) de alta definição
+ * - Produtos em cartões retangulares 100% responsivos (fotos completas sem cortes circulares)
+ * - Botão WhatsApp em verde oficial de alta visibilidade
+ * - Rodapé corporativo escuro (#0b1329) idêntico ao website com botões sociais estilizados
  *
- * Compatível com Gmail, Outlook, Yahoo, Apple Mail e smartphones.
- * HTML com tabelas e estilos inline; largura máxima 600px.
+ * 100% compatível com Gmail (Desktop e Mobile), Outlook, Yahoo, Apple Mail e Webmail.
  */
 
 import {
@@ -21,10 +19,11 @@ import {
   LINKS,
   LAYOUT,
   SOCIAL,
+  CONTACTS,
   ASSETS,
   UNSUBSCRIBE_EMAIL,
+  WHATSAPP,
   waLink,
-  waProductLink,
 } from './brand'
 
 // ---------------------------------------------------------------------------
@@ -40,19 +39,12 @@ export interface EditorialProduct {
   description?: string
 }
 
-export interface EditorialPromo {
-  kitName: string
-  discountPercent: number
-  promoCode: string
-  linkUrl?: string
-}
-
 export interface EditorialTemplateOptions {
   subject: string
   preheader?: string
   editionLabel?: string
 
-  /** Conteúdo HTML do corpo principal (entre capa e produtos) */
+  /** Conteúdo HTML do corpo principal */
   htmlBody: string
 
   /** Imagem de capa (hero) */
@@ -62,13 +54,7 @@ export interface EditorialTemplateOptions {
   coverTitle?: string
   coverSubtitle?: string
 
-  /** Banner de oferta (opcional) */
-  offerBannerImage?: string | null
-  offerBannerAlt?: string | null
-  offerBannerLink?: string | null
-  promo?: EditorialPromo | null
-
-  /** 3 produtos "Mais pedidos" */
+  /** 3 produtos em destaque */
   featuredProducts?: EditorialProduct[] | null
 
   siteUrl?: string
@@ -82,19 +68,33 @@ export interface EditorialTemplateOptions {
 
 function esc(text: string | undefined | null): string {
   if (!text) return ''
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 }
 
 function formatPrice(value: number | null | undefined): string {
   if (value === null || value === undefined || isNaN(value)) return 'Sob consulta'
-  return new Intl.NumberFormat('pt-AO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) + ' Kz'
+  return (
+    new Intl.NumberFormat('pt-AO', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value) + ' Kz'
+  )
 }
 
 function toAbsolute(url: string | null | undefined, base: string): string {
   if (!url) return ''
   const t = url.trim()
-  if (t.startsWith('http') || t.startsWith('data:') || t.startsWith('cid:')) return t
-  return `${base.replace(/\/$/, '')}${t.startsWith('/') ? '' : '/'}${t}`
+  if (t.startsWith('http://') || t.startsWith('https://') || t.startsWith('data:') || t.startsWith('cid:')) {
+    return t
+  }
+  const cleanBase = base.replace(/\/$/, '')
+  const cleanPath = t.startsWith('/') ? t : `/${t}`
+  return `${cleanBase}${cleanPath}`
 }
 
 function productUrl(prod: EditorialProduct, base: string): string {
@@ -107,74 +107,94 @@ function productUrl(prod: EditorialProduct, base: string): string {
 // ---------------------------------------------------------------------------
 
 function renderPreheader(text: string): string {
-  return `<!--[if !mso]><!--><div style="display:none;font-size:1px;color:${BRAND.bgLight};line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${esc(text)}</div><!--<![endif]-->`
+  return `<!--[if !mso]><!--><div style="display:none;font-size:1px;color:${BRAND.bgOuter};line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${esc(text)}</div><!--<![endif]-->`
 }
 
-function renderHeader(base: string): string {
+function renderHeader(base: string, editionLabel?: string): string {
   const logoUrl = toAbsolute(ASSETS.logo, base)
+  const label = editionLabel || 'Edição Especial'
+
   const menuItems = [
-    { label: 'Novidades', href: LINKS.novidades },
-    { label: 'Kits', href: LINKS.kits },
-    { label: 'Internet', href: LINKS.internet },
+    { label: 'Loja', href: LINKS.loja },
     { label: 'Equipamentos', href: LINKS.equipamentos },
+    { label: 'Internet', href: LINKS.internet },
+    { label: 'Serviços', href: LINKS.servicos },
     { label: 'Contacto', href: LINKS.contactos },
   ]
+
   const menuHtml = menuItems
     .map(
       (m) =>
-        `<a href="${m.href}" target="_blank" style="color:${BRAND.textFaded};text-decoration:none;font-family:${FONTS.body};font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:0 8px;">${m.label}</a>`
+        `<a href="${m.href}" target="_blank" style="color:#475569;text-decoration:none;font-family:${FONTS.heading};font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0 7px;">${m.label}</a>`
     )
-    .join(`<span style="color:${BRAND.border};">|</span>`)
+    .join(`<span style="color:#94a3b8;font-size:10px;">&bull;</span>`)
 
   return `
-<!-- Cabeçalho ARKNET -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:20px ${LAYOUT.sidePadding}px 0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;">
+<!-- Linha Superior de Acento da Marca (Azul e Laranja J.Matos) -->
+<tr>
+  <td style="height: 4px; background: linear-gradient(90deg, #1E78C2 0%, #F7941D 100%); line-height: 4px; font-size: 1px;">
+    &nbsp;
+  </td>
+</tr>
+
+<!-- Cabeçalho Corporativo J.Matos Tecnologia -->
+<tr>
+  <td style="background-color: #ffffff; padding: 16px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.border};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td style="padding:16px 0 16px 0;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-              <td valign="middle">
-                <a href="${base}" target="_blank" style="text-decoration:none;display:inline-block;">
-                  <img src="${logoUrl}" alt="ARKNET" height="42" style="display:block;height:42px;max-height:42px;width:auto;border:0;outline:none;" />
-                </a>
-              </td>
-              <td align="right" valign="middle" class="hide-mobile">
-                ${menuHtml}
-              </td>
-            </tr>
-          </table>
+        <td valign="middle" align="left">
+          <a href="${base}/loja" target="_blank" style="text-decoration:none;display:inline-block;">
+            <img src="${logoUrl}" alt="J.Matos Tecnologia" height="42" style="display:block;height:42px;max-height:42px;width:auto;border:0;outline:none;" />
+          </a>
+        </td>
+        <td align="right" valign="middle" class="hide-mobile">
+          <div style="margin-bottom: 6px;">
+            <span style="display:inline-block;font-family:${FONTS.heading};font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${BRAND.secondary};background-color:rgba(247,148,29,0.12);border:1px solid rgba(247,148,29,0.3);padding:3px 12px;border-radius:999px;">
+              ${esc(label)}
+            </span>
+          </div>
+          <div>${menuHtml}</div>
         </td>
       </tr>
-      <tr><td style="height:1px;background-color:${BRAND.border};font-size:0;line-height:0;">&nbsp;</td></tr>
     </table>
-  </td></tr>
-</table>`
+  </td>
+</tr>`
 }
 
-function renderEditorialTitle(editionLabel: string): string {
+function renderEditorialTitle(editionLabel?: string): string {
   const now = new Date()
   const monthYear = now.toLocaleDateString('pt-PT', { month: 'long', year: 'numeric' })
   const label = editionLabel || `Edição de ${monthYear.charAt(0).toUpperCase() + monthYear.slice(1)}`
 
   return `
-<!-- Bloco Editorial -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;">
-      <tr><td align="center" style="padding:32px 0 8px 0;">
-        <span style="font-family:${FONTS.body};font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:${BRAND.primary};background-color:rgba(30,96,182,0.08);padding:5px 16px;border-radius:50px;display:inline-block;">LOJA &amp; NOVIDADES</span>
-      </td></tr>
-      <tr><td align="center" style="padding:4px 0 4px 0;">
-        <h1 style="font-family:${FONTS.heading};font-size:36px;font-weight:900;letter-spacing:8px;text-transform:uppercase;color:${BRAND.textDark};margin:0;line-height:1.1;">NEWSLETTER</h1>
-      </td></tr>
-      <tr><td align="center" style="padding:4px 0 24px 0;">
-        <span style="font-family:${FONTS.script};font-size:24px;color:${BRAND.primary};font-weight:400;font-style:italic;">${esc(label)}</span>
-      </td></tr>
+<!-- Bloco de Título Newsletter -->
+<tr>
+  <td align="center" style="background-color: #ffffff; padding: 32px ${LAYOUT.sidePadding}px 18px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.borderLight};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 540px;">
+      <tr>
+        <td align="center" style="padding-bottom: 10px;">
+          <span style="font-family: ${FONTS.heading}; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: ${BRAND.primary}; background-color: rgba(30, 120, 194, 0.08); border: 1px solid rgba(30, 120, 194, 0.2); padding: 5px 16px; border-radius: 50px; display: inline-block;">
+            LOJA &amp; NOVIDADES
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding-bottom: 6px;">
+          <h1 style="font-family: ${FONTS.heading}; font-size: 32px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: ${BRAND.textDark}; margin: 0; line-height: 1.15;">
+            NEWSLETTER
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <p style="font-family: ${FONTS.heading}; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; color: ${BRAND.textMuted}; margin: 0; line-height: 1.4;">
+            ${esc(label)} &bull; Soluções Tecnológicas &amp; Equipamentos
+          </p>
+        </td>
+      </tr>
     </table>
-  </td></tr>
-</table>`
+  </td>
+</tr>`
 }
 
 function renderHeroCover(
@@ -187,98 +207,49 @@ function renderHeroCover(
   const waHref = waLink(subtitle ? `Olá ARKNET! ${subtitle}` : undefined)
 
   return `
-<!-- Imagem de Capa + Bloco Escuro -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;overflow:hidden;">
-      <!-- Foto de Capa -->
-      <tr><td style="padding:0;">
-        <img src="${coverImage}" alt="${esc(coverAlt)}" width="${LAYOUT.maxWidth}" style="display:block;width:100%;max-width:${LAYOUT.maxWidth}px;height:auto;border:0;outline:none;" />
-      </td></tr>
-      <!-- Bloco Escuro -->
-      <tr><td style="background-color:${BRAND.bgDark};padding:28px ${LAYOUT.sidePadding}px 32px ${LAYOUT.sidePadding}px;">
-        <h2 style="font-family:${FONTS.heading};font-size:20px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:${BRAND.textLight};margin:0 0 8px 0;line-height:1.3;">${esc(title)}</h2>
-        ${subtitle ? `<p style="font-family:${FONTS.body};font-size:13px;color:${BRAND.textFaded};margin:0 0 22px 0;line-height:1.6;">${esc(subtitle)}</p>` : '<div style="height:14px;"></div>'}
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-          <tr><td>
-            <a href="${waHref}" target="_blank" style="display:inline-block;font-family:${FONTS.heading};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BRAND.textLight};text-decoration:none;border:1.5px solid ${BRAND.textFaded};border-radius:50px;padding:10px 28px;">Pedir agora</a>
-          </td></tr>
-        </table>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
-}
-
-function renderHeroPlaceholder(): string {
-  return `
-<!-- Placeholder de Capa (apenas na pre-visualizacao) -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;">
-      <tr><td style="background-color:${BRAND.bgDark};padding:60px ${LAYOUT.sidePadding}px;text-align:center;">
-        <p style="font-family:${FONTS.body};font-size:13px;color:${BRAND.textFaded};margin:0;">Carregue a imagem de capa no editor para ver o resultado aqui.</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
+<!-- Imagem de Capa (Hero) -->
+<tr>
+  <td style="padding: 0; background-color: ${BRAND.bgDark}; line-height: 0;">
+    <a href="${LINKS.loja}" target="_blank" style="display:block;text-decoration:none;">
+      <img src="${coverImage}" alt="${esc(coverAlt)}" width="${LAYOUT.maxWidth}" style="display: block; width: 100%; max-width: ${LAYOUT.maxWidth}px; height: auto; border: 0; outline: none;" />
+    </a>
+  </td>
+</tr>
+${
+  title
+    ? `<tr>
+  <td style="background-color: ${BRAND.bgDark}; padding: 22px ${LAYOUT.sidePadding}px 24px ${LAYOUT.sidePadding}px; text-align: center;">
+    <h2 style="font-family: ${FONTS.heading}; font-size: 19px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; margin: 0 0 6px 0; line-height: 1.3;">
+      ${esc(title)}
+    </h2>
+    ${
+      subtitle
+        ? `<p style="font-family: ${FONTS.body}; font-size: 13px; color: #94a3b8; margin: 0 0 16px 0; line-height: 1.5;">${esc(subtitle)}</p>`
+        : '<div style="height:10px;"></div>'
+    }
+    <a href="${waHref}" target="_blank" style="display: inline-block; font-family: ${FONTS.heading}; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; text-decoration: none; background-color: ${BRAND.primary}; border-radius: 50px; padding: 10px 26px;">
+      Saber Mais &bull; WhatsApp
+    </a>
+  </td>
+</tr>`
+    : ''
+}`
 }
 
 function renderBodyContent(html: string): string {
   return `
-<!-- Corpo da Newsletter -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;background-color:${BRAND.white};">
-      <tr><td style="padding:28px ${LAYOUT.sidePadding}px;">
-        <div style="font-family:${FONTS.body};font-size:14px;color:${BRAND.textDark};line-height:1.75;">
+<!-- Conteúdo Principal -->
+<tr>
+  <td style="background-color: #ffffff; padding: 28px ${LAYOUT.sidePadding}px 24px ${LAYOUT.sidePadding}px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td style="font-family: ${FONTS.body}; font-size: 14px; color: ${BRAND.textDark}; line-height: 1.75;">
           ${html}
-        </div>
-      </td></tr>
+        </td>
+      </tr>
     </table>
-  </td></tr>
-</table>`
-}
-
-function renderPromoBanner(promo: EditorialPromo, base: string): string {
-  const link = promo.linkUrl || LINKS.loja
-
-  return `
-<!-- Banner de Oferta -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;background-color:${BRAND.secondary};overflow:hidden;">
-      <tr><td style="padding:32px ${LAYOUT.sidePadding}px;text-align:center;">
-        <span style="font-family:${FONTS.body};font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);">Oferta Especial</span>
-        <h3 style="font-family:${FONTS.heading};font-size:20px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${BRAND.white};margin:10px 0 6px 0;">${esc(promo.kitName)}</h3>
-        <div style="font-family:${FONTS.heading};font-size:52px;font-weight:900;color:${BRAND.white};line-height:1;margin:8px 0 16px 0;">-${promo.discountPercent}%</div>
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-          <tr><td style="background-color:${BRAND.white};border-radius:50px;padding:8px 24px;">
-            <span style="font-family:${FONTS.mono};font-size:14px;font-weight:700;letter-spacing:3px;color:${BRAND.secondary};">${esc(promo.promoCode)}</span>
-          </td></tr>
-        </table>
-        <div style="height:16px;"></div>
-        <a href="${link}" target="_blank" style="font-family:${FONTS.heading};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BRAND.white};text-decoration:none;border:1.5px solid rgba(255,255,255,0.5);border-radius:50px;padding:10px 28px;display:inline-block;">Ver Oferta</a>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
-}
-
-function renderOfferBannerImage(image: string, alt: string, link: string): string {
-  return `
-<!-- Banner de Oferta (Imagem) -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:8px ${LAYOUT.sidePadding}px 0 ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;">
-      <tr><td align="center">
-        <a href="${link}" target="_blank" style="text-decoration:none;display:block;">
-          <img src="${image}" alt="${esc(alt)}" width="${LAYOUT.maxWidth - 2 * LAYOUT.sidePadding}" style="display:block;width:100%;max-width:${LAYOUT.maxWidth - 2 * LAYOUT.sidePadding}px;height:auto;border:0;outline:none;border-radius:8px;" />
-        </a>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
+  </td>
+</tr>`
 }
 
 function renderSingleProduct(prod: EditorialProduct, base: string): string {
@@ -286,93 +257,111 @@ function renderSingleProduct(prod: EditorialProduct, base: string): string {
   const alt = esc(prod.imageAlt || prod.name)
   const link = productUrl(prod, base)
   const price = formatPrice(prod.price)
-  const cs = LAYOUT.productCircle
 
   return `
-<td align="center" valign="top" style="padding:8px;" class="product-col">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
-    <!-- Foto Circular -->
-    <tr><td align="center" style="padding-bottom:12px;">
-      <a href="${link}" target="_blank" style="text-decoration:none;display:block;">
-        <div style="width:${cs}px;height:${cs}px;border-radius:50%;overflow:hidden;border:2px solid ${BRAND.border};margin:0 auto;">
-          <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" style="width:${cs}px;height:${cs}px;" arcsize="50%" stroke="false"><v:fill type="frame" src="${absImage}" /><![endif]-->
-          <img src="${absImage}" alt="${alt}" width="${cs}" height="${cs}" style="display:block;width:${cs}px;height:${cs}px;object-fit:cover;border-radius:50%;border:0;" />
-          <!--[if mso]></v:roundrect><![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+<td width="176" valign="top" style="padding: 0 6px;">
+<![endif]-->
+<div class="product-col" style="display: inline-block; vertical-align: top; width: 100%; max-width: 172px; margin: 0 4px 16px 4px; text-align: left; box-sizing: border-box;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border: 1px solid ${BRAND.border}; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 6px rgba(15,23,42,0.04);">
+    <!-- Foto Retangular Contida (Sem Cortes) -->
+    <tr>
+      <td align="center" valign="middle" style="background-color: #f8fafc; padding: 14px 10px; height: 120px; border-bottom: 1px solid ${BRAND.borderLight};">
+        <a href="${link}" target="_blank" style="text-decoration: none; display: block;">
+          <img src="${absImage}" alt="${alt}" class="product-img" width="150" style="display: block; max-height: 110px; max-width: 150px; width: auto; height: auto; object-fit: contain; margin: 0 auto; border: 0;" />
+        </a>
+      </td>
+    </tr>
+    <!-- Detalhes do Produto -->
+    <tr>
+      <td style="padding: 12px 10px 14px 10px;">
+        <h4 style="margin: 0 0 6px 0; font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; color: ${BRAND.textDark}; line-height: 1.35; min-height: 30px; overflow: hidden; text-transform: uppercase;">
+          <a href="${link}" target="_blank" style="color: ${BRAND.textDark}; text-decoration: none;">
+            ${esc(prod.name)}
+          </a>
+        </h4>
+        <div style="margin-bottom: 10px;">
+          <span style="font-family: ${FONTS.heading}; font-size: 14px; font-weight: 900; color: ${BRAND.primary}; display: block;">
+            ${price}
+          </span>
         </div>
-      </a>
-    </td></tr>
-    <!-- Etiqueta com nome -->
-    <tr><td align="center" style="padding-bottom:6px;">
-      <span style="display:inline-block;font-family:${FONTS.heading};font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.textDark};background-color:${BRAND.bgSection};border:1px solid ${BRAND.border};border-radius:50px;padding:5px 14px;line-height:1.3;">${esc(prod.name)}</span>
-    </td></tr>
-    <!-- Preco -->
-    <tr><td align="center">
-      <span style="font-family:${FONTS.body};font-size:14px;font-weight:800;color:${BRAND.primary};">${price}</span>
-    </td></tr>
+        <a href="${link}" target="_blank" style="display: block; text-align: center; background-color: ${BRAND.primary}; color: #ffffff !important; font-family: ${FONTS.heading}; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none !important; padding: 8px 6px; border-radius: 6px;">
+          Ver na Loja
+        </a>
+      </td>
+    </tr>
   </table>
-</td>`
+</div>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+<![endif]-->`
 }
 
 function renderFeaturedProducts(products: EditorialProduct[], base: string, isPreview: boolean): string {
-  const valid = products.filter((p) => p.name?.trim() || p.image?.trim())
+  const valid = products.filter((p) => p && (p.name?.trim() || p.image?.trim()))
 
   if (valid.length === 0) {
     if (!isPreview) return ''
     return `
-<!-- Placeholder de Produtos (apenas na pre-visualizacao) -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:8px ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;background-color:${BRAND.white};">
-      <tr><td align="center" style="padding:32px;">
-        <span style="font-family:${FONTS.body};font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BRAND.textMuted};">Mais Pedidos</span>
-        <p style="font-family:${FONTS.body};font-size:12px;color:${BRAND.textFaded};margin:8px 0 0 0;">Selecione 3 produtos no editor para exibir aqui.</p>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
+<!-- Secção Vazia Informativa para Preview -->
+<tr>
+  <td style="background-color: ${BRAND.bgLight}; padding: 20px ${LAYOUT.sidePadding}px; border-top: 1px solid ${BRAND.border};">
+    <div style="background-color: #ffffff; border: 1px dashed ${BRAND.border}; border-radius: 10px; padding: 24px; text-align: center;">
+      <p style="font-family: ${FONTS.heading}; font-size: 12px; font-weight: 700; color: ${BRAND.textMuted}; margin: 0 0 4px 0;">Produtos Mais Pedidos</p>
+      <p style="font-family: ${FONTS.body}; font-size: 11px; color: ${BRAND.textFaded}; margin: 0;">Selecione até 3 produtos no editor para exibi-los aqui.</p>
+    </div>
+  </td>
+</tr>`
   }
 
-  const cols = valid.slice(0, 3).map((p) => renderSingleProduct(p, base)).join('')
+  const cardsHtml = valid.slice(0, 3).map((p) => renderSingleProduct(p, base)).join('')
 
   return `
-<!-- Secção: Mais Pedidos -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:8px ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;background-color:${BRAND.white};">
-      <!-- Separador fino -->
-      <tr><td style="padding:0 ${LAYOUT.sidePadding}px;"><div style="height:1px;background-color:${BRAND.border};"></div></td></tr>
-      <!-- Titulo -->
-      <tr><td align="center" style="padding:28px 0 6px 0;">
-        <span style="font-family:${FONTS.body};font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:${BRAND.textMuted};">Os Nossos</span>
-      </td></tr>
-      <tr><td align="center" style="padding:0 0 24px 0;">
-        <span style="font-family:${FONTS.heading};font-size:22px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:${BRAND.textDark};">MAIS PEDIDOS</span>
-      </td></tr>
-      <!-- Produtos em Colunas -->
-      <tr><td style="padding:0 8px 24px 8px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr class="products-row">${cols}</tr>
-        </table>
-      </td></tr>
+<!-- Secção: Produtos Mais Pedidos (Responsiva) -->
+<tr>
+  <td style="background-color: ${BRAND.bgLight}; padding: 28px ${LAYOUT.sidePadding}px 14px ${LAYOUT.sidePadding}px; border-top: 1px solid ${BRAND.border};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td align="center" style="padding-bottom: 20px;">
+          <span style="font-family: ${FONTS.heading}; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: ${BRAND.primary}; display: block; margin-bottom: 4px;">
+            EQUIPAMENTOS EM DESTAQUE
+          </span>
+          <h3 style="font-family: ${FONTS.heading}; font-size: 20px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: ${BRAND.textDark}; margin: 0 0 4px 0;">
+            PRODUTOS MAIS PEDIDOS
+          </h3>
+          <p style="font-family: ${FONTS.body}; font-size: 12px; color: ${BRAND.textMuted}; margin: 0;">
+            Disponíveis para entrega imediata em Luanda
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0;">
+          <!--[if (gte mso 9)|(IE)]>
+          <table role="presentation" width="536" cellpadding="0" cellspacing="0" border="0" align="center"><tr>
+          <![endif]-->
+          ${cardsHtml}
+          <!--[if (gte mso 9)|(IE)]>
+          </tr></table>
+          <![endif]-->
+        </td>
+      </tr>
     </table>
-  </td></tr>
-</table>`
+  </td>
+</tr>`
 }
 
 function renderWhatsAppButton(): string {
   const href = waLink()
 
   return `
-<!-- Botao WhatsApp -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:4px ${LAYOUT.sidePadding}px 8px ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;background-color:${BRAND.white};">
-      <tr><td align="center" style="padding:8px 0 32px 0;">
-        <a href="${href}" target="_blank" style="display:inline-block;font-family:${FONTS.heading};font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${BRAND.textDark};text-decoration:none;border:1.5px solid ${BRAND.textDark};border-radius:50px;padding:14px 36px;">Falar com a ARKNET no WhatsApp</a>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`
+<!-- Botão WhatsApp de Alta Visibilidade -->
+<tr>
+  <td align="center" style="background-color: ${BRAND.bgLight}; padding: 6px ${LAYOUT.sidePadding}px 32px ${LAYOUT.sidePadding}px;">
+    <a href="${href}" target="_blank" style="display: inline-block; background-color: ${BRAND.whatsappGreen}; color: #ffffff !important; font-family: ${FONTS.heading}; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-decoration: none !important; border-radius: 50px; padding: 14px 34px; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);">
+      Falar com a J.Matos no WhatsApp
+    </a>
+  </td>
+</tr>`
 }
 
 function renderFooter(base: string, unsubEmail: string): string {
@@ -382,73 +371,162 @@ function renderFooter(base: string, unsubEmail: string): string {
   const inIcon = toAbsolute(ASSETS.socialLinkedin, base)
   const waIcon = toAbsolute(ASSETS.socialWhatsapp, base)
 
-  const socialItems = [
-    { img: fbIcon, href: SOCIAL.facebook, label: 'Facebook' },
-    { img: igIcon, href: SOCIAL.instagram, label: 'Instagram' },
-    { img: inIcon, href: SOCIAL.linkedin, label: 'LinkedIn' },
-    { img: waIcon, href: waLink(), label: 'WhatsApp' },
-  ]
-  const socialHtml = socialItems
-    .map(
-      (s) =>
-        `<td style="padding:0 8px;" align="center">
-          <a href="${s.href}" target="_blank" title="${s.label}" style="display:inline-block;text-decoration:none;">
-            <img src="${s.img}" alt="${s.label}" width="32" height="32" style="display:block;width:32px;height:32px;border:0;border-radius:50%;" />
-          </a>
-        </td>`
-    )
-    .join('')
-
   return `
-<!-- Rodape -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND.bgLight};">
-  <tr><td align="center" style="padding:0 ${LAYOUT.sidePadding}px 36px ${LAYOUT.sidePadding}px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:${LAYOUT.maxWidth}px;">
-      <!-- Separador -->
-      <tr><td style="height:1px;background-color:${BRAND.border};font-size:0;line-height:0;">&nbsp;</td></tr>
+<!-- Rodapé Corporativo J.Matos Tecnologia (Dark Navy Slate) -->
+<tr>
+  <td style="background-color: ${BRAND.bgDark}; padding: 36px ${LAYOUT.sidePadding}px 32px ${LAYOUT.sidePadding}px; border-top: 1px solid ${BRAND.borderDark}; text-align: center;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 540px; margin: 0 auto;">
+      
+      <!-- Logo J.Matos Tecnologia (centrada, fundo branco para contraste) -->
+      <tr>
+        <td align="center" style="padding-bottom: 8px;">
+          <a href="${base}/loja" target="_blank" style="text-decoration: none; display: inline-block;">
+            <div style="display: inline-block; background-color: #ffffff; border-radius: 10px; padding: 10px 20px;">
+              <img src="${logoUrl}" alt="J.Matos Tecnologia" height="36" style="display:block;height:36px;max-height:36px;width:auto;border:0;outline:none;" />
+            </div>
+          </a>
+        </td>
+      </tr>
 
-      <!-- Logotipo ARKNET no Rodapé -->
-      <tr><td align="center" style="padding:28px 0 12px 0;">
-        <a href="${base}" target="_blank" style="text-decoration:none;display:inline-block;">
-          <img src="${logoUrl}" alt="ARKNET" height="32" style="display:block;height:32px;max-height:32px;width:auto;border:0;margin:0 auto;" />
-        </a>
-      </td></tr>
+      <!-- Slogan -->
+      <tr>
+        <td align="center" style="padding-bottom: 20px;">
+          <span style="font-family: ${FONTS.heading}; font-size: 13px; font-weight: 500; color: #94a3b8; letter-spacing: 0.3px;">
+            Soluções Tecnológicas para a sua Empresa e Dia a Dia
+          </span>
+        </td>
+      </tr>
 
-      <!-- Slogan Decorativo -->
-      <tr><td align="center" style="padding:0 0 18px 0;">
-        <span style="font-family:${FONTS.script};font-size:22px;color:${BRAND.primary};font-style:italic;">Conectividade e Tecnologia para o seu dia a dia</span>
-      </td></tr>
+      <!-- Redes Sociais — Ícones circulares limpos -->
+      <tr>
+        <td align="center" style="padding-bottom: 22px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+            <tr>
+              <!-- Facebook -->
+              <td style="padding: 0 5px;">
+                <a href="${SOCIAL.facebook}" target="_blank" title="Facebook" style="text-decoration: none !important;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" valign="middle" style="width: 38px; height: 38px; background-color: #1e293b; border-radius: 50%; padding: 9px;">
+                        <img src="${fbIcon}" alt="Facebook" width="20" height="20" style="display: block; width: 20px; height: 20px; border: 0; outline: none;" />
+                      </td>
+                    </tr>
+                  </table>
+                </a>
+              </td>
+              <!-- Instagram -->
+              <td style="padding: 0 5px;">
+                <a href="${SOCIAL.instagram}" target="_blank" title="Instagram" style="text-decoration: none !important;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" valign="middle" style="width: 38px; height: 38px; background-color: #1e293b; border-radius: 50%; padding: 9px;">
+                        <img src="${igIcon}" alt="Instagram" width="20" height="20" style="display: block; width: 20px; height: 20px; border: 0; outline: none;" />
+                      </td>
+                    </tr>
+                  </table>
+                </a>
+              </td>
+              <!-- LinkedIn -->
+              <td style="padding: 0 5px;">
+                <a href="${SOCIAL.linkedin}" target="_blank" title="LinkedIn" style="text-decoration: none !important;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" valign="middle" style="width: 38px; height: 38px; background-color: #1e293b; border-radius: 50%; padding: 9px;">
+                        <img src="${inIcon}" alt="LinkedIn" width="20" height="20" style="display: block; width: 20px; height: 20px; border: 0; outline: none;" />
+                      </td>
+                    </tr>
+                  </table>
+                </a>
+              </td>
+              <!-- WhatsApp -->
+              <td style="padding: 0 5px;">
+                <a href="${waLink()}" target="_blank" title="WhatsApp" style="text-decoration: none !important;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" valign="middle" style="width: 38px; height: 38px; background-color: #1e293b; border-radius: 50%; padding: 9px;">
+                        <img src="${waIcon}" alt="WhatsApp" width="20" height="20" style="display: block; width: 20px; height: 20px; border: 0; outline: none;" />
+                      </td>
+                    </tr>
+                  </table>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
 
-      <!-- Redes Sociais com Ícones Reais -->
-      <tr><td align="center" style="padding:0 0 20px 0;">
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-          <tr>${socialHtml}</tr>
-        </table>
-      </td></tr>
+      <!-- Contactos Diretos -->
+      <tr>
+        <td align="center" style="padding-bottom: 18px; border-top: 1px solid #1e293b; padding-top: 16px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+            <tr>
+              <td align="center" style="padding: 0 6px;">
+                <span style="font-family: ${FONTS.body}; font-size: 12px; color: #94a3b8; line-height: 1.6;">Tel: <strong style="color: #cbd5e1;">${CONTACTS.phone}</strong></span>
+              </td>
+              <td style="color: #334155; font-size: 11px;">|</td>
+              <td align="center" style="padding: 0 6px;">
+                <span style="font-family: ${FONTS.body}; font-size: 12px; color: #94a3b8; line-height: 1.6;">Email: <strong style="color: #cbd5e1;">${CONTACTS.email}</strong></span>
+              </td>
+              <td style="color: #334155; font-size: 11px;">|</td>
+              <td align="center" style="padding: 0 6px;">
+                <span style="font-family: ${FONTS.body}; font-size: 12px; color: #94a3b8; line-height: 1.6;"><strong style="color: #cbd5e1;">${CONTACTS.address}</strong></span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
 
       <!-- Links Rápidos -->
-      <tr><td align="center" style="padding:0 0 16px 0;">
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-          <tr>
-            <td style="padding:0 8px;"><a href="${LINKS.loja}" target="_blank" style="font-family:${FONTS.body};font-size:11px;font-weight:700;color:${BRAND.primary};text-decoration:none;">Loja Online</a></td>
-            <td style="color:${BRAND.border}; font-size:11px;">|</td>
-            <td style="padding:0 8px;"><a href="${LINKS.site}" target="_blank" style="font-family:${FONTS.body};font-size:11px;font-weight:700;color:${BRAND.primary};text-decoration:none;">Website Oficial</a></td>
-            <td style="color:${BRAND.border}; font-size:11px;">|</td>
-            <td style="padding:0 8px;"><a href="${LINKS.contactos}" target="_blank" style="font-family:${FONTS.body};font-size:11px;font-weight:700;color:${BRAND.primary};text-decoration:none;">Contactos</a></td>
-          </tr>
-        </table>
-      </td></tr>
+      <tr>
+        <td align="center" style="padding-bottom: 18px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+            <tr>
+              <td style="padding: 0 8px;">
+                <a href="${LINKS.loja}" target="_blank" style="font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; color: ${BRAND.accentCyan}; text-decoration: none;">
+                  Loja Online
+                </a>
+              </td>
+              <td style="color: #334155; font-size: 11px;">&bull;</td>
+              <td style="padding: 0 8px;">
+                <a href="${LINKS.servicos}" target="_blank" style="font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; color: ${BRAND.accentCyan}; text-decoration: none;">
+                  Serviços
+                </a>
+              </td>
+              <td style="color: #334155; font-size: 11px;">&bull;</td>
+              <td style="padding: 0 8px;">
+                <a href="${LINKS.site}" target="_blank" style="font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; color: ${BRAND.accentCyan}; text-decoration: none;">
+                  Website Oficial
+                </a>
+              </td>
+              <td style="color: #334155; font-size: 11px;">&bull;</td>
+              <td style="padding: 0 8px;">
+                <a href="${LINKS.contactos}" target="_blank" style="font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; color: ${BRAND.accentCyan}; text-decoration: none;">
+                  Contactos
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
 
-      <!-- Cancelar Subscrição -->
-      <tr><td align="center" style="padding:0 0 8px 0;">
-        <span style="font-family:${FONTS.body};font-size:10px;color:${BRAND.textFaded};line-height:1.6;">
-          Recebeu este e-mail porque subscreveu as novidades da loja ARKNET.<br/>
-          <a href="mailto:${unsubEmail}?subject=Cancelar%20Subscricao%20Newsletter&body=Pretendo%20cancelar%20a%20minha%20subscricao%20da%20newsletter%20ARKNET." style="color:${BRAND.textMuted};text-decoration:underline;">Cancelar subscrição</a>
-        </span>
-      </td></tr>
+      <!-- Aviso Legal e Cancelar Subscrição -->
+      <tr>
+        <td align="center">
+          <p style="font-family: ${FONTS.body}; font-size: 11px; color: #64748b; margin: 0 0 6px 0; line-height: 1.5;">
+            &copy; 2026 J.Matos Tecnologia · Soluções Tecnológicas (Grupo ARKNET). Todos os direitos reservados.
+          </p>
+          <p style="font-family: ${FONTS.body}; font-size: 10px; color: #64748b; margin: 0; line-height: 1.5;">
+            Recebeu este e-mail porque subscreveu as novidades da loja oficial J.Matos Tecnologia.<br />
+            <a href="mailto:${unsubEmail}?subject=Cancelar%20Subscricao%20Newsletter&amp;body=Pretendo%20cancelar%20a%20minha%20subscricao%20da%20newsletter%20J.Matos." style="color: #94a3b8; text-decoration: underline;">
+              Cancelar subscrição
+            </a>
+          </p>
+        </td>
+      </tr>
+
     </table>
-  </td></tr>
-</table>`
+  </td>
+</tr>`
 }
 
 // ---------------------------------------------------------------------------
@@ -463,36 +541,19 @@ export function generateEditorialHtml(options: EditorialTemplateOptions): string
 
   const absCover = options.coverImage ? toAbsolute(options.coverImage, base) : null
   const coverAlt = options.coverImageAlt || options.subject || 'ARKNET Newsletter'
-  const coverTitle = options.coverTitle || options.subject || ''
+  const coverTitle = options.coverTitle || ''
   const coverSubtitle = options.coverSubtitle || ''
-
-  const absOfferBanner = options.offerBannerImage ? toAbsolute(options.offerBannerImage, base) : null
-  const offerAlt = options.offerBannerAlt || 'Oferta Especial ARKNET'
-  const offerLink = options.offerBannerLink ? toAbsolute(options.offerBannerLink, base) : LINKS.loja
 
   // Imports de fontes
   const fontLinks = FONT_IMPORTS.map((u) => `<link href="${u}" rel="stylesheet" />`).join('\n    ')
 
   // Hero
-  let heroHtml = ''
-  if (absCover) {
-    heroHtml = renderHeroCover(absCover, coverAlt, coverTitle, coverSubtitle, base)
-  } else if (options.isPreview) {
-    heroHtml = renderHeroPlaceholder()
-  }
+  const heroHtml = absCover ? renderHeroCover(absCover, coverAlt, coverTitle, coverSubtitle, base) : ''
 
   // Corpo
   const bodyHtml = options.htmlBody?.trim() ? renderBodyContent(options.htmlBody) : ''
 
-  // Promo / Banner de oferta
-  let promoHtml = ''
-  if (options.promo && options.promo.kitName) {
-    promoHtml = renderPromoBanner(options.promo, base)
-  } else if (absOfferBanner) {
-    promoHtml = renderOfferBannerImage(absOfferBanner, offerAlt, offerLink)
-  }
-
-  // Produtos
+  // Produtos (Sem cortes circulares, retangulares e responsivos)
   const productsHtml = renderFeaturedProducts(
     options.featuredProducts || [],
     base,
@@ -505,6 +566,8 @@ export function generateEditorialHtml(options: EditorialTemplateOptions): string
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="x-apple-disable-message-reformatting" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
     <meta name="format-detection" content="telephone=no, address=no, email=no, date=no" />
     <title>${esc(options.subject)}</title>
     <!--[if !mso]><!-->
@@ -515,30 +578,52 @@ export function generateEditorialHtml(options: EditorialTemplateOptions): string
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
       img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
-      body { margin: 0; padding: 0; width: 100% !important; background-color: ${BRAND.bgLight}; }
+      body { margin: 0; padding: 0; width: 100% !important; background-color: ${BRAND.bgOuter}; }
 
-      /* Responsivo */
+      h1, h2, h3, h4, p, ul, ol { margin-top: 0; }
+      h2 { font-size: 17px !important; font-weight: 800 !important; color: ${BRAND.textDark} !important; margin: 20px 0 10px 0 !important; border-left: 3px solid ${BRAND.primary} !important; padding-left: 10px !important; }
+      p { margin-bottom: 14px !important; font-size: 14px !important; color: ${BRAND.textDark} !important; line-height: 1.7 !important; }
+      ul, ol { margin-bottom: 16px !important; padding-left: 20px !important; color: ${BRAND.textDark} !important; }
+      li { margin-bottom: 6px !important; line-height: 1.6 !important; font-size: 14px !important; }
+      a { color: ${BRAND.primary} !important; text-decoration: underline !important; font-weight: 600 !important; }
+
+      /* Responsivo Mobile */
       @media only screen and (max-width: 620px) {
+        .email-container { width: 100% !important; max-width: 100% !important; border-radius: 0 !important; }
         .hide-mobile { display: none !important; }
-        .products-row td.product-col {
+        .product-col {
           display: block !important;
           width: 100% !important;
-          padding: 16px 0 !important;
+          max-width: 100% !important;
+          margin: 0 auto 16px auto !important;
         }
+        .product-img {
+          max-height: 180px !important;
+          max-width: 80% !important;
+        }
+
       }
     </style>
 </head>
-<body style="margin:0;padding:0;background-color:${BRAND.bgLight};font-family:${FONTS.body};">
+<body style="margin:0;padding:0;background-color:${BRAND.bgOuter};font-family:${FONTS.body};">
   ${renderPreheader(preheader)}
 
-  ${renderHeader(base)}
-  ${renderEditorialTitle(editionLabel)}
-  ${heroHtml}
-  ${bodyHtml}
-  ${promoHtml}
-  ${productsHtml}
-  ${renderWhatsAppButton()}
-  ${renderFooter(base, unsubEmail)}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: ${BRAND.bgOuter}; padding: 24px 8px;">
+    <tr>
+      <td align="center">
+        <!-- Container Central da Newsletter -->
+        <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: ${LAYOUT.maxWidth}px; background-color: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);">
+          ${renderHeader(base, editionLabel)}
+          ${renderEditorialTitle(editionLabel)}
+          ${heroHtml}
+          ${bodyHtml}
+          ${productsHtml}
+          ${renderWhatsAppButton()}
+          ${renderFooter(base, unsubEmail)}
+        </table>
+      </td>
+    </tr>
+  </table>
 
 </body>
 </html>`
@@ -568,34 +653,30 @@ export function generateEditorialPlainText(options: EditorialTemplateOptions): s
   let productsText = ''
   if (options.featuredProducts && options.featuredProducts.length > 0) {
     productsText =
-      '\n\nMAIS PEDIDOS:\n' +
-      options.featuredProducts.map((p) => `  - ${p.name}: ${formatPrice(p.price)}`).join('\n')
-  }
-
-  let promoText = ''
-  if (options.promo && options.promo.kitName) {
-    promoText = `\n\nOFERTA ESPECIAL: ${options.promo.kitName} — ${options.promo.discountPercent}% de desconto\nCodigo: ${options.promo.promoCode}`
+      '\n\nPRODUTOS EM DESTAQUE:\n' +
+      options.featuredProducts
+        .map((p) => `  - ${p.name}: ${formatPrice(p.price)} -> ${productUrl(p, base)}`)
+        .join('\n')
   }
 
   return [
-    'ARKNET NEWSLETTER',
-    '=' .repeat(40),
+    'J.MATOS TECNOLOGIA - NEWSLETTER',
+    '='.repeat(40),
     options.subject,
-    '=' .repeat(40),
+    '='.repeat(40),
     '',
     text,
-    promoText,
     productsText,
     '',
     '-'.repeat(40),
-    `Loja: ${base}/loja`,
+    `Loja Online: ${base}/loja`,
     `Website: ${base}`,
-    `WhatsApp: https://wa.me/${LINKS.site.includes('arknet') ? '244935208449' : ''}`,
+    `WhatsApp: https://wa.me/${WHATSAPP.number}`,
+    `Telefone: ${CONTACTS.phone}`,
     '',
-    'Para cancelar a subscricao, responda a este e-mail.',
-    'ARKNET - Tecnologia e Conectividade',
+    'Para cancelar a subscrição, responda a este e-mail.',
+    'J.Matos Tecnologia · Soluções Tecnológicas (Grupo ARKNET) · Angola',
   ].join('\n')
 }
 
 export const generateEditorialNewsletterHtml = generateEditorialHtml
-

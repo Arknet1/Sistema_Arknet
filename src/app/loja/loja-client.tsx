@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react"
+import { useSearchParams } from "next/navigation"
 import {
   Search, Wifi, Globe, Cloud, Cpu, MessageSquare, Shield, Wrench,
   SlidersHorizontal, Store, Printer, HardDrive, ShieldCheck, Zap, Cable, Droplets,
@@ -11,6 +12,7 @@ import Link from "next/link"
 import ProductCard from "@/components/product-card"
 import HeroCarousel, { type HeroSlide } from "@/components/hero-carousel"
 import { dataStore, StoreProduct, ProductCategory } from "@/lib/data-store"
+import { isCategoryMatch } from "@/lib/loja-category-utils"
 
 const iconMap: Record<string, React.ElementType> = {
   Globe, Wifi, Cloud, Cpu, MessageSquare, Shield, Wrench,
@@ -19,6 +21,7 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 export default function LojaClient() {
+  const searchParams = useSearchParams()
   // O catálogo pode vir do localStorage no browser; começa vazio para o SSR e o cliente hidratarem igual.
   const [products, setProducts] = useState<StoreProduct[]>([])
   const [categories, setCategories] = useState<ProductCategory[]>([])
@@ -28,6 +31,19 @@ export default function LojaClient() {
   const [sortBy, setSortBy] = useState('relevance')
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const cat = searchParams.get('categoria') || searchParams.get('category')
+    if (cat) {
+      setSelectedCategory(cat)
+    } else if (searchParams.has('categoria') || searchParams.has('category')) {
+      setSelectedCategory('Todos')
+    }
+    const q = searchParams.get('search') || searchParams.get('q')
+    if (q !== null) {
+      setSearchTerm(q)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     dataStore.fetchProductsFromServer().catch((e) => console.warn('Erro ao carregar produtos na loja:', e))
@@ -129,38 +145,58 @@ export default function LojaClient() {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-20">
+    <main className="min-h-screen bg-background">
 
       <HeroCarousel slides={heroSlides} />
 
-      {/* Category tabs */}
-      <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex gap-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {visibleCategories.map((cat) => {
-              const Icon = iconMap[cat.icon] || Globe
-              const isActive = selectedCategory.toLowerCase() === cat.name.toLowerCase()
+      {/* Barra de Confiança estilo NCR Angola */}
+      <div className="bg-white border-b border-slate-100 shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 text-slate-800">
+            <div className="flex items-center gap-3 px-2 py-1">
+              <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
+                <Store className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900 leading-tight">Multicaixa & Transferência</p>
+                <p className="text-[11px] text-slate-500">Express ou Referência</p>
+              </div>
+            </div>
 
-              return (
-                <button
-                  key={cat.id || cat.name}
-                  onClick={() => setSelectedCategory(cat.name)}
-                  className={`flex items-center gap-2 px-4 py-3.5 text-sm font-medium whitespace-nowrap transition-all border-b-2 ${
-                    isActive
-                      ? 'border-primary text-primary font-bold'
-                      : 'border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {cat.name}
-                </button>
-              )
-            })}
+            <div className="flex items-center gap-3 px-2 py-1 sm:pl-4">
+              <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
+                <Headphones className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900 leading-tight">Suporte Técnico Online</p>
+                <p className="text-[11px] text-slate-500">+244 935 208 449</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 px-2 py-1 sm:pl-4">
+              <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
+                <Package className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900 leading-tight">Envio Nacional</p>
+                <p className="text-[11px] text-slate-500">Entregas seguras em Angola</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 px-2 py-1 sm:pl-4">
+              <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900 leading-tight">Garantia Oficial</p>
+                <p className="text-[11px] text-slate-500">Equipamentos certificados</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
         {/* Search & Sorting Toolbar */}
         <div className="mb-8 flex flex-col md:flex-row items-stretch bg-white border border-slate-200 shadow-xs">

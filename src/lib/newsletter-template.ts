@@ -2,7 +2,6 @@ import {
   generateEditorialNewsletterHtml,
   generateEditorialPlainText,
   EditorialProduct,
-  EditorialPromo,
   EditorialTemplateOptions,
 } from './email/editorial-template'
 import { BRAND, FONTS, LINKS, WHATSAPP, SOCIAL } from './email/brand'
@@ -16,7 +15,7 @@ export {
   WHATSAPP,
   SOCIAL,
 }
-export type { EditorialProduct, EditorialPromo, EditorialTemplateOptions }
+export type { EditorialProduct, EditorialTemplateOptions }
 
 export interface ProductBlockData {
   id?: string
@@ -191,7 +190,7 @@ export function buildImageBlockHtml(data: ImageBlockData, baseUrl: string = getB
  */
 export function buildProductBlockHtml(product: ProductBlockData, baseUrl: string = getBaseSiteUrl()): string {
   const absImage = toAbsoluteUrl(product.image, baseUrl)
-  const altText = (product.imageAlt || product.name || 'Produto ARKNET').replace(/"/g, '&quot;')
+  const altText = (product.imageAlt || product.name || 'Produto J.Matos Tecnologia').replace(/"/g, '&quot;')
   const productUrl = product.slug
     ? `${baseUrl}/loja/${product.slug}`
     : product.id
@@ -199,12 +198,12 @@ export function buildProductBlockHtml(product: ProductBlockData, baseUrl: string
     : `${baseUrl}/loja`
 
   const priceText = formatCurrencyAOA(product.price)
-  const rawPhone = (product.whatsappPhone || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+244923000000').replace(/[^0-9]/g, '')
-  const whatsappMsg = encodeURIComponent(`Olá ARKNET! Vi o produto "${product.name}" na newsletter e gostaria de encomendar.`)
+  const rawPhone = (product.whatsappPhone || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+244935208449').replace(/[^0-9]/g, '')
+  const whatsappMsg = encodeURIComponent(`Olá J.Matos Tecnologia! Vi o produto "${product.name}" na newsletter e gostaria de encomendar.`)
   const whatsappUrl = `https://wa.me/${rawPhone}?text=${whatsappMsg}`
 
   return `
-<!-- Bloco de Produto ARKNET -->
+<!-- Bloco de Produto J.Matos Tecnologia -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 18px 0; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
   <tr>
     <td style="padding: 16px; background-color: #f8fafc; border-bottom: 1px solid #f1f5f9;" align="center">
@@ -229,13 +228,13 @@ export function buildProductBlockHtml(product: ProductBlockData, baseUrl: string
 
       <div style="margin-bottom: 14px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 12px;">
         <span style="font-size: 10px; color: #64748b; text-transform: uppercase; font-weight: 700; display: block;">Preço:</span>
-        <span style="font-size: 17px; font-weight: 900; color: #0284c7;">${priceText}</span>
+        <span style="font-size: 17px; font-weight: 900; color: #1E78C2;">${priceText}</span>
       </div>
 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td align="left" style="padding-right: 4px; width: 50%;">
-            <a href="${productUrl}" target="_blank" style="display: block; text-align: center; background-color: #0f172a; color: #ffffff !important; font-size: 11px; font-weight: 700; text-decoration: none !important; padding: 10px 10px; border-radius: 6px;">
+            <a href="${productUrl}" target="_blank" style="display: block; text-align: center; background-color: #1E78C2; color: #ffffff !important; font-size: 11px; font-weight: 700; text-decoration: none !important; padding: 10px 10px; border-radius: 6px;">
               Ver na Loja
             </a>
           </td>
@@ -334,10 +333,6 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
   const absCoverImage = options.coverImage ? toAbsoluteUrl(options.coverImage, baseUrl) : null
   const coverAlt = (options.coverImageAlt || options.subject || 'Capa ARKNET Newsletter').replace(/"/g, '&quot;')
   
-  const absOfferBanner = options.offerBannerImage ? toAbsoluteUrl(options.offerBannerImage, baseUrl) : null
-  const offerAlt = (options.offerBannerAlt || 'Banner de Oferta ARKNET').replace(/"/g, '&quot;')
-  const offerLink = options.offerBannerLink ? toAbsoluteUrl(options.offerBannerLink, baseUrl) : `${baseUrl}/loja`
-
   const unsubscribeEmail = options.unsubscribeEmail || process.env.SMTP_USER || 'arknet40@gmail.com'
 
   const currentDate = new Date().toLocaleDateString('pt-PT', {
@@ -347,26 +342,6 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
 
   // Bloco dos 3 Produtos
   const featuredProductsHtml = buildFeaturedProductsSectionHtml(options.featuredProducts, baseUrl, options.isPreview)
-
-  // Banner de Oferta
-  let offerBannerHtml = ''
-  if (absOfferBanner) {
-    offerBannerHtml = `
-<!-- Banner de Oferta Especial -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 24px 0 16px 0;">
-  <tr>
-    <td align="center" style="padding: 0;">
-      <a href="${offerLink}" target="_blank" style="text-decoration: none; display: block;">
-        <img src="${absOfferBanner}" alt="${offerAlt}" width="536" style="display: block; width: 100%; max-width: 536px; height: auto; border: 0; outline: none; border-radius: 8px; border: 1px solid #e2e8f0;" />
-      </a>
-    </td>
-  </tr>
-</table>
-`
-  } else if (options.isPreview && !options.htmlBody?.includes('<img')) {
-    // Apenas informativo na pré-visualização se o admin quiser ver onde ficaria
-    offerBannerHtml = ''
-  }
 
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt">
@@ -415,26 +390,26 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
         <!-- Container Principal -->
         <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);">
           
-          <!-- Linha Superior de Acento Azul -->
+          <!-- Linha Superior de Acento Azul J.Matos -->
           <tr>
-            <td style="height: 3px; background-color: #0284c7; line-height: 3px; font-size: 1px;">
+            <td style="height: 3px; background-color: #1E78C2; line-height: 3px; font-size: 1px;">
               &nbsp;
             </td>
           </tr>
 
-          <!-- Header Corporativo ARKNET -->
+          <!-- Header Corporativo J.Matos Tecnologia -->
           <tr>
             <td style="padding: 28px 32px 24px 32px; background-color: #0f172a; text-align: center;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center">
                     <span style="font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #ffffff; text-transform: uppercase;">
-                      ARKNET<span style="color: #38bdf8;">.</span>
+                      J.MATOS<span style="color: #F7941D;">.</span>
                     </span>
                     <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">
-                      Loja Online & Tecnologia · Angola
+                      Soluções Tecnológicas · Loja Online &amp; Equipamentos
                     </div>
-                    <div style="display: inline-block; margin-top: 10px; background-color: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); padding: 4px 14px; border-radius: 999px; font-size: 11px; color: #38bdf8; font-weight: 600;">
+                    <div style="display: inline-block; margin-top: 10px; background-color: rgba(247, 148, 29, 0.1); border: 1px solid rgba(247, 148, 29, 0.3); padding: 4px 14px; border-radius: 999px; font-size: 11px; color: #F7941D; font-weight: 600;">
                       Edição · ${currentDate}
                     </div>
                   </td>
@@ -482,8 +457,6 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
                 ${processedBody}
               </div>
 
-              ${offerBannerHtml}
-
               ${featuredProductsHtml}
             </td>
           </tr>
@@ -494,8 +467,8 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center">
-                    <a href="${baseUrl}/loja" target="_blank" style="display: inline-block; background-color: #0f172a; color: #ffffff !important; font-size: 13px; font-weight: 800; text-decoration: none !important; padding: 14px 34px; border-radius: 8px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);">
-                      Ver Catálogo Completo na Loja ARKNET
+                    <a href="${baseUrl}/loja" target="_blank" style="display: inline-block; background-color: #1E78C2; color: #ffffff !important; font-size: 13px; font-weight: 800; text-decoration: none !important; padding: 14px 34px; border-radius: 8px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(30, 120, 194, 0.25);">
+                      Ver Catálogo Completo na Loja J.Matos
                     </a>
                   </td>
                 </tr>
@@ -503,25 +476,25 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
             </td>
           </tr>
 
-          <!-- Rodapé Corporativo ARKNET -->
+          <!-- Rodapé Corporativo J.Matos Tecnologia -->
           <tr>
             <td class="mobile-padding" style="padding: 26px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
               <div style="font-size: 14px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin-bottom: 4px;">
-                ARKNET Angola
+                J.Matos Tecnologia
               </div>
               <p style="font-size: 11px; color: #64748b; margin: 0 0 14px 0; line-height: 1.5;">
-                Equipamentos de Rede, Informática e Tecnologia · Luanda, Angola
+                Soluções Tecnológicas · Equipamentos de Rede, Informática e Tecnologia · Luanda, Angola
               </p>
 
               <!-- Links Rápidos -->
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto 16px auto;">
                 <tr>
                   <td align="center" style="font-size: 12px;">
-                    <a href="${baseUrl}/loja" style="color: #0284c7 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Loja Online</a>
+                    <a href="${baseUrl}/loja" style="color: #1E78C2 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Loja Online</a>
                     <span style="color: #cbd5e1;">|</span>
-                    <a href="${baseUrl}" style="color: #0284c7 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Website Oficial</a>
+                    <a href="${baseUrl}" style="color: #1E78C2 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Website Oficial</a>
                     <span style="color: #cbd5e1;">|</span>
-                    <a href="${baseUrl}/contactos" style="color: #0284c7 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Contactos</a>
+                    <a href="${baseUrl}/contactos" style="color: #1E78C2 !important; text-decoration: none !important; font-weight: 700; padding: 0 8px;">Contactos</a>
                   </td>
                 </tr>
               </table>
@@ -529,10 +502,10 @@ export function generateClassicNewsletterHtml(options: NewsletterTemplateOptions
               <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0 14px 0;" />
 
               <p style="font-size: 10px; color: #94a3b8; margin: 0; line-height: 1.6;">
-                Recebeu este e-mail porque subscreveu as novidades no portal ARKNET.
+                Recebeu este e-mail porque subscreveu as novidades da loja oficial J.Matos Tecnologia.
                 <br />
                 Para deixar de receber novidades da loja, 
-                <a href="mailto:${unsubscribeEmail}?subject=Cancelar%20Subscricao%20Newsletter&body=Pretendo%20cancelar%20a%20minha%20subscricao%20da%20newsletter%20ARKNET." style="color: #64748b !important; text-decoration: underline !important;">
+                <a href="mailto:${unsubscribeEmail}?subject=Cancelar%20Subscricao%20Newsletter&body=Pretendo%20cancelar%20a%20minha%20subscricao%20da%20newsletter%20J.Matos." style="color: #64748b !important; text-decoration: underline !important;">
                   cancele a subscrição aqui
                 </a>.
               </p>
@@ -578,7 +551,7 @@ export function generateClassicNewsletterPlainText(
     productsText = '\n\nPRODUTOS EM DESTAQUE:\n' + featuredProducts.map((p) => `- ${p.name}: ${formatCurrencyAOA(p.price)}`).join('\n')
   }
 
-  return `ARKNET NEWSLETTER\n================================\n${subject}\n================================\n\n${textContent}${productsText}\n\n--------------------------------\nLoja ARKNET: ${baseUrl}/loja\nWebsite: ${baseUrl}\nPara cancelar a subscrição, responda a este e-mail solicitando a remoção.\nARKNET Angola · Luanda`
+  return `J.MATOS TECNOLOGIA - NEWSLETTER\n================================\n${subject}\n================================\n\n${textContent}${productsText}\n\n--------------------------------\nLoja J.Matos: ${baseUrl}/loja\nWebsite: ${baseUrl}\nPara cancelar a subscrição, responda a este e-mail solicitando a remoção.\nJ.Matos Tecnologia (Grupo ARKNET) · Luanda, Angola`
 }
 
 /**
@@ -612,10 +585,6 @@ export function generateFullNewsletterHtml(options: NewsletterTemplateOptions): 
     coverImageAlt: options.coverImageAlt,
     coverTitle: options.coverTitle,
     coverSubtitle: options.coverSubtitle,
-    offerBannerImage: options.offerBannerImage,
-    offerBannerAlt: options.offerBannerAlt,
-    offerBannerLink: options.offerBannerLink,
-    promo: options.promo,
     featuredProducts: editorialProducts,
     siteUrl: options.siteUrl,
     unsubscribeEmail: options.unsubscribeEmail,
@@ -632,7 +601,7 @@ export function generateNewsletterPlainText(
   baseUrl: string = getBaseSiteUrl(),
   featuredProducts?: ProductBlockData[] | null,
   templateType?: 'editorial' | 'classic',
-  promo?: EditorialPromoData | null
+  _promo?: EditorialPromoData | null
 ): string {
   if (templateType === 'classic') {
     return generateClassicNewsletterPlainText(subject, htmlBody, baseUrl, featuredProducts)
@@ -654,6 +623,5 @@ export function generateNewsletterPlainText(
     htmlBody,
     siteUrl: baseUrl,
     featuredProducts: editorialProducts,
-    promo,
   })
 }

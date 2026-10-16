@@ -31,7 +31,7 @@ import { useCart } from '@/lib/cart'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 import { dataStore, StoreOrderItem } from '@/lib/data-store'
 import { formatLinhaPreco, formatProdutoPrice } from '@/lib/format-produto-price'
-import arknetLogo from '@/assets/icon18.png'
+import jmatosLogo from '@/assets/jmatos.png'
 
 function CheckoutContent() {
   const router = useRouter()
@@ -81,7 +81,7 @@ function CheckoutContent() {
   // 1. BLOQUEIO: Se o cliente não estiver autenticado
   if (!isAuthLoading && !customer && !submittedOrder) {
     return (
-      <main className="min-h-screen pt-32 pb-20 bg-slate-900 flex items-center justify-center px-4">
+      <main className="min-h-screen py-16 bg-slate-900 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white border border-slate-200 p-8 shadow-2xl text-center">
           <div className="w-16 h-16 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-5 border border-amber-200">
             <Lock className="h-8 w-8" />
@@ -96,7 +96,7 @@ function CheckoutContent() {
           </h1>
 
           <p className="text-xs text-slate-600 mt-3 leading-relaxed">
-            Para finalizar a encomenda, emitir fatura proforma institucional e garantir a assistência técnica dos equipamentos, é necessário ter uma conta de cliente ARKNET ativa.
+            Para finalizar a encomenda, emitir fatura proforma institucional e garantir a assistência técnica dos equipamentos, é necessário ter uma conta de cliente ativa na loja.
           </p>
 
           <div className="mt-8 space-y-3">
@@ -141,10 +141,10 @@ function CheckoutContent() {
       })
       .join('%0A')
 
-    const whatsappMessage = `Ol%C3%A1%20ARKNET!%20Acabei%20de%20registar%20o%20pedido%20*${submittedOrder.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*%20na%20loja%20online.%0A%0A*Cliente:*%20${encodeURIComponent(submittedOrder.customerName)}%0A*Telefone:*%20${encodeURIComponent(submittedOrder.customerPhone || '')}%0A*M%C3%A9todo:*%20${encodeURIComponent(submittedOrder.paymentMethod || 'Transferência')}%0A%0A*Equipamentos%20e%20Variantes:*%0A${itemsSummaryText}%0A%0AGostaria%20de%20finalizar%20o%20pagamento%20e%20enviar%20o%20comprovativo%20para%20valida%C3%A7%C3%A3o.`
+    const whatsappMessage = `Loja%20J.Matos%20Tecnologia:%20Ol%C3%A1!%20Acabei%20de%20registar%20o%20pedido%20*${submittedOrder.orderNumber}*%20no%20valor%20de%20*${encodeURIComponent(formattedTotal)}*%20na%20loja%20online.%0A%0A*Cliente:*%20${encodeURIComponent(submittedOrder.customerName)}%0A*Telefone:*%20${encodeURIComponent(submittedOrder.customerPhone || '')}%0A*M%C3%A9todo:*%20${encodeURIComponent(submittedOrder.paymentMethod || 'Transferência')}%0A%0A*Equipamentos%20e%20Variantes:*%0A${itemsSummaryText}%0A%0AGostaria%20de%20finalizar%20o%20pagamento%20e%20enviar%20o%20comprovativo%20para%20valida%C3%A7%C3%A3o.`
 
     return (
-      <main className="min-h-screen pt-24 pb-20 bg-slate-900">
+      <main className="min-h-screen py-8 sm:py-10 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           
           <div className="bg-white border border-slate-200 shadow-2xl p-8 sm:p-12 overflow-hidden">
@@ -153,15 +153,16 @@ function CheckoutContent() {
             <div className="flex flex-col sm:flex-row justify-between items-start border-b border-slate-200 pb-8 gap-6">
               <div>
                 <Image
-                  src={arknetLogo}
-                  alt="ARKNET"
-                  width={180}
+                  src={jmatosLogo}
+                  alt="J.Matos Tecnologia"
+                  width={200}
                   height={60}
-                  className="h-12 w-auto object-contain mb-3"
+                  className="h-14 w-auto object-contain mb-3"
                 />
-                <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">
-                  ARKNET, Soluções Tecnológicas e Telecomunicações, Lda.
+                <p className="text-xs text-slate-800 font-extrabold uppercase tracking-wider">
+                  J.Matos Tecnologia — Soluções Tecnológicas
                 </p>
+                <p className="text-xs text-slate-500 font-medium">Loja Oficial · Grupo ARKNET</p>
                 <p className="text-xs text-slate-500">NIF: 5412398760 • Kilamba, Luanda, Angola</p>
                 <p className="text-xs text-slate-500">WhatsApp Comercial: +244 935 208 449</p>
               </div>
@@ -199,7 +200,7 @@ function CheckoutContent() {
                     Assistente Automático de Pagamentos
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-snug">
-                    Finalize no WhatsApp com o Assistente ARKNET
+                    Finalize no WhatsApp com o Atendimento da Loja J.Matos
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-700 mt-2 leading-relaxed">
                     O seu pedido <strong className="font-mono text-slate-900">#{submittedOrder.orderNumber}</strong> foi registado. Ao clicar no botão abaixo, o nosso Bot de WhatsApp enviará instantaneamente o resumo, as coordenadas bancárias e receberá o seu comprovativo para aprovação rápida.
@@ -243,7 +244,7 @@ function CheckoutContent() {
                     <span>1. Pedido Feito</span>
                   </div>
                   <p className="text-[11px] text-slate-500">
-                    O pedido #{submittedOrder.orderNumber} foi registado no sistema ARKNET.
+                    O pedido #{submittedOrder.orderNumber} foi registado no sistema da loja J.Matos Tecnologia (Grupo ARKNET).
                   </p>
                 </div>
 
@@ -379,10 +380,10 @@ function CheckoutContent() {
             </div>
 
             {/* Coordenadas Bancárias para Pagamento */}
-            <div className="p-6 bg-blue-50 border border-blue-200 rounded my-6 text-xs text-blue-900">
+            <div className="p-6 bg-primary/5 border border-primary/20 rounded-xl my-6 text-xs text-slate-900">
               <h4 className="font-bold uppercase tracking-wider mb-2 flex items-center gap-2 text-primary">
                 <CreditCard className="h-4 w-4" />
-                Coordenadas Bancárias ARKNET para Transferência / MCX Express:
+                Coordenadas Bancárias Oficiais para Transferência / MCX Express (Grupo ARKNET):
               </h4>
               <div className="grid sm:grid-cols-3 gap-3 font-mono text-[11px] mt-3">
                 <div className="p-2.5 bg-white border border-blue-100 rounded">
@@ -482,7 +483,7 @@ function CheckoutContent() {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-20 bg-background">
+    <main className="min-h-screen py-8 sm:py-10 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Header */}
@@ -684,7 +685,7 @@ function CheckoutContent() {
                       </div>
                       <p className="font-bold text-sm text-slate-900">Levantamento na Sede</p>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Sede ARKNET no Kilamba (Rua Directa do Kero).
+                        Sede / Armazém no Kilamba (Rua Directa do Kero).
                       </p>
                     </div>
                     <span className="mt-3 font-bold text-slate-700 text-xs">Imediato</span>
@@ -745,7 +746,7 @@ function CheckoutContent() {
                             Transferência Bancária / Multicaixa Express
                           </p>
                           <p className="text-[11px] text-slate-500">
-                            Pague via BAI Directo, BFA Net, Multicaixa Express para o IBAN oficial da ARKNET.
+                            Pague via BAI Directo, BFA Net, Multicaixa Express para o IBAN oficial da loja.
                           </p>
                         </div>
                       </div>
@@ -832,7 +833,7 @@ function CheckoutContent() {
                             Pagamento por TPA no Levantamento
                           </p>
                           <p className="text-[11px] text-slate-500">
-                            Pague com cartão de débito no balcão da ARKNET ao retirar o equipamento.
+                            Pague com cartão de débito no balcão ao retirar o equipamento.
                           </p>
                         </div>
                       </div>

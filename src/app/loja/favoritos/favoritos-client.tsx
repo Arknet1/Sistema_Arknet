@@ -35,7 +35,7 @@ export default function FavoritosClient() {
   }
 
   return (
-    <main className="min-h-screen pt-28 pb-20 bg-slate-50">
+    <main className="min-h-screen py-8 sm:py-10 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Breadcrumb */}

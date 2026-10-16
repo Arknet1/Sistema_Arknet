@@ -44,7 +44,7 @@ function getCategorySpecs(product: StoreProduct, selectedVariant?: ProductVarian
 
   const commonSpecs = [
     { label: 'Modelo / Referência', value: product.name },
-    { label: 'Código SKU ARKNET', value: selectedVariant?.sku || product.sku || `ARK-${product.id.toUpperCase()}` },
+    { label: 'Código SKU', value: selectedVariant?.sku || product.sku || `JMT-${product.id.toUpperCase()}` },
     { label: 'Categoria Comercial', value: product.category },
     ...(product.brand ? [{ label: 'Marca / Fabricante', value: product.brand }] : []),
     { label: 'Condição do Equipamento', value: '100% Novo em Caixa Selada com Selo de Autenticidade' },
@@ -60,7 +60,7 @@ function getCategorySpecs(product: StoreProduct, selectedVariant?: ProductVarian
           : 'Em Trânsito / Reposição Prevista para Angola',
     },
     { label: 'Homologação e Normas', value: 'Conformidade INACOM / CE / FCC / ISO 9001' },
-    { label: 'Garantia Oficial', value: '12 a 24 Meses com Assistência Técnica ARKNET' },
+    { label: 'Garantia Oficial', value: '12 a 24 Meses com Assistência Técnica J.Matos Tecnologia' },
   ]
 
   // Adicionar opções selecionadas da variante na ficha técnica
@@ -130,7 +130,7 @@ function getPackageContents(product: StoreProduct, selectedVariant?: ProductVari
       '1x Cabo USB-C de Carregamento Rápido em Tecido Trançado',
       '1x Chave Extratora de Bandeja SIM',
       '1x Guia de Iniciação Rápida e Documentação Oficial',
-      '1x Certificado de Garantia ARKNET Angola',
+      '1x Certificado de Garantia Oficial J.Matos Tecnologia',
     ]
   }
 
@@ -148,7 +148,7 @@ function getPackageContents(product: StoreProduct, selectedVariant?: ProductVari
     `1x ${product.name} ${variantLabel ? `(${variantLabel})` : ''}`,
     '1x Acessórios Oficiais e Cabos de Ligação',
     '1x Manual de Instruções do Utilizador',
-    '1x Certificado de Garantia Oficial ARKNET Angola',
+    '1x Certificado de Garantia Oficial J.Matos Tecnologia',
   ]
 }
 
@@ -363,7 +363,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
   if (!product) {
     return (
-      <main className="min-h-screen pt-32 pb-20 bg-slate-50 flex items-center justify-center">
+      <main className="min-h-screen py-16 bg-slate-50 flex items-center justify-center">
         <div className="max-w-md w-full mx-auto px-6 text-center bg-white p-8 border border-slate-200 rounded-2xl shadow-sm">
           <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
             <ShoppingCart className="h-7 w-7" />
@@ -385,7 +385,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   }
 
   const whatsappMessage = encodeURIComponent(
-    `Olá ARKNET! Gostaria de encomendar o seguinte equipamento:\n\n*${product.name}*\n${
+    `Loja J.Matos Tecnologia: Olá! Gostaria de encomendar o seguinte equipamento:\n\n*${product.name}*\n${
       variantLabel ? `*Configuração:* ${variantLabel}\n` : ''
     }*SKU:* ${effectiveSku}\n*Valor:* ${formatProdutoPrice(effectivePrice)}\n*Quantidade:* ${quantity} un.\n\nPodem confirmar a disponibilidade em Luanda e os dados de pagamento?`
   )
@@ -438,8 +438,8 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 {/* Badges Flutuantes */}
                 <div className="absolute top-4 left-4 flex flex-col gap-1.5">
                   {product.featured && (
-                    <span className="px-3 py-1 bg-secondary text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm">
-                      Destaque ARKNET
+                    <span className="px-3 py-1 bg-secondary text-slate-950 text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm">
+                      Destaque J.Matos
                     </span>
                   )}
                   {!isOutOfStock ? (
@@ -536,7 +536,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
                   <Headphones className="h-5 w-5 text-amber-600 mx-auto mb-1" />
                   <p className="text-[10px] font-bold text-slate-800 uppercase">Suporte Técnico</p>
-                  <p className="text-[9px] text-slate-500">Engenharia ARKNET</p>
+                  <p className="text-[9px] text-slate-500">Assistência J.Matos</p>
                 </div>
               </div>
 
@@ -925,7 +925,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
 
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
                   <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5">
-                    Integração com o Ecossistema ARKNET
+                    Integração e Suporte Técnico Especializado
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Totalmente compatível com as nossas soluções de Redes Estruturadas, Links Dedicados, Cibersegurança Gerida e Centrais Telefónicas VoIP.
@@ -1003,7 +1003,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               <div className="flex items-center gap-4 p-5 bg-primary/5 border border-primary/20 rounded-2xl text-slate-900">
                 <ShieldCheck className="h-10 w-10 text-primary shrink-0" />
                 <div>
-                  <h4 className="font-black text-sm uppercase text-slate-900">Garantia Oficial ARKNET em Angola</h4>
+                  <h4 className="font-black text-sm uppercase text-slate-900">Garantia Oficial J.Matos Tecnologia</h4>
                   <p className="text-xs text-slate-600 mt-1">
                     Todos os equipamentos comercializados contam com garantia oficial contra defeitos de fabrico e suporte local a partir da nossa sede em Luanda.
                   </p>
@@ -1082,15 +1082,15 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
             {[
               {
                 q: 'Como posso solicitar fatura proforma em nome da minha empresa?',
-                a: 'Pode clicar no botão "Gerar Cotação Proforma" acima ou falar diretamente no WhatsApp da ARKNET indicando o NIF e a razão social da empresa para emitirmos de imediato.',
+                a: 'Pode clicar no botão "Gerar Cotação Proforma" acima ou falar diretamente no WhatsApp da Loja J.Matos Tecnologia indicando o NIF e a razão social da empresa para emitirmos de imediato.',
               },
               {
                 q: 'O que acontece quando faço uma reserva de um produto em trânsito?',
-                a: 'A sua reserva é registada com número único e garantia de prioridade. Assim que o lote de equipamentos der entrada na sede da ARKNET em Luanda, a nossa equipa entrará em contacto direto consigo antes de disponibilizar para venda pública.',
+                a: 'A sua reserva é registada com número único e garantia de prioridade. Assim que o lote de equipamentos der entrada no armazém em Luanda, a nossa equipa entrará em contacto direto consigo antes de disponibilizar para venda pública.',
               },
               {
-                q: 'A ARKNET presta assistência técnica e instalação?',
-                a: 'Sim. Dispomos de engenheiros no terreno habilitados para efetuar a instalação, montagem em bastidor, conectorização e configuração completa dos equipamentos.',
+                q: 'A J.Matos Tecnologia presta assistência técnica e instalação?',
+                a: 'Sim. Dispomos de técnicos e engenheiros habilitados para prestar apoio na instalação, montagem em bastidor, conectorização e configuração completa dos equipamentos.',
               },
               {
                 q: 'Quais os prazos de entrega para fora de Luanda?',
@@ -1235,8 +1235,8 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 </div>
               </div>
 
-              <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-[11px] text-blue-950">
-                <p className="font-bold">Dados Bancários ARKNET:</p>
+              <div className="p-3.5 bg-primary/5 border border-primary/20 rounded-xl text-[11px] text-slate-900">
+                <p className="font-bold">Coordenadas Bancárias para Liquidação (Grupo ARKNET):</p>
                 <p className="text-slate-600 mt-0.5 font-mono">
                   BAI: AO06.0040.0000.1234.5678.9012.3<br />
                   BFA: AO06.0006.0000.9876.5432.1098.7
@@ -1246,7 +1246,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
               <div className="pt-2 flex gap-3">
                 <a
                   href={`https://wa.me/244935208449?text=${encodeURIComponent(
-                    `Olá ARKNET! Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* ${variantLabel ? `(Configuração: ${variantLabel})` : ''} (${quantity} un.) - Ref: ${effectiveSku}. Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
+                    `Loja J.Matos Tecnologia: Olá! Solicito emissão da Proforma oficial para o equipamento *"${product.name}"* ${variantLabel ? `(Configuração: ${variantLabel})` : ''} (${quantity} un.) - Ref: ${effectiveSku}. Empresa: ${proformaClientName || 'A indicar'} | NIF: ${proformaClientNif || 'A indicar'}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

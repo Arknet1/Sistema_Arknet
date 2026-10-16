@@ -92,6 +92,11 @@ export default function Navbar() {
     { label: 'Eventos', href: '/eventos' },
   ]
 
+  const isLoja = pathname?.startsWith('/loja')
+  if (isLoja) {
+    return null
+  }
+
   return (
     <motion.nav
       initial={{ y: -50, opacity: 0 }}
