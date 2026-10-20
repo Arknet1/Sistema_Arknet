@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import { JMATOS_CONFIG, buildLojaWhatsappMessage } from '../src/lib/empresas'
+import { JMATOS_BANK_DETAILS, ARKNET_SERVICE_DETAILS } from '../src/lib/fatura-config'
 
 describe('Identidades de Marca e Integração WhatsApp', () => {
   it('deve ter as constantes corretas da J.Matos Tecnologia', () => {
@@ -21,4 +22,21 @@ describe('Identidades de Marca e Integração WhatsApp', () => {
     const alreadyPrefixed = 'Loja J.Matos Tecnologia: Pedido #ORD-123'
     assert.strictEqual(buildLojaWhatsappMessage(alreadyPrefixed), alreadyPrefixed)
   })
+
+  it('deve ter as coordenadas e dados fiscais oficiais da J.Matos para faturas de compra', () => {
+    assert.strictEqual(JMATOS_BANK_DETAILS.holder, 'J.MATOS TECNOLOGIA, LDA.')
+    assert.strictEqual(JMATOS_BANK_DETAILS.nif, '5412398760')
+    assert.ok(JMATOS_BANK_DETAILS.baiIban.startsWith('AO06 0040'))
+    assert.ok(JMATOS_BANK_DETAILS.bfaIban.startsWith('AO06 0006'))
+    assert.ok(JMATOS_BANK_DETAILS.atlanticoIban.startsWith('AO06 0055'))
+    assert.strictEqual(JMATOS_BANK_DETAILS.phone, '+244 935 208 449')
+  })
+
+  it('deve ter os dados de engenharia e telecomunicações da ARKNET para propostas de serviço', () => {
+    assert.ok(ARKNET_SERVICE_DETAILS.company.includes('ARKNET Angola'))
+    assert.strictEqual(ARKNET_SERVICE_DETAILS.nif, '5412398760')
+    assert.strictEqual(ARKNET_SERVICE_DETAILS.phone, '+244 935 208 449')
+    assert.strictEqual(ARKNET_SERVICE_DETAILS.email, 'comercial@arknet.co.ao')
+  })
 })
+

@@ -19,8 +19,10 @@ import {
   Send,
   Check,
   RefreshCw,
+  FileText,
 } from 'lucide-react'
 import { dataStore, ServiceLead, LeadStatus } from '@/lib/data-store'
+import PropostaServicoArknet from '@/components/proposta-servico-arknet'
 import { useToast } from '@/lib/toast-context'
 import { ConfirmModal } from '@/components/admin/confirm-modal'
 import { ExportButton } from '@/components/admin/export-button'
@@ -37,6 +39,7 @@ export default function AdminLeadsPage() {
   // Detalhes / Modal
   const [selectedLead, setSelectedLead] = useState<ServiceLead | null>(null)
   const [leadNotes, setLeadNotes] = useState('')
+  const [viewProposalLead, setViewProposalLead] = useState<ServiceLead | null>(null)
 
   // Delete Modal
   const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -321,6 +324,14 @@ export default function AdminLeadsPage() {
                         </button>
                         <button
                           type="button"
+                          onClick={() => setViewProposalLead(lead)}
+                          className="p-1.5 text-slate-500 hover:text-[#0284c7] hover:bg-blue-50 rounded transition"
+                          title="Visualizar / Imprimir Proposta Técnica ARKNET"
+                        >
+                          <FileText className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => {
                             setDeletingId(lead.id)
                             setIsDeleteModalOpen(true)
@@ -354,13 +365,23 @@ export default function AdminLeadsPage() {
                 <span className="text-xs font-mono font-bold text-primary">Pedido de Cotação / Serviço</span>
                 <h3 className="text-lg font-extrabold text-slate-900">{selectedLead.service}</h3>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedLead(null)}
-                className="text-slate-400 hover:text-slate-700 p-1"
-              >
-                <CloseIcon className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setViewProposalLead(selectedLead)}
+                  className="px-3 py-1.5 bg-[#00102b] hover:bg-[#0284c7] text-white font-bold text-xs uppercase tracking-wider rounded transition flex items-center gap-1.5 shadow-xs"
+                >
+                  <FileText className="h-3.5 w-3.5 text-blue-400" />
+                  <span>Proposta ARKNET</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedLead(null)}
+                  className="text-slate-400 hover:text-slate-700 p-1"
+                >
+                  <CloseIcon className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
@@ -459,6 +480,14 @@ export default function AdminLeadsPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal de Proposta Técnica ARKNET */}
+      {viewProposalLead && (
+        <PropostaServicoArknet
+          lead={viewProposalLead}
+          onClose={() => setViewProposalLead(null)}
+        />
       )}
 
       {/* Delete Confirmation Modal */}

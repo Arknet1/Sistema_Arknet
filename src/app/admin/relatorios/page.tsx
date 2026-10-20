@@ -925,12 +925,17 @@ export default function AdminRelatoriosPage() {
           </table>
         </div>
 
-        {/* Section 3: Product Sales & Stock Depletion */}
+        {/* Section 3: Product Sales & Stock Depletion - LOJA J.MATOS TECNOLOGIA */}
         <div className="mb-8 break-inside-avoid">
-          <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-200">
-            <Package className="w-4 h-4 text-primary" />
-            Vendas e stock por produto
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-300 gap-2">
+            <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <Package className="w-4 h-4 text-[#1E78C2]" />
+              <span>Loja J.Matos Tecnologia · Vendas de Equipamentos</span>
+            </h3>
+            <span className="text-[10px] font-bold text-[#F7941D] bg-orange-50 border border-orange-200 px-2 py-0.5 rounded uppercase font-mono self-start sm:self-auto">
+              Modelo J.Matos · NIF 5412398760
+            </span>
+          </div>
           <table className="w-full text-left border-collapse mt-3 text-xs">
             <thead>
               <tr className="bg-slate-100 text-slate-700 font-extrabold uppercase text-[10px] border-b border-slate-300">
@@ -977,12 +982,17 @@ export default function AdminRelatoriosPage() {
           </table>
         </div>
 
-        {/* Section 4: Lead Funnel & Services */}
+        {/* Section 4: Lead Funnel & Services - ARKNET TELECOM */}
         <div className="mb-8 break-inside-avoid">
-          <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-200">
-            <Users className="w-4 h-4 text-primary" />
-            Leads e procura por serviço
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-300 gap-2">
+            <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <Users className="w-4 h-4 text-[#0284c7]" />
+              <span>ARKNET Telecom · Solicitações de Serviço & Propostas Técnicas</span>
+            </h3>
+            <span className="text-[10px] font-bold text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded uppercase font-mono self-start sm:self-auto">
+              Engenharia NOC ARKNET
+            </span>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
             {/* Stages */}
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">

@@ -39,6 +39,8 @@ import {
   QrCode,
 } from 'lucide-react'
 import arknetLogo from '@/assets/icon18.png'
+import FaturaJMatos from '@/components/fatura-jmatos'
+import PropostaServicoArknet from '@/components/proposta-servico-arknet'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
 import { dataStore, StoreOrder, ServiceLead, EventRegistration, EventItem } from '@/lib/data-store'
 import { formatProdutoPrice, formatLinhaPreco } from '@/lib/format-produto-price'
@@ -99,6 +101,7 @@ function ClientePerfilContent() {
   // Modal de Credencial Digital
   const [selectedTicket, setSelectedTicket] = useState<{ registration: EventRegistration; event?: EventItem } | null>(null)
   const [viewInvoiceOrder, setViewInvoiceOrder] = useState<StoreOrder | null>(null)
+  const [selectedLeadForProposal, setSelectedLeadForProposal] = useState<ServiceLead | null>(null)
 
   // Sincronizar parâmetro tab da URL
   useEffect(() => {
@@ -829,29 +832,34 @@ function ClientePerfilContent() {
                             <button
                               type="button"
                               onClick={() => setViewInvoiceOrder(order)}
-                              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-primary text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#1E78C2] hover:bg-[#16609c] text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
                             >
-                              <FileText className="h-4 w-4 text-blue-400" />
-                              <span>Visualizar / Imprimir Fatura Oficial</span>
+                              <Receipt className="h-4 w-4" />
+                              <span>Fatura Comercial J.Matos</span>
                             </button>
                           ) : order.status === 'cancelado' ? (
                             <span className="text-xs text-slate-400 italic">Pedido Cancelado</span>
                           ) : (
-                            <>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setViewInvoiceOrder(order)}
+                                className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider rounded border border-slate-300 transition"
+                                title="Ver fatura proforma com coordenadas bancárias para pagamento"
+                              >
+                                <Receipt className="h-3.5 w-3.5 text-[#1E78C2]" />
+                                <span>Fatura Proforma J.Matos</span>
+                              </button>
                               <a
                                 href={`https://wa.me/244935208449?text=${whatsappText}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
                               >
                                 <MessageCircle className="h-4 w-4" />
-                                <span>Falar no WhatsApp</span>
+                                <span>Enviar Comprovativo</span>
                               </a>
-                              <span className="text-[11px] text-blue-800 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded flex items-center gap-1 font-medium">
-                                <Lock className="h-3 w-3 text-blue-600" />
-                                Fatura disponível após aprovação do admin
-                              </span>
-                            </>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -1135,6 +1143,34 @@ function ClientePerfilContent() {
                         <strong>Nota de acompanhamento:</strong> {lead.notes}
                       </p>
                     )}
+
+                    <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedLeadForProposal(lead)}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#00102b] hover:bg-[#0284c7] text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                        >
+                          <FileText className="h-3.5 w-3.5 text-blue-400" />
+                          <span>Ficha & Proposta Técnica ARKNET</span>
+                        </button>
+                        <a
+                          href={`https://wa.me/244935208449?text=${encodeURIComponent(
+                            `Olá equipa de suporte ARKNET! Gostaria de acompanhar a minha solicitação de serviço: ${lead.service} (Ref: PR-ARK2024/${lead.id.slice(-6).toUpperCase()}).`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
+                          title="Entrar em contacto com o suporte técnico no WhatsApp"
+                        >
+                          <MessageCircle className="h-3.5 w-3.5" />
+                          <span>Continuar no WhatsApp / Suporte</span>
+                        </a>
+                      </div>
+                      <span className="text-[11px] text-slate-400 font-mono">
+                        Ref: PR-ARK2024/{lead.id.slice(-6).toUpperCase()}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1292,205 +1328,20 @@ function ClientePerfilContent() {
           </div>
         )}
 
-        {/* MODAL DE FATURA OFICIAL (DOCUMENTO FISCAL) */}
+        {/* MODAL DE FATURA OFICIAL J.MATOS TECNOLOGIA */}
         {viewInvoiceOrder && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white">
-            <div className="relative w-full max-w-4xl bg-white border border-slate-200 shadow-2xl overflow-hidden my-8 print:my-0 print:border-none print:shadow-none">
-              
-              {/* Modal Top Bar (Hidden on print) */}
-              <div className="p-4 bg-slate-900 text-white flex items-center justify-between print:hidden">
-                <div className="flex items-center gap-2">
-                  <Receipt className="h-5 w-5 text-blue-400" />
-                  <span className="font-bold text-xs uppercase tracking-wider">
-                    Fatura Oficial ARKNET, n.º {viewInvoiceOrder.orderNumber}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => window.print()}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center gap-1.5 transition"
-                  >
-                    <Printer className="h-4 w-4" />
-                    <span>Imprimir / PDF</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setViewInvoiceOrder(null)}
-                    className="p-2 text-slate-400 hover:text-white rounded transition"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
+          <FaturaJMatos
+            order={viewInvoiceOrder}
+            onClose={() => setViewInvoiceOrder(null)}
+          />
+        )}
 
-              {/* Printable Invoice Container */}
-              <div className="p-8 sm:p-12 text-slate-800 text-xs">
-                
-                {/* Header Documento Fiscal */}
-                <div className="flex flex-col sm:flex-row justify-between items-start border-b-2 border-slate-900 pb-6 gap-6">
-                  <div>
-                    <Image
-                      src={arknetLogo}
-                      alt="ARKNET"
-                      width={180}
-                      height={60}
-                      className="h-12 w-auto object-contain mb-3"
-                    />
-                    <p className="text-xs font-black uppercase text-slate-900">
-                          ARKNET, Soluções Tecnológicas e Telecomunicações, Lda.
-                    </p>
-                    <p className="text-slate-500">NIF: 5412398760 • Kilamba, Luanda, Angola</p>
-                    <p className="text-slate-500">Email: info@arknet.co.ao • Tel: +244 935 208 449</p>
-                  </div>
-
-                  <div className="sm:text-right bg-slate-50 p-4 border border-slate-200 rounded sm:min-w-[260px]">
-                    <div className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-blue-800 bg-blue-100 border border-blue-300 px-2.5 py-0.5 rounded mb-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-700" />
-                      <span>Fatura Aprovada & Emitida</span>
-                    </div>
-                    <h2 className="text-xl font-black text-slate-900 font-mono">
-                      {viewInvoiceOrder.orderNumber}
-                    </h2>
-                    <p className="text-slate-500 mt-1">
-                      Data de Emissão: {new Date(viewInvoiceOrder.confirmedAt || viewInvoiceOrder.createdAt).toLocaleDateString('pt-AO', {
-                        day: '2-digit',
-                        month: 'long',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    <p className="text-slate-700 font-semibold mt-0.5">
-                      Estado: <span className="text-blue-700 uppercase font-bold">Liquidado / Aprovado</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Selo / Carimbo de Aprovação do Administrador */}
-                <div className="my-6 p-4 bg-blue-50/70 border-2 border-dashed border-blue-400 rounded flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-black">
-                      ✓
-                    </div>
-                    <div>
-                      <p className="font-black text-blue-950 uppercase text-[11px] tracking-wider">
-                        Documento Validado & Autorizado pelo Administrador
-                      </p>
-                      <p className="text-[11px] text-blue-800">
-                        Pagamento conferido com sucesso. Equipamentos prontos para levantamento / entrega.
-                      </p>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[11px] font-bold text-blue-900 bg-white px-3 py-1 border border-blue-200 rounded">
-                    AUTORIZAÇÃO: {viewInvoiceOrder.orderNumber}-AUTH
-                  </span>
-                </div>
-
-                {/* Dados do Cliente & Entrega */}
-                <div className="grid sm:grid-cols-2 gap-6 my-6 p-5 bg-slate-50 border border-slate-200">
-                  <div>
-                    <h3 className="font-black text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
-                      Dados de Faturação (Cliente):
-                    </h3>
-                    <p className="font-bold text-slate-900 text-sm">{viewInvoiceOrder.customerName}</p>
-                    {viewInvoiceOrder.customerCompany && (
-                      <p className="text-slate-700">Empresa: <strong>{viewInvoiceOrder.customerCompany}</strong></p>
-                    )}
-                    {viewInvoiceOrder.customerNif && (
-                      <p className="text-slate-700">NIF: <strong className="font-mono">{viewInvoiceOrder.customerNif}</strong></p>
-                    )}
-                    <p className="text-slate-600">Email: {viewInvoiceOrder.customerEmail}</p>
-                    <p className="text-slate-600">Telefone: {viewInvoiceOrder.customerPhone}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-black text-slate-900 uppercase tracking-wider mb-2 text-[11px] text-primary">
-                      Local de Entrega & Pagamento:
-                    </h3>
-                    <p className="text-slate-800 font-semibold">{viewInvoiceOrder.customerAddress || 'A combinar com o cliente'}</p>
-                    <p className="text-slate-600">{viewInvoiceOrder.customerCity || 'Luanda'}, Angola</p>
-                    <p className="text-slate-700 mt-2">
-                      Método de Pagamento:{' '}
-                      <strong className="text-slate-900 uppercase">
-                        {viewInvoiceOrder.paymentMethod || 'Transferência Bancária / MCX'}
-                      </strong>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Tabela de Itens */}
-                <div className="my-6 overflow-x-auto">
-                  <table className="w-full text-left text-xs border-collapse">
-                    <thead>
-                      <tr className="border-b-2 border-slate-900 bg-slate-100 text-slate-800 uppercase tracking-wider font-bold">
-                        <th className="py-3 px-3">Item / Equipamento</th>
-                        <th className="py-3 px-3 text-center">Qtd</th>
-                        <th className="py-3 px-3 text-right">Preço Unitário</th>
-                        <th className="py-3 px-3 text-right">Subtotal</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200">
-                      {viewInvoiceOrder.items.map((item, idx) => (
-                        <tr key={idx}>
-                          <td className="py-3 px-3">
-                            <p className="font-bold text-slate-900">{item.productName}</p>
-                            <p className="text-[10px] text-slate-400 font-mono">Código: {item.productId}</p>
-                          </td>
-                          <td className="py-3 px-3 text-center font-bold font-mono">{item.quantity}</td>
-                          <td className="py-3 px-3 text-right font-mono">
-                            {item.price === null ? 'Sob consulta' : formatProdutoPrice(item.price)}
-                          </td>
-                          <td className="py-3 px-3 text-right font-bold text-slate-900 font-mono">
-                            {formatLinhaPreco(item.price, item.quantity)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Totais */}
-                <div className="flex justify-end my-6 border-t border-slate-200 pt-4">
-                  <div className="w-full sm:w-72 space-y-2 text-xs">
-                    <div className="flex justify-between text-slate-600">
-                      <span>Subtotal Equipamentos:</span>
-                      <span className="font-semibold font-mono">
-                        {viewInvoiceOrder.total === null ? 'Sob consulta' : formatProdutoPrice(viewInvoiceOrder.total)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>Taxa de IVA (14% Incluso):</span>
-                      <span>Regime Geral</span>
-                    </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>Custo de Envio (Empresas):</span>
-                      <span className="text-slate-900 font-bold">Com taxa adicional</span>
-                    </div>
-                    <div className="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-900 pt-2">
-                      <span>Total Liquidado:</span>
-                      <span className="font-mono">
-                        {viewInvoiceOrder.total === null ? 'Sob consulta' : formatProdutoPrice(viewInvoiceOrder.total)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Termos & Rodapé Fiscal */}
-                <div className="mt-8 pt-6 border-t border-slate-200 text-[10px] text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-                  <p>
-                    Documento processado por computador • ARKNET Soluções Tecnológicas Lda. • Garantia oficial de hardware.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => window.print()}
-                    className="px-5 py-2.5 bg-slate-900 text-white font-bold text-xs uppercase rounded hover:bg-primary transition print:hidden"
-                  >
-                    Imprimir / Guardar Fatura PDF
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
+        {/* MODAL DE PROPOSTA TÉCNICA ARKNET */}
+        {selectedLeadForProposal && (
+          <PropostaServicoArknet
+            lead={selectedLeadForProposal}
+            onClose={() => setSelectedLeadForProposal(null)}
+          />
         )}
 
         {/* MODAL DE CREDENCIAL DIGITAL / PASSE DO EVENTO */}

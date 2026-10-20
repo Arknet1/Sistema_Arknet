@@ -26,6 +26,7 @@ import {
   RefreshCw,
   Image as ImageIcon,
   CheckCheck,
+  Receipt,
 } from 'lucide-react'
 import {
   dataStore,
@@ -40,6 +41,7 @@ import { ExportButton } from '@/components/admin/export-button'
 import { exportToCSV } from '@/lib/export-utils'
 import { formatProdutoPrice } from '@/lib/format-produto-price'
 import { WhatsAppSimulatorModal } from '@/components/admin/whatsapp-simulator-modal'
+import FaturaJMatos from '@/components/fatura-jmatos'
 
 export default function AdminPedidosPage() {
   const { success, error: toastError, info } = useToast()
@@ -60,6 +62,7 @@ export default function AdminPedidosPage() {
   // WhatsApp Simulator Modal
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false)
   const [simulatorOrder, setSimulatorOrder] = useState<StoreOrder | null>(null)
+  const [invoiceOrder, setInvoiceOrder] = useState<StoreOrder | null>(null)
 
   // Delete Modal
   const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -640,6 +643,16 @@ export default function AdminPedidosPage() {
                             <span>WhatsApp</span>
                           </button>
 
+                          {/* Ver Fatura J.Matos */}
+                          <button
+                            type="button"
+                            onClick={() => setInvoiceOrder(order)}
+                            className="p-1.5 text-slate-500 hover:text-[#1E78C2] hover:bg-blue-50 transition rounded"
+                            title="Visualizar / Imprimir Fatura J.Matos Tecnologia"
+                          >
+                            <Receipt className="h-4 w-4" />
+                          </button>
+
                           {/* Delete */}
                           <button
                             type="button"
@@ -685,7 +698,18 @@ export default function AdminPedidosPage() {
                 </h3>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                {/* Botão Fatura J.Matos */}
+                <button
+                  type="button"
+                  onClick={() => setInvoiceOrder(selectedOrder)}
+                  className="px-3.5 py-2 bg-[#1E78C2] hover:bg-[#16609c] text-white font-bold text-xs uppercase tracking-wider rounded transition flex items-center gap-1.5 shadow-xs"
+                  title="Visualizar / Imprimir Fatura Comercial ou Proforma J.Matos"
+                >
+                  <Receipt className="h-4 w-4" />
+                  <span>Fatura J.Matos</span>
+                </button>
+
                 {/* 1-Clique no cabeçalho do Modal */}
                 {selectedOrder.status !== 'fechado' && (
                   <button
@@ -1186,6 +1210,14 @@ export default function AdminPedidosPage() {
           setOrders([...db.orders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
         }}
       />
+
+      {/* Modal Fatura J.Matos Tecnologia */}
+      {invoiceOrder && (
+        <FaturaJMatos
+          order={invoiceOrder}
+          onClose={() => setInvoiceOrder(null)}
+        />
+      )}
 
       {/* Delete Modal */}
       <ConfirmModal

@@ -8,7 +8,7 @@ import { formatProdutoPrice } from '../format-produto-price'
 
 export const ARKNET_BANK_DETAILS = {
   mcxNumber: '+244 935 208 449',
-  holder: 'ARKNET TECNOLOGIA LDA',
+  holder: 'J.MATOS TECNOLOGIA LDA',
   nif: '5412398760',
   baiIban: 'AO06 0040 0000 1234 5678 9012 3',
   bfaIban: 'AO06 0006 0000 9876 5432 1098 7',
@@ -33,7 +33,7 @@ export function getOrderSummaryMessage(order: StoreOrder): string {
 
   return (
     `Olá *${order.customerName}*!\n` +
-    `Recebemos com sucesso o seu pedido *#${order.orderNumber}* registado na Loja Online ARKNET.\n\n` +
+    `Recebemos com sucesso o seu pedido *#${order.orderNumber}* registado na Loja J.Matos Tecnologia (Grupo ARKNET).\n\n` +
     `*Resumo da Encomenda:*\n` +
     `${itemsList}\n\n` +
     `*Valor Total:* *${formattedTotal}*\n` +
@@ -60,7 +60,7 @@ export function getPaymentInstructionsMessage(order: StoreOrder): string {
     `• *NIF:* ${ARKNET_BANK_DETAILS.nif}\n` +
     `• *Descritivo:* ${order.orderNumber}\n\n` +
     `*Próximo Passo:* Após efetuar o pagamento, *envie a foto ou ficheiro PDF do comprovativo aqui nesta conversa*.\n\n` +
-    `*Aviso de Segurança:* A ARKNET nunca solicita transferências para contas em nome de pessoas físicas. Verifique sempre o titular *${ARKNET_BANK_DETAILS.holder}*.`
+    `*Aviso de Segurança:* A Loja J.Matos Tecnologia nunca solicita transferências para contas em nome de pessoas físicas. Verifique sempre o titular *${ARKNET_BANK_DETAILS.holder}*.`
   )
 }
 
@@ -72,7 +72,7 @@ export function getReceiptReceivedMessage(order: StoreOrder): string {
     `*Comprovativo Recebido com Sucesso!*\n\n` +
     `O seu comprovativo referente ao pedido *#${order.orderNumber}* foi anexado e encaminhado para a nossa equipa de validação financeira.\n\n` +
     `*Processo de Validação:* A nossa equipa financeira irá conferir o crédito na conta bancária institucional e entrará em contacto consigo por este canal para confirmar a aprovação e coordenar a entrega.\n\n` +
-    `*Segurança ARKNET:* Nunca partilhe códigos SMS ou palavras-passe por mensagem. A nossa equipa entrará em contacto apenas pelos canais oficiais.`
+    `*Segurança J.Matos & ARKNET:* Nunca partilhe códigos SMS ou palavras-passe por mensagem. A nossa equipa entrará em contacto apenas pelos canais oficiais.`
   )
 }
 
@@ -83,10 +83,10 @@ export function getOrderConfirmedMessage(order: StoreOrder): string {
   return (
     `*Pagamento Validado com Sucesso!*\n\n` +
     `O seu pedido *#${order.orderNumber}* foi conferido no sistema e encontra-se agora em processamento logístico.\n\n` +
-    `*Fatura Oficial:* A fatura comercial já se encontra emitida e disponível para descarregamento na sua Área de Cliente ARKNET.\n\n` +
+    `*Fatura Oficial J.Matos:* A sua fatura comercial oficial já se encontra emitida e disponível para visualização e descarregamento na sua Área de Cliente.\n\n` +
     `*Expedição & Contacto:* A nossa equipa de logística/estafeta entrará em contacto consigo nas próximas horas pelo número *${order.customerPhone || order.whatsappPhone}* para agendar o horário e local da entrega/levantamento (prazo: 24h a 48h úteis).\n\n` +
-    `Agradecemos a sua preferência e confiança na ARKNET!\n` +
-    `_ARKNET, Conectividade e Soluções Tecnológicas_`
+    `Agradecemos a sua preferência e confiança na Loja J.Matos Tecnologia!\n` +
+    `_J.Matos Tecnologia · Soluções Tecnológicas (Grupo ARKNET)_`
   )
 }
 
