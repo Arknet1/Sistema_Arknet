@@ -864,6 +864,68 @@ export function appendServerSubscriber(subscriber: any) {
 }
 
 /**
+ * Adiciona múltiplos subscritores de newsletter em lote no Prisma e backup JSON
+ */
+export async function appendServerSubscribersBatchAsync(subscribersList: Array<{ id?: string; email: string; subscribedAt?: string }>) {
+  if (!Array.isArray(subscribersList) || subscribersList.length === 0) return true
+
+  try {
+    for (const sub of subscribersList) {
+      const cleanEmail = sub.email.toLowerCase().trim()
+      if (!cleanEmail || !cleanEmail.includes('@')) continue
+
+      await prisma.newsletterSubscriber.upsert({
+        where: { email: cleanEmail },
+        update: { status: 'active' },
+        create: {
+          id: sub.id || `sub-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          email: cleanEmail,
+          status: 'active',
+          subscribedAt: sub.subscribedAt ? new Date(sub.subscribedAt) : new Date(),
+        },
+      })
+    }
+  } catch (err) {
+    console.error('[Prisma appendServerSubscribersBatchAsync] Erro:', err)
+  }
+
+  try {
+    const current = readServerDbFallback()
+    const existingMap = new Map<string, any>((current.subscribers || []).map((s: any) => [s.email?.toLowerCase()?.trim(), s]))
+    const newItems: any[] = []
+
+    for (const sub of subscribersList) {
+      const cleanEmail = sub.email.toLowerCase().trim()
+      if (!cleanEmail || !cleanEmail.includes('@')) continue
+
+      if (!existingMap.has(cleanEmail)) {
+        const item = {
+          id: sub.id || `sub-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          email: cleanEmail,
+          status: 'active',
+          subscribedAt: sub.subscribedAt || new Date().toISOString(),
+        }
+        existingMap.set(cleanEmail, item)
+        newItems.push(item)
+      } else {
+        const existing = existingMap.get(cleanEmail)
+        if (existing && existing.status !== 'active') {
+          existing.status = 'active'
+        }
+      }
+    }
+
+    const updatedSubscribers = Array.from(existingMap.values())
+    writeServerDb({ subscribers: updatedSubscribers })
+  } catch (err) {
+    console.error('[Fallback appendServerSubscribersBatchAsync] Erro:', err)
+  }
+
+  return true
+}
+
+
+/**
  * Adiciona uma nova inscrição em evento no Prisma e backup JSON
  */
 export async function appendServerEventRegistrationAsync(registration: any) {

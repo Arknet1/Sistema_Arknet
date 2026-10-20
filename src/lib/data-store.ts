@@ -2395,6 +2395,77 @@ class DataStoreManager {
     return { success: true, message: 'Obrigado por subscrever a nossa newsletter!', subscriber: newSub }
   }
 
+  public addSubscribersBatch(
+    emails: string[],
+    sendWelcome: boolean = false
+  ): { added: number; updated: number; total: number; emails: string[] } {
+    const validEmails = Array.from(
+      new Set(
+        emails
+          .map((e) => (typeof e === 'string' ? e.trim().toLowerCase() : ''))
+          .filter((e) => e && e.includes('@') && e.includes('.'))
+      )
+    )
+
+    if (validEmails.length === 0) {
+      return { added: 0, updated: 0, total: 0, emails: [] }
+    }
+
+    let added = 0
+    let updated = 0
+    const now = new Date().toISOString()
+    const newlyAddedList: NewsletterSubscriber[] = []
+
+    this.mutate(
+      (db) => {
+        const subMap = new Map((db.subscribers || []).map((s) => [s.email.toLowerCase(), { ...s }]))
+
+        for (const email of validEmails) {
+          const existing = subMap.get(email)
+          if (existing) {
+            if (existing.status !== 'active') {
+              existing.status = 'active'
+              subMap.set(email, existing)
+              updated++
+            }
+          } else {
+            const newSub: NewsletterSubscriber = {
+              id: `sub-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+              email,
+              status: 'active',
+              subscribedAt: now,
+            }
+            subMap.set(email, newSub)
+            newlyAddedList.push(newSub)
+            added++
+          }
+        }
+
+        return {
+          ...db,
+          subscribers: Array.from(subMap.values()).sort(
+            (a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime()
+          ),
+        }
+      },
+      {
+        action: `Importou lote de ${added} novo(s) subscritor(es) para a newsletter (${updated} reativados)`,
+        module: 'newsletter',
+      }
+    )
+
+    if (this.isBrowser) {
+      fetch('/api/newsletter/subscribers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emails: validEmails, sendWelcome }),
+        credentials: 'include',
+      }).catch((e) => console.warn('[DataStore addSubscribersBatch sync]:', e))
+    }
+
+    return { added, updated, total: validEmails.length, emails: validEmails }
+  }
+
   public updateSubscriberStatus(id: string, status: 'active' | 'inactive'): boolean {
     this.mutate((db) => {
       const subscribers = db.subscribers.map((s) => (s.id === id ? { ...s, status } : s))

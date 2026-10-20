@@ -17,12 +17,12 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$c6585d1bbf2e2a65fee49af149b46897$29ed8daa59b18f7c259a6ed1b0a189805ed26e0770f272b6170b48ac136d2e4a4863efe4585eb97e64494263111d56af1d81195dd87478439d440a0c80d15429",
+      "passwordHash": "$scrypt$6931610b840ae2cd4f067c54c87947fa$9d94ebc6f64d8c402d22e83f7d6d26a04b3a0f85de9233d477b98704335f7b75995e4fc76671c5ee101a507bf4e9f15ab39a9d1f5be334fb4ea5eaa408ac185a",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-09T08:24:15.212Z"
+      "lastLogin": "2026-10-20T11:31:38.851Z"
     },
     {
       "id": "user-editor",
@@ -108,11 +108,11 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-10-20T10:36:57.953Z",
+      "lastLogin": "2026-10-20T11:14:30.822Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$1c31f640dc1feee150c523f064e5625d$2262693282920b23f6bd855310a49d460b77fdad09de0794d34f9d0b00585642c1fd298562eaf50628f1dbeeba4396417b82fa39021495aeae57512092c3f177"
+      "passwordHash": "$scrypt$db9066755725ecf4f4dacc214d6fbfe5$89fd2e3827c785f88e7b8a9e9cbc1759d1e7b9b80cf239868faa8a4a80d4da5217bdfddc4c8db3685c1d2aeff31b1b0806dc9f81788cf1b8942a57db618824db"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",

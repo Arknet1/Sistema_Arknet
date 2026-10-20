@@ -30,6 +30,12 @@ import {
   Sparkles,
   ArrowRight,
   HelpCircle,
+  Download,
+  Upload,
+  Database,
+  UserPlus,
+  AlertCircle,
+  ClipboardList,
 } from 'lucide-react'
 import { dataStore, NewsletterSubscriber } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
@@ -94,9 +100,11 @@ export default function AdminNewsletterPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all')
 
-  // Modal Novo Subscritor
+  // Modal Adicionar Subscritores
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newEmail, setNewEmail] = useState('')
+  const [newEmailSendWelcome, setNewEmailSendWelcome] = useState(true)
+  const [isAddingSubscribers, setIsAddingSubscribers] = useState(false)
 
   // Delete Modal
   const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -157,6 +165,13 @@ export default function AdminNewsletterPage() {
 
   // Subscritores State
   const [isLoadingSubscribers, setIsLoadingSubscribers] = useState(false)
+
+  // Modal Importar Clientes da Base
+  const [isImportClientsModalOpen, setIsImportClientsModalOpen] = useState(false)
+  const [importClientEmails, setImportClientEmails] = useState<string[]>([])
+  const [importClientSources, setImportClientSources] = useState<{ customers: string[]; orders: string[]; leads: string[] }>({ customers: [], orders: [], leads: [] })
+  const [isImportingClients, setIsImportingClients] = useState(false)
+  const [importSendWelcome, setImportSendWelcome] = useState(false)
 
   const getAdminToken = () => {
     if (typeof window === 'undefined') return null
@@ -230,34 +245,63 @@ export default function AdminNewsletterPage() {
 
   const activeCount = subscribers.filter((s) => s.status === 'active').length
 
+  const parseBatchEmails = (text: string): string[] => {
+    const raw = text
+      .split(/[,;\n\r\t ]+/)
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => e && e.includes('@') && e.includes('.'))
+    return Array.from(new Set(raw))
+  }
+
   // --- Handlers Subscritores ---
   const handleAddSubscriber = async (e: React.FormEvent) => {
     e.preventDefault()
-    const emailToAdd = newEmail.trim()
-    if (!emailToAdd) return
+    const emails = parseBatchEmails(newEmail)
+    if (emails.length === 0) {
+      error('Por favor, introduza pelo menos um endereço de e-mail válido.', 'E-mail Inválido')
+      return
+    }
 
+    setIsAddingSubscribers(true)
     try {
-      const res = await fetch('/api/newsletter/subscribers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailToAdd, sendWelcome: true }),
-      })
-      const data = await res.json()
-      if (data.success) {
-        dataStore.addSubscriber(emailToAdd)
+      if (emails.length === 1) {
+        const emailToAdd = emails[0]
+        const res = await fetch('/api/newsletter/subscribers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailToAdd, sendWelcome: newEmailSendWelcome }),
+        })
+        const data = await res.json()
+        if (data.success) {
+          dataStore.addSubscriber(emailToAdd)
+          await loadSubscribers()
+          success(
+            newEmailSendWelcome ? 'Subscritor adicionado e e-mail de boas-vindas enviado!' : 'Subscritor adicionado à lista!',
+            'Subscritor Adicionado'
+          )
+          setIsModalOpen(false)
+          setNewEmail('')
+        } else {
+          error(data.message || 'Erro ao adicionar subscritor.', 'Erro na Subscrição')
+        }
+      } else {
+        const result = dataStore.addSubscribersBatch(emails, newEmailSendWelcome)
         await loadSubscribers()
-        success('Subscritor adicionado e email de boas-vindas enviado!', 'Subscritor Adicionado')
+        success(
+          `${result.added} novo(s) subscritor(es) adicionado(s)${result.updated > 0 ? `, ${result.updated} reativado(s)` : ''}.`,
+          'Subscritores Adicionados'
+        )
         setIsModalOpen(false)
         setNewEmail('')
-      } else {
-        error(data.message || 'Erro ao adicionar subscritor.', 'Erro na Subscrição')
       }
     } catch {
-      dataStore.addSubscriber(emailToAdd)
+      dataStore.addSubscribersBatch(emails, newEmailSendWelcome)
       await loadSubscribers()
-      success('Subscritor adicionado!', 'Subscritor Adicionado')
+      success(`${emails.length} subscritor(es) adicionado(s)!`, 'Subscritor Adicionado')
       setIsModalOpen(false)
       setNewEmail('')
+    } finally {
+      setIsAddingSubscribers(false)
     }
   }
 
@@ -299,6 +343,60 @@ export default function AdminNewsletterPage() {
       success('Subscritor removido da lista.', 'Subscritor Eliminado')
       setIsDeleteModalOpen(false)
       setDeletingId(null)
+    }
+  }
+
+  // --- Handlers Importação ---
+  const handleOpenImportClients = () => {
+    const db = dataStore.getSnapshot()
+    const existingSubs = new Set((subscribers || []).map((s) => s.email.toLowerCase().trim()))
+
+    // Emails de clientes registados
+    const customerEmails = (db.customers || [])
+      .filter((c) => c.email && c.email.includes('@') && c.email.includes('.'))
+      .map((c) => c.email.toLowerCase().trim())
+      .filter((e) => !existingSubs.has(e))
+
+    // Emails de encomendas da loja
+    const orderEmails = (db.orders || [])
+      .filter((o) => o.customerEmail && o.customerEmail.includes('@') && o.customerEmail.includes('.'))
+      .map((o) => o.customerEmail.toLowerCase().trim())
+      .filter((e) => !existingSubs.has(e))
+
+    // Emails de leads de serviço
+    const leadEmails = (db.leads || [])
+      .filter((l) => l.email && l.email.includes('@') && l.email.includes('.'))
+      .map((l) => l.email.toLowerCase().trim())
+      .filter((e) => !existingSubs.has(e))
+
+    // Emails únicos combinados
+    const allUnique = Array.from(new Set([...customerEmails, ...orderEmails, ...leadEmails]))
+
+    setImportClientSources({
+      customers: Array.from(new Set(customerEmails)),
+      orders: Array.from(new Set(orderEmails)),
+      leads: Array.from(new Set(leadEmails)),
+    })
+    setImportClientEmails(allUnique)
+    setImportSendWelcome(false)
+    setIsImportClientsModalOpen(true)
+  }
+
+  const handleConfirmImportClients = async () => {
+    if (importClientEmails.length === 0) return
+    setIsImportingClients(true)
+    try {
+      const result = dataStore.addSubscribersBatch(importClientEmails, importSendWelcome)
+      await loadSubscribers()
+      success(
+        `${result.added} novo(s) subscritor(es) importado(s)${result.updated > 0 ? `, ${result.updated} reativado(s)` : ''}.`,
+        'Importação Concluída'
+      )
+      setIsImportClientsModalOpen(false)
+    } catch {
+      error('Erro ao importar clientes. Tente novamente.', 'Erro na Importação')
+    } finally {
+      setIsImportingClients(false)
     }
   }
 
@@ -739,8 +837,8 @@ export default function AdminNewsletterPage() {
               <Mail className="h-6 w-6" />
             </div>
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Newsletter J.Matos Tecnologia</h1>
-            <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-sky-100 text-sky-800 rounded-full">
-              Design Pro
+            <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-semibold text-slate-600 bg-slate-100 rounded-md border border-slate-200">
+              Campanhas &amp; Comunicação
             </span>
           </div>
           <p className="text-xs text-slate-500 max-w-2xl">
@@ -858,11 +956,21 @@ export default function AdminNewsletterPage() {
                 <ExportButton onExport={handleExportCSV} label="Exportar CSV" />
                 <button
                   type="button"
+                  onClick={handleOpenImportClients}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-300 text-slate-700 hover:text-slate-900 hover:bg-slate-50 text-xs font-semibold rounded-lg transition shadow-2xs"
+                  title="Importar e-mails de clientes registados, encomendas e leads de serviço"
+                >
+                  <Database className="h-4 w-4 text-slate-500" />
+                  Importar Clientes
+                </button>
+                <button
+                  type="button"
                   onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-secondary/90 transition shadow-xs"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-primary/90 transition shadow-xs"
+                  title="Adicionar um ou múltiplos e-mails à lista de subscritores"
                 >
                   <Plus className="h-4 w-4" />
-                  Novo Subscritor
+                  Adicionar E-mails
                 </button>
               </div>
             </div>
@@ -1870,20 +1978,23 @@ export default function AdminNewsletterPage() {
         </div>
       )}
 
-      {/* Modal Adicionar Subscritor Manualmente */}
+      {/* Modal Adicionar Subscritores Manualmente */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           />
-          <div className="relative w-full max-w-md bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-10">
+          <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-10" onClick={(e) => e.stopPropagation()}>
             <div className="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-primary/10 text-primary rounded-lg">
-                  <Mail className="h-5 w-5" />
+                <div className="p-2 bg-slate-100 text-slate-700 rounded-lg">
+                  <UserPlus className="h-5 w-5" />
                 </div>
-                <h3 className="text-base font-extrabold text-slate-900">Novo Subscritor</h3>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900">Adicionar Subscritores</h3>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Adicione um ou múltiplos e-mails de clientes à newsletter</p>
+                </div>
               </div>
               <button
                 type="button"
@@ -1895,18 +2006,59 @@ export default function AdminNewsletterPage() {
             </div>
             <form onSubmit={handleAddSubscriber} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Endereço de Email *
-                </label>
-                <input
-                  type="email"
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Endereço(s) de E-mail *
+                  </label>
+                  {parseBatchEmails(newEmail).length > 0 && (
+                    <span className="text-[11px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
+                      {parseBatchEmails(newEmail).length} e-mail(s) válido(s)
+                    </span>
+                  )}
+                </div>
+                <textarea
+                  rows={4}
                   required
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
-                  placeholder="cliente@empresa.ao"
-                  className="w-full px-4 py-2.5 text-sm border border-slate-300 rounded-lg focus:border-primary focus:outline-none"
+                  placeholder="cliente@empresa.ao&#10;&#10;(Ou cole múltiplos e-mails separados por vírgula ou linha)"
+                  className="w-full px-4 py-3 text-xs font-mono border border-slate-300 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition resize-none bg-slate-50 focus:bg-white text-slate-900"
                 />
+                <p className="text-[11px] text-slate-500 mt-1">
+                  Pode introduzir um único e-mail ou colar múltiplos e-mails separados por vírgula, ponto-e-vírgula ou quebra de linha.
+                </p>
               </div>
+
+              {parseBatchEmails(newEmail).length > 1 && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                  <p className="text-[11px] font-bold text-slate-700 mb-2">Pré-visualização dos e-mails detetados:</p>
+                  <div className="max-h-24 overflow-y-auto flex flex-wrap gap-1">
+                    {parseBatchEmails(newEmail).slice(0, 15).map((em) => (
+                      <span key={em} className="inline-flex items-center px-2 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-mono text-slate-700">
+                        {em}
+                      </span>
+                    ))}
+                    {parseBatchEmails(newEmail).length > 15 && (
+                      <span className="inline-flex items-center px-2 py-0.5 bg-slate-200 rounded text-[10px] font-bold text-slate-600">
+                        +{parseBatchEmails(newEmail).length - 15} mais
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <label className="flex items-center gap-2 cursor-pointer group pt-1">
+                <input
+                  type="checkbox"
+                  checked={newEmailSendWelcome}
+                  onChange={(e) => setNewEmailSendWelcome(e.target.checked)}
+                  className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary/20 accent-primary"
+                />
+                <span className="text-xs text-slate-600 group-hover:text-slate-900 transition">
+                  Enviar e-mail de boas-vindas para os novos contactos adicionados
+                </span>
+              </label>
+
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
                 <button
                   type="button"
@@ -1917,9 +2069,16 @@ export default function AdminNewsletterPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 uppercase rounded-lg shadow-xs"
+                  disabled={isAddingSubscribers || parseBatchEmails(newEmail).length === 0}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 disabled:opacity-50 uppercase rounded-lg shadow-xs transition"
                 >
-                  Adicionar
+                  {isAddingSubscribers ? (
+                    <><Loader2 className="h-4 w-4 animate-spin" /> A guardar...</>
+                  ) : parseBatchEmails(newEmail).length > 1 ? (
+                    <><Plus className="h-4 w-4" /> Adicionar {parseBatchEmails(newEmail).length} Subscritores</>
+                  ) : (
+                    <><Plus className="h-4 w-4" /> Adicionar Subscritor</>
+                  )}
                 </button>
               </div>
             </form>
@@ -1927,6 +2086,126 @@ export default function AdminNewsletterPage() {
         </div>
       )}
 
+      {/* Modal Importar Clientes da Base */}
+      {isImportClientsModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
+            onClick={() => setIsImportClientsModalOpen(false)}
+          />
+          <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-10" onClick={(e) => e.stopPropagation()}>
+            <div className="px-6 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 bg-slate-100 text-slate-700 rounded-lg">
+                  <Database className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900">Importar Clientes Existentes</h3>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Sincronizar contactos da base de dados com a lista de subscritores</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsImportClientsModalOpen(false)}
+                className="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100 transition"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              {importClientEmails.length === 0 ? (
+                <div className="py-8 text-center">
+                  <div className="p-3 bg-slate-100 text-slate-400 rounded-xl inline-block mb-3">
+                    <CheckCircle2 className="h-8 w-8" />
+                  </div>
+                  <p className="text-sm font-bold text-slate-700">Todos os clientes já estão subscritos!</p>
+                  <p className="text-xs text-slate-500 mt-1">Não há novos e-mails para importar da base de dados.</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
+                      <div className="text-lg font-black text-slate-900">{importClientSources.customers.length}</div>
+                      <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Contas Registadas</div>
+                    </div>
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
+                      <div className="text-lg font-black text-slate-900">{importClientSources.orders.length}</div>
+                      <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Encomendas Loja</div>
+                    </div>
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
+                      <div className="text-lg font-black text-slate-900">{importClientSources.leads.length}</div>
+                      <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Leads Serviço</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3.5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <UserPlus className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-extrabold text-slate-900">
+                        {importClientEmails.length} novo(s) e-mail(s) único(s) para importar
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
+                      E-mails identificados nas contas de clientes, encomendas e pedidos de serviço que ainda não constam na lista de newsletter.
+                    </p>
+                  </div>
+
+                  <div className="max-h-36 overflow-y-auto bg-slate-50 border border-slate-200 rounded-lg p-3">
+                    <div className="space-y-1">
+                      {importClientEmails.map((email) => (
+                        <div key={email} className="flex items-center gap-2 text-xs font-mono text-slate-700">
+                          <Mail className="h-3 w-3 text-slate-400 flex-shrink-0" />
+                          <span className="truncate">{email}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={importSendWelcome}
+                      onChange={(e) => setImportSendWelcome(e.target.checked)}
+                      className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary/20 accent-primary"
+                    />
+                    <span className="text-xs text-slate-600 group-hover:text-slate-900 transition">
+                      Enviar e-mail de boas-vindas para cada novo subscritor
+                    </span>
+                  </label>
+
+                  <div className="flex items-center gap-1.5 bg-slate-100 border border-slate-200 rounded-lg p-2.5">
+                    <AlertCircle className="h-4 w-4 text-slate-500 flex-shrink-0" />
+                    <p className="text-[11px] text-slate-600">Duplicados são automaticamente ignorados. E-mails inativos serão reativados.</p>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/60">
+              <button
+                type="button"
+                onClick={() => setIsImportClientsModalOpen(false)}
+                className="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 uppercase"
+              >
+                Cancelar
+              </button>
+              {importClientEmails.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleConfirmImportClients}
+                  disabled={isImportingClients}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 disabled:opacity-50 uppercase rounded-lg shadow-xs transition"
+                >
+                  {isImportingClients ? (
+                    <><Loader2 className="h-4 w-4 animate-spin" /> Importando...</>
+                  ) : (
+                    <><Download className="h-4 w-4" /> Importar {importClientEmails.length} E-mail(s)</>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delete Modal */}
       <ConfirmModal

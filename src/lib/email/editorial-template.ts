@@ -130,26 +130,26 @@ function renderHeader(base: string, editionLabel?: string): string {
     .join(`<span style="color:#94a3b8;font-size:10px;">&bull;</span>`)
 
   return `
-<!-- Linha Superior de Acento da Marca (Azul e Laranja J.Matos) -->
+<!-- Linha Superior de Acento da Marca (Azul Corporativo J.Matos) -->
 <tr>
-  <td style="height: 4px; background: linear-gradient(90deg, #1E78C2 0%, #F7941D 100%); line-height: 4px; font-size: 1px;">
+  <td style="height: 4px; background-color: ${BRAND.primary}; line-height: 4px; font-size: 1px;">
     &nbsp;
   </td>
 </tr>
 
 <!-- Cabeçalho Corporativo J.Matos Tecnologia -->
 <tr>
-  <td style="background-color: #ffffff; padding: 16px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.border};">
+  <td style="background-color: #ffffff; padding: 18px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.border};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td valign="middle" align="left">
           <a href="${base}/loja" target="_blank" style="text-decoration:none;display:inline-block;">
-            <img src="${logoUrl}" alt="J.Matos Tecnologia" height="42" style="display:block;height:42px;max-height:42px;width:auto;border:0;outline:none;" />
+            <img src="${logoUrl}" alt="J.Matos Tecnologia" height="38" style="display:block;height:38px;max-height:38px;width:auto;border:0;outline:none;" />
           </a>
         </td>
         <td align="right" valign="middle" class="hide-mobile">
           <div style="margin-bottom: 6px;">
-            <span style="display:inline-block;font-family:${FONTS.heading};font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${BRAND.secondary};background-color:rgba(247,148,29,0.12);border:1px solid rgba(247,148,29,0.3);padding:3px 12px;border-radius:999px;">
+            <span style="display:inline-block;font-family:${FONTS.heading};font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${BRAND.secondary};background-color:#fff7ed;border:1px solid #fed7aa;padding:3px 10px;border-radius:4px;">
               ${esc(label)}
             </span>
           </div>
@@ -169,25 +169,25 @@ function renderEditorialTitle(editionLabel?: string): string {
   return `
 <!-- Bloco de Título Newsletter -->
 <tr>
-  <td align="center" style="background-color: #ffffff; padding: 32px ${LAYOUT.sidePadding}px 18px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.borderLight};">
+  <td align="center" style="background-color: #ffffff; padding: 32px ${LAYOUT.sidePadding}px 20px ${LAYOUT.sidePadding}px; border-bottom: 1px solid ${BRAND.borderLight};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 540px;">
       <tr>
         <td align="center" style="padding-bottom: 10px;">
-          <span style="font-family: ${FONTS.heading}; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: ${BRAND.primary}; background-color: rgba(30, 120, 194, 0.08); border: 1px solid rgba(30, 120, 194, 0.2); padding: 5px 16px; border-radius: 50px; display: inline-block;">
+          <span style="font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: ${BRAND.primary}; background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 4px 14px; border-radius: 4px; display: inline-block;">
             LOJA &amp; NOVIDADES
           </span>
         </td>
       </tr>
       <tr>
         <td align="center" style="padding-bottom: 6px;">
-          <h1 style="font-family: ${FONTS.heading}; font-size: 32px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: ${BRAND.textDark}; margin: 0; line-height: 1.15;">
+          <h1 style="font-family: ${FONTS.heading}; font-size: 28px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: ${BRAND.textDark}; margin: 0; line-height: 1.2;">
             NEWSLETTER
           </h1>
         </td>
       </tr>
       <tr>
         <td align="center">
-          <p style="font-family: ${FONTS.heading}; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; color: ${BRAND.textMuted}; margin: 0; line-height: 1.4;">
+          <p style="font-family: ${FONTS.heading}; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; color: ${BRAND.textMuted}; margin: 0; line-height: 1.4;">
             ${esc(label)} &bull; Soluções Tecnológicas &amp; Equipamentos
           </p>
         </td>
@@ -219,15 +219,15 @@ ${
   title
     ? `<tr>
   <td style="background-color: ${BRAND.bgDark}; padding: 22px ${LAYOUT.sidePadding}px 24px ${LAYOUT.sidePadding}px; text-align: center;">
-    <h2 style="font-family: ${FONTS.heading}; font-size: 19px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; margin: 0 0 6px 0; line-height: 1.3;">
+    <h2 style="font-family: ${FONTS.heading}; font-size: 18px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; margin: 0 0 6px 0; line-height: 1.3;">
       ${esc(title)}
     </h2>
     ${
       subtitle
-        ? `<p style="font-family: ${FONTS.body}; font-size: 13px; color: #94a3b8; margin: 0 0 16px 0; line-height: 1.5;">${esc(subtitle)}</p>`
+        ? `<p style="font-family: ${FONTS.body}; font-size: 13px; color: #cbd5e1; margin: 0 0 16px 0; line-height: 1.5;">${esc(subtitle)}</p>`
         : '<div style="height:10px;"></div>'
     }
-    <a href="${waHref}" target="_blank" style="display: inline-block; font-family: ${FONTS.heading}; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; text-decoration: none; background-color: ${BRAND.primary}; border-radius: 50px; padding: 10px 26px;">
+    <a href="${waHref}" target="_blank" style="display: inline-block; font-family: ${FONTS.heading}; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; text-decoration: none; background-color: ${BRAND.primary}; border-radius: 6px; padding: 10px 24px;">
       Saber Mais &bull; WhatsApp
     </a>
   </td>
@@ -357,7 +357,7 @@ function renderWhatsAppButton(): string {
 <!-- Botão WhatsApp de Alta Visibilidade -->
 <tr>
   <td align="center" style="background-color: ${BRAND.bgLight}; padding: 6px ${LAYOUT.sidePadding}px 32px ${LAYOUT.sidePadding}px;">
-    <a href="${href}" target="_blank" style="display: inline-block; background-color: ${BRAND.whatsappGreen}; color: #ffffff !important; font-family: ${FONTS.heading}; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-decoration: none !important; border-radius: 50px; padding: 14px 34px; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);">
+    <a href="${href}" target="_blank" style="display: inline-block; background-color: ${BRAND.whatsappGreen}; color: #ffffff !important; font-family: ${FONTS.heading}; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none !important; border-radius: 6px; padding: 12px 28px;">
       Falar com a J.Matos no WhatsApp
     </a>
   </td>
@@ -612,7 +612,7 @@ export function generateEditorialHtml(options: EditorialTemplateOptions): string
     <tr>
       <td align="center">
         <!-- Container Central da Newsletter -->
-        <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: ${LAYOUT.maxWidth}px; background-color: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);">
+        <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: ${LAYOUT.maxWidth}px; background-color: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);">
           ${renderHeader(base, editionLabel)}
           ${renderEditorialTitle(editionLabel)}
           ${heroHtml}

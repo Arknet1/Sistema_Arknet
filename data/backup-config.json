@@ -2,7 +2,7 @@
   "enabled": true,
   "frequency": "daily",
   "maxBackups": 15,
-  "lastBackupAt": "2026-10-08T11:15:41.286Z",
-  "nextBackupAt": "2026-10-09T11:15:41.286Z",
+  "lastBackupAt": "2026-10-20T11:31:42.665Z",
+  "nextBackupAt": "2026-10-21T11:31:42.665Z",
   "autoClean": true
 }

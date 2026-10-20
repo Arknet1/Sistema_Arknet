@@ -30,17 +30,17 @@ export const BRAND = {
   whatsappGreen: '#16a34a',
   whatsappGreenDark: '#15803d',
 
-  /** Fundo geral externo do email (dark navy premium corporativo) */
-  bgOuter: '#0b1329',
+  /** Fundo geral externo do email (canvas neutro profissional e limpo) */
+  bgOuter: '#f1f5f9',
   /** Fundo geral interno */
   bgLight: '#f8fafc',
-  /** Fundo de blocos escuros (cabeçalho e rodapé) */
-  bgDark: '#0b1329',
-  headerBg: '#0f172a',
+  /** Fundo de blocos escuros corporativos (rodapé) */
+  bgDark: '#0f172a',
+  headerBg: '#ffffff',
   /** Fundo intermédio para cards de produto */
   bgCard: '#ffffff',
   /** Fundo de secções alternadas */
-  bgSection: '#f1f5f9',
+  bgSection: '#f8fafc',
 
   /** Cor do texto principal */
   textDark: '#0f172a',

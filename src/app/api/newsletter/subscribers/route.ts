@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { verifySessionToken } from '@/lib/server-auth'
 import { sendNewsletterWelcomeEmail } from '@/lib/email-service'
 
+import { appendServerSubscriber, appendServerSubscribersBatchAsync } from '@/lib/server-db'
+
 /**
  * Validar sessão de administrador/editor
  */
@@ -47,7 +49,7 @@ export async function GET(request: NextRequest) {
 
 /**
  * POST /api/newsletter/subscribers
- * Adiciona um subscritor e envia email de boas-vindas
+ * Adiciona um subscritor ou importa múltiplos subscritores em lote
  */
 export async function POST(request: NextRequest) {
   try {
@@ -61,7 +63,61 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email, sendWelcome = true } = body
+    const { email, emails, sendWelcome = false } = body
+
+    // ==========================================
+    // MODO EM LOTE (Múltiplos e-mails / Clientes da base)
+    // ==========================================
+    if (Array.isArray(emails)) {
+      const rawList = emails
+        .map((item: any) => {
+          if (typeof item === 'string') return item.trim().toLowerCase()
+          if (item && typeof item.email === 'string') return item.email.trim().toLowerCase()
+          return ''
+        })
+        .filter((e: string) => e && e.includes('@') && e.includes('.'))
+
+      const uniqueEmails = Array.from(new Set(rawList))
+
+      if (uniqueEmails.length === 0) {
+        return NextResponse.json(
+          { success: false, message: 'Nenhum e-mail válido fornecido para importação.' },
+          { status: 400 }
+        )
+      }
+
+      // Inserir / Upsert em lote
+      const batchList = uniqueEmails.map((e) => ({
+        id: `sub-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        email: e,
+        subscribedAt: new Date().toISOString(),
+      }))
+
+      await appendServerSubscribersBatchAsync(batchList)
+
+      // Se solicitado envio de boas-vindas, envia com proteção
+      if (sendWelcome) {
+        const welcomeTargets = uniqueEmails.slice(0, 30) // limite de segurança para boas-vindas
+        Promise.allSettled(
+          welcomeTargets.map((e) =>
+            sendNewsletterWelcomeEmail(e).catch((err) =>
+              console.warn(`[Batch Welcome] Erro ao enviar para ${e}:`, err?.message)
+            )
+          )
+        )
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: `${uniqueEmails.length} subscritor(es) importado(s) com sucesso!`,
+        count: uniqueEmails.length,
+        importedEmails: uniqueEmails,
+      })
+    }
+
+    // ==========================================
+    // MODO INDIVIDUAL (Subscrição única)
+    // ==========================================
     if (!email || typeof email !== 'string' || !email.includes('@')) {
       return NextResponse.json(
         { success: false, message: 'Email inválido.' },
@@ -90,6 +146,13 @@ export async function POST(request: NextRequest) {
         },
       })
     }
+
+    appendServerSubscriber({
+      id: subscriber.id,
+      email: subscriber.email,
+      status: subscriber.status,
+      subscribedAt: subscriber.subscribedAt.toISOString(),
+    })
 
     if (sendWelcome) {
       try {
