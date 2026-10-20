@@ -144,7 +144,7 @@ export default function ProjetosPublicationClient() {
                 </Link>
 
                 <a
-                  href="https://wa.me/244975669357?text=Olá%20ARKNET!%20Gostaria%20de%20consultar%20a%20vossa%20equipa%20técnica%20sobre%20um%20novo%20projeto."
+                  href="https://wa.me/244935208449?text=Olá%20ARKNET!%20Gostaria%20de%20consultar%20a%20vossa%20equipa%20técnica%20sobre%20um%20novo%20projeto."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl backdrop-blur-md transition"

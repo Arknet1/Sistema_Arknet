@@ -20,7 +20,7 @@ import {
   Handshake,
   Briefcase,
 } from 'lucide-react'
-import deepConnection from '@/assets/projectos e actividades/deepconection.avif'
+import deepConnection from '@/assets/projectos e actividades/deepconection.webp'
 import executiveGeneral from '@/assets/about2.jpg'
 import executiveTechnical from '@/assets/about3.jpg'
 import executiveCommercial from '@/assets/office.jpeg'

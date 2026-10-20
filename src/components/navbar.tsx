@@ -93,7 +93,8 @@ export default function Navbar() {
   ]
 
   const isLoja = pathname?.startsWith('/loja')
-  if (isLoja) {
+  const isAdmin = pathname?.startsWith('/admin')
+  if (isLoja || isAdmin) {
     return null
   }
 

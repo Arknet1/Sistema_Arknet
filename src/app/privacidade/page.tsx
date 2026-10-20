@@ -50,7 +50,7 @@ export default function PrivacidadePage() {
               1. Entidade Responsável pelo Tratamento
             </h2>
             <p>
-              A entidade responsável pela recolha e tratamento dos dados pessoais através desta plataforma é a <strong>ARKNET TECNOLOGIA, LDA.</strong>, sociedade comercial com sede em Luanda, Angola, NIF 5001239840.
+              A entidade responsável pela recolha e tratamento dos dados pessoais através desta plataforma é a <strong>ARKNET TECNOLOGIA, LDA.</strong>, sociedade comercial com sede em Luanda, Angola, NIF 5412398760.
             </p>
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1">
               <p><strong>Correio Eletrónico de Privacidade:</strong> privacidade@arknet.ao / comercial@arknet.ao</p>

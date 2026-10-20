@@ -17,7 +17,7 @@
       "name": "Administrador Principal",
       "email": "admin@arknet.ao",
       "password": null,
-      "passwordHash": "$scrypt$80bd6f3fddc63ee3f614eb69dc455047$8993d2ec6a458937567b42f1a15a63e24108017269b49716cdfc5770c8fe4bb0bf92fbea62c39672af83a8bb8fbe57b83ff98cf8a2324457215ffbfb48feef42",
+      "passwordHash": "$scrypt$349018cda644a97e8c1361a832325cb7$7ed489cb1442e17b604cdbd42dd0193c39f2c8bc13028906be652381ebd5d023413061edf6135f0404e10b5a26aa558865f535e5b96adec1e4ec452402f920c1",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
@@ -28,8 +28,8 @@
       "id": "user-editor",
       "name": "Editor de Conteúdo",
       "email": "editor@arknet.co.ao",
-      "password": "Admin123!",
-      "passwordHash": "arkhash_wd0n26_61",
+      "password": null,
+      "passwordHash": "$e90b7ffd4bbdbadd13f2c1084fe23834$57ec312f95fd79a944a15060ae3bf3ef525aee3ed577e67331f95a80d402c10909d6a32d74607083fb8c9cd49ed3ce86caead705d0ad1615b57d62689bc9a54a",
       "role": "editor",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
@@ -54,8 +54,8 @@
       "id": "cli-3",
       "name": "Carlos Alberto Ferreira",
       "email": "carlos.ferreira@gmail.com",
-      "password": "Password123!",
-      "passwordHash": null,
+      "password": null,
+      "passwordHash": "$b82bcd0dc7c15eb34cf187295a7ae2a8$04645103338c6144dc122d88828c8d7be49f842a4fa40f707e0e0b4d4cb0f557d3c9a9eaeb18fb4dc708db58dbc2839714e021e9b4d5788a973ea6d7818dd00a",
       "phone": "+244 933 112 233",
       "company": "Independente / Particular",
       "nif": "006789123LA042",
@@ -71,8 +71,8 @@
       "id": "cli-2",
       "name": "Dra. Teresa Van-Dúnem",
       "email": "teresa.vdunem@bancocomerce.co.ao",
-      "password": "Password123!",
-      "passwordHash": null,
+      "password": null,
+      "passwordHash": "$b7fb7aeca832318012cf4dc1f1dbeb34$ef3a7daa2e867f86b2757b650a90453b5816f9d34510b910b95784288a7f35a544dd602bca00005c9ada588b4c8b96b0b3fe7573aed7983fb47041bf6e6a32bd",
       "phone": "+244 912 345 678",
       "company": "Banco Comercial Angolano",
       "nif": "5401876543",
@@ -88,8 +88,8 @@
       "id": "cli-1",
       "name": "Eng. Manuel Domingos",
       "email": "manuel.domingos@petroangola.ao",
-      "password": "Password123!",
-      "passwordHash": null,
+      "password": null,
+      "passwordHash": "$0112867451173533cbb7588cc32d933b$d1f4b3cc50ea3a2b24a48f6855051cbc9a5027d168393235f572dcd113c6eb8d2994cff44aee922e0ab9475c93f1ae281cf7dcc37308dbf3586084399efa2429",
       "phone": "+244 923 456 789",
       "company": "PetroAngola E.P.",
       "nif": "5412987654",
@@ -108,11 +108,11 @@
       "phone": "932847952",
       "city": "Luanda",
       "status": "active",
-      "lastLogin": "2026-10-12T11:08:43.812Z",
+      "lastLogin": "2026-10-19T15:36:03.336Z",
       "id": "cli-1790351808657",
       "createdAt": "2026-09-25T15:56:48.657Z",
       "updatedAt": "2026-09-25T16:08:34.526Z",
-      "passwordHash": "$scrypt$c69d113f4c8a26dbaf3e7d5d10342b6e$d440045de7d2a32502131d18431695de0b9417886a89641858011b7fee40bf3ec7e0c25e702210a7281e9cd12047f94b177032594db51058ac2a6b90f7232681"
+      "passwordHash": "$scrypt$6ca10f5f14a985b708d32996f414f841$55e996e63115e2f500403bc1ad4f6525253891d0526b8219a1bc94f2ee318dc31ddc835e85d9d5da59e9d379ee3c65eb7ecfa1b53f4d6aeb2789ec76b7993ed3"
     },
     {
       "id": "cli-31fcbd12-c657-4fbb-91b6-af5be863d745",
@@ -338,7 +338,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-05T14:14:41.545Z",
-      "updatedAt": "2026-10-16T15:29:51.666Z"
+      "updatedAt": "2026-10-19T10:18:26.784Z"
     },
     {
       "id": "prod-1790954436881-qol4",
@@ -362,7 +362,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T15:20:36.881Z",
-      "updatedAt": "2026-10-16T15:29:51.668Z"
+      "updatedAt": "2026-10-19T10:18:26.787Z"
     },
     {
       "id": "prod-1790948580905-glgp",
@@ -386,7 +386,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T13:43:00.905Z",
-      "updatedAt": "2026-10-16T15:29:51.669Z"
+      "updatedAt": "2026-10-19T10:18:26.789Z"
     },
     {
       "id": "prod-1790943432150-c3gp",
@@ -410,7 +410,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:17:12.150Z",
-      "updatedAt": "2026-10-16T15:29:51.670Z"
+      "updatedAt": "2026-10-19T10:18:26.790Z"
     },
     {
       "id": "prod-1790943062119-kp6y",
@@ -534,7 +534,7 @@
         }
       ],
       "createdAt": "2026-10-02T12:11:02.119Z",
-      "updatedAt": "2026-10-16T15:29:51.671Z"
+      "updatedAt": "2026-10-19T10:18:26.791Z"
     },
     {
       "id": "prod-1790942824239-8cv4",
@@ -558,7 +558,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:07:04.239Z",
-      "updatedAt": "2026-10-16T15:29:51.672Z"
+      "updatedAt": "2026-10-19T10:18:26.792Z"
     },
     {
       "id": "prod-1790942265849-w2g8",
@@ -582,7 +582,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:57:45.849Z",
-      "updatedAt": "2026-10-16T15:29:51.674Z"
+      "updatedAt": "2026-10-19T10:18:26.793Z"
     },
     {
       "id": "prod-1790942032128-89f7",
@@ -606,7 +606,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:53:52.128Z",
-      "updatedAt": "2026-10-16T15:29:51.676Z"
+      "updatedAt": "2026-10-19T10:18:26.794Z"
     },
     {
       "id": "prod-1790941665536-fkmm",
@@ -630,7 +630,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:47:45.536Z",
-      "updatedAt": "2026-10-16T15:29:51.677Z"
+      "updatedAt": "2026-10-19T10:18:26.795Z"
     },
     {
       "id": "prod-1790940725601-p66p",
@@ -654,7 +654,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:32:05.601Z",
-      "updatedAt": "2026-10-16T15:29:51.678Z"
+      "updatedAt": "2026-10-19T10:18:26.796Z"
     },
     {
       "id": "prod-1790940371658-px8g",
@@ -678,7 +678,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:26:11.658Z",
-      "updatedAt": "2026-10-16T15:29:51.679Z"
+      "updatedAt": "2026-10-19T10:18:26.798Z"
     },
     {
       "id": "prod-1790937167653-iigi",
@@ -702,7 +702,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:32:47.653Z",
-      "updatedAt": "2026-10-16T15:29:51.680Z"
+      "updatedAt": "2026-10-19T10:18:26.799Z"
     },
     {
       "id": "prod-1790936182415-msck",
@@ -726,7 +726,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:16:22.415Z",
-      "updatedAt": "2026-10-16T15:29:51.681Z"
+      "updatedAt": "2026-10-19T10:18:26.800Z"
     },
     {
       "id": "prod-1790935912543-46vi",
@@ -750,7 +750,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:11:52.543Z",
-      "updatedAt": "2026-10-16T15:29:51.682Z"
+      "updatedAt": "2026-10-19T10:18:26.802Z"
     },
     {
       "id": "prod-1790934108385-ln23",
@@ -774,7 +774,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:41:48.385Z",
-      "updatedAt": "2026-10-16T15:29:51.683Z"
+      "updatedAt": "2026-10-19T10:18:26.803Z"
     },
     {
       "id": "prod-1790933627323-uymp",
@@ -798,7 +798,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:33:47.323Z",
-      "updatedAt": "2026-10-16T15:29:51.684Z"
+      "updatedAt": "2026-10-19T10:18:26.804Z"
     },
     {
       "id": "prod-1790932992211-y8t5",
@@ -822,7 +822,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:23:12.211Z",
-      "updatedAt": "2026-10-16T15:29:51.685Z"
+      "updatedAt": "2026-10-19T10:18:26.805Z"
     },
     {
       "id": "prod-1790932847819-2s46",
@@ -846,7 +846,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:20:47.819Z",
-      "updatedAt": "2026-10-16T15:29:51.686Z"
+      "updatedAt": "2026-10-19T10:18:26.806Z"
     },
     {
       "id": "prod-1790929531231-hgkk",
@@ -870,7 +870,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:25:31.231Z",
-      "updatedAt": "2026-10-16T15:29:51.687Z"
+      "updatedAt": "2026-10-19T10:18:26.807Z"
     },
     {
       "id": "prod-1790928671920-en03",
@@ -894,7 +894,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:11:11.920Z",
-      "updatedAt": "2026-10-16T15:29:51.688Z"
+      "updatedAt": "2026-10-19T10:18:26.808Z"
     },
     {
       "id": "prod-1790928333040-3u9w",
@@ -918,7 +918,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:05:33.040Z",
-      "updatedAt": "2026-10-16T15:29:51.689Z"
+      "updatedAt": "2026-10-19T10:18:26.809Z"
     },
     {
       "id": "prod-1790868210459-81rw",
@@ -942,7 +942,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-16T15:29:51.690Z"
+      "updatedAt": "2026-10-19T10:18:26.810Z"
     },
     {
       "id": "prod-1790866364579-cemv",
@@ -966,7 +966,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-16T15:29:51.692Z"
+      "updatedAt": "2026-10-19T10:18:26.811Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
@@ -990,7 +990,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-16T15:29:51.692Z"
+      "updatedAt": "2026-10-19T10:18:26.813Z"
     },
     {
       "id": "prod-1790865910268-uk30",
@@ -1014,7 +1014,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-16T15:29:51.693Z"
+      "updatedAt": "2026-10-19T10:18:26.814Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
@@ -1038,7 +1038,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-16T15:29:51.694Z"
+      "updatedAt": "2026-10-19T10:18:26.816Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
@@ -1062,7 +1062,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-16T15:29:51.695Z"
+      "updatedAt": "2026-10-19T10:18:26.817Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
@@ -1086,7 +1086,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-16T15:29:51.696Z"
+      "updatedAt": "2026-10-19T10:18:26.818Z"
     },
     {
       "id": "prod-1790863974022-czcc",
@@ -1110,7 +1110,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-16T15:29:51.696Z"
+      "updatedAt": "2026-10-19T10:18:26.819Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
@@ -1134,7 +1134,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-16T15:29:51.697Z"
+      "updatedAt": "2026-10-19T10:18:26.820Z"
     },
     {
       "id": "prod-1790863313236-reez",
@@ -1158,7 +1158,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-16T15:29:51.698Z"
+      "updatedAt": "2026-10-19T10:18:26.822Z"
     },
     {
       "id": "prod-1790863163396-179k",
@@ -1182,7 +1182,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-16T15:29:51.700Z"
+      "updatedAt": "2026-10-19T10:18:26.823Z"
     },
     {
       "id": "prod-1790862876076-248x",
@@ -1206,7 +1206,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-16T15:29:51.700Z"
+      "updatedAt": "2026-10-19T10:18:26.824Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
@@ -1230,7 +1230,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-16T15:29:51.702Z"
+      "updatedAt": "2026-10-19T10:18:26.825Z"
     },
     {
       "id": "prod-1790862379851-07vp",
@@ -1254,7 +1254,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-16T15:29:51.703Z"
+      "updatedAt": "2026-10-19T10:18:26.827Z"
     },
     {
       "id": "prod-1790862051163-x94a",
@@ -1278,7 +1278,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-16T15:29:51.704Z"
+      "updatedAt": "2026-10-19T10:18:26.828Z"
     },
     {
       "id": "prod-1790855698575-l39k",
@@ -1302,7 +1302,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-16T15:29:51.705Z"
+      "updatedAt": "2026-10-19T10:18:26.829Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
@@ -1326,7 +1326,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-16T15:29:51.707Z"
+      "updatedAt": "2026-10-19T10:18:26.831Z"
     },
     {
       "id": "prod-1790855186841-eclf",
@@ -1350,7 +1350,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-16T15:29:51.708Z"
+      "updatedAt": "2026-10-19T10:18:26.832Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
@@ -1374,7 +1374,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-16T15:29:51.710Z"
+      "updatedAt": "2026-10-19T10:18:26.833Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
@@ -1398,7 +1398,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-16T15:29:51.711Z"
+      "updatedAt": "2026-10-19T10:18:26.834Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
@@ -1422,7 +1422,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-16T15:29:51.711Z"
+      "updatedAt": "2026-10-19T10:18:26.835Z"
     },
     {
       "id": "prod-1790854095026-flxm",
@@ -1446,7 +1446,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-16T15:29:51.712Z"
+      "updatedAt": "2026-10-19T10:18:26.836Z"
     },
     {
       "id": "prod-1790853710321-vaky",
@@ -1470,7 +1470,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-16T15:29:51.713Z"
+      "updatedAt": "2026-10-19T10:18:26.837Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
@@ -1494,7 +1494,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-16T15:29:51.714Z"
+      "updatedAt": "2026-10-19T10:18:26.838Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
@@ -1518,7 +1518,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-16T15:29:51.715Z"
+      "updatedAt": "2026-10-19T10:18:26.839Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
@@ -1542,7 +1542,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-16T15:29:51.716Z"
+      "updatedAt": "2026-10-19T10:18:26.839Z"
     },
     {
       "id": "prod-1790852525755-328w",
@@ -1566,7 +1566,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-16T15:29:51.717Z"
+      "updatedAt": "2026-10-19T10:18:26.840Z"
     },
     {
       "id": "prod-1790852177364-91d2",
@@ -1590,7 +1590,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-16T15:29:51.718Z"
+      "updatedAt": "2026-10-19T10:18:26.841Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
@@ -1614,7 +1614,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-16T15:29:51.719Z"
+      "updatedAt": "2026-10-19T10:18:26.842Z"
     },
     {
       "id": "prod-1790851696604-m46t",
@@ -1638,7 +1638,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-16T15:29:51.721Z"
+      "updatedAt": "2026-10-19T10:18:26.843Z"
     },
     {
       "id": "prod-1790851559949-lug5",
@@ -1662,7 +1662,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-16T15:29:51.722Z"
+      "updatedAt": "2026-10-19T10:18:26.844Z"
     },
     {
       "id": "prod-1790851408132-zfze",
@@ -1686,7 +1686,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-16T15:29:51.723Z"
+      "updatedAt": "2026-10-19T10:18:26.845Z"
     },
     {
       "id": "prod-1790850109422-rsep",
@@ -1710,7 +1710,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-16T15:29:51.725Z"
+      "updatedAt": "2026-10-19T10:18:26.846Z"
     },
     {
       "id": "prod-1790849885494-hu91",
@@ -1734,7 +1734,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-16T15:29:51.726Z"
+      "updatedAt": "2026-10-19T10:18:26.847Z"
     },
     {
       "id": "prod-1790848807128-20cw",
@@ -1758,7 +1758,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-16T15:29:51.728Z"
+      "updatedAt": "2026-10-19T10:18:26.848Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
@@ -1782,7 +1782,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-16T15:29:51.729Z"
+      "updatedAt": "2026-10-19T10:18:26.849Z"
     },
     {
       "id": "prod-1790848303191-nv21",
@@ -1806,7 +1806,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-16T15:29:51.730Z"
+      "updatedAt": "2026-10-19T10:18:26.850Z"
     },
     {
       "id": "prod-1790848093648-cyth",
@@ -1830,7 +1830,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-16T15:29:51.731Z"
+      "updatedAt": "2026-10-19T10:18:26.851Z"
     },
     {
       "id": "prod-1790847966304-nna5",
@@ -1854,7 +1854,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-16T15:29:51.732Z"
+      "updatedAt": "2026-10-19T10:18:26.852Z"
     },
     {
       "id": "prod-1790847762896-z14m",
@@ -1878,7 +1878,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-16T15:29:51.734Z"
+      "updatedAt": "2026-10-19T10:18:26.853Z"
     },
     {
       "id": "prod-1790847336713-fy85",
@@ -1902,7 +1902,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-16T15:29:51.735Z"
+      "updatedAt": "2026-10-19T10:18:26.854Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
@@ -1926,7 +1926,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-16T15:29:51.736Z"
+      "updatedAt": "2026-10-19T10:18:26.855Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
@@ -1950,7 +1950,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-16T15:29:51.737Z"
+      "updatedAt": "2026-10-19T10:18:26.856Z"
     },
     {
       "id": "prod-1790846274467-waxv",
@@ -1974,7 +1974,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-16T15:29:51.738Z"
+      "updatedAt": "2026-10-19T10:18:26.857Z"
     },
     {
       "id": "prod-1790846010195-xb32",
@@ -1998,7 +1998,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-16T15:29:51.739Z"
+      "updatedAt": "2026-10-19T10:18:26.858Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
@@ -2022,7 +2022,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-16T15:29:51.740Z"
+      "updatedAt": "2026-10-19T10:18:26.860Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
@@ -2046,7 +2046,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-16T15:29:51.741Z"
+      "updatedAt": "2026-10-19T10:18:26.861Z"
     },
     {
       "id": "prod-1790845328451-4otk",
@@ -2070,7 +2070,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-16T15:29:51.742Z"
+      "updatedAt": "2026-10-19T10:18:26.862Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
@@ -2094,7 +2094,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-16T15:29:51.743Z"
+      "updatedAt": "2026-10-19T10:18:26.864Z"
     },
     {
       "id": "prod-1790844448844-te8k",
@@ -2118,7 +2118,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-16T15:29:51.744Z"
+      "updatedAt": "2026-10-19T10:18:26.866Z"
     },
     {
       "id": "prod-1790843695397-rw71",
@@ -2142,7 +2142,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-16T15:29:51.745Z"
+      "updatedAt": "2026-10-19T10:18:26.867Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
@@ -2166,7 +2166,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-16T15:29:51.745Z"
+      "updatedAt": "2026-10-19T10:18:26.868Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
@@ -2190,7 +2190,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-10-16T15:29:51.746Z"
+      "updatedAt": "2026-10-19T10:18:26.869Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
@@ -2317,7 +2317,7 @@
         }
       ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-10-16T15:29:51.747Z"
+      "updatedAt": "2026-10-19T10:18:26.870Z"
     },
     {
       "id": "prod-1790258779410-1prp",
@@ -2341,7 +2341,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-10-16T15:29:51.748Z"
+      "updatedAt": "2026-10-19T10:18:26.872Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
@@ -2365,7 +2365,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-10-16T15:29:51.748Z"
+      "updatedAt": "2026-10-19T10:18:26.873Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
@@ -2389,7 +2389,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-10-16T15:29:51.749Z"
+      "updatedAt": "2026-10-19T10:18:26.874Z"
     },
     {
       "id": "prod-1790258337491-jcru",
@@ -2413,7 +2413,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-10-16T15:29:51.750Z"
+      "updatedAt": "2026-10-19T10:18:26.875Z"
     },
     {
       "id": "prod-1790258295106-qfev",
@@ -2437,7 +2437,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-10-16T15:29:51.751Z"
+      "updatedAt": "2026-10-19T10:18:26.876Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
@@ -2461,7 +2461,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-10-16T15:29:51.752Z"
+      "updatedAt": "2026-10-19T10:18:26.878Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
@@ -2485,7 +2485,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-10-16T15:29:51.752Z"
+      "updatedAt": "2026-10-19T10:18:26.879Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
@@ -2509,7 +2509,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-10-16T15:29:51.753Z"
+      "updatedAt": "2026-10-19T10:18:26.881Z"
     },
     {
       "id": "prod-1790257993219-qti2",
@@ -2533,7 +2533,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-10-16T15:29:51.754Z"
+      "updatedAt": "2026-10-19T10:18:26.882Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
@@ -2557,7 +2557,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-10-16T15:29:51.755Z"
+      "updatedAt": "2026-10-19T10:18:26.883Z"
     },
     {
       "id": "prod-1790257884660-1119",
@@ -2581,7 +2581,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-10-16T15:29:51.755Z"
+      "updatedAt": "2026-10-19T10:18:26.884Z"
     },
     {
       "id": "prod-1790257837915-atjk",
@@ -2605,7 +2605,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-10-16T15:29:51.756Z"
+      "updatedAt": "2026-10-19T10:18:26.886Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
@@ -2629,7 +2629,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-10-16T15:29:51.757Z"
+      "updatedAt": "2026-10-19T10:18:26.887Z"
     },
     {
       "id": "prod-1790257678365-4btv",
@@ -2653,7 +2653,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-10-16T15:29:51.759Z"
+      "updatedAt": "2026-10-19T10:18:26.888Z"
     },
     {
       "id": "prod-1790257579719-dm04",
@@ -2677,7 +2677,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-10-16T15:29:51.760Z"
+      "updatedAt": "2026-10-19T10:18:26.889Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
@@ -2701,7 +2701,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-10-16T15:29:51.761Z"
+      "updatedAt": "2026-10-19T10:18:26.890Z"
     },
     {
       "id": "prod-1790257311982-er9y",
@@ -2725,7 +2725,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-10-16T15:29:51.762Z"
+      "updatedAt": "2026-10-19T10:18:26.891Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
@@ -2749,7 +2749,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-16T15:29:51.763Z"
+      "updatedAt": "2026-10-19T10:18:26.893Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
@@ -2773,7 +2773,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-10-16T15:29:51.764Z"
+      "updatedAt": "2026-10-19T10:18:26.894Z"
     },
     {
       "id": "prod-1790257007807-j71u",
@@ -2797,7 +2797,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-10-16T15:29:51.764Z"
+      "updatedAt": "2026-10-19T10:18:26.895Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
@@ -2821,7 +2821,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-10-16T15:29:51.765Z"
+      "updatedAt": "2026-10-19T10:18:26.897Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
@@ -2845,7 +2845,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-10-16T15:29:51.766Z"
+      "updatedAt": "2026-10-19T10:18:26.899Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
@@ -2869,7 +2869,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-10-16T15:29:51.767Z"
+      "updatedAt": "2026-10-19T10:18:26.900Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
@@ -2893,7 +2893,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-10-16T15:29:51.768Z"
+      "updatedAt": "2026-10-19T10:18:26.902Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
@@ -2917,7 +2917,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-16T15:29:51.768Z"
+      "updatedAt": "2026-10-19T10:18:26.903Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
@@ -2941,7 +2941,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-10-16T15:29:51.769Z"
+      "updatedAt": "2026-10-19T10:18:26.904Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
@@ -2965,7 +2965,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-10-16T15:29:51.770Z"
+      "updatedAt": "2026-10-19T10:18:26.905Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
@@ -2980,7 +2980,7 @@
       "images": [
         "/uploads/photoroom_20260902_083855-1790004161805.jpg"
       ],
-      "inStock": false,
+      "inStock": true,
       "quantity": 8,
       "minStockAlert": 5,
       "featured": false,
@@ -2989,7 +2989,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-10-16T15:29:51.771Z"
+      "updatedAt": "2026-10-19T10:18:26.905Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
@@ -3013,7 +3013,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-10-16T15:29:51.771Z"
+      "updatedAt": "2026-10-19T10:18:26.906Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
@@ -3037,7 +3037,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-10-16T15:29:51.772Z"
+      "updatedAt": "2026-10-19T10:18:26.907Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
@@ -3061,7 +3061,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-10-16T15:29:51.773Z"
+      "updatedAt": "2026-10-19T10:18:26.908Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
@@ -3085,7 +3085,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-10-16T15:29:51.774Z"
+      "updatedAt": "2026-10-19T10:18:26.909Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
@@ -3109,7 +3109,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-10-16T15:29:51.775Z"
+      "updatedAt": "2026-10-19T10:18:26.909Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
@@ -3133,7 +3133,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-10-16T15:29:51.777Z"
+      "updatedAt": "2026-10-19T10:18:26.910Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
@@ -3157,7 +3157,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-10-16T15:29:51.777Z"
+      "updatedAt": "2026-10-19T10:18:26.911Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
@@ -3181,7 +3181,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-10-16T15:29:51.778Z"
+      "updatedAt": "2026-10-19T10:18:26.912Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
@@ -3205,7 +3205,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-10-16T15:29:51.779Z"
+      "updatedAt": "2026-10-19T10:18:26.914Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
@@ -3229,7 +3229,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-10-16T15:29:51.780Z"
+      "updatedAt": "2026-10-19T10:18:26.915Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
@@ -3253,7 +3253,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-10-16T15:29:51.780Z"
+      "updatedAt": "2026-10-19T10:18:26.917Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
@@ -3277,7 +3277,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-10-16T15:29:51.781Z"
+      "updatedAt": "2026-10-19T10:18:26.918Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
@@ -3301,7 +3301,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-10-16T15:29:51.782Z"
+      "updatedAt": "2026-10-19T10:18:26.919Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
@@ -3325,7 +3325,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-10-16T15:29:51.783Z"
+      "updatedAt": "2026-10-19T10:18:26.919Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
@@ -3349,7 +3349,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-10-16T15:29:51.784Z"
+      "updatedAt": "2026-10-19T10:18:26.921Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
@@ -3373,7 +3373,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-10-16T15:29:51.784Z"
+      "updatedAt": "2026-10-19T10:18:26.922Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
@@ -3397,7 +3397,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-10-16T15:29:51.785Z"
+      "updatedAt": "2026-10-19T10:18:26.923Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
@@ -3421,7 +3421,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-10-16T15:29:51.786Z"
+      "updatedAt": "2026-10-19T10:18:26.923Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
@@ -3445,7 +3445,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-10-16T15:29:51.787Z"
+      "updatedAt": "2026-10-19T10:18:26.924Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
@@ -3469,7 +3469,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-10-16T15:29:51.787Z"
+      "updatedAt": "2026-10-19T10:18:26.925Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
@@ -3493,7 +3493,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-10-16T15:29:51.788Z"
+      "updatedAt": "2026-10-19T10:18:26.926Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
@@ -3517,7 +3517,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-10-16T15:29:51.789Z"
+      "updatedAt": "2026-10-19T10:18:26.927Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
@@ -3541,7 +3541,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-16T15:29:51.790Z"
+      "updatedAt": "2026-10-19T10:18:26.928Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
@@ -3565,7 +3565,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-10-16T15:29:51.791Z"
+      "updatedAt": "2026-10-19T10:18:26.929Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
@@ -3589,7 +3589,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-10-16T15:29:51.791Z"
+      "updatedAt": "2026-10-19T10:18:26.931Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
@@ -3613,7 +3613,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-10-16T15:29:51.792Z"
+      "updatedAt": "2026-10-19T10:18:26.932Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
@@ -3637,7 +3637,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-10-16T15:29:51.793Z"
+      "updatedAt": "2026-10-19T10:18:26.934Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
@@ -3661,7 +3661,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-10-16T15:29:51.794Z"
+      "updatedAt": "2026-10-19T10:18:26.935Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
@@ -3685,7 +3685,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-10-16T15:29:51.794Z"
+      "updatedAt": "2026-10-19T10:18:26.936Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
@@ -3709,7 +3709,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-10-16T15:29:51.795Z"
+      "updatedAt": "2026-10-19T10:18:26.936Z"
     },
     {
       "id": "prod-1788945524001-0f01",
@@ -3733,7 +3733,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-10-16T15:29:51.796Z"
+      "updatedAt": "2026-10-19T10:18:26.937Z"
     }
   ],
   "categories": [
@@ -3915,6 +3915,49 @@
     }
   ],
   "orders": [
+    {
+      "customerName": "Jedy Suco",
+      "customerEmail": "jedyvandunem16@gmail.com",
+      "customerPhone": "932847952",
+      "whatsappPhone": "932847952",
+      "botStatus": "bot_active",
+      "customerCompany": "",
+      "customerNif": "",
+      "customerCity": "Luanda",
+      "customerAddress": "Angomart, Luanda",
+      "deliveryMethod": "entrega_luanda",
+      "paymentMethod": "transferencia",
+      "items": [
+        {
+          "productId": "prod-1791209681545-5xnw",
+          "productName": "TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT",
+          "price": 200000,
+          "quantity": 1,
+          "image": "/uploads/images_1_76_-1791209662302.jpg"
+        },
+        {
+          "productId": "prod-1790954436881-qol4",
+          "productName": "WIRELESS MOUSE S9000",
+          "price": 9800,
+          "quantity": 1,
+          "image": "/uploads/images_1_73_-1790954430512.jpg"
+        },
+        {
+          "productId": "prod-1790943432150-c3gp",
+          "productName": "TONER JET INTELLIGENCE 201A",
+          "price": 107000,
+          "quantity": 1,
+          "image": "/uploads/images_1_70_-1790943421383.jpg"
+        }
+      ],
+      "total": 316800,
+      "status": "novo",
+      "notes": "",
+      "id": "order-1792424288157",
+      "orderNumber": "PED-2026-3968",
+      "createdAt": "2026-10-19T15:38:08.157Z",
+      "updatedAt": "2026-10-19T15:38:08.157Z"
+    },
     {
       "id": "order-1791471699426",
       "orderNumber": "PED-2026-7824",
@@ -4309,8 +4352,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "2",
@@ -4322,8 +4365,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "3",
@@ -4335,8 +4378,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "4",
@@ -4348,8 +4391,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "5",
@@ -4361,8 +4404,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     }
   ],
   "partners": [
@@ -4374,8 +4417,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-2",
@@ -4385,8 +4428,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-3",
@@ -4396,8 +4439,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-4",
@@ -4407,8 +4450,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-5",
@@ -4418,8 +4461,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-6",
@@ -4429,8 +4472,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.576Z",
-      "updatedAt": "2026-10-16T15:22:38.576Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-7",
@@ -4440,8 +4483,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-8",
@@ -4451,8 +4494,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-9",
@@ -4462,8 +4505,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-10",
@@ -4473,8 +4516,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-11",
@@ -4484,8 +4527,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-12",
@@ -4495,8 +4538,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-13",
@@ -4506,8 +4549,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     },
     {
       "id": "partner-14",
@@ -4517,8 +4560,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-16T15:22:38.577Z",
-      "updatedAt": "2026-10-16T15:22:38.577Z"
+      "createdAt": "2026-10-19T10:17:18.942Z",
+      "updatedAt": "2026-10-19T10:17:18.942Z"
     }
   ],
   "projects": [
@@ -5165,9 +5208,17 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-16T14:45:00.786Z"
+    "updatedAt": "2026-10-19T10:16:11.814Z"
   },
   "activities": [
+    {
+      "id": "act-1792405102583-rw0z",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"TP-LINK OMADA AC1200 WIRELESS MU-MIMO GIGABIT\"",
+      "module": "produtos",
+      "timestamp": "2026-10-19T10:18:22.583Z"
+    },
     {
       "id": "cmumjxiil0001utds2zw488t9",
       "userId": "user-admin-ao",
@@ -5656,16 +5707,6 @@
       "target": "",
       "targetId": null,
       "timestamp": "2026-09-24T13:59:51.445Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258337491-kqxm",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Medidor de potencia óptica portátil\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:58:57.491Z",
       "details": null
     }
   ],

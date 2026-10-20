@@ -204,7 +204,7 @@ function renderHeroCover(
   subtitle: string,
   base: string
 ): string {
-  const waHref = waLink(subtitle ? `Olá ARKNET! ${subtitle}` : undefined)
+  const waHref = waLink(subtitle ? `Olá J.Matos Tecnologia! ${subtitle}` : undefined)
 
   return `
 <!-- Imagem de Capa (Hero) -->

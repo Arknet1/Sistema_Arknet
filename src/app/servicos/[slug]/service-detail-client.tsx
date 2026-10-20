@@ -139,7 +139,7 @@ export default function ServiceDetailClient({ slug }: { slug: string }) {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <a
-                  href="https://wa.me/244975669357"
+                  href="https://wa.me/244935208449"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-bold text-xs uppercase tracking-wider transition"

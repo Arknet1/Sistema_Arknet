@@ -4,7 +4,7 @@
  * Reutiliza os contactos, WhatsApp, email, morada e NIF da fonte de dados central (dataStore).
  */
 
-import { dataStore, CompanySettings } from './data-store'
+import type { CompanySettings } from './data-store'
 
 export interface EmpresaLojaConfig {
   nome: string
@@ -43,6 +43,7 @@ export function getLojaCompanyInfo(): CompanySettings & {
   groupAffiliation: string
   nifOficial: string
 } {
+  const { dataStore } = require('./data-store')
   const settings = dataStore.getSettings()
   return {
     ...settings,

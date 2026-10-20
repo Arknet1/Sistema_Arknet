@@ -839,7 +839,7 @@ function ClientePerfilContent() {
                           ) : (
                             <>
                               <a
-                                href={`https://wa.me/244975669357?text=${whatsappText}`}
+                                href={`https://wa.me/244935208449?text=${whatsappText}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded transition shadow-xs"
