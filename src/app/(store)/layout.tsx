@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "./main.css";
+import "../main.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 import { Inter } from "next/font/google";

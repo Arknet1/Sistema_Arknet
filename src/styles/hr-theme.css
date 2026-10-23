@@ -1,0 +1,117 @@
+/* J.Matos Recursos Humanos - Design System Theme */
+/* Generated automatically from hr-tokens.json - DO NOT EDIT DIRECTLY */
+
+:root,
+.hr-root {
+  --hr-primary: #0868B0;
+  --hr-primary-hover: #065590;
+  --hr-primary-soft: #E8F1F8;
+  --hr-brand-orange: #F09000;
+
+  --hr-bg: #F4F6F8;
+  --hr-surface: #FFFFFF;
+  --hr-surface-muted: #F8FAFC;
+  --hr-border: #D9DEE3;
+  --hr-border-subtle: #E8ECEF;
+  --hr-border-focus: #0868B0;
+
+  --hr-text: #1B2733;
+  --hr-text-muted: #5B6B7A;
+  --hr-text-light: #8C9BA8;
+
+  --hr-status-success: #1E7A46;
+  --hr-status-success-bg: #EDF7F0;
+  --hr-status-warning: #9A6700;
+  --hr-status-warning-bg: #FEF7E6;
+  --hr-status-error: #B42318;
+  --hr-status-error-bg: #FEF3F2;
+  --hr-status-neutral: #5B6B7A;
+  --hr-status-neutral-bg: #F0F3F6;
+
+  --hr-spacing-1: 4px;
+  --hr-spacing-2: 8px;
+  --hr-spacing-3: 12px;
+  --hr-spacing-4: 16px;
+  --hr-spacing-5: 20px;
+  --hr-spacing-6: 24px;
+  --hr-spacing-8: 32px;
+  --hr-spacing-12: 48px;
+
+  --hr-touch-target: 44px;
+
+  --hr-radius-sm: 4px;
+  --hr-radius: 6px;
+  --hr-radius-lg: 8px;
+  --hr-radius-full: 9999px;
+
+  --hr-font-family: var(--font-source-sans), 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --hr-font-xs: 12px;
+  --hr-font-sm: 13px;
+  --hr-font-base: 14px;
+  --hr-font-md: 16px;
+  --hr-font-lg: 20px;
+  --hr-font-xl: 24px;
+
+  --hr-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --hr-shadow-md: 0 4px 6px -1px rgba(16, 24, 40, 0.08);
+  --hr-shadow-lg: 0 10px 15px -3px rgba(16, 24, 40, 0.1);
+}
+
+/* Reset and base styles for HR layout */
+html.hr-html,
+body.hr-root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--hr-bg);
+  color: var(--hr-text);
+  font-family: var(--hr-font-family);
+  font-size: var(--hr-font-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hr-root *,
+.hr-root *::before,
+.hr-root *::after {
+  box-sizing: border-box;
+}
+
+/* Ensure minimum touch target for interactive elements in HR */
+.hr-root button,
+.hr-root a,
+.hr-root input,
+.hr-root select,
+.hr-root textarea {
+  font-family: inherit;
+}
+
+/* Focus styles */
+.hr-root :focus-visible {
+  outline: 2px solid var(--hr-primary);
+  outline-offset: 2px;
+}
+
+/* Subtle scrollbars */
+.hr-root ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.hr-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hr-root ::-webkit-scrollbar-thumb {
+  background: var(--hr-border);
+  border-radius: var(--hr-radius-sm);
+}
+.hr-root ::-webkit-scrollbar-thumb:hover {
+  background: var(--hr-text-light);
+}
+
+/* Print optimizations */
+@media print {
+  .hr-no-print {
+    display: none !important;
+  }
+}

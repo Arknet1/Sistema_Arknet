@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Hero from '../components/hero'
+import Hero from '@/components/hero'
 import Services from '@/components/services'
 import FeaturedProducts from '@/components/featured-products'
 import Sobre from '@/components/sobre'

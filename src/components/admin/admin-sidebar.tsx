@@ -28,6 +28,7 @@ import {
   ImageIcon,
   BarChart3,
   LifeBuoy,
+  UserCheck,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { dataStore } from '@/lib/data-store'
@@ -217,6 +218,13 @@ export function AdminSidebar({ isMobileOpen, onCloseMobile }: AdminSidebarProps)
     {
       title: 'Administração e Sistema',
       items: [
+        {
+          label: 'Recursos Humanos (RH)',
+          href: '/rh',
+          icon: UserCheck,
+          badge: 'Fase 1',
+          badgeColor: 'bg-emerald-600 text-white font-bold',
+        },
         {
           label: 'Definições Gerais',
           href: '/admin/definicoes',

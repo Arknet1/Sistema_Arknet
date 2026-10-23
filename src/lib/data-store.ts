@@ -11,7 +11,7 @@ import { hashPasswordSync } from './security-utils'
 // 1. TIPOS DE DADOS
 // ==========================================
 
-export type UserRole = 'admin' | 'editor'
+export type UserRole = 'admin' | 'editor' | 'ADMINISTRADOR' | 'TECNICO_RH' | 'FUNCIONARIO'
 
 export interface AdminUser {
   id: string
@@ -22,6 +22,7 @@ export interface AdminUser {
   role: UserRole
   avatar?: string
   status: 'active' | 'inactive'
+  mustChangePassword?: boolean
   createdAt: string
   lastLogin?: string
 }

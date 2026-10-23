@@ -11,17 +11,20 @@ datasource db {
 // 1. UTILIZADORES ADMINISTRATIVOS & RBAC
 // -------------------------------------------------------------
 model AdminUser {
-  id           String    @id @default(cuid())
-  name         String
-  email        String    @unique
-  password     String?
-  passwordHash String?
-  role         String    @default("editor") // 'admin' | 'editor'
-  avatar       String?
-  status       String    @default("active") // 'active' | 'inactive'
-  createdAt    DateTime  @default(now())
-  lastLogin    DateTime?
+  id                 String      @id @default(cuid())
+  name               String
+  email              String      @unique
+  password           String?
+  passwordHash       String?
+  role               String      @default("editor") // 'admin' | 'editor' | 'ADMINISTRADOR' | 'TECNICO_RH' | 'FUNCIONARIO'
+  avatar             String?
+  status             String      @default("active") // 'active' | 'inactive'
+  mustChangePassword Boolean     @default(false)
+  createdAt          DateTime    @default(now())
+  lastLogin          DateTime?
+  hrEmployee         HrEmployee?
 }
+
 
 // -------------------------------------------------------------
 // 2. CLIENTES & CONTAS DE CLIENTE
@@ -497,3 +500,191 @@ model TicketReply {
 
   @@index([ticketId])
 }
+
+// =============================================================
+// 15. RECURSOS HUMANOS (RH) - FASE 1: FUNDAÇÃO
+// =============================================================
+
+model HrDepartment {
+  id          String         @id @default(cuid())
+  code        String         @unique // ex.: "ENG", "RH", "COM"
+  name        String
+  description String?
+  managerId   String?        // ID do funcionário responsável (informativo)
+  parentId    String?        // Departamento superior na hierarquia
+  parent      HrDepartment?  @relation("DepartmentHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children    HrDepartment[] @relation("DepartmentHierarchy")
+  active      Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  employees   HrEmployee[]
+
+  @@index([parentId])
+}
+
+model HrPosition {
+  id             String       @id @default(cuid())
+  code           String       @unique // ex.: "TEC_TELCO", "ESP_RH"
+  title          String
+  level          String       // "Junior" | "Pleno" | "Senior" | "Especialista" | "Direccao"
+  salaryCategory String       // "CAT-A", "CAT-B", "CAT-C", etc.
+  description    String?
+  active         Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  employees      HrEmployee[]
+}
+
+model HrEmployee {
+  id                 String            @id @default(cuid())
+  employeeNumber     String            @unique // ex.: "ARK-EMP-001"
+  fullName           String
+  biNumber           String            @unique // Bilhete de Identidade único
+  birthDate          DateTime
+  gender             String?           // "M" | "F" | "Outro"
+  phone              String
+  email              String            @unique
+  address            String
+  city               String            @default("Luanda")
+  province           String            @default("Luanda")
+  
+  // Dados bancários (sensíveis)
+  bankName           String?
+  bankIban           String?
+  bankAccountNumber  String?
+
+  admissionDate      DateTime
+  status             String            @default("ACTIVO") // "ACTIVO" | "SUSPENSO" | "DESLIGADO"
+  
+  departmentId       String
+  department         HrDepartment      @relation(fields: [departmentId], references: [id])
+  
+  positionId         String
+  position           HrPosition        @relation(fields: [positionId], references: [id])
+  
+  // Hierarquia - Chefe directo (informativo, não dá permissões)
+  directSupervisorId String?
+  directSupervisor   HrEmployee?       @relation("SupervisorHierarchy", fields: [directSupervisorId], references: [id], onDelete: SetNull)
+  subordinates       HrEmployee[]      @relation("SupervisorHierarchy")
+
+  // Ligação opcional ao utilizador do sistema (para acesso ao portal)
+  userId             String?           @unique
+  userRef            AdminUser?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  contracts          HrContract[]
+  documents          HrDocument[]
+  careerHistory      HrCareerHistory[]
+
+  @@index([departmentId])
+  @@index([positionId])
+  @@index([status])
+}
+
+model HrCareerHistory {
+  id           String     @id @default(cuid())
+  employeeId   String
+  employee     HrEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  position     String
+  department   String
+  salary       Decimal
+  changeReason String     // "Admissão", "Promoção", "Transferência", "Ajuste Salarial"
+  changeDate   DateTime   @default(now())
+  registeredBy String?
+  createdAt    DateTime   @default(now())
+
+  @@index([employeeId])
+}
+
+model HrContract {
+  id             String     @id @default(cuid())
+  contractNumber String     @unique // ex.: "ARK-CTR-2026-001"
+  employeeId     String
+  employee       HrEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  type           String     // "INDETERMINADO" | "DETERMINADO" | "ESTAGIO" | "PRESTACAO_SERVICOS"
+  startDate      DateTime
+  endDate        DateTime?  // Obrigatório se Determinado ou Estágio
+  baseSalary     Decimal    // Salário base em Decimal
+  
+  // Horário de trabalho (preparado para o ponto na Fase 2)
+  workDays       String     @default("SEG-SEX") // ex.: "SEG-SEX", "SEG-SAB"
+  dailyHours     Decimal    @default(8.0)       // Horas por dia (ex.: 8)
+  weeklyHours    Decimal    @default(40.0)      // Horas semanais (ex.: 40)
+  
+  status         String     @default("RASCUNHO") // "RASCUNHO" | "PENDENTE_APROVACAO" | "ACTIVO" | "VENCIDO" | "RESCINDIDO"
+  
+  approvedBy     String?    // ID ou nome do Técnico de RH/Admin que aprovou
+  approvedAt     DateTime?
+  createdBy      String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrDocument {
+  id             String     @id @default(cuid())
+  employeeId     String
+  employee       HrEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  title          String
+  type           String     // "BI" | "CONTRATO" | "CERTIFICADO" | "CV" | "REGISTO_CRIMINAL" | "ATESTADO_MEDICO" | "OUTRO"
+  storagePath    String     // Identificador seguro no armazenamento privado
+  fileName       String
+  fileSize       Int
+  mimeType       String
+  expiresAt      DateTime?  // Validade (para alertas de expiração)
+  status         String     @default("ACTIVO") // "ACTIVO" | "ARQUIVADO"
+  uploadedById   String?
+  uploadedByName String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([employeeId])
+  @@index([type])
+  @@index([status])
+}
+
+model HrAuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  userName   String
+  userRole   String
+  action     String   // "CRIAR" | "EDITAR" | "APROVAR" | "MUDAR_ESTADO" | "ACESSO_SENSIVEL"
+  resource   String   // "FUNCIONARIO" | "CONTRATO" | "DOCUMENTO" | "DEPARTAMENTO" | "CARGO" | "UTILIZADOR"
+  resourceId String?
+  details    String   // Descrição legível em português de Angola
+  oldValue   String?  // JSON string com dados sensíveis mascarados
+  newValue   String?  // JSON string com dados sensíveis mascarados
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([resource, resourceId])
+  @@index([createdAt])
+}
+
+model HrAlertLog {
+  id         String   @id @default(cuid())
+  alertType  String   // "CONTRATO_EXPIRACAO" | "DOCUMENTO_EXPIRACAO"
+  targetId   String   // ID do Contrato ou Documento
+  channel    String   // "EMAIL" | "WHATSAPP"
+  sentTo     String   // Destinatário
+  sentAt     DateTime @default(now())
+  metadata   String?  // JSON com detalhes do alerta
+
+  @@index([alertType, targetId])
+  @@index([sentAt])
+}
+
+model HrConfig {
+  id                      String   @id @default("global")
+  contractAlertDays       Int      @default(30)
+  documentAlertDays       Int      @default(30)
+  notifyEmail             String   @default("rh@arknet.co.ao")
+  notifyWhatsapp          String?
+  whatsappEnabled         Boolean  @default(false) // Desligado por configuração (apenas template aprovado)
+  updatedAt               DateTime @updatedAt
+}
+

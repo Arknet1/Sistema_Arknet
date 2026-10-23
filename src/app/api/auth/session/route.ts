@@ -30,11 +30,41 @@ export async function GET(request: NextRequest) {
 
     const session = verifySessionToken(token)
     if (!session) return NextResponse.json({ authenticated: false })
-    const isAdmin = session.role === 'admin' || session.role === 'editor'
-    const accounts = isAdmin ? db.users : db.customers
-    const account = (accounts || []).find((item: any) => item.id === session.userId && item.status === 'active')
-    if (!account) return NextResponse.json({ authenticated: false })
-    return NextResponse.json({ authenticated: true, kind: isAdmin ? 'admin' : 'customer', token, user: safeAccount(account) })
+    const isCustomer = session.role === 'customer'
+    let account: any = null
+
+    if (isCustomer) {
+      account = (db.customers || []).find((item: any) => item.id === session.userId && item.status === 'active')
+      if (!account) {
+        try {
+          account = await prisma.customer.findUnique({ where: { id: session.userId } })
+        } catch {}
+      }
+    } else {
+      try {
+        account = await prisma.adminUser.findUnique({
+          where: { id: session.userId },
+          include: { hrEmployee: true },
+        })
+      } catch {}
+      if (!account) {
+        account = (db.users || []).find((item: any) => item.id === session.userId && item.status === 'active')
+      }
+    }
+
+    if (!account || account.status !== 'active') return NextResponse.json({ authenticated: false })
+
+    // Se colaborador desligado, sessão é invalidada
+    if (account.hrEmployee && account.hrEmployee.status === 'DESLIGADO') {
+      return NextResponse.json({ authenticated: false, message: 'Colaborador desligado.' })
+    }
+
+    return NextResponse.json({
+      authenticated: true,
+      kind: isCustomer ? 'customer' : 'admin',
+      token,
+      user: safeAccount(account),
+    })
   } catch {
     return NextResponse.json({ authenticated: false }, { status: 500 })
   }
@@ -153,15 +183,22 @@ export async function POST(request: NextRequest) {
     }
     const accounts = kind === 'admin' ? db.users || [] : db.customers || []
     let account = accounts.find((item: any) => item.email?.toLowerCase() === email)
-    if (!account) {
-      try {
-        if (kind === 'admin') {
-          account = (await prisma.adminUser.findUnique({ where: { email } })) as any
-        } else {
-          account = (await prisma.customer.findUnique({ where: { email } })) as any
+    let prismaAdminWithHr: any = null
+
+    try {
+      if (kind === 'admin') {
+        prismaAdminWithHr = await prisma.adminUser.findUnique({
+          where: { email },
+          include: { hrEmployee: true },
+        })
+        if (prismaAdminWithHr) {
+          account = prismaAdminWithHr as any
         }
-      } catch {}
-    }
+      } else {
+        account = (await prisma.customer.findUnique({ where: { email } })) as any
+      }
+    } catch {}
+
     if (!account || account.status !== 'active' || !verifyStoredPassword(password, account.passwordHash || account.password)) {
       const next = limit && limit.resetAt > Date.now() ? limit : { count: 0, resetAt: Date.now() + 15 * 60 * 1000 }
       next.count += 1
@@ -169,13 +206,37 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: 'Email ou palavra-passe inválidos.' }, { status: 401 })
     }
 
+    // REGRA 4: Funcionário DESLIGADO => login estritamente bloqueado
+    if (account.hrEmployee && account.hrEmployee.status === 'DESLIGADO') {
+      return NextResponse.json({
+        success: false,
+        message: 'Acesso bloqueado. Este colaborador encontra-se desligado da instituição.',
+      }, { status: 403 })
+    }
+
     attempts.delete(key)
-    const updated = { ...account, passwordHash: hashPassword(password), password: null, lastLogin: new Date().toISOString() }
+    const updated = {
+      ...account,
+      passwordHash: hashPassword(password),
+      password: null,
+      lastLogin: new Date().toISOString(),
+    }
     const collection = kind === 'admin' ? 'users' : 'customers'
     const updatedAccounts = accounts.some((item: any) => item.id === account.id)
       ? accounts.map((item: any) => (item.id === account.id ? updated : item))
       : [...accounts, updated]
     writeServerDb({ [collection]: updatedAccounts })
+
+    // Sincronizar Prisma se existir
+    if (kind === 'admin') {
+      try {
+        await prisma.adminUser.update({
+          where: { id: account.id },
+          data: { lastLogin: new Date(), passwordHash: updated.passwordHash },
+        })
+      } catch {}
+    }
+
     return issueSession(updated, kind, body.rememberMe !== false)
   } catch (error) {
     console.error('[Auth] Erro ao autenticar:', error)

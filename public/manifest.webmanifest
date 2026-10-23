@@ -1,0 +1,25 @@
+{
+  "name": "J.Matos RH · Recursos Humanos",
+  "short_name": "J.Matos RH",
+  "description": "Recursos Humanos e Portal do Colaborador da J.Matos Tecnologia",
+  "start_url": "/portal",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F6F8",
+  "theme_color": "#0868B0",
+  "icons": [
+    {
+      "src": "/hr/jmatos.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/hr/jmatos.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
