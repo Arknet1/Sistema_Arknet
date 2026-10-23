@@ -53,13 +53,13 @@
       "name": "Dr. Sebastião Gaspar",
       "email": "admin.rh@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$66cddd578351611710041536a115d1a0$df3a334f327cbdb2d79a2b19c91607b31752fb36bc6cf799e0299f84374621b6ea9a5e00f15e5cdf4d328e6382c62192574b2a474f83a49ea9bbc3992fb66ea1",
+      "passwordHash": "$scrypt$d4c6e7a75d67dd5561b5b96e0209d173$f7c41b715fda4596733b02cd885c3b5d4507eb721694b655fc441a60ea11a78bf0fad82baa9cf551b1a116ec42a9a61769c15050a65c012c6e58cd307be96b12",
       "role": "ADMINISTRADOR",
       "avatar": null,
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T09:36:35.095Z",
-      "lastLogin": "2026-10-23T13:17:26.528Z",
+      "lastLogin": "2026-10-23T13:31:38.762Z",
       "hrEmployee": null
     },
     {
@@ -67,13 +67,13 @@
       "name": "Teresa M. da Silva",
       "email": "tecnico.rh@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$22aec75c79c2d91bc1c5e880e19ac9b4$ea62342f23f6898e256704907e1d0f13ffe57f661774489efac941686b1b9e62666d436eda949240bd362464e6a900c2d713224ac493173df6bb75541b72e9bb",
+      "passwordHash": "$scrypt$3258c38509e11219df30e6ebb4f3927c$c15f390d7d26ddc2a0d6188ea964d5c45b531723e1d6c968ce910849e284b9d5e2bb315364864810c8e3f618bb87554b100abd7f39fee579a63904f3679a879c",
       "role": "TECNICO_RH",
       "avatar": null,
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T09:36:35.129Z",
-      "lastLogin": "2026-10-23T13:20:43.688Z",
+      "lastLogin": "2026-10-23T13:29:49.737Z",
       "hrEmployee": null
     },
     {

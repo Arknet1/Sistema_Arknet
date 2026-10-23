@@ -14,8 +14,8 @@ export interface HrBadgeProps {
 export function HrBadge({
   children,
   variant = 'neutral',
-  size = 'md',
-  dot = false,
+  size = 'sm',
+  dot = true,
   className = '',
 }: HrBadgeProps) {
   const variantStyles = {
@@ -35,7 +35,7 @@ export function HrBadge({
   };
 
   const sizeStyles = {
-    sm: 'text-[11px] px-2 py-0.5 font-medium leading-none',
+    sm: 'text-xs px-2 py-0.5 font-medium leading-none',
     md: 'text-xs px-2.5 py-1 font-semibold leading-tight',
   };
 

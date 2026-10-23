@@ -87,7 +87,7 @@ export function HrCardList<T>({
               <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-2 mt-1 border-t border-[var(--hr-border-subtle)] text-xs">
                 {card.fields.map((f, idx) => (
                   <div key={idx} className="flex flex-col min-w-0">
-                    <span className="text-[11px] text-[var(--hr-text-muted)] font-medium">
+                    <span className="text-xs text-[var(--hr-text-muted)] font-medium">
                       {f.label}
                     </span>
                     <span className="text-[var(--hr-text)] font-semibold truncate">

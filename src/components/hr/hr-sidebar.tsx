@@ -85,9 +85,9 @@ export function HrSidebar({
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-[var(--hr-surface)] border-r border-[var(--hr-border)] w-64 select-none">
-      {/* Brand Header */}
-      <div className="p-4 sm:p-5 flex items-center justify-between border-b border-[var(--hr-border)] relative">
-        <HrLogo href="/rh" showSubtitle />
+      {/* Brand Header: Logo alone on a line, 125px wide, breathing room */}
+      <div className="p-6 flex items-center justify-between border-b border-[var(--hr-border)] relative">
+        <HrLogo href="/rh" />
         {onCloseMobile && (
           <button
             type="button"
@@ -98,13 +98,11 @@ export function HrSidebar({
             <X className="w-5 h-5" />
           </button>
         )}
-        {/* Subtle orange accent line below header */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--hr-brand-orange)]" />
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto" aria-label="Menu principal">
-        <div className="text-[10px] font-bold uppercase tracking-wider text-[var(--hr-text-light)] px-3 mb-2">
+      <nav className="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto" aria-label="Menu principal">
+        <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hr-text-muted)] px-3 mb-2">
           Gestão de Pessoas
         </div>
         {navItems.map((item) => {
@@ -121,7 +119,7 @@ export function HrSidebar({
               key={item.href}
               href={item.href}
               onClick={onCloseMobile}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-[var(--hr-radius)] text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-[var(--hr-radius)] text-sm font-medium transition-colors ${
                 isActive
                   ? 'bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] font-bold'
                   : 'text-[var(--hr-text)] hover:bg-[var(--hr-surface-muted)] hover:text-[var(--hr-primary)]'
@@ -135,14 +133,14 @@ export function HrSidebar({
           );
         })}
 
-        <div className="pt-4 mt-4 border-t border-[var(--hr-border-subtle)]">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[var(--hr-text-light)] px-3 mb-2">
+        <div className="pt-5 mt-5 border-t border-[var(--hr-border-subtle)]">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hr-text-muted)] px-3 mb-2">
             Auto-Serviço
           </div>
           <Link
             href="/portal"
             onClick={onCloseMobile}
-            className="flex items-center gap-3 px-3 py-2 rounded-[var(--hr-radius)] text-xs sm:text-sm font-medium text-[var(--hr-text-muted)] hover:text-[var(--hr-primary)] hover:bg-[var(--hr-surface-muted)] transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-[var(--hr-radius)] text-sm font-medium text-[var(--hr-text-muted)] hover:text-[var(--hr-primary)] hover:bg-[var(--hr-surface-muted)] transition-colors"
           >
             <User className="w-4 h-4 text-[var(--hr-text-muted)]" />
             <span>Meu Portal do Colaborador</span>
@@ -150,32 +148,9 @@ export function HrSidebar({
         </div>
       </nav>
 
-      {/* User Footer */}
-      <div className="p-3 border-t border-[var(--hr-border)] bg-[var(--hr-surface-muted)] flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-[var(--hr-border)]">
-            {userName ? userName.charAt(0).toUpperCase() : 'U'}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-bold text-[var(--hr-text)] truncate leading-tight">
-              {userName}
-            </p>
-            <p className="text-[10px] text-[var(--hr-text-muted)] truncate">
-              {userRole === 'ADMINISTRADOR' || userRole === 'admin'
-                ? 'Administrador'
-                : 'Técnico de RH'}
-            </p>
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={handleLogout}
-          title="Encerrar sessão"
-          className="p-1.5 text-[var(--hr-text-muted)] hover:text-[var(--hr-status-error)] hover:bg-[var(--hr-status-error-bg)] rounded-[var(--hr-radius-sm)] transition-colors flex-shrink-0 min-h-[32px] min-w-[32px] flex items-center justify-center"
-          aria-label="Sair"
-        >
-          <LogOut className="w-4 h-4" />
-        </button>
+      {/* Footer subtle brand tagline */}
+      <div className="p-4 border-t border-[var(--hr-border-subtle)] text-xs text-[var(--hr-text-muted)] text-center select-none">
+        J.Matos Tecnologia · RH
       </div>
     </div>
   );

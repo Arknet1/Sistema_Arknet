@@ -198,7 +198,7 @@ export default function RhDocumentosPage() {
                   <div className="font-semibold text-[var(--hr-text)]">
                     {r.employee?.fullName || '—'}
                   </div>
-                  <div className="text-[11px] text-[var(--hr-text-muted)] font-mono">
+                  <div className="text-xs text-[var(--hr-text-muted)] font-mono">
                     {r.employee?.employeeNumber}
                   </div>
                 </div>

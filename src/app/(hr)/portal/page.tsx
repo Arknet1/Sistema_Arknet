@@ -305,7 +305,7 @@ export default function PortalColaboradorPage() {
                         render: (r: any) => (
                           <div>
                             <div className="font-bold text-[var(--hr-text)]">{r.title}</div>
-                            <div className="text-[11px] text-[var(--hr-text-muted)] font-mono">{r.type} · {(r.fileSize / 1024).toFixed(0)} KB</div>
+                            <div className="text-xs text-[var(--hr-text-muted)] font-mono">{r.type} · {(r.fileSize / 1024).toFixed(0)} KB</div>
                           </div>
                         ),
                       },

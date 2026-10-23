@@ -199,6 +199,11 @@ async function main() {
   })
 
   console.log('📌 [SEED RH] Criando Contratos...')
+  // Limpeza de contratos com prefixo antigo para prevenir duplicados
+  await prisma.hrContract.deleteMany({
+    where: { contractNumber: { startsWith: 'ARK-CTR-' } },
+  })
+
   // Contrato 1: Indeterminado para a Técnica de RH
   await prisma.hrContract.upsert({
     where: { contractNumber: 'JM-CTR-2023-001' },

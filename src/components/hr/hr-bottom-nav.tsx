@@ -51,7 +51,7 @@ export function HrBottomNav({
                   </span>
                 )}
               </div>
-              <span className="text-[10px] mt-1 truncate max-w-[70px] leading-tight">
+              <span className="text-xs mt-1 truncate max-w-[80px] leading-tight">
                 {item.label}
               </span>
               {isActive && (

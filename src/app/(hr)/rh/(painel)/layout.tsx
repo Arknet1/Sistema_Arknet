@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { HrSidebar } from '@/components/hr/hr-sidebar';
-import { HrAppBar } from '@/components/hr/hr-app-bar';
+import { HrHeader } from '@/components/hr/hr-header';
 
 export default function RhPainelLayout({
   children,
@@ -41,18 +41,15 @@ export default function RhPainelLayout({
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Mobile Top Bar */}
-        <div className="lg:hidden">
-          <HrAppBar
-            onOpenMenu={() => setIsMobileMenuOpen(true)}
-            userName={user?.name || user?.email?.split('@')[0]}
-            showLogo
-          />
-        </div>
+        {/* Top Header Bar (Breadcrumbs, Search, User, 2px orange line) */}
+        <HrHeader
+          onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+          user={user}
+        />
 
         {/* Scrollable Page Body */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto w-full">
+          <div className="max-w-[1280px] mx-auto w-full">
             {children}
           </div>
         </main>

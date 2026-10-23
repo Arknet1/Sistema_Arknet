@@ -16,4 +16,5 @@ export * from './hr-data-list';
 export * from './hr-app-bar';
 export * from './hr-bottom-nav';
 export * from './hr-sidebar';
+export * from './hr-header';
 export * from './hr-toast';

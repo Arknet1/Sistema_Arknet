@@ -141,7 +141,7 @@ export default function RhAuditoriaPage() {
                   <div className="font-semibold text-xs text-[var(--hr-text)]">
                     {r.actorName || r.actorEmail || 'Sistema Automático'}
                   </div>
-                  <div className="text-[11px] text-[var(--hr-text-muted)] font-mono">
+                  <div className="text-xs text-[var(--hr-text-muted)] font-mono">
                     {r.actorRole || 'SYSTEM'}
                   </div>
                 </div>
@@ -161,7 +161,7 @@ export default function RhAuditoriaPage() {
                 <div className="text-xs">
                   <span className="font-bold text-[var(--hr-text)]">{r.entityType}</span>
                   {r.entityId && (
-                    <span className="text-[var(--hr-text-muted)] font-mono text-[11px] ml-1.5">
+                    <span className="text-[var(--hr-text-muted)] font-mono text-xs ml-1.5">
                       #{r.entityId.slice(-6)}
                     </span>
                   )}

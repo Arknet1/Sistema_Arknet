@@ -26,8 +26,11 @@ export const metadata: Metadata = {
   description: "Gestão de Recursos Humanos e Portal do Colaborador · J.Matos Tecnologia",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/hr/jmatos.png",
-    apple: "/hr/jmatos.png",
+    icon: [
+      { url: "/hr/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/hr/favicon.png", sizes: "128x128", type: "image/png" },
+    ],
+    apple: "/hr/icon-192.png",
   },
 };
 
