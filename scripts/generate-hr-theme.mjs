@@ -7,7 +7,10 @@ const outputPath = path.join(root, 'src', 'styles', 'hr-theme.css');
 
 const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
 
-const css = `/* J.Matos Recursos Humanos - Design System Theme */
+const css = `@import "tailwindcss";
+@import "tw-animate-css";
+
+/* J.Matos Recursos Humanos - Design System Theme */
 /* Generated automatically from hr-tokens.json - DO NOT EDIT DIRECTLY */
 
 :root,
