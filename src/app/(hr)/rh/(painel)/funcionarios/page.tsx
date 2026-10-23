@@ -322,7 +322,7 @@ function RhFuncionariosContent() {
               header: 'N.º Colaborador',
               width: '130px',
               render: (r) => (
-                <span className="font-mono text-xs font-bold text-[var(--hr-primary)]">
+                <span className="font-mono text-[13px] font-bold text-[var(--hr-primary)]">
                   {r.employeeNumber}
                 </span>
               ),
@@ -332,11 +332,11 @@ function RhFuncionariosContent() {
               header: 'Nome Completo',
               render: (r) => (
                 <div>
-                  <div className="font-bold text-[var(--hr-text)]">{r.fullName}</div>
-                  <div className="text-xs text-[var(--hr-text-muted)] flex items-center gap-2 mt-0.5">
+                  <div className="font-bold text-[15px] text-[var(--hr-text)]">{r.fullName}</div>
+                  <div className="text-[13px] text-[var(--hr-text-muted)] flex items-center gap-2 mt-0.5">
                     <span>BI: {r.biNumber}</span>
                     {r.user && (
-                      <span className="inline-flex items-center gap-1 text-xs text-[var(--hr-primary)] font-medium">
+                      <span className="inline-flex items-center gap-1 text-[12px] text-[var(--hr-primary)] font-semibold">
                         <KeyRound className="w-3 h-3" /> Acesso activo
                       </span>
                     )}
@@ -349,10 +349,10 @@ function RhFuncionariosContent() {
               header: 'Departamento & Cargo',
               render: (r) => (
                 <div>
-                  <div className="text-sm font-semibold text-[var(--hr-text)]">
+                  <div className="text-[14px] font-semibold text-[var(--hr-text)]">
                     {r.department?.name || 'Sem departamento'}
                   </div>
-                  <div className="text-xs text-[var(--hr-text-muted)]">
+                  <div className="text-[13px] text-[var(--hr-text-muted)]">
                     {r.position?.title || 'Sem cargo'}
                   </div>
                 </div>
@@ -362,9 +362,9 @@ function RhFuncionariosContent() {
               key: 'contact',
               header: 'Contacto',
               render: (r) => (
-                <div className="text-xs">
-                  <div className="text-[var(--hr-text)]">{r.phone || '—'}</div>
-                  <div className="text-[var(--hr-text-muted)] text-xs">{r.email || '—'}</div>
+                <div>
+                  <div className="text-[13px] font-medium text-[var(--hr-text)]">{r.phone || '—'}</div>
+                  <div className="text-[13px] text-[var(--hr-text-muted)]">{r.email || '—'}</div>
                 </div>
               ),
             },

@@ -32,14 +32,14 @@ export function HrTable<T>({
     <div
       className={`w-full overflow-x-auto bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] ${className}`}
     >
-      <table className="w-full text-left border-collapse text-sm">
+      <table className="w-full text-left border-collapse text-[14px] sm:text-[15px]">
         <thead>
-          <tr className="h-12 bg-[var(--hr-surface-muted)] border-b border-[var(--hr-border)] text-xs font-semibold text-[var(--hr-text-muted)] uppercase tracking-wider">
+          <tr className="h-12 bg-[var(--hr-surface-muted)] border-b border-[var(--hr-border)] text-[12px] font-bold text-[var(--hr-text-muted)] uppercase tracking-wider">
             {columns.map((col) => (
               <th
                 key={col.key}
                 style={{ width: col.width }}
-                className={`h-12 px-4 align-middle ${
+                className={`h-12 px-4.5 align-middle ${
                   col.align === 'right'
                     ? 'text-right'
                     : col.align === 'center'
@@ -52,10 +52,10 @@ export function HrTable<T>({
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-[var(--hr-border-subtle)] text-[var(--hr-text)] text-sm">
+        <tbody className="divide-y divide-[var(--hr-border-subtle)] text-[var(--hr-text)] text-[14px] sm:text-[15px]">
           {isLoading ? (
             <tr>
-              <td colSpan={columns.length} className="h-16 py-4 text-center text-[var(--hr-text-muted)] text-sm">
+              <td colSpan={columns.length} className="h-20 py-6 text-center text-[var(--hr-text-muted)] text-[14px]">
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-[var(--hr-primary)] border-t-transparent rounded-full animate-spin" />
                   <span>A carregar dados...</span>
@@ -66,7 +66,7 @@ export function HrTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="h-16 py-4 text-center text-[var(--hr-text-muted)] text-sm italic"
+                className="h-20 py-6 text-center text-[var(--hr-text-muted)] text-[14px] italic"
               >
                 {emptyMessage}
               </td>
@@ -76,10 +76,10 @@ export function HrTable<T>({
               <tr
                 key={keyExtractor(row)}
                 onClick={() => onRowClick?.(row)}
-                className={`h-12 transition-colors ${
+                className={`min-h-[52px] transition-colors duration-150 ${
                   onRowClick
-                    ? 'cursor-pointer hover:bg-[var(--hr-primary-soft)]/50'
-                    : 'hover:bg-[var(--hr-surface-muted)]/60'
+                    ? 'cursor-pointer hover:bg-[var(--hr-primary-soft)]/60'
+                    : 'hover:bg-[var(--hr-surface-muted)]/80'
                 }`}
               >
                 {columns.map((col) => {
@@ -87,7 +87,7 @@ export function HrTable<T>({
                   return (
                     <td
                       key={col.key}
-                      className={`h-12 px-4 align-middle text-sm ${
+                      className={`py-3.5 px-4.5 align-middle text-[14px] sm:text-[15px] ${
                         col.align === 'right'
                           ? 'text-right tabular-nums font-mono'
                           : col.align === 'center'

@@ -218,61 +218,79 @@ export default function RhOverviewPage() {
         }
       />
 
-      {/* Point 4: 3 Indicators in a row with neutral grey 16px icon, no colored cards */}
+      {/* Point 4: 3 Indicators in a row with refined elevation & comfortable typography */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Indicator 1: Colaboradores activos */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] flex flex-col justify-between">
+        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
           <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-xs font-semibold uppercase tracking-wider">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
               Colaboradores Activos
             </span>
-            <Users className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
+              <Users className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            </div>
           </div>
-          <div className="mt-3 flex items-baseline">
-            <span className="text-2xl font-bold text-[var(--hr-text)] tabular-nums">
+          <div className="mt-4 flex flex-col">
+            <span className="text-3xl font-extrabold text-[var(--hr-text)] tabular-nums tracking-tight">
               {stats.activeEmployees}
+            </span>
+            <span className="text-[12px] font-semibold text-[var(--hr-status-success)] mt-1.5 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-success)]" />
+              Quadro de pessoal em actividade
             </span>
           </div>
         </div>
 
         {/* Indicator 2: Contratos a vencer (60 dias) */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] flex flex-col justify-between">
+        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
           <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-xs font-semibold uppercase tracking-wider">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
               Contratos a Vencer (60 dias)
             </span>
-            <FileCheck className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
+              <FileCheck className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            </div>
           </div>
-          <div className="mt-3 flex items-baseline">
+          <div className="mt-4 flex flex-col">
             <span
-              className={`text-2xl tabular-nums ${
+              className={`text-3xl tabular-nums tracking-tight ${
                 stats.contractsExpiring > 0
                   ? 'font-extrabold text-[var(--hr-text)]'
-                  : 'font-normal text-[var(--hr-text)]'
+                  : 'font-bold text-[var(--hr-text)]'
               }`}
             >
               {stats.contractsExpiring}
+            </span>
+            <span className="text-[12px] font-semibold text-[var(--hr-status-warning)] mt-1.5 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-warning)]" />
+              {stats.contractsExpiring > 0 ? 'Requer atenção para renovação' : 'Nenhuma caducidade próxima'}
             </span>
           </div>
         </div>
 
         {/* Indicator 3: Documentos a expirar (30 dias) */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] flex flex-col justify-between">
+        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
           <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-xs font-semibold uppercase tracking-wider">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
               Documentos a Expirar (30 dias)
             </span>
-            <AlertTriangle className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
+              <AlertTriangle className="w-4 h-4 text-[var(--hr-text-muted)]" />
+            </div>
           </div>
-          <div className="mt-3 flex items-baseline">
+          <div className="mt-4 flex flex-col">
             <span
-              className={`text-2xl tabular-nums ${
+              className={`text-3xl tabular-nums tracking-tight ${
                 stats.docsExpiring > 0
                   ? 'font-extrabold text-[var(--hr-text)]'
-                  : 'font-normal text-[var(--hr-text)]'
+                  : 'font-bold text-[var(--hr-text)]'
               }`}
             >
               {stats.docsExpiring}
+            </span>
+            <span className="text-[12px] font-semibold text-[var(--hr-text-muted)] mt-1.5 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-text-light)]" />
+              {stats.docsExpiring > 0 ? 'Documentação a regularizar' : 'Toda a documentação válida'}
             </span>
           </div>
         </div>
@@ -283,23 +301,23 @@ export default function RhOverviewPage() {
         {/* Bloco "Por tratar" (7 colunas) */}
         <div className="lg:col-span-7 bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
+            <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--hr-border-subtle)]">
               <div>
-                <h2 className="text-base font-bold text-[var(--hr-text)]">
+                <h2 className="text-lg font-bold text-[var(--hr-text)] tracking-tight">
                   Por Tratar
                 </h2>
-                <p className="text-xs text-[var(--hr-text-muted)] mt-0.5">
+                <p className="text-[13px] text-[var(--hr-text-muted)] mt-0.5">
                   Processos pendentes que exigem atenção dos Recursos Humanos
                 </p>
               </div>
-              <span className="text-xs font-semibold text-[var(--hr-text-muted)] bg-[var(--hr-surface-muted)] px-2 py-0.5 rounded border border-[var(--hr-border)]">
+              <span className="text-[12px] font-bold text-[var(--hr-text)] bg-[var(--hr-surface-muted)] px-2.5 py-1 rounded-full border border-[var(--hr-border)]">
                 {actionItems.length} pendente(s)
               </span>
             </div>
 
             {actionItems.length === 0 ? (
-              <div className="py-8 text-center text-xs text-[var(--hr-text-muted)] flex flex-col items-center justify-center gap-2">
-                <CheckCircle2 className="w-6 h-6 text-[var(--hr-status-success)]" />
+              <div className="py-10 text-center text-[13px] text-[var(--hr-text-muted)] flex flex-col items-center justify-center gap-2">
+                <CheckCircle2 className="w-7 h-7 text-[var(--hr-status-success)]" />
                 <span>Nenhum processo pendente. Todos os dados estão regularizados.</span>
               </div>
             ) : (
@@ -308,18 +326,18 @@ export default function RhOverviewPage() {
                   <Link
                     key={item.id}
                     href={item.href}
-                    className="py-3 flex items-center justify-between hover:bg-[var(--hr-surface-muted)] px-2 -mx-2 rounded transition-colors group"
+                    className="py-3.5 flex items-center justify-between hover:bg-[var(--hr-surface-muted)] px-3 -mx-3 rounded-[var(--hr-radius-sm)] transition-colors group"
                   >
                     <div className="min-w-0 flex-1 pr-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-[var(--hr-text)] group-hover:text-[var(--hr-primary)] transition-colors">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[15px] font-bold text-[var(--hr-text)] group-hover:text-[var(--hr-primary)] transition-colors">
                           {item.label}
                         </span>
                         <HrBadge variant={item.badgeVariant} size="sm">
                           {item.badge}
                         </HrBadge>
                       </div>
-                      <p className="text-xs text-[var(--hr-text-muted)] mt-0.5 truncate">
+                      <p className="text-[13px] text-[var(--hr-text-muted)] mt-1 truncate">
                         {item.sub}
                       </p>
                     </div>
@@ -334,18 +352,18 @@ export default function RhOverviewPage() {
         {/* Bloco "Colaboradores por departamento" (5 colunas) */}
         <div className="lg:col-span-5 bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] p-6 flex flex-col justify-between">
           <div>
-            <div className="pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
-              <h2 className="text-base font-bold text-[var(--hr-text)]">
+            <div className="pb-3.5 mb-4 border-b border-[var(--hr-border-subtle)]">
+              <h2 className="text-lg font-bold text-[var(--hr-text)] tracking-tight">
                 Colaboradores por Departamento
               </h2>
-              <p className="text-xs text-[var(--hr-text-muted)] mt-0.5">
+              <p className="text-[13px] text-[var(--hr-text-muted)] mt-0.5">
                 Distribuição actual da equipa por sector de actividade
               </p>
             </div>
 
             <div className="space-y-4 pt-1">
               {departmentStats.length === 0 ? (
-                <div className="py-8 text-center text-xs text-[var(--hr-text-muted)]">
+                <div className="py-10 text-center text-[13px] text-[var(--hr-text-muted)]">
                   Sem departamentos registados.
                 </div>
               ) : (
@@ -354,14 +372,14 @@ export default function RhOverviewPage() {
                   return (
                     <div key={dept.name} className="space-y-1.5">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-sm font-medium text-[var(--hr-text)] truncate pr-2">
+                        <span className="text-[14px] font-semibold text-[var(--hr-text)] truncate pr-2">
                           {dept.name}
                         </span>
-                        <span className="font-mono text-sm font-bold text-[var(--hr-text)] tabular-nums">
+                        <span className="font-mono text-[14px] font-bold text-[var(--hr-text)] tabular-nums">
                           {dept.count}
                         </span>
                       </div>
-                      <div className="h-2 w-full bg-[var(--hr-surface-muted)] rounded-full overflow-hidden border border-[var(--hr-border-subtle)]">
+                      <div className="h-2.5 w-full bg-[var(--hr-surface-muted)] rounded-full overflow-hidden border border-[var(--hr-border-subtle)]">
                         <div
                           className="h-full bg-[var(--hr-primary)] rounded-full transition-all duration-300"
                           style={{ width: `${Math.max(pct, 6)}%` }}
@@ -381,34 +399,35 @@ export default function RhOverviewPage() {
         {/* Colaboradores Recentes (7 colunas) */}
         <div className="lg:col-span-7 bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
+            <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--hr-border-subtle)]">
               <div>
-                <h2 className="text-base font-bold text-[var(--hr-text)]">
+                <h2 className="text-lg font-bold text-[var(--hr-text)] tracking-tight">
                   Colaboradores Recentes
                 </h2>
-                <p className="text-xs text-[var(--hr-text-muted)] mt-0.5">
+                <p className="text-[13px] text-[var(--hr-text-muted)] mt-0.5">
                   Últimos colaboradores activos admitidos na empresa
                 </p>
               </div>
               <Link
                 href="/rh/funcionarios"
-                className="text-xs font-semibold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
+                className="text-[13px] font-bold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
               >
                 <span>Ver todos</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            {/* Desktop Table (48px rows) */}
+            {/* Desktop Table (52px rows) */}
             <div className="hidden sm:block">
               <HrTable<any>
                 columns={[
                   {
                     key: 'employeeNumber',
                     header: 'N.º',
-                    width: '90px',
+                    width: '110px',
+                    className: 'whitespace-nowrap',
                     render: (r: any) => (
-                      <span className="font-mono text-xs font-bold text-[var(--hr-primary)]">
+                      <span className="font-mono text-[13px] font-bold text-[var(--hr-primary)] whitespace-nowrap">
                         {r.employeeNumber}
                       </span>
                     ),
@@ -418,8 +437,8 @@ export default function RhOverviewPage() {
                     header: 'Nome Completo',
                     render: (r: any) => (
                       <div>
-                        <div className="font-semibold text-sm text-[var(--hr-text)]">{r.fullName}</div>
-                        <div className="text-xs text-[var(--hr-text-muted)] truncate">
+                        <div className="font-bold text-[15px] text-[var(--hr-text)]">{r.fullName}</div>
+                        <div className="text-[13px] text-[var(--hr-text-muted)] truncate mt-0.5">
                           {r.position?.title || r.department?.name || '—'}
                         </div>
                       </div>
@@ -429,7 +448,7 @@ export default function RhOverviewPage() {
                     key: 'department',
                     header: 'Departamento',
                     render: (r: any) => (
-                      <span className="text-sm text-[var(--hr-text-muted)]">
+                      <span className="text-[14px] text-[var(--hr-text-muted)]">
                         {r.department?.name || '—'}
                       </span>
                     ),
@@ -473,34 +492,35 @@ export default function RhOverviewPage() {
         {/* Alertas de Caducidade (5 colunas) - Mostra N.º Contrato (Point 7) */}
         <div className="lg:col-span-5 bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
+            <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--hr-border-subtle)]">
               <div>
-                <h2 className="text-base font-bold text-[var(--hr-text)]">
+                <h2 className="text-lg font-bold text-[var(--hr-text)] tracking-tight">
                   Alertas de Caducidade
                 </h2>
-                <p className="text-xs text-[var(--hr-text-muted)] mt-0.5">
+                <p className="text-[13px] text-[var(--hr-text-muted)] mt-0.5">
                   Contratos a renovar nos próximos 60 dias
                 </p>
               </div>
               <Link
                 href="/rh/contratos"
-                className="text-xs font-semibold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
+                className="text-[13px] font-bold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
               >
                 <span>Gestão</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            {/* Desktop Table (48px rows, with contractNumber) */}
+            {/* Desktop Table (52px rows, with contractNumber) */}
             <div className="hidden sm:block">
               <HrTable<any>
                 columns={[
                   {
                     key: 'contractNumber',
                     header: 'N.º Contrato',
-                    width: '130px',
+                    width: '160px',
+                    className: 'whitespace-nowrap',
                     render: (r: any) => (
-                      <span className="font-mono text-xs font-bold text-[var(--hr-text)]">
+                      <span className="font-mono text-[13px] font-bold text-[var(--hr-text)] whitespace-nowrap">
                         {r.contractNumber || '—'}
                       </span>
                     ),
@@ -509,7 +529,7 @@ export default function RhOverviewPage() {
                     key: 'employee',
                     header: 'Colaborador',
                     render: (r: any) => (
-                      <span className="text-sm font-semibold text-[var(--hr-text)]">
+                      <span className="text-[14px] font-bold text-[var(--hr-text)]">
                         {r.employee?.fullName || '—'}
                       </span>
                     ),
@@ -519,7 +539,7 @@ export default function RhOverviewPage() {
                     header: 'Data Limite',
                     align: 'right',
                     render: (r: any) => (
-                      <span className="font-mono text-xs text-[var(--hr-text)] tabular-nums">
+                      <span className="font-mono text-[13px] font-bold text-[var(--hr-text)] tabular-nums">
                         {r.endDate ? new Date(r.endDate).toLocaleDateString('pt-AO') : '—'}
                       </span>
                     ),
@@ -569,42 +589,42 @@ export default function RhOverviewPage() {
 
       {/* Point 5c: Bloco "Actividade recente" (as últimas 8 entradas de auditoria com dados sensíveis mascarados) */}
       <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)] p-6">
-        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
+        <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--hr-border-subtle)]">
           <div>
-            <h2 className="text-base font-bold text-[var(--hr-text)]">
+            <h2 className="text-lg font-bold text-[var(--hr-text)] tracking-tight">
               Actividade Recente
             </h2>
-            <p className="text-xs text-[var(--hr-text-muted)] mt-0.5">
+            <p className="text-[13px] text-[var(--hr-text-muted)] mt-0.5">
               Últimas 8 acções registadas no livro de auditoria e conformidade
             </p>
           </div>
           <Link
             href="/rh/auditoria"
-            className="text-xs font-semibold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
+            className="text-[13px] font-bold text-[var(--hr-primary)] hover:underline flex items-center gap-1"
           >
             <span>Ver auditoria completa</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Audit Log Table (48px row height) */}
+        {/* Audit Log Table (52px row height) */}
         <div className="hidden sm:block">
           <HrTable<any>
             columns={[
               {
                 key: 'userName',
                 header: 'Operador',
-                width: '200px',
+                width: '210px',
                 render: (r: any) => (
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] font-bold text-xs flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] font-bold text-xs flex items-center justify-center flex-shrink-0 border border-[var(--hr-border-subtle)]">
                       {(r.userName || r.userRole || 'S').charAt(0).toUpperCase()}
                     </div>
                     <div className="truncate">
-                      <div className="font-semibold text-sm text-[var(--hr-text)] truncate">
+                      <div className="font-bold text-[14px] text-[var(--hr-text)] truncate">
                         {r.userName || 'Sistema'}
                       </div>
-                      <div className="text-xs text-[var(--hr-text-muted)]">
+                      <div className="text-[12px] font-medium text-[var(--hr-text-muted)]">
                         {r.userRole || 'Operador'}
                       </div>
                     </div>
@@ -632,7 +652,7 @@ export default function RhOverviewPage() {
                 header: 'Entidade',
                 width: '140px',
                 render: (r: any) => (
-                  <span className="text-sm font-medium text-[var(--hr-text)]">
+                  <span className="text-[14px] font-semibold text-[var(--hr-text)]">
                     {r.resource}
                   </span>
                 ),
@@ -641,7 +661,7 @@ export default function RhOverviewPage() {
                 key: 'details',
                 header: 'Registo / Detalhes',
                 render: (r: any) => (
-                  <span className="text-xs text-[var(--hr-text-muted)] line-clamp-1">
+                  <span className="text-[13px] text-[var(--hr-text-muted)] line-clamp-1">
                     {r.details || '—'}
                   </span>
                 ),
@@ -652,7 +672,7 @@ export default function RhOverviewPage() {
                 align: 'right',
                 width: '170px',
                 render: (r: any) => (
-                  <span className="font-mono text-xs text-[var(--hr-text)] tabular-nums">
+                  <span className="font-mono text-[13px] font-bold text-[var(--hr-text)] tabular-nums">
                     {new Date(r.createdAt).toLocaleString('pt-AO')}
                   </span>
                 ),

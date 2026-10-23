@@ -41,13 +41,13 @@ export function HrDataList({
 
         return (
           <div key={idx} className="flex flex-col min-w-0">
-            <dt className="text-xs font-medium text-[var(--hr-text-muted)] select-none">
+            <dt className="text-[13px] font-medium text-[var(--hr-text-muted)] select-none">
               {item.label}
             </dt>
-            <dd className="text-sm font-semibold text-[var(--hr-text)] mt-0.5 flex items-center gap-2 break-words">
+            <dd className="text-[15px] font-bold text-[var(--hr-text)] mt-0.5 flex items-center gap-2 break-words">
               {item.masked && item.rawUnmaskedValue ? (
                 <>
-                  <span className="tabular-nums font-mono text-xs">
+                  <span className="tabular-nums font-mono text-[13px]">
                     {isCurrentlyUnmasked ? item.rawUnmaskedValue : '••••••••••••••••'}
                   </span>
                   <button

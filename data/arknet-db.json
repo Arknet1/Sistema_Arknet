@@ -112,6 +112,57 @@
         "createdAt": "2026-10-23T09:36:35.175Z",
         "updatedAt": "2026-10-23T09:36:35.175Z"
       }
+    },
+    {
+      "id": "cmvkyfute0006ut1oonfaeq39",
+      "name": "Dr. Sebastião Gaspar",
+      "email": "admin.rh@jmatos.co.ao",
+      "password": null,
+      "passwordHash": "$scrypt$b5eff9c9746a0fc80d65a64b85038184$1c13ef4011021194bb3271ca182bfc92c008fa7abfad5a5b43b325627f99e147861a1867a137461ec767462b2300cbf9eb9cdd3ef2ac57c05d82173b8a0e1158",
+      "role": "ADMINISTRADOR",
+      "avatar": null,
+      "status": "active",
+      "mustChangePassword": false,
+      "createdAt": "2026-10-23T12:37:12.770Z",
+      "lastLogin": "2026-10-23T15:39:22.671Z",
+      "hrEmployee": null
+    },
+    {
+      "id": "cmvkyfuua0007ut1ovto2yojd",
+      "name": "Teresa M. da Silva",
+      "email": "tecnico.rh@jmatos.co.ao",
+      "password": null,
+      "passwordHash": "$scrypt$1143334effc7ae860bb717fd64e27dc1$5d4b74782600ea2abe9c5d96be304148443e143b704ed369d0dfbf82c8aa6e0c06e88960e0ee5dc667bd2735e6aa1a863a96591bf3946d1159413b51a82b6d23",
+      "role": "TECNICO_RH",
+      "avatar": null,
+      "status": "active",
+      "mustChangePassword": false,
+      "createdAt": "2026-10-23T12:37:12.802Z",
+      "lastLogin": "2026-10-23T16:03:49.479Z",
+      "hrEmployee": {
+        "id": "cmvkrzkgw000aut9csgnje9ru",
+        "employeeNumber": "JM-001",
+        "fullName": "Teresa M. da Silva",
+        "biNumber": "005432101LA044",
+        "birthDate": "1991-05-14T00:00:00.000Z",
+        "gender": "F",
+        "phone": "+244 923 111 222",
+        "email": "tecnico.rh@jmatos.co.ao",
+        "address": "Rua Comandante Gika, Edifício Garden Towers, Luanda",
+        "city": "Luanda",
+        "province": "Luanda",
+        "bankName": "Banco Angolano de Investimentos (BAI)",
+        "bankIban": "AO06.0040.0000.1234.5678.9012.3",
+        "bankAccountNumber": "1234567890",
+        "admissionDate": "2023-02-01T00:00:00.000Z",
+        "status": "ACTIVO",
+        "departmentId": "cmvkrzkde0002ut9cwjvetp7h",
+        "positionId": "cmvkrzkdp0004ut9ct2l84620",
+        "directSupervisorId": null,
+        "userId": "cmvkyfuua0007ut1ovto2yojd",
+        "createdAt": "2026-10-23T09:36:35.168Z",
+        "updatedAt": "2026-10-23T15:42:35.089Z"
+      }
     }
   ],
   "customers": [

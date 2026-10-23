@@ -35,15 +35,20 @@ function HrLoginForm() {
       const res = await fetch('/api/auth/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+        body: JSON.stringify({ action: 'login', kind: 'admin', email, password }),
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        setErrorMessage(data.error || 'Credenciais inválidas. Verifique o e-mail e palavra-passe.');
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.message || data.error || 'Credenciais inválidas. Verifique o e-mail e palavra-passe.');
         setIsLoading(false);
         return;
+      }
+
+      if (data.token) {
+        localStorage.setItem('arknet_admin_token', data.token);
       }
 
       // Check role and redirect appropriately

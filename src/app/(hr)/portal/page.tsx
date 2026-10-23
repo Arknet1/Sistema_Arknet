@@ -241,8 +241,8 @@ export default function PortalColaboradorPage() {
             {activeTab === 'perfil' && (
               <div className="space-y-5">
                 {/* Dados Pessoais & Contacto */}
-                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-4 sm:p-5 shadow-[var(--hr-shadow-sm)]">
-                  <h3 className="text-xs font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2 mb-3 border-b border-[var(--hr-border-subtle)]">
+                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+                  <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
                     Identificação & Contactos
                   </h3>
                   <HrDataList
@@ -261,8 +261,8 @@ export default function PortalColaboradorPage() {
                 </div>
 
                 {/* Dados Bancários */}
-                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-4 sm:p-5 shadow-[var(--hr-shadow-sm)]">
-                  <h3 className="text-xs font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2 mb-3 border-b border-[var(--hr-border-subtle)]">
+                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+                  <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
                     Dados Bancários Cadastrados
                   </h3>
                   <HrDataList

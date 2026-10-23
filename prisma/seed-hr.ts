@@ -122,7 +122,7 @@ async function main() {
   // Funcionário 1: Técnico de RH
   const empTecnico = await prisma.hrEmployee.upsert({
     where: { biNumber: '005432101LA044' },
-    update: { userId: userTecnico.id, employeeNumber: 'JM-001' },
+    update: { userId: userTecnico.id, employeeNumber: 'JM-001', email: 'tecnico.rh@jmatos.co.ao' },
     create: {
       employeeNumber: 'JM-001',
       fullName: 'Teresa M. da Silva',
@@ -148,7 +148,7 @@ async function main() {
   // Funcionário 2: Colaborador da Engenharia
   const empEng = await prisma.hrEmployee.upsert({
     where: { biNumber: '008765432LA099' },
-    update: { userId: userFuncionario.id, employeeNumber: 'JM-002' },
+    update: { userId: userFuncionario.id, employeeNumber: 'JM-002', email: 'colaborador@jmatos.co.ao' },
     create: {
       employeeNumber: 'JM-002',
       fullName: 'Manuel António dos Santos',
@@ -175,7 +175,7 @@ async function main() {
   // Funcionário 3: Colaborador de Atendimento
   const empApoio = await prisma.hrEmployee.upsert({
     where: { biNumber: '009112233LA012' },
-    update: { employeeNumber: 'JM-003' },
+    update: { employeeNumber: 'JM-003', email: 'helena.baptista@jmatos.co.ao' },
     create: {
       employeeNumber: 'JM-003',
       fullName: 'Helena Kiala Baptista',

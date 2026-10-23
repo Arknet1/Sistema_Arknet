@@ -82,15 +82,15 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
           )}
 
           <div className="flex items-center gap-2 overflow-hidden">
-            <span className="text-sm font-bold text-[var(--hr-text)] tracking-tight whitespace-nowrap">
+            <span className="text-[15px] font-bold text-[var(--hr-text)] tracking-tight whitespace-nowrap">
               Recursos Humanos
             </span>
-            <span className="text-xs text-[var(--hr-text-muted)] hidden sm:inline whitespace-nowrap">
+            <span className="text-[13px] font-medium text-[var(--hr-text-muted)] hidden sm:inline whitespace-nowrap">
               · J.Matos Tecnologia
             </span>
 
             {breadcrumbs.length > 0 && (
-              <div className="hidden md:flex items-center gap-1.5 pl-2 ml-2 border-l border-[var(--hr-border)] text-xs text-[var(--hr-text-muted)]">
+              <div className="hidden md:flex items-center gap-2 pl-3 ml-3 border-l border-[var(--hr-border)] text-[13px] text-[var(--hr-text-muted)]">
                 {breadcrumbs.map((b, idx) => (
                   <React.Fragment key={idx}>
                     {idx > 0 && (
@@ -99,12 +99,12 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
                     {b.href ? (
                       <Link
                         href={b.href}
-                        className="hover:text-[var(--hr-primary)] transition-colors whitespace-nowrap"
+                        className="hover:text-[var(--hr-primary)] transition-colors whitespace-nowrap font-medium"
                       >
                         {b.label}
                       </Link>
                     ) : (
-                      <span className="font-semibold text-[var(--hr-text)] whitespace-nowrap">
+                      <span className="font-bold text-[var(--hr-text)] whitespace-nowrap">
                         {b.label}
                       </span>
                     )}
@@ -116,13 +116,13 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
         </div>
 
         {/* Center: Search input */}
-        <div className="hidden md:flex items-center flex-1 max-w-sm lg:max-w-md mx-2">
+        <div className="hidden md:flex items-center flex-1 max-w-sm lg:max-w-md mx-4">
           <div className="relative w-full">
             <Search className="w-4 h-4 text-[var(--hr-text-muted)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               placeholder="Pesquisar colaboradores, contratos, BI..."
-              className="w-full text-xs sm:text-sm bg-[var(--hr-bg)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] pl-9 pr-3 py-1.5 focus:outline-none focus:border-[var(--hr-primary)] text-[var(--hr-text)] placeholder:text-[var(--hr-text-light)] transition"
+              className="w-full text-[14px] bg-[var(--hr-bg)] hover:bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] pl-9 pr-12 py-2 focus:outline-none focus:border-[var(--hr-primary)] focus:ring-2 focus:ring-[var(--hr-primary)]/15 text-[var(--hr-text)] placeholder:text-[var(--hr-text-light)] shadow-2xs transition"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   const q = (e.target as HTMLInputElement).value.trim();
@@ -130,20 +130,23 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
                 }
               }}
             />
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-mono font-medium text-[var(--hr-text-light)] bg-[var(--hr-surface)] border border-[var(--hr-border-subtle)] px-1.5 py-0.5 rounded shadow-2xs pointer-events-none">
+              ↵
+            </span>
           </div>
         </div>
 
         {/* Right: User Menu with Name, Role & Sair */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-3.5 flex-shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] flex items-center justify-center font-bold text-xs flex-shrink-0 border border-[var(--hr-border)]">
+            <div className="w-9 h-9 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] flex items-center justify-center font-bold text-sm flex-shrink-0 border border-[var(--hr-border)] shadow-xs">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="hidden sm:block text-left leading-tight">
-              <div className="text-sm font-semibold text-[var(--hr-text)] truncate max-w-[150px]">
+              <div className="text-[14px] font-bold text-[var(--hr-text)] truncate max-w-[150px]">
                 {userName}
               </div>
-              <div className="text-xs text-[var(--hr-text-muted)]">
+              <div className="text-[12px] font-medium text-[var(--hr-text-muted)] mt-0.5">
                 {roleLabel}
               </div>
             </div>
@@ -155,7 +158,7 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
             type="button"
             onClick={handleLogout}
             title="Encerrar sessão"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-[var(--hr-text-muted)] hover:text-[var(--hr-status-error)] hover:bg-[var(--hr-status-error-bg)] rounded-[var(--hr-radius-sm)] transition-colors min-h-[36px]"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-bold text-[var(--hr-text-muted)] hover:text-[var(--hr-status-error)] hover:bg-[var(--hr-status-error-bg)] rounded-[var(--hr-radius-sm)] transition-colors min-h-[36px]"
           >
             <LogOut className="w-4 h-4" />
             <span className="hidden sm:inline">Sair</span>

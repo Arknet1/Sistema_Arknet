@@ -35,15 +35,15 @@ export function HrBadge({
   };
 
   const sizeStyles = {
-    sm: 'text-xs px-2 py-0.5 font-medium leading-none',
-    md: 'text-xs px-2.5 py-1 font-semibold leading-tight',
+    sm: 'text-[13px] px-2.5 py-0.5 font-semibold leading-normal',
+    md: 'text-[14px] px-3 py-1 font-semibold leading-normal',
   };
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 border rounded-[var(--hr-radius-sm)] select-none whitespace-nowrap ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center gap-1.5 border rounded-[var(--hr-radius-sm)] select-none whitespace-nowrap shadow-xs ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
-      {dot && <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${dotColors[variant]}`} />}
+      {dot && <span className={`w-2 h-2 rounded-full flex-shrink-0 ${dotColors[variant]}`} />}
       <span>{children}</span>
     </span>
   );

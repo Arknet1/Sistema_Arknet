@@ -259,8 +259,8 @@ export default function RhFuncionarioDetalhePage() {
       <HrTabs
         tabs={[
           { id: 'dados', label: 'Dados Gerais', icon: <User className="w-4 h-4" /> },
-          { id: 'contratos', label: 'Contratos', icon: <FileCheck className="w-4 h-4" />, badge: <span className="text-xs font-mono">({employee.contracts?.length || 0})</span> },
-          { id: 'documentos', label: 'Documentos', icon: <FileText className="w-4 h-4" />, badge: <span className="text-xs font-mono">({employee.documents?.length || 0})</span> },
+          { id: 'contratos', label: 'Contratos', icon: <FileCheck className="w-4 h-4" />, badge: <span className="text-[12px] font-mono font-bold">({employee.contracts?.length || 0})</span> },
+          { id: 'documentos', label: 'Documentos', icon: <FileText className="w-4 h-4" />, badge: <span className="text-[12px] font-mono font-bold">({employee.documents?.length || 0})</span> },
           { id: 'carreira', label: 'Carreira', icon: <History className="w-4 h-4" /> },
           { id: 'acesso', label: 'Acesso Portal', icon: <KeyRound className="w-4 h-4" /> },
         ]}
@@ -272,8 +272,8 @@ export default function RhFuncionarioDetalhePage() {
       {activeTab === 'dados' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Card: Identificação Pessoal */}
-          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-4 sm:p-5 shadow-[var(--hr-shadow-sm)]">
-            <h3 className="text-xs font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2 mb-3 border-b border-[var(--hr-border-subtle)]">
+          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+            <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
               Identificação & Contactos
             </h3>
             <HrDataList
@@ -292,8 +292,8 @@ export default function RhFuncionarioDetalhePage() {
           </div>
 
           {/* Card: Enquadramento & Dados Bancários */}
-          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-4 sm:p-5 shadow-[var(--hr-shadow-sm)]">
-            <h3 className="text-xs font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2 mb-3 border-b border-[var(--hr-border-subtle)]">
+          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+            <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
               Enquadramento & Dados Bancários
             </h3>
             <HrDataList
