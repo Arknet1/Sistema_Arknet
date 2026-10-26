@@ -243,3 +243,36 @@ export async function processHrExpiryAlerts(): Promise<AlertProcessResult> {
 
   return result
 }
+
+/**
+ * Função utilitária para envio direto de email de notificações em serviços de RH
+ */
+export async function sendEmail({
+  to,
+  subject,
+  html,
+  text,
+}: {
+  to: string
+  subject: string
+  html?: string
+  text?: string
+}) {
+  try {
+    const { transporter, from } = await createTransporter()
+    if (transporter) {
+      await transporter.sendMail({
+        from: from || 'ARKNET Recursos Humanos <rh@arknet.co.ao>',
+        to,
+        subject,
+        html,
+        text,
+      })
+    }
+    return { success: true }
+  } catch (err) {
+    console.error('[HR EMAIL ERROR]', err)
+    return { success: false, error: err }
+  }
+}
+

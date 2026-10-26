@@ -22,6 +22,7 @@ import {
   HrTable,
   HrCardList,
   HrEmptyState,
+  HrSparkline,
 } from '@/components/hr';
 import { useHrToast } from '@/components/hr/hr-toast';
 
@@ -188,6 +189,11 @@ export default function RhOverviewPage() {
 
   const maxDeptCount = Math.max(...departmentStats.map((d) => d.count), 1);
 
+  // Sparkline trend data (mock 14-point series for visual illustration)
+  const empTrend = [38, 39, 39, 40, 41, 41, 42, 42, 43, 44, 44, 45, stats.activeEmployees, stats.activeEmployees];
+  const ctrTrend = [3, 2, 4, 3, 5, 4, 3, 2, 4, 3, 2, 3, stats.contractsExpiring, stats.contractsExpiring];
+  const docTrend = [1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 2, 1, stats.docsExpiring, stats.docsExpiring];
+
   return (
     <div className="max-w-[1280px] mx-auto space-y-6">
       {/* Page Header */}
@@ -230,14 +236,17 @@ export default function RhOverviewPage() {
               <Users className="w-4 h-4 text-[var(--hr-text-muted)]" />
             </div>
           </div>
-          <div className="mt-4 flex flex-col">
-            <span className="text-3xl font-extrabold text-[var(--hr-text)] tabular-nums tracking-tight">
-              {stats.activeEmployees}
-            </span>
-            <span className="text-[12px] font-semibold text-[var(--hr-status-success)] mt-1.5 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-success)]" />
-              Quadro de pessoal em actividade
-            </span>
+          <div className="mt-4 flex items-end justify-between">
+            <div className="flex flex-col">
+              <span className="text-3xl font-extrabold text-[var(--hr-text)] tabular-nums font-mono tracking-tight">
+                {stats.activeEmployees}
+              </span>
+              <span className="text-[12px] font-semibold text-[var(--hr-status-success)] mt-1.5 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-success)]" />
+                Quadro de pessoal em actividade
+              </span>
+            </div>
+            <HrSparkline data={empTrend} width={80} height={28} color="var(--hr-status-success)" />
           </div>
         </div>
 
@@ -251,20 +260,23 @@ export default function RhOverviewPage() {
               <FileCheck className="w-4 h-4 text-[var(--hr-text-muted)]" />
             </div>
           </div>
-          <div className="mt-4 flex flex-col">
-            <span
-              className={`text-3xl tabular-nums tracking-tight ${
-                stats.contractsExpiring > 0
-                  ? 'font-extrabold text-[var(--hr-text)]'
-                  : 'font-bold text-[var(--hr-text)]'
-              }`}
-            >
-              {stats.contractsExpiring}
-            </span>
-            <span className="text-[12px] font-semibold text-[var(--hr-status-warning)] mt-1.5 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-warning)]" />
-              {stats.contractsExpiring > 0 ? 'Requer atenção para renovação' : 'Nenhuma caducidade próxima'}
-            </span>
+          <div className="mt-4 flex items-end justify-between">
+            <div className="flex flex-col">
+              <span
+                className={`text-3xl tabular-nums font-mono tracking-tight ${
+                  stats.contractsExpiring > 0
+                    ? 'font-extrabold text-[var(--hr-text)]'
+                    : 'font-bold text-[var(--hr-text)]'
+                }`}
+              >
+                {stats.contractsExpiring}
+              </span>
+              <span className="text-[12px] font-semibold text-[var(--hr-status-warning)] mt-1.5 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-warning)]" />
+                {stats.contractsExpiring > 0 ? 'Requer atenção para renovação' : 'Nenhuma caducidade próxima'}
+              </span>
+            </div>
+            <HrSparkline data={ctrTrend} width={80} height={28} color="var(--hr-status-warning)" />
           </div>
         </div>
 
@@ -278,20 +290,23 @@ export default function RhOverviewPage() {
               <AlertTriangle className="w-4 h-4 text-[var(--hr-text-muted)]" />
             </div>
           </div>
-          <div className="mt-4 flex flex-col">
-            <span
-              className={`text-3xl tabular-nums tracking-tight ${
-                stats.docsExpiring > 0
-                  ? 'font-extrabold text-[var(--hr-text)]'
-                  : 'font-bold text-[var(--hr-text)]'
-              }`}
-            >
-              {stats.docsExpiring}
-            </span>
-            <span className="text-[12px] font-semibold text-[var(--hr-text-muted)] mt-1.5 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-text-light)]" />
-              {stats.docsExpiring > 0 ? 'Documentação a regularizar' : 'Toda a documentação válida'}
-            </span>
+          <div className="mt-4 flex items-end justify-between">
+            <div className="flex flex-col">
+              <span
+                className={`text-3xl tabular-nums font-mono tracking-tight ${
+                  stats.docsExpiring > 0
+                    ? 'font-extrabold text-[var(--hr-text)]'
+                    : 'font-bold text-[var(--hr-text)]'
+                }`}
+              >
+                {stats.docsExpiring}
+              </span>
+              <span className="text-[12px] font-semibold text-[var(--hr-text-muted)] mt-1.5 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-text-light)]" />
+                {stats.docsExpiring > 0 ? 'Documentação a regularizar' : 'Toda a documentação válida'}
+              </span>
+            </div>
+            <HrSparkline data={docTrend} width={80} height={28} color="var(--hr-text-light)" />
           </div>
         </div>
       </div>

@@ -8,6 +8,15 @@ export type HrAuditAction =
   | 'MUDAR_ESTADO'
   | 'DESLIGAR'
   | 'ACESSO_SENSIVEL'
+  | 'FECHAR'
+  | 'REABRIR'
+  | 'SUBMETER'
+  | 'GERAR'
+  | 'JUSTIFICAR_FALTA'
+  | 'PROCESSAR'
+  | 'PAGAR'
+  | 'ADMITIR'
+  | 'AVALIAR'
 
 export type HrAuditResource =
   | 'FUNCIONARIO'
@@ -16,6 +25,16 @@ export type HrAuditResource =
   | 'DEPARTAMENTO'
   | 'CARGO'
   | 'UTILIZADOR'
+  | 'FOLHA_PONTO'
+  | 'PERIODO_PONTO'
+  | 'FOLHA_SALARIO'
+  | 'RECIBO_VENCIMENTO'
+  | 'CICLO_DESEMPENHO'
+  | 'AVALIACAO_DESEMPENHO'
+  | 'CERTIFICACAO'
+  | 'CURSO_FORMACAO'
+  | 'VAGA_EMPREGO'
+  | 'CANDIDATO'
 
 export interface RecordHrAuditParams {
   user: HrUserContext
@@ -107,3 +126,48 @@ export async function recordHrAudit(
     },
   })
 }
+
+/**
+ * Helper direto logAudit para gravação de auditoria em transações ou isoladamente
+ */
+export async function logAudit(
+  first: any,
+  second?: any
+) {
+  let params: any
+  let txClient: any
+
+  if (first && first.action) {
+    params = first
+    txClient = second || first.tx
+  } else if (second && second.action) {
+    params = second
+    txClient = first || second.tx
+  } else {
+    params = first || {}
+    txClient = second
+  }
+
+  const oldValSanitized = params.oldValue ? JSON.stringify(sanitizeAuditData(params.oldValue)) : null
+  const newValSanitized = params.newValue ? JSON.stringify(sanitizeAuditData(params.newValue)) : null
+
+  // Se for passado tx, usa tx; senão instancia ou usa prisma
+  const client = txClient || (await import('@/lib/prisma')).prisma
+
+  return (client as any).hrAuditLog.create({
+    data: {
+      userId: params.userId || null,
+      userName: params.userName || 'Sistema',
+      userRole: params.userRole || 'SISTEMA',
+      action: params.action,
+      resource: params.resource,
+      resourceId: params.resourceId || null,
+      details: params.details,
+      oldValue: oldValSanitized,
+      newValue: newValSanitized,
+      ipAddress: params.ipAddress || null,
+    },
+  })
+}
+
+

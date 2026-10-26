@@ -518,6 +518,7 @@ model HrDepartment {
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   employees   HrEmployee[]
+  jobOpenings HrJobOpening[]
 
   @@index([parentId])
 }
@@ -533,6 +534,7 @@ model HrPosition {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   employees      HrEmployee[]
+  jobOpenings    HrJobOpening[]
 }
 
 model HrEmployee {
@@ -571,12 +573,25 @@ model HrEmployee {
   userId             String?           @unique
   userRef            AdminUser?        @relation(fields: [userId], references: [id], onDelete: SetNull)
 
+  // Consentimento de GPS para picagem de ponto (Fase 2)
+  locationConsentDate DateTime?
+
   createdAt          DateTime          @default(now())
   updatedAt          DateTime          @updatedAt
 
   contracts          HrContract[]
   documents          HrDocument[]
   careerHistory      HrCareerHistory[]
+  timeEntries        HrTimeEntry[]
+  workDays           HrWorkDay[]
+  timeCorrections    HrTimeCorrectionRequest[]
+  leaveBalances      HrLeaveBalance[]
+  leaveRequests      HrLeaveRequest[]
+  workLocations      HrEmployeeWorkLocation[]
+  timesheets         HrTimesheet[]
+  payslips           HrPayslip[]
+  performanceReviews HrPerformanceReview[]
+  certifications     HrCertification[]
 
   @@index([departmentId])
   @@index([positionId])
@@ -679,12 +694,614 @@ model HrAlertLog {
 }
 
 model HrConfig {
-  id                      String   @id @default("global")
-  contractAlertDays       Int      @default(30)
-  documentAlertDays       Int      @default(30)
-  notifyEmail             String   @default("rh@arknet.co.ao")
-  notifyWhatsapp          String?
-  whatsappEnabled         Boolean  @default(false) // Desligado por configuração (apenas template aprovado)
-  updatedAt               DateTime @updatedAt
+  id                            String   @id @default("global")
+  contractAlertDays             Int      @default(30)
+  documentAlertDays             Int      @default(30)
+  notifyEmail                   String   @default("rh@arknet.co.ao")
+  notifyWhatsapp                String?
+  whatsappEnabled               Boolean  @default(false) // Desligado por configuração (apenas template aprovado)
+  
+  // Configurações de Ponto e Tolerâncias (Fase 2)
+  punctualityToleranceMinutes   Int      @default(10)     // Tolerância em minutos à entrada (default: 10)
+  roundingMinutes               Int      @default(0)      // Arredondamento: 0, 5, 10, 15
+  dailyOvertimeLimitMinutes     Int?                      // Limite legal diário de horas extra (vazio por defeito)
+  monthlyOvertimeLimitMinutes   Int?                      // Limite legal mensal de horas extra (vazio por defeito)
+  checkInReminderMinutes        Int      @default(15)     // Minutos após início para lembrete
+  gpsRetentionMonths            Int      @default(12)     // Meses de retenção de coordenadas GPS (default: 12)
+  annualLeaveDaysDefault        Int      @default(22)     // Direito anual de férias (dias úteis, default: 22)
+
+  // Configurações de Folhas de Ponto e Fecho Mensal (Fase 3A)
+  timesheetSubmissionDeadlineDay     Int      @default(5)     // Dia limite no mês seguinte para o funcionário submeter (default: dia 5)
+  timesheetClosingDeadlineDay        Int      @default(10)    // Dia limite para fecho do período pelo RH (default: dia 10)
+  closingAlertDays                   Int      @default(3)     // Dias de antecedência para aviso de fecho (default: 3)
+  unclassifiedAbsenceBlocksClosing   Boolean  @default(false) // Se faltas não justificadas bloqueiam o fecho (default: false)
+  timesheetSubmissionReminderHour    Int      @default(9)     // Hora do lembrete de submissão em Luanda (default: 09:00)
+
+  updatedAt                     DateTime @updatedAt
 }
+
+// =============================================================
+// 16. RECURSOS HUMANOS (RH) - FASE 2: PONTO E AUSÊNCIAS
+// =============================================================
+
+model HrWorkLocation {
+  id               String                   @id @default(cuid())
+  name             String
+  latitude         Float
+  longitude        Float
+  radiusMeters     Float                    @default(100.0) // Raio de tolerância em metros
+  verificationMode String                   @default("INFORMATIVO") // "INFORMATIVO" | "BLOQUEANTE"
+  active           Boolean                  @default(true)
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+
+  employees        HrEmployeeWorkLocation[]
+  timeEntries      HrTimeEntry[]
+}
+
+model HrEmployeeWorkLocation {
+  id             String         @id @default(cuid())
+  employeeId     String
+  employee       HrEmployee     @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  workLocationId String
+  workLocation   HrWorkLocation @relation(fields: [workLocationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime       @default(now())
+
+  @@unique([employeeId, workLocationId])
+  @@index([employeeId])
+  @@index([workLocationId])
+}
+
+model HrWorkDay {
+  id                      String                    @id @default(cuid())
+  employeeId              String
+  employee                HrEmployee                @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date                    String                    // "AAAA-MM-DD" referente ao dia de início em Luanda (UTC+1)
+  actualIn                DateTime?
+  actualOut               DateTime?
+  totalMinutesWorked      Int                       @default(0)
+  delayMinutes            Int                       @default(0)
+  earlyDepartureMinutes   Int                       @default(0)
+  overtimeMinutes         Int                       @default(0)
+  overtimeStatus          String                    @default("SEM_HORA_EXTRA") // "SEM_HORA_EXTRA" | "PENDENTE" | "APROVADO" | "REJEITADO"
+  overtimeApprovedMinutes Int                       @default(0)
+  overtimeReviewedById    String?
+  overtimeReviewedAt      DateTime?
+  status                  String                    @default("NORMAL") // "NORMAL" | "ATRASO" | "SAIDA_EM_FALTA" | "FERIADO" | "AUSENTE_JUSTIFICADO" | "SEM_CALCULO"
+  isComplete              Boolean                   @default(false)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+
+  timeEntries             HrTimeEntry[]
+  timeCorrections         HrTimeCorrectionRequest[]
+
+  @@unique([employeeId, date])
+  @@index([employeeId])
+  @@index([date])
+  @@index([status])
+}
+
+model HrTimeEntry {
+  id                 String                    @id @default(cuid())
+  employeeId         String
+  employee           HrEmployee                @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  workDayId          String?
+  workDay            HrWorkDay?                @relation(fields: [workDayId], references: [id], onDelete: SetNull)
+  type               String                    // "ENTRADA" | "INICIO_PAUSA" | "FIM_PAUSA" | "SAIDA"
+  serverTime         DateTime                  @default(now()) // Sempre hora do servidor UTC
+  origin             String                    @default("PORTAL") // "PORTAL" | "MANUAL_RH"
+  authorId           String?                   // ID do utilizador autor da marcação
+  authorName         String?                   // Nome do utilizador autor
+  latitude           Float?
+  longitude          Float?
+  accuracyMeters     Float?
+  isWithinRadius     Boolean                   @default(true)
+  locationId         String?
+  location           HrWorkLocation?           @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  clientRequestId    String?                   @unique // Idempotência / Anti-duplo clique / Offline-sync
+  notes              String?                   // Obrigatório se MANUAL_RH
+  createdAt          DateTime                  @default(now())
+
+  correctionRequests HrTimeCorrectionRequest[] @relation("CreatedEntry")
+
+  @@index([employeeId])
+  @@index([workDayId])
+  @@index([serverTime])
+}
+
+model HrTimeCorrectionRequest {
+  id              String       @id @default(cuid())
+  employeeId      String
+  employee        HrEmployee   @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  workDayId       String?
+  workDay         HrWorkDay?   @relation(fields: [workDayId], references: [id], onDelete: SetNull)
+  date            String       // "AAAA-MM-DD"
+  targetEntryType String       // "ENTRADA" | "INICIO_PAUSA" | "FIM_PAUSA" | "SAIDA"
+  requestedTime   DateTime     // Data/hora solicitada
+  reason          String       // Justificação obrigatória do funcionário
+  status          String       @default("PENDENTE") // "PENDENTE" | "APROVADO" | "REJEITADO" | "CANCELADO"
+  reviewedById    String?
+  reviewedByName  String?
+  reviewComment   String?
+  reviewedAt      DateTime?
+  createdEntryId  String?
+  createdEntry    HrTimeEntry? @relation("CreatedEntry", fields: [createdEntryId], references: [id], onDelete: SetNull)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrLeaveType {
+  id                 String           @id @default(cuid())
+  code               String           @unique // "FERIAS" | "DOENCA" | "MATERNIDADE" | "PATERNIDADE" | "CASAMENTO" | "LUTO" | "SEM_VENCIMENTO" | "OUTRA"
+  name               String
+  isPaid             Boolean          @default(true)
+  deductsFromBalance Boolean          @default(false)
+  requiresDocument   Boolean          @default(false)
+  maxDays            Int?
+  active             Boolean          @default(true)
+  order              Int              @default(0)
+  createdAt          DateTime         @default(now())
+
+  leaveRequests      HrLeaveRequest[]
+}
+
+model HrLeaveBalance {
+  id              String     @id @default(cuid())
+  employeeId      String
+  employee        HrEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  year            Int        // Ex: 2026
+  entitledDays    Int        @default(22)
+  carriedOverDays Int        @default(0)
+  usedDays        Int        @default(0)
+  pendingDays     Int        @default(0)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@unique([employeeId, year])
+  @@index([employeeId])
+}
+
+model HrLeaveRequest {
+  id               String      @id @default(cuid())
+  employeeId       String
+  employee         HrEmployee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveTypeId      String
+  leaveType        HrLeaveType @relation(fields: [leaveTypeId], references: [id])
+  startDate        DateTime
+  endDate          DateTime
+  workingDaysCount Int
+  reason           String
+  attachmentPath   String?
+  attachmentName   String?
+  status           String      @default("PENDENTE") // "PENDENTE" | "APROVADO" | "REJEITADO" | "CANCELADO"
+  reviewedById     String?
+  reviewedByName   String?
+  reviewComment    String?
+  reviewedAt       DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([leaveTypeId])
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+model HrHoliday {
+  id          String   @id @default(cuid())
+  date        String   @unique // "AAAA-MM-DD"
+  name        String
+  isRecurring Boolean  @default(true)
+  status      String   @default("A_CONFIRMAR") // "A_CONFIRMAR" | "CONFIRMADO"
+  createdAt   DateTime @default(now())
+}
+
+model HrNotification {
+  id              String   @id @default(cuid())
+  recipientUserId String?
+  employeeId      String?
+  type            String   // "NOVO_PEDIDO_RH" | "DECISAO_PEDIDO" | "SAIDA_EM_FALTA" | "LEMBRETE_PONTO" | "LEMBRETE_FOLHA" | "AVISO_FECHO" | "INFO"
+  title           String
+  message         String
+  link            String?
+  isRead          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  @@index([recipientUserId, isRead])
+  @@index([employeeId])
+}
+
+// =============================================================
+// 17. RECURSOS HUMANOS (RH) - FASE 3A: FOLHAS DE PONTO E FECHO MENSAL
+// =============================================================
+
+model HrTimesheetPeriod {
+  id              String                       @id @default(cuid())
+  year            Int
+  month           Int                          // 1 a 12
+  code            String                       @unique // "AAAA-MM", ex: "2026-10"
+  status          String                       @default("ABERTO") // "ABERTO" | "EM_REVISAO" | "FECHADO" | "REABERTO"
+  version         Int                          @default(1)
+  closedAt        DateTime?
+  closedById      String?
+  closedByName    String?
+  closeNotes      String?
+  reopenedAt      DateTime?
+  reopenedById    String?
+  reopenReason    String?
+  payrollLockedAt DateTime?                    // Preparado para consumo e bloqueio da Fase 4 (Salários)
+  createdAt       DateTime                     @default(now())
+  updatedAt       DateTime                     @updatedAt
+
+  timesheets      HrTimesheet[]
+  snapshots       HrTimesheetVersionSnapshot[]
+  payrollPeriod   HrPayrollPeriod?
+
+  @@unique([year, month])
+  @@index([status])
+}
+
+model HrTimesheet {
+  id                       String                 @id @default(cuid())
+  periodId                 String
+  period                   HrTimesheetPeriod      @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  employeeId               String
+  employee                 HrEmployee             @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  status                   String                 @default("ABERTA") // "ABERTA" | "SUBMETIDA" | "APROVADA" | "BLOQUEADA"
+  submittedAt              DateTime?
+  approvedAt               DateTime?
+  approvedById             String?
+  approvedByName           String?
+  approvalNote             String?                // ex: "Aprovada sem submissão do funcionário"
+
+  // Totais mensais consolidados
+  expectedWorkDays         Int                    @default(0)
+  workedDays               Int                    @default(0)
+  totalMinutesWorked       Int                    @default(0)
+  delayCount               Int                    @default(0)
+  delayMinutes             Int                    @default(0)
+  earlyDepartureMinutes    Int                    @default(0)
+  unjustifiedAbsenceDays   Int                    @default(0)
+  justifiedAbsenceDays     Int                    @default(0)
+  paidLeaveDays            Int                    @default(0)
+  unpaidLeaveDays          Int                    @default(0)
+  holidayDays              Int                    @default(0)
+  approvedOvertimeMinutes  Int                    @default(0)
+  pendingOvertimeMinutes   Int                    @default(0)
+  rejectedOvertimeMinutes  Int                    @default(0)
+  missingExitDays          Int                    @default(0)
+  outsideAreaDays          Int                    @default(0)
+
+  // Metadados do cálculo e regras usadas
+  rulesSnapshot            String?                // JSON com regras aplicadas (tolerância, arredondamento, horário contratual)
+  calculatedAt             DateTime               @default(now())
+  createdAt                DateTime               @default(now())
+  updatedAt                DateTime               @updatedAt
+
+  days                     HrTimesheetDayDetail[]
+
+  @@unique([periodId, employeeId])
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrTimesheetDayDetail {
+  id                      String       @id @default(cuid())
+  timesheetId             String
+  timesheet               HrTimesheet  @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+  date                    String       // "AAAA-MM-DD"
+  dayOfWeek               Int          // 0 = Domingo, 1 = Segunda, ...
+  isExpectedWorkDay       Boolean      @default(true)
+  scheduledDailyMinutes   Int          @default(480)
+  
+  // Registos reais
+  actualIn                DateTime?
+  actualOut               DateTime?
+  minutesWorked           Int          @default(0)
+  delayMinutes            Int          @default(0)
+  earlyDepartureMinutes   Int          @default(0)
+  
+  // Horas extra do dia
+  overtimeMinutes         Int          @default(0)
+  overtimeStatus          String       @default("SEM_HORA_EXTRA") // "SEM_HORA_EXTRA" | "PENDENTE" | "APROVADO" | "REJEITADO"
+  
+  // Ausências e faltas
+  status                  String       // "PRESENTE" | "ATRASO" | "FALTA_INJUSTIFICADA" | "FALTA_JUSTIFICADA" | "FERIAS" | "DOENCA" | "LICENCA" | "FERIADO" | "FOLGA" | "SAIDA_EM_FALTA" | "SEM_VINCULO"
+  absenceReason           String?      // Motivo de justificação de falta pelo RH ou motivo de ausência
+  absenceJustifiedById    String?
+  absenceJustifiedByName  String?
+  absenceJustifiedAt      DateTime?
+  leaveRequestId          String?
+  isOutsideArea           Boolean      @default(false)
+  hasMissingExit          Boolean      @default(false)
+  
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @updatedAt
+
+  @@unique([timesheetId, date])
+  @@index([date])
+  @@index([status])
+}
+
+model HrTimesheetVersionSnapshot {
+  id             String            @id @default(cuid())
+  periodId       String
+  period         HrTimesheetPeriod @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  version        Int
+  snapshotData   String            // JSON completo com totais, detalhe diário e regras de cada folha do período
+  createdById    String?
+  createdByName  String?
+  notes          String?
+  createdAt      DateTime          @default(now())
+
+  @@unique([periodId, version])
+  @@index([periodId])
+}
+
+// =============================================================
+// 18. RECURSOS HUMANOS (RH) - FASE 4: PROCESSAMENTO SALARIAL
+// =============================================================
+
+model HrPayrollPeriod {
+  id                 String            @id @default(cuid())
+  timesheetPeriodId  String            @unique
+  timesheetPeriod    HrTimesheetPeriod @relation(fields: [timesheetPeriodId], references: [id])
+  code               String            @unique // "AAAA-MM", ex: "2026-10"
+  year               Int
+  month              Int               // 1 a 12
+  status             String            @default("RASCUNHO") // "RASCUNHO" | "PROCESSADO" | "APROVADO" | "PAGO" | "FECHADO"
+  
+  totalGross         Decimal           @default(0)
+  totalNet           Decimal           @default(0)
+  totalInssWorker    Decimal           @default(0)
+  totalInssCompany   Decimal           @default(0)
+  totalIrt           Decimal           @default(0)
+  totalEmployees     Int               @default(0)
+  
+  processedAt        DateTime?
+  processedById      String?
+  processedByName    String?
+  approvedAt         DateTime?
+  approvedById       String?
+  approvedByName     String?
+  paidAt             DateTime?
+  paidById           String?
+  paidByName         String?
+  notes              String?
+  
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  payslips           HrPayslip[]
+
+  @@unique([year, month])
+  @@index([status])
+}
+
+model HrPayslip {
+  id                   String           @id @default(cuid())
+  payrollPeriodId      String
+  payrollPeriod        HrPayrollPeriod  @relation(fields: [payrollPeriodId], references: [id], onDelete: Cascade)
+  employeeId           String
+  employee             HrEmployee       @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  timesheetId          String?
+  contractId           String?
+  status               String           @default("RASCUNHO") // "RASCUNHO" | "PROCESSADO" | "APROVADO" | "PAGO"
+  payslipNumber        String           @unique // ex: "REC-2026-10-001"
+  
+  // Base e assiduidade
+  baseSalary           Decimal          @default(0)
+  dailyHours           Decimal          @default(8.0)
+  hourlyRate           Decimal          @default(0)
+  expectedWorkDays     Int              @default(22)
+  workedDays           Int              @default(0)
+  unjustifiedAbsences  Int              @default(0)
+  absenceDeduction     Decimal          @default(0)
+  overtimeMinutes      Int              @default(0)
+  overtimePay          Decimal          @default(0)
+  
+  // Subsídios
+  foodAllowance        Decimal          @default(0)
+  transportAllowance   Decimal          @default(0)
+  holidayAllowance     Decimal          @default(0)
+  christmasAllowance   Decimal          @default(0)
+  familyAllowance      Decimal          @default(0)
+  otherAllowances      Decimal          @default(0)
+  
+  // Totais fiscais e tributários (Angola)
+  grossSalary          Decimal          @default(0)
+  taxableBaseInss      Decimal          @default(0)
+  inssWorker           Decimal          @default(0)
+  inssCompany          Decimal          @default(0)
+  taxableBaseIrt       Decimal          @default(0)
+  irtTax               Decimal          @default(0)
+  otherDeductions      Decimal          @default(0)
+  totalDeductions      Decimal          @default(0)
+  netSalary            Decimal          @default(0)
+  
+  // Dados Bancários
+  paymentMethod        String           @default("TRANSFERENCIA")
+  bankName             String?
+  bankIban             String?
+  bankAccountNumber    String?
+  
+  generatedAt          DateTime         @default(now())
+  paidAt               DateTime?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  items                HrPayslipItem[]
+
+  @@unique([payrollPeriodId, employeeId])
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrPayslipItem {
+  id                   String           @id @default(cuid())
+  payslipId            String
+  payslip              HrPayslip        @relation(fields: [payslipId], references: [id], onDelete: Cascade)
+  code                 String           // "BASE", "FALTAS", "HORAS_EXTRA", "SUB_ALIMENTACAO", etc.
+  description          String
+  type                 String           // "VENCIMENTO" | "DESCONTO"
+  amount               Decimal          @default(0)
+  isTaxableIrt         Boolean          @default(true)
+  isTaxableInss        Boolean          @default(true)
+  order                Int              @default(0)
+
+  @@index([payslipId])
+}
+
+// =============================================================
+// 19. RECURSOS HUMANOS (RH) - FASE 6: AVALIAÇÃO DE DESEMPENHO & FORMAÇÃO
+// =============================================================
+
+model HrPerformanceCycle {
+  id             String                @id @default(cuid())
+  title          String                // ex: "Avaliação de Desempenho 2026"
+  year           Int                   // 2026
+  status         String                @default("PLANEADO") // "PLANEADO" | "ACTIVO" | "CONCLUIDO"
+  startDate      DateTime
+  endDate        DateTime
+  notes          String?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  reviews        HrPerformanceReview[]
+
+  @@unique([year, title])
+  @@index([status])
+}
+
+model HrPerformanceReview {
+  id                  String             @id @default(cuid())
+  cycleId             String
+  cycle               HrPerformanceCycle @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+  employeeId          String
+  employee            HrEmployee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  reviewerId          String?
+  reviewerName        String?
+  status              String             @default("PENDENTE_AUTO") // "PENDENTE_AUTO" | "PENDENTE_AVALIADOR" | "CONCLUIDO"
+
+  // Auto-avaliação do colaborador
+  selfRating          Decimal?           @default(0)
+  selfComments        String?
+  selfSubmittedAt     DateTime?
+
+  // Avaliação da chefia / RH
+  managerRating       Decimal?           @default(0)
+  managerComments     String?
+  managerSubmittedAt  DateTime?
+
+  // Pontuação final e ponderações
+  objectivesRating    Decimal?           @default(0)
+  competenciesRating  Decimal?           @default(0)
+  finalScore          Decimal?           @default(0) // ex: 1.0 a 5.0
+  performanceBand     String?            // "EXCELENTE" | "BOM" | "SATISFATORIO" | "NECESSITA_MELHORIA"
+
+  // Plano de Desenvolvimento Individual (PDI)
+  strengths           String?
+  areasToImprove      String?
+  developmentPlan     String?
+
+  completedAt         DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@unique([cycleId, employeeId])
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrCertification {
+  id             String     @id @default(cuid())
+  employeeId     String
+  employee       HrEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  title          String     // ex: "Trabalho em Altura - NR35", "Fibra Óptica FTTH", "CCNA"
+  issuingEntity  String     // ex: "Cisco", "Inspecção Geral do Trabalho", "MikroTik", "ISUTIC"
+  licenseNumber  String?
+  issueDate      DateTime
+  expiryDate     DateTime?
+  status         String     @default("VALIDA") // "VALIDA" | "A_EXPIRAR" | "EXPIRADA"
+  attachmentUrl  String?
+  notes          String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+}
+
+model HrTrainingCourse {
+  id                String    @id @default(cuid())
+  title             String    // ex: "Boas Práticas de Fusão de Fibra Óptica"
+  provider          String    // Entidade formadora
+  durationHours     Int       @default(8)
+  category          String    @default("TECNICA") // "SEGURANCA" | "TECNICA" | "GESTAO" | "COMPLIANCE"
+  startDate         DateTime
+  endDate           DateTime?
+  status            String    @default("PLANEADO") // "PLANEADO" | "EM_CURSO" | "CONCLUIDO"
+  participantsCount Int       @default(0)
+  location          String?   @default("Sede ARKNET Luanda")
+  notes             String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([category])
+  @@index([status])
+}
+
+// =============================================================
+// 20. RECURSOS HUMANOS (RH) - FASE 7: RECRUTAMENTO & ATS INTEGRADO
+// =============================================================
+
+model HrJobOpening {
+  id             String         @id @default(cuid())
+  title          String         // ex: "Técnico de Instalação e Redes de Telecomunicações"
+  departmentId   String?
+  department     HrDepartment?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  positionId     String?
+  position       HrPosition?    @relation(fields: [positionId], references: [id], onDelete: SetNull)
+  type           String         @default("FULL_TIME") // "FULL_TIME" | "TEMPORARIO" | "ESTAGIO"
+  location       String         @default("Luanda")
+  openingsCount  Int            @default(1)
+  status         String         @default("ABERTA") // "ABERTA" | "PAUSADA" | "PREENCHIDA" | "CANCELADA"
+  requirements   String?
+  salaryRangeMin Decimal?
+  salaryRangeMax Decimal?
+  closingDate    DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  candidates     HrCandidate[]
+
+  @@index([departmentId])
+  @@index([positionId])
+  @@index([status])
+}
+
+model HrCandidate {
+  id              String        @id @default(cuid())
+  jobOpeningId    String?
+  jobOpening      HrJobOpening? @relation(fields: [jobOpeningId], references: [id], onDelete: SetNull)
+  fullName        String
+  email           String
+  phone           String
+  biNumber        String?
+  experienceYears Int?          @default(0)
+  resumeUrl       String?
+  status          String        @default("NOVO") // "NOVO" | "TRIAGEM" | "ENTREVISTA" | "PROPOSTA" | "ADMITIDO" | "REJEITADO"
+  admittedAsId    String?       // ID do HrEmployee quando admitido
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([jobOpeningId])
+  @@index([status])
+}
+
+
 

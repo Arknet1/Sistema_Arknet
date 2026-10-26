@@ -115,6 +115,225 @@ body.hr-root {
   background: var(--hr-text-light);
 }
 
+/* ══════════════════════════════════════════════════════════════
+   DESIGN UPGRADE: Animações e Estilos Premium
+   ══════════════════════════════════════════════════════════════ */
+
+/* Pulsating LED for live working status */
+@keyframes hr-pulse-led {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  50% { opacity: 0.6; transform: scale(1.35); box-shadow: 0 0 8px 3px rgba(34, 197, 94, 0.3); }
+}
+.hr-led-pulse {
+  animation: hr-pulse-led 2s ease-in-out infinite;
+}
+
+/* Smooth tab / section transition */
+@keyframes hr-fade-in-up {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.hr-animate-in {
+  animation: hr-fade-in-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Glassmorphism card for digital badge */
+.hr-glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Circuit texture overlay (subtle pattern) */
+.hr-circuit-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.2) 1px, transparent 1px),
+    linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,0.08) 49.5%, rgba(255,255,255,0.08) 50.5%, transparent 50.5%),
+    linear-gradient(0deg, transparent 49.5%, rgba(255,255,255,0.08) 49.5%, rgba(255,255,255,0.08) 50.5%, transparent 50.5%);
+  background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* QR Code shimmer effect */
+@keyframes hr-qr-shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.hr-qr-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(8, 104, 176, 0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: hr-qr-shimmer 3s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAYSLIP: Papel Timbrado Oficial
+   ══════════════════════════════════════════════════════════════ */
+
+/* Watermark background for official payslip */
+.hr-payslip-watermark {
+  position: relative;
+}
+.hr-payslip-watermark::before {
+  content: 'ARKNET';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 80px;
+  font-weight: 900;
+  letter-spacing: 16px;
+  color: var(--hr-primary);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+/* Perforated cut line (voucher stub separator) */
+.hr-payslip-cut-line {
+  position: relative;
+  border: none;
+  height: 0;
+  margin: 16px 0;
+}
+.hr-payslip-cut-line::before {
+  content: '✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -';
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  color: var(--hr-text-light);
+  letter-spacing: 2px;
+  opacity: 0.5;
+}
+
+/* Earnings row soft green tint */
+.hr-payslip-earning {
+  background-color: rgba(21, 128, 61, 0.04);
+}
+
+/* Deductions row soft coral tint */
+.hr-payslip-deduction {
+  background-color: rgba(185, 28, 28, 0.04);
+}
+
+/* Net salary deep navy card */
+.hr-payslip-net {
+  background: linear-gradient(135deg, #003B73 0%, #0868B0 100%);
+  color: #ffffff;
+}
+
+/* Digital authenticity stamp */
+.hr-payslip-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 2px solid var(--hr-primary);
+  border-radius: var(--hr-radius-full);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--hr-primary);
+  opacity: 0.7;
+  transform: rotate(-3deg);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SUNLIGHT MODE: Alto Contraste para Equipas de Campo
+   ══════════════════════════════════════════════════════════════ */
+
+.hr-sunlight-mode {
+  --hr-bg: #FFFFFF;
+  --hr-surface: #FFFFFF;
+  --hr-surface-muted: #F0F0F0;
+  --hr-border: #000000;
+  --hr-border-subtle: #333333;
+  --hr-text: #000000;
+  --hr-text-muted: #111111;
+  --hr-text-light: #222222;
+  --hr-primary: #0050A0;
+  --hr-primary-hover: #003870;
+  --hr-primary-soft: #CCE0F5;
+  --hr-status-success: #006030;
+  --hr-status-warning: #804000;
+  --hr-status-error: #900000;
+  --hr-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
+  --hr-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hr-sunlight-mode * {
+  font-weight: inherit;
+  text-shadow: none;
+}
+
+.hr-sunlight-mode .text-xs,
+.hr-sunlight-mode .text-sm,
+.hr-sunlight-mode [class*="text-[11px]"],
+.hr-sunlight-mode [class*="text-[10px]"],
+.hr-sunlight-mode [class*="text-[12px]"],
+.hr-sunlight-mode [class*="text-[13px]"] {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SPARKLINE: Inline SVG micro-charts
+   ══════════════════════════════════════════════════════════════ */
+
+.hr-sparkline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes hr-sparkline-draw {
+  0% { stroke-dashoffset: 200; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.hr-sparkline-line {
+  stroke-dasharray: 200;
+  animation: hr-sparkline-draw 1.2s ease-out both;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EMPTY STATE: Enhanced styling
+   ══════════════════════════════════════════════════════════════ */
+
+@keyframes hr-empty-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.hr-empty-float {
+  animation: hr-empty-float 4s ease-in-out infinite;
+}
+
+@keyframes hr-empty-pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.15; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.hr-empty-pulse-ring {
+  animation: hr-empty-pulse-ring 3s ease-in-out infinite;
+}
+
+/* Radial progress ring */
+@keyframes hr-progress-ring-fill {
+  0% { stroke-dashoffset: var(--hr-ring-circumference, 282.6); }
+}
+
 /* Print optimizations */
 @media print {
   .hr-no-print {

@@ -77,3 +77,22 @@ Criado em `public/manifest.webmanifest`:
    - Encapsular a pasta `out/` ou carregar o domínio corporativo numa WebView com acesso a plugins nativos (notificações push nativas, biometria FaceID/Fingerprint).
 3. **Fase III (React Native / Expo):**
    - Reutilizar integralmente o pacote `src/lib/hr/queries/index.ts` e o ficheiro de tokens `src/styles/hr-tokens.json` na aplicação React Native, recriando apenas a casca de componentes nativos (`<View>`, `<Text>`).
+
+---
+
+## 4. Prontidão Móvel na Fase 2: Ponto e Ausências
+
+### 4.1 Experiência de Picagem Táctil (One-Tap Punch)
+- **Botões Ergonómicos:** Botão principal de marcação de ponto com altura de 48px, localizado na zona natural de alcance do polegar (*thumb zone*).
+- **Relógio Dinâmico Luanda:** Ticker de alta precisão em tempo real sincronizado com a hora oficial de Angola (UTC+1).
+- **Proteção Anti-Duplo Clique & Idempotência:** Cada solicitação de picagem gera um identificador único de cliente (`clientRequestId`), prevenindo duplicação de registos causada por toques repetidos ou oscilação de conectividade móvel.
+
+### 4.2 Geofencing e Consentimento de Localização
+- **Fórmula de Haversine:** Validação esférica da distância do colaborador ao perímetro do local de trabalho (raio em metros configurável).
+- **Margem de Precisão GPS (`accuracy`):** Tolerância adaptativa que compensa ruído de sinal de antenas de telemóvel ou GPS em edifícios altos.
+- **Privacidade & Retenção de Dados:** Limpeza periódica automatizada de coordenadas GPS via rotina cron (`/api/rh/cron/limpeza-gps`) com retenção parametrizada a 12 meses, respeitando a privacidade dos colaboradores.
+
+### 4.3 Gestão Móvel de Ausências e Férias
+- **Mapa de Saldos Rápido:** Visualização compacta dos 22 dias úteis de direito legal (LGT), dias gozados, pendentes e saldo restante.
+- **Formulários em Gavetas e Diálogos Tácteis:** Selecção rápida de datas e tipos de licença com cálculo dinâmico que ignora automaticamente fins-de-semana e feriados oficiais de Angola.
+

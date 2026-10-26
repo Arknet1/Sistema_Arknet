@@ -11,10 +11,17 @@ import {
   Briefcase,
   FileText,
   FileCheck,
+  Clock,
+  CalendarDays,
+  ClipboardList,
+  Settings,
   ShieldCheck,
   User,
   LogOut,
   X,
+  Banknote,
+  Award,
+  UserPlus,
 } from 'lucide-react';
 
 interface HrSidebarProps {
@@ -47,6 +54,36 @@ export function HrSidebar({
       icon: <Users className="w-4 h-4" />,
     },
     {
+      label: 'Ponto & Assiduidade',
+      href: '/rh/ponto',
+      icon: <Clock className="w-4 h-4" />,
+    },
+    {
+      label: 'Ausências & Férias',
+      href: '/rh/ausencias',
+      icon: <CalendarDays className="w-4 h-4" />,
+    },
+    {
+      label: 'Folhas de Ponto',
+      href: '/rh/folhas-ponto',
+      icon: <ClipboardList className="w-4 h-4" />,
+    },
+    {
+      label: 'Processamento Salarial',
+      href: '/rh/salarios',
+      icon: <Banknote className="w-4 h-4" />,
+    },
+    {
+      label: 'Avaliação & Formação',
+      href: '/rh/desempenho',
+      icon: <Award className="w-4 h-4" />,
+    },
+    {
+      label: 'Recrutamento & ATS',
+      href: '/rh/recrutamento',
+      icon: <UserPlus className="w-4 h-4" />,
+    },
+    {
       label: 'Departamentos',
       href: '/rh/departamentos',
       icon: <Building2 className="w-4 h-4" />,
@@ -65,6 +102,11 @@ export function HrSidebar({
       label: 'Documentos',
       href: '/rh/documentos',
       icon: <FileText className="w-4 h-4" />,
+    },
+    {
+      label: 'Configurações',
+      href: '/rh/configuracao',
+      icon: <Settings className="w-4 h-4" />,
     },
     {
       label: 'Auditoria & Logs',

@@ -18,3 +18,4 @@ export * from './hr-bottom-nav';
 export * from './hr-sidebar';
 export * from './hr-header';
 export * from './hr-toast';
+export * from './hr-sparkline';

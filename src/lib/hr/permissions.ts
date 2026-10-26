@@ -41,6 +41,57 @@ export type HrAction =
   | 'ARQUIVAR_DOCUMENTO'
   | 'VER_AUDITORIA'
   | 'CRIAR_UTILIZADOR_FUNCIONARIO'
+  // Acções da Fase 2 (Ponto e Ausências)
+  | 'MARCAR_PONTO_PROPRIO'
+  | 'VER_PONTO_PROPRIO'
+  | 'PEDIR_CORRECAO_PONTO'
+  | 'PEDIR_AUSENCIA'
+  | 'VER_AUSENCIAS_PROPRIAS'
+  | 'VER_SALDO_FERIAS_PROPRIO'
+  | 'CANCELAR_PEDIDO_PROPRIO'
+  | 'VER_PONTO_TODOS'
+  | 'REGISTAR_PONTO_MANUAL_RH'
+  | 'APROVAR_CORRECAO_PONTO'
+  | 'APROVAR_HORAS_EXTRA'
+  | 'APROVAR_AUSENCIA'
+  | 'VER_AUSENCIAS_TODOS'
+  | 'CONFIGURAR_PONTO_AUSENCIAS'
+  | 'EXPORTAR_RELATORIO_PONTO'
+  // Acções da Fase 3A (Folhas de Ponto e Fecho Mensal)
+  | 'VER_FOLHA_PROPRIA'
+  | 'SUBMETER_FOLHA_PROPRIA'
+  | 'DESCARREGAR_PDF_FOLHA_PROPRIA'
+  | 'VER_FOLHAS_TODOS'
+  | 'GERAR_FOLHAS_PONTO'
+  | 'APROVAR_FOLHA_PONTO'
+  | 'JUSTIFICAR_FALTA'
+  | 'FECHAR_PERIODO_PONTO'
+  | 'REABRIR_PERIODO_PONTO'
+  | 'EXPORTAR_EXCEL_PERIODO'
+  // Acções da Fase 4 (Processamento Salarial & Recibos de Vencimento)
+  | 'VER_SALARIOS_TODOS'
+  | 'PROCESSAR_SALARIOS'
+  | 'APROVAR_SALARIOS'
+  | 'PAGAR_SALARIOS'
+  | 'VER_RECIBO_PROPRIO'
+  | 'DESCARREGAR_RECIBO_PROPRIO'
+  // Acções da Fase 5 (Ficheiros Bancários e Mapas Fiscais)
+  | 'EXPORTAR_FICHEIRO_BANCARIO'
+  | 'EXPORTAR_MAPA_INSS'
+  | 'EXPORTAR_MAPA_AGT'
+  // Acções da Fase 6 (Avaliação de Desempenho e Formação)
+  | 'VER_DESEMPENHO_TODOS'
+  | 'GERIR_CICLOS_DESEMPENHO'
+  | 'AVALIAR_COLABORADOR'
+  | 'VER_AUTO_AVALIACAO'
+  | 'SUBMETER_AUTO_AVALIACAO'
+  | 'VER_FORMACAO_TODOS'
+  | 'GERIR_CERTIFICACOES'
+  // Acções da Fase 7 (Recrutamento e ATS Integrado)
+  | 'VER_RECRUTAMENTO'
+  | 'GERIR_VAGAS'
+  | 'GERIR_CANDIDATOS'
+  | 'ADMITIR_CANDIDATO'
 
 export function isAdministrator(role?: string | null): boolean {
   if (!role) return false
@@ -59,6 +110,55 @@ export function isFuncionario(role?: string | null): boolean {
 }
 
 /**
+ * Validação de aprovação cruzada (Regra dos 4 Olhos):
+ * NINGUÉM aprova os seus próprios pedidos.
+ * Pedidos do TECNICO_RH são aprovados por ADMINISTRADOR.
+ * Pedidos do ADMINISTRADOR por TECNICO_RH.
+ */
+export function canApproveRequest(
+  reviewer: HrUserContext | null | undefined,
+  requester: { role: string; employeeId?: string | null; userId?: string | null }
+): { allowed: boolean; reason?: string } {
+  if (!reviewer) {
+    return { allowed: false, reason: 'Utilizador não autenticado.' }
+  }
+
+  // 1. Ninguém aprova os seus próprios pedidos
+  if (
+    (reviewer.employeeId && requester.employeeId && reviewer.employeeId === requester.employeeId) ||
+    (reviewer.id && requester.userId && reviewer.id === requester.userId)
+  ) {
+    return { allowed: false, reason: 'Não é permitido aprovar os seus próprios pedidos (Regra dos 4 Olhos).' }
+  }
+
+  const reviewerRole = reviewer.role.toUpperCase()
+  const requesterRole = requester.role.toUpperCase()
+
+  // 2. Pedidos do Técnico de RH têm de ser aprovados por Administrador
+  if (isTecnicoRh(requesterRole)) {
+    if (!isAdministrator(reviewerRole)) {
+      return { allowed: false, reason: 'Pedidos submetidos por Técnicos de RH requerem aprovação de um Administrador.' }
+    }
+    return { allowed: true }
+  }
+
+  // 3. Pedidos do Administrador têm de ser aprovados por Técnico de RH
+  if (isAdministrator(requesterRole)) {
+    if (!isTecnicoRh(reviewerRole)) {
+      return { allowed: false, reason: 'Pedidos submetidos por Administradores requerem aprovação de um Técnico de RH.' }
+    }
+    return { allowed: true }
+  }
+
+  // 4. Pedidos de Funcionários comuns podem ser aprovados por Técnico de RH ou Administrador
+  if (isTecnicoRh(reviewerRole) || isAdministrator(reviewerRole)) {
+    return { allowed: true }
+  }
+
+  return { allowed: false, reason: 'Sem perfil autorizado para aprovação.' }
+}
+
+/**
  * Helper central de decisão de permissões: can(user, acção, recurso, contextoAlvo?)
  */
 export function can(
@@ -71,9 +171,21 @@ export function can(
 
   const role = user.role.toUpperCase()
 
-  // Funcionário desligado não tem qualquer permissão
+  // Funcionário desligado não tem qualquer permissão no sistema
   if (user.employeeStatus === 'DESLIGADO') {
     return false
+  }
+
+  // Funcionário suspenso não pode marcar ponto nem pedir ausências/correcções
+  if (user.employeeStatus === 'SUSPENSO') {
+    if (
+      action === 'MARCAR_PONTO_PROPRIO' ||
+      action === 'PEDIR_CORRECAO_PONTO' ||
+      action === 'PEDIR_AUSENCIA' ||
+      action === 'CANCELAR_PEDIDO_PROPRIO'
+    ) {
+      return false
+    }
   }
 
   // 1. Permissões de Loja (/admin)
@@ -82,18 +194,27 @@ export function can(
     return isAdministrator(role) || user.role === 'editor'
   }
 
-  // 2. Administrador tem permissão total em todo o módulo de RH
+  // 2. Administrador tem permissão de gestão em todo o módulo de RH
   if (isAdministrator(role)) {
+    if (
+      action === 'MARCAR_PONTO_PROPRIO' ||
+      action === 'VER_PONTO_PROPRIO' ||
+      action === 'PEDIR_CORRECAO_PONTO' ||
+      action === 'PEDIR_AUSENCIA' ||
+      action === 'VER_AUSENCIAS_PROPRIAS' ||
+      action === 'VER_SALDO_FERIAS_PROPRIO' ||
+      action === 'CANCELAR_PEDIDO_PROPRIO'
+    ) {
+      return Boolean(user.employeeId)
+    }
     return true
   }
 
   // 3. Técnico de RH
   if (isTecnicoRh(role)) {
-    // Técnico de RH tem plenos poderes em todas as operações de RH
     switch (action) {
       case 'CONFIGURAR_MODULO':
-        // Apenas configurações de alto nível podem ser restritas a Admin, mas gestão de RH tem tudo
-        return true
+      case 'CONFIGURAR_PONTO_AUSENCIAS':
       case 'ACEDER_PAINEL_RH':
       case 'GERIR_DEPARTAMENTOS':
       case 'GERIR_CARGOS':
@@ -112,10 +233,63 @@ export function can(
       case 'ARQUIVAR_DOCUMENTO':
       case 'VER_AUDITORIA':
       case 'CRIAR_UTILIZADOR_FUNCIONARIO':
+      // Fase 2 - Gestão
+      case 'VER_PONTO_TODOS':
+      case 'REGISTAR_PONTO_MANUAL_RH':
+      case 'APROVAR_CORRECAO_PONTO':
+      case 'APROVAR_HORAS_EXTRA':
+      case 'APROVAR_AUSENCIA':
+      case 'VER_AUSENCIAS_TODOS':
+      case 'EXPORTAR_RELATORIO_PONTO':
+      // Fase 3A - Folhas de Ponto e Fecho Mensal (gestão)
+      case 'VER_FOLHAS_TODOS':
+      case 'GERAR_FOLHAS_PONTO':
+      case 'APROVAR_FOLHA_PONTO':
+      case 'JUSTIFICAR_FALTA':
+      case 'FECHAR_PERIODO_PONTO':
+      case 'REABRIR_PERIODO_PONTO':
+      case 'EXPORTAR_EXCEL_PERIODO':
+      // Fase 4 & 5 - Salários, Banco e Impostos (gestão)
+      case 'VER_SALARIOS_TODOS':
+      case 'PROCESSAR_SALARIOS':
+      case 'APROVAR_SALARIOS':
+      case 'PAGAR_SALARIOS':
+      case 'EXPORTAR_FICHEIRO_BANCARIO':
+      case 'EXPORTAR_MAPA_INSS':
+      case 'EXPORTAR_MAPA_AGT':
+      // Fase 6 & 7 - Gestão
+      case 'VER_DESEMPENHO_TODOS':
+      case 'GERIR_CICLOS_DESEMPENHO':
+      case 'AVALIAR_COLABORADOR':
+      case 'VER_FORMACAO_TODOS':
+      case 'GERIR_CERTIFICACOES':
+      case 'VER_RECRUTAMENTO':
+      case 'GERIR_VAGAS':
+      case 'GERIR_CANDIDATOS':
+      case 'ADMITIR_CANDIDATO':
         return true
+
       case 'ACEDER_PORTAL':
-        // Técnico de RH acede ao portal se tiver ficha de funcionário ligada
+      case 'MARCAR_PONTO_PROPRIO':
+      case 'VER_PONTO_PROPRIO':
+      case 'PEDIR_CORRECAO_PONTO':
+      case 'PEDIR_AUSENCIA':
+      case 'VER_AUSENCIAS_PROPRIAS':
+      case 'VER_SALDO_FERIAS_PROPRIO':
+      case 'CANCELAR_PEDIDO_PROPRIO':
+      // Fase 3A - Auto-serviço de folha de ponto
+      case 'VER_FOLHA_PROPRIA':
+      case 'SUBMETER_FOLHA_PROPRIA':
+      case 'DESCARREGAR_PDF_FOLHA_PROPRIA':
+      // Fase 4 - Auto-serviço recibo de vencimento
+      case 'VER_RECIBO_PROPRIO':
+      case 'DESCARREGAR_RECIBO_PROPRIO':
+      // Fase 6 - Auto-avaliação
+      case 'VER_AUTO_AVALIACAO':
+      case 'SUBMETER_AUTO_AVALIACAO':
+        // Técnico de RH acede às acções do portal se tiver ficha de funcionário ligada
         return Boolean(user.employeeId)
+
       default:
         return false
     }
@@ -123,10 +297,29 @@ export function can(
 
   // 4. Funcionário
   if (isFuncionario(role)) {
-    // Funcionário não tem acesso ao painel de RH nem à loja
     switch (action) {
       case 'ACEDER_PORTAL':
         return Boolean(user.employeeId)
+
+      case 'MARCAR_PONTO_PROPRIO':
+      case 'VER_PONTO_PROPRIO':
+      case 'PEDIR_CORRECAO_PONTO':
+      case 'PEDIR_AUSENCIA':
+      case 'VER_AUSENCIAS_PROPRIAS':
+      case 'VER_SALDO_FERIAS_PROPRIO':
+      case 'CANCELAR_PEDIDO_PROPRIO':
+      // Fase 3A - Auto-serviço
+      case 'VER_FOLHA_PROPRIA':
+      case 'SUBMETER_FOLHA_PROPRIA':
+      case 'DESCARREGAR_PDF_FOLHA_PROPRIA':
+      // Fase 4 - Auto-serviço recibo de vencimento
+      case 'VER_RECIBO_PROPRIO':
+      case 'DESCARREGAR_RECIBO_PROPRIO':
+      // Fase 6 - Auto-avaliação
+      case 'VER_AUTO_AVALIACAO':
+      case 'SUBMETER_AUTO_AVALIACAO':
+        return Boolean(user.employeeId)
+
       case 'VER_FICHA_FUNCIONARIO':
       case 'VER_CONTRATO':
       case 'VER_DADOS_SENSIVEIS':
@@ -157,7 +350,7 @@ export function assertCan(
   action: HrAction,
   resource?: string,
   targetContext?: { targetEmployeeId?: string | null; targetUserId?: string | null }
-): void {
+): asserts user is HrUserContext {
   if (!can(user, action, resource, targetContext)) {
     const roleName = user?.role || 'Anónimo'
     throw new Error(`Acesso negado: Perfil "${roleName}" não tem permissão para "${action}" no recurso "${resource || 'RH'}".`)
