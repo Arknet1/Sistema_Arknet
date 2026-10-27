@@ -14,7 +14,7 @@ interface AuthContextType {
   failedAttempts: number
   isLocked: boolean
   lockCountdown: number
-  login: (email: string, password?: string) => Promise<{ success: boolean; message: string }>
+  login: (email: string, password?: string) => Promise<{ success: boolean; message: string; user?: AdminUser }>
   logout: () => void
   recoverPassword: (email: string) => Promise<{ success: boolean; message: string }>
 }
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .finally(() => setIsLoading(false))
   }, [])
 
-  const login = async (email: string, password?: string): Promise<{ success: boolean; message: string }> => {
+  const login = async (email: string, password?: string): Promise<{ success: boolean; message: string; user?: AdminUser }> => {
     setIsLoading(true)
     try {
       const response = await fetch('/api/auth/session', {
@@ -68,8 +68,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('arknet_admin_token', result.token)
       }
       setFailedAttempts(0)
-      setUser(result.user as AdminUser)
-      return { success: true, message: result.message }
+      const authenticatedUser = result.user as AdminUser
+      setUser(authenticatedUser)
+      return { success: true, message: result.message, user: authenticatedUser }
     } catch {
       return { success: false, message: 'Não foi possível contactar o serviço de autenticação.' }
     } finally {

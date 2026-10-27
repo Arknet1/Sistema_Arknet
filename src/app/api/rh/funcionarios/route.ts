@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getHrServerSession } from '@/lib/hr/server-session'
-import { assertCan, can, maskSensitiveData } from '@/lib/hr/permissions'
+import { assertCan, can, isAdministrator, maskSensitiveData } from '@/lib/hr/permissions'
 import { recordHrAudit } from '@/lib/hr/audit'
 import { hashPassword } from '@/lib/server-auth'
 import { randomBytes } from 'crypto'
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '15', 10)))
     const skip = (page - 1) * limit
 
-    const where: any = {}
+    const where: Prisma.HrEmployeeWhereInput = {}
 
     if (departmentId) {
       where.departmentId = departmentId
@@ -41,6 +41,17 @@ export async function GET(request: NextRequest) {
         { biNumber: { contains: search } },
         { email: { contains: search } },
         { phone: { contains: search } },
+      ]
+    }
+
+    if (session.role.toUpperCase() === 'TECNICO_RH') {
+      where.AND = [
+        {
+          OR: [
+            { userId: null },
+            { userRef: { is: { role: 'FUNCIONARIO' } } },
+          ],
+        },
       ]
     }
 
@@ -71,6 +82,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       employees,
+      personnelScope: isAdministrator(session.role) ? 'all' : 'collaborators',
       pagination: {
         total,
         page,

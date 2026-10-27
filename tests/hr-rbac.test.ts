@@ -98,12 +98,35 @@ describe('Recursos Humanos (RH) - Controlo de Acesso RBAC e Segurança', () => {
     assert.strictEqual(can(legacyAdminUser, 'ACEDER_GESTAO_LOJA'), true, 'Admin legado acede à loja')
   })
 
-  it('4. Técnico de RH tem acesso de gestão completo a todos os departamentos e salários', () => {
+  it('4. Técnico de RH gere colaboradores e operações de RH, mas não gere pessoal administrativo', () => {
     assert.strictEqual(can(tecnicoRh, 'ACEDER_PAINEL_RH'), true)
     assert.strictEqual(can(tecnicoRh, 'LISTAR_FUNCIONARIOS'), true)
     assert.strictEqual(can(tecnicoRh, 'VER_DADOS_SENSIVEIS'), true, 'Técnico de RH tem permissão para visualizar salários e dados bancários')
     assert.strictEqual(can(tecnicoRh, 'APROVAR_CONTRATO'), true)
     assert.strictEqual(can(tecnicoRh, 'GERIR_DEPARTAMENTOS'), true)
+    assert.strictEqual(can(tecnicoRh, 'GERIR_PESSOAL_RH'), false)
+
+    const colaborador = { targetEmployeeId: 'emp-func-2', targetUserRole: 'FUNCIONARIO' }
+    const tecnico = { targetEmployeeId: 'emp-tech-2', targetUserRole: 'TECNICO_RH' }
+    const administrador = { targetEmployeeId: 'emp-admin-2', targetUserRole: 'ADMINISTRADOR' }
+
+    assert.strictEqual(can(tecnicoRh, 'VER_FICHA_FUNCIONARIO', 'FUNCIONARIO', colaborador), true)
+    assert.strictEqual(can(tecnicoRh, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO', colaborador), true)
+    assert.strictEqual(can(tecnicoRh, 'DESLIGAR_FUNCIONARIO', 'FUNCIONARIO', colaborador), true)
+    assert.strictEqual(can(tecnicoRh, 'CRIAR_UTILIZADOR_FUNCIONARIO', 'UTILIZADOR', colaborador), true)
+    assert.strictEqual(can(tecnicoRh, 'VER_FICHA_FUNCIONARIO', 'FUNCIONARIO', tecnico), false)
+    assert.strictEqual(can(tecnicoRh, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO', administrador), false)
+    assert.strictEqual(can(tecnicoRh, 'DESLIGAR_FUNCIONARIO', 'FUNCIONARIO', tecnico), false)
+    assert.strictEqual(can(tecnicoRh, 'CRIAR_UTILIZADOR_FUNCIONARIO', 'UTILIZADOR', administrador), false)
+    assert.strictEqual(can(tecnicoRh, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO'), false)
+    assert.strictEqual(can(tecnicoRh, 'VER_FICHA_FUNCIONARIO', 'FUNCIONARIO', {
+      targetEmployeeId: 'emp-unlinked',
+      targetUserRole: null,
+    }), true, 'Técnico pode gerir fichas de colaboradores sem conta ligada')
+
+    assert.strictEqual(can(adminUser, 'GERIR_PESSOAL_RH'), true)
+    assert.strictEqual(can(adminUser, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO', tecnico), true)
+    assert.strictEqual(can(adminUser, 'DESLIGAR_FUNCIONARIO', 'FUNCIONARIO', administrador), true)
   })
 
   it('5. Apenas Administrador e Técnico de RH acedem ao painel /rh (Funcionário bloqueado)', () => {

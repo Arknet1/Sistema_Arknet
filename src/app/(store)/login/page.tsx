@@ -24,6 +24,7 @@ import {
 import arknetLogo from '@/assets/icon18.png'
 import { useAuth } from '@/lib/auth-context'
 import { useCustomerAuth } from '@/lib/customer-auth-context'
+import { validatePasswordStrength } from '@/lib/security-utils'
 
 function UnifiedLoginForm() {
   const router = useRouter()
@@ -141,6 +142,13 @@ function UnifiedLoginForm() {
   const recHasNumber = /[0-9]/.test(recoveryNewPassword)
   const recHasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)
   const recPasswordsMatch = recoveryNewPassword.length > 0 && recoveryNewPassword === recoveryConfirmPassword
+  const adminRole = adminUser?.role?.toUpperCase()
+  const adminDestination =
+    adminRole === 'ADMINISTRADOR' || adminRole === 'TECNICO_RH'
+      ? '/rh'
+      : adminRole === 'FUNCIONARIO'
+        ? '/portal'
+        : '/admin'
 
   const getRecoveryStrength = () => {
     let score = 0
@@ -168,8 +176,18 @@ function UnifiedLoginForm() {
       if (isAdminAccount) {
         const adminRes = await adminLogin(cleanEmail, loginPassword)
         if (adminRes.success) {
+          const role = adminRes.user?.role?.toUpperCase()
+          const destination =
+            role === 'ADMINISTRADOR' || role === 'TECNICO_RH'
+              ? redirectUrl?.startsWith('/rh')
+                ? redirectUrl
+                : '/rh'
+              : role === 'FUNCIONARIO'
+                ? '/portal'
+                : redirectUrl || '/admin'
+
           setTimeout(() => {
-            router.push('/admin')
+            router.push(destination)
           }, 400)
           return
         } else {
@@ -201,8 +219,9 @@ function UnifiedLoginForm() {
     setErrorMessage('')
     setSuccessMessage('')
 
-    if (regData.password.length < 6) {
-      setErrorMessage('A palavra-passe deve conter pelo menos 6 caracteres.')
+    const validation = validatePasswordStrength(regData.password)
+    if (!validation.isValid) {
+      setErrorMessage(validation.errors.join(' '))
       return
     }
 
@@ -506,10 +525,14 @@ function UnifiedLoginForm() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <Link
-                  href="/admin"
+                  href={adminDestination}
                   className="px-3 py-1.5 bg-primary text-white font-bold text-[11px] uppercase rounded hover:bg-primary/90 transition"
                 >
-                  Painel de Administração
+                  {adminRole === 'ADMINISTRADOR' || adminRole === 'TECNICO_RH'
+                    ? 'Área de Recursos Humanos'
+                    : adminRole === 'FUNCIONARIO'
+                      ? 'Portal do Colaborador'
+                      : 'Painel de Administração'}
                 </Link>
                 <button
                   type="button"
@@ -726,17 +749,40 @@ function UnifiedLoginForm() {
                 </div>
               </div>
 
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Endereço / Morada de Entrega
+                </label>
+                <input
+                  type="text"
+                  value={regData.address}
+                  onChange={(e) => setRegData({ ...regData, address: e.target.value })}
+                  placeholder="ex: Rua Amílcar Cabral, Nº 45, Maianga, Luanda"
+                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                />
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-4 pt-1">
                 <div>
-                  <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                    Palavra-passe *
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block font-bold uppercase tracking-wider text-slate-700">
+                      Palavra-passe *
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowRegPassword(!showRegPassword)}
+                      className="text-[11px] text-slate-500 hover:text-slate-800 flex items-center gap-1 font-semibold"
+                    >
+                      {showRegPassword ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                      <span>{showRegPassword ? 'Ocultar' : 'Ver'}</span>
+                    </button>
+                  </div>
                   <input
                     type={showRegPassword ? 'text' : 'password'}
                     required
                     value={regData.password}
                     onChange={(e) => setRegData({ ...regData, password: e.target.value })}
-                    placeholder="Mínimo 6 caracteres"
+                    placeholder="Mín. 8 caracteres (A-Z, a-z, 0-9)"
                     className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
@@ -756,23 +802,24 @@ function UnifiedLoginForm() {
                 </div>
               </div>
 
-              {/* Medidor da força da palavra-passe */}
-              {regData.password && (
-                <div className="p-3 bg-slate-50 border border-slate-200 rounded">
-                  <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-[10px] font-bold uppercase text-slate-500">Força da palavra-passe:</span>
-                    <span className={`text-[10px] font-bold ${getStrengthLabel(pwdStrength).text}`}>
-                      {getStrengthLabel(pwdStrength).label}
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all duration-300 ${getStrengthLabel(pwdStrength).color}`}
-                      style={{ width: `${pwdStrength}%` }}
-                    />
-                  </div>
+              {/* Requisitos da palavra-passe */}
+              <div className="p-2.5 bg-slate-50 border border-slate-200 rounded text-[11px] space-y-1">
+                <span className="font-bold text-slate-600 block uppercase text-[10px]">Critérios da Palavra-passe:</span>
+                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-slate-500">
+                  <span className={`flex items-center gap-1 ${regData.password.length >= 8 ? 'text-emerald-600 font-bold' : ''}`}>
+                    {regData.password.length >= 8 ? '✓' : '•'} Mínimo 8 caracteres
+                  </span>
+                  <span className={`flex items-center gap-1 ${/[A-Z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                    {/[A-Z]/.test(regData.password) ? '✓' : '•'} 1 Maiúscula (A-Z)
+                  </span>
+                  <span className={`flex items-center gap-1 ${/[a-z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                    {/[a-z]/.test(regData.password) ? '✓' : '•'} 1 Minúscula (a-z)
+                  </span>
+                  <span className={`flex items-center gap-1 ${/[0-9]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                    {/[0-9]/.test(regData.password) ? '✓' : '•'} 1 Número (0-9)
+                  </span>
                 </div>
-              )}
+              </div>
 
               <div className="pt-2">
                 <label className="flex items-start gap-2.5 cursor-pointer text-slate-600">

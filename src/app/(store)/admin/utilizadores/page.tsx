@@ -114,6 +114,7 @@ export default function AdminUtilizadoresPage() {
       dataStore.addUser({
         name: formData.name.trim(),
         email: formData.email.trim().toLowerCase(),
+        password: formData.password || 'Arknet@2026!',
         role: formData.role,
         status: formData.status,
         lastLogin: undefined,
@@ -143,6 +144,7 @@ export default function AdminUtilizadoresPage() {
   const handleConfirmResetPassword = (e: React.FormEvent) => {
     e.preventDefault()
     if (resettingUser && newPassword.length >= 4) {
+      dataStore.updateUser(resettingUser.id, { password: newPassword })
       success(`Palavra-passe de ${resettingUser.name} redefinida com sucesso!`)
       setIsPasswordModalOpen(false)
       setResettingUser(null)

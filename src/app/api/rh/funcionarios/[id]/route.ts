@@ -34,15 +34,17 @@ export async function GET(
       return NextResponse.json({ error: 'Colaborador não encontrado.' }, { status: 404 })
     }
 
-    // Verificar se o utilizador pode ver esta ficha (Admin/Técnico pode ver todos; Funcionário só pode ver o seu próprio)
+    // O técnico só pode consultar fichas de colaboradores; funcionários veem apenas a própria ficha.
     assertCan(session, 'VER_FICHA_FUNCIONARIO', 'FUNCIONARIO', {
       targetEmployeeId: employee.id,
       targetUserId: employee.userId,
+      targetUserRole: employee.userRef?.role ?? null,
     })
 
     const canViewSensitive = can(session, 'VER_DADOS_SENSIVEIS', 'FUNCIONARIO', {
       targetEmployeeId: employee.id,
       targetUserId: employee.userId,
+      targetUserRole: employee.userRef?.role ?? null,
     })
 
     const masked = maskSensitiveData(employee, canViewSensitive)
@@ -62,17 +64,26 @@ export async function PUT(
       return NextResponse.json({ error: 'Não autenticado.' }, { status: 401 })
     }
 
-    assertCan(session, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO')
-
     const { id } = await params
     const current = await prisma.hrEmployee.findUnique({
       where: { id },
-      include: { department: true, position: true, contracts: { where: { status: 'ACTIVO' } } },
+      include: {
+        department: true,
+        position: true,
+        contracts: { where: { status: 'ACTIVO' } },
+        userRef: { select: { role: true } },
+      },
     })
 
     if (!current) {
       return NextResponse.json({ error: 'Colaborador não encontrado.' }, { status: 404 })
     }
+
+    assertCan(session, 'EDITAR_FUNCIONARIO', 'FUNCIONARIO', {
+      targetEmployeeId: current.id,
+      targetUserId: current.userId,
+      targetUserRole: current.userRef?.role ?? null,
+    })
 
     const body = await request.json()
 
@@ -157,7 +168,8 @@ export async function PUT(
 
     return NextResponse.json({ success: true, employee: updated })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Erro ao atualizar colaborador.' }, { status: 400 })
+    const denied = error.message?.startsWith('Acesso negado:')
+    return NextResponse.json({ error: error.message || 'Erro ao atualizar colaborador.' }, { status: denied ? 403 : 400 })
   }
 }
 
@@ -172,13 +184,20 @@ export async function DELETE(
       return NextResponse.json({ error: 'Não autenticado.' }, { status: 401 })
     }
 
-    assertCan(session, 'DESLIGAR_FUNCIONARIO', 'FUNCIONARIO')
-
     const { id } = await params
-    const current = await prisma.hrEmployee.findUnique({ where: { id } })
+    const current = await prisma.hrEmployee.findUnique({
+      where: { id },
+      include: { userRef: { select: { role: true } } },
+    })
     if (!current) {
       return NextResponse.json({ error: 'Colaborador não encontrado.' }, { status: 404 })
     }
+
+    assertCan(session, 'DESLIGAR_FUNCIONARIO', 'FUNCIONARIO', {
+      targetEmployeeId: current.id,
+      targetUserId: current.userId,
+      targetUserRole: current.userRef?.role ?? null,
+    })
 
     // Desligar o colaborador e inativar o utilizador
     await prisma.$transaction(async (tx) => {
@@ -215,6 +234,7 @@ export async function DELETE(
       message: `Colaborador ${current.fullName} foi desligado com sucesso. A sua conta de acesso foi inativada.`,
     })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Erro ao desligar colaborador.' }, { status: 400 })
+    const denied = error.message?.startsWith('Acesso negado:')
+    return NextResponse.json({ error: error.message || 'Erro ao desligar colaborador.' }, { status: denied ? 403 : 400 })
   }
 }

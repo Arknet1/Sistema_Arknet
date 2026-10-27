@@ -30,6 +30,9 @@ import {
   Sun,
   QrCode,
   Fingerprint,
+  BadgeCheck,
+  Mail,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   HrAppBar,
@@ -121,6 +124,12 @@ export default function PortalColaboradorPage() {
     setCurrentTime(new Date());
     const interval = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('tab') === 'perfil') {
+      setActiveTab('perfil');
+    }
   }, []);
 
   // Geolocation detector
@@ -494,6 +503,23 @@ export default function PortalColaboradorPage() {
     { id: 'contrato', label: 'Carreira', icon: <Briefcase className="w-5 h-5" /> },
     { id: 'seguranca', label: 'Segurança', icon: <Lock className="w-5 h-5" /> },
   ];
+
+  const profileName = employee?.fullName || user?.name || 'Utilizador ARKNET';
+  const profileRole = user?.role?.toUpperCase();
+  const profileRoleLabel = profileRole === 'ADMINISTRADOR' || profileRole === 'ADMIN'
+    ? 'Administrador de Recursos Humanos'
+    : profileRole === 'TECNICO_RH'
+      ? 'Técnico de Recursos Humanos'
+      : profileRole === 'FUNCIONARIO'
+        ? 'Colaborador'
+        : user?.role || 'Conta ARKNET';
+  const profileInitials = profileName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part: string) => part[0])
+    .join('')
+    .toUpperCase();
 
   // Helper calculation for today's state
   const entries = todayPonto?.entries || [];
@@ -1313,45 +1339,238 @@ export default function PortalColaboradorPage() {
 
             {/* TAB: Perfil */}
             {activeTab === 'perfil' && (
-              <div className="space-y-5">
-                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
-                  <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
-                    Identificação & Contactos
-                  </h3>
-                  <HrDataList
-                    columns={2}
-                    items={[
-                      { label: 'Nome Completo', value: employee.fullName },
-                      { label: 'Bilhete de Identidade (BI)', value: employee.biNumber, masked: true, rawUnmaskedValue: employee.biNumber },
-                      { label: 'Telefone', value: employee.phone || '—' },
-                      { label: 'E-mail', value: employee.email || user?.email || '—' },
-                      { label: 'Data de Nascimento', value: employee.birthDate ? new Date(employee.birthDate).toLocaleDateString('pt-AO') : '—' },
-                      { label: 'Género', value: employee.gender === 'M' ? 'Masculino' : employee.gender === 'F' ? 'Feminino' : '—' },
-                      { label: 'Endereço', value: `${employee.address || ''}, ${employee.city || ''}` },
-                      { label: 'Nacionalidade', value: employee.nationality || 'Angolana' },
-                    ]}
-                  />
-                </div>
+              <div className="space-y-5 hr-animate-in">
+                <section className="relative isolate overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 text-white shadow-[var(--hr-shadow-lg)]">
+                  <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(8,104,176,0.55),transparent_58%)]" />
+                  <div className="absolute -right-14 -top-20 -z-10 h-64 w-64 rounded-full border border-white/10" />
+                  <div className="absolute -right-5 -top-11 -z-10 h-44 w-44 rounded-full border border-white/10" />
+                  <div className="h-1 w-full bg-[var(--hr-brand-orange)]" />
+                  <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+                    <div className="flex min-w-0 items-center gap-4 sm:gap-5">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-xl font-extrabold tracking-wide text-white shadow-inner sm:h-20 sm:w-20 sm:text-2xl">
+                        {profileInitials}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="mb-2 flex flex-wrap items-center gap-2">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/25 bg-sky-300/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-sky-100">
+                            <ShieldCheck className="h-3.5 w-3.5" />
+                            {profileRoleLabel}
+                          </span>
+                          {employee?.status && (
+                            <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-bold ${
+                              employee.status === 'ACTIVO'
+                                ? 'border-emerald-300/25 bg-emerald-300/10 text-emerald-100'
+                                : employee.status === 'DESLIGADO'
+                                  ? 'border-rose-300/25 bg-rose-300/10 text-rose-100'
+                                  : 'border-amber-300/25 bg-amber-300/10 text-amber-100'
+                            }`}>
+                              <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                              {employee.status === 'ACTIVO' ? 'Activo' : employee.status === 'DESLIGADO' ? 'Desligado' : employee.status}
+                            </span>
+                          )}
+                        </div>
+                        <h2 className="truncate text-xl font-extrabold tracking-tight sm:text-2xl">{profileName}</h2>
+                        <p className="mt-1 flex items-center gap-1.5 truncate text-sm text-slate-300">
+                          <Mail className="h-3.5 w-3.5 shrink-0 text-sky-300" />
+                          {employee?.email || user?.email || 'Sem e-mail associado'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2 sm:justify-end">
+                      {employee?.employeeNumber && (
+                        <div className="min-w-32 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">N.º de pessoal</p>
+                          <p className="mt-0.5 font-mono text-sm font-bold text-white">{employee.employeeNumber}</p>
+                        </div>
+                      )}
+                      {employee?.department?.name && (
+                        <div className="min-w-32 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Departamento</p>
+                          <p className="mt-0.5 flex items-center gap-1.5 text-sm font-bold text-white">
+                            <Building2 className="h-3.5 w-3.5 text-sky-300" />
+                            <span className="truncate">{employee.department.name}</span>
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {employee?.position?.title && (
+                    <div className="flex items-center gap-2 border-t border-white/10 bg-black/10 px-5 py-3 text-sm text-slate-300 sm:px-7">
+                      <Briefcase className="h-4 w-4 text-orange-300" />
+                      <span className="font-semibold text-white">{employee.position.title}</span>
+                      {employee.directSupervisor?.fullName && (
+                        <span className="hidden text-slate-400 sm:inline">· Responsável: {employee.directSupervisor.fullName}</span>
+                      )}
+                    </div>
+                  )}
+                </section>
 
-                <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
-                  <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
-                    Dados Bancários Cadastrados
-                  </h3>
-                  <HrDataList
-                    columns={2}
-                    items={[
-                      { label: 'Banco', value: employee.bankName || '—' },
-                      { label: 'IBAN Angolano', value: employee.bankIban || '—', masked: !!employee.bankIban, rawUnmaskedValue: employee.bankIban },
-                      { label: 'N.º da Conta', value: employee.bankAccountNumber || '—' },
-                      {
-                        label: 'Vencimento Base Mensal',
-                        value: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : 'Confidencial',
-                        masked: !!employee.baseSalary,
-                        rawUnmaskedValue: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : undefined,
-                      },
-                    ]}
-                  />
-                </div>
+                {employee ? (
+                  <>
+                    <div className="grid gap-5 lg:grid-cols-2">
+                      <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-6">
+                        <div className="mb-4 flex items-center gap-3 border-b border-[var(--hr-border-subtle)] pb-3">
+                          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]">
+                            <User className="h-4 w-4" />
+                          </span>
+                          <div>
+                            <h3 className="text-sm font-extrabold text-[var(--hr-text)]">Dados pessoais</h3>
+                            <p className="text-xs text-[var(--hr-text-light)]">Identificação e contactos</p>
+                          </div>
+                        </div>
+                        <HrDataList
+                          columns={2}
+                          items={[
+                            { label: 'Nome completo', value: employee.fullName },
+                            { label: 'Bilhete de Identidade', value: employee.biNumber, masked: true, rawUnmaskedValue: employee.biNumber },
+                            { label: 'Telefone', value: employee.phone || '—' },
+                            { label: 'E-mail', value: employee.email || user?.email || '—' },
+                            { label: 'Data de nascimento', value: employee.birthDate ? new Date(employee.birthDate).toLocaleDateString('pt-AO') : '—' },
+                            { label: 'Género', value: employee.gender === 'M' ? 'Masculino' : employee.gender === 'F' ? 'Feminino' : '—' },
+                            { label: 'Endereço', value: [employee.address, employee.city, employee.province].filter(Boolean).join(', ') || '—' },
+                            { label: 'Nacionalidade', value: employee.nationality || 'Angolana' },
+                          ]}
+                        />
+                      </section>
+
+                      <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-6">
+                        <div className="mb-4 flex items-center gap-3 border-b border-[var(--hr-border-subtle)] pb-3">
+                          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
+                            <Briefcase className="h-4 w-4" />
+                          </span>
+                          <div>
+                            <h3 className="text-sm font-extrabold text-[var(--hr-text)]">Vínculo profissional</h3>
+                            <p className="text-xs text-[var(--hr-text-light)]">Enquadramento na organização</p>
+                          </div>
+                        </div>
+                        <HrDataList
+                          columns={2}
+                          items={[
+                            { label: 'Cargo', value: employee.position?.title || '—' },
+                            { label: 'Departamento', value: employee.department?.name || '—' },
+                            { label: 'Data de admissão', value: employee.admissionDate ? new Date(employee.admissionDate).toLocaleDateString('pt-AO') : '—' },
+                            { label: 'Responsável directo', value: employee.directSupervisor?.fullName || '—' },
+                            { label: 'Estado', value: employee.status || '—' },
+                            { label: 'N.º de pessoal', value: employee.employeeNumber || '—' },
+                          ]}
+                        />
+                      </section>
+                    </div>
+
+                    <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-6">
+                      <div className="mb-4 flex items-center gap-3 border-b border-[var(--hr-border-subtle)] pb-3">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                          <BadgeCheck className="h-4 w-4" />
+                        </span>
+                        <div>
+                          <h3 className="text-sm font-extrabold text-[var(--hr-text)]">Dados bancários</h3>
+                          <p className="text-xs text-[var(--hr-text-light)]">Informação confidencial da sua ficha</p>
+                        </div>
+                      </div>
+                      <HrDataList
+                        columns={2}
+                        items={[
+                          { label: 'Banco', value: employee.bankName || '—' },
+                          { label: 'IBAN Angolano', value: employee.bankIban || '—', masked: !!employee.bankIban, rawUnmaskedValue: employee.bankIban },
+                          { label: 'N.º da Conta', value: employee.bankAccountNumber || '—' },
+                          {
+                            label: 'Vencimento Base Mensal',
+                            value: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : 'Confidencial',
+                            masked: !!employee.baseSalary,
+                            rawUnmaskedValue: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : undefined,
+                          },
+                        ]}
+                      />
+                    </section>
+                  </>
+                ) : (
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+                    <section className="overflow-hidden rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] shadow-[var(--hr-shadow-sm)]">
+                      <div className="flex items-center gap-3 border-b border-[var(--hr-border-subtle)] bg-[var(--hr-surface-muted)] px-5 py-4 sm:px-6">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]">
+                          <User className="h-5 w-5" />
+                        </span>
+                        <div>
+                          <h3 className="font-extrabold text-[var(--hr-text)]">Dados da conta</h3>
+                          <p className="text-xs text-[var(--hr-text-light)]">Identificação e acesso à plataforma</p>
+                        </div>
+                      </div>
+                      <div className="p-5 sm:p-6">
+                        <HrDataList
+                          columns={2}
+                          items={[
+                            { label: 'Nome completo', value: user?.name || '—' },
+                            { label: 'E-mail de acesso', value: user?.email || '—' },
+                            { label: 'Perfil de acesso', value: profileRoleLabel },
+                            {
+                              label: 'Estado da conta',
+                              value: user?.status === 'active' ? 'Activa' : user?.status || '—',
+                            },
+                            {
+                              label: 'Conta criada em',
+                              value: user?.createdAt
+                                ? new Date(user.createdAt).toLocaleDateString('pt-AO', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                  })
+                                : '—',
+                            },
+                            {
+                              label: 'Último acesso',
+                              value: user?.lastLogin
+                                ? new Date(user.lastLogin).toLocaleString('pt-AO', {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                  })
+                                : 'Sem registo',
+                            },
+                          ]}
+                        />
+                      </div>
+                    </section>
+
+                    <aside className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-5 text-white shadow-[var(--hr-shadow-md)] sm:p-6">
+                      <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/10" />
+                      <div className="absolute -right-2 -top-2 h-20 w-20 rounded-full border border-white/10" />
+                      <div className="relative">
+                        <div className="mb-5 flex items-center justify-between">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-300/20 bg-sky-300/10 text-sky-200">
+                            <ShieldCheck className="h-5 w-5" />
+                          </span>
+                          <span className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
+                            user?.status === 'active'
+                              ? 'bg-emerald-300/10 text-emerald-200'
+                              : 'bg-amber-300/10 text-amber-200'
+                          }`}>
+                            {user?.status === 'active' ? 'Acesso activo' : 'Estado da conta'}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-extrabold">Segurança da conta</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                          Mantenha as suas credenciais actualizadas para proteger o acesso à área de Recursos Humanos.
+                        </p>
+                        {user?.mustChangePassword && (
+                          <p className="mt-4 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs font-medium leading-relaxed text-amber-100">
+                            A sua palavra-passe provisória ainda precisa de ser alterada.
+                          </p>
+                        )}
+                        <HrButton
+                          variant="primary"
+                          size="md"
+                          className="mt-5 w-full"
+                          leftIcon={<KeyRound className="h-4 w-4" />}
+                          onClick={() => setIsChangingPass(true)}
+                        >
+                          Alterar palavra-passe
+                        </HrButton>
+                      </div>
+                    </aside>
+                  </div>
+                )}
               </div>
             )}
 

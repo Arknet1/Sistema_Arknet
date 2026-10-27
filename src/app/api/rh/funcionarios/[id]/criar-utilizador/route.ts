@@ -17,8 +17,6 @@ export async function POST(
       return NextResponse.json({ error: 'Não autenticado.' }, { status: 401 })
     }
 
-    assertCan(session, 'CRIAR_UTILIZADOR_FUNCIONARIO', 'UTILIZADOR')
-
     const { id } = await params
     const employee = await prisma.hrEmployee.findUnique({
       where: { id },
@@ -28,6 +26,12 @@ export async function POST(
     if (!employee) {
       return NextResponse.json({ error: 'Colaborador não encontrado.' }, { status: 404 })
     }
+
+    assertCan(session, 'CRIAR_UTILIZADOR_FUNCIONARIO', 'UTILIZADOR', {
+      targetEmployeeId: employee.id,
+      targetUserId: employee.userId,
+      targetUserRole: employee.userRef?.role ?? null,
+    })
 
     // Funcionário DESLIGADO não pode ter utilizador criado
     if (employee.status === 'DESLIGADO') {
@@ -127,6 +131,7 @@ export async function POST(
       },
     }, { status: 201 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Erro ao criar utilizador para colaborador.' }, { status: 400 })
+    const denied = error.message?.startsWith('Acesso negado:')
+    return NextResponse.json({ error: error.message || 'Erro ao criar utilizador para colaborador.' }, { status: denied ? 403 : 400 })
   }
 }

@@ -1,4 +1,4 @@
--- DropForeignKey
+ -- DropForeignKey
 ALTER TABLE "HrDepartment" DROP CONSTRAINT "HrDepartment_parentId_fkey";
 
 -- DropForeignKey

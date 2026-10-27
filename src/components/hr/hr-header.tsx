@@ -138,7 +138,11 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
 
         {/* Right: User Menu with Name, Role & Sair */}
         <div className="flex items-center gap-3.5 flex-shrink-0">
-          <div className="flex items-center gap-2.5">
+          <Link
+            href="/portal?tab=perfil"
+            aria-label="Abrir meu perfil"
+            className="flex items-center gap-2.5 rounded-[var(--hr-radius-sm)] hover:bg-[var(--hr-surface-muted)] p-1.5 -m-1.5 transition-colors"
+          >
             <div className="w-9 h-9 rounded-full bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] flex items-center justify-center font-bold text-sm flex-shrink-0 border border-[var(--hr-border)] shadow-xs">
               {userName.charAt(0).toUpperCase()}
             </div>
@@ -150,7 +154,7 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
                 {roleLabel}
               </div>
             </div>
-          </div>
+          </Link>
 
           <div className="h-6 w-px bg-[var(--hr-border)] hidden sm:block" />
 

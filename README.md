@@ -77,7 +77,7 @@ O portal opera com duas identidades complementares sob a mesma infraestrutura:
      ```bash
      npm run dev
      ```
-   O portal estará disponível em: `http://localhost:3000`
+   O portal estará disponível em: `http://localhost:3001`
 
 ---
 

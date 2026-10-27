@@ -5,12 +5,14 @@
       "name": "Administrador ARKNET",
       "email": "admin@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$3bc5709d95f2c66a379283c400e80ad1$47baa5b76924e0825f829080729930cefd5c045dd5d1bd4921d2d7d77b240f53619ff52600c6faf0f01e317c6ab859789b3ad93f7b4aa8bfc68aab636a333346",
+      "passwordHash": "$scrypt$29133a57b68860f0e9f4cef5f0757cfc$69a1893f4e2bf6f268b68fe341b36e0e65532e0b64814e1b9da34b7698fa01408f3fe12ee1889dcbef15ac75f23d502b355dd3dbb65daa90d332dbf3ed45e587",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-08T15:29:27.771Z"
+      "lastLogin": "2026-10-27T14:59:49.421Z",
+      "mustChangePassword": false,
+      "hrEmployee": null
     },
     {
       "id": "user-admin-ao",
@@ -22,7 +24,8 @@
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-09-09T08:24:15.212Z"
+      "lastLogin": "2026-09-09T08:24:15.212Z",
+      "mustChangePassword": false
     },
     {
       "id": "user-editor",
@@ -34,7 +37,8 @@
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-10T00:00:00.000Z",
-      "lastLogin": "2026-09-08T15:29:27.786Z"
+      "lastLogin": "2026-09-08T15:29:27.786Z",
+      "mustChangePassword": false
     },
     {
       "id": "user-editor-ao",
@@ -46,20 +50,21 @@
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       "status": "active",
       "createdAt": "2026-01-10T00:00:00.000Z",
-      "lastLogin": "2026-09-08T15:29:27.786Z"
+      "lastLogin": "2026-09-08T15:29:27.786Z",
+      "mustChangePassword": false
     },
     {
       "id": "cmvkrzkeu0006ut9c73s1ih6q",
       "name": "Dr. Sebastião Gaspar",
       "email": "admin.rh@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$9e539af50b252aadaf418e34d29870ee$5f41ded9e02cfad1caf581c57326f6baf9ee6ad4c97c6f3c355f002ebccf61485f49c8260a810ddc46675aa364447f36212b8943a3622acaf021e17088a926ee",
+      "passwordHash": "$scrypt$9c33f060f355b09b8921b6f532a261e3$2a0126f183d67b59dbdb64d493dfc628a6af5495bcf0e64fc909760eadfb721278bbaf268a14207167888b904baf366da832ca0d425f236d1ef415d469250c20",
       "role": "ADMINISTRADOR",
       "avatar": null,
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T09:36:35.095Z",
-      "lastLogin": "2026-10-26T15:21:52.144Z",
+      "lastLogin": "2026-10-27T15:19:40.315Z",
       "hrEmployee": null
     },
     {
@@ -67,13 +72,13 @@
       "name": "Teresa M. da Silva",
       "email": "tecnico.rh@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$678c07c921bed747fdaf8e3341cf0c6d$17c22a56ead20f2c42ec1eafd72eb427edfa0a713de7f08a0faacf67f09037c9fb254c7423d89ed07824d0f7684c9a4673f284d2596f181dcab3553d49010f80",
+      "passwordHash": "$scrypt$afa779c131b8ef8dc261f68c64851f8e$449b3337805725911c5a7b1bc3508e96c71db82dc99dae72886762d0ea3eb34f3a6cbd38259fb67e567021e1859e6772aab038731ba0c1bdf4b07a0ecbbeff86",
       "role": "TECNICO_RH",
       "avatar": null,
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T09:36:35.129Z",
-      "lastLogin": "2026-10-26T15:08:22.541Z",
+      "lastLogin": "2026-10-27T07:58:55.257Z",
       "hrEmployee": null
     },
     {
@@ -81,37 +86,14 @@
       "name": "Manuel António dos Santos",
       "email": "colaborador@arknet.co.ao",
       "password": null,
-      "passwordHash": "$scrypt$73fea25841b82960fc4c21a3558704f8$9be1deeef997c390bb572c1a0e9181fa02f2c0893d67331943b5da6e0225c789dce7cd7897a23658b0d5a7bec326a09554f0ebfe0a33c835e14d2ac2cee5f0d1",
+      "passwordHash": "$scrypt$ddf9f2eca65ac4f014c70ea2ba9a4fea$026e3c5cd542127b00c32906e632319429450004316a11ccdbbb9e213810f46de77038fa26e0f76eef92824498566302f125e220c66abf6b1b4c96b15f582d19",
       "role": "FUNCIONARIO",
       "avatar": null,
       "status": "active",
       "mustChangePassword": true,
       "createdAt": "2026-10-23T09:36:35.162Z",
-      "lastLogin": "2026-10-23T10:06:01.585Z",
-      "hrEmployee": {
-        "id": "cmvkrzkh3000cut9c32ac45ku",
-        "employeeNumber": "ARK-EMP-002",
-        "fullName": "Manuel António dos Santos",
-        "biNumber": "008765432LA099",
-        "birthDate": "1994-11-20T00:00:00.000Z",
-        "gender": "M",
-        "phone": "+244 934 555 666",
-        "email": "colaborador@arknet.co.ao",
-        "address": "Avenida 21 de Janeiro, Morro Bento, Luanda",
-        "city": "Luanda",
-        "province": "Luanda",
-        "bankName": "Banco de Fomento Angola (BFA)",
-        "bankIban": "AO06.0006.0000.9876.5432.1098.7",
-        "bankAccountNumber": "9876543210",
-        "admissionDate": "2024-01-15T00:00:00.000Z",
-        "status": "ACTIVO",
-        "departmentId": "cmvkrzkd40000ut9c3tvlcfkr",
-        "positionId": "cmvkrzkdk0003ut9csmbc1yvm",
-        "directSupervisorId": "cmvkrzkgw000aut9csgnje9ru",
-        "userId": "cmvkrzkgp0008ut9cmo7mjyxo",
-        "createdAt": "2026-10-23T09:36:35.175Z",
-        "updatedAt": "2026-10-23T09:36:35.175Z"
-      }
+      "lastLogin": "2026-10-27T08:02:25.791Z",
+      "hrEmployee": null
     },
     {
       "id": "cmvkyfute0006ut1oonfaeq39",
@@ -124,7 +106,7 @@
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T12:37:12.770Z",
-      "lastLogin": "2026-10-23T15:39:22.671Z",
+      "lastLogin": "2026-10-23T15:39:22.674Z",
       "hrEmployee": null
     },
     {
@@ -138,7 +120,7 @@
       "status": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-23T12:37:12.802Z",
-      "lastLogin": "2026-10-23T16:03:49.479Z",
+      "lastLogin": "2026-10-23T16:03:49.481Z",
       "hrEmployee": {
         "id": "cmvkrzkgw000aut9csgnje9ru",
         "employeeNumber": "JM-001",
@@ -163,6 +145,16 @@
         "createdAt": "2026-10-23T09:36:35.168Z",
         "updatedAt": "2026-10-23T15:42:35.089Z"
       }
+    },
+    {
+      "id": "cmvkyfuv70008ut1oenvxwmb6",
+      "name": "Manuel António dos Santos",
+      "email": "colaborador@jmatos.co.ao",
+      "role": "FUNCIONARIO",
+      "avatar": null,
+      "status": "active",
+      "mustChangePassword": true,
+      "createdAt": "2026-10-23T12:37:12.836Z"
     }
   ],
   "customers": [
@@ -454,7 +446,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-05T14:14:41.545Z",
-      "updatedAt": "2026-10-20T15:21:09.707Z"
+      "updatedAt": "2026-10-21T10:39:44.088Z"
     },
     {
       "id": "prod-1790954436881-qol4",
@@ -478,7 +470,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T15:20:36.881Z",
-      "updatedAt": "2026-10-20T15:21:09.710Z"
+      "updatedAt": "2026-10-21T10:39:44.090Z"
     },
     {
       "id": "prod-1790948580905-glgp",
@@ -502,7 +494,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T13:43:00.905Z",
-      "updatedAt": "2026-10-20T15:21:09.711Z"
+      "updatedAt": "2026-10-21T10:39:44.092Z"
     },
     {
       "id": "prod-1790943432150-c3gp",
@@ -526,7 +518,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:17:12.150Z",
-      "updatedAt": "2026-10-20T15:21:09.712Z"
+      "updatedAt": "2026-10-21T10:39:44.093Z"
     },
     {
       "id": "prod-1790943062119-kp6y",
@@ -650,7 +642,7 @@
         }
       ],
       "createdAt": "2026-10-02T12:11:02.119Z",
-      "updatedAt": "2026-10-20T15:21:09.713Z"
+      "updatedAt": "2026-10-21T10:39:44.094Z"
     },
     {
       "id": "prod-1790942824239-8cv4",
@@ -674,7 +666,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T12:07:04.239Z",
-      "updatedAt": "2026-10-20T15:21:09.714Z"
+      "updatedAt": "2026-10-21T10:39:44.095Z"
     },
     {
       "id": "prod-1790942265849-w2g8",
@@ -698,7 +690,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:57:45.849Z",
-      "updatedAt": "2026-10-20T15:21:09.719Z"
+      "updatedAt": "2026-10-21T10:39:44.097Z"
     },
     {
       "id": "prod-1790942032128-89f7",
@@ -722,7 +714,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:53:52.128Z",
-      "updatedAt": "2026-10-20T15:21:09.721Z"
+      "updatedAt": "2026-10-21T10:39:44.098Z"
     },
     {
       "id": "prod-1790941665536-fkmm",
@@ -746,7 +738,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:47:45.536Z",
-      "updatedAt": "2026-10-20T15:21:09.722Z"
+      "updatedAt": "2026-10-21T10:39:44.099Z"
     },
     {
       "id": "prod-1790940725601-p66p",
@@ -770,7 +762,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:32:05.601Z",
-      "updatedAt": "2026-10-20T15:21:09.723Z"
+      "updatedAt": "2026-10-21T10:39:44.099Z"
     },
     {
       "id": "prod-1790940371658-px8g",
@@ -794,7 +786,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T11:26:11.658Z",
-      "updatedAt": "2026-10-20T15:21:09.725Z"
+      "updatedAt": "2026-10-21T10:39:44.101Z"
     },
     {
       "id": "prod-1790937167653-iigi",
@@ -818,7 +810,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:32:47.653Z",
-      "updatedAt": "2026-10-20T15:21:09.726Z"
+      "updatedAt": "2026-10-21T10:39:44.103Z"
     },
     {
       "id": "prod-1790936182415-msck",
@@ -842,7 +834,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:16:22.415Z",
-      "updatedAt": "2026-10-20T15:21:09.727Z"
+      "updatedAt": "2026-10-21T10:39:44.104Z"
     },
     {
       "id": "prod-1790935912543-46vi",
@@ -866,7 +858,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T10:11:52.543Z",
-      "updatedAt": "2026-10-20T15:21:09.728Z"
+      "updatedAt": "2026-10-21T10:39:44.106Z"
     },
     {
       "id": "prod-1790934108385-ln23",
@@ -890,7 +882,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:41:48.385Z",
-      "updatedAt": "2026-10-20T15:21:09.729Z"
+      "updatedAt": "2026-10-21T10:39:44.107Z"
     },
     {
       "id": "prod-1790933627323-uymp",
@@ -914,7 +906,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:33:47.323Z",
-      "updatedAt": "2026-10-20T15:21:09.730Z"
+      "updatedAt": "2026-10-21T10:39:44.108Z"
     },
     {
       "id": "prod-1790932992211-y8t5",
@@ -938,7 +930,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:23:12.211Z",
-      "updatedAt": "2026-10-20T15:21:09.731Z"
+      "updatedAt": "2026-10-21T10:39:44.109Z"
     },
     {
       "id": "prod-1790932847819-2s46",
@@ -962,7 +954,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T09:20:47.819Z",
-      "updatedAt": "2026-10-20T15:21:09.732Z"
+      "updatedAt": "2026-10-21T10:39:44.110Z"
     },
     {
       "id": "prod-1790929531231-hgkk",
@@ -986,7 +978,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:25:31.231Z",
-      "updatedAt": "2026-10-20T15:21:09.733Z"
+      "updatedAt": "2026-10-21T10:39:44.111Z"
     },
     {
       "id": "prod-1790928671920-en03",
@@ -1010,7 +1002,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:11:11.920Z",
-      "updatedAt": "2026-10-20T15:21:09.735Z"
+      "updatedAt": "2026-10-21T10:39:44.112Z"
     },
     {
       "id": "prod-1790928333040-3u9w",
@@ -1034,7 +1026,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-02T08:05:33.040Z",
-      "updatedAt": "2026-10-20T15:21:09.736Z"
+      "updatedAt": "2026-10-21T10:39:44.113Z"
     },
     {
       "id": "prod-1790868210459-81rw",
@@ -1058,7 +1050,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T15:23:30.459Z",
-      "updatedAt": "2026-10-20T15:21:09.737Z"
+      "updatedAt": "2026-10-21T10:39:44.114Z"
     },
     {
       "id": "prod-1790866364579-cemv",
@@ -1082,7 +1074,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:52:44.579Z",
-      "updatedAt": "2026-10-20T15:21:09.738Z"
+      "updatedAt": "2026-10-21T10:39:44.115Z"
     },
     {
       "id": "prod-1790866214875-uiyo",
@@ -1106,7 +1098,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:50:14.875Z",
-      "updatedAt": "2026-10-20T15:21:09.739Z"
+      "updatedAt": "2026-10-21T10:39:44.116Z"
     },
     {
       "id": "prod-1790865910268-uk30",
@@ -1130,7 +1122,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:45:10.268Z",
-      "updatedAt": "2026-10-20T15:21:09.741Z"
+      "updatedAt": "2026-10-21T10:39:44.117Z"
     },
     {
       "id": "prod-1790864885646-7cxo",
@@ -1154,7 +1146,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:28:05.646Z",
-      "updatedAt": "2026-10-20T15:21:09.742Z"
+      "updatedAt": "2026-10-21T10:39:44.119Z"
     },
     {
       "id": "prod-1790864479107-q6ht",
@@ -1178,7 +1170,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:21:19.107Z",
-      "updatedAt": "2026-10-20T15:21:09.743Z"
+      "updatedAt": "2026-10-21T10:39:44.120Z"
     },
     {
       "id": "prod-1790864139945-eyvn",
@@ -1202,7 +1194,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:15:39.945Z",
-      "updatedAt": "2026-10-20T15:21:09.744Z"
+      "updatedAt": "2026-10-21T10:39:44.121Z"
     },
     {
       "id": "prod-1790863974022-czcc",
@@ -1226,7 +1218,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:12:54.022Z",
-      "updatedAt": "2026-10-20T15:21:09.745Z"
+      "updatedAt": "2026-10-21T10:39:44.122Z"
     },
     {
       "id": "prod-1790863628604-pwq4",
@@ -1250,7 +1242,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:07:08.604Z",
-      "updatedAt": "2026-10-20T15:21:09.746Z"
+      "updatedAt": "2026-10-21T10:39:44.122Z"
     },
     {
       "id": "prod-1790863313236-reez",
@@ -1274,7 +1266,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T14:01:53.236Z",
-      "updatedAt": "2026-10-20T15:21:09.748Z"
+      "updatedAt": "2026-10-21T10:39:44.123Z"
     },
     {
       "id": "prod-1790863163396-179k",
@@ -1298,7 +1290,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:59:23.396Z",
-      "updatedAt": "2026-10-20T15:21:09.748Z"
+      "updatedAt": "2026-10-21T10:39:44.124Z"
     },
     {
       "id": "prod-1790862876076-248x",
@@ -1322,7 +1314,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:54:36.076Z",
-      "updatedAt": "2026-10-20T15:21:09.750Z"
+      "updatedAt": "2026-10-21T10:39:44.125Z"
     },
     {
       "id": "prod-1790862534741-c5dv",
@@ -1346,7 +1338,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:48:54.741Z",
-      "updatedAt": "2026-10-20T15:21:09.751Z"
+      "updatedAt": "2026-10-21T10:39:44.126Z"
     },
     {
       "id": "prod-1790862379851-07vp",
@@ -1370,7 +1362,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:46:19.851Z",
-      "updatedAt": "2026-10-20T15:21:09.752Z"
+      "updatedAt": "2026-10-21T10:39:44.126Z"
     },
     {
       "id": "prod-1790862051163-x94a",
@@ -1394,7 +1386,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T13:40:51.163Z",
-      "updatedAt": "2026-10-20T15:21:09.753Z"
+      "updatedAt": "2026-10-21T10:39:44.127Z"
     },
     {
       "id": "prod-1790855698575-l39k",
@@ -1418,7 +1410,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:54:58.575Z",
-      "updatedAt": "2026-10-20T15:21:09.754Z"
+      "updatedAt": "2026-10-21T10:39:44.128Z"
     },
     {
       "id": "prod-1790855541368-bp3c",
@@ -1442,7 +1434,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:52:21.368Z",
-      "updatedAt": "2026-10-20T15:21:09.755Z"
+      "updatedAt": "2026-10-21T10:39:44.129Z"
     },
     {
       "id": "prod-1790855186841-eclf",
@@ -1466,7 +1458,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:46:26.841Z",
-      "updatedAt": "2026-10-20T15:21:09.756Z"
+      "updatedAt": "2026-10-21T10:39:44.130Z"
     },
     {
       "id": "prod-1790854914616-qqhn",
@@ -1490,7 +1482,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:41:54.616Z",
-      "updatedAt": "2026-10-20T15:21:09.757Z"
+      "updatedAt": "2026-10-21T10:39:44.131Z"
     },
     {
       "id": "prod-1790854696457-2q6t",
@@ -1514,7 +1506,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:38:16.457Z",
-      "updatedAt": "2026-10-20T15:21:09.759Z"
+      "updatedAt": "2026-10-21T10:39:44.131Z"
     },
     {
       "id": "prod-1790854392649-ydtb",
@@ -1538,7 +1530,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:33:12.649Z",
-      "updatedAt": "2026-10-20T15:21:09.760Z"
+      "updatedAt": "2026-10-21T10:39:44.132Z"
     },
     {
       "id": "prod-1790854095026-flxm",
@@ -1562,7 +1554,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:28:15.026Z",
-      "updatedAt": "2026-10-20T15:21:09.760Z"
+      "updatedAt": "2026-10-21T10:39:44.133Z"
     },
     {
       "id": "prod-1790853710321-vaky",
@@ -1586,7 +1578,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:21:50.321Z",
-      "updatedAt": "2026-10-20T15:21:09.761Z"
+      "updatedAt": "2026-10-21T10:39:44.135Z"
     },
     {
       "id": "prod-1790853572241-e4ur",
@@ -1610,7 +1602,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:19:32.241Z",
-      "updatedAt": "2026-10-20T15:21:09.762Z"
+      "updatedAt": "2026-10-21T10:39:44.136Z"
     },
     {
       "id": "prod-1790853355675-3mtk",
@@ -1634,7 +1626,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:15:55.675Z",
-      "updatedAt": "2026-10-20T15:21:09.763Z"
+      "updatedAt": "2026-10-21T10:39:44.137Z"
     },
     {
       "id": "prod-1790852668731-bbyh",
@@ -1658,7 +1650,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:04:28.731Z",
-      "updatedAt": "2026-10-20T15:21:09.764Z"
+      "updatedAt": "2026-10-21T10:39:44.138Z"
     },
     {
       "id": "prod-1790852525755-328w",
@@ -1682,7 +1674,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T11:02:05.755Z",
-      "updatedAt": "2026-10-20T15:21:09.765Z"
+      "updatedAt": "2026-10-21T10:39:44.139Z"
     },
     {
       "id": "prod-1790852177364-91d2",
@@ -1706,7 +1698,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:56:17.364Z",
-      "updatedAt": "2026-10-20T15:21:09.766Z"
+      "updatedAt": "2026-10-21T10:39:44.140Z"
     },
     {
       "id": "prod-1790852036349-i5pg",
@@ -1730,7 +1722,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:53:56.349Z",
-      "updatedAt": "2026-10-20T15:21:09.767Z"
+      "updatedAt": "2026-10-21T10:39:44.141Z"
     },
     {
       "id": "prod-1790851696604-m46t",
@@ -1754,7 +1746,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:48:16.604Z",
-      "updatedAt": "2026-10-20T15:21:09.769Z"
+      "updatedAt": "2026-10-21T10:39:44.141Z"
     },
     {
       "id": "prod-1790851559949-lug5",
@@ -1778,7 +1770,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:45:59.949Z",
-      "updatedAt": "2026-10-20T15:21:09.770Z"
+      "updatedAt": "2026-10-21T10:39:44.142Z"
     },
     {
       "id": "prod-1790851408132-zfze",
@@ -1802,7 +1794,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:43:28.132Z",
-      "updatedAt": "2026-10-20T15:21:09.771Z"
+      "updatedAt": "2026-10-21T10:39:44.143Z"
     },
     {
       "id": "prod-1790850109422-rsep",
@@ -1826,7 +1818,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:21:49.422Z",
-      "updatedAt": "2026-10-20T15:21:09.772Z"
+      "updatedAt": "2026-10-21T10:39:44.144Z"
     },
     {
       "id": "prod-1790849885494-hu91",
@@ -1850,7 +1842,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:18:05.494Z",
-      "updatedAt": "2026-10-20T15:21:09.773Z"
+      "updatedAt": "2026-10-21T10:39:44.145Z"
     },
     {
       "id": "prod-1790848807128-20cw",
@@ -1874,7 +1866,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T10:00:07.128Z",
-      "updatedAt": "2026-10-20T15:21:09.773Z"
+      "updatedAt": "2026-10-21T10:39:44.145Z"
     },
     {
       "id": "prod-1790848559288-zs5w",
@@ -1898,7 +1890,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:55:59.288Z",
-      "updatedAt": "2026-10-20T15:21:09.774Z"
+      "updatedAt": "2026-10-21T10:39:44.146Z"
     },
     {
       "id": "prod-1790848303191-nv21",
@@ -1922,7 +1914,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:51:43.191Z",
-      "updatedAt": "2026-10-20T15:21:09.775Z"
+      "updatedAt": "2026-10-21T10:39:44.147Z"
     },
     {
       "id": "prod-1790848093648-cyth",
@@ -1946,7 +1938,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:48:13.648Z",
-      "updatedAt": "2026-10-20T15:21:09.776Z"
+      "updatedAt": "2026-10-21T10:39:44.148Z"
     },
     {
       "id": "prod-1790847966304-nna5",
@@ -1970,7 +1962,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:46:06.305Z",
-      "updatedAt": "2026-10-20T15:21:09.777Z"
+      "updatedAt": "2026-10-21T10:39:44.149Z"
     },
     {
       "id": "prod-1790847762896-z14m",
@@ -1994,7 +1986,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:42:42.896Z",
-      "updatedAt": "2026-10-20T15:21:09.778Z"
+      "updatedAt": "2026-10-21T10:39:44.149Z"
     },
     {
       "id": "prod-1790847336713-fy85",
@@ -2018,7 +2010,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:35:36.713Z",
-      "updatedAt": "2026-10-20T15:21:09.779Z"
+      "updatedAt": "2026-10-21T10:39:44.151Z"
     },
     {
       "id": "prod-1790847037769-mwh4",
@@ -2042,7 +2034,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:30:37.769Z",
-      "updatedAt": "2026-10-20T15:21:09.780Z"
+      "updatedAt": "2026-10-21T10:39:44.152Z"
     },
     {
       "id": "prod-1790846750098-uhj3",
@@ -2066,7 +2058,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:25:50.098Z",
-      "updatedAt": "2026-10-20T15:21:09.781Z"
+      "updatedAt": "2026-10-21T10:39:44.153Z"
     },
     {
       "id": "prod-1790846274467-waxv",
@@ -2090,7 +2082,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:17:54.467Z",
-      "updatedAt": "2026-10-20T15:21:09.782Z"
+      "updatedAt": "2026-10-21T10:39:44.154Z"
     },
     {
       "id": "prod-1790846010195-xb32",
@@ -2114,7 +2106,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:13:30.195Z",
-      "updatedAt": "2026-10-20T15:21:09.783Z"
+      "updatedAt": "2026-10-21T10:39:44.155Z"
     },
     {
       "id": "prod-1790845845187-z3xt",
@@ -2138,7 +2130,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:10:45.187Z",
-      "updatedAt": "2026-10-20T15:21:09.785Z"
+      "updatedAt": "2026-10-21T10:39:44.156Z"
     },
     {
       "id": "prod-1790845500739-1jc5",
@@ -2162,7 +2154,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:05:00.739Z",
-      "updatedAt": "2026-10-20T15:21:09.786Z"
+      "updatedAt": "2026-10-21T10:39:44.157Z"
     },
     {
       "id": "prod-1790845328451-4otk",
@@ -2186,7 +2178,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T09:02:08.451Z",
-      "updatedAt": "2026-10-20T15:21:09.787Z"
+      "updatedAt": "2026-10-21T10:39:44.157Z"
     },
     {
       "id": "prod-1790844981196-4l6j",
@@ -2210,7 +2202,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:56:21.196Z",
-      "updatedAt": "2026-10-20T15:21:09.788Z"
+      "updatedAt": "2026-10-21T10:39:44.158Z"
     },
     {
       "id": "prod-1790844448844-te8k",
@@ -2234,7 +2226,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:47:28.844Z",
-      "updatedAt": "2026-10-20T15:21:09.789Z"
+      "updatedAt": "2026-10-21T10:39:44.159Z"
     },
     {
       "id": "prod-1790843695397-rw71",
@@ -2258,7 +2250,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:34:55.397Z",
-      "updatedAt": "2026-10-20T15:21:09.790Z"
+      "updatedAt": "2026-10-21T10:39:44.160Z"
     },
     {
       "id": "prod-1790842733598-dcyx",
@@ -2282,7 +2274,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-10-01T08:18:53.598Z",
-      "updatedAt": "2026-10-20T15:21:09.791Z"
+      "updatedAt": "2026-10-21T10:39:44.161Z"
     },
     {
       "id": "prod-1790326545710-zrkh",
@@ -2306,7 +2298,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-25T08:55:45.710Z",
-      "updatedAt": "2026-10-20T15:21:09.792Z"
+      "updatedAt": "2026-10-21T10:39:44.162Z"
     },
     {
       "id": "prod-1790259428500-zdbb",
@@ -2433,7 +2425,7 @@
         }
       ],
       "createdAt": "2026-09-24T14:17:08.500Z",
-      "updatedAt": "2026-10-20T15:21:09.793Z"
+      "updatedAt": "2026-10-21T10:39:44.163Z"
     },
     {
       "id": "prod-1790258779410-1prp",
@@ -2457,7 +2449,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:06:19.410Z",
-      "updatedAt": "2026-10-20T15:21:09.795Z"
+      "updatedAt": "2026-10-21T10:39:44.164Z"
     },
     {
       "id": "prod-1790258717179-k3lv",
@@ -2481,7 +2473,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T14:05:17.179Z",
-      "updatedAt": "2026-10-20T15:21:09.796Z"
+      "updatedAt": "2026-10-21T10:39:44.165Z"
     },
     {
       "id": "prod-1790258391445-yl2v",
@@ -2505,7 +2497,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:59:51.445Z",
-      "updatedAt": "2026-10-20T15:21:09.797Z"
+      "updatedAt": "2026-10-21T10:39:44.166Z"
     },
     {
       "id": "prod-1790258337491-jcru",
@@ -2529,7 +2521,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:57.491Z",
-      "updatedAt": "2026-10-20T15:21:09.798Z"
+      "updatedAt": "2026-10-21T10:39:44.167Z"
     },
     {
       "id": "prod-1790258295106-qfev",
@@ -2553,7 +2545,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:58:15.106Z",
-      "updatedAt": "2026-10-20T15:21:09.799Z"
+      "updatedAt": "2026-10-21T10:39:44.168Z"
     },
     {
       "id": "prod-1790258185286-ijdk",
@@ -2569,7 +2561,7 @@
         "/uploads/photoroom_20260902_084017-1790258181486.jpg"
       ],
       "inStock": true,
-      "quantity": 2,
+      "quantity": 1,
       "minStockAlert": 5,
       "featured": false,
       "sku": "ARK-4917",
@@ -2577,7 +2569,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:56:25.286Z",
-      "updatedAt": "2026-10-20T15:21:09.801Z"
+      "updatedAt": "2026-10-27T15:07:59.949Z"
     },
     {
       "id": "prod-1790258138070-e8o5",
@@ -2601,7 +2593,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:55:38.070Z",
-      "updatedAt": "2026-10-20T15:21:09.802Z"
+      "updatedAt": "2026-10-21T10:39:44.171Z"
     },
     {
       "id": "prod-1790258033587-3dxx",
@@ -2625,7 +2617,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:53.587Z",
-      "updatedAt": "2026-10-20T15:21:09.804Z"
+      "updatedAt": "2026-10-21T10:39:44.172Z"
     },
     {
       "id": "prod-1790257993219-qti2",
@@ -2649,7 +2641,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:53:13.219Z",
-      "updatedAt": "2026-10-20T15:21:09.805Z"
+      "updatedAt": "2026-10-21T10:39:44.173Z"
     },
     {
       "id": "prod-1790257929907-ucfy",
@@ -2673,7 +2665,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:52:09.907Z",
-      "updatedAt": "2026-10-20T15:21:09.807Z"
+      "updatedAt": "2026-10-21T10:39:44.174Z"
     },
     {
       "id": "prod-1790257884660-1119",
@@ -2697,7 +2689,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:51:24.660Z",
-      "updatedAt": "2026-10-20T15:21:09.808Z"
+      "updatedAt": "2026-10-21T10:39:44.175Z"
     },
     {
       "id": "prod-1790257837915-atjk",
@@ -2721,7 +2713,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:50:37.915Z",
-      "updatedAt": "2026-10-20T15:21:09.809Z"
+      "updatedAt": "2026-10-21T10:39:44.176Z"
     },
     {
       "id": "prod-1790257731659-vzsj",
@@ -2745,7 +2737,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:48:51.659Z",
-      "updatedAt": "2026-10-20T15:21:09.810Z"
+      "updatedAt": "2026-10-21T10:39:44.177Z"
     },
     {
       "id": "prod-1790257678365-4btv",
@@ -2769,7 +2761,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:47:58.365Z",
-      "updatedAt": "2026-10-20T15:21:09.811Z"
+      "updatedAt": "2026-10-21T10:39:44.178Z"
     },
     {
       "id": "prod-1790257579719-dm04",
@@ -2793,7 +2785,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:46:19.719Z",
-      "updatedAt": "2026-10-20T15:21:09.812Z"
+      "updatedAt": "2026-10-21T10:39:44.179Z"
     },
     {
       "id": "prod-1790257364268-yz8h",
@@ -2817,7 +2809,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:42:44.268Z",
-      "updatedAt": "2026-10-20T15:21:09.813Z"
+      "updatedAt": "2026-10-21T10:39:44.180Z"
     },
     {
       "id": "prod-1790257311982-er9y",
@@ -2841,7 +2833,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:41:51.982Z",
-      "updatedAt": "2026-10-20T15:21:09.814Z"
+      "updatedAt": "2026-10-21T10:39:44.181Z"
     },
     {
       "id": "prod-1790257220820-sl3g",
@@ -2865,7 +2857,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:40:20.820Z",
-      "updatedAt": "2026-10-20T15:21:09.815Z"
+      "updatedAt": "2026-10-21T10:39:44.181Z"
     },
     {
       "id": "prod-1790257116492-9nxi",
@@ -2889,7 +2881,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:38:36.492Z",
-      "updatedAt": "2026-10-20T15:21:09.816Z"
+      "updatedAt": "2026-10-21T10:39:44.182Z"
     },
     {
       "id": "prod-1790257007807-j71u",
@@ -2913,7 +2905,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:36:47.807Z",
-      "updatedAt": "2026-10-20T15:21:09.817Z"
+      "updatedAt": "2026-10-21T10:39:44.183Z"
     },
     {
       "id": "prod-1790256879461-ei7a",
@@ -2937,7 +2929,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-24T13:34:39.462Z",
-      "updatedAt": "2026-10-20T15:21:09.818Z"
+      "updatedAt": "2026-10-21T10:39:44.184Z"
     },
     {
       "id": "prod-rec-1790066189556-45",
@@ -2961,7 +2953,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.120Z",
-      "updatedAt": "2026-10-20T15:21:09.819Z"
+      "updatedAt": "2026-10-21T10:39:44.185Z"
     },
     {
       "id": "prod-rec-1790066189556-44",
@@ -2985,7 +2977,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.112Z",
-      "updatedAt": "2026-10-20T15:21:09.821Z"
+      "updatedAt": "2026-10-21T10:39:44.186Z"
     },
     {
       "id": "prod-rec-1790066189556-42",
@@ -3009,7 +3001,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.089Z",
-      "updatedAt": "2026-10-20T15:21:09.822Z"
+      "updatedAt": "2026-10-21T10:39:44.187Z"
     },
     {
       "id": "prod-rec-1790066189556-41",
@@ -3033,7 +3025,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.079Z",
-      "updatedAt": "2026-10-20T15:21:09.823Z"
+      "updatedAt": "2026-10-21T10:39:44.188Z"
     },
     {
       "id": "prod-rec-1790066189556-40",
@@ -3057,7 +3049,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.071Z",
-      "updatedAt": "2026-10-20T15:21:09.824Z"
+      "updatedAt": "2026-10-21T10:39:44.189Z"
     },
     {
       "id": "prod-rec-1790066189556-37",
@@ -3081,7 +3073,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.046Z",
-      "updatedAt": "2026-10-20T15:21:09.825Z"
+      "updatedAt": "2026-10-21T10:39:44.190Z"
     },
     {
       "id": "prod-rec-1790066189556-36",
@@ -3105,7 +3097,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.037Z",
-      "updatedAt": "2026-10-20T15:21:09.826Z"
+      "updatedAt": "2026-10-21T10:39:44.190Z"
     },
     {
       "id": "prod-rec-1790066189556-35",
@@ -3129,7 +3121,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.026Z",
-      "updatedAt": "2026-10-20T15:21:09.827Z"
+      "updatedAt": "2026-10-21T10:39:44.192Z"
     },
     {
       "id": "prod-rec-1790066189556-34",
@@ -3153,7 +3145,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.018Z",
-      "updatedAt": "2026-10-20T15:21:09.828Z"
+      "updatedAt": "2026-10-21T10:39:44.193Z"
     },
     {
       "id": "prod-rec-1790066189556-33",
@@ -3177,7 +3169,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:30.008Z",
-      "updatedAt": "2026-10-20T15:21:09.829Z"
+      "updatedAt": "2026-10-21T10:39:44.194Z"
     },
     {
       "id": "prod-rec-1790066189556-32",
@@ -3201,7 +3193,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.994Z",
-      "updatedAt": "2026-10-20T15:21:09.830Z"
+      "updatedAt": "2026-10-21T10:39:44.194Z"
     },
     {
       "id": "prod-rec-1790066189556-31",
@@ -3225,7 +3217,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.981Z",
-      "updatedAt": "2026-10-20T15:21:09.831Z"
+      "updatedAt": "2026-10-21T10:39:44.195Z"
     },
     {
       "id": "prod-rec-1790066189556-30",
@@ -3249,7 +3241,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.970Z",
-      "updatedAt": "2026-10-20T15:21:09.832Z"
+      "updatedAt": "2026-10-21T10:39:44.197Z"
     },
     {
       "id": "prod-rec-1790066189556-29",
@@ -3273,7 +3265,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.958Z",
-      "updatedAt": "2026-10-20T15:21:09.833Z"
+      "updatedAt": "2026-10-21T10:39:44.198Z"
     },
     {
       "id": "prod-rec-1790066189556-28",
@@ -3297,7 +3289,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.947Z",
-      "updatedAt": "2026-10-20T15:21:09.834Z"
+      "updatedAt": "2026-10-21T10:39:44.199Z"
     },
     {
       "id": "prod-rec-1790066189556-27",
@@ -3321,7 +3313,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.935Z",
-      "updatedAt": "2026-10-20T15:21:09.835Z"
+      "updatedAt": "2026-10-21T10:39:44.200Z"
     },
     {
       "id": "prod-rec-1790066189556-26",
@@ -3345,7 +3337,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.924Z",
-      "updatedAt": "2026-10-20T15:21:09.836Z"
+      "updatedAt": "2026-10-21T10:39:44.202Z"
     },
     {
       "id": "prod-rec-1790066189556-25",
@@ -3369,7 +3361,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.913Z",
-      "updatedAt": "2026-10-20T15:21:09.837Z"
+      "updatedAt": "2026-10-21T10:39:44.203Z"
     },
     {
       "id": "prod-rec-1790066189556-24",
@@ -3393,7 +3385,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.906Z",
-      "updatedAt": "2026-10-20T15:21:09.838Z"
+      "updatedAt": "2026-10-21T10:39:44.204Z"
     },
     {
       "id": "prod-rec-1790066189556-23",
@@ -3417,7 +3409,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.897Z",
-      "updatedAt": "2026-10-20T15:21:09.839Z"
+      "updatedAt": "2026-10-21T10:39:44.205Z"
     },
     {
       "id": "prod-rec-1790066189556-22",
@@ -3441,7 +3433,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.888Z",
-      "updatedAt": "2026-10-20T15:21:09.840Z"
+      "updatedAt": "2026-10-21T10:39:44.207Z"
     },
     {
       "id": "prod-rec-1790066189556-20",
@@ -3465,7 +3457,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.868Z",
-      "updatedAt": "2026-10-20T15:21:09.841Z"
+      "updatedAt": "2026-10-21T10:39:44.208Z"
     },
     {
       "id": "prod-rec-1790066189556-19",
@@ -3489,7 +3481,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.860Z",
-      "updatedAt": "2026-10-20T15:21:09.842Z"
+      "updatedAt": "2026-10-21T10:39:44.209Z"
     },
     {
       "id": "prod-rec-1790066189556-18",
@@ -3513,7 +3505,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.852Z",
-      "updatedAt": "2026-10-20T15:21:09.843Z"
+      "updatedAt": "2026-10-21T10:39:44.210Z"
     },
     {
       "id": "prod-rec-1790066189556-17",
@@ -3537,7 +3529,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.845Z",
-      "updatedAt": "2026-10-20T15:21:09.844Z"
+      "updatedAt": "2026-10-21T10:39:44.212Z"
     },
     {
       "id": "prod-rec-1790066189556-16",
@@ -3561,7 +3553,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.836Z",
-      "updatedAt": "2026-10-20T15:21:09.845Z"
+      "updatedAt": "2026-10-21T10:39:44.213Z"
     },
     {
       "id": "prod-rec-1790066189556-11",
@@ -3585,7 +3577,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.787Z",
-      "updatedAt": "2026-10-20T15:21:09.846Z"
+      "updatedAt": "2026-10-21T10:39:44.214Z"
     },
     {
       "id": "prod-rec-1790066189556-9",
@@ -3609,7 +3601,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.769Z",
-      "updatedAt": "2026-10-20T15:21:09.847Z"
+      "updatedAt": "2026-10-21T10:39:44.215Z"
     },
     {
       "id": "prod-rec-1790066189556-8",
@@ -3633,7 +3625,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.759Z",
-      "updatedAt": "2026-10-20T15:21:09.848Z"
+      "updatedAt": "2026-10-21T10:39:44.216Z"
     },
     {
       "id": "prod-rec-1790066189556-7",
@@ -3657,7 +3649,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.750Z",
-      "updatedAt": "2026-10-20T15:21:09.849Z"
+      "updatedAt": "2026-10-21T10:39:44.218Z"
     },
     {
       "id": "prod-rec-1790066189556-6",
@@ -3681,7 +3673,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.741Z",
-      "updatedAt": "2026-10-20T15:21:09.851Z"
+      "updatedAt": "2026-10-21T10:39:44.219Z"
     },
     {
       "id": "prod-rec-1790066189556-5",
@@ -3705,7 +3697,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.735Z",
-      "updatedAt": "2026-10-20T15:21:09.852Z"
+      "updatedAt": "2026-10-21T10:39:44.220Z"
     },
     {
       "id": "prod-rec-1790066189556-4",
@@ -3729,7 +3721,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.729Z",
-      "updatedAt": "2026-10-20T15:21:09.853Z"
+      "updatedAt": "2026-10-21T10:39:44.222Z"
     },
     {
       "id": "prod-rec-1790066189556-3",
@@ -3753,7 +3745,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.721Z",
-      "updatedAt": "2026-10-20T15:21:09.854Z"
+      "updatedAt": "2026-10-21T10:39:44.223Z"
     },
     {
       "id": "prod-rec-1790066189556-2",
@@ -3777,7 +3769,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-22T08:36:29.709Z",
-      "updatedAt": "2026-10-20T15:21:09.855Z"
+      "updatedAt": "2026-10-21T10:39:44.224Z"
     },
     {
       "id": "prod-1789558601406-iv3d",
@@ -3801,7 +3793,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:36:41.406Z",
-      "updatedAt": "2026-10-20T15:21:09.856Z"
+      "updatedAt": "2026-10-21T10:39:44.225Z"
     },
     {
       "id": "prod-1789558149566-cwd7",
@@ -3825,7 +3817,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-16T11:29:09.566Z",
-      "updatedAt": "2026-10-20T15:21:09.857Z"
+      "updatedAt": "2026-10-21T10:39:44.227Z"
     },
     {
       "id": "prod-1788945524001-0f01",
@@ -3849,7 +3841,7 @@
       "options": [],
       "variants": [],
       "createdAt": "2026-09-09T09:18:44.010Z",
-      "updatedAt": "2026-10-20T15:21:09.858Z"
+      "updatedAt": "2026-10-21T10:39:44.228Z"
     }
   ],
   "categories": [
@@ -4542,8 +4534,8 @@
       "logo": "https://picsum.photos/seed/bank/200/100",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "2",
@@ -4555,8 +4547,8 @@
       "logo": "https://picsum.photos/seed/telecom/200/100",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "3",
@@ -4568,8 +4560,8 @@
       "logo": "https://picsum.photos/seed/tech/200/100",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "4",
@@ -4581,8 +4573,8 @@
       "logo": "https://picsum.photos/seed/construction/200/100",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "5",
@@ -4594,8 +4586,8 @@
       "logo": "https://picsum.photos/seed/hospital/200/100",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     }
   ],
   "partners": [
@@ -4607,8 +4599,8 @@
       "website": "https://arknet.co.ao",
       "order": 1,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-2",
@@ -4618,8 +4610,8 @@
       "website": "https://arknet.co.ao",
       "order": 2,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-3",
@@ -4629,8 +4621,8 @@
       "website": "https://arknet.co.ao",
       "order": 3,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-4",
@@ -4640,8 +4632,8 @@
       "website": "https://arknet.co.ao",
       "order": 4,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-5",
@@ -4651,8 +4643,8 @@
       "website": "https://arknet.co.ao",
       "order": 5,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-6",
@@ -4662,8 +4654,8 @@
       "website": "https://arknet.co.ao",
       "order": 6,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-7",
@@ -4673,8 +4665,8 @@
       "website": "https://arknet.co.ao",
       "order": 7,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-8",
@@ -4684,8 +4676,8 @@
       "website": "https://arknet.co.ao",
       "order": 8,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-9",
@@ -4695,8 +4687,8 @@
       "website": "https://arknet.co.ao",
       "order": 9,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-10",
@@ -4706,8 +4698,8 @@
       "website": "https://arknet.co.ao",
       "order": 10,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-11",
@@ -4717,8 +4709,8 @@
       "website": "https://arknet.co.ao",
       "order": 11,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.017Z"
     },
     {
       "id": "partner-12",
@@ -4728,8 +4720,8 @@
       "website": "https://arknet.co.ao",
       "order": 12,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.017Z",
+      "updatedAt": "2026-10-27T14:59:50.018Z"
     },
     {
       "id": "partner-13",
@@ -4739,8 +4731,8 @@
       "website": "https://arknet.co.ao",
       "order": 13,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.018Z",
+      "updatedAt": "2026-10-27T14:59:50.018Z"
     },
     {
       "id": "partner-14",
@@ -4750,8 +4742,8 @@
       "website": "https://arknet.co.ao",
       "order": 14,
       "active": true,
-      "createdAt": "2026-10-21T10:39:37.438Z",
-      "updatedAt": "2026-10-21T10:39:37.438Z"
+      "createdAt": "2026-10-27T14:59:50.018Z",
+      "updatedAt": "2026-10-27T14:59:50.018Z"
     }
   ],
   "projects": [
@@ -5398,9 +5390,17 @@
         "active": true
       }
     ],
-    "updatedAt": "2026-10-20T15:21:09.929Z"
+    "updatedAt": "2026-10-21T10:39:44.393Z"
   },
   "activities": [
+    {
+      "id": "act-1793113678560-joly",
+      "userId": "system",
+      "userName": "Administrador",
+      "action": "Atualizou produto \"prod-1790258185286-ijdk\"",
+      "module": "produtos",
+      "timestamp": "2026-10-27T15:07:58.560Z"
+    },
     {
       "id": "cmumjxiil0001utds2zw488t9",
       "userId": "user-admin-ao",
@@ -5889,26 +5889,6 @@
       "target": "",
       "targetId": null,
       "timestamp": "2026-09-24T13:59:51.445Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258337491-kqxm",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"Medidor de potencia óptica portátil\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:58:57.491Z",
-      "details": null
-    },
-    {
-      "id": "act-1790258295107-i33p",
-      "userId": "system",
-      "userName": "Administrador",
-      "action": "Adicionou produto \"TP-Link TL-WR840N\"",
-      "target": "",
-      "targetId": null,
-      "timestamp": "2026-09-24T13:58:15.107Z",
       "details": null
     }
   ],

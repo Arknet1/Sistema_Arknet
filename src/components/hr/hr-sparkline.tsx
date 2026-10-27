@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useId } from 'react';
 
 export interface HrSparklineProps {
   /** Array of numeric values to plot */
@@ -32,6 +32,8 @@ export function HrSparkline({
   showDot = true,
   className = '',
 }: HrSparklineProps) {
+  const gradientId = `sparkGrad-${useId().replace(/:/g, '')}`;
+
   if (!data || data.length < 2) {
     return <span className={`hr-sparkline ${className}`} style={{ width, height }} />;
   }
@@ -60,9 +62,7 @@ export function HrSparkline({
 
   // Area path (closed below the line)
   const areaPath = `${linePath} L ${points[points.length - 1].x},${height} L ${points[0].x},${height} Z`;
-
   const lastPoint = points[points.length - 1];
-  const gradientId = `sparkGrad-${Math.random().toString(36).slice(2, 8)}`;
   const effectiveFill = fillColor || color;
 
   return (

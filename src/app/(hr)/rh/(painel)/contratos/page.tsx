@@ -92,6 +92,22 @@ export default function RhContratosPage() {
       return;
     }
 
+    if (!formData.startDate) {
+      setFormError('Indique a data de início do contrato.');
+      return;
+    }
+
+    if (!formData.baseSalary || isNaN(Number(formData.baseSalary))) {
+      setFormError('Indique um salário base mensal válido em Kwanzas.');
+      return;
+    }
+
+    const requiresEndDate = formData.type === 'DETERMINADO' || formData.type === 'ESTAGIO' || formData.type === 'PRESTACAO_SERVICOS';
+    if (requiresEndDate && !formData.endDate) {
+      setFormError(`Contratos do tipo "${formData.type}" exigem obrigatoriamente a data de término.`);
+      return;
+    }
+
     setIsSubmitting(true);
     setFormError(null);
 
@@ -327,18 +343,27 @@ export default function RhContratosPage() {
               />
             </HrField>
 
-            <HrField label="Data de Fim (se termo certo)">
+            <HrField
+              label={
+                formData.type !== 'INDETERMINADO'
+                  ? 'Data de Fim (Obrigatória)'
+                  : 'Data de Fim (Opcional)'
+              }
+              required={formData.type !== 'INDETERMINADO'}
+            >
               <HrInput
                 type="date"
+                required={formData.type !== 'INDETERMINADO'}
                 value={formData.endDate}
                 onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
               />
             </HrField>
           </div>
 
-          <HrField label="Salário Base Mensal (Kz)">
+          <HrField label="Salário Base Mensal (Kz)" required>
             <HrInput
               type="number"
+              required
               placeholder="Ex: 450000"
               value={formData.baseSalary}
               onChange={(e) => setFormData({ ...formData, baseSalary: e.target.value })}

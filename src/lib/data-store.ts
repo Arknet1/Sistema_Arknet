@@ -1531,9 +1531,12 @@ class DataStoreManager {
   }
 
   public addUser(user: Omit<AdminUser, 'id' | 'createdAt'>): AdminUser {
+    const defaultPassword = user.password || 'Arknet@2026!'
     const newUser: AdminUser = {
       ...user,
       id: `user-${Date.now()}`,
+      password: defaultPassword,
+      passwordHash: user.passwordHash || hashPasswordSync(defaultPassword),
       createdAt: new Date().toISOString(),
     }
     this.mutate(
@@ -1545,10 +1548,16 @@ class DataStoreManager {
 
   public updateUser(id: string, updates: Partial<AdminUser>): AdminUser | null {
     let updatedItem: AdminUser | null = null
+    const updatesWithHash = {
+      ...updates,
+      ...(updates.password && !updates.passwordHash
+        ? { passwordHash: hashPasswordSync(updates.password) }
+        : {}),
+    }
     this.mutate((db) => {
       const users = db.users.map((u) => {
         if (u.id === id) {
-          updatedItem = { ...u, ...updates }
+          updatedItem = { ...u, ...updatesWithHash }
           return updatedItem
         }
         return u
@@ -2879,9 +2888,12 @@ class DataStoreManager {
   }
 
   public addCustomer(customer: Omit<CustomerAccount, 'id' | 'createdAt'>): CustomerAccount {
+    const rawPassword = customer.password || 'Password123!'
     const newCustomer: CustomerAccount = {
       ...customer,
       id: `cli-${Date.now()}`,
+      password: rawPassword,
+      passwordHash: customer.passwordHash || hashPasswordSync(rawPassword),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -2902,10 +2914,16 @@ class DataStoreManager {
 
   public updateCustomer(id: string, updates: Partial<CustomerAccount>): CustomerAccount | null {
     let updatedCustomer: CustomerAccount | null = null
+    const updatesWithHash = {
+      ...updates,
+      ...(updates.password && !updates.passwordHash
+        ? { passwordHash: hashPasswordSync(updates.password) }
+        : {}),
+    }
     this.mutate((db) => {
       const customers = (db.customers || []).map((c) => {
         if (c.id === id) {
-          updatedCustomer = { ...c, ...updates, updatedAt: new Date().toISOString() }
+          updatedCustomer = { ...c, ...updatesWithHash, updatedAt: new Date().toISOString() }
           return updatedCustomer
         }
         return c

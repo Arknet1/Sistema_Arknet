@@ -2,8 +2,8 @@
  * Motor Central de Permissões e RBAC do Módulo de Recursos Humanos ARKNET
  * 
  * Perfis permitidos:
- * - ADMINISTRADOR (compatível com 'admin'): Acesso total ao sistema, configuração e loja.
- * - TECNICO_RH: Gestão completa de RH em todos os departamentos (vê salários, aprova contratos, documentos, etc.).
+ * - ADMINISTRADOR (compatível com 'admin'): Acesso total ao sistema, configuração, loja e todo o pessoal.
+ * - TECNICO_RH: Gestão de RH e dos colaboradores, sem gerir contas de administradores ou técnicos.
  *               NUNCA acede à gestão da loja (/admin).
  * - FUNCIONARIO: Apenas acede ao /portal e aos seus próprios dados (só leitura).
  */
@@ -26,6 +26,7 @@ export type HrAction =
   | 'CONFIGURAR_MODULO'
   | 'GERIR_DEPARTAMENTOS'
   | 'GERIR_CARGOS'
+  | 'GERIR_PESSOAL_RH'
   | 'LISTAR_FUNCIONARIOS'
   | 'VER_FICHA_FUNCIONARIO'
   | 'VER_DADOS_SENSIVEIS'
@@ -165,7 +166,11 @@ export function can(
   user: HrUserContext | null | undefined,
   action: HrAction,
   resource?: string,
-  targetContext?: { targetEmployeeId?: string | null; targetUserId?: string | null }
+  targetContext?: {
+    targetEmployeeId?: string | null
+    targetUserId?: string | null
+    targetUserRole?: string | null
+  }
 ): boolean {
   if (!user || !user.role) return false
 
@@ -219,11 +224,8 @@ export function can(
       case 'GERIR_DEPARTAMENTOS':
       case 'GERIR_CARGOS':
       case 'LISTAR_FUNCIONARIOS':
-      case 'VER_FICHA_FUNCIONARIO':
       case 'VER_DADOS_SENSIVEIS':
       case 'CRIAR_FUNCIONARIO':
-      case 'EDITAR_FUNCIONARIO':
-      case 'DESLIGAR_FUNCIONARIO':
       case 'CRIAR_CONTRATO':
       case 'EDITAR_CONTRATO':
       case 'APROVAR_CONTRATO':
@@ -232,7 +234,6 @@ export function can(
       case 'DESCARREGAR_DOCUMENTO':
       case 'ARQUIVAR_DOCUMENTO':
       case 'VER_AUDITORIA':
-      case 'CRIAR_UTILIZADOR_FUNCIONARIO':
       // Fase 2 - Gestão
       case 'VER_PONTO_TODOS':
       case 'REGISTAR_PONTO_MANUAL_RH':
@@ -268,6 +269,15 @@ export function can(
       case 'GERIR_CANDIDATOS':
       case 'ADMITIR_CANDIDATO':
         return true
+
+      case 'GERIR_PESSOAL_RH':
+        return false
+
+      case 'VER_FICHA_FUNCIONARIO':
+      case 'EDITAR_FUNCIONARIO':
+      case 'DESLIGAR_FUNCIONARIO':
+      case 'CRIAR_UTILIZADOR_FUNCIONARIO':
+        return targetContext?.targetUserRole === null || targetContext?.targetUserRole === 'FUNCIONARIO'
 
       case 'ACEDER_PORTAL':
       case 'MARCAR_PONTO_PROPRIO':
@@ -349,7 +359,11 @@ export function assertCan(
   user: HrUserContext | null | undefined,
   action: HrAction,
   resource?: string,
-  targetContext?: { targetEmployeeId?: string | null; targetUserId?: string | null }
+  targetContext?: {
+    targetEmployeeId?: string | null
+    targetUserId?: string | null
+    targetUserRole?: string | null
+  }
 ): asserts user is HrUserContext {
   if (!can(user, action, resource, targetContext)) {
     const roleName = user?.role || 'Anónimo'

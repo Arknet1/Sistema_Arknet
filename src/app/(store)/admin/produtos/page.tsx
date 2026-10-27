@@ -1388,7 +1388,9 @@ export default function AdminProdutosPage() {
                         onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
                         className="w-full px-4 py-2.5 text-sm border border-slate-300 focus:border-primary focus:outline-none bg-white"
                       >
-                        {categories.map((cat) => (
+                        {categories
+                          .filter((cat) => cat.name !== 'Todos')
+                          .map((cat) => (
                           <option key={cat.id} value={cat.name}>
                             {cat.name}
                           </option>

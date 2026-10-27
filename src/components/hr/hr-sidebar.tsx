@@ -49,7 +49,7 @@ export function HrSidebar({
       exact: true,
     },
     {
-      label: 'Colaboradores',
+      label: userRole === 'ADMINISTRADOR' || userRole === 'admin' ? 'Todo o Pessoal' : 'Colaboradores',
       href: '/rh/funcionarios',
       icon: <Users className="w-4 h-4" />,
     },
@@ -180,12 +180,12 @@ export function HrSidebar({
             Auto-Serviço
           </div>
           <Link
-            href="/portal"
+            href="/portal?tab=perfil"
             onClick={onCloseMobile}
             className="flex items-center gap-3 px-3 py-2.5 rounded-[var(--hr-radius)] text-sm font-medium text-[var(--hr-text-muted)] hover:text-[var(--hr-primary)] hover:bg-[var(--hr-surface-muted)] transition-colors"
           >
             <User className="w-4 h-4 text-[var(--hr-text-muted)]" />
-            <span>Meu Portal do Colaborador</span>
+            <span>Meu Perfil</span>
           </Link>
         </div>
       </nav>

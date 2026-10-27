@@ -39,6 +39,7 @@ function RhFuncionariosContent() {
   const [departments, setDepartments] = useState<any[]>([]);
   const [positions, setPositions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [personnelScope, setPersonnelScope] = useState<'all' | 'collaborators'>('collaborators');
   const [search, setSearch] = useState('');
   const [selectedDept, setSelectedDept] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
@@ -103,6 +104,7 @@ function RhFuncionariosContent() {
 
       if (empData.success) {
         setEmployees(empData.employees || []);
+        setPersonnelScope(empData.personnelScope === 'all' ? 'all' : 'collaborators');
         setPagination(empData.pagination || { total: 0, totalPages: 1 });
       }
 
@@ -134,8 +136,15 @@ function RhFuncionariosContent() {
     e.preventDefault();
     setFormError(null);
 
-    if (!formData.fullName.trim() || !formData.biNumber.trim()) {
-      setFormError('Nome completo e Número de BI são obrigatórios.');
+    if (
+      !formData.fullName.trim() ||
+      !formData.biNumber.trim() ||
+      !formData.email.trim() ||
+      !formData.birthDate ||
+      !formData.departmentId ||
+      !formData.positionId
+    ) {
+      setFormError('Por favor preencha todos os campos obrigatórios: Nome Completo, BI, E-mail, Data de Nascimento, Departamento e Cargo.');
       return;
     }
 
@@ -227,11 +236,15 @@ function RhFuncionariosContent() {
   return (
     <div className="space-y-5">
       <HrPageHeader
-        title="Colaboradores"
-        subtitle={`Gestão do quadro de pessoal da J.Matos (${pagination.total} registados)`}
+        title={personnelScope === 'all' ? 'Todo o Pessoal' : 'Colaboradores'}
+        subtitle={
+          personnelScope === 'all'
+            ? `Gestão de administradores, técnicos de RH e colaboradores (${pagination.total} registados)`
+            : `Gestão dos colaboradores da J.Matos (${pagination.total} registados)`
+        }
         breadcrumbs={[
           { label: 'Recursos Humanos', href: '/rh' },
-          { label: 'Colaboradores' },
+          { label: personnelScope === 'all' ? 'Todo o Pessoal' : 'Colaboradores' },
         ]}
         actions={
           <>
@@ -335,9 +348,18 @@ function RhFuncionariosContent() {
                   <div className="font-bold text-[15px] text-[var(--hr-text)]">{r.fullName}</div>
                   <div className="text-[13px] text-[var(--hr-text-muted)] flex items-center gap-2 mt-0.5">
                     <span>BI: {r.biNumber}</span>
-                    {r.user && (
+                    {r.userRef && (
                       <span className="inline-flex items-center gap-1 text-[12px] text-[var(--hr-primary)] font-semibold">
                         <KeyRound className="w-3 h-3" /> Acesso activo
+                      </span>
+                    )}
+                    {personnelScope === 'all' && r.userRef?.role && r.userRef.role !== 'FUNCIONARIO' && (
+                      <span className="text-[11px] font-semibold text-[var(--hr-text-muted)]">
+                        {r.userRef.role === 'ADMINISTRADOR' || r.userRef.role === 'ADMIN' || r.userRef.role === 'admin'
+                          ? 'Administrador'
+                          : r.userRef.role === 'TECNICO_RH'
+                            ? 'Técnico de RH'
+                            : 'Editor'}
                       </span>
                     )}
                   </div>
@@ -618,9 +640,10 @@ function RhFuncionariosContent() {
                   />
                 </HrField>
 
-                <HrField label="Data de Nascimento">
+                <HrField label="Data de Nascimento" required>
                   <HrInput
                     type="date"
+                    required
                     value={formData.birthDate}
                     onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
                   />
@@ -636,9 +659,10 @@ function RhFuncionariosContent() {
                   </HrSelect>
                 </HrField>
 
-                <HrField label="Telefone de Contacto">
+                <HrField label="Telefone de Contacto" required>
                   <HrInput
                     type="tel"
+                    required
                     placeholder="+244 9XX XXX XXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -646,9 +670,10 @@ function RhFuncionariosContent() {
                 </HrField>
 
                 <div className="sm:col-span-2">
-                  <HrField label="E-mail Pessoal / Corporativo" hint="Será utilizado para notificações e acesso ao portal">
+                  <HrField label="E-mail Pessoal / Corporativo" required hint="Será utilizado para notificações e acesso ao portal">
                     <HrInput
                       type="email"
+                      required
                       placeholder="carlos.santos@jmatos.co.ao"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -664,8 +689,9 @@ function RhFuncionariosContent() {
                 2. Enquadramento e Cargo na J.Matos
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <HrField label="Departamento">
+                <HrField label="Departamento" required>
                   <HrSelect
+                    required
                     value={formData.departmentId}
                     onChange={(e) => setFormData({ ...formData, departmentId: e.target.value })}
                   >
@@ -678,14 +704,15 @@ function RhFuncionariosContent() {
                   </HrSelect>
                 </HrField>
 
-                <HrField label="Cargo / Função">
+                <HrField label="Cargo / Função" required>
                   <HrSelect
+                    required
                     value={formData.positionId}
                     onChange={(e) => setFormData({ ...formData, positionId: e.target.value })}
                   >
                     <option value="">Seleccione o cargo</option>
                     {positions
-                      .filter((p) => !formData.departmentId || p.departmentId === formData.departmentId)
+                      .filter((p) => !formData.departmentId || !p.departmentId || p.departmentId === formData.departmentId)
                       .map((p) => (
                         <option key={p.id} value={p.id}>
                           {p.title}
@@ -694,9 +721,10 @@ function RhFuncionariosContent() {
                   </HrSelect>
                 </HrField>
 
-                <HrField label="Data de Admissão">
+                <HrField label="Data de Admissão" required>
                   <HrInput
                     type="date"
+                    required
                     value={formData.admissionDate}
                     onChange={(e) => setFormData({ ...formData, admissionDate: e.target.value })}
                   />
