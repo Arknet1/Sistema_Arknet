@@ -504,9 +504,10 @@ export default function PortalColaboradorPage() {
     { id: 'seguranca', label: 'Segurança', icon: <Lock className="w-5 h-5" /> },
   ];
 
-  const portalNavItems = employee
-    ? navItems
-    : navItems.filter((item) => item.id === 'perfil' || item.id === 'seguranca');
+  const portalNavItems = navItems.map((item) => ({
+    ...item,
+    disabled: !employee && item.id !== 'perfil' && item.id !== 'seguranca',
+  }));
 
   useEffect(() => {
     if (!isLoading && !employee && activeTab !== 'perfil' && activeTab !== 'seguranca') {
@@ -516,6 +517,9 @@ export default function PortalColaboradorPage() {
 
   const profileName = employee?.fullName || user?.name || 'Utilizador ARKNET';
   const profileRole = user?.role?.toUpperCase();
+  const isAdminProfile = profileRole === 'ADMINISTRADOR' || profileRole === 'ADMIN';
+  const isTechnicianProfile = profileRole === 'TECNICO_RH';
+  const isEmployeeProfile = profileRole === 'FUNCIONARIO';
   const profileRoleLabel = profileRole === 'ADMINISTRADOR' || profileRole === 'ADMIN'
     ? 'Administrador de Recursos Humanos'
     : profileRole === 'TECNICO_RH'
@@ -587,6 +591,17 @@ export default function PortalColaboradorPage() {
             <HrSkeleton className="h-28 w-full" />
             <HrSkeleton className="h-60 w-full" />
           </div>
+        ) : !employee && activeTab === 'seguranca' ? (
+          <section className="max-w-2xl rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-7">
+            <div className="mb-5 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]"><Lock className="h-5 w-5" /></span><div><h2 className="text-lg font-bold text-[var(--hr-text)]">Segurança da conta</h2><p className="mt-1 text-sm text-[var(--hr-text-light)]">Altere a palavra-passe usada para entrar no portal.</p></div></div>
+            <form onSubmit={handleChangePassword} className="space-y-4">
+              {passError && <p role="alert" className="rounded-lg border border-[var(--hr-status-error)] bg-[var(--hr-status-error-bg)] p-3 text-sm text-[var(--hr-status-error)]">{passError}</p>}
+              <HrField label="Palavra-passe actual" required><HrInput type="password" required autoComplete="current-password" value={currentPass} onChange={(event) => setCurrentPass(event.target.value)} /></HrField>
+              <HrField label="Nova palavra-passe" required hint="Mínimo de 8 caracteres"><HrInput type="password" required autoComplete="new-password" value={newPass} onChange={(event) => setNewPass(event.target.value)} /></HrField>
+              <HrField label="Confirmar nova palavra-passe" required><HrInput type="password" required autoComplete="new-password" value={confirmPass} onChange={(event) => setConfirmPass(event.target.value)} /></HrField>
+              <div className="flex justify-end pt-2"><HrButton type="submit" variant="primary" size="sm" isLoading={isSubmittingPass}>Guardar alterações</HrButton></div>
+            </form>
+          </section>
         ) : !employee ? (
           <div className="space-y-5 sm:space-y-6">
             <section className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#0C3152] via-[#124B75] to-[#0868B0] p-6 text-white shadow-[var(--hr-shadow-lg)] sm:p-9">
@@ -596,9 +611,9 @@ export default function PortalColaboradorPage() {
                 <div className="flex min-w-0 items-start gap-4 sm:items-center sm:gap-5">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-xl font-bold text-white sm:h-20 sm:w-20 sm:text-2xl" aria-hidden="true">{profileInitials || <User className="h-8 w-8" />}</div>
                   <div className="min-w-0">
-                    <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-amber-200/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100"><AlertCircle className="h-3.5 w-3.5" /> Perfil por activar</span>
+                    <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-sky-200/30 bg-sky-300/10 px-3 py-1 text-xs font-semibold text-sky-100"><ShieldCheck className="h-3.5 w-3.5" /> {profileRoleLabel}</span>
                     <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Olá, {profileName}</h2>
-                    <p className="mt-2 max-w-2xl text-sm leading-6 text-sky-100 sm:text-base">A sua conta já está criada, mas ainda não foi associada a uma ficha de colaborador da J.Matos. Quando o RH concluir essa associação, os seus dados profissionais e serviços ficarão disponíveis aqui.</p>
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-sky-100 sm:text-base">{isAdminProfile ? 'Este é o seu acesso de administrador principal. A gestão de colaboradores, técnicos de RH e restantes configurações é feita no painel de gestão.' : isTechnicianProfile ? 'Este é o seu acesso de Técnico de Recursos Humanos. Pode gerir os colaboradores no painel RH; os serviços pessoais do portal ficam disponíveis quando a sua própria ficha estiver associada.' : 'A sua conta já está criada, mas ainda não foi associada a uma ficha de colaborador da J.Matos. Quando o RH concluir essa associação, os seus dados profissionais e serviços ficarão disponíveis aqui.'}</p>
                   </div>
                 </div>
                 <a href="/" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Ir para a página principal <span aria-hidden="true">↗</span></a>
@@ -612,7 +627,21 @@ export default function PortalColaboradorPage() {
 
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,.8fr)]">
               <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-7">
-                <div className="mb-5 flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]"><Building2 className="h-5 w-5" /></span><div><h3 className="text-base font-bold text-[var(--hr-text)]">O que precisa de acontecer?</h3><p className="mt-1 text-sm text-[var(--hr-text-light)]">A associação é feita pela equipa de Recursos Humanos.</p></div></div>
+                <div className="mb-5 flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]"><Building2 className="h-5 w-5" /></span><div><h3 className="text-base font-bold text-[var(--hr-text)]">{isAdminProfile ? 'Áreas de gestão' : isTechnicianProfile ? 'Responsabilidades do perfil' : 'O que precisa de acontecer?'}</h3><p className="mt-1 text-sm text-[var(--hr-text-light)]">{isAdminProfile ? 'Acesso administrativo completo à plataforma.' : isTechnicianProfile ? 'Gestão de colaboradores e operações de RH.' : 'A associação é feita pela equipa de Recursos Humanos.'}</p></div></div>
+                {isAdminProfile ? (
+                  <div className="space-y-4">
+                    <p className="text-sm leading-6 text-[var(--hr-text-light)]">O perfil de administrador tem acesso global aos módulos de RH e à administração do sistema, incluindo a gestão de técnicos e colaboradores.</p>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <a href="/rh" className="group rounded-xl border border-[var(--hr-border)] p-4 transition hover:border-[var(--hr-primary)] hover:bg-[var(--hr-primary-soft)]"><span className="flex items-center gap-2 text-sm font-bold text-[var(--hr-primary)]"><Building2 className="h-4 w-4" />Gestão de Recursos Humanos</span><span className="mt-2 block text-xs leading-5 text-[var(--hr-text-light)]">Gerir colaboradores, técnicos, contratos, salários, ponto e configurações.</span></a>
+                      <a href="/admin/utilizadores" className="group rounded-xl border border-[var(--hr-border)] p-4 transition hover:border-[var(--hr-primary)] hover:bg-[var(--hr-primary-soft)]"><span className="flex items-center gap-2 text-sm font-bold text-[var(--hr-primary)]"><ShieldCheck className="h-4 w-4" />Utilizadores e perfis de acesso</span><span className="mt-2 block text-xs leading-5 text-[var(--hr-text-light)]">Gerir as contas dos técnicos de RH e restantes utilizadores.</span></a>
+                    </div>
+                  </div>
+                ) : isTechnicianProfile ? (
+                  <div className="space-y-4">
+                    <p className="text-sm leading-6 text-[var(--hr-text-light)]">O Técnico de RH gere os colaboradores e os processos diários de Recursos Humanos. A gestão de administradores e técnicos fica reservada ao administrador principal.</p>
+                    <a href="/rh" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--hr-primary)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--hr-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hr-primary)]">Abrir painel de Recursos Humanos <span aria-hidden="true">→</span></a>
+                  </div>
+                ) : (
                 <ol className="space-y-4">
                   {[
                     ['01', 'Contacte os Recursos Humanos', 'Peça a associação desta conta à sua ficha de colaborador.'],
@@ -620,6 +649,7 @@ export default function PortalColaboradorPage() {
                     ['03', 'Volte ao portal após a confirmação', 'Depois da associação, termine a sessão e entre novamente para carregar o seu perfil.'],
                   ].map(([number, title, description]) => <li key={number} className="flex gap-3.5"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hr-surface-muted)] text-xs font-bold text-[var(--hr-primary)]">{number}</span><span className="pt-0.5"><span className="block text-sm font-semibold text-[var(--hr-text)]">{title}</span><span className="mt-1 block text-sm leading-5 text-[var(--hr-text-light)]">{description}</span></span></li>)}
                 </ol>
+                )}
               </section>
 
               <aside className="space-y-4">
@@ -1452,6 +1482,20 @@ export default function PortalColaboradorPage() {
                     </div>
                   )}
                 </section>
+
+                {isAdminProfile ? (
+                  <section className="flex flex-col gap-4 rounded-2xl border border-violet-200 bg-violet-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                    <div><div className="flex items-center gap-2 text-sm font-bold text-violet-950"><ShieldCheck className="h-5 w-5 text-violet-700" />Administrador principal</div><p className="mt-1 max-w-2xl text-sm leading-5 text-violet-900">Acesso global. Pode gerir colaboradores, técnicos de RH e configurações do sistema.</p></div>
+                    <div className="flex flex-wrap gap-2"><a href="/rh" className="inline-flex min-h-10 items-center justify-center rounded-lg bg-violet-700 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-800">Gestão RH</a><a href="/admin/utilizadores" className="inline-flex min-h-10 items-center justify-center rounded-lg border border-violet-300 bg-white px-4 py-2 text-sm font-semibold text-violet-900 hover:bg-violet-100">Gerir utilizadores</a></div>
+                  </section>
+                ) : isTechnicianProfile ? (
+                  <section className="flex flex-col gap-4 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                    <div><div className="flex items-center gap-2 text-sm font-bold text-sky-950"><Building2 className="h-5 w-5 text-sky-700" />Técnico de Recursos Humanos</div><p className="mt-1 max-w-2xl text-sm leading-5 text-sky-900">Pode gerir colaboradores e operações de RH. A gestão de contas de técnicos e administradores é reservada ao administrador principal.</p></div>
+                    <a href="/rh" className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-lg bg-sky-700 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-800">Abrir gestão RH</a>
+                  </section>
+                ) : isEmployeeProfile ? (
+                  <section className="flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700"><User className="h-4 w-4" /></span><div><h3 className="text-sm font-bold text-emerald-950">Perfil de colaborador</h3><p className="mt-1 text-sm leading-5 text-emerald-900">Aqui consulta os seus próprios dados, ponto, férias, recibos, documentos e carreira. Não tem acesso à gestão de outros colaboradores.</p></div></section>
+                ) : null}
 
                 {employee ? (
                   <>

@@ -7,6 +7,7 @@ export interface HrBottomNavItem {
   label: string;
   icon: React.ReactNode;
   badge?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export interface HrBottomNavProps {
@@ -34,9 +35,13 @@ export function HrBottomNav({
             <button
               key={item.id}
               type="button"
-              onClick={() => onChange(item.id)}
+              onClick={() => { if (!item.disabled) onChange(item.id); }}
+              disabled={item.disabled}
+              title={item.disabled ? 'Disponível depois da associação à ficha de colaborador' : undefined}
               className={`flex-1 flex flex-col items-center justify-center py-1 px-1 h-full min-h-[44px] transition-colors relative ${
-                isActive
+                item.disabled
+                  ? 'cursor-not-allowed text-[var(--hr-text-light)] opacity-50'
+                  : isActive
                   ? 'text-[var(--hr-primary)] font-bold'
                   : 'text-[var(--hr-text-muted)] hover:text-[var(--hr-text)]'
               }`}

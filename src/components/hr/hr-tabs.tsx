@@ -1,10 +1,12 @@
 import React from 'react';
+import { Lock } from 'lucide-react';
 
 export interface HrTabItem {
   id: string;
   label: string;
   icon?: React.ReactNode;
   badge?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export interface HrTabsProps {
@@ -24,9 +26,14 @@ export function HrTabs({ tabs, activeTab, onChange, className = '' }: HrTabsProp
             <button
               key={tab.id}
               type="button"
-              onClick={() => onChange(tab.id)}
+              onClick={() => { if (!tab.disabled) onChange(tab.id); }}
+              disabled={tab.disabled}
+              title={tab.disabled ? 'Disponível depois da associação à ficha de colaborador' : undefined}
+              aria-disabled={tab.disabled || undefined}
               className={`flex items-center gap-2 py-3 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
-                isActive
+                tab.disabled
+                  ? 'cursor-not-allowed border-transparent text-[var(--hr-text-light)] opacity-60'
+                  : isActive
                   ? 'border-[var(--hr-primary)] text-[var(--hr-primary)] bg-[var(--hr-primary-soft)]/30 rounded-t-[var(--hr-radius-sm)]'
                   : 'border-transparent text-[var(--hr-text-muted)] hover:text-[var(--hr-text)] hover:border-[var(--hr-border)]'
               }`}
@@ -34,6 +41,7 @@ export function HrTabs({ tabs, activeTab, onChange, className = '' }: HrTabsProp
               {tab.icon && <span className="flex-shrink-0">{tab.icon}</span>}
               <span>{tab.label}</span>
               {tab.badge && <span className="ml-1">{tab.badge}</span>}
+              {tab.disabled && <Lock className="h-3 w-3" aria-hidden="true" />}
             </button>
           );
         })}
