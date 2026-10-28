@@ -382,7 +382,7 @@ export function maskSensitiveData<T extends Record<string, any>>(
     return employee
   }
 
-  return {
+  const masked: Record<string, any> = {
     ...employee,
     biNumber: employee.biNumber ? `${employee.biNumber.slice(0, 3)}****${employee.biNumber.slice(-2)}` : null,
     bankIban: employee.bankIban ? `AO06.****.****.${employee.bankIban.slice(-4)}` : null,
@@ -391,4 +391,15 @@ export function maskSensitiveData<T extends Record<string, any>>(
     salary: undefined,
     address: 'Informação confidencial',
   }
+
+  // Sensitive compensation data can be nested in employee profile relations.
+  // Strip it there as well as on the top-level employee record.
+  if (Array.isArray(employee.contracts)) {
+    masked.contracts = employee.contracts.map(({ baseSalary, ...contract }: Record<string, any>) => contract)
+  }
+  if (Array.isArray(employee.careerHistory)) {
+    masked.careerHistory = employee.careerHistory.map(({ salary, ...entry }: Record<string, any>) => entry)
+  }
+
+  return masked as T
 }

@@ -383,7 +383,7 @@ export default function RecrutamentoPage() {
               </p>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-xs text-left">
+                <table className="hr-premium-table w-full text-xs text-left">
                   <thead>
                     <tr className="border-b border-[var(--hr-border)] text-[var(--hr-text-muted)]">
                       <th className="py-2.5 px-3">Candidato</th>

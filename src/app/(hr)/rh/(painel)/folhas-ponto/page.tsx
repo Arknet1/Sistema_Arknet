@@ -407,7 +407,7 @@ export default function FolhasPontoPage() {
         {/* Tabela de detalhe diário */}
         <div className="bg-[var(--hr-surface)] rounded-[var(--hr-radius)] border border-[var(--hr-border)] overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="hr-premium-table w-full text-sm">
               <thead>
                 <tr className="bg-[var(--hr-surface-muted)] text-left">
                   <th className="px-3 py-2.5 font-semibold text-[var(--hr-text-muted)]">Data</th>
@@ -634,7 +634,7 @@ export default function FolhasPontoPage() {
         <div className="bg-[var(--hr-surface)] rounded-[var(--hr-radius)] border border-[var(--hr-border)] overflow-hidden">
           {/* Desktop */}
           <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="hr-premium-table w-full text-sm">
               <thead>
                 <tr className="bg-[var(--hr-surface-muted)] text-left">
                   <th className="px-4 py-3 font-semibold text-[var(--hr-text-muted)]">Colaborador</th>

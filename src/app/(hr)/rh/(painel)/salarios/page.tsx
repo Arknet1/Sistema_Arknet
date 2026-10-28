@@ -339,7 +339,7 @@ export default function SalariosPainelPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
+            <table className="hr-premium-table w-full text-xs">
               <thead>
                 <tr className="bg-[var(--hr-bg)] border-b border-[var(--hr-border)] text-left text-[var(--hr-text-muted)] font-semibold">
                   <th className="p-2.5">Recibo Nº</th>
@@ -446,7 +446,7 @@ export default function SalariosPainelPage() {
 
               {/* Tabela Discriminada com cores */}
               <div className="relative z-10 border-x border-[var(--hr-border)] overflow-hidden">
-                <table className="w-full text-xs">
+                <table className="hr-premium-table w-full text-xs">
                   <thead>
                     <tr className="bg-[var(--hr-bg)] border-y border-[var(--hr-border)] font-semibold text-[var(--hr-text-muted)] text-left">
                       <th className="p-2">Código</th>

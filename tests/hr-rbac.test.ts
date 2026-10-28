@@ -162,17 +162,22 @@ describe('Recursos Humanos (RH) - Controlo de Acesso RBAC e Segurança', () => {
       bankAccountNumber: '1234567890',
       baseSalary: '450000',
       address: 'Bairro Alvalade, Rua 5',
+      contracts: [{ contractNumber: 'CT-001', baseSalary: '450000' }],
+      careerHistory: [{ position: 'Técnico', salary: '400000' }],
     }
 
     const masked = maskSensitiveData(rawData, false)
     assert.ok(masked.biNumber?.includes('****'), 'BI deve ser mascarado')
     assert.ok(masked.bankIban?.includes('****'), 'IBAN deve ser mascarado')
     assert.strictEqual(masked.baseSalary, undefined, 'Salário não deve estar presente')
+    assert.strictEqual(masked.contracts?.[0]?.baseSalary, undefined, 'Salário do contrato não deve estar presente')
+    assert.strictEqual(masked.careerHistory?.[0]?.salary, undefined, 'Salário do histórico não deve estar presente')
     assert.strictEqual(masked.address, 'Informação confidencial')
 
     const unmasked = maskSensitiveData(rawData, true)
     assert.strictEqual(unmasked.biNumber, rawData.biNumber)
     assert.strictEqual(unmasked.baseSalary, rawData.baseSalary)
+    assert.strictEqual(unmasked.contracts[0].baseSalary, rawData.contracts[0].baseSalary)
   })
 
   it('9. Auditoria mascara dados sensíveis (salário, IBAN, BI) em logs', () => {

@@ -19,18 +19,18 @@ export function HrPageHeader({
   className = '',
 }: HrPageHeaderProps) {
   return (
-    <div className={`mb-5 ${className}`}>
-      {breadcrumbs && <HrBreadcrumbs items={breadcrumbs} />}
+    <div className={`mb-6 ${className}`}>
+      {breadcrumbs && <div className="mb-3"><HrBreadcrumbs items={breadcrumbs} /></div>}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h1 className="text-xl sm:text-2xl font-bold text-[var(--hr-text)] tracking-tight">
+            <h1 className="text-2xl sm:text-[28px] font-bold text-[var(--hr-text)] tracking-tight">
               {title}
             </h1>
             {badge && <span className="flex-shrink-0">{badge}</span>}
           </div>
           {subtitle && (
-            <p className="text-xs sm:text-sm text-[var(--hr-text-muted)] mt-1">
+            <p className="text-sm text-[var(--hr-text-muted)] mt-1.5">
               {subtitle}
             </p>
           )}

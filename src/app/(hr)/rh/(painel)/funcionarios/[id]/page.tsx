@@ -15,6 +15,12 @@ import {
   Copy,
   Check,
   CheckCircle2,
+  Pencil,
+  BriefcaseBusiness,
+  CalendarDays,
+  Mail,
+  Phone,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   HrPageHeader,
@@ -56,6 +62,12 @@ export default function RhFuncionarioDetalhePage() {
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [userResult, setUserResult] = useState<{ email: string; pass: string } | null>(null);
   const [hasCopiedUserPass, setHasCopiedUserPass] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
+  const [editError, setEditError] = useState('');
+  const [departments, setDepartments] = useState<any[]>([]);
+  const [positions, setPositions] = useState<any[]>([]);
+  const [editForm, setEditForm] = useState({ fullName: '', phone: '', email: '', address: '', city: '', province: '', departmentId: '', positionId: '', directSupervisorId: '' });
 
   // Document Upload Modal
   const [isUploadDocOpen, setIsUploadDocOpen] = useState(false);
@@ -107,6 +119,46 @@ export default function RhFuncionarioDetalhePage() {
       toast.error('Erro de ligação.');
     } finally {
       setIsTerminating(false);
+    }
+  };
+
+  const openEdit = async () => {
+    setEditError('');
+    setEditForm({ fullName: employee.fullName || '', phone: employee.phone || '', email: employee.email || '', address: employee.address || '', city: employee.city || '', province: employee.province || '', departmentId: employee.departmentId || '', positionId: employee.positionId || '', directSupervisorId: employee.directSupervisorId || '' });
+    setIsEditOpen(true);
+    try {
+      const [departmentResponse, positionResponse] = await Promise.all([fetch('/api/rh/departamentos'), fetch('/api/rh/cargos')]);
+      const [departmentData, positionData] = await Promise.all([departmentResponse.json(), positionResponse.json()]);
+      setDepartments(departmentData.departments || []);
+      setPositions(positionData.positions || []);
+    } catch {
+      toast.error('Não foi possível carregar departamentos e cargos.');
+    }
+  };
+
+  const handleSaveEdit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setEditError('');
+    if (!editForm.fullName.trim() || !editForm.email.trim() || !editForm.departmentId || !editForm.positionId) {
+      setEditError('Preencha nome, e-mail, departamento e cargo.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editForm.email.trim())) {
+      setEditError('Introduza um endereço de e-mail válido.');
+      return;
+    }
+    setIsSavingEdit(true);
+    try {
+      const response = await fetch(`/api/rh/funcionarios/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editForm) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.success) throw new Error(data.error || 'Não foi possível guardar as alterações.');
+      toast.success('Ficha do colaborador actualizada.');
+      setIsEditOpen(false);
+      await loadEmployee();
+    } catch (error) {
+      setEditError(error instanceof Error ? error.message : 'Erro ao guardar a ficha.');
+    } finally {
+      setIsSavingEdit(false);
     }
   };
 
@@ -219,41 +271,51 @@ export default function RhFuncionarioDetalhePage() {
     );
   }
 
+  const activeContract = employee.contracts?.find((contract: any) => contract.status === 'ACTIVO');
+  const activeSalary = activeContract?.baseSalary;
+
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-[1440px] space-y-6 pb-8">
       <HrPageHeader
-        title={employee.fullName}
-        subtitle={`${employee.employeeNumber} · ${employee.position?.title || 'Sem cargo'} · ${employee.department?.name || 'Geral'}`}
-        badge={statusBadge(employee.status)}
+        title="Ficha do colaborador"
+        subtitle="Dados pessoais, vínculo profissional e actividade na empresa"
         breadcrumbs={[
           { label: 'Recursos Humanos', href: '/rh' },
           { label: 'Colaboradores', href: '/rh/funcionarios' },
           { label: employee.fullName },
         ]}
-        actions={
-          <>
-            {employee.status !== 'DESLIGADO' && (
-              <HrButton
-                variant="outline"
-                size="sm"
-                onClick={() => setIsTerminateOpen(true)}
-                className="hover:border-[var(--hr-status-error)] hover:text-[var(--hr-status-error)]"
-                leftIcon={<UserX className="w-4 h-4 text-[var(--hr-status-error)]" />}
-              >
-                Desligar Colaborador
-              </HrButton>
-            )}
-            <HrButton
-              variant="primary"
-              size="sm"
-              onClick={() => setIsUploadDocOpen(true)}
-              leftIcon={<Upload className="w-4 h-4" />}
-            >
-              Arquivar Documento
-            </HrButton>
-          </>
-        }
       />
+
+      <section className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#0C3152] via-[#124B75] to-[#0868B0] p-6 text-white shadow-[var(--hr-shadow-md)] sm:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-24 -z-10 h-72 w-72 rounded-full border-[44px] border-white/[0.05]" />
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex min-w-0 items-center gap-4 sm:gap-5">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-2xl font-bold tracking-wide sm:h-20 sm:w-20 sm:text-3xl" aria-hidden="true">
+              {employee.fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((name: string) => name[0]).join('').toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <div className="mb-1 flex flex-wrap items-center gap-2.5"><h1 className="truncate text-2xl font-bold tracking-tight sm:text-3xl">{employee.fullName}</h1>{statusBadge(employee.status)}</div>
+              <p className="text-sm text-sky-100 sm:text-base">{employee.position?.title || 'Cargo por definir'} <span className="mx-1.5 text-white/40">·</span> {employee.department?.name || 'Sem departamento'}</p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-sky-100/90">
+                <span className="inline-flex items-center gap-1.5"><BriefcaseBusiness className="h-4 w-4" />{employee.employeeNumber}</span>
+                {employee.email && <span className="inline-flex min-w-0 items-center gap-1.5"><Mail className="h-4 w-4 shrink-0" /><span className="truncate">{employee.email}</span></span>}
+                {employee.phone && <span className="inline-flex items-center gap-1.5"><Phone className="h-4 w-4" />{employee.phone}</span>}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            <HrButton variant="outline" size="md" onClick={openEdit} leftIcon={<Pencil className="h-4 w-4" />} className="border-white/25 bg-white/10 text-white hover:border-white/40 hover:bg-white/15 hover:text-white">Editar ficha</HrButton>
+            <HrButton variant="outline" size="md" onClick={() => setIsUploadDocOpen(true)} leftIcon={<Upload className="h-4 w-4" />} className="border-white/25 bg-white/10 text-white hover:border-white/40 hover:bg-white/15 hover:text-white">Adicionar documento</HrButton>
+            {employee.status !== 'DESLIGADO' && <HrButton variant="primary" size="md" onClick={() => setIsTerminateOpen(true)} leftIcon={<UserX className="h-4 w-4" />} className="bg-[#F09000] text-white hover:bg-[#D77F00]">Desligar</HrButton>}
+          </div>
+        </div>
+        <div className="mt-7 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 sm:grid-cols-4">
+          <div><p className="text-xs font-medium text-sky-100/75">Admissão</p><p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold"><CalendarDays className="h-4 w-4 text-sky-200" />{employee.admissionDate ? new Date(employee.admissionDate).toLocaleDateString('pt-AO') : '—'}</p></div>
+          <div><p className="text-xs font-medium text-sky-100/75">Contratos</p><p className="mt-1 text-lg font-bold">{employee.contracts?.length || 0}<span className="ml-1 text-xs font-medium text-sky-100/80">registados</span></p></div>
+          <div><p className="text-xs font-medium text-sky-100/75">Documentos</p><p className="mt-1 text-lg font-bold">{employee.documents?.length || 0}<span className="ml-1 text-xs font-medium text-sky-100/80">arquivados</span></p></div>
+          <div><p className="text-xs font-medium text-sky-100/75">Responsável directo</p><p className="mt-1 truncate text-sm font-semibold">{employee.directSupervisor?.fullName || 'Por atribuir'}</p></div>
+        </div>
+      </section>
 
       {/* Tabs */}
       <HrTabs
@@ -272,15 +334,15 @@ export default function RhFuncionarioDetalhePage() {
       {activeTab === 'dados' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Card: Identificação Pessoal */}
-          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
-            <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
+            <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-2xl p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+            <h3 className="text-base font-semibold text-[var(--hr-text)] pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
               Identificação & Contactos
             </h3>
             <HrDataList
               columns={2}
               items={[
                 { label: 'N.º Colaborador', value: <span className="font-mono font-bold text-[var(--hr-primary)]">{employee.employeeNumber}</span> },
-                { label: 'Bilhete de Identidade (BI)', value: employee.biNumber, masked: true, rawUnmaskedValue: employee.biNumber },
+                { label: 'Bilhete de Identidade (BI)', value: employee.biNumber, masked: !!employee.biNumber && !String(employee.biNumber).includes('*'), rawUnmaskedValue: employee.biNumber },
                 { label: 'Data de Nascimento', value: employee.birthDate ? new Date(employee.birthDate).toLocaleDateString('pt-AO') : '—' },
                 { label: 'Género', value: employee.gender === 'M' ? 'Masculino' : employee.gender === 'F' ? 'Feminino' : '—' },
                 { label: 'Telefone', value: employee.phone || '—' },
@@ -292,8 +354,8 @@ export default function RhFuncionarioDetalhePage() {
           </div>
 
           {/* Card: Enquadramento & Dados Bancários */}
-          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
-            <h3 className="text-[13px] font-bold text-[var(--hr-text)] uppercase tracking-wider pb-2.5 mb-3.5 border-b border-[var(--hr-border-subtle)]">
+          <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-2xl p-5 sm:p-6 shadow-[var(--hr-shadow-sm)]">
+            <h3 className="text-base font-semibold text-[var(--hr-text)] pb-3 mb-4 border-b border-[var(--hr-border-subtle)]">
               Enquadramento & Dados Bancários
             </h3>
             <HrDataList
@@ -302,15 +364,15 @@ export default function RhFuncionarioDetalhePage() {
                 { label: 'Departamento', value: employee.department?.name || '—' },
                 { label: 'Cargo Actual', value: employee.position?.title || '—' },
                 { label: 'Data de Admissão', value: employee.admissionDate ? new Date(employee.admissionDate).toLocaleDateString('pt-AO') : '—' },
-                { label: 'Responsável Directo', value: employee.supervisor?.fullName || '—' },
+                { label: 'Responsável Directo', value: employee.directSupervisor?.fullName || '—' },
                 { label: 'Instituição Bancária', value: employee.bankName || '—' },
-                { label: 'IBAN Angolano', value: employee.bankIban || '—', masked: !!employee.bankIban, rawUnmaskedValue: employee.bankIban },
+                { label: 'IBAN Angolano', value: employee.bankIban || '—', masked: !!employee.bankIban && !String(employee.bankIban).includes('*'), rawUnmaskedValue: employee.bankIban },
                 { label: 'Conta Bancária', value: employee.bankAccountNumber || '—' },
                 {
                   label: 'Vencimento Base',
-                  value: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : 'Sob Consulta',
-                  masked: !!employee.baseSalary,
-                  rawUnmaskedValue: employee.baseSalary ? `${Number(employee.baseSalary).toLocaleString('pt-AO')} Kz` : undefined,
+                  value: activeSalary ? `${Number(activeSalary).toLocaleString('pt-AO')} Kz` : 'Sem contrato activo',
+                  masked: !!activeSalary,
+                  rawUnmaskedValue: activeSalary ? `${Number(activeSalary).toLocaleString('pt-AO')} Kz` : undefined,
                 },
               ]}
             />
@@ -501,18 +563,18 @@ export default function RhFuncionarioDetalhePage() {
             Permite ao colaborador consultar recibos, dados pessoais e documentos na rota <code>/portal</code>.
           </p>
 
-          {employee.user ? (
+          {employee.userRef ? (
             <div className="p-4 bg-[var(--hr-surface-muted)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-[var(--hr-text-muted)]">Conta de utilizador associada:</span>
-                <HrBadge variant="success" size="sm">Activa</HrBadge>
+                <HrBadge variant={employee.userRef.status === 'active' ? 'success' : 'warning'} size="sm">{employee.userRef.status === 'active' ? 'Activa' : 'Inactiva'}</HrBadge>
               </div>
               <div className="text-sm font-bold font-mono text-[var(--hr-text)]">
-                {employee.user.email}
+                {employee.userRef.email}
               </div>
               <div className="pt-2 border-t border-[var(--hr-border)] flex items-center justify-between">
                 <span className="text-xs text-[var(--hr-text-muted)]">Perfil de Permissão:</span>
-                <span className="text-xs font-bold text-[var(--hr-primary)]">{employee.user.role}</span>
+                <span className="text-xs font-bold text-[var(--hr-primary)]">{employee.userRef.role}</span>
               </div>
             </div>
           ) : (
@@ -532,6 +594,27 @@ export default function RhFuncionarioDetalhePage() {
           )}
         </div>
       )}
+
+      <HrDialog isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} title="Editar ficha do colaborador" maxWidth="xl">
+        <form onSubmit={handleSaveEdit} className="space-y-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <HrField label="Nome completo" required><HrInput required value={editForm.fullName} onChange={(event) => setEditForm({ ...editForm, fullName: event.target.value })} /></HrField>
+            <HrField label="E-mail profissional" required><HrInput type="email" required value={editForm.email} onChange={(event) => setEditForm({ ...editForm, email: event.target.value })} /></HrField>
+            <HrField label="Telefone"><HrInput value={editForm.phone} onChange={(event) => setEditForm({ ...editForm, phone: event.target.value })} /></HrField>
+            <HrField label="Departamento" required><HrSelect required value={editForm.departmentId} onChange={(event) => setEditForm({ ...editForm, departmentId: event.target.value })}><option value="">Seleccione um departamento</option>{departments.map((department) => <option key={department.id} value={department.id}>{department.name}</option>)}</HrSelect></HrField>
+            <HrField label="Cargo" required><HrSelect required value={editForm.positionId} onChange={(event) => setEditForm({ ...editForm, positionId: event.target.value })}><option value="">Seleccione um cargo</option>{positions.map((position) => <option key={position.id} value={position.id}>{position.title}</option>)}</HrSelect></HrField>
+            <HrField label="Endereço"><HrInput value={editForm.address} onChange={(event) => setEditForm({ ...editForm, address: event.target.value })} /></HrField>
+            <HrField label="Município"><HrInput value={editForm.city} onChange={(event) => setEditForm({ ...editForm, city: event.target.value })} /></HrField>
+            <HrField label="Província"><HrInput value={editForm.province} onChange={(event) => setEditForm({ ...editForm, province: event.target.value })} /></HrField>
+          </div>
+          <div className="flex items-start gap-2 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-5 text-sky-900"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />Alterações de departamento ou cargo ficam registadas no histórico profissional.</div>
+          {editError && <p role="alert" className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-800">{editError}</p>}
+          <div className="flex justify-end gap-2 border-t border-[var(--hr-border-subtle)] pt-4">
+            <HrButton variant="outline" size="sm" type="button" onClick={() => setIsEditOpen(false)}>Cancelar</HrButton>
+            <HrButton variant="primary" size="sm" type="submit" isLoading={isSavingEdit}>Guardar alterações</HrButton>
+          </div>
+        </form>
+      </HrDialog>
 
       {/* Terminate Employee Confirm Dialog */}
       <HrConfirmDialog

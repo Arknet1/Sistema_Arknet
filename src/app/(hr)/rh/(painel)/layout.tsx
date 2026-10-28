@@ -61,7 +61,7 @@ export default function RhPainelLayout({
 
         {/* Scrollable Page Body */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="max-w-[1280px] mx-auto w-full">
+          <div className="max-w-[1440px] mx-auto w-full">
             {children}
           </div>
         </main>

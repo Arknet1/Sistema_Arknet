@@ -361,6 +361,41 @@ html.hr-dark body.hr-root {
   animation: hr-empty-pulse-ring 3s ease-in-out infinite;
 }
 
+/* Premium data tables used by operational pages with bespoke row actions. */
+.hr-premium-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 680px;
+  color: var(--hr-text);
+}
+
+.hr-premium-table thead th {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--hr-border);
+  background: var(--hr-surface-muted);
+  color: var(--hr-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hr-premium-table tbody tr {
+  transition: background-color .15s ease;
+}
+
+.hr-premium-table tbody tr:hover {
+  background: color-mix(in srgb, var(--hr-primary-soft) 52%, transparent);
+}
+
+.hr-premium-table tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--hr-border-subtle);
+  vertical-align: middle;
+}
+
 /* Radial progress ring */
 @keyframes hr-progress-ring-fill {
   0% { stroke-dashoffset: var(--hr-ring-circumference, 282.6); }
