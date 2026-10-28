@@ -30,6 +30,7 @@ interface HrSidebarProps {
   userEmail?: string;
   isOpenMobile?: boolean;
   onCloseMobile?: () => void;
+  isCollapsed?: boolean;
 }
 
 export function HrSidebar({
@@ -38,8 +39,10 @@ export function HrSidebar({
   userEmail = 'rh@jmatos.co.ao',
   isOpenMobile = false,
   onCloseMobile,
+  isCollapsed = false,
 }: HrSidebarProps) {
   const pathname = usePathname();
+  const compact = isCollapsed && !isOpenMobile;
 
   const navItems = [
     {
@@ -126,10 +129,10 @@ export function HrSidebar({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[var(--hr-surface)] border-r border-[var(--hr-border)] w-64 select-none">
+    <div className={`flex flex-col h-full bg-[var(--hr-surface)] border-r border-[var(--hr-border)] ${compact ? 'w-[76px]' : 'w-64'} transition-[width] duration-200 select-none`}>
       {/* Brand Header: Logo alone on a line, 125px wide, breathing room */}
-      <div className="p-6 flex items-center justify-between border-b border-[var(--hr-border)] relative">
-        <HrLogo href="/rh" />
+      <div className={`p-5 flex items-center justify-between border-b border-[var(--hr-border)] relative ${compact ? 'px-4' : ''}`}>
+        {compact ? <Link href="/rh" aria-label="J.Matos RH" className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--hr-primary)] font-bold text-white">JM</Link> : <HrLogo href="/rh" />}
         {onCloseMobile && (
           <button
             type="button"
@@ -143,10 +146,10 @@ export function HrSidebar({
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto" aria-label="Menu principal">
-        <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hr-text-muted)] px-3 mb-2">
+      <nav className={`flex-1 py-5 space-y-1.5 overflow-y-auto ${compact ? 'px-3' : 'px-4'}`} aria-label="Menu principal">
+        {!compact && <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hr-text-muted)] px-3 mb-2">
           Gestão de Pessoas
-        </div>
+        </div>}
         {navItems.map((item) => {
           if (item.adminOnly && userRole !== 'ADMINISTRADOR' && userRole !== 'admin') {
             return null;
@@ -161,7 +164,9 @@ export function HrSidebar({
               key={item.href}
               href={item.href}
               onClick={onCloseMobile}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-[var(--hr-radius)] text-sm font-medium transition-colors ${
+              title={compact ? item.label : undefined}
+              aria-label={compact ? item.label : undefined}
+              className={`flex items-center ${compact ? 'justify-center px-2' : 'gap-3 px-3'} py-2.5 rounded-[var(--hr-radius)] text-sm font-medium transition-colors min-h-11 ${
                 isActive
                   ? 'bg-[var(--hr-primary-soft)] text-[var(--hr-primary)] font-bold'
                   : 'text-[var(--hr-text)] hover:bg-[var(--hr-surface-muted)] hover:text-[var(--hr-primary)]'
@@ -170,12 +175,13 @@ export function HrSidebar({
               <span className={isActive ? 'text-[var(--hr-primary)]' : 'text-[var(--hr-text-muted)]'}>
                 {item.icon}
               </span>
-              <span>{item.label}</span>
+              {!compact && <span>{item.label}</span>}
             </Link>
           );
         })}
 
-        <div className="pt-5 mt-5 border-t border-[var(--hr-border-subtle)]">
+        <div className={`pt-5 mt-5 border-t border-[var(--hr-border-subtle)] ${compact ? 'flex justify-center' : ''}`}>
+          {!compact && <>
           <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hr-text-muted)] px-3 mb-2">
             Auto-Serviço
           </div>
@@ -187,13 +193,15 @@ export function HrSidebar({
             <User className="w-4 h-4 text-[var(--hr-text-muted)]" />
             <span>Meu Perfil</span>
           </Link>
+          </>}
+          {compact && <Link href="/portal?tab=perfil" title="Meu Perfil" aria-label="Meu Perfil" onClick={onCloseMobile} className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--hr-text-muted)] hover:bg-[var(--hr-surface-muted)]"><User className="w-4 h-4" /></Link>}
         </div>
       </nav>
 
       {/* Footer subtle brand tagline */}
-      <div className="p-4 border-t border-[var(--hr-border-subtle)] text-xs text-[var(--hr-text-muted)] text-center select-none">
+      {!compact && <div className="p-4 border-t border-[var(--hr-border-subtle)] text-xs text-[var(--hr-text-muted)] text-center select-none">
         J.Matos Tecnologia · RH
-      </div>
+      </div>}
     </div>
   );
 

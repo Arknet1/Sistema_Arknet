@@ -14,6 +14,9 @@ import {
   Clock,
   UserPlus,
   RefreshCw,
+  CalendarCheck,
+  CalendarDays,
+  UserRoundPlus,
 } from 'lucide-react';
 import {
   HrPageHeader,
@@ -22,7 +25,6 @@ import {
   HrTable,
   HrCardList,
   HrEmptyState,
-  HrSparkline,
 } from '@/components/hr';
 import { useHrToast } from '@/components/hr/hr-toast';
 
@@ -34,6 +36,10 @@ export default function RhOverviewPage() {
     activeEmployees: 0,
     contractsExpiring: 0,
     docsExpiring: 0,
+    presentToday: 0,
+    absencesToday: 0,
+    pendingLeaves: 0,
+    newHiresThisMonth: 0,
   });
   const [recentEmployees, setRecentEmployees] = useState<any[]>([]);
   const [expiringContracts, setExpiringContracts] = useState<any[]>([]);
@@ -45,23 +51,27 @@ export default function RhOverviewPage() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [empRes, deptRes, ctrRes, docRes, auditRes] = await Promise.all([
-        fetch('/api/rh/funcionarios?limit=50'),
+      const [empRes, deptRes, ctrRes, docRes, auditRes, dashboardRes] = await Promise.all([
+        fetch('/api/rh/funcionarios?limit=100'),
         fetch('/api/rh/departamentos'),
         fetch('/api/rh/contratos?expiringSoon=true'),
         fetch('/api/rh/documentos?expiringSoon=true'),
         fetch('/api/rh/auditoria?limit=8'),
+        fetch('/api/rh/dashboard'),
       ]);
 
-      const [empData, deptData, ctrData, docData, auditData] = await Promise.all([
+      const [empData, deptData, ctrData, docData, auditData, dashData] = await Promise.all([
         empRes.json().catch(() => ({})),
         deptRes.json().catch(() => ({})),
         ctrRes.json().catch(() => ({})),
         docRes.json().catch(() => ({})),
         auditRes.json().catch(() => ({})),
+        dashboardRes.json().catch(() => ({})),
       ]);
 
-      const allEmployees: any[] = empData.employees || [];
+      if (!dashboardRes.ok) throw new Error(dashData.error || 'Não foi possível carregar os indicadores.')
+
+      const allEmployees: any[] = empData.employees || dashData.recentEmployees || [];
       const activeEmps = allEmployees.filter((e) => e.status === 'ACTIVO');
       const contractsExp = ctrData.contracts || [];
       const docsExp = docData.documents || [];
@@ -69,13 +79,17 @@ export default function RhOverviewPage() {
 
       // 1. Stats
       setStats({
-        activeEmployees: activeEmps.length,
-        contractsExpiring: contractsExp.length,
-        docsExpiring: docsExp.length,
+        activeEmployees: dashData.stats?.activeEmployees ?? empData.pagination?.total ?? activeEmps.length,
+        contractsExpiring: dashData.stats?.contractsExpiring ?? contractsExp.length,
+        docsExpiring: dashData.stats?.docsExpiring ?? docsExp.length,
+        presentToday: dashData.stats?.presentToday ?? 0,
+        absencesToday: dashData.stats?.absencesToday ?? 0,
+        pendingLeaves: dashData.stats?.pendingLeaves ?? 0,
+        newHiresThisMonth: dashData.stats?.newHiresThisMonth ?? 0,
       });
 
       // 2. Recent Employees
-      setRecentEmployees(allEmployees.slice(0, 6));
+      setRecentEmployees(dashData.recentEmployees?.slice(0, 6) || allEmployees.slice(0, 6));
 
       // 3. Expiring Contracts & Docs
       setExpiringContracts(contractsExp);
@@ -90,7 +104,7 @@ export default function RhOverviewPage() {
         const count = activeEmps.filter((e) => e.departmentId === d.id).length;
         return { name: d.name, count };
       }).sort((a, b) => b.count - a.count);
-      setDepartmentStats(deptCounts);
+      setDepartmentStats(dashData.departmentStats || deptCounts);
 
       // 6. Bloco "Por tratar" (Action items)
       const pending: any[] = [];
@@ -151,14 +165,14 @@ export default function RhOverviewPage() {
   const handleRunAlerts = async () => {
     setIsAlerting(true);
     try {
-      const res = await fetch('/api/rh/cron/alertas', {
+      const res = await fetch('/api/rh/alertas/processar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
         toast.success(
-          `Varredura concluída. ${data.summary?.sent ?? 0} alerta(s) processado(s).`,
+          `Verificação concluída. ${data.report?.sent ?? data.summary?.sent ?? 0} alerta(s) processado(s).`,
           'Alertas de Caducidade'
         );
         loadData();
@@ -188,11 +202,6 @@ export default function RhOverviewPage() {
   };
 
   const maxDeptCount = Math.max(...departmentStats.map((d) => d.count), 1);
-
-  // Sparkline trend data (mock 14-point series for visual illustration)
-  const empTrend = [38, 39, 39, 40, 41, 41, 42, 42, 43, 44, 44, 45, stats.activeEmployees, stats.activeEmployees];
-  const ctrTrend = [3, 2, 4, 3, 5, 4, 3, 2, 4, 3, 2, 3, stats.contractsExpiring, stats.contractsExpiring];
-  const docTrend = [1, 2, 1, 3, 2, 1, 2, 3, 2, 1, 2, 1, stats.docsExpiring, stats.docsExpiring];
 
   return (
     <div className="max-w-[1280px] mx-auto space-y-6">
@@ -224,92 +233,33 @@ export default function RhOverviewPage() {
         }
       />
 
-      {/* Point 4: 3 Indicators in a row with refined elevation & comfortable typography */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {/* Indicator 1: Colaboradores activos */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
-              Colaboradores Activos
-            </span>
-            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
-              <Users className="w-4 h-4 text-[var(--hr-text-muted)]" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div className="flex flex-col">
-              <span className="text-3xl font-extrabold text-[var(--hr-text)] tabular-nums font-mono tracking-tight">
-                {stats.activeEmployees}
-              </span>
-              <span className="text-[12px] font-semibold text-[var(--hr-status-success)] mt-1.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-success)]" />
-                Quadro de pessoal em actividade
-              </span>
-            </div>
-            <HrSparkline data={empTrend} width={80} height={28} color="var(--hr-status-success)" />
-          </div>
-        </div>
-
-        {/* Indicator 2: Contratos a vencer (60 dias) */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
-              Contratos a Vencer (60 dias)
-            </span>
-            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
-              <FileCheck className="w-4 h-4 text-[var(--hr-text-muted)]" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div className="flex flex-col">
-              <span
-                className={`text-3xl tabular-nums font-mono tracking-tight ${
-                  stats.contractsExpiring > 0
-                    ? 'font-extrabold text-[var(--hr-text)]'
-                    : 'font-bold text-[var(--hr-text)]'
-                }`}
-              >
-                {stats.contractsExpiring}
-              </span>
-              <span className="text-[12px] font-semibold text-[var(--hr-status-warning)] mt-1.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-status-warning)]" />
-                {stats.contractsExpiring > 0 ? 'Requer atenção para renovação' : 'Nenhuma caducidade próxima'}
-              </span>
-            </div>
-            <HrSparkline data={ctrTrend} width={80} height={28} color="var(--hr-status-warning)" />
-          </div>
-        </div>
-
-        {/* Indicator 3: Documentos a expirar (30 dias) */}
-        <div className="bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] p-6 shadow-[var(--hr-shadow-sm)] hover:shadow-[var(--hr-shadow-md)] transition-shadow flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[var(--hr-text-muted)]">
-            <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--hr-text-muted)]">
-              Documentos a Expirar (30 dias)
-            </span>
-            <div className="w-8 h-8 rounded-full bg-[var(--hr-surface-muted)] border border-[var(--hr-border-subtle)] flex items-center justify-center">
-              <AlertTriangle className="w-4 h-4 text-[var(--hr-text-muted)]" />
-            </div>
-          </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div className="flex flex-col">
-              <span
-                className={`text-3xl tabular-nums font-mono tracking-tight ${
-                  stats.docsExpiring > 0
-                    ? 'font-extrabold text-[var(--hr-text)]'
-                    : 'font-bold text-[var(--hr-text)]'
-                }`}
-              >
-                {stats.docsExpiring}
-              </span>
-              <span className="text-[12px] font-semibold text-[var(--hr-text-muted)] mt-1.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--hr-text-light)]" />
-                {stats.docsExpiring > 0 ? 'Documentação a regularizar' : 'Toda a documentação válida'}
-              </span>
-            </div>
-            <HrSparkline data={docTrend} width={80} height={28} color="var(--hr-text-light)" />
-          </div>
-        </div>
-      </div>
+      <section aria-label="Indicadores de Recursos Humanos" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        {[
+          { label: 'Funcionários activos', value: stats.activeEmployees, detail: 'Quadro actual', icon: Users, color: 'text-[var(--hr-primary)]', tone: 'bg-[var(--hr-primary-soft)]' },
+          { label: 'Presenças hoje', value: stats.presentToday, detail: 'Registos de entrada', icon: CalendarCheck, color: 'text-[var(--hr-status-success)]', tone: 'bg-[var(--hr-status-success-bg)]' },
+          { label: 'Faltas hoje', value: stats.absencesToday, detail: 'Justificadas e injustificadas', icon: AlertTriangle, color: 'text-[var(--hr-status-error)]', tone: 'bg-[var(--hr-status-error-bg)]' },
+          { label: 'Férias pendentes', value: stats.pendingLeaves, detail: 'Pedidos de férias por decidir', icon: CalendarDays, color: 'text-[var(--hr-status-warning)]', tone: 'bg-[var(--hr-status-warning-bg)]' },
+          { label: 'Admissões do mês', value: stats.newHiresThisMonth, detail: 'Desde o início do mês', icon: UserRoundPlus, color: 'text-[var(--hr-primary)]', tone: 'bg-[var(--hr-primary-soft)]' },
+          { label: 'Contratos a vencer', value: stats.contractsExpiring, detail: 'Nos próximos 60 dias', icon: FileCheck, color: 'text-[var(--hr-status-warning)]', tone: 'bg-[var(--hr-status-warning-bg)]' },
+          { label: 'Documentos a expirar', value: stats.docsExpiring, detail: 'Nos próximos 30 dias', icon: AlertCircle, color: 'text-[var(--hr-status-neutral)]', tone: 'bg-[var(--hr-status-neutral-bg)]' },
+        ].map((metric) => {
+          const Icon = metric.icon;
+          return (
+            <article key={metric.label} className="rounded-[var(--hr-radius-lg)] border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] transition-shadow hover:shadow-[var(--hr-shadow-md)]">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium text-[var(--hr-text-muted)]">{metric.label}</p>
+                  <p className="mt-3 text-3xl font-bold tracking-tight tabular-nums text-[var(--hr-text)]" aria-live="polite">
+                    {isLoading ? <span className="inline-block h-9 w-12 animate-pulse rounded bg-[var(--hr-surface-muted)]" aria-label="A carregar" /> : metric.value}
+                  </p>
+                </div>
+                <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${metric.tone} ${metric.color}`}><Icon className="h-5 w-5" aria-hidden="true" /></span>
+              </div>
+              <p className="mt-3 text-xs text-[var(--hr-text-light)]">{metric.detail}</p>
+            </article>
+          );
+        })}
+      </section>
 
       {/* Point 5: 12-Column Grid Row 2: Bloco "Por tratar" & Bloco "Colaboradores por departamento" */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">

@@ -14,6 +14,7 @@ import {
   Eye,
   KeyRound,
   CheckCircle2,
+  Download,
 } from 'lucide-react';
 import {
   HrPageHeader,
@@ -39,6 +40,7 @@ function RhFuncionariosContent() {
   const [departments, setDepartments] = useState<any[]>([]);
   const [positions, setPositions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isExporting, setIsExporting] = useState(false);
   const [personnelScope, setPersonnelScope] = useState<'all' | 'collaborators'>('collaborators');
   const [search, setSearch] = useState('');
   const [selectedDept, setSelectedDept] = useState('');
@@ -59,6 +61,14 @@ function RhFuncionariosContent() {
     pass: string;
   } | null>(null);
   const [hasCopied, setHasCopied] = useState(false);
+
+  useEffect(() => {
+    const querySearch = searchParams.get('search') || searchParams.get('busca') || '';
+    if (querySearch && querySearch !== search) {
+      setSearch(querySearch);
+      setPage(1);
+    }
+  }, [searchParams, search]);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -148,6 +158,24 @@ function RhFuncionariosContent() {
       return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      setFormError('Introduza um endereço de e-mail válido.');
+      return;
+    }
+    if (!/^[\p{L}\d-]{8,20}$/u.test(formData.biNumber.trim())) {
+      setFormError('O BI deve conter entre 8 e 20 caracteres alfanuméricos.');
+      return;
+    }
+    if (new Date(`${formData.birthDate}T00:00:00`).getTime() >= new Date().setHours(0, 0, 0, 0)) {
+      setFormError('A data de nascimento deve ser anterior a hoje.');
+      return;
+    }
+    const iban = formData.bankIban.replace(/[ .-]/g, '').toUpperCase();
+    if (iban && !/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
+      setFormError('Verifique o formato do IBAN.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/rh/funcionarios', {
@@ -218,6 +246,57 @@ function RhFuncionariosContent() {
     }
   };
 
+  const exportEmployeesCsv = async () => {
+    setIsExporting(true);
+    try {
+      const query = new URLSearchParams();
+      if (search) query.set('search', search);
+      if (selectedDept) query.set('departmentId', selectedDept);
+      if (selectedStatus) query.set('status', selectedStatus);
+      query.set('limit', '100');
+      query.set('page', '1');
+      const firstResponse = await fetch(`/api/rh/funcionarios?${query}`);
+      const firstData = await firstResponse.json().catch(() => ({}));
+      if (!firstResponse.ok) throw new Error(firstData.error || 'Não foi possível exportar a lista.');
+      const exportRows: any[] = firstData.employees || [];
+      for (let exportPage = 2; exportPage <= (firstData.pagination?.totalPages || 1); exportPage++) {
+        query.set('page', String(exportPage));
+        const response = await fetch(`/api/rh/funcionarios?${query}`);
+        const pageData = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(pageData.error || `Falha ao carregar a página ${exportPage}.`);
+        exportRows.push(...(pageData.employees || []));
+      }
+      if (exportRows.length === 0) {
+        toast.info('Não há colaboradores para exportar com estes filtros.');
+        return;
+      }
+      const escapeCell = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+      const rows = [
+        ['N.º de funcionário', 'Nome', 'Departamento', 'Cargo', 'Estado', 'Data de admissão'],
+        ...exportRows.map((employee) => [
+          employee.employeeNumber,
+          employee.fullName,
+          employee.department?.name,
+          employee.position?.title,
+          employee.status,
+          employee.admissionDate ? new Date(employee.admissionDate).toLocaleDateString('pt-AO') : '',
+        ]),
+      ];
+      const csv = `\uFEFF${rows.map((row) => row.map(escapeCell).join(';')).join('\r\n')}`;
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `colaboradores-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+      toast.success(`${exportRows.length} colaborador(es) exportado(s).`);
+    } catch (error: any) {
+      toast.error(error.message || 'Não foi possível exportar os colaboradores.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const statusBadge = (st: string) => {
     switch (st) {
       case 'ACTIVO':
@@ -248,6 +327,9 @@ function RhFuncionariosContent() {
         ]}
         actions={
           <>
+            <HrButton variant="outline" size="sm" onClick={exportEmployeesCsv} isLoading={isExporting} leftIcon={<Download className="w-4 h-4" />}>
+              Exportar CSV (Excel)
+            </HrButton>
             <HrButton
               variant="outline"
               size="sm"

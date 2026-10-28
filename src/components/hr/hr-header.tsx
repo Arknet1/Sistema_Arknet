@@ -3,10 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Search, LogOut, ChevronRight, User } from 'lucide-react';
+import { Menu, Search, LogOut, ChevronRight, User, Bell, Moon, Sun, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 
 interface HrHeaderProps {
   onOpenMobileMenu?: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
   user?: {
     name?: string;
     email?: string;
@@ -14,8 +16,45 @@ interface HrHeaderProps {
   } | null;
 }
 
-export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
+export function HrHeader({ onOpenMobileMenu, onToggleSidebar, isSidebarCollapsed, user }: HrHeaderProps) {
   const pathname = usePathname();
+  const [notificationsOpen, setNotificationsOpen] = React.useState(false);
+  const [notifications, setNotifications] = React.useState<any[]>([]);
+  const [unreadCount, setUnreadCount] = React.useState(0);
+  const [isDark, setIsDark] = React.useState(false);
+
+  const loadNotifications = React.useCallback(async () => {
+    try {
+      const response = await fetch('/api/rh/notificacoes');
+      if (!response.ok) return;
+      const data = await response.json();
+      setNotifications(data.notifications || []);
+      setUnreadCount(data.unreadCount || 0);
+    } catch {
+      // A falha de notificações não deve bloquear a navegação principal.
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const darkMode = localStorage.getItem('jmatos-rh-theme') === 'dark';
+    document.documentElement.classList.toggle('hr-dark', darkMode);
+    setIsDark(darkMode);
+    loadNotifications();
+  }, [loadNotifications]);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    document.documentElement.classList.toggle('hr-dark', next);
+    localStorage.setItem('jmatos-rh-theme', next ? 'dark' : 'light');
+    setIsDark(next);
+  };
+
+  const markNotificationRead = async (notification: any) => {
+    if (notification.isRead) return;
+    setNotifications((current) => current.map((item) => item.id === notification.id ? { ...item, isRead: true } : item));
+    setUnreadCount((count) => Math.max(0, count - 1));
+    await fetch(`/api/rh/notificacoes/${notification.id}/ler`, { method: 'POST' }).catch(() => undefined);
+  };
 
   const handleLogout = async () => {
     try {
@@ -80,6 +119,11 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
               <Menu className="w-5 h-5 text-[var(--hr-text-muted)]" />
             </button>
           )}
+          {onToggleSidebar && (
+            <button type="button" onClick={onToggleSidebar} className="hidden lg:flex h-10 w-10 items-center justify-center rounded-lg text-[var(--hr-text-muted)] hover:bg-[var(--hr-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hr-primary)]" aria-label={isSidebarCollapsed ? 'Expandir menu lateral' : 'Recolher menu lateral'} title={isSidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}>
+              {isSidebarCollapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
+            </button>
+          )}
 
           <div className="flex items-center gap-2 overflow-hidden">
             <span className="text-[15px] font-bold text-[var(--hr-text)] tracking-tight whitespace-nowrap">
@@ -126,7 +170,7 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   const q = (e.target as HTMLInputElement).value.trim();
-                  if (q) window.location.href = `/rh/funcionarios?busca=${encodeURIComponent(q)}`;
+                  if (q) window.location.href = `/rh/funcionarios?search=${encodeURIComponent(q)}`;
                 }
               }}
             />
@@ -137,7 +181,22 @@ export function HrHeader({ onOpenMobileMenu, user }: HrHeaderProps) {
         </div>
 
         {/* Right: User Menu with Name, Role & Sair */}
-        <div className="flex items-center gap-3.5 flex-shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <button type="button" onClick={toggleTheme} title={isDark ? 'Activar modo claro' : 'Activar modo escuro'} aria-label={isDark ? 'Activar modo claro' : 'Activar modo escuro'} className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--hr-text-muted)] hover:bg-[var(--hr-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hr-primary)]">
+            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+          <div className="relative">
+            <button type="button" onClick={() => { setNotificationsOpen((open) => !open); if (!notificationsOpen) loadNotifications(); }} aria-label={`Notificações${unreadCount ? `, ${unreadCount} por ler` : ''}`} aria-expanded={notificationsOpen} className="relative flex h-10 w-10 items-center justify-center rounded-lg text-[var(--hr-text-muted)] hover:bg-[var(--hr-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hr-primary)]">
+              <Bell className="h-5 w-5" />
+              {unreadCount > 0 && <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--hr-status-error)] px-1 text-[10px] font-bold text-white">{unreadCount > 9 ? '9+' : unreadCount}</span>}
+            </button>
+            {notificationsOpen && <section aria-label="Notificações" className="absolute right-0 top-12 z-50 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-[var(--hr-border)] bg-[var(--hr-surface)] shadow-[var(--hr-shadow-lg)]">
+              <div className="flex items-center justify-between border-b border-[var(--hr-border-subtle)] px-4 py-3"><h2 className="font-semibold text-[var(--hr-text)]">Notificações</h2><span className="text-xs text-[var(--hr-text-muted)]">{unreadCount} por ler</span></div>
+              <div className="max-h-80 overflow-y-auto">
+                {notifications.length === 0 ? <p className="px-4 py-8 text-center text-sm text-[var(--hr-text-muted)]">Não tem notificações.</p> : notifications.slice(0, 8).map((notification) => <Link key={notification.id} href={notification.link || '/rh'} onClick={() => markNotificationRead(notification)} className={`block border-b border-[var(--hr-border-subtle)] px-4 py-3 hover:bg-[var(--hr-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--hr-primary)] ${notification.isRead ? '' : 'bg-[var(--hr-primary-soft)]/40'}`}><span className="block text-sm font-semibold text-[var(--hr-text)]">{notification.title}</span><span className="mt-1 block text-xs leading-relaxed text-[var(--hr-text-muted)]">{notification.message}</span><time className="mt-1 block text-[11px] text-[var(--hr-text-light)]" dateTime={notification.createdAt}>{new Date(notification.createdAt).toLocaleString('pt-AO')}</time></Link>)}
+              </div>
+            </section>}
+          </div>
           <Link
             href="/portal?tab=perfil"
             aria-label="Abrir meu perfil"

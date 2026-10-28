@@ -10,6 +10,7 @@ export default function RhPainelLayout({
   children: React.ReactNode;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [user, setUser] = useState<{
     id: string;
     name?: string;
@@ -18,6 +19,10 @@ export default function RhPainelLayout({
   } | null>(null);
 
   useEffect(() => {
+    setIsSidebarCollapsed(localStorage.getItem('jmatos-rh-sidebar-collapsed') === 'true');
+    if (localStorage.getItem('jmatos-rh-theme') === 'dark') {
+      document.documentElement.classList.add('hr-dark');
+    }
     fetch('/api/auth/session')
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -37,6 +42,7 @@ export default function RhPainelLayout({
         userEmail={user?.email || 'rh@jmatos.co.ao'}
         isOpenMobile={isMobileMenuOpen}
         onCloseMobile={() => setIsMobileMenuOpen(false)}
+        isCollapsed={isSidebarCollapsed}
       />
 
       {/* Main Content Area */}
@@ -44,6 +50,12 @@ export default function RhPainelLayout({
         {/* Top Header Bar (Breadcrumbs, Search, User, 2px orange line) */}
         <HrHeader
           onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+          onToggleSidebar={() => setIsSidebarCollapsed((collapsed) => {
+            const next = !collapsed;
+            localStorage.setItem('jmatos-rh-sidebar-collapsed', String(next));
+            return next;
+          })}
+          isSidebarCollapsed={isSidebarCollapsed}
           user={user}
         />
 

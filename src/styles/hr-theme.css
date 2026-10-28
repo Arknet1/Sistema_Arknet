@@ -78,6 +78,38 @@ body.hr-root {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.hr-dark .hr-root {
+  color-scheme: dark;
+  --hr-primary: #67B7F3;
+  --hr-primary-hover: #8AC8F6;
+  --hr-primary-soft: #163750;
+  --hr-brand-orange: #F4A62A;
+  --hr-bg: #101820;
+  --hr-surface: #17232D;
+  --hr-surface-muted: #1D2B36;
+  --hr-border: #344553;
+  --hr-border-subtle: #293945;
+  --hr-border-focus: #67B7F3;
+  --hr-text: #F0F5F8;
+  --hr-text-muted: #C3D0D9;
+  --hr-text-light: #9AABB8;
+  --hr-status-success: #4ADE80;
+  --hr-status-success-bg: #143427;
+  --hr-status-warning: #FBBF24;
+  --hr-status-warning-bg: #3A2C12;
+  --hr-status-error: #F87171;
+  --hr-status-error-bg: #3B2023;
+  --hr-status-neutral: #CBD5E1;
+  --hr-status-neutral-bg: #25323C;
+  --hr-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --hr-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --hr-shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.38);
+}
+
+html.hr-dark body.hr-root {
+  color-scheme: dark;
+}
+
 .hr-root *,
 .hr-root *::before,
 .hr-root *::after {
