@@ -13,9 +13,22 @@ export async function POST(
     }
 
     const { id } = await params
+    const notification = await prisma.hrNotification.findFirst({
+      where: {
+        id,
+        OR: [
+          { recipientUserId: session.id },
+          ...(session.role === 'ADMINISTRADOR' || session.role === 'admin' || session.role === 'TECNICO_RH'
+            ? [{ recipientUserId: null }]
+            : []),
+        ],
+      },
+      select: { id: true },
+    })
+    if (!notification) return NextResponse.json({ error: 'Notificação não encontrada.' }, { status: 404 })
 
     await prisma.hrNotification.update({
-      where: { id },
+      where: { id: notification.id },
       data: { isRead: true },
     })
 

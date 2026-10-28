@@ -123,11 +123,34 @@ export async function POST(request: NextRequest) {
     const bankName = body.bankName ? String(body.bankName).trim() : null
     const bankIban = body.bankIban ? String(body.bankIban).trim().toUpperCase() : null
     const bankAccountNumber = body.bankAccountNumber ? String(body.bankAccountNumber).trim() : null
+    const initialSalaryValue = body.initialSalary === undefined || body.initialSalary === null || body.initialSalary === ''
+      ? null
+      : Number(body.initialSalary)
+    const normalizedIban = bankIban?.replace(/[ .-]/g, '') || null
 
     if (!fullName || !biNumber || !email || !birthDate || !departmentId || !positionId) {
       return NextResponse.json({
         error: 'Preencha os campos obrigatórios: Nome Completo, BI, E-mail, Data de Nascimento, Departamento e Cargo.',
       }, { status: 400 })
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Introduza um endereço de e-mail válido.' }, { status: 400 })
+    }
+    if (!/^[\p{L}\d-]{8,20}$/u.test(biNumber)) {
+      return NextResponse.json({ error: 'O BI deve conter entre 8 e 20 caracteres alfanuméricos.' }, { status: 400 })
+    }
+    if (Number.isNaN(birthDate.getTime()) || birthDate >= new Date()) {
+      return NextResponse.json({ error: 'A data de nascimento deve ser uma data válida anterior a hoje.' }, { status: 400 })
+    }
+    if (Number.isNaN(admissionDate.getTime())) {
+      return NextResponse.json({ error: 'A data de admissão não é válida.' }, { status: 400 })
+    }
+    if (initialSalaryValue !== null && (!Number.isFinite(initialSalaryValue) || initialSalaryValue < 0)) {
+      return NextResponse.json({ error: 'O salário inicial deve ser um valor numérico igual ou superior a zero.' }, { status: 400 })
+    }
+    if (normalizedIban && !/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(normalizedIban)) {
+      return NextResponse.json({ error: 'O IBAN introduzido não tem um formato válido.' }, { status: 400 })
     }
 
     // REGRA 8: BI único
@@ -200,7 +223,7 @@ export async function POST(request: NextRequest) {
       })
 
       // Registar histórico inicial de carreira
-      const initialSalary = body.initialSalary ? new Prisma.Decimal(body.initialSalary) : new Prisma.Decimal(0)
+      const initialSalary = initialSalaryValue !== null ? new Prisma.Decimal(initialSalaryValue) : new Prisma.Decimal(0)
       await tx.hrCareerHistory.create({
         data: {
           employeeId: employee.id,

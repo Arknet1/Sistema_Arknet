@@ -13,15 +13,18 @@ let _authSecretWarned = false
 function getSessionSecret() {
   const secret = process.env.AUTH_SECRET
   if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('AUTH_SECRET é obrigatório em produção. Configure um segredo aleatório antes de iniciar a aplicação.')
+    }
     if (!_authSecretWarned) {
       _authSecretWarned = true
       console.warn(
         '\n[AVISO] [ARKNET SEGURANCA] AUTH_SECRET não está definido nas variáveis de ambiente!\n' +
-        '   A usar chave de fallback. Isto NÃO é seguro em produção.\n' +
+        '   A usar uma chave de desenvolvimento. Defina AUTH_SECRET para sessões persistentes.\n' +
         '   Gere uma chave: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"\n'
       )
     }
-    return 'arknet-telecom-secure-auth-secret-key-2026-production-ao'
+    return 'arknet-local-development-only-session-secret'
   }
   return secret
 }

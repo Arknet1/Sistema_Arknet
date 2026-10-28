@@ -162,9 +162,30 @@ export async function processPayrollPeriod(periodCode: string, actor: HrUserCont
     throw new Error(`Período de ponto ${periodCode} não encontrado. É necessário fechar ou validar o ponto primeiro.`)
   }
 
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(periodCode)) {
+    throw new Error('O período salarial deve usar o formato AAAA-MM com um mês entre 01 e 12.')
+  }
   const [year, month] = periodCode.split('-').map(Number)
 
   return await prisma.$transaction(async (tx) => {
+    const existingPayroll = await (tx as any).hrPayrollPeriod.findUnique({
+      where: { code: periodCode },
+    })
+
+    // Recibos já processados são registos financeiros. Não os apagar ou substituir
+    // implicitamente; uma correcção precisa de um fluxo explícito e auditável.
+    if (existingPayroll && existingPayroll.status !== 'RASCUNHO') {
+      throw new Error(
+        `A folha ${periodCode} já existe no estado "${existingPayroll.status}". Não é seguro reprocessar ou substituir recibos existentes.`
+      )
+    }
+    if (existingPayroll) {
+      const existingPayslips = await (tx as any).hrPayslip.count({ where: { payrollPeriodId: existingPayroll.id } })
+      if (existingPayslips > 0) {
+        throw new Error(`A folha ${periodCode} já contém recibos. Reprocessamento automático bloqueado para preservar o histórico.`)
+      }
+    }
+
     // 2. Criar ou actualizar o cabeçalho do período de salários
     const payrollPeriod = await (tx as any).hrPayrollPeriod.upsert({
       where: { code: periodCode },
@@ -184,11 +205,6 @@ export async function processPayrollPeriod(periodCode: string, actor: HrUserCont
         processedById: actor.id,
         processedByName: actor.name || actor.email,
       },
-    })
-
-    // Eliminar recibos de processamento anterior caso estivesse em rascunho
-    await (tx as any).hrPayslip.deleteMany({
-      where: { payrollPeriodId: payrollPeriod.id },
     })
 
     let totalGross = 0
@@ -465,6 +481,9 @@ export async function approvePayrollPeriod(periodCode: string, actor: HrUserCont
   if (!payroll) {
     throw new Error(`Processamento salarial do período ${periodCode} não encontrado.`)
   }
+  if (payroll.status !== 'PROCESSADO') {
+    throw new Error(`Só é possível aprovar uma folha no estado PROCESSADO. Estado actual: "${payroll.status}".`)
+  }
 
   return await prisma.$transaction(async (tx) => {
     // 1. Actualizar estado da folha salarial
@@ -520,6 +539,9 @@ export async function markPayrollPaid(periodCode: string, actor: HrUserContext, 
   })
 
   if (!payroll) throw new Error(`Período ${periodCode} não encontrado.`)
+  if (payroll.status !== 'APROVADO') {
+    throw new Error(`Só é possível marcar como paga uma folha aprovada. Estado actual: "${payroll.status}".`)
+  }
 
   const payDate = paymentDate || new Date()
 

@@ -95,8 +95,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Exceção de webhook agendado protegido por CRON_SECRET
-  const isCronWebhook = pathname === '/api/rh/cron/alertas'
+  // Endpoints cron validam CRON_SECRET localmente; não usam uma sessão de RH interactiva.
+  const isCronWebhook = pathname.startsWith('/api/rh/cron/')
 
   if (isHrApi && !isCronWebhook) {
     const authHeader = request.headers.get('authorization')

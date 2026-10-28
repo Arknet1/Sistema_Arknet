@@ -1,20 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { runCheckInReminderTask } from '@/lib/hr/services/cron-service'
+import { isAuthorizedCronRequest } from '@/lib/hr/cron-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    // Validação estrita de CRON_SECRET no servidor
-    const expectedSecret = process.env.CRON_SECRET || 'arknet-cron-secret-key-super-secure-2026-ao'
-    const authHeader = request.headers.get('authorization')
-    const headerToken = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : null
-    const customHeaderToken = request.headers.get('x-cron-secret')
-
-    const providedSecret = headerToken || customHeaderToken
-
-    if (!providedSecret || providedSecret !== expectedSecret) {
+    if (!isAuthorizedCronRequest(request)) {
       return NextResponse.json(
-        { error: 'Acesso não autorizado. CRON_SECRET inválido ou não fornecido.' },
-        { status: 401 }
+        { error: process.env.CRON_SECRET ? 'Acesso não autorizado.' : 'CRON_SECRET não está configurado.' },
+        { status: process.env.CRON_SECRET ? 401 : 503 }
       )
     }
 
