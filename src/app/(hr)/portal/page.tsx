@@ -572,7 +572,7 @@ export default function PortalColaboradorPage() {
       <HrAppBar
         title="Portal do Colaborador"
         showLogo
-        logoHref={canManageHr ? '/rh' : '/'}
+        logoHref="/rh"
         userName={employee?.fullName || user?.name || user?.email?.split('@')[0]}
         onLogout={handleLogout}
       />
@@ -634,7 +634,7 @@ export default function PortalColaboradorPage() {
                     <p className="mt-2 max-w-2xl text-sm leading-6 text-sky-100 sm:text-base">{isAdminProfile ? 'Este é o seu acesso de administrador principal. A gestão de colaboradores, técnicos de RH e restantes configurações é feita no painel de gestão.' : isTechnicianProfile ? 'Este é o seu acesso de Técnico de Recursos Humanos. Pode gerir os colaboradores no painel RH; os serviços pessoais do portal ficam disponíveis quando a sua própria ficha estiver associada.' : 'A sua conta já está criada, mas ainda não foi associada a uma ficha de colaborador da J.Matos. Quando o RH concluir essa associação, os seus dados profissionais e serviços ficarão disponíveis aqui.'}</p>
                   </div>
                 </div>
-                <a href={canManageHr ? '/rh' : '/'} className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">{canManageHr ? 'Abrir área principal do RH' : 'Ir para a página principal'} <span aria-hidden="true">↗</span></a>
+                {canManageHr && <a href="/rh" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Abrir área principal do RH <span aria-hidden="true">↗</span></a>}
               </div>
               <div className="mt-7 grid grid-cols-1 gap-3 border-t border-white/15 pt-5 sm:grid-cols-3">
                 <div className="flex items-center gap-3 rounded-xl bg-white/[0.07] p-3.5"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-300/15 text-emerald-200"><CheckCircle2 className="h-5 w-5" /></span><span><span className="block text-xs text-sky-100/75">Conta de acesso</span><span className="mt-0.5 block text-sm font-semibold">{user?.status === 'active' ? 'Activa' : user?.status || 'Autenticada'}</span></span></div>
