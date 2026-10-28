@@ -504,6 +504,16 @@ export default function PortalColaboradorPage() {
     { id: 'seguranca', label: 'Segurança', icon: <Lock className="w-5 h-5" /> },
   ];
 
+  const portalNavItems = employee
+    ? navItems
+    : navItems.filter((item) => item.id === 'perfil' || item.id === 'seguranca');
+
+  useEffect(() => {
+    if (!isLoading && !employee && activeTab !== 'perfil' && activeTab !== 'seguranca') {
+      setActiveTab('perfil');
+    }
+  }, [activeTab, employee, isLoading]);
+
   const profileName = employee?.fullName || user?.name || 'Utilizador ARKNET';
   const profileRole = user?.role?.toUpperCase();
   const profileRoleLabel = profileRole === 'ADMINISTRADOR' || profileRole === 'ADMIN'
@@ -540,13 +550,13 @@ export default function PortalColaboradorPage() {
       <HrAppBar
         title="Portal do Colaborador"
         showLogo
-        logoHref="/portal"
+        logoHref="/"
         userName={employee?.fullName || user?.name || user?.email?.split('@')[0]}
         onLogout={handleLogout}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
+      <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
         {/* First Access Warning Banner */}
         {user?.mustChangePassword && (
           <div className="mb-5 p-4 bg-[var(--hr-status-warning-bg)] border border-[var(--hr-border)] border-l-4 border-l-[var(--hr-status-warning)] rounded-[var(--hr-radius)] flex items-start justify-between gap-3 shadow-[var(--hr-shadow-sm)]">
@@ -569,7 +579,7 @@ export default function PortalColaboradorPage() {
 
         {/* Desktop Tabs Header */}
         <div className="hidden md:block mb-6">
-          <HrTabs tabs={navItems} activeTab={activeTab} onChange={setActiveTab} />
+          <HrTabs tabs={portalNavItems} activeTab={activeTab} onChange={setActiveTab} />
         </div>
 
         {isLoading ? (
@@ -578,14 +588,52 @@ export default function PortalColaboradorPage() {
             <HrSkeleton className="h-60 w-full" />
           </div>
         ) : !employee ? (
-          <div className="p-8 text-center bg-[var(--hr-surface)] border border-[var(--hr-border)] rounded-[var(--hr-radius)] shadow-[var(--hr-shadow-sm)]">
-            <Shield className="w-8 h-8 text-[var(--hr-text-muted)] mx-auto mb-2" />
-            <h3 className="text-base font-bold text-[var(--hr-text)]">
-              Ficha de Colaborador Não Vinculada
-            </h3>
-            <p className="text-xs text-[var(--hr-text-muted)] mt-1 max-w-md mx-auto">
-              A sua conta de utilizador ainda não tem uma ficha cadastral de colaborador ligada no sistema de RH da J.Matos.
-            </p>
+          <div className="space-y-5 sm:space-y-6">
+            <section className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#0C3152] via-[#124B75] to-[#0868B0] p-6 text-white shadow-[var(--hr-shadow-lg)] sm:p-9">
+              <div className="pointer-events-none absolute -right-12 -top-24 -z-10 h-72 w-72 rounded-full border-[42px] border-white/[0.05]" />
+              <div className="pointer-events-none absolute -bottom-24 right-1/3 -z-10 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl" />
+              <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex min-w-0 items-start gap-4 sm:items-center sm:gap-5">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-xl font-bold text-white sm:h-20 sm:w-20 sm:text-2xl" aria-hidden="true">{profileInitials || <User className="h-8 w-8" />}</div>
+                  <div className="min-w-0">
+                    <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-amber-200/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100"><AlertCircle className="h-3.5 w-3.5" /> Perfil por activar</span>
+                    <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Olá, {profileName}</h2>
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-sky-100 sm:text-base">A sua conta já está criada, mas ainda não foi associada a uma ficha de colaborador da J.Matos. Quando o RH concluir essa associação, os seus dados profissionais e serviços ficarão disponíveis aqui.</p>
+                  </div>
+                </div>
+                <a href="/" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Ir para a página principal <span aria-hidden="true">↗</span></a>
+              </div>
+              <div className="mt-7 grid grid-cols-1 gap-3 border-t border-white/15 pt-5 sm:grid-cols-3">
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.07] p-3.5"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-300/15 text-emerald-200"><CheckCircle2 className="h-5 w-5" /></span><span><span className="block text-xs text-sky-100/75">Conta de acesso</span><span className="mt-0.5 block text-sm font-semibold">{user?.status === 'active' ? 'Activa' : user?.status || 'Autenticada'}</span></span></div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.07] p-3.5"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-300/15 text-amber-100"><Shield className="h-5 w-5" /></span><span><span className="block text-xs text-sky-100/75">Ficha profissional</span><span className="mt-0.5 block text-sm font-semibold">Pendente de associação</span></span></div>
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.07] p-3.5"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-300/15 text-sky-100"><Mail className="h-5 w-5" /></span><span className="min-w-0"><span className="block text-xs text-sky-100/75">Conta utilizada</span><span className="mt-0.5 block truncate text-sm font-semibold">{user?.email || 'E-mail não disponível'}</span></span></div>
+              </div>
+            </section>
+
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,.8fr)]">
+              <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-7">
+                <div className="mb-5 flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hr-primary-soft)] text-[var(--hr-primary)]"><Building2 className="h-5 w-5" /></span><div><h3 className="text-base font-bold text-[var(--hr-text)]">O que precisa de acontecer?</h3><p className="mt-1 text-sm text-[var(--hr-text-light)]">A associação é feita pela equipa de Recursos Humanos.</p></div></div>
+                <ol className="space-y-4">
+                  {[
+                    ['01', 'Contacte os Recursos Humanos', 'Peça a associação desta conta à sua ficha de colaborador.'],
+                    ['02', 'Confirme o e-mail da conta', user?.email ? `Indique que entrou no portal com ${user.email}.` : 'Confirme qual o e-mail utilizado para entrar no portal.'],
+                    ['03', 'Volte ao portal após a confirmação', 'Depois da associação, termine a sessão e entre novamente para carregar o seu perfil.'],
+                  ].map(([number, title, description]) => <li key={number} className="flex gap-3.5"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hr-surface-muted)] text-xs font-bold text-[var(--hr-primary)]">{number}</span><span className="pt-0.5"><span className="block text-sm font-semibold text-[var(--hr-text)]">{title}</span><span className="mt-1 block text-sm leading-5 text-[var(--hr-text-light)]">{description}</span></span></li>)}
+                </ol>
+              </section>
+
+              <aside className="space-y-4">
+                <section className="rounded-2xl border border-[var(--hr-border)] bg-[var(--hr-surface)] p-5 shadow-[var(--hr-shadow-sm)] sm:p-6">
+                  <div className="mb-4 flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700"><User className="h-5 w-5" /></span><div><h3 className="text-sm font-bold text-[var(--hr-text)]">Dados da conta</h3><p className="text-xs text-[var(--hr-text-light)]">Identificação usada neste acesso</p></div></div>
+                  <dl className="space-y-3 border-t border-[var(--hr-border-subtle)] pt-4">
+                    <div><dt className="text-xs text-[var(--hr-text-light)]">Nome</dt><dd className="mt-0.5 break-words text-sm font-semibold text-[var(--hr-text)]">{profileName}</dd></div>
+                    <div><dt className="text-xs text-[var(--hr-text-light)]">E-mail de acesso</dt><dd className="mt-0.5 break-all text-sm font-semibold text-[var(--hr-text)]">{user?.email || '—'}</dd></div>
+                    <div><dt className="text-xs text-[var(--hr-text-light)]">Tipo de conta</dt><dd className="mt-0.5 text-sm font-semibold text-[var(--hr-text)]">{profileRoleLabel}</dd></div>
+                  </dl>
+                </section>
+                <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm leading-5 text-sky-950"><ShieldCheck className="mb-2 h-5 w-5 text-sky-700" /><p className="font-semibold">Os seus dados estão protegidos</p><p className="mt-1 text-xs leading-5 text-sky-900">Por segurança, só os Recursos Humanos podem associar uma conta à respectiva ficha profissional.</p></div>
+              </aside>
+            </div>
           </div>
         ) : (
           <div className="space-y-5">
@@ -1777,7 +1825,7 @@ export default function PortalColaboradorPage() {
 
       {/* Mobile Bottom Navigation Bar */}
       <HrBottomNav
-        items={navItems}
+        items={portalNavItems}
         activeId={activeTab}
         onChange={setActiveTab}
       />
