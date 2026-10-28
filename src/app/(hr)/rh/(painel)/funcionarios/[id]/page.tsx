@@ -21,7 +21,9 @@ import {
   Mail,
   Phone,
   ShieldCheck,
+  ArrowLeft,
 } from 'lucide-react';
+import Link from 'next/link';
 import {
   HrPageHeader,
   HrButton,
@@ -276,6 +278,10 @@ export default function RhFuncionarioDetalhePage() {
 
   return (
     <div className="mx-auto max-w-[1440px] space-y-6 pb-8">
+      <Link href="/rh" className="inline-flex min-h-10 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[var(--hr-primary)] transition-colors hover:bg-[var(--hr-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hr-primary)]">
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        Voltar ao painel principal
+      </Link>
       <HrPageHeader
         title="Ficha do colaborador"
         subtitle="Dados pessoais, vínculo profissional e actividade na empresa"
