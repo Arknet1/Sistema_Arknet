@@ -44,7 +44,6 @@ export async function GET(request: NextRequest) {
       try {
         account = await prisma.adminUser.findUnique({
           where: { id: session.userId },
-          include: { hrEmployee: true },
         })
       } catch {}
       if (!account) {
@@ -53,11 +52,6 @@ export async function GET(request: NextRequest) {
     }
 
     if (!account || account.status !== 'active') return NextResponse.json({ authenticated: false })
-
-    // Se colaborador desligado, sessão é invalidada
-    if (account.hrEmployee && account.hrEmployee.status === 'DESLIGADO') {
-      return NextResponse.json({ authenticated: false, message: 'Colaborador desligado.' })
-    }
 
     return NextResponse.json({
       authenticated: true,
@@ -183,16 +177,15 @@ export async function POST(request: NextRequest) {
     }
     const accounts = kind === 'admin' ? db.users || [] : db.customers || []
     let account = accounts.find((item: any) => item.email?.toLowerCase() === email)
-    let prismaAdminWithHr: any = null
+    let prismaAdmin: any = null
 
     try {
       if (kind === 'admin') {
-        prismaAdminWithHr = await prisma.adminUser.findUnique({
+        prismaAdmin = await prisma.adminUser.findUnique({
           where: { email },
-          include: { hrEmployee: true },
         })
-        if (prismaAdminWithHr) {
-          account = prismaAdminWithHr as any
+        if (prismaAdmin) {
+          account = prismaAdmin as any
         }
       } else {
         account = (await prisma.customer.findUnique({ where: { email } })) as any
@@ -204,14 +197,6 @@ export async function POST(request: NextRequest) {
       next.count += 1
       attempts.set(key, next)
       return NextResponse.json({ success: false, message: 'Email ou palavra-passe inválidos.' }, { status: 401 })
-    }
-
-    // REGRA 4: Funcionário DESLIGADO => login estritamente bloqueado
-    if (account.hrEmployee && account.hrEmployee.status === 'DESLIGADO') {
-      return NextResponse.json({
-        success: false,
-        message: 'Acesso bloqueado. Este colaborador encontra-se desligado da instituição.',
-      }, { status: 403 })
     }
 
     attempts.delete(key)

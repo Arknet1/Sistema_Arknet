@@ -1,8 +1,8 @@
 {
-  "name": "J.Matos RH · Recursos Humanos",
-  "short_name": "J.Matos RH",
-  "description": "Recursos Humanos e Portal do Colaborador da J.Matos Tecnologia",
-  "start_url": "/portal",
+  "name": "ARKNET · J.Matos Tecnologia",
+  "short_name": "ARKNET",
+  "description": "ARKNET - J.Matos Tecnologia",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

@@ -142,13 +142,7 @@ function UnifiedLoginForm() {
   const recHasNumber = /[0-9]/.test(recoveryNewPassword)
   const recHasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(recoveryNewPassword)
   const recPasswordsMatch = recoveryNewPassword.length > 0 && recoveryNewPassword === recoveryConfirmPassword
-  const adminRole = adminUser?.role?.toUpperCase()
-  const adminDestination =
-    adminRole === 'ADMINISTRADOR' || adminRole === 'TECNICO_RH'
-      ? '/rh'
-      : adminRole === 'FUNCIONARIO'
-        ? '/portal'
-        : '/admin'
+  const adminDestination = '/admin'
 
   const getRecoveryStrength = () => {
     let score = 0
@@ -176,15 +170,7 @@ function UnifiedLoginForm() {
       if (isAdminAccount) {
         const adminRes = await adminLogin(cleanEmail, loginPassword)
         if (adminRes.success) {
-          const role = adminRes.user?.role?.toUpperCase()
-          const destination =
-            role === 'ADMINISTRADOR' || role === 'TECNICO_RH'
-              ? redirectUrl?.startsWith('/rh')
-                ? redirectUrl
-                : '/rh'
-              : role === 'FUNCIONARIO'
-                ? '/portal'
-                : redirectUrl || '/admin'
+          const destination = redirectUrl?.startsWith('/admin') ? redirectUrl : '/admin'
 
           setTimeout(() => {
             router.push(destination)
@@ -528,11 +514,7 @@ function UnifiedLoginForm() {
                   href={adminDestination}
                   className="px-3 py-1.5 bg-primary text-white font-bold text-[11px] uppercase rounded hover:bg-primary/90 transition"
                 >
-                  {adminRole === 'ADMINISTRADOR' || adminRole === 'TECNICO_RH'
-                    ? 'Área de Recursos Humanos'
-                    : adminRole === 'FUNCIONARIO'
-                      ? 'Portal do Colaborador'
-                      : 'Painel de Administração'}
+                  Painel de Administração
                 </Link>
                 <button
                   type="button"
