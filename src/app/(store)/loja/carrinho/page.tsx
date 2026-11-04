@@ -148,29 +148,32 @@ export default function CarrinhoPage() {
                   </div>
 
                   {/* Quantity Controls */}
-                  <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
-                    <div className="flex items-center gap-2 border border-slate-200 bg-slate-50 p-1">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
+                    <div className="flex items-center gap-1 border border-slate-200 bg-slate-50 p-0.5">
                       <button
                         onClick={() => updateQuantity(itemKey, item.quantity - 1)}
-                        className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
                         title="Diminuir"
+                        aria-label="Diminuir quantidade"
                       >
-                        <Minus className="h-3 w-3" />
+                        <Minus className="h-3.5 w-3.5" />
                       </button>
                       <span className="w-8 text-center text-xs font-bold font-mono">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(itemKey, item.quantity + 1)}
-                        className="h-7 w-7 flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-white border border-slate-200 hover:border-slate-400 transition text-slate-700 cursor-pointer"
                         title="Aumentar"
+                        aria-label="Aumentar quantidade"
                       >
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-3.5 w-3.5" />
                       </button>
                     </div>
 
                     <button
                       onClick={() => removeItem(itemKey)}
-                      className="text-slate-400 hover:text-rose-600 transition p-2 cursor-pointer"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-400 hover:text-rose-600 transition p-2 cursor-pointer"
                       title="Remover produto"
+                      aria-label="Remover produto do carrinho"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

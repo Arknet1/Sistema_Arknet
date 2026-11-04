@@ -123,15 +123,15 @@ export default function LojaHeader() {
       {/* ===================================================================== */}
       {/* LINHA 1: HEADER PRINCIPAL (Estilo Idêntico NCR Angola)                 */}
       {/* ===================================================================== */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-4 sm:gap-8">
+      <div className="max-w-7xl mx-auto px-2 min-[380px]:px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-1 sm:gap-6">
         
         {/* Esquerda: Menu Hambúrguer Mobile + Logótipo J.Matos */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={() => setMobileDrawerOpen(true)}
-            className="lg:hidden p-2 -ml-2 text-slate-700 hover:text-primary transition rounded-lg"
-            aria-label="Abrir menu"
+            className="lg:hidden min-w-[40px] sm:min-w-[44px] min-h-[44px] flex items-center justify-center p-1.5 sm:p-2 text-slate-700 hover:text-primary transition rounded-lg"
+            aria-label="Abrir menu da loja"
           >
             <Menu className="h-6 w-6" />
           </button>
@@ -141,12 +141,12 @@ export default function LojaHeader() {
             className="inline-flex items-center focus:outline-none"
             aria-label="Loja J.Matos Tecnologia"
           >
-            <div className="relative h-10 sm:h-12 w-36 sm:w-44">
+            <div className="relative h-8 sm:h-12 w-20 min-[380px]:w-28 sm:w-44">
               <Image
                 src={JMATOS_CONFIG.logo}
                 alt={`${JMATOS_CONFIG.nome}`}
                 fill
-                sizes="(max-width: 640px) 144px, 176px"
+                sizes="(max-width: 640px) 112px, 176px"
                 priority
                 className="object-contain object-left"
               />
@@ -155,7 +155,7 @@ export default function LojaHeader() {
         </div>
 
         {/* Centro: Barra de Pesquisa Minimalista (idêntica à NCR "O que procuras?") */}
-        <div className="hidden md:flex flex-1 max-w-xl lg:max-w-2xl items-center justify-center">
+        <div className="hidden md:flex flex-1 max-w-md lg:max-w-2xl items-center justify-center px-2">
           <form
             onSubmit={handleSearchSubmit}
             className="w-full flex items-center relative bg-[#f3f5f8] rounded-lg border border-slate-200/50 hover:border-slate-300 transition-colors h-11"
@@ -174,6 +174,7 @@ export default function LojaHeader() {
                 onClick={handleClearSearch}
                 className="absolute right-10 p-1 text-slate-400 hover:text-slate-600"
                 title="Limpar pesquisa"
+                aria-label="Limpar pesquisa"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -182,6 +183,7 @@ export default function LojaHeader() {
               type="submit"
               className="absolute right-3 p-1 text-slate-400 hover:text-slate-700 transition"
               title="Pesquisar"
+              aria-label="Executar pesquisa"
             >
               <Search className="h-4 w-4" />
             </button>
@@ -189,14 +191,14 @@ export default function LojaHeader() {
         </div>
 
         {/* Direita: Ações Rápidas (Portal ARKNET, Apoio, Entrar, Favoritos, Carrinho) */}
-        <div className="flex items-center gap-4 sm:gap-6 shrink-0 text-slate-700">
+        <div className="flex items-center gap-0 min-[360px]:gap-0.5 sm:gap-2 lg:gap-4 shrink-0 text-slate-700">
           
           {/* Botão de Pesquisa (Apenas Mobile < 768px) */}
           <button
             type="button"
             onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-            className="md:hidden p-2 text-slate-700 hover:text-primary transition"
-            aria-label="Pesquisar"
+            className="md:hidden min-w-[38px] sm:min-w-[44px] min-h-[44px] flex items-center justify-center p-1.5 sm:p-2 text-slate-700 hover:text-primary transition"
+            aria-label="Pesquisar produtos"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -204,7 +206,7 @@ export default function LojaHeader() {
           {/* Atalho Portal ARKNET */}
           <Link
             href="/"
-            className="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-primary transition"
+            className="hidden xl:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-primary transition py-2 px-1"
             title="Voltar ao portal ARKNET"
           >
             <ArrowLeft className="h-4 w-4 text-slate-400" />
@@ -216,7 +218,7 @@ export default function LojaHeader() {
             href="https://wa.me/244935208449?text=Loja%20J.Matos%20Tecnologia:%20Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20equipamentos"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-emerald-600 transition"
+            className="hidden lg:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-emerald-600 transition py-2 px-1"
             title="Apoio comercial WhatsApp"
           >
             <FaWhatsapp className="h-4 w-4 text-emerald-600" />
@@ -228,13 +230,15 @@ export default function LojaHeader() {
             <button
               type="button"
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-primary transition p-1"
+              className="min-w-[38px] sm:min-w-[44px] min-h-[44px] inline-flex items-center justify-center gap-1 text-xs font-semibold text-slate-700 hover:text-primary transition px-1.5 sm:px-2 py-1"
+              aria-label={customer ? `Menu de utilizador: ${customer.name}` : 'Iniciar sessão'}
+              aria-expanded={userDropdownOpen}
             >
               <User className="h-5 w-5 stroke-[1.8] text-slate-700" />
               <span className="hidden sm:inline">
                 {customer ? customer.name.split(' ')[0] : 'Entrar'}
               </span>
-              <ChevronDown className="h-3 w-3 text-slate-400" />
+              <ChevronDown className="h-3 w-3 text-slate-400 hidden sm:inline" />
             </button>
 
             {userDropdownOpen && (
@@ -283,7 +287,7 @@ export default function LojaHeader() {
                     <Link
                       href="/login"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="w-full flex items-center justify-center py-2 rounded-lg bg-primary text-white text-xs font-bold shadow-2xs hover:bg-primary/90 transition"
+                      className="w-full min-h-[44px] flex items-center justify-center py-2.5 rounded-lg bg-primary text-white text-xs font-bold shadow-2xs hover:bg-primary/90 transition"
                     >
                       Iniciar Sessão
                     </Link>
@@ -306,12 +310,13 @@ export default function LojaHeader() {
           {/* Favoritos (Ícone de Coração minimalista) */}
           <Link
             href="/loja/favoritos"
-            className="relative p-1 text-slate-700 hover:text-rose-600 transition"
+            className="relative min-w-[38px] sm:min-w-[44px] min-h-[44px] flex items-center justify-center p-1.5 sm:p-2 text-slate-700 hover:text-rose-600 transition"
             title="Favoritos"
+            aria-label={`Artigos favoritos (${wishlistCount})`}
           >
             <Heart className={`h-5 w-5 stroke-[1.8] ${wishlistCount > 0 ? 'text-rose-600 fill-rose-600' : ''}`} />
             {wishlistCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
+              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
                 {wishlistCount}
               </span>
             )}
@@ -321,12 +326,13 @@ export default function LojaHeader() {
           <button
             type="button"
             onClick={() => setMiniCartOpen(true)}
-            className="relative p-1 text-slate-700 hover:text-primary transition"
+            className="relative min-w-[38px] sm:min-w-[44px] min-h-[44px] flex items-center justify-center p-1.5 sm:p-2 text-slate-700 hover:text-primary transition"
             title="Carrinho de Compras"
+            aria-label={`Carrinho de compras (${itemCount} artigos)`}
           >
             <ShoppingCart className="h-5 w-5 stroke-[1.8]" />
             {itemCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-slate-950 shadow-2xs">
+              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-slate-950 shadow-2xs">
                 {itemCount}
               </span>
             )}
@@ -345,13 +351,14 @@ export default function LojaHeader() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="O que procuras?"
-              className="w-full pl-4 pr-10 py-2.5 text-xs bg-transparent outline-none text-slate-800"
+              className="w-full pl-4 pr-10 py-2.5 text-base sm:text-xs bg-transparent outline-none text-slate-800"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={handleClearSearch}
-                className="absolute right-3 p-1 text-slate-400 hover:text-slate-600"
+                className="absolute right-3 min-w-[44px] min-h-[44px] flex items-center justify-center p-1 text-slate-400 hover:text-slate-600"
+                aria-label="Limpar pesquisa"
               >
                 <X className="h-3.5 w-3.5" />
               </button>

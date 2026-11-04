@@ -576,7 +576,7 @@ function UnifiedLoginForm() {
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder="exemplo@arknet.co.ao ou cliente@empresa.co.ao"
-                    className="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none"
+                    className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none"
                   />
                 </div>
               </div>
@@ -605,7 +605,7 @@ function UnifiedLoginForm() {
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-10 py-3 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                    className="w-full pl-10 pr-10 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono"
                   />
                   <button
                     type="button"
@@ -655,7 +655,7 @@ function UnifiedLoginForm() {
                     value={regData.name}
                     onChange={(e) => setRegData({ ...regData, name: e.target.value })}
                     placeholder="João Miguel Silva"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
                   />
                 </div>
 
@@ -669,7 +669,7 @@ function UnifiedLoginForm() {
                     value={regData.email}
                     onChange={(e) => setRegData({ ...regData, email: e.target.value })}
                     placeholder="cliente@empresa.co.ao"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -685,7 +685,7 @@ function UnifiedLoginForm() {
                     value={regData.phone}
                     onChange={(e) => setRegData({ ...regData, phone: e.target.value })}
                     placeholder="+244 923 000 000"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
 
@@ -698,7 +698,7 @@ function UnifiedLoginForm() {
                     value={regData.company}
                     onChange={(e) => setRegData({ ...regData, company: e.target.value })}
                     placeholder="Empresa Lda ou Particular"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
                   />
                 </div>
               </div>
@@ -713,7 +713,7 @@ function UnifiedLoginForm() {
                     value={regData.nif}
                     onChange={(e) => setRegData({ ...regData, nif: e.target.value })}
                     placeholder="5400000000"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
 
@@ -726,7 +726,7 @@ function UnifiedLoginForm() {
                     value={regData.city}
                     onChange={(e) => setRegData({ ...regData, city: e.target.value })}
                     placeholder="Luanda"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
                   />
                 </div>
               </div>
@@ -740,7 +740,7 @@ function UnifiedLoginForm() {
                   value={regData.address}
                   onChange={(e) => setRegData({ ...regData, address: e.target.value })}
                   placeholder="ex: Rua Amílcar Cabral, Nº 45, Maianga, Luanda"
-                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                  className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
                 />
               </div>
 
@@ -765,7 +765,7 @@ function UnifiedLoginForm() {
                     value={regData.password}
                     onChange={(e) => setRegData({ ...regData, password: e.target.value })}
                     placeholder="Mín. 8 caracteres (A-Z, a-z, 0-9)"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
 
@@ -779,7 +779,7 @@ function UnifiedLoginForm() {
                     value={regData.confirmPassword}
                     onChange={(e) => setRegData({ ...regData, confirmPassword: e.target.value })}
                     placeholder="Repita a palavra-passe"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -877,7 +877,7 @@ function UnifiedLoginForm() {
                         value={recoveryEmail}
                         onChange={(e) => setRecoveryEmail(e.target.value)}
                         placeholder="seu.email@exemplo.com"
-                        className="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                        className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
                       />
                     </div>
                   </div>

@@ -58,7 +58,7 @@ export default function Testimonials() {
         {/* Header */}
         <div className="mb-14">
           <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]">
+            <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold text-slate-900 leading-[1.1]">
               O que os nossos<br />clientes dizem
             </h2>
           </div>
@@ -104,7 +104,7 @@ export default function Testimonials() {
         <div id="parceiros" className="mt-24">
           <div className="mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+              <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-slate-900">
                 Marcas que confiam na ARKNET
               </h2>
             </div>

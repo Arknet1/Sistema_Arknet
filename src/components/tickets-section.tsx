@@ -23,7 +23,7 @@ export default function TicketsSection({
         </div>
         <Link
           href="/reclamacoes"
-          className="inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90"
+          className="inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 min-h-[44px] text-sm font-semibold text-white transition hover:bg-primary/90"
         >
           Enviar solicitação
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

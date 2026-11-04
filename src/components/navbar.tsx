@@ -62,6 +62,18 @@ export default function Navbar() {
     setOpen(false)
   }, [pathname])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
   const resolveHref = (href: string) => {
     if (!href.startsWith('#')) {
       return href
@@ -110,12 +122,12 @@ export default function Navbar() {
           <Image src={icon} alt="ARKNET, Soluções de Telecomunicações e TI em Angola" width={200} height={200} className="h-16 w-auto object-contain" />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-2.5 xl:gap-5">
           {links.map((item) => (
             <Link
               key={item.href}
               href={resolveHref(item.href)}
-              className="text-xs font-bold uppercase tracking-wider text-slate-700 transition hover:text-primary"
+              className="text-[11px] xl:text-xs font-bold uppercase tracking-wider text-slate-700 transition hover:text-primary whitespace-nowrap"
             >
               {item.label}
             </Link>
@@ -123,8 +135,9 @@ export default function Navbar() {
 
           <Link
             href="/loja/favoritos"
-            className="relative inline-flex items-center justify-center p-1.5 text-slate-700 hover:text-rose-600 transition"
+            className="relative min-w-[38px] min-h-[38px] inline-flex items-center justify-center p-1.5 text-slate-700 hover:text-rose-600 transition"
             title="Lista de Desejos / Favoritos"
+            aria-label={`Favoritos (${wishlistCount})`}
           >
             <Heart className={`h-5 w-5 ${wishlistCount > 0 ? 'text-rose-600 fill-rose-600' : 'text-slate-700'}`} />
             {wishlistCount > 0 && (
@@ -136,8 +149,9 @@ export default function Navbar() {
 
           <Link
             href="/loja/carrinho"
-            className="relative inline-flex items-center justify-center p-1.5"
+            className="relative min-w-[38px] min-h-[38px] inline-flex items-center justify-center p-1.5"
             title="Carrinho de Compras"
+            aria-label={`Carrinho de compras (${itemCount})`}
           >
             <ShoppingCart className="h-5 w-5 text-slate-700 hover:text-primary transition" />
             {itemCount > 0 && (
@@ -321,21 +335,22 @@ export default function Navbar() {
 
           <Link
             href={resolveHref('#contacto')}
-            className="inline-flex h-9 items-center justify-center bg-secondary px-4 text-xs font-bold uppercase tracking-wider text-white shadow-xs transition hover:bg-secondary/90"
+            className="inline-flex h-9 items-center justify-center bg-secondary px-3 xl:px-4 text-[11px] xl:text-xs font-bold uppercase tracking-wider text-white shadow-xs transition hover:bg-secondary/90 whitespace-nowrap"
           >
             Solicitar Serviço
           </Link>
         </div>
 
-        <div className="lg:hidden flex items-center gap-3">
+        <div className="lg:hidden flex items-center gap-1 sm:gap-2">
           <Link
             href="/loja/favoritos"
-            className="relative inline-flex items-center"
+            className="relative min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-700 hover:text-rose-600 transition"
             title="Favoritos"
+            aria-label={`Favoritos (${wishlistCount})`}
           >
             <Heart className={`h-6 w-6 ${wishlistCount > 0 ? 'text-rose-600 fill-rose-600' : 'text-slate-700'}`} />
             {wishlistCount > 0 && (
-              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-white">
+              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white">
                 {wishlistCount}
               </span>
             )}
@@ -343,28 +358,33 @@ export default function Navbar() {
 
           <Link
             href="/loja/carrinho"
-            className="relative inline-flex items-center"
+            className="relative min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-700 hover:text-primary transition"
+            title="Carrinho de Compras"
+            aria-label={`Carrinho (${itemCount})`}
           >
             <ShoppingCart className="h-6 w-6 text-slate-700" />
             {itemCount > 0 && (
-              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-xs font-bold text-white">
+              <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-white">
                 {itemCount}
               </span>
             )}
           </Link>
 
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger>
+            <SheetTrigger
+              className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-700 hover:text-primary transition rounded-lg"
+              aria-label="Abrir menu de navegação"
+            >
               <Menu className="w-7 h-7 text-slate-700" />
             </SheetTrigger>
-            <SheetContent side="right" className="p-8 bg-white overflow-y-auto">
-              <div className="flex flex-col gap-5 mt-8">
+            <SheetContent side="right" className="p-6 sm:p-8 bg-white overflow-y-auto">
+              <div className="flex flex-col gap-2 mt-8">
                 {links.map((item) => (
                   <Link
                     key={item.href}
                     href={resolveHref(item.href)}
                     onClick={() => setOpen(false)}
-                    className="text-base text-slate-900 font-bold uppercase tracking-wider hover:text-primary transition"
+                    className="min-h-[44px] flex items-center px-2 text-base text-slate-900 font-bold uppercase tracking-wider hover:text-primary transition rounded-md hover:bg-slate-50"
                   >
                     {item.label}
                   </Link>
@@ -373,7 +393,7 @@ export default function Navbar() {
                 <Link
                   href="/loja/favoritos"
                   onClick={() => setOpen(false)}
-                  className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-rose-600 transition"
+                  className="min-h-[44px] flex items-center gap-3 px-2 text-base text-slate-900 font-bold uppercase tracking-wider hover:text-rose-600 transition rounded-md hover:bg-slate-50"
                 >
                   <Heart className="h-5 w-5 text-rose-600" />
                   <span>Favoritos ({wishlistCount})</span>
@@ -382,15 +402,16 @@ export default function Navbar() {
                 <Link
                   href="/loja/carrinho"
                   onClick={() => setOpen(false)}
-                  className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-primary transition"
+                  className="min-h-[44px] flex items-center gap-3 px-2 text-base text-slate-900 font-bold uppercase tracking-wider hover:text-primary transition rounded-md hover:bg-slate-50"
                 >
-                  Carrinho ({itemCount})
+                  <ShoppingCart className="h-5 w-5 text-primary" />
+                  <span>Carrinho ({itemCount})</span>
                 </Link>
 
                 <Link
                   href="/reclamacoes"
                   onClick={() => setOpen(false)}
-                  className="text-base text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2 hover:text-primary transition"
+                  className="min-h-[44px] flex items-center gap-3 px-2 text-base text-slate-900 font-bold uppercase tracking-wider hover:text-primary transition rounded-md hover:bg-slate-50"
                 >
                   <MessageSquare className="h-5 w-5 text-primary" />
                   <span>Reclamações &amp; Apoio</span>

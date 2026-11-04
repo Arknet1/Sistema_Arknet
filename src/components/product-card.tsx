@@ -154,14 +154,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             type="button"
             onClick={handleToggleFavorite}
-            className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
+            className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full backdrop-blur-md shadow-xs transition-all z-10 ${
               isFavorite
-                ? 'bg-secondary text-white shadow-secondary/30 scale-110'
-                : 'bg-white/80 hover:bg-white text-slate-500 hover:text-secondary border border-slate-200'
+                ? 'bg-secondary text-white shadow-secondary/30 scale-105'
+                : 'bg-white/85 hover:bg-white text-slate-600 hover:text-secondary border border-slate-200'
             }`}
             title={isFavorite ? 'Remover dos favoritos' : 'Guardar nos favoritos'}
+            aria-label={isFavorite ? `Remover ${product.name} dos favoritos` : `Adicionar ${product.name} aos favoritos`}
           >
-            <Heart className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isFavorite ? 'fill-current' : ''}`} />
+            <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
         </div>
 
@@ -180,7 +181,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
 
-          <Link href={`/loja/${product.id}`} className="min-h-0">
+          <Link href={`/loja/${product.id}`} className="min-h-[2.75rem] flex items-start">
             <h3 className="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
               {product.name}
             </h3>
@@ -225,7 +226,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   A partir de
                 </span>
               )}
-              <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none">
+              <p className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums leading-none whitespace-nowrap">
                 {formatProdutoPrice(effectiveBasePrice)}
               </p>
             </div>
@@ -233,15 +234,16 @@ export default function ProductCard({ product }: ProductCardProps) {
             {hasVariants ? (
               <Link
                 href={`/loja/${product.id}`}
-                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-2 sm:py-2 text-[11px] sm:text-xs font-semibold hover:bg-primary transition-colors min-h-9 sm:min-h-0"
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3.5 py-2.5 text-xs font-semibold hover:bg-primary transition-colors min-h-[44px] rounded"
               >
                 <span>Ver Opções</span>
               </Link>
             ) : isInCart ? (
               <button
                 onClick={() => removeItem(product.id)}
-                className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 transition shrink-0 self-end sm:self-auto"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-red-500 hover:text-red-700 hover:bg-red-50 transition shrink-0 self-end sm:self-auto rounded"
                 title="Remover do carrinho"
+                aria-label={`Remover ${product.name} do carrinho`}
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -249,7 +251,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 type="button"
                 onClick={() => setIsReserveModalOpen(true)}
-                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-white px-3 py-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-xs cursor-pointer min-h-9 sm:min-h-0"
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-white px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors shadow-xs cursor-pointer min-h-[44px]"
               >
                 <PackagePlus className="h-3.5 w-3.5 shrink-0" />
                 <span className="truncate">Reservar</span>
@@ -258,7 +260,8 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3 py-2 sm:py-2 text-[11px] sm:text-xs font-semibold hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-9 sm:min-h-0"
+                className="w-full sm:w-auto justify-center sm:justify-start inline-flex items-center gap-1.5 bg-slate-900 text-white px-3.5 py-2.5 text-xs font-semibold hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px] cursor-pointer rounded"
+                aria-label={`Adicionar ${product.name} ao carrinho`}
               >
                 {isAdding ? (
                   <div className="h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />

@@ -157,7 +157,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               scrollPrev()
             }}
             aria-label="Banner anterior"
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 border border-white/30 bg-slate-950/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:left-8"
+            className="absolute left-2 sm:left-8 top-1/2 z-10 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-center border border-white/30 bg-slate-950/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -169,7 +169,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               scrollNext()
             }}
             aria-label="Próximo banner"
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 border border-white/30 bg-slate-950/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-8"
+            className="absolute right-2 sm:right-8 top-1/2 z-10 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-center border border-white/30 bg-slate-950/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronRight className="h-5 w-5" aria-hidden="true" />
           </button>

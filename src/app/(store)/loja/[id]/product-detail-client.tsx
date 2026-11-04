@@ -467,12 +467,13 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                         info(`"${product.name}" removido dos favoritos.`)
                       }
                     }}
-                    className={`p-2.5 rounded-full shadow-xs border transition ${
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-full shadow-xs border transition ${
                       isInWishlist(product.id)
                         ? 'bg-rose-600 border-rose-600 text-white'
                         : 'bg-white/90 hover:bg-white text-slate-600 hover:text-rose-600 border-slate-200'
                     }`}
                     title="Guardar nos Favoritos"
+                    aria-label="Guardar nos Favoritos"
                   >
                     <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? 'fill-current' : ''}`} />
                   </button>
@@ -480,8 +481,9 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="p-2.5 bg-white/90 hover:bg-white text-slate-600 hover:text-primary rounded-full shadow-xs border border-slate-200 transition cursor-pointer"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white/90 hover:bg-white text-slate-600 hover:text-primary rounded-full shadow-xs border border-slate-200 transition cursor-pointer"
                     title="Copiar link do produto"
+                    aria-label="Copiar link do produto"
                   >
                     <Share2 className="h-4 w-4" />
                   </button>
@@ -708,7 +710,9 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                         type="button"
                         onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                         disabled={quantity <= 1}
-                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center px-3.5 py-2 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer"
+                        title="Diminuir quantidade"
+                        aria-label="Diminuir quantidade"
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
@@ -718,7 +722,9 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => q + 1)}
-                        className="px-3.5 py-2 text-slate-600 hover:bg-slate-100 transition cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center px-3.5 py-2 text-slate-600 hover:bg-slate-100 transition cursor-pointer"
+                        title="Aumentar quantidade"
+                        aria-label="Aumentar quantidade"
                       >
                         <Plus className="h-3.5 w-3.5" />
                       </button>

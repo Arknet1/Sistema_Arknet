@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { ArrowRight, Check, Users, Award, Clock, Wifi } from "lucide-react"
 import hero from "@/assets/projectos e actividades/img principal.jpeg"
 import { CountUp } from "@/components/count-up"
@@ -28,38 +28,42 @@ const stats = [
 const EASE_EXPO = [0.16, 1, 0.3, 1] as const
 
 export default function Hero() {
+  const shouldReduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
-  const bgY = useTransform(scrollY, [0, 700], ["0%", "28%"])
+  const rawBgY = useTransform(scrollY, [0, 700], ["0%", "28%"])
+  const bgY = shouldReduceMotion ? "0%" : rawBgY
 
   return (
     <section
       id="top"
-      className="relative overflow-hidden"
+      className="relative isolate overflow-hidden min-h-[100svh] min-h-[100dvh] flex flex-col justify-between"
       style={{
         background:
           "linear-gradient(150deg, #0c2348 0%, #091830 55%, #050c18 100%)",
       }}
     >
-      <motion.div
-        className="absolute inset-0 scale-[1.08] md:scale-[1.18] origin-top"
-        style={{ y: bgY }}
-      >
-        <Image
-          src={hero}
-              alt="ARKNET, Infraestrutura de Telecomunicações e Conectividade Empresarial em Angola"
-          fill
-          priority
-          quality={72}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#091830]/95 via-[#091830]/70 to-[#050c18]/55 md:from-[#091830]/92 md:via-[#091830]/55 md:to-[#050c18]/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#050c18]/70" />
-      </motion.div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute inset-0 md:scale-[1.18] origin-top"
+          style={{ y: bgY }}
+        >
+          <Image
+            src={hero}
+            alt="ARKNET, Infraestrutura de Telecomunicações e Conectividade Empresarial em Angola"
+            fill
+            priority
+            quality={72}
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#091830]/95 via-[#091830]/70 to-[#050c18]/55 md:from-[#091830]/92 md:via-[#091830]/55 md:to-[#050c18]/35" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#050c18]/70" />
+        </motion.div>
 
-      <div className="pointer-events-none absolute right-[-25%] top-[8%] h-[45vh] w-[45vh] rounded-full border border-white/[0.025] md:right-[-8%] md:top-[5%] md:h-[90vh] md:w-[90vh]" />
-      <div className="pointer-events-none absolute right-[-10%] top-[18%] h-[35vh] w-[35vh] rounded-full border border-white/[0.035] md:right-[-2%] md:top-[15%] md:h-[65vh] md:w-[65vh]" />
-      <div className="pointer-events-none absolute right-[2%] top-[28%] h-[22vh] w-[22vh] rounded-full border border-primary/[0.06] md:right-[8%] md:top-[25%] md:h-[40vh] md:w-[40vh]" />
+        <div className="pointer-events-none absolute right-[-25%] top-[8%] h-[45vh] w-[45vh] rounded-full border border-white/[0.025] md:right-[-8%] md:top-[5%] md:h-[90vh] md:w-[90vh]" />
+        <div className="pointer-events-none absolute right-[-10%] top-[18%] h-[35vh] w-[35vh] rounded-full border border-white/[0.035] md:right-[-2%] md:top-[15%] md:h-[65vh] md:w-[65vh]" />
+        <div className="pointer-events-none absolute right-[2%] top-[28%] h-[22vh] w-[22vh] rounded-full border border-primary/[0.06] md:right-[8%] md:top-[25%] md:h-[40vh] md:w-[40vh]" />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-28 md:pt-40 pb-10 md:pb-16">
         <div className="grid md:grid-cols-2 gap-10 md:gap-8 items-center">
@@ -223,7 +227,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: 14 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.6, duration: 0.5 }}
-                className="absolute top-2 right-0 sm:top-8 sm:right-2 md:top-16 md:-right-2 border border-white/[0.08] bg-slate-900/80 backdrop-blur-sm px-3 py-2 md:px-4 md:py-3"
+                className="absolute top-2 right-1 sm:top-8 sm:right-2 md:top-16 md:-right-2 border border-white/[0.08] bg-slate-900/80 backdrop-blur-sm px-2.5 py-1.5 sm:px-4 sm:py-3 max-w-[calc(100vw-32px)]"
               >
                 <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-widest text-white/30 mb-0.5">
                   Conexões activas

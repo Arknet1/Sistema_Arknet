@@ -70,7 +70,7 @@ export default function FavoritosClient() {
               <button
                 type="button"
                 onClick={clearWishlist}
-                className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold uppercase rounded transition"
+                className="px-4 py-2.5 min-h-[44px] bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold uppercase rounded transition"
               >
                 Limpar Lista
               </button>
@@ -78,7 +78,7 @@ export default function FavoritosClient() {
               <button
                 type="button"
                 onClick={handleAddAllToCart}
-                className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase rounded shadow-xs transition flex items-center gap-2"
+                className="px-5 py-2.5 min-h-[44px] bg-primary hover:bg-primary/90 text-white text-xs font-bold uppercase rounded shadow-xs transition flex items-center gap-2"
               >
                 <ShoppingCart className="h-4 w-4" />
                 <span>Adicionar Todos ao Carrinho</span>

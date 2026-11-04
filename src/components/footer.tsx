@@ -138,7 +138,7 @@ export default function Footer() {
                 </button>
               </div>
             ) : (
-              <form className="flex gap-2 w-full sm:w-auto" onSubmit={handleNewsletter} aria-label="Subscrição de Newsletter ARKNET">
+              <form className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto" onSubmit={handleNewsletter} aria-label="Subscrição de Newsletter ARKNET">
                 <label htmlFor="newsletter-email" className="sr-only">Endereço de email para newsletter</label>
                 <input
                   id="newsletter-email"
@@ -148,12 +148,12 @@ export default function Footer() {
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="O seu email"
                   aria-label="Endereço de email para subscrição de newsletter"
-                  className="flex-1 sm:w-72 bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-primary transition"
+                  className="w-full sm:w-72 bg-white/5 border border-white/10 px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:border-primary transition min-h-[44px]"
                 />
                 <button
                   type="submit"
                   disabled={isSubscribing}
-                  className="bg-secondary px-5 py-3 text-sm font-semibold text-white hover:bg-secondary/90 transition flex items-center gap-2 shrink-0 disabled:opacity-50"
+                  className="w-full sm:w-auto bg-secondary px-5 py-3 text-base sm:text-sm font-semibold text-white hover:bg-secondary/90 transition flex items-center justify-center gap-2 shrink-0 disabled:opacity-50 min-h-[44px]"
                 >
                   <Send className="h-4 w-4" aria-hidden="true" />
                   Subscrever
@@ -195,8 +195,9 @@ export default function Footer() {
                   href={socialLinks.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition rounded-sm"
                   title="LinkedIn"
+                  aria-label="Perfil LinkedIn da ARKNET"
                 >
                   <FaLinkedin className="h-4 w-4" />
                 </a>
@@ -206,8 +207,9 @@ export default function Footer() {
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition rounded-sm"
                   title="Facebook"
+                  aria-label="Página Facebook da ARKNET"
                 >
                   <FaFacebook className="h-4 w-4" />
                 </a>
@@ -217,8 +219,9 @@ export default function Footer() {
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white/5 hover:bg-primary/20 text-slate-400 hover:text-white transition rounded-sm"
                   title="Instagram"
+                  aria-label="Perfil Instagram da ARKNET"
                 >
                   <FaInstagram className="h-4 w-4" />
                 </a>
@@ -315,14 +318,14 @@ export default function Footer() {
               Contacto
             </span>
 
-            <ul className="mt-6 space-y-5 text-sm">
+            <ul className="mt-6 space-y-4 text-sm">
               {/* Phones */}
               {phones.map((phone) => (
-                <li key={phone} className="flex items-center gap-4">
+                <li key={phone} className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-primary shrink-0" />
                   <a
                     href={`tel:${phone.replace(/\s+/g, "")}`}
-                    className="hover:text-white transition"
+                    className="hover:text-white transition [overflow-wrap:anywhere] py-1"
                   >
                     {phone}
                   </a>
@@ -331,11 +334,11 @@ export default function Footer() {
 
               {/* Emails */}
               {emails.map((email) => (
-                <li key={email} className="flex items-center gap-4">
+                <li key={email} className="flex items-center gap-3 min-w-0">
                   <Mail className="h-4 w-4 text-primary shrink-0" />
                   <a
                     href={`mailto:${email}`}
-                    className="hover:text-white transition"
+                    className="hover:text-white transition [overflow-wrap:anywhere] break-all py-1 min-w-0"
                   >
                     {email}
                   </a>
@@ -343,20 +346,20 @@ export default function Footer() {
               ))}
 
               {/* Address */}
-              <li className="flex items-start gap-4">
+              <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                <span className="text-slate-400">{address}</span>
+                <span className="text-slate-400 [overflow-wrap:anywhere]">{address}</span>
               </li>
 
               {/* WhatsApp Channel */}
               {settings.whatsappChannelUrl && (
-                <li className="flex items-center gap-4">
+                <li className="flex items-center gap-3">
                   <FaWhatsapp className="h-4 w-4 text-green-500 shrink-0" />
                   <a
                     href={settings.whatsappChannelUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-green-400 transition"
+                    className="hover:text-green-400 transition [overflow-wrap:anywhere] py-1"
                   >
                     Canal ARKNET Oficial no WhatsApp
                   </a>

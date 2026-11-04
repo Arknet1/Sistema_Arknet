@@ -539,7 +539,7 @@ function CheckoutContent() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Nome do cliente ou gestor"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>
 
@@ -553,7 +553,7 @@ function CheckoutContent() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="email@empresa.co.ao"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
                     />
                   </div>
 
@@ -567,7 +567,7 @@ function CheckoutContent() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+244 923 000 000"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
                     />
                   </div>
 
@@ -580,7 +580,7 @@ function CheckoutContent() {
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder="Nome da Empresa Lda"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>
 
@@ -593,7 +593,7 @@ function CheckoutContent() {
                       value={formData.nif}
                       onChange={(e) => setFormData({ ...formData, nif: e.target.value })}
                       placeholder="5400000000"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none font-mono"
                     />
                   </div>
 
@@ -607,7 +607,7 @@ function CheckoutContent() {
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       placeholder="Luanda"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
+                      className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                     />
                   </div>
                 </div>
@@ -622,7 +622,7 @@ function CheckoutContent() {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="Rua, Edifício, Bairro, Ponto de Referência"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
+                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                   />
                 </div>
               </div>
@@ -859,7 +859,7 @@ function CheckoutContent() {
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="Ex: Horário preferencial de entrega, configuração prévia de IP, contacto do rececionista..."
-                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
+                  className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 focus:bg-white focus:border-primary focus:outline-none"
                 />
               </div>
             </div>

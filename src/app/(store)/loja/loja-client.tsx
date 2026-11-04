@@ -152,7 +152,7 @@ export default function LojaClient() {
       {/* Barra de Confiança estilo NCR Angola */}
       <div className="bg-white border-b border-slate-100 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 text-slate-800">
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 divide-y min-[420px]:divide-y-0 min-[420px]:divide-x divide-slate-100 text-slate-800">
             <div className="flex items-center gap-3 px-2 py-1">
               <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
                 <Store className="h-5 w-5" />
@@ -218,7 +218,7 @@ export default function LojaClient() {
               placeholder="Buscar produtos por nome ou características..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-12 outline-none text-sm text-slate-900 placeholder:text-slate-400"
+              className="w-full h-12 outline-none text-base sm:text-sm text-slate-900 placeholder:text-slate-400"
             />
           </div>
 
@@ -249,7 +249,7 @@ export default function LojaClient() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full h-10 px-3 bg-slate-50 border border-slate-200 text-xs outline-none"
+                className="w-full h-11 px-3 bg-slate-50 border border-slate-200 text-base sm:text-xs outline-none"
               >
                 <option value="Todos">Todas Categorias</option>
                 {visibleCategories.filter(c => c.name !== 'Todos').map(cat => (

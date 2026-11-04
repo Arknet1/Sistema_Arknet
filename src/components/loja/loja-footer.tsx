@@ -173,16 +173,16 @@ export default function LojaFooter() {
               {phones.map((phone) => (
                 <li key={phone} className="flex items-center gap-2.5">
                   <Phone className="h-4 w-4 text-primary shrink-0" />
-                  <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-white transition font-mono">
+                  <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-white transition font-mono [overflow-wrap:anywhere] py-1">
                     {phone}
                   </a>
                 </li>
               ))}
 
               {emails.map((email) => (
-                <li key={email} className="flex items-center gap-2.5">
+                <li key={email} className="flex items-center gap-2.5 min-w-0">
                   <Mail className="h-4 w-4 text-primary shrink-0" />
-                  <a href={`mailto:${email}`} className="hover:text-white transition">
+                  <a href={`mailto:${email}`} className="hover:text-white transition [overflow-wrap:anywhere] break-all py-1 min-w-0">
                     {email}
                   </a>
                 </li>
@@ -190,7 +190,7 @@ export default function LojaFooter() {
 
               <li className="flex items-start gap-2.5 text-slate-400">
                 <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                <span>{address}</span>
+                <span className="[overflow-wrap:anywhere]">{address}</span>
               </li>
 
               <li className="pt-2 border-t border-white/10">

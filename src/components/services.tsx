@@ -22,7 +22,7 @@ export default function Services() {
         {/* Cabeçalho */}
         <div className="mb-16">
           <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1] max-w-lg">
+            <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold text-slate-900 leading-[1.1] max-w-lg">
               Soluções completas<br />para o seu negócio
             </h2>
           </div>
@@ -60,7 +60,7 @@ export default function Services() {
                   <div className="mt-6 pt-5 border-t border-slate-100">
                     <Link
                       href={`/servicos/${item.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 group-hover:text-primary transition-colors"
+                      className="inline-flex items-center gap-2 min-h-[44px] -my-2 text-sm font-semibold text-slate-700 group-hover:text-primary transition-colors"
                     >
                       Saiba mais
                       <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

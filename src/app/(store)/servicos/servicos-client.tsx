@@ -126,9 +126,11 @@ export default function ServicosListingClient() {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* 1. Hero da Página de Serviços com Barra de Confiança */}
-      <section className="pt-32 pb-16 bg-slate-950 text-white relative overflow-hidden border-b border-slate-800">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="pt-32 pb-16 bg-slate-950 text-white relative isolate overflow-hidden border-b border-slate-800">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+        </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Breadcrumb */}

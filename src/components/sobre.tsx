@@ -48,14 +48,14 @@ export default function Sobre() {
             </motion.div>
             {/* Cartão sobreposto, apresentado depois da imagem */}
             <motion.div
-              initial={{ opacity: 0, x: 20, y: 20 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.75 }}
               viewport={{ once: true }}
-              className="absolute -bottom-6 -right-6 bg-primary text-white p-6 shadow-2xl"
+              className="absolute bottom-0 right-0 sm:-bottom-6 sm:-right-6 bg-primary text-white p-4 sm:p-6 shadow-2xl"
             >
-              <p className="text-4xl font-black">10+</p>
-              <p className="text-xs font-medium text-white/70 uppercase tracking-wider mt-1">Anos de experiência</p>
+              <p className="text-3xl sm:text-4xl font-black">10+</p>
+              <p className="text-[11px] sm:text-xs font-medium text-white/70 uppercase tracking-wider mt-1">Anos de experiência</p>
             </motion.div>
           </div>
 
@@ -76,7 +76,7 @@ export default function Sobre() {
                   hidden: { y: "100%" },
                   show: { y: 0, transition: { duration: 0.7, ease: EASE_OUT_EXPO } },
                 }}
-                className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1]"
+                className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold text-slate-900 leading-[1.1]"
               >
                 Tecnologia e inovação<br />ao serviço do seu negócio
               </motion.h2>
@@ -115,7 +115,7 @@ export default function Sobre() {
             >
               <Link
                 href="/empresa"
-                className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition"
+                className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 px-7 py-3.5 min-h-[44px] text-xs font-bold uppercase tracking-wider text-white shadow-lg transition"
               >
                 Conhecer a ARKNET
                 <ArrowRight className="h-4 w-4" />
@@ -133,7 +133,7 @@ export default function Sobre() {
           className="mt-24 grid grid-cols-2 md:grid-cols-4 bg-white border border-slate-200 divide-x divide-slate-200 overflow-hidden shadow-sm"
         >
           {metrics.map((metric, idx) => (
-            <div key={idx} className="p-8 text-center group hover:bg-primary transition-all duration-300 cursor-default">
+            <div key={idx} className="p-4 sm:p-8 text-center group hover:bg-primary transition-all duration-300 cursor-default">
               <p className="text-4xl font-black text-primary group-hover:text-white transition-colors duration-300">
                 <CountUp to={metric.to} suffix={metric.suffix} duration={1.8 + idx * 0.15} />
               </p>

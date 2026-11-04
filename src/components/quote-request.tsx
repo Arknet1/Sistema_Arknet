@@ -101,7 +101,7 @@ function QuoteRequestInner({ serviceName }: { serviceName?: string }) {
     setFormState({ name: "", email: "", phone: "", service: "", message: "" })
   }
 
-  const inputClass = "w-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
+  const inputClass = "w-full border border-slate-200 bg-white px-4 py-3 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition min-h-[44px]"
 
   return (
     <section id="contacto" className="py-28 bg-white">
