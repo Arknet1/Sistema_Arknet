@@ -76,9 +76,14 @@ model Product {
   inStock      Boolean            @default(true)
   quantity     Int                @default(0)
   featured     Boolean            @default(false)
-  sku          String?
-  baseSpecs    String?            // JSON de especificações técnicas gerais do produto pai
-  createdAt    DateTime           @default(now())
+  sku             String?
+  baseSpecs       String?            // JSON de especificações técnicas gerais do produto pai
+  warranty        String?            @default("12 Meses") // Garantia configurável por produto (ex: "12 Meses", "24 Meses", "6 Meses")
+  warrantyDetails String?            // Condições específicas e assistência técnica
+  technicalSpecs  String?            // JSON serializado de Array<{ label: string, value: string }>
+  packageContents String?            // JSON serializado de string[]
+  applications    String?            // Cenários e aplicações recomendadas
+  createdAt       DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   variants     ProductVariant[]
   orderItems   StoreOrderItem[]

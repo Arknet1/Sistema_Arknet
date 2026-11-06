@@ -188,7 +188,10 @@ export async function POST(request: NextRequest) {
           account = prismaAdmin as any
         }
       } else {
-        account = (await prisma.customer.findUnique({ where: { email } })) as any
+        const prismaCustomer = await prisma.customer.findUnique({ where: { email } })
+        if (prismaCustomer) {
+          account = prismaCustomer as any
+        }
       }
     } catch {}
 

@@ -64,6 +64,11 @@ export interface ProductVariant {
   updatedAt?: string
 }
 
+export interface ProductSpecItem {
+  label: string
+  value: string
+}
+
 export interface StoreProduct {
   id: string
   name: string
@@ -81,6 +86,11 @@ export interface StoreProduct {
   featured?: boolean
   sku?: string
   baseSpecs?: Record<string, string> | string
+  warranty?: string // Garantia configurável por produto (ex: "12 Meses", "24 Meses", "6 Meses")
+  warrantyDetails?: string // Condições específicas e assistência técnica
+  technicalSpecs?: ProductSpecItem[] // Ficha técnica estruturada de especificações
+  packageContents?: string[] // Itens incluídos na embalagem
+  applications?: string // Cenários e aplicações recomendadas (Visão Geral)
   options?: ProductOption[]
   variants?: ProductVariant[]
   createdAt: string

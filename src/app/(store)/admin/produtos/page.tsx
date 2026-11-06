@@ -33,6 +33,10 @@ import {
   PackagePlus,
   RefreshCw,
   Copy,
+  ShieldCheck,
+  Sliders,
+  FileText,
+  Box,
 } from 'lucide-react'
 import {
   dataStore,
@@ -41,6 +45,7 @@ import {
   ProductOption,
   ProductVariant,
   ProductVariantOptionSelection,
+  ProductSpecItem,
 } from '@/lib/data-store'
 import { useToast } from '@/lib/toast-context'
 import { ConfirmModal } from '@/components/admin/confirm-modal'
@@ -116,7 +121,7 @@ export default function AdminProdutosPage() {
 
   // Modal de Criar/Editar
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState<'geral' | 'variantes' | 'galeria'>('geral')
+  const [activeTab, setActiveTab] = useState<'geral' | 'caracterizacao' | 'variantes' | 'galeria'>('geral')
   const [editingProduct, setEditingProduct] = useState<StoreProduct | null>(null)
   const [isSavingProduct, setIsSavingProduct] = useState(false)
 
@@ -135,6 +140,11 @@ export default function AdminProdutosPage() {
     minStockAlert: number
     featured: boolean
     sku: string
+    warranty: string
+    warrantyDetails: string
+    technicalSpecs: ProductSpecItem[]
+    packageContents: string[]
+    applications: string
     hasVariants: boolean
     options: ProductOption[]
     variants: ProductVariant[]
@@ -152,6 +162,11 @@ export default function AdminProdutosPage() {
     minStockAlert: 5,
     featured: false,
     sku: '',
+    warranty: '12 Meses',
+    warrantyDetails: '',
+    technicalSpecs: [],
+    packageContents: [],
+    applications: '',
     hasVariants: false,
     options: [],
     variants: [],
@@ -333,6 +348,14 @@ export default function AdminProdutosPage() {
       minStockAlert: 5,
       featured: false,
       sku: `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
+      warranty: '12 Meses',
+      warrantyDetails: 'Cobertura oficial contra defeitos de fabrico com assistência técnica local em Luanda e substituição direta conforme disponibilidade.',
+      technicalSpecs: [
+        { label: 'Garantia', value: '12 Meses Oficial J.Matos' },
+        { label: 'Origem', value: 'Equipamento 100% Original e Certificado' },
+      ],
+      packageContents: ['1x Equipamento Original', '1x Cabo de Alimentação', '1x Manual do Utilizador'],
+      applications: '',
       hasVariants: false,
       options: [],
       variants: [],
@@ -361,6 +384,18 @@ export default function AdminProdutosPage() {
       minStockAlert: product.minStockAlert ?? 5,
       featured: !!product.featured,
       sku: product.sku || '',
+      warranty: product.warranty || '12 Meses',
+      warrantyDetails: product.warrantyDetails || '',
+      technicalSpecs: Array.isArray(product.technicalSpecs) && product.technicalSpecs.length > 0
+        ? JSON.parse(JSON.stringify(product.technicalSpecs))
+        : [
+            { label: 'Garantia', value: product.warranty || '12 Meses Oficial J.Matos' },
+            { label: 'Origem', value: 'Equipamento 100% Original e Certificado' },
+          ],
+      packageContents: Array.isArray(product.packageContents) && product.packageContents.length > 0
+        ? [...product.packageContents]
+        : ['1x Equipamento Original', '1x Cabo de Alimentação', '1x Manual do Utilizador'],
+      applications: product.applications || '',
       hasVariants: hasVars,
       options: product.options ? JSON.parse(JSON.stringify(product.options)) : [],
       variants: product.variants ? JSON.parse(JSON.stringify(product.variants)) : [],
@@ -368,6 +403,100 @@ export default function AdminProdutosPage() {
     setNewOptionName('')
     setNewOptionValuesInput({})
     setIsModalOpen(true)
+  }
+
+  // --- LÓGICA DE GESTÃO DA FICHA TÉCNICA & EMBALAGEM ---
+  const [newPackageItemInput, setNewPackageItemInput] = useState('')
+
+  const handleAddSpecRow = () => {
+    setFormData((prev) => ({
+      ...prev,
+      technicalSpecs: [...prev.technicalSpecs, { label: '', value: '' }],
+    }))
+  }
+
+  const handleUpdateSpecRow = (index: number, field: 'label' | 'value', val: string) => {
+    setFormData((prev) => {
+      const next = [...prev.technicalSpecs]
+      next[index] = { ...next[index], [field]: val }
+      return { ...prev, technicalSpecs: next }
+    })
+  }
+
+  const handleRemoveSpecRow = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      technicalSpecs: prev.technicalSpecs.filter((_, i) => i !== index),
+    }))
+  }
+
+  const handleLoadSuggestedSpecs = () => {
+    const cat = (formData.category || '').toLowerCase()
+    const name = (formData.name || '').toLowerCase()
+
+    let suggested: Array<{ label: string; value: string }> = []
+
+    if (cat.includes('rede') || cat.includes('internet') || name.includes('router') || name.includes('switch') || name.includes('cabo')) {
+      suggested = [
+        { label: 'Garantia Técnica', value: formData.warranty || '12 Meses Oficial J.Matos' },
+        { label: 'Tipo de Equipamento', value: 'Equipamento de Rede Corporativa' },
+        { label: 'Interface & Portas', value: 'Portas RJ45 Gigabit 10/100/1000 Mbps' },
+        { label: 'Normas & Protocolos', value: 'IEEE 802.3, 802.3u, 802.3ab' },
+        { label: 'Alimentação & Tensão', value: '100-240V AC / 50-60Hz Bivolt Automático' },
+        { label: 'Segurança & Firewall', value: 'WPA3-Enterprise, VLAN 802.1Q, QoS' },
+        { label: 'Origem & Certificação', value: '100% Original com Suporte Local em Luanda' },
+      ]
+    } else if (cat.includes('computador') || cat.includes('portáteis') || name.includes('hp') || name.includes('laptop') || name.includes('notebook')) {
+      suggested = [
+        { label: 'Garantia Técnica', value: formData.warranty || '12 Meses Oficial J.Matos' },
+        { label: 'Processador / CPU', value: 'Intel Core / AMD Ryzen de Alto Desempenho' },
+        { label: 'Memória RAM', value: 'DDR4 / DDR5 High Speed' },
+        { label: 'Armazenamento', value: 'SSD NVMe PCIe de Alta Velocidade' },
+        { label: 'Ecrã / Display', value: 'Full HD IPS Antirreflexo' },
+        { label: 'Sistema Operativo', value: 'Windows 11 Pro Corporativo' },
+        { label: 'Autonomia & Bateria', value: 'Bateria de Iões de Lítio de Longa Duração' },
+      ]
+    } else if (cat.includes('smartphone') || name.includes('iphone') || name.includes('telemóvel')) {
+      suggested = [
+        { label: 'Garantia Técnica', value: formData.warranty || '12 Meses Oficial J.Matos' },
+        { label: 'Ecrã / Display', value: 'Super Retina XDR / AMOLED de Alta Resolução' },
+        { label: 'Processador', value: 'Processador de Última Geração com Neural Engine' },
+        { label: 'Câmara Principal', value: 'Sistema de Câmaras de Alta Definição 4K' },
+        { label: 'Conectividade', value: '5G, Wi-Fi 6E, Bluetooth 5.3, NFC' },
+        { label: 'Resistência', value: 'Classificação IP68 resistente a água e poeiras' },
+      ]
+    } else {
+      suggested = [
+        { label: 'Garantia Técnica', value: formData.warranty || '12 Meses Oficial J.Matos' },
+        { label: 'Marca / Fabricante', value: formData.brand || 'Fabricante Homologado' },
+        { label: 'Alimentação & Voltagem', value: 'Bivolt Automático 110V/220V' },
+        { label: 'Compatibilidade', value: 'Universal para infraestruturas em Angola' },
+        { label: 'Certificação', value: 'Conformidade Técnica Internacional CE / FCC' },
+      ]
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      technicalSpecs: suggested,
+    }))
+    info('Modelo de especificações técnicas carregado.')
+  }
+
+  const handleAddPackageItem = () => {
+    const trimmed = newPackageItemInput.trim()
+    if (!trimmed) return
+    setFormData((prev) => ({
+      ...prev,
+      packageContents: [...prev.packageContents, trimmed],
+    }))
+    setNewPackageItemInput('')
+  }
+
+  const handleRemovePackageItem = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      packageContents: prev.packageContents.filter((_, i) => i !== index),
+    }))
   }
 
   // --- LÓGICA DE GESTÃO DE VARIANTES E OPÇÕES ---
@@ -611,6 +740,11 @@ export default function AdminProdutosPage() {
         minStockAlert: formData.minStockAlert ?? 5,
         featured: formData.featured,
         sku: formData.sku,
+        warranty: formData.warranty.trim() || '12 Meses',
+        warrantyDetails: formData.warrantyDetails.trim() || undefined,
+        technicalSpecs: formData.technicalSpecs.filter((s) => s.label.trim() && s.value.trim()),
+        packageContents: formData.packageContents.filter((item) => item.trim()),
+        applications: formData.applications.trim() || undefined,
         options: formData.hasVariants ? formData.options : [],
         variants: formData.hasVariants ? formData.variants : [],
       }
@@ -1039,11 +1173,17 @@ export default function AdminProdutosPage() {
                           <span className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-700 text-[11px] font-semibold">
                             {product.category}
                           </span>
-                          {product.brand && (
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                              {product.brand}
-                            </p>
-                          )}
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            {product.brand && (
+                              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                {product.brand}
+                              </span>
+                            )}
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded" title="Garantia oficial deste produto">
+                              <ShieldCheck className="h-2.5 w-2.5 text-amber-600" />
+                              {product.warranty || '12 Meses'}
+                            </span>
+                          </div>
                         </div>
                       </td>
 
@@ -1303,6 +1443,29 @@ export default function AdminProdutosPage() {
               >
                 <Package className="h-4 w-4" />
                 Informações Principais
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('caracterizacao')}
+                className={`py-3 px-4 border-b-2 transition flex items-center gap-2 cursor-pointer ${
+                  activeTab === 'caracterizacao'
+                    ? 'border-primary text-primary bg-white font-extrabold'
+                    : 'border-transparent text-slate-500 hover:text-slate-900'
+                }`}
+              >
+                <Sliders className="h-4 w-4 text-amber-600" />
+                <span>Ficha Técnica &amp; Garantia</span>
+                {formData.warranty && (
+                  <span className="px-1.5 py-0.5 bg-amber-100 text-amber-900 rounded-full text-[10px] font-bold">
+                    {formData.warranty}
+                  </span>
+                )}
+                {formData.technicalSpecs.length > 0 && (
+                  <span className="px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded-full text-[10px] font-mono">
+                    {formData.technicalSpecs.length} specs
+                  </span>
+                )}
               </button>
 
               <button
@@ -1584,7 +1747,305 @@ export default function AdminProdutosPage() {
                 </div>
               )}
 
-              {/* TAB 2: VARIANTES & ATRIBUTOS */}
+              {/* TAB 2: FICHA TÉCNICA, GARANTIA & CARACTERIZAÇÃO */}
+              {activeTab === 'caracterizacao' && (
+                <div className="space-y-6">
+                  {/* 1. SEÇÃO DE GARANTIA (Varia de acordo ao produto) */}
+                  <div className="p-5 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="p-2 bg-amber-100 text-amber-900 rounded-xl">
+                          <ShieldCheck className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+                            Garantia &amp; Assistência Técnica (Varia por Equipamento)
+                          </h4>
+                          <p className="text-xs text-slate-600">
+                            Configure o prazo exato e as condições de garantia aplicáveis a este equipamento na ARKNET / J.Matos.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-xs font-mono font-bold text-amber-900 bg-amber-100/90 px-2.5 py-1 rounded-md border border-amber-300 shrink-0">
+                        {formData.warranty || '12 Meses'}
+                      </span>
+                    </div>
+
+                    <div className="space-y-3 pt-2">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                          Prazo de Garantia Oficial *
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.warranty}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, warranty: e.target.value }))}
+                          placeholder="Ex: 12 Meses, 1 Mês, 1 Semana, 3 Dias, Garantia Vitalícia..."
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-300 text-xs font-bold text-slate-900 focus:border-amber-600 focus:outline-none shadow-2xs"
+                        />
+                      </div>
+
+                      {/* Botões de Preenchimento Rápido */}
+                      <div>
+                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
+                          Prazos Frequentes (1 clique):
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {[
+                            '12 Meses (Padrão)',
+                            '24 Meses (2 Anos)',
+                            '36 Meses (3 Anos)',
+                            '6 Meses',
+                            '3 Meses',
+                            '1 Mês',
+                            '1 Semana (7 Dias)',
+                            '3 Dias (Troca/Teste)',
+                            'Garantia Vitalícia',
+                            'Sob Consulta',
+                            'Sem Garantia',
+                          ].map((prazo) => {
+                            const cleanPrazo = prazo.split(' (')[0]
+                            const isSelected = formData.warranty === cleanPrazo || formData.warranty === prazo
+                            return (
+                              <button
+                                key={prazo}
+                                type="button"
+                                onClick={() => setFormData((prev) => ({ ...prev, warranty: cleanPrazo }))}
+                                className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition cursor-pointer ${
+                                  isSelected
+                                    ? 'bg-amber-600 text-white border-amber-600 shadow-2xs font-bold'
+                                    : 'bg-white text-slate-700 border-slate-300 hover:bg-amber-50 hover:border-amber-300'
+                                }`}
+                              >
+                                {prazo}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                          Condições Específicas de Garantia &amp; Assistência em Luanda
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={formData.warrantyDetails}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, warrantyDetails: e.target.value }))}
+                          placeholder="Ex: Cobertura contra defeitos de fabrico com assistência técnica direta e substituição rápida em Luanda. Exclui avarias decorrentes de picos elétricos sem estabilizador."
+                          className="w-full p-3 bg-white border border-slate-300 text-xs text-slate-900 focus:border-amber-600 focus:outline-none leading-relaxed shadow-2xs"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. FICHA TÉCNICA DETALHADA (Especificações do Produto) */}
+                  <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-4 shadow-2xs">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                      <div className="flex items-center gap-2.5">
+                        <div className="p-2 bg-blue-50 text-blue-700 rounded-xl">
+                          <Sliders className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+                            Ficha Técnica Completa (Especificações de Hardware &amp; Normas)
+                          </h4>
+                          <p className="text-xs text-slate-500">
+                            Adicione parâmetros técnicos específicos (Processador, Portas, Interface, Voltagem, etc.).
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleLoadSuggestedSpecs}
+                          className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                          title="Preencher parâmetros habituais para a categoria do produto"
+                        >
+                          <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                          <span>Modelo da Categoria</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleAddSpecRow}
+                          className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+                        >
+                          <Plus className="h-3.5 w-3.5" />
+                          <span>Adicionar Parâmetro</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {formData.technicalSpecs.length === 0 ? (
+                      <div className="text-center py-8 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
+                        <Sliders className="h-8 w-8 text-slate-300 mx-auto mb-2" />
+                        <p className="text-xs font-bold text-slate-700">Nenhum parâmetro técnico personalizado definido.</p>
+                        <p className="text-[11px] text-slate-400 max-w-sm mx-auto mt-1 mb-3">
+                          O produto usará os parâmetros padrão da categoria. Clique abaixo para carregar um modelo ou adicionar parâmetros manuais.
+                        </p>
+                        <div className="flex items-center justify-center gap-2">
+                          <button
+                            type="button"
+                            onClick={handleLoadSuggestedSpecs}
+                            className="px-3.5 py-1.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold rounded-lg transition cursor-pointer"
+                          >
+                            Carregar Modelo de {formData.category}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleAddSpecRow}
+                            className="px-3.5 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition cursor-pointer"
+                          >
+                            + Novo Parâmetro
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="grid grid-cols-12 gap-2 px-2 text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+                          <span className="col-span-5 sm:col-span-4">Parâmetro / Rótulo</span>
+                          <span className="col-span-6 sm:col-span-7">Valor Técnico</span>
+                          <span className="col-span-1 text-center">Ação</span>
+                        </div>
+
+                        <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+                          {formData.technicalSpecs.map((spec, sIdx) => (
+                            <div key={sIdx} className="grid grid-cols-12 gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200 group hover:border-slate-300 transition">
+                              <input
+                                type="text"
+                                value={spec.label}
+                                onChange={(e) => handleUpdateSpecRow(sIdx, 'label', e.target.value)}
+                                placeholder="Ex: Processador, Portas, Tensão..."
+                                className="col-span-5 sm:col-span-4 px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs font-bold text-slate-800 focus:border-primary focus:outline-none"
+                              />
+                              <input
+                                type="text"
+                                value={spec.value}
+                                onChange={(e) => handleUpdateSpecRow(sIdx, 'value', e.target.value)}
+                                placeholder="Ex: Intel Core i7, 24 Portas Gigabit, 220V..."
+                                className="col-span-6 sm:col-span-7 px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-900 focus:border-primary focus:outline-none"
+                              />
+                              <div className="col-span-1 text-center">
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveSpecRow(sIdx)}
+                                  className="p-1.5 text-slate-400 hover:text-rose-600 transition rounded-md hover:bg-rose-50 cursor-pointer"
+                                  title="Remover parâmetro"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="pt-2 flex justify-between items-center text-[11px] text-slate-400">
+                          <span>{formData.technicalSpecs.length} parâmetros definidos</span>
+                          <button
+                            type="button"
+                            onClick={handleAddSpecRow}
+                            className="text-primary hover:underline font-bold text-xs flex items-center gap-1 cursor-pointer"
+                          >
+                            <Plus className="h-3.5 w-3.5" />
+                            <span>Adicionar mais uma linha</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. ITENS INCLUÍDOS NA EMBALAGEM */}
+                  <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-4 shadow-2xs">
+                    <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                      <div className="p-2 bg-emerald-50 text-emerald-700 rounded-xl">
+                        <Box className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+                          O que vem na Caixa (Package Contents)
+                        </h4>
+                        <p className="text-xs text-slate-500">
+                          Componentes, cabos, manuais e acessórios originais fornecidos de fábrica.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={newPackageItemInput}
+                        onChange={(e) => setNewPackageItemInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault()
+                            handleAddPackageItem()
+                          }
+                        }}
+                        placeholder="Ex: 1x Adaptador de Corrente 220V..."
+                        className="flex-1 px-3 py-2 bg-slate-50 border border-slate-300 text-xs text-slate-900 focus:bg-white focus:border-primary focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddPackageItem}
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                        <span>Adicionar Item</span>
+                      </button>
+                    </div>
+
+                    {formData.packageContents.length > 0 && (
+                      <div className="space-y-1.5 pt-1">
+                        {formData.packageContents.map((item, pIdx) => (
+                          <div key={pIdx} className="flex items-center justify-between p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                            <div className="flex items-center gap-2">
+                              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                              <span className="font-semibold text-slate-800">{item}</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleRemovePackageItem(pIdx)}
+                              className="text-slate-400 hover:text-rose-600 p-1 transition cursor-pointer"
+                              title="Remover item"
+                            >
+                              <X className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. VISÃO GERAL & CENÁRIOS DE APLICAÇÃO */}
+                  <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-3 shadow-2xs">
+                    <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+                      <div className="p-2 bg-indigo-50 text-indigo-700 rounded-xl">
+                        <FileText className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+                          Cenários de Aplicação e Utilização Recomendada (Visão Geral)
+                        </h4>
+                        <p className="text-xs text-slate-500">
+                          Descreva os ambientes ideais (corporativos, industriais, bancários, data centers ou residenciais).
+                        </p>
+                      </div>
+                    </div>
+
+                    <textarea
+                      rows={3}
+                      value={formData.applications}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, applications: e.target.value }))}
+                      placeholder="Ex: Ideal para ambientes corporativos, infraestruturas de telecomunicações de alta densidade, escritórios modernos e entidades que exigem fiabilidade 24/7..."
+                      className="w-full p-3 bg-slate-50 border border-slate-300 text-xs text-slate-900 focus:bg-white focus:border-primary focus:outline-none leading-relaxed"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 3: VARIANTES & ATRIBUTOS */}
               {activeTab === 'variantes' && (
                 <div className="space-y-6">
                   {/* Option Presets & Adder */}

@@ -391,8 +391,12 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
   )
 
   const activeImage = galleryImages[selectedImageIndex] || product.image
-  const technicalSpecs = getCategorySpecs(product, currentVariant)
-  const packageContents = getPackageContents(product, currentVariant)
+  const technicalSpecs = (product.technicalSpecs && product.technicalSpecs.length > 0)
+    ? product.technicalSpecs
+    : getCategorySpecs(product, currentVariant)
+  const packageContents = (product.packageContents && product.packageContents.length > 0)
+    ? product.packageContents
+    : getPackageContents(product, currentVariant)
 
   return (
     <main className="min-h-screen pt-28 pb-20 bg-slate-50">
@@ -520,7 +524,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                 <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
                   <ShieldCheck className="h-5 w-5 text-emerald-600 mx-auto mb-1" />
                   <p className="text-[10px] font-bold text-slate-800 uppercase">100% Original</p>
-                  <p className="text-[9px] text-slate-500">Garantia Oficial</p>
+                  <p className="text-[9px] text-slate-500 font-medium">{product.warranty || 'Garantia Oficial'}</p>
                 </div>
 
                 <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
@@ -548,7 +552,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
             <div className="lg:col-span-6 space-y-6">
               
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="inline-block text-xs font-black uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {product.category}
                   </span>
@@ -557,6 +561,10 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                       {product.brand}
                     </span>
                   )}
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-full">
+                    <ShieldCheck className="h-3.5 w-3.5 text-amber-600" />
+                    <span>Garantia: {product.warranty || '12 Meses'}</span>
+                  </span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
@@ -924,8 +932,8 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                   <h4 className="font-extrabold text-xs uppercase text-slate-900 mb-1.5">
                     Cenários &amp; Aplicações Recomendadas
                   </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Ideal para ambientes corporativos, infraestruturas de telecomunicações, escritórios modernos e entidades que exigem fiabilidade e funcionamento contínuo.
+                  <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">
+                    {product.applications || 'Ideal para ambientes corporativos, infraestruturas de telecomunicações, escritórios modernos e entidades que exigem fiabilidade e funcionamento contínuo.'}
                   </p>
                 </div>
 
@@ -944,7 +952,7 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
           {/* Tab 2: Ficha Técnica Completa */}
           {activeTab === 'especificacoes' && (
             <div className="p-6 sm:p-10 space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <h3 className="text-lg font-black text-slate-900">
                     Especificações Técnicas de Hardware &amp; Normas
@@ -955,9 +963,14 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
                     </p>
                   )}
                 </div>
-                <span className="text-xs font-mono text-slate-400">
-                  {technicalSpecs.length} parâmetros técnicos
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold shrink-0">
+                    Garantia: {product.warranty || '12 Meses'}
+                  </span>
+                  <span className="text-xs font-mono text-slate-400 shrink-0">
+                    {technicalSpecs.length} parâmetros
+                  </span>
+                </div>
               </div>
 
               <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
@@ -1006,12 +1019,17 @@ export default function ProductDetailPageClient({ id }: { id: string }) {
           {/* Tab 4: Garantia & Assistência */}
           {activeTab === 'garantia' && (
             <div className="p-6 sm:p-10 text-slate-700 text-xs leading-relaxed space-y-6">
-              <div className="flex items-center gap-4 p-5 bg-primary/5 border border-primary/20 rounded-2xl text-slate-900">
-                <ShieldCheck className="h-10 w-10 text-primary shrink-0" />
+              <div className="flex items-start sm:items-center gap-4 p-5 bg-primary/5 border border-primary/20 rounded-2xl text-slate-900">
+                <ShieldCheck className="h-10 w-10 text-primary shrink-0 mt-1 sm:mt-0" />
                 <div>
-                  <h4 className="font-black text-sm uppercase text-slate-900">Garantia Oficial J.Matos Tecnologia</h4>
-                  <p className="text-xs text-slate-600 mt-1">
-                    Todos os equipamentos comercializados contam com garantia oficial contra defeitos de fabrico e suporte local a partir da nossa sede em Luanda.
+                  <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                    <h4 className="font-black text-sm uppercase text-slate-900">Garantia Oficial J.Matos Tecnologia</h4>
+                    <span className="px-2.5 py-0.5 bg-primary text-white text-[11px] font-black uppercase tracking-wider rounded-md">
+                      {product.warranty || '12 Meses'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">
+                    {product.warrantyDetails || 'Todos os equipamentos comercializados contam com garantia oficial contra defeitos de fabrico e suporte local a partir da nossa sede em Luanda.'}
                   </p>
                 </div>
               </div>

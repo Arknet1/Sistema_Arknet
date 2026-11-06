@@ -43,6 +43,9 @@ export function validatePasswordStrength(password: string): PasswordValidationRe
   if (password && !/[0-9]/.test(password)) {
     errors.push('Deve conter pelo menos um número.')
   }
+  if (password && !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password)) {
+    errors.push('Deve conter pelo menos um caractere especial.')
+  }
 
   return {
     isValid: errors.length === 0,

@@ -150,6 +150,11 @@ export function formatPrismaProduct(p: any) {
     featured: Boolean(p.featured),
     sku: p.sku || `ARK-${p.id}`,
     baseSpecs: safeJsonParse(p.baseSpecs, typeof p.baseSpecs === 'object' ? p.baseSpecs : null),
+    warranty: p.warranty || '12 Meses',
+    warrantyDetails: p.warrantyDetails || null,
+    technicalSpecs: Array.isArray(p.technicalSpecs) ? p.technicalSpecs : safeJsonParse(p.technicalSpecs, []),
+    packageContents: Array.isArray(p.packageContents) ? p.packageContents : safeJsonParse(p.packageContents, []),
+    applications: p.applications || null,
     options: options || [],
     variants: variants || [],
     createdAt: typeof p.createdAt === 'string' ? p.createdAt : (p.createdAt?.toISOString?.() || new Date().toISOString()),
@@ -1048,6 +1053,15 @@ export async function saveProductServerAsync(productData: any) {
     featured: Boolean(merged.featured),
     sku: merged.sku || `ARK-${Math.floor(1000 + Math.random() * 9000)}`,
     baseSpecs: baseSpecsStr,
+    warranty: merged.warranty !== undefined ? (merged.warranty ? String(merged.warranty).trim() : null) : '12 Meses',
+    warrantyDetails: merged.warrantyDetails ? String(merged.warrantyDetails).trim() : null,
+    technicalSpecs: Array.isArray(merged.technicalSpecs)
+      ? JSON.stringify(merged.technicalSpecs)
+      : (typeof merged.technicalSpecs === 'string' ? merged.technicalSpecs : null),
+    packageContents: Array.isArray(merged.packageContents)
+      ? JSON.stringify(merged.packageContents)
+      : (typeof merged.packageContents === 'string' ? merged.packageContents : null),
+    applications: merged.applications ? String(merged.applications).trim() : null,
   }
 
   // Normalizar opções do produto (garantindo códigos de cor hex)
@@ -1138,6 +1152,11 @@ export async function saveProductServerAsync(productData: any) {
     id,
     ...payload,
     baseSpecs: safeJsonParse(payload.baseSpecs, null),
+    warranty: payload.warranty || '12 Meses',
+    warrantyDetails: payload.warrantyDetails || null,
+    technicalSpecs: safeJsonParse(payload.technicalSpecs, Array.isArray(merged.technicalSpecs) ? merged.technicalSpecs : []),
+    packageContents: safeJsonParse(payload.packageContents, Array.isArray(merged.packageContents) ? merged.packageContents : []),
+    applications: payload.applications || null,
     images: safeJsonParse(payload.images, payload.image ? [payload.image] : []),
     options: normalizedOptions,
     variants: formattedVariants,
