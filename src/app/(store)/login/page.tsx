@@ -395,11 +395,15 @@ function UnifiedLoginForm() {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-slate-900 flex items-center justify-center px-4 sm:px-6">
-      <div className="w-full max-w-lg bg-white border border-slate-200 shadow-2xl overflow-hidden">
+    <main className="min-h-screen pt-24 sm:pt-28 pb-12 sm:pb-16 bg-slate-900 flex flex-col items-center justify-center px-3 sm:px-6 overflow-x-hidden">
+      <div
+        className={`w-full ${
+          activeTab === 'registo' ? 'max-w-2xl' : 'max-w-lg'
+        } bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 my-auto`}
+      >
 
         {/* Top Branding Banner */}
-        <div className="bg-slate-950 px-8 py-8 text-white text-center relative overflow-hidden">
+        <div className="bg-slate-950 px-5 sm:px-8 py-6 sm:py-8 text-white text-center relative overflow-hidden">
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-secondary/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -409,23 +413,23 @@ function UnifiedLoginForm() {
               alt="ARKNET"
               width={160}
               height={160}
-              className="h-14 w-auto mx-auto object-contain"
+              className="h-10 sm:h-12 w-auto mx-auto object-contain"
             />
           </Link>
 
-          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-primary bg-primary/10 px-3 py-1 rounded-full mb-1">
+          <span className="inline-block text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-primary bg-primary/10 px-3 py-1 rounded-full mb-1">
             Portal ARKNET
           </span>
-          <h1 className="text-xl font-black text-white uppercase tracking-wide">
+          <h1 className="text-lg sm:text-xl font-black text-white uppercase tracking-wide">
             Acesso ao Sistema
           </h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
+          <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto px-2">
             Introduza as suas credenciais para aceder ao seu painel.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex border-b border-slate-200 bg-slate-50 text-xs font-bold uppercase tracking-wider">
+        <div className="flex border-b border-slate-200 bg-slate-50 text-[11px] sm:text-xs font-bold uppercase tracking-wide">
           <button
             type="button"
             onClick={() => {
@@ -433,12 +437,13 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'login'
-              ? 'border-primary text-primary bg-white shadow-xs'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-              }`}
+            className={`flex-1 py-3 sm:py-3.5 px-1 sm:px-3 text-center transition border-b-2 whitespace-nowrap ${
+              activeTab === 'login'
+                ? 'border-primary text-primary bg-white shadow-xs font-black'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
           >
-            Iniciar Sessão
+            <span className="hidden sm:inline">Iniciar </span>Sessão
           </button>
 
           <button
@@ -448,10 +453,11 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'registo'
-              ? 'border-secondary text-secondary bg-white shadow-xs'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-              }`}
+            className={`flex-1 py-3 sm:py-3.5 px-1 sm:px-3 text-center transition border-b-2 whitespace-nowrap ${
+              activeTab === 'registo'
+                ? 'border-secondary text-secondary bg-white shadow-xs font-black'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
           >
             Criar Conta
           </button>
@@ -463,26 +469,27 @@ function UnifiedLoginForm() {
               setErrorMessage('')
               setSuccessMessage('')
             }}
-            className={`flex-1 py-3.5 text-center transition border-b-2 ${activeTab === 'recuperar'
-              ? 'border-slate-800 text-slate-900 bg-white shadow-xs'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-              }`}
+            className={`flex-1 py-3 sm:py-3.5 px-1 sm:px-3 text-center transition border-b-2 whitespace-nowrap ${
+              activeTab === 'recuperar'
+                ? 'border-slate-800 text-slate-900 bg-white shadow-xs font-black'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
           >
-            Recuperar palavra-passe
+            Recuperar<span className="hidden sm:inline"> Senha</span>
           </button>
         </div>
 
         {/* Form Container */}
-        <div className="p-8">
+        <div className="p-5 sm:p-7 md:p-8">
           {/* Active Session Alert */}
           {customer ? (
-            <div className="mb-6 p-4 bg-primary/5 border border-primary/20 text-slate-800 text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <p className="font-bold text-slate-900 flex items-center gap-1.5">
-                  <UserCheck className="h-4 w-4 text-primary" />
+            <div className="mb-6 p-3.5 sm:p-4 bg-primary/5 border border-primary/20 text-slate-800 text-xs rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-bold text-slate-900 flex items-center gap-1.5 truncate">
+                  <UserCheck className="h-4 w-4 text-primary shrink-0" />
                   Sessão ativa como {customer.name}
                 </p>
-                <p className="text-slate-500 font-mono text-[11px] mt-0.5">{customer.email}</p>
+                <p className="text-slate-500 font-mono text-[11px] mt-0.5 truncate">{customer.email}</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <Link
@@ -501,13 +508,13 @@ function UnifiedLoginForm() {
               </div>
             </div>
           ) : adminUser ? (
-            <div className="mb-6 p-4 bg-slate-900 border border-slate-700 text-white text-xs rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <p className="font-bold text-white flex items-center gap-1.5">
-                  <ShieldCheck className="h-4 w-4 text-primary" />
+            <div className="mb-6 p-3.5 sm:p-4 bg-slate-900 border border-slate-700 text-white text-xs rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-bold text-white flex items-center gap-1.5 truncate">
+                  <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
                   Sessão ativa como {adminUser.name}
                 </p>
-                <p className="text-slate-400 font-mono text-[11px] mt-0.5">{adminUser.email}</p>
+                <p className="text-slate-400 font-mono text-[11px] mt-0.5 truncate">{adminUser.email}</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <Link
@@ -529,19 +536,19 @@ function UnifiedLoginForm() {
 
           {/* Status Feedback */}
           {errorMessage && (
-            <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold rounded flex items-center gap-3">
+            <div className="mb-6 p-3.5 sm:p-4 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold rounded-lg flex items-center gap-3">
               <AlertCircle className="h-5 w-5 shrink-0 text-rose-600" />
-              <span>{errorMessage}</span>
+              <span className="min-w-0 flex-1 break-words">{errorMessage}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded flex items-center gap-3">
+            <div className="mb-6 p-3.5 sm:p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-lg flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
-              <div className="min-w-0">
-                <p>{successMessage}</p>
+              <div className="min-w-0 flex-1">
+                <p className="break-words">{successMessage}</p>
                 {recoveryPreviewUrl && (
-                  <a href={recoveryPreviewUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block underline break-all">
+                  <a href={recoveryPreviewUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block underline break-all text-xs font-semibold">
                     Abrir email de teste
                   </a>
                 )}
@@ -575,8 +582,8 @@ function UnifiedLoginForm() {
                     required
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="exemplo@arknet.co.ao ou cliente@empresa.co.ao"
-                    className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none"
+                    placeholder="ex: cliente@empresa.co.ao"
+                    className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-primary focus:outline-none transition shadow-2xs"
                   />
                 </div>
               </div>
@@ -605,7 +612,7 @@ function UnifiedLoginForm() {
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-10 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono"
+                    className="w-full pl-10 pr-10 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono transition shadow-2xs"
                   />
                   <button
                     type="button"
@@ -632,7 +639,7 @@ function UnifiedLoginForm() {
               <button
                 type="submit"
                 disabled={isLoading || isLocked}
-                className="w-full mt-2 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
+                className="w-full mt-2 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 rounded-lg shadow-md disabled:opacity-60 cursor-pointer"
               >
                 <span>{isLoading ? 'A autenticar...' : 'Entrar no Sistema'}</span>
                 <ArrowRight className="h-4 w-4" />
@@ -644,7 +651,7 @@ function UnifiedLoginForm() {
           {/* TAB 2: CRIAR CONTA (NOVO CLIENTE) */}
           {activeTab === 'registo' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-4 text-xs">
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     Nome Completo / Representante *
@@ -655,7 +662,7 @@ function UnifiedLoginForm() {
                     value={regData.name}
                     onChange={(e) => setRegData({ ...regData, name: e.target.value })}
                     placeholder="João Miguel Silva"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none transition shadow-2xs"
                   />
                 </div>
 
@@ -669,12 +676,12 @@ function UnifiedLoginForm() {
                     value={regData.email}
                     onChange={(e) => setRegData({ ...regData, email: e.target.value })}
                     placeholder="cliente@empresa.co.ao"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono transition shadow-2xs"
                   />
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     Telefone de Contacto *
@@ -685,7 +692,7 @@ function UnifiedLoginForm() {
                     value={regData.phone}
                     onChange={(e) => setRegData({ ...regData, phone: e.target.value })}
                     placeholder="+244 923 000 000"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono transition shadow-2xs"
                   />
                 </div>
 
@@ -697,13 +704,13 @@ function UnifiedLoginForm() {
                     type="text"
                     value={regData.company}
                     onChange={(e) => setRegData({ ...regData, company: e.target.value })}
-                    placeholder="Empresa Lda ou Particular"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    placeholder="Particular ou Empresa Lda"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none transition shadow-2xs"
                   />
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
                 <div>
                   <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                     NIF (Opcional)
@@ -713,7 +720,7 @@ function UnifiedLoginForm() {
                     value={regData.nif}
                     onChange={(e) => setRegData({ ...regData, nif: e.target.value })}
                     placeholder="5400000000"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono transition shadow-2xs"
                   />
                 </div>
 
@@ -726,7 +733,7 @@ function UnifiedLoginForm() {
                     value={regData.city}
                     onChange={(e) => setRegData({ ...regData, city: e.target.value })}
                     placeholder="Luanda"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none transition shadow-2xs"
                   />
                 </div>
               </div>
@@ -740,11 +747,11 @@ function UnifiedLoginForm() {
                   value={regData.address}
                   onChange={(e) => setRegData({ ...regData, address: e.target.value })}
                   placeholder="ex: Rua Amílcar Cabral, Nº 45, Maianga, Luanda"
-                  className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none"
+                  className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none transition shadow-2xs"
                 />
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4 pt-1">
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block font-bold uppercase tracking-wider text-slate-700">
@@ -764,8 +771,8 @@ function UnifiedLoginForm() {
                     required
                     value={regData.password}
                     onChange={(e) => setRegData({ ...regData, password: e.target.value })}
-                    placeholder="Mín. 8 caracteres (A-Z, a-z, 0-9)"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    placeholder="Mín. 8 caracteres (A-Z, a-z, 0-9, !@#)"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono transition shadow-2xs"
                   />
                 </div>
 
@@ -779,26 +786,31 @@ function UnifiedLoginForm() {
                     value={regData.confirmPassword}
                     onChange={(e) => setRegData({ ...regData, confirmPassword: e.target.value })}
                     placeholder="Repita a palavra-passe"
-                    className="w-full px-3.5 py-3 sm:py-2.5 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono"
+                    className="w-full px-3.5 py-2.5 sm:py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-secondary focus:outline-none font-mono transition shadow-2xs"
                   />
                 </div>
               </div>
 
               {/* Requisitos da palavra-passe */}
-              <div className="p-2.5 bg-slate-50 border border-slate-200 rounded text-[11px] space-y-1">
-                <span className="font-bold text-slate-600 block uppercase text-[10px]">Critérios da Palavra-passe:</span>
-                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-slate-500">
-                  <span className={`flex items-center gap-1 ${regData.password.length >= 8 ? 'text-emerald-600 font-bold' : ''}`}>
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-[11px] space-y-1.5">
+                <span className="font-bold text-slate-600 block uppercase text-[10px] tracking-wider">
+                  Critérios de Segurança da Palavra-passe:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-1 text-slate-500">
+                  <span className={`flex items-center gap-1.5 ${regData.password.length >= 8 ? 'text-emerald-600 font-bold' : ''}`}>
                     {regData.password.length >= 8 ? '✓' : '•'} Mínimo 8 caracteres
                   </span>
-                  <span className={`flex items-center gap-1 ${/[A-Z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                  <span className={`flex items-center gap-1.5 ${/[A-Z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
                     {/[A-Z]/.test(regData.password) ? '✓' : '•'} 1 Maiúscula (A-Z)
                   </span>
-                  <span className={`flex items-center gap-1 ${/[a-z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                  <span className={`flex items-center gap-1.5 ${/[a-z]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
                     {/[a-z]/.test(regData.password) ? '✓' : '•'} 1 Minúscula (a-z)
                   </span>
-                  <span className={`flex items-center gap-1 ${/[0-9]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                  <span className={`flex items-center gap-1.5 ${/[0-9]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
                     {/[0-9]/.test(regData.password) ? '✓' : '•'} 1 Número (0-9)
+                  </span>
+                  <span className={`flex items-center gap-1.5 sm:col-span-2 lg:col-span-1 ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(regData.password) ? 'text-emerald-600 font-bold' : ''}`}>
+                    {/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(regData.password) ? '✓' : '•'} 1 Símbolo especial (!@#$)
                   </span>
                 </div>
               </div>
@@ -809,9 +821,9 @@ function UnifiedLoginForm() {
                     type="checkbox"
                     checked={regData.acceptTerms}
                     onChange={(e) => setRegData({ ...regData, acceptTerms: e.target.checked })}
-                    className="mt-0.5 rounded border-slate-300 text-secondary focus:ring-secondary h-4 w-4"
+                    className="mt-0.5 rounded border-slate-300 text-secondary focus:ring-secondary h-4 w-4 shrink-0"
                   />
-                  <span>
+                  <span className="text-xs leading-snug">
                     Concordo com os Termos de Serviço e Política de Privacidade da ARKNET.
                   </span>
                 </label>
@@ -820,7 +832,7 @@ function UnifiedLoginForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-3 bg-secondary hover:bg-secondary/90 text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
+                className="w-full mt-3 bg-secondary hover:bg-secondary/90 text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 rounded-lg shadow-md disabled:opacity-60 cursor-pointer"
               >
                 <span>{isLoading ? 'A criar conta...' : 'Concluir Registo e Aceder'}</span>
                 <ArrowRight className="h-4 w-4" />
@@ -831,34 +843,34 @@ function UnifiedLoginForm() {
           {/* TAB 3: RECUPERAR PALAVRA-PASSE */}
           {activeTab === 'recuperar' && (
             <div className="space-y-4">
-              {/* Indicador Visual de Passos */}
-              <div className="flex items-center justify-between pb-3 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                <span className={`flex items-center gap-1.5 ${recoveryStep === 1 ? 'text-primary' : recoveryStep > 1 ? 'text-emerald-600' : ''}`}>
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 1 ? 'bg-primary text-white' : recoveryStep > 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
+              {/* Indicador Visual de Passos Fluido e Responsivo */}
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wide text-slate-400">
+                <span className={`flex items-center gap-1.5 shrink-0 ${recoveryStep === 1 ? 'text-primary font-black' : recoveryStep > 1 ? 'text-emerald-600 font-bold' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 1 ? 'bg-primary text-white shadow-xs' : recoveryStep > 1 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
                     {recoveryStep > 1 ? '✓' : '1'}
                   </span>
                   Email
                 </span>
-                <span className="text-slate-300">───</span>
-                <span className={`flex items-center gap-1.5 ${recoveryStep === 2 ? 'text-primary' : recoveryStep > 2 ? 'text-emerald-600' : ''}`}>
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 2 ? 'bg-primary text-white' : recoveryStep > 2 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
+                <div className="h-px flex-1 bg-slate-200 mx-1.5 sm:mx-2" />
+                <span className={`flex items-center gap-1.5 shrink-0 ${recoveryStep === 2 ? 'text-primary font-black' : recoveryStep > 2 ? 'text-emerald-600 font-bold' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 2 ? 'bg-primary text-white shadow-xs' : recoveryStep > 2 ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100'}`}>
                     {recoveryStep > 2 ? '✓' : '2'}
                   </span>
                   Código
                 </span>
-                <span className="text-slate-300">───</span>
-                <span className={`flex items-center gap-1.5 ${recoveryStep === 3 ? 'text-primary' : ''}`}>
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 3 ? 'bg-primary text-white' : 'bg-slate-100'}`}>
+                <div className="h-px flex-1 bg-slate-200 mx-1.5 sm:mx-2" />
+                <span className={`flex items-center gap-1.5 shrink-0 ${recoveryStep === 3 ? 'text-primary font-black' : ''}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${recoveryStep === 3 ? 'bg-primary text-white shadow-xs' : 'bg-slate-100'}`}>
                     3
                   </span>
-                  Nova Senha
+                  <span className="hidden sm:inline">Nova </span>Senha
                 </span>
               </div>
 
               {/* PASSO 1: INTRODUZIR EMAIL */}
               {recoveryStep === 1 && (
                 <form onSubmit={handleSendRecoveryCode} className="space-y-4 text-xs">
-                  <div className="p-4 bg-slate-50 border border-slate-200 text-slate-600 rounded leading-relaxed">
+                  <div className="p-3.5 sm:p-4 bg-slate-50 border border-slate-200 text-slate-600 rounded-lg leading-relaxed">
                     <p className="font-bold text-slate-800 mb-1">Recuperação de Palavra-passe</p>
                     <p>
                       Introduza o endereço de email associado à sua conta. Enviaremos um código de verificação de 6 dígitos para repor o seu acesso.
@@ -877,7 +889,7 @@ function UnifiedLoginForm() {
                         value={recoveryEmail}
                         onChange={(e) => setRecoveryEmail(e.target.value)}
                         placeholder="seu.email@exemplo.com"
-                        className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                        className="w-full pl-10 pr-4 py-3 text-base sm:text-sm min-h-[44px] bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:border-primary focus:outline-none font-mono transition shadow-2xs"
                       />
                     </div>
                   </div>
@@ -885,7 +897,7 @@ function UnifiedLoginForm() {
                   <button
                     type="submit"
                     disabled={isSendingRecovery}
-                    className="w-full bg-slate-900 hover:bg-primary text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full bg-slate-900 hover:bg-primary text-white font-bold text-xs uppercase tracking-wider py-3.5 transition flex items-center justify-center gap-2 rounded-lg shadow-md disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {isSendingRecovery ? (
                       <>
@@ -906,7 +918,7 @@ function UnifiedLoginForm() {
               {recoveryStep === 2 && (
                 <form onSubmit={handleVerifyCodeSubmit} className="space-y-4 text-xs">
                   {/* Destinatário */}
-                  <div className="p-3 bg-slate-100 border border-slate-200 text-slate-800 text-xs rounded flex items-center justify-between gap-2">
+                  <div className="p-3 bg-slate-100 border border-slate-200 text-slate-800 text-xs rounded-lg flex items-center justify-between gap-2">
                     <div className="min-w-0">
                       <p className="font-semibold text-slate-900">Código enviado para:</p>
                       <p className="text-slate-600 truncate font-mono text-[11px]">{recoveryEmail}</p>
@@ -918,7 +930,7 @@ function UnifiedLoginForm() {
                         setErrorMessage('')
                         setSuccessMessage('')
                       }}
-                      className="px-2.5 py-1 bg-white border border-slate-300 text-slate-700 text-[11px] font-bold rounded hover:bg-slate-50 shrink-0"
+                      className="px-2.5 py-1 bg-white border border-slate-300 text-slate-700 text-[11px] font-bold rounded-md hover:bg-slate-50 shrink-0 cursor-pointer"
                     >
                       Alterar email
                     </button>
@@ -934,7 +946,7 @@ function UnifiedLoginForm() {
                         type="button"
                         onClick={handleResendCode}
                         disabled={resendCooldown > 0 || isSendingRecovery}
-                        className="text-[11px] text-primary font-bold hover:underline disabled:text-slate-400 disabled:no-underline flex items-center gap-1"
+                        className="text-[11px] text-primary font-bold hover:underline disabled:text-slate-400 disabled:no-underline flex items-center gap-1 cursor-pointer"
                       >
                         <RefreshCw className={`h-3 w-3 ${isSendingRecovery ? 'animate-spin' : ''}`} />
                         {resendCooldown > 0 ? `Reenviar em ${resendCooldown}s` : 'Reenviar código'}
@@ -948,7 +960,7 @@ function UnifiedLoginForm() {
                       value={recoveryCode}
                       onChange={(e) => setRecoveryCode(e.target.value.replace(/\D/g, ''))}
                       placeholder="000000"
-                      className="w-full px-4 py-3 text-center font-mono text-2xl tracking-[0.4em] font-bold border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none rounded shadow-inner"
+                      className="w-full px-3 py-2.5 sm:py-3 text-center font-mono text-xl sm:text-2xl tracking-[0.25em] sm:tracking-[0.35em] font-bold border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none rounded-lg shadow-inner"
                     />
                     <p className="text-[11px] text-slate-500 mt-1.5 text-center">
                       Introduza os 6 números recebidos no seu correio eletrónico.
@@ -956,12 +968,12 @@ function UnifiedLoginForm() {
                   </div>
 
                   {/* Nota de Ajuda */}
-                  <div className="p-2.5 bg-amber-50 border border-amber-200 text-amber-800 rounded text-[11px] leading-relaxed">
+                  <div className="p-2.5 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg text-[11px] leading-relaxed">
                     <strong>Não recebeu o código?</strong> Verifique a sua pasta de <strong>Spam</strong> ou <strong>Lixo Eletrónico</strong>.
                   </div>
 
                   {/* Botões de Ação */}
-                  <div className="flex items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2.5 sm:gap-3 pt-1">
                     <button
                       type="button"
                       onClick={() => {
@@ -969,14 +981,14 @@ function UnifiedLoginForm() {
                         setErrorMessage('')
                         setSuccessMessage('')
                       }}
-                      className="px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded"
+                      className="px-3.5 sm:px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded-lg cursor-pointer"
                     >
                       Voltar
                     </button>
                     <button
                       type="submit"
                       disabled={isValidatingCode || recoveryCode.replace(/\D/g, '').length !== 6}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {isValidatingCode ? (
                         <>
@@ -998,7 +1010,7 @@ function UnifiedLoginForm() {
               {recoveryStep === 3 && (
                 <form onSubmit={handleResetPasswordSubmit} className="space-y-4 text-xs">
                   {/* Status Validado */}
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded flex items-center gap-2">
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
                     <div className="min-w-0 text-[11px]">
                       <p className="font-bold text-emerald-900">Código validado com sucesso</p>
@@ -1020,7 +1032,7 @@ function UnifiedLoginForm() {
                         value={recoveryNewPassword}
                         onChange={(e) => setRecoveryNewPassword(e.target.value)}
                         placeholder="Mínimo 8 caracteres (A-Z, a-z, 0-9, !@#)"
-                        className="w-full pl-10 pr-10 py-2.5 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                        className="w-full pl-10 pr-10 py-2.5 sm:py-3 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded-lg transition shadow-2xs"
                       />
                       <button
                         type="button"
@@ -1034,7 +1046,7 @@ function UnifiedLoginForm() {
 
                   {/* Medidor da força da nova palavra-passe */}
                   {recoveryNewPassword && (
-                    <div className="p-3 bg-slate-50 border border-slate-200 rounded space-y-1.5">
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1.5">
                       <div className="flex justify-between items-center text-[10px]">
                         <span className="font-bold uppercase text-slate-500">Força da palavra-passe:</span>
                         <span className={`font-bold ${getStrengthLabel(getRecoveryStrength()).text}`}>
@@ -1070,7 +1082,7 @@ function UnifiedLoginForm() {
                         value={recoveryConfirmPassword}
                         onChange={(e) => setRecoveryConfirmPassword(e.target.value)}
                         placeholder="Repita a nova palavra-passe"
-                        className="w-full pl-10 pr-10 py-2.5 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded"
+                        className="w-full pl-10 pr-10 py-2.5 sm:py-3 text-sm border border-slate-300 bg-slate-50 focus:bg-white focus:border-primary focus:outline-none font-mono rounded-lg transition shadow-2xs"
                       />
                       <button
                         type="button"
@@ -1083,7 +1095,7 @@ function UnifiedLoginForm() {
                   </div>
 
                   {/* Botões de Ação */}
-                  <div className="flex items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2.5 sm:gap-3 pt-1">
                     <button
                       type="button"
                       onClick={() => {
@@ -1091,14 +1103,14 @@ function UnifiedLoginForm() {
                         setErrorMessage('')
                         setSuccessMessage('')
                       }}
-                      className="px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded"
+                      className="px-3.5 sm:px-4 py-3 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 uppercase rounded-lg cursor-pointer"
                     >
                       Voltar
                     </button>
                     <button
                       type="submit"
                       disabled={isResettingPassword || !recPasswordsMatch || getRecoveryStrength() < 60}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-wider py-3 transition flex items-center justify-center gap-2 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {isResettingPassword ? (
                         <>
@@ -1118,8 +1130,8 @@ function UnifiedLoginForm() {
             </div>
           )}
         </div>
-      </div >
-    </main >
+      </div>
+    </main>
   )
 }
 
