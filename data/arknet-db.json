@@ -5,7 +5,7 @@
       "name": "Administrador ARKNET",
       "email": "arknet133@gmail.com",
       "password": null,
-      "passwordHash": "$scrypt$8b0e054218646b6ce2bad44fce673ac0$1f988fabae688f70fd8a563c969d6407651d81138bc491f0dcc00ef6d3a966a8d70ebeefe6f12176f1b47dfa23cd8d5b262163e193149b4ca05e428f7205e89a",
+      "passwordHash": "$scrypt$448d86badfeb7f4c6608bc0ea79b11a6$fbd5e2fdc975ecd86ff72068aaba297a0dd50ba007191d35ac81003ae2182c3483ddfb80936c4cc5c5658001830b95ae52a1902ac921343c844b90f9d746ca36",
       "role": "admin",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "status": "active",
