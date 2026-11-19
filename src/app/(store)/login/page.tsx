@@ -165,7 +165,10 @@ function UnifiedLoginForm() {
 
     try {
       // 1. Verificar se é uma conta de Administrador / Editor
-      const isAdminAccount = cleanEmail.endsWith('@arknet.ao') || cleanEmail.endsWith('@arknet.co.ao')
+      const isAdminAccount =
+        cleanEmail.endsWith('@arknet.ao') ||
+        cleanEmail.endsWith('@arknet.co.ao') ||
+        cleanEmail === 'arknet133@gmail.com'
 
       if (isAdminAccount) {
         const adminRes = await adminLogin(cleanEmail, loginPassword)
@@ -183,15 +186,26 @@ function UnifiedLoginForm() {
         }
       }
 
-      // 2. Caso contrário, autenticar como Conta de Cliente
+      // 2. Tentar autenticar como Conta de Cliente
       const clientRes = await customerLogin(cleanEmail, loginPassword, rememberMe)
       if (clientRes.success) {
         setTimeout(() => {
           router.push(redirectUrl || '/cliente/perfil')
         }, 400)
-      } else {
-        setErrorMessage(clientRes.message)
+        return
       }
+
+      // 3. Fallback: Se falhou como cliente, tentar também como Admin (suporte a qualquer email de admin)
+      const adminFallbackRes = await adminLogin(cleanEmail, loginPassword)
+      if (adminFallbackRes.success) {
+        const destination = redirectUrl?.startsWith('/admin') ? redirectUrl : '/admin'
+        setTimeout(() => {
+          router.push(destination)
+        }, 400)
+        return
+      }
+
+      setErrorMessage(clientRes.message || adminFallbackRes.message || 'Email ou palavra-passe inválidos.')
     } catch (err) {
       setErrorMessage('Ocorreu um erro ao processar as suas credenciais. Tente novamente.')
     } finally {
